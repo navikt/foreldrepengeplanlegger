@@ -1,0 +1,23 @@
+@import '../../../node_modules/nav-frontend-core/less/_variabler.less';
+@import '../../../node_modules/nav-frontend-core/less/_mixins';
+@import '../../../node_modules/nav-frontend-typografi-style/src/index.less';
+
+@import './_variables';
+@import './_modifiers';
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+#app  {
+	background-color: white;
+	min-width: 375px;
+	.clearfix();
+
+	> .container-fluid {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}

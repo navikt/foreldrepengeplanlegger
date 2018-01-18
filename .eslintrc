@@ -1,0 +1,87 @@
+{
+	"plugins": ["react", "prettier"],
+	"env": {
+		"browser": true,
+		"mocha": true,
+		"jest": true
+	},
+	"globals": {
+		"shallow": true
+	},
+	"settings": {
+		"import/resolver": {
+			"webpack": {
+				"config": "./src/build/webpack/webpack.config.global.js"
+			}
+		}
+	},
+	"parser": "babel-eslint",
+	"rules": {
+		"object-curly-spacing": 1,
+		"react/jsx-curly-spacing": 0,
+		"react/prefer-es6-class": 1,
+		"react/sort-comp": 0,
+		"react/jsx-boolean-value": 0,
+		"react/jsx-no-bind": [
+			2,
+			{
+				"allowArrowFunctions": true
+			}
+		],
+		"react/forbid-prop-types": [
+			1,
+			{
+				"forbid": ["any"]
+			}
+		],
+		"quote-props": "off",
+		"func-names": 0,
+		"no-underscore-dangle": 0,
+		"import/extensions": 0,
+		"prettier/prettier": "error",
+		"no-unused-vars": [
+			2,
+			{
+				"argsIgnorePattern": "^_",
+				"varsIgnorePattern": "^_"
+			}
+		],
+		"linebreak-style": 0,
+		"indent": [
+			2,
+			"tab",
+			{
+				"SwitchCase": 1
+			}
+		],
+		"max-len": [2, 120, 4],
+		"comma-dangle": [2, "never"],
+		"react/no-typos": 0,
+		"arrow-parens": [2, "always"],
+		"quotes": [2, "single"],
+		"jsx-a11y/label-has-for": 0,
+		"jsx-a11y/anchor-is-valid": [
+			"error",
+			{
+				"components": ["Link"],
+				"specialLink": ["hrefLeft", "hrefRight", "to"],
+				"aspects": ["noHref", "invalidHref", "preferButton"]
+			}
+		],
+		"import/no-named-as-default": 0,
+		"import/no-extraneous-dependencies": [
+			"error",
+			{
+				"peerDependencies": true
+			}
+		],
+		"react/jsx-filename-extension": [
+			2,
+			{
+				"extensions": [".js", ".jsx"]
+			}
+		],
+		"react/jsx-curly-brace-presence": 0
+	},
+	"extends": ["airbnb", "prettier", "prettier/react"]
+}

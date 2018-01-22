@@ -15,7 +15,7 @@ export function setNavnForelder2(navn: string): PlanleggerActionTypes {
 	};
 }
 
-export function settTermindato(termindato: Date): PlanleggerActionTypes {
+export function setTermindato(termindato: Date): PlanleggerActionTypes {
 	return {
 		type: PlanleggerActionTypeKeys.SET_TERMINDATO,
 		termindato
@@ -36,7 +36,7 @@ export function settAntallDagerMedforelder(dager: number): PlanleggerActionTypes
 	};
 }
 
-export function settDekningsgrad(dekningsgrad: Dekningsgrad): PlanleggerActionTypes {
+export function setDekningsgrad(dekningsgrad: Dekningsgrad): PlanleggerActionTypes {
 	return {
 		type: PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD,
 		dekningsgrad

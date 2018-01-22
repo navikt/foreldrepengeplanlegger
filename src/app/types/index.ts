@@ -1,9 +1,6 @@
 export * from './perioder';
 
-export enum Dekningsgrad {
-	'80%',
-	'100%'
-}
+export type Dekningsgrad = '80%' | '100%';
 
 export function assertNever(x: never): never {
 	throw new Error('Unexpected object: ' + x);

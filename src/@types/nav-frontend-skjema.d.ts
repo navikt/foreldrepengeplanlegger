@@ -1,17 +1,9 @@
-declare module "nav-frontend-skjema" {
-	import * as React from "react";
+declare module 'nav-frontend-skjema' {
+	import * as React from 'react';
 
-	export type InputBredde =
-		| "fullbredde"
-		| "XXLl"
-		| "XL"
-		| "L"
-		| "M"
-		| "S"
-		| "XS"
-		| "XXS";
+	export type InputBredde = 'fullbredde' | 'XXLl' | 'XL' | 'L' | 'M' | 'S' | 'XS' | 'XXS';
 
-	type SelectBredde = "fullbredde" | "xxl" | "xl" | "l" | "m" | "s" | "xs";
+	type SelectBredde = 'fullbredde' | 'xxl' | 'xl' | 'l' | 'm' | 's' | 'xs';
 
 	interface RadioProps extends React.HTMLProps<Radio> {
 		className?: string;

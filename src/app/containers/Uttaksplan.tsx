@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 
-import DialogBox from 'shared/components/dialog-box/DialogBox';
+import DialogBox from 'shared/components/dialogBox/DialogBox';
 import { gotoForside } from 'utils/navigasjon';
 import Tidslinje from 'components/tidslinje/Tidslinje';
 import Skjema from './Skjema';

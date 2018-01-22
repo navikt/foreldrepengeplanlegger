@@ -1,13 +1,20 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { Input } from 'nav-frontend-skjema';
+import { Input, Radio, SkjemaGruppe } from 'nav-frontend-skjema';
+import DateInput from 'shared/components/dateInput/DateInput';
+import RangeInput from 'shared/components/rangeInput/RangeInput';
 import { AppState } from 'app/redux/reducers';
 import { FormState } from 'app/redux/reducers/form';
 
 import { DispatchProps } from '../redux/reduxTypes';
-import { setNavnForelder1, setNavnForelder2, settTermindato } from '../redux/actions';
-import DateInput from 'shared/components/date-input/DateInput';
+import {
+	setNavnForelder1,
+	setNavnForelder2,
+	setTermindato,
+	setDekningsgrad,
+	settAntallDagerMor
+} from '../redux/actions';
 
 export interface StateProps {
 	form: FormState;
@@ -36,8 +43,21 @@ class Skjema extends React.Component<Props> {
 					id="input-termindato"
 					input={{ value: form.termindato }}
 					label="Termindato"
-					onChange={(dato) => dispatch(settTermindato(dato))}
+					onChange={(dato: Date) => dispatch(setTermindato(dato))}
 				/>
+				<SkjemaGruppe title="Hvilken sats ønsker du?" className="skjemaelement">
+					<Radio label="80% i X uker" name="sats" value="80%" onClick={() => dispatch(setDekningsgrad('80%'))} />
+					<Radio label="100% i X uker" name="sats" value="100%" onClick={() => dispatch(setDekningsgrad('100%'))} />
+				</SkjemaGruppe>
+
+				<SkjemaGruppe title="Fordeling av fellespermisjonen (X uker)" className="skjemaelement">
+					<RangeInput
+						value={form.dagerForelder1}
+						min={0}
+						max={100}
+						onChange={(dager) => dispatch(settAntallDagerMor(dager))}
+					/>
+				</SkjemaGruppe>
 			</div>
 		);
 	}

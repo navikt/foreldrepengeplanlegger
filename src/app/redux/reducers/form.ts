@@ -11,7 +11,7 @@ export interface FormState {
 	navnForelder1?: string;
 	navnForelder2?: string;
 	termindato?: Date;
-	dagerForelder1r?: number;
+	dagerForelder1?: number;
 	dagerForelder2?: number;
 	dekningsgrad?: Dekningsgrad;
 }

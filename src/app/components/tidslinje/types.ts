@@ -1,23 +1,16 @@
 export enum InnslagType {
-	'uttak',
-	'termin',
-	'slutt'
-}
-export enum HendelseType {
-	'termin'
+	'uttak' = 'uttak',
+	'termin' = 'termin',
+	'slutt' = 'slutt',
+	'siste' = 'siste'
 }
 
 export type Forelder = 'mor' | 'medforelder';
 
 export interface TidslinjeInnslag {
 	dato: Date;
+	tittel: string;
 	type: InnslagType;
-	hendelser: Permisjonshendelse[];
-}
-
-export interface Permisjonshendelse {
-	navn: string;
 	forelder: Forelder;
 	gradert?: boolean;
-	type?: HendelseType;
 }

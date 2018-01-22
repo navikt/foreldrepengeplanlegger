@@ -1,31 +1,54 @@
-@arrow-size: 0.7rem;
+@arrow-size: 12px;
 @bkgColor: #e7e7e7;
 @c-purple: #634689;
-@c-blue: #3385d1;
+@c-purple-bkg: #e0dae7;
+@c-blue: #5eaec7;
+@c-blue-bkg: #ccdee6;
 @c-red: #c30000;
 @dotSize: 14px;
 @dotBorderWidth: 3px;
 @dotOffsetTop: @dotSize/2 - @dotBorderWidth/2;
-@dotOffsetBottom: -1 * @dotOffsetTop - 3px;
+@dotOffsetBottom: -1 * @dotOffsetTop;
 @lineOffsetTop: 0rem;
 @lineOffsetBottom: 0rem;
+@arrowLeftSkew: 35deg;
+@dot-z-index: 2;
 
-.arrowLeft(@borderColor: @c-purple, @bkgColor: white) {
+.setArrowLeftColor(@borderColor, @bkgColor) {
+	background-color: @bkgColor;
+	border-color: @borderColor;
+}
+
+.arrowLeft(@borderColor: @c-purple, @bkgColor) {
 	content: '';
 	z-index: 1;
 	position: absolute;
 	top: -1px;
-	left: -4px;
+	left: -5px;
 	width: @arrow-size - 0.2rem;
 	height: @arrow-size;
-	border-top: 1px solid @borderColor;
-	border-left: 1px solid @borderColor;
-	background-color: @bkgColor;
-	transform: skew(30deg);
+	border-color: transparent;
+	border-style: solid;
+	border-top-width: 1px;
+	border-left-width: 1px;
+	border-right-width: 0;
+	border-bottom-width: 0;
+	.setArrowLeftColor(@borderColor, @bkgColor);
+	transform: skew(@arrowLeftSkew);
+}
+
+.moveArrowLeftToBottom() {
+	top: auto;
+	bottom: -1px;
+	transform: skew(-1 * @arrowLeftSkew);
+	border-top-color: transparent;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
 }
 
 .hendelseDot(@borderColor) {
 	content: '';
+	z-index: @dot-z-index;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -35,7 +58,7 @@
 	border: @dotBorderWidth solid @borderColor;
 	margin-top: -1 * @dotOffsetTop;
 	margin-left: -1 * (@dotSize/2 - @dotBorderWidth) + 1;
-	background-color: white; //rgba(255, 255, 255, 0.3);
+	background-color: white;
 }
 
 .setHendelseDotColor(@borderColor) {
@@ -62,7 +85,7 @@
 .tidslinjeInnslag {
 	position: relative;
 	display: block;
-	background-color: white;
+	background-color: @c-purple-bkg;
 	border: 1px solid @c-purple;
 	border-radius: 2px;
 	padding: 1rem;
@@ -70,16 +93,33 @@
 	margin-bottom: -2px;
 	color: #3e3832;
 	&:before {
-		.arrowLeft();
+		.arrowLeft(@c-purple, @c-purple-bkg);
+	}
+	&--medforelder {
+		border-color: @c-blue;
+		background-color: @c-blue-bkg;
+		&:before {
+			.setArrowLeftColor(@c-blue, @c-blue-bkg);
+		}
 	}
 	&__dato {
 		margin-top: 0;
 		margin-bottom: 0.5rem;
 	}
-	&--fodsel {
+	&--termin {
 		background-color: transparent;
 		border-color: transparent;
 		padding-left: 0;
+		padding: 0;
+		.tidslinjeInnslag__dato {
+			display: inline-block;
+			padding-right: 1rem;
+		}
+		.tidslinjeInnslag__hendelse {
+			display: inline-block;
+			padding-right: 1rem;
+			color: @c-red;
+		}
 		&:before {
 			display: none;
 		}
@@ -87,6 +127,14 @@
 			* {
 				fill: red;
 			}
+		}
+	}
+	&__terminHjerte {
+		vertical-align: middle;
+	}
+	&--slutt {
+		&:before {
+			.moveArrowLeftToBottom();
 		}
 	}
 	&__linje {
@@ -104,6 +152,7 @@
 			.hendelseDot(@c-purple);
 			top: initial;
 			bottom: @dotOffsetBottom;
+			display: none;
 		}
 		&--medforelder {
 			left: -2rem;
@@ -123,29 +172,42 @@
 		&--gradert {
 			.gradering(@c-purple);
 		}
-		&--fortsetter {
-			bottom: -2rem;
-			&:after {
+		&--slutt {
+			top: 0rem;
+			&:before {
 				display: none;
 			}
-		}
-		&--slutt {
-			background-color: transparent;
-			bottom: auto;
 			&:after {
+				display: block;
+			}
+		}
+		&--termin {
+			margin-top: -1rem;
+			margin-bottom: -1rem;
+		}
+		&--siste {
+			top: -2rem;
+			height: 2rem;
+			bottom: auto;
+			&:before {
 				display: none;
+			}
+			&:after {
+				display: block;
 			}
 		}
 
 		/** Rød sirkel */
-		&--fodsel {
+		&--termin {
 			&:before {
-				width: @dotSize + 2px;
-				height: @dotSize + 2px;
+				@size: @dotSize + 2px;
+				width: @size;
+				height: @size;
 				margin-left: -1 * (@dotSize/2 - @dotBorderWidth);
 				border-color: white;
 				background-color: @c-red;
-				margin-top: @dotSize;
+				top: 50%;
+				margin-top: -1 * (@size/2 + @dotBorderWidth);
 			}
 		}
 	}

@@ -1,3 +1,6 @@
+import { Dekningsgrad } from '../../types';
+import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from '../actionTypes';
+
 export interface FormInput {
 	key: string;
 	value: string;
@@ -5,13 +8,28 @@ export interface FormInput {
 }
 
 export interface FormState {
-	inputs?: FormInput[];
+	navnForelder1?: string;
+	navnForelder2?: string;
+	termindato?: Date;
+	dagerForelder1r?: number;
+	dagerForelder2?: number;
+	dekningsgrad?: Dekningsgrad;
 }
 
-const defaultState: FormState = {};
+const defaultState: FormState = {
+	navnForelder1: '',
+	navnForelder2: ''
+};
 
-const FormReducer = (state = defaultState, action: {}) => {
-	return state;
+const FormReducer = (state = defaultState, action: PlanleggerActionTypes) => {
+	switch (action.type) {
+		case PlanleggerActionTypeKeys.SET_NAVN_FORELDER1:
+			return { ...state, navnForelder1: action.navn };
+		case PlanleggerActionTypeKeys.SET_NAVN_FORELDER2:
+			return { ...state, navnForelder2: action.navn };
+		default:
+			return state;
+	}
 };
 
 export default FormReducer;

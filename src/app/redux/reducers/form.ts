@@ -27,6 +27,8 @@ const FormReducer = (state = defaultState, action: PlanleggerActionTypes) => {
 			return { ...state, navnForelder1: action.navn };
 		case PlanleggerActionTypeKeys.SET_NAVN_FORELDER2:
 			return { ...state, navnForelder2: action.navn };
+		case PlanleggerActionTypeKeys.SET_TERMINDATO:
+			return { ...state, termindato: action.termindato };
 		default:
 			return state;
 	}

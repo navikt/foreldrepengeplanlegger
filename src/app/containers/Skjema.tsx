@@ -36,7 +36,7 @@ class Skjema extends React.Component<Props> {
 					id="input-termindato"
 					input={{ value: form.termindato }}
 					label="Termindato"
-					onChange={(e) => dispatch(settTermindato(e.value))}
+					onChange={(dato) => dispatch(settTermindato(dato))}
 				/>
 			</div>
 		);

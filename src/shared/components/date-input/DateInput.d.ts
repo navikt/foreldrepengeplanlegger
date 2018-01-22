@@ -1,9 +1,5 @@
 import * as React from 'react';
 
-export interface DateInputChangeEvent {
-	value: Date;
-}
-
 export interface DateInputProps {
 	id: string;
 	label: React.ReactNode;
@@ -12,7 +8,7 @@ export interface DateInputProps {
 	fromDate?: Date;
 	toDate?: Date;
 	errorMessage?: React.ReactNode;
-	onChange: (evt: DateInputChangeEvent) => void;
+	onChange: (dato: Date) => void;
 }
 
 declare class DateInput extends React.Component<DateInputProps> {}

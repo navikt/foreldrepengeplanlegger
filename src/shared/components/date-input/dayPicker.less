@@ -1,0 +1,234 @@
+.DayPicker {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	position: relative;
+	padding: 1rem 0;
+	user-select: none;
+
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 0 3px @orangeFocus;
+	}
+}
+
+.DayPicker-Month {
+	display: table;
+	border-collapse: collapse;
+	border-spacing: 0;
+	user-select: none;
+}
+
+.DayPicker-NavBar {
+	position: absolute;
+	left: 0;
+	right: 0;
+	padding: 0 0.5em;
+}
+
+.DayPicker-NavButton {
+	top: 12px;
+	width: 2em;
+	height: 2em;
+	cursor: pointer;
+	border: 0;
+	background-color: transparent;
+
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 0 3px @orangeFocus;
+	}
+
+	&--prev {
+		left: 1em;
+		background-image: none;
+	}
+
+	&--next {
+		right: 1em;
+		background-image: none;
+	}
+}
+
+.DayPicker-Caption {
+	display: table-caption;
+	height: 2em;
+	text-align: center;
+}
+
+.DayPicker-Weekdays {
+	border-top: 1px solid @grayIcon;
+	display: table-header-group;
+}
+
+.DayPicker-Weekday {
+	abbr {
+		text-decoration: none;
+	}
+}
+
+.DayPicker-Day {
+	font-weight: 600;
+	vertical-align: middle;
+	width: 43px;
+	height: 39px;
+	padding: 0;
+
+	&:focus {
+		outline: none;
+		background-color: @orangeFocus;
+	}
+
+	&:hover {
+		border-radius: 0%;
+		background-color: @grayBackground;
+	}
+
+	&:empty:hover {
+		background-color: transparent;
+	}
+
+	&:last-child {
+		color: @navRod;
+	}
+}
+
+.DayPicker-Day--disabled,
+.DayPicker-Day--disabled:last-child {
+	color: @grayIcon;
+	cursor: default;
+	font-weight: normal;
+
+	&:focus {
+		color: @grayInactive;
+	}
+}
+
+.DayPicker-Day--disabled:hover {
+	background-color: transparent;
+}
+
+.DayPicker-Day--outside {
+	color: @grayInactive;
+}
+
+.DayPicker-Day--today {
+	color: black;
+	border: 1px solid @grayIcon;
+}
+
+.DayPicker-Day--sunday:not(.DayPicker-Day--today) {
+	color: @navRod;
+}
+
+.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+	background-color: @navDypBla;
+	color: @white;
+	border-radius: 0%;
+}
+
+.DayPicker:not(.DayPicker--interactionDisabled)
+	.DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
+	background-color: @navLysGra;
+	border-radius: 0%;
+}
+
+.DayPicker--interactionDisabled .DayPicker-Day {
+	cursor: default;
+}
+
+.datovelger {
+	position: relative;
+	width: 100%;
+
+	&__input {
+		width: 210px;
+
+		&::-ms-clear {
+			display: none;
+		}
+	}
+
+	&__outer {
+		padding-left: 8px;
+		padding-right: 8px;
+		padding-bottom: 8px;
+		margin-left: -8px;
+		margin-right: -8px;
+
+		&--withError {
+			background-color: #f1d8d4;
+			padding-top: 8px;
+
+			.skjemaelement__label {
+				margin-top: 0 !important;
+			}
+		}
+	}
+
+	&__inner {
+		display: inline-block;
+	}
+
+	&__inputContainer {
+		display: flex;
+		margin-bottom: 0;
+	}
+
+	&__toggleDayPicker {
+		display: none;
+	}
+
+	&__DayPicker {
+		display: none;
+	}
+}
+
+.skjema__periodevalidering.skjema--harFeil {
+	.skjema__feilomrade {
+		outline: none;
+	}
+
+	.skjemaelement__feilmelding {
+		padding-top: 7px;
+	}
+}
+
+@fjern-ikon-bredde: 300px;
+
+@media (min-width: @fjern-ikon-bredde) {
+	.datovelger {
+		&__DayPicker {
+			display: block;
+			position: absolute;
+			//top: 2.5em;
+			border-radius: @border-radius-small;
+			background-color: @white;
+			border: 1px solid @grayIcon;
+			z-index: @z-index-daypicker;
+		}
+
+		&__inputContainer {
+			position: relative;
+			margin-bottom: 0;
+		}
+
+		&__toggleDayPicker {
+			display: block;
+			top: 0;
+			right: 0;
+			width: 2rem;
+			height: 100%;
+			border-radius: 0 4px 4px 0;
+			border: 1px solid @navBla;
+			background-color: transparent;
+			padding: 0;
+			position: absolute;
+
+			&:focus {
+				outline: none;
+				box-shadow: 0 0 0 3px @orangeFocus;
+			}
+		}
+	}
+}

@@ -6,7 +6,8 @@ import { AppState } from 'app/redux/reducers';
 import { FormState } from 'app/redux/reducers/form';
 
 import { DispatchProps } from '../redux/reduxTypes';
-import { setNavnForelder1, setNavnForelder2 } from '../redux/actions';
+import { setNavnForelder1, setNavnForelder2, settTermindato } from '../redux/actions';
+import DateInput from 'shared/components/date-input/DateInput';
 
 export interface StateProps {
 	form: FormState;
@@ -30,6 +31,12 @@ class Skjema extends React.Component<Props> {
 					label="Forelder 2"
 					value={form.navnForelder2}
 					onChange={(e: any) => dispatch(setNavnForelder2(e.target.value))}
+				/>
+				<DateInput
+					id="input-termindato"
+					input={{ value: form.termindato }}
+					label="Termindato"
+					onChange={(e) => dispatch(settTermindato(e.value))}
 				/>
 			</div>
 		);

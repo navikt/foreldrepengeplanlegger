@@ -22,17 +22,17 @@ export function setTermindato(termindato: Date): PlanleggerActionTypes {
 	};
 }
 
-export function settAntallDagerMor(dager: number): PlanleggerActionTypes {
+export function settAntallDagerMor(uker: number): PlanleggerActionTypes {
 	return {
-		type: PlanleggerActionTypeKeys.SET_DAGER_FORELDER1,
-		dager
+		type: PlanleggerActionTypeKeys.SET_UKER_FORELDER1,
+		uker
 	};
 }
 
-export function settAntallDagerMedforelder(dager: number): PlanleggerActionTypes {
+export function settAntallDagerMedforelder(uker: number): PlanleggerActionTypes {
 	return {
-		type: PlanleggerActionTypeKeys.SET_DAGER_FORELDER2,
-		dager
+		type: PlanleggerActionTypeKeys.SET_UKER_FORELDER2,
+		uker
 	};
 }
 

@@ -4,8 +4,8 @@ export enum PlanleggerActionTypeKeys {
 	'SET_NAVN_FORELDER1',
 	'SET_NAVN_FORELDER2',
 	'SET_TERMINDATO',
-	'SET_DAGER_FORELDER1',
-	'SET_DAGER_FORELDER2',
+	'SET_UKER_FORELDER1',
+	'SET_UKER_FORELDER2',
 	'SETT_DEKNINGSGRAD'
 }
 
@@ -13,8 +13,8 @@ export type PlanleggerActionTypes =
 	| SetNavnForelder1
 	| SetNavnForelder2
 	| SetTermindato
-	| SetDagerForelder2
-	| SetDagerForelder1
+	| SetUkerForelder2
+	| SetUkerForelder1
 	| SetDekningsgrad;
 
 export interface SetNavnForelder1 {
@@ -32,14 +32,14 @@ export interface SetTermindato {
 	termindato: Date;
 }
 
-export interface SetDagerForelder1 {
-	type: PlanleggerActionTypeKeys.SET_DAGER_FORELDER1;
-	dager: number;
+export interface SetUkerForelder1 {
+	type: PlanleggerActionTypeKeys.SET_UKER_FORELDER1;
+	uker: number;
 }
 
-export interface SetDagerForelder2 {
-	type: PlanleggerActionTypeKeys.SET_DAGER_FORELDER2;
-	dager: number;
+export interface SetUkerForelder2 {
+	type: PlanleggerActionTypeKeys.SET_UKER_FORELDER2;
+	uker: number;
 }
 
 export interface SetDekningsgrad {

@@ -46,18 +46,32 @@ class Skjema extends React.Component<Props> {
 					onChange={(dato: Date) => dispatch(setTermindato(dato))}
 				/>
 				<SkjemaGruppe title="Hvilken sats ønsker du?" className="skjemaelement">
-					<Radio label="80% i X uker" name="sats" value="80%" onClick={() => dispatch(setDekningsgrad('80%'))} />
-					<Radio label="100% i X uker" name="sats" value="100%" onClick={() => dispatch(setDekningsgrad('100%'))} />
+					<Radio
+						label={`80% i ${form.grunndata.antallUkerTotalt80} uker`}
+						selected={form.dekningsgrad === '80%'}
+						name="sats"
+						value="80%"
+						onClick={() => dispatch(setDekningsgrad('80%'))}
+					/>
+					<Radio
+						label={`100% i ${form.grunndata.antallUkerTotalt100} uker`}
+						selected={form.dekningsgrad === '80%'}
+						name="sats"
+						value="100%"
+						onClick={() => dispatch(setDekningsgrad('100%'))}
+					/>
 				</SkjemaGruppe>
 
-				<SkjemaGruppe title="Fordeling av fellespermisjonen (X uker)" className="skjemaelement">
+				<SkjemaGruppe
+					title={`Fordeling av fellespermisjonen (${form.ukerFellesperiode} uker)`}
+					className="skjemaelement">
 					<RangeInput
-						value={form.dagerForelder1}
+						value={form.ukerForelder1}
 						min={0}
-						max={form.dagerTilFordeling}
+						max={form.ukerFellesperiode}
 						onChange={(dager) => dispatch(settAntallDagerMor(dager))}
-						labelLeft="Dager forelder 1"
-						labelRight="Dager forelder 2"
+						labelLeft="Forelder 1"
+						labelRight="Forelder 2"
 					/>
 				</SkjemaGruppe>
 			</div>

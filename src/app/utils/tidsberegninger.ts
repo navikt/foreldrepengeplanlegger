@@ -1,4 +1,4 @@
-import { Dekningsgrad } from 'app/types';
+import { Dekningsgrad, Grunndata } from 'app/types';
 
 export interface Tidsperiode {
 	start: Date;
@@ -21,4 +21,7 @@ export function kalkulerUttaksdagerIPeriode(start: Date, slutt: Date): number {
 	return antall;
 }
 
-export const getDagerTotaltFromDekningsgrad = (dekningsgrad?: Dekningsgrad) => (dekningsgrad === '80%' ? 59 : 49) * 5;
+export const getUkerFellesperiode = (grunndata: Grunndata, dekningsgrad?: Dekningsgrad) => {
+	const totaltAntallUker = dekningsgrad === '80%' ? grunndata.antallUkerTotalt80 : grunndata.antallUkerTotalt100;
+	return totaltAntallUker - grunndata.antallUkerForelder1Totalt - grunndata.antallUkerForelder2Totalt;
+};

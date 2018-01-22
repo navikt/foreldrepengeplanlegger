@@ -1,6 +1,8 @@
-import { Dekningsgrad } from '../../types';
+import { Dekningsgrad, Grunndata } from '../../types';
 import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from '../actionTypes';
-import { getDagerTotaltFromDekningsgrad } from '../../utils/tidsberegninger';
+import { getUkerFellesperiode } from '../../utils/tidsberegninger';
+
+import { grunndata } from '../../data/grunndata';
 
 export interface FormInput {
 	key: string;
@@ -12,19 +14,21 @@ export interface FormState {
 	navnForelder1?: string;
 	navnForelder2?: string;
 	termindato?: Date;
-	dagerForelder1?: number;
-	dagerForelder2?: number;
+	ukerForelder1?: number;
+	ukerForelder2?: number;
 	dekningsgrad?: Dekningsgrad;
-	dagerTilFordeling: number;
+	ukerFellesperiode: number;
+	grunndata: Grunndata;
 }
 
-const initAntallDagerTilFordeling = getDagerTotaltFromDekningsgrad('80%');
+const antallUkerFellesperiode = getUkerFellesperiode(grunndata, '80%');
 
 const defaultState: FormState = {
 	navnForelder1: '',
 	navnForelder2: '',
-	dagerTilFordeling: initAntallDagerTilFordeling,
-	dagerForelder1: Math.round(initAntallDagerTilFordeling / 2)
+	ukerFellesperiode: antallUkerFellesperiode,
+	ukerForelder1: Math.round(antallUkerFellesperiode / 2),
+	grunndata
 };
 
 const FormReducer = (state = defaultState, action: PlanleggerActionTypes) => {
@@ -35,11 +39,17 @@ const FormReducer = (state = defaultState, action: PlanleggerActionTypes) => {
 			return { ...state, navnForelder2: action.navn };
 		case PlanleggerActionTypeKeys.SET_TERMINDATO:
 			return { ...state, termindato: action.termindato };
-		case PlanleggerActionTypeKeys.SET_DAGER_FORELDER1:
+		case PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD:
 			return {
 				...state,
-				dagerForelder1: action.dager,
-				dagerForelder2: getDagerTotaltFromDekningsgrad(state.dekningsgrad) - action.dager
+				dekningsgrad: action.dekningsgrad,
+				ukerFellesperiode: getUkerFellesperiode(grunndata, action.dekningsgrad)
+			};
+		case PlanleggerActionTypeKeys.SET_UKER_FORELDER1:
+			return {
+				...state,
+				ukerForelder1: action.uker,
+				ukerForelder2: state.ukerFellesperiode - action.uker
 			};
 		default:
 			return state;

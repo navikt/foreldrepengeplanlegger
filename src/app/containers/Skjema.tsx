@@ -54,8 +54,10 @@ class Skjema extends React.Component<Props> {
 					<RangeInput
 						value={form.dagerForelder1}
 						min={0}
-						max={100}
+						max={form.dagerTilFordeling}
 						onChange={(dager) => dispatch(settAntallDagerMor(dager))}
+						labelLeft="Dager forelder 1"
+						labelRight="Dager forelder 2"
 					/>
 				</SkjemaGruppe>
 			</div>

@@ -14,7 +14,7 @@ interface Props {
 const RangeInput: React.StatelessComponent<Props> = (props) => {
 	const { labelLeft, labelRight, ...rest } = props;
 	return (
-		<SkjemaInputElement label="">
+		<SkjemaInputElement label="Fordel uker">
 			<input
 				className="nav-frontend-range-input"
 				type="range"

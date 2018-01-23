@@ -1,6 +1,96 @@
-.nav-frontend-range-input {
-	width: 100%;
+.rangeInputStyling(@width: 100%, @trackColor: #66cbec, @thumbBkg: white, @thumbBorder: #0067c5) {
+	.thumb() {
+		border-radius: 50%;
+		background: white;
+		border: 2px solid @thumbBorder;
+		height: 16px;
+		width: 16px;
+		margin-top: -6px;
+		cursor: pointer;
+	}
+	.track() {
+		height: 3px;
+		width: @width;
+		background: @trackColor;
+		border: none;
+		border-radius: 3px;
+		margin-bottom: 1rem;
+	}
+	input[type='range'] {
+		-webkit-appearance: none; /** removes default webkit styles */
+		border: 1px solid white; /** fix for FF unable to apply focus style bug */
+		width: @width; /** required for proper track sizing in FF */
+
+		&::-webkit-slider-runnable-track {
+			.track();
+		}
+		&::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			.thumb();
+		}
+		&::-moz-range-track {
+			.track();
+		}
+		&::-moz-range-thumb {
+			.thumb();
+		}
+		&:focus {
+			outline: none;
+			&::-webkit-slider-thumb {
+				border-color: @orangeFocus;
+				box-shadow: 0 0 2px @orangeFocus;
+			}
+			&::-moz-range-thumb {
+				border-color: @orangeFocus;
+				box-shadow: 0 0 2px @orangeFocus;
+			}
+			&::-webkit-slider-runnable-track {
+				background: @trackColor;
+			}
+		}
+		/*hide the outline behind the border*/
+		&:-moz-focusring {
+			outline: 1px solid white;
+			outline-offset: -1px;
+		}
+	}
+	/** Ms */
+	input[type='range'] input[type='range']::-ms-track {
+		.track();
+		width: @width;
+		height: 5px;
+
+		/*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+		background: transparent;
+
+		/*leave room for the larger thumb to overflow with a transparent border */
+		border-color: transparent;
+		border-width: 6px 0;
+
+		/*remove default tick marks*/
+		color: transparent;
+	}
+	input[type='range']::-ms-fill-lower {
+		background: @trackColor;
+		border-radius: 10px;
+	}
+	input[type='range']::-ms-fill-upper {
+		background: @trackColor;
+		border-radius: 10px;
+	}
+	input[type='range']::-ms-thumb {
+		.thumb();
+	}
+	input[type='range']:focus::-ms-fill-lower {
+		background: @trackColor;
+	}
+	input[type='range']:focus::-ms-fill-upper {
+		background: @trackColor;
+	}
 }
+/** Sett default styling på slider */
+.rangeInputStyling();
+
 .range-input__values {
 	display: flex;
 	&__left {

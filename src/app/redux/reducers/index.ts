@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+
 import form, { FormState } from './form';
 
 export interface AppState {

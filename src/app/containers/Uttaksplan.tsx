@@ -2,8 +2,7 @@ import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 import DialogBox from 'shared/components/dialogBox/DialogBox';
-import { gotoForside } from 'utils/navigasjon';
-import Tidslinje from 'components/tidslinje/Tidslinje';
+import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import Skjema from './Skjema';
 
 export type Props = RouteComponentProps<{}>;
@@ -20,7 +19,6 @@ export class Uttaksplan extends React.Component<Props> {
 				</div>
 				<Skjema />
 				<Tidslinje />
-				<button onClick={() => gotoForside(this.props.history)}>Tilbake til forside</button>
 			</div>
 		);
 	}

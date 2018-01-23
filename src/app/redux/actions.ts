@@ -1,5 +1,6 @@
+import { Dekningsgrad } from 'app/types';
+
 import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from './actionTypes';
-import { Dekningsgrad } from '../types';
 
 export function setNavnForelder1(navn: string): PlanleggerActionTypes {
 	return {

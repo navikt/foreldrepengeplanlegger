@@ -19,9 +19,8 @@
 		"baseUrl": "./src",
 		"typeRoots": ["./node_modules/@types", "./src/@types"],
 		"paths": {
-			"shared/*": ["shared/*"],
-			"components/*": ["app/components/*"],
-			"utils/*": ["app/utils/*"]
+			"shared/*": ["./shared/*"],
+			"app/*": ["./app/*"]
 		}
 	},
 	"exclude": ["node_modules", "build", "scripts", "config", "jest", "src/build", "src/config"]

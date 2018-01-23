@@ -1,8 +1,7 @@
-import { Dekningsgrad, Grunndata } from '../../types';
-import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from '../actionTypes';
-import { getUkerFellesperiode } from '../../utils/tidsberegninger';
-
-import { grunndata } from '../../data/grunndata';
+import { Dekningsgrad, Grunndata } from 'app/types';
+import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from 'app/redux/actionTypes';
+import { getUkerFellesperiode } from 'app/utils/tidsberegninger';
+import { grunndata } from 'app/data/grunndata';
 
 export interface FormInput {
 	key: string;

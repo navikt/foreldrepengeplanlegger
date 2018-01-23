@@ -1,4 +1,4 @@
-import { Grunndata } from '../types';
+import { Grunndata } from 'app/types';
 
 export const grunndata: Grunndata = {
 	antallUkerForelder1ForFodsel: 3,

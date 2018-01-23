@@ -1,4 +1,4 @@
-import { Dekningsgrad } from '../types';
+import { Dekningsgrad } from 'app/types';
 
 export enum PlanleggerActionTypeKeys {
 	'SET_NAVN_FORELDER1',

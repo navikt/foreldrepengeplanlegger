@@ -1,11 +1,7 @@
 import { combineReducers } from 'redux';
 
-import form, { FormState } from './form';
+import formReducer from './form';
 
-export interface AppState {
-	form: FormState;
-}
-
-const PlanleggerAppReducer = combineReducers({ form });
+const PlanleggerAppReducer = combineReducers({ form: formReducer });
 
 export default PlanleggerAppReducer;

@@ -5,9 +5,7 @@ import { Input, Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import DateInput from 'shared/components/dateInput/DateInput';
 import RangeInput from 'shared/components/rangeInput/RangeInput';
 
-import { AppState } from 'app/redux/reducers';
-import { FormState } from 'app/redux/reducers/form';
-import { DispatchProps } from 'app/redux/reduxTypes';
+import { DispatchProps, AppState, FormState } from 'app/redux/types';
 import {
 	setNavnForelder1,
 	setNavnForelder2,

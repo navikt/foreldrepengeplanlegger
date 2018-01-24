@@ -1,24 +1,7 @@
-import { Dekningsgrad, Grunndata } from 'app/types';
-import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from 'app/redux/actionTypes';
+import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from 'app/redux/actions/actionTypes';
 import { getUkerFellesperiode } from 'app/utils/tidsberegninger';
 import { grunndata } from 'app/data/grunndata';
-
-export interface FormInput {
-	key: string;
-	value: string;
-	savedValue: string;
-}
-
-export interface FormState {
-	navnForelder1?: string;
-	navnForelder2?: string;
-	termindato?: Date;
-	ukerForelder1?: number;
-	ukerForelder2?: number;
-	dekningsgrad?: Dekningsgrad;
-	ukerFellesperiode: number;
-	grunndata: Grunndata;
-}
+import { FormState } from '../types';
 
 const antallUkerFellesperiode = getUkerFellesperiode(grunndata, '80%');
 

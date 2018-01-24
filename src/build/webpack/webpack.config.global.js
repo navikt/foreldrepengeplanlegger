@@ -11,9 +11,8 @@ const webpackConfig = {
 	},
 	resolve: {
 		alias: {
-			components: path.resolve(__dirname, './../../app/components'),
 			shared: path.resolve(__dirname, './../../shared'),
-			utils: path.resolve(__dirname, './../../app/utils')
+			app: path.resolve(__dirname, './../../app')
 		},
 		extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
 	},

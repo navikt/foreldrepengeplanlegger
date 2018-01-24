@@ -7,8 +7,8 @@ import { TidslinjeInnslag, InnslagType } from './types';
 import { mockTidslinjeData } from './data';
 
 import './tidslinje.less';
-import { kalkulerUttaksdagerIPeriode } from 'utils/tidsberegninger';
-import TerminIkon from 'components/tidslinje/TerminIkon';
+import { kalkulerUttaksdagerIPeriode } from 'app/utils/tidsberegninger';
+import TerminIkon from 'app/components/tidslinje/TerminIkon';
 
 interface TidslinjeInnslagProps {
 	innslag: TidslinjeInnslag;

@@ -1,11 +1,12 @@
 .rangeInputStyling(@width: 100%, @trackColor: #66cbec, @thumbBkg: white, @thumbBorder: #0067c5) {
+	@thumbSize: 24px;
 	.thumb() {
 		border-radius: 50%;
 		background: white;
 		border: 2px solid @thumbBorder;
-		height: 16px;
-		width: 16px;
-		margin-top: -6px;
+		height: @thumbSize;
+		width: @thumbSize;
+		margin-top: -1 * @thumbSize/2 + 2;
 		cursor: pointer;
 	}
 	.track() {
@@ -80,6 +81,9 @@
 	}
 	input[type='range']::-ms-thumb {
 		.thumb();
+		margin-top: 0;
+		width: 16px;
+		height: 16px;
 	}
 	input[type='range']:focus::-ms-fill-lower {
 		background: @trackColor;

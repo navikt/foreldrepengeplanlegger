@@ -11,10 +11,6 @@ export interface DispatchProps {
 	dispatch: Dispatch;
 }
 
-export interface AppState {
-	form: FormState;
-}
-
 export interface FormState {
 	navnForelder1?: string;
 	navnForelder2?: string;
@@ -22,6 +18,10 @@ export interface FormState {
 	ukerForelder1?: number;
 	ukerForelder2?: number;
 	dekningsgrad?: Dekningsgrad;
-	ukerFellesperiode: number;
+	ukerFellesperiode?: number;
 	grunndata: Grunndata;
+}
+
+export interface AppState {
+	form: FormState;
 }

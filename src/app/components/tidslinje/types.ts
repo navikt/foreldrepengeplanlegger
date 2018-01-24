@@ -1,9 +1,4 @@
-export enum InnslagType {
-	'uttak' = 'uttak',
-	'termin' = 'termin',
-	'slutt' = 'slutt',
-	'siste' = 'siste'
-}
+export type InnslagType = 'uttak' | 'termin' | 'slutt' | 'siste';
 
 export type Forelder = 'mor' | 'medforelder';
 

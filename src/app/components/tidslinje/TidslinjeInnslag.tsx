@@ -5,7 +5,7 @@ import TerminIkon from 'app/components/tidslinje/TerminIkon';
 import Dato from 'app/components/dato/Dato';
 import { kalkulerUttaksdagerIPeriode } from 'app/utils/tidsberegninger';
 
-import { TidslinjeInnslag, InnslagType } from './types';
+import { TidslinjeInnslag } from './types';
 
 interface TidslinjeInnslagProps {
 	innslag: TidslinjeInnslag;
@@ -41,7 +41,7 @@ const TidslinjeInnslag: React.StatelessComponent<TidslinjeInnslagProps> = ({ inn
 			</div>
 			<div className="tidslinjeInnslag__hendelse">
 				{innslag.tittel}{' '}
-				{innslag.type === InnslagType.termin && (
+				{innslag.type === 'termin' && (
 					<span className="tidslinjeInnslag__terminHjerte">
 						<TerminIkon />
 					</span>

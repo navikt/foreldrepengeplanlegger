@@ -7,6 +7,7 @@ import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import Skjema from './Skjema';
 import { AppState } from 'app/redux/types';
 import { TidslinjeInnslag } from 'app/components/tidslinje/types';
+import { tidslinjeSelector } from 'app/selectors/tidslinjeSelector';
 
 export interface StateProps {
 	innslag: TidslinjeInnslag[];
@@ -31,6 +32,6 @@ export class Uttaksplan extends React.Component<Props> {
 	}
 }
 
-const mapStateToProps = (state: AppState): StateProps => ({ innslag: state.form.tidslinje });
+const mapStateToProps = (state: AppState): StateProps => ({ innslag: tidslinjeSelector(state) });
 
 export default connect(mapStateToProps)(withRouter(Uttaksplan));

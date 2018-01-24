@@ -42,7 +42,7 @@ class Skjema extends React.Component<Props> {
 					id="input-termindato"
 					input={{ value: form.termindato }}
 					label={Tekst.skjema.labelTermindato}
-					onChange={(dato: Date) => dispatch(setTermindato(dato))}
+					onChange={(dato) => dispatch(setTermindato(new Date(dato)))}
 				/>
 				<SkjemaGruppe title={Tekst.skjema.labelDekningsgrad} className="skjemaelement">
 					<Radio

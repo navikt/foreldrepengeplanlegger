@@ -1,4 +1,5 @@
 import { Dekningsgrad, Grunndata } from 'app/types';
+import { TidslinjeInnslag } from 'app/components/tidslinje/types';
 
 export interface Action<T> {
 	type: string;
@@ -11,10 +12,6 @@ export interface DispatchProps {
 	dispatch: Dispatch;
 }
 
-export interface AppState {
-	form: FormState;
-}
-
 export interface FormState {
 	navnForelder1?: string;
 	navnForelder2?: string;
@@ -24,4 +21,9 @@ export interface FormState {
 	dekningsgrad?: Dekningsgrad;
 	ukerFellesperiode: number;
 	grunndata: Grunndata;
+	tidslinje: TidslinjeInnslag[];
+}
+
+export interface AppState {
+	form: FormState;
 }

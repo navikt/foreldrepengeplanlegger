@@ -10,7 +10,8 @@ const defaultState: FormState = {
 	navnForelder2: '',
 	ukerFellesperiode: antallUkerFellesperiode,
 	ukerForelder1: Math.round(antallUkerFellesperiode / 2),
-	grunndata
+	grunndata,
+	tidslinje: []
 };
 
 const FormReducer = (state = defaultState, action: PlanleggerActionTypes) => {

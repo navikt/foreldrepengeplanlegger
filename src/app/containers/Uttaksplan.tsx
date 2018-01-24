@@ -1,11 +1,18 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 import DialogBox from 'shared/components/dialogBox/DialogBox';
 import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import Skjema from './Skjema';
+import { AppState } from 'app/redux/types';
+import { TidslinjeInnslag } from 'app/components/tidslinje/types';
 
-export type Props = RouteComponentProps<{}>;
+export interface StateProps {
+	innslag: TidslinjeInnslag[];
+}
+
+export type Props = StateProps & RouteComponentProps<{}>;
 
 export class Uttaksplan extends React.Component<Props> {
 	render() {
@@ -18,10 +25,12 @@ export class Uttaksplan extends React.Component<Props> {
 					</DialogBox>
 				</div>
 				<Skjema />
-				<Tidslinje />
+				<Tidslinje innslag={this.props.innslag} />
 			</div>
 		);
 	}
 }
 
-export default withRouter(Uttaksplan);
+const mapStateToProps = (state: AppState): StateProps => ({ innslag: state.form.tidslinje });
+
+export default connect(mapStateToProps)(withRouter(Uttaksplan));

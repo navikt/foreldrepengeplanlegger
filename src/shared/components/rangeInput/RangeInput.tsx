@@ -23,12 +23,8 @@ const RangeInput: React.StatelessComponent<Props> = (props) => {
 			/>
 			{props.value !== undefined && (
 				<div className="range-input__values">
-					<div className="range-input__values__left">
-						{labelLeft}: <span className="range-input__values__value">{props.value}</span>
-					</div>
-					<div className="range-input__values__right">
-						{labelRight}: <span className="range-input__values__value">{props.max - props.value}</span>
-					</div>
+					<div className="range-input__values__left">{labelLeft}</div>
+					<div className="range-input__values__right">{labelRight}</div>
 				</div>
 			)}
 		</SkjemaInputElement>

@@ -20,9 +20,10 @@ export class Uttaksplan extends React.Component<Props> {
 		return (
 			<div>
 				<div className="blockSpacing">
-					<DialogBox type="success">
-						Nedenfor har jeg satt opp et utgangspunkt for fordeling ut fra informasjonen jeg fikk av deg på forrige
-						side. Du kan endre datoene for hver periode, og du kan legge inn andre perioder inne i mellom.
+					<DialogBox type="info">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus bibendum dui nec ipsum euismod, quis
+						eleifend quam aliquam. Fusce nec aliquam massa. Nam sed est fringilla, volutpat odio sed, fermentum odio. In
+						quis lacus eu mauris ultricies convallis. Nulla eu dignissim mi, ac condimentum purus.
 					</DialogBox>
 				</div>
 				<Skjema />

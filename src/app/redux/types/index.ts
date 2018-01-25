@@ -18,7 +18,7 @@ export interface FormState {
 	ukerForelder1?: number;
 	ukerForelder2?: number;
 	dekningsgrad?: Dekningsgrad;
-	ukerFellesperiode: number;
+	ukerFellesperiode?: number;
 	grunndata: Grunndata;
 }
 

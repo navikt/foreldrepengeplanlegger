@@ -1,4 +1,6 @@
-import { Dekningsgrad, Grunndata } from 'app/types';
+import { Dekningsgrad, Grunndata, UtsettelsePeriode } from 'app/types';
+
+export type Forelder = 'mor' | 'medforelder';
 
 export interface Action<T> {
 	type: string;
@@ -22,6 +24,12 @@ export interface FormState {
 	grunndata: Grunndata;
 }
 
+export interface UtsettelseState {
+	isOpen: boolean;
+	utsettelse?: UtsettelsePeriode;
+}
+
 export interface AppState {
 	form: FormState;
+	utsettelse: UtsettelseState;
 }

@@ -1,6 +1,6 @@
-export type InnslagType = 'uttak' | 'termin' | 'slutt' | 'siste';
+import { Forelder } from 'app/types';
 
-export type Forelder = 'mor' | 'medforelder';
+export type InnslagType = 'uttak' | 'termin' | 'slutt' | 'siste';
 
 export interface TidslinjeInnslag {
 	dato: Date;

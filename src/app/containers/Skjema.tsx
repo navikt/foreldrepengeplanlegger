@@ -59,14 +59,14 @@ class Skjema extends React.Component<Props> {
 						checked={form.dekningsgrad === '80%'}
 						name="sats"
 						value="80%"
-						onClick={() => dispatch(setDekningsgrad('80%'))}
+						onChange={() => dispatch(setDekningsgrad('80%'))}
 					/>
 					<Radio
 						label={Tekst.skjema.labelDekningsgrad100(form.grunndata.antallUkerTotalt100)}
 						checked={form.dekningsgrad === '100%'}
 						name="sats"
 						value="100%"
-						onClick={() => dispatch(setDekningsgrad('100%'))}
+						onChange={() => dispatch(setDekningsgrad('100%'))}
 					/>
 				</SkjemaGruppe>
 

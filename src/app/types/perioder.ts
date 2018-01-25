@@ -7,6 +7,8 @@ export interface Tidsperiode {
 	dager?: number;
 }
 
+export type Forelder = 'forelder1' | 'forelder2';
+
 export enum Periodetype {
 	'Stonadsperiode',
 	'Utsettelse',
@@ -27,18 +29,17 @@ export enum StonadskontoType {
 export enum UtsettelseArsakType {
 	'Ferie',
 	'Arbeid',
-	'SykdomSkade',
-	'InnlagtBarn',
-	'Annet'
-}
-
-export enum OppholdArsakType {
-	'VenterSoknadFraAnnenForelder',
-	'ManglendeSoktPeriode'
+	'UbetaltPermisjon'
 }
 
 export interface KravTilUttaksplan {
 	ukerModrekvoteForTermin: number;
 	ukerModrekvoteEtterFodsel: number;
 	ukerFedrekvote: number;
+}
+
+export interface UtsettelsePeriode {
+	periode: Tidsperiode;
+	arsak: UtsettelseArsakType;
+	forelder: Forelder;
 }

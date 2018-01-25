@@ -22,10 +22,13 @@ const FormReducer = (state = defaultState, action: PlanleggerActionTypes) => {
 		case PlanleggerActionTypeKeys.SET_TERMINDATO:
 			return { ...state, termindato: action.termindato };
 		case PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD:
+			const ukerFellesperiode = getUkerFellesperiode(grunndata, action.dekningsgrad);
 			return {
 				...state,
 				dekningsgrad: action.dekningsgrad,
-				ukerFellesperiode: getUkerFellesperiode(grunndata, action.dekningsgrad)
+				ukerFellesperiode: ukerFellesperiode,
+				ukerForelder1: state.ukerForelder1,
+				ukerForelder2: ukerFellesperiode - (state.ukerForelder1 || 0)
 			};
 		case PlanleggerActionTypeKeys.SET_UKER_FORELDER1:
 			return {

@@ -6,7 +6,9 @@ export enum PlanleggerActionTypeKeys {
 	'SET_TERMINDATO',
 	'SET_UKER_FORELDER1',
 	'SET_UKER_FORELDER2',
-	'SETT_DEKNINGSGRAD'
+	'SETT_DEKNINGSGRAD',
+	'UTSETTELSE_VIS_DIALOG',
+	'UTSETTELSE_LUKK_DIALOG'
 }
 
 export type PlanleggerActionTypes =
@@ -15,7 +17,9 @@ export type PlanleggerActionTypes =
 	| SetTermindato
 	| SetUkerForelder2
 	| SetUkerForelder1
-	| SetDekningsgrad;
+	| SetDekningsgrad
+	| UtsettelseVisDialog
+	| UtsettelseLukkDialog;
 
 export interface SetNavnForelder1 {
 	type: PlanleggerActionTypeKeys.SET_NAVN_FORELDER1;
@@ -45,4 +49,12 @@ export interface SetUkerForelder2 {
 export interface SetDekningsgrad {
 	type: PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD;
 	dekningsgrad: Dekningsgrad;
+}
+
+export interface UtsettelseVisDialog {
+	type: PlanleggerActionTypeKeys.UTSETTELSE_VIS_DIALOG;
+}
+
+export interface UtsettelseLukkDialog {
+	type: PlanleggerActionTypeKeys.UTSETTELSE_LUKK_DIALOG;
 }

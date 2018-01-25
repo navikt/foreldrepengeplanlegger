@@ -20,31 +20,31 @@ export const tidslinjeSelector = createSelector(formSelector, (form: FormState):
 		{
 			dato: startDato,
 			tittel: `${navnForelder1 || 'Mor'} starter sin permisjon`,
-			forelder: 'mor',
+			forelder: 'forelder1',
 			type: 'uttak'
 		},
 		{
 			dato: termindato,
 			tittel: 'Termin',
-			forelder: 'mor',
+			forelder: 'forelder1',
 			type: 'termin'
 		},
 		{
 			dato: sluttModrekvote,
 			tittel: `${navnForelder1 || 'Mor'} avslutter sin permisjon`,
-			forelder: 'mor',
+			forelder: 'forelder1',
 			type: 'slutt'
 		},
 		{
 			dato: startFedrekvote,
 			tittel: `${navnForelder2 || 'Medforelder'} starter sin permisjon`,
-			forelder: 'medforelder',
+			forelder: 'forelder2',
 			type: 'uttak'
 		},
 		{
 			dato: sluttFedrekvote,
 			tittel: `${navnForelder2 || 'Medforelder'} slutter sin permisjon`,
-			forelder: 'medforelder',
+			forelder: 'forelder2',
 			type: 'siste'
 		}
 	];

@@ -104,18 +104,20 @@ class DateInput extends Component {
 	render() {
 		const {
 			id,
-			input,
+			inputProps,
 			label,
 			disabled,
 			fromDate,
 			toDate,
-			errorMessage
+			errorMessage,
+			selectedDate
 		} = this.props;
 
-		const { value } = input;
 		const maskedInputProps = {
-			...input,
-			value: isValidISODate(value) ? ISODateToMaskedInput(value) : value
+			...inputProps,
+			value: isValidISODate(selectedDate)
+				? ISODateToMaskedInput(selectedDate)
+				: selectedDate
 		};
 
 		return (
@@ -188,7 +190,8 @@ class DateInput extends Component {
 DateInput.propTypes = {
 	id: PT.string.isRequired,
 	label: PT.oneOfType([PT.string, PT.node]).isRequired,
-	input: PT.object.isRequired, // eslint-disable-line react/forbid-prop-types
+	inputProps: PT.object, // eslint-disable-line react/forbid-prop-types
+	selectedDate: PT.instanceOf(Date),
 	disabled: PT.bool,
 	fromDate: PT.instanceOf(Date),
 	toDate: PT.instanceOf(Date),
@@ -200,6 +203,8 @@ DateInput.defaultProps = {
 	disabled: false,
 	fromDate: undefined,
 	toDate: undefined,
-	errorMessage: undefined
+	errorMessage: undefined,
+	selectedDate: undefined,
+	inputProps: undefined
 };
 export default DateInput;

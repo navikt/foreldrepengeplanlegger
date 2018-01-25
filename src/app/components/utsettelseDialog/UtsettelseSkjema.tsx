@@ -6,7 +6,7 @@ interface Props {
 
 const UtsettelseSkjema: React.StatelessComponent<Props> = (props: Props) => (
 	<div>
-		<h1>Utsettelseskjema</h1>
+		<h1>Legg til utsettelse</h1>
 		{props.prop}
 	</div>
 );

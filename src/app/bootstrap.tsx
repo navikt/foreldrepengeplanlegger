@@ -3,9 +3,12 @@ import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import Modal from 'nav-frontend-modal';
 
 import PlanleggerApp from './Planlegger.app';
 import reducers from './redux/reducers';
+
+(Modal as any).setAppElement('#app');
 
 function configureStore() {
 	/* tslint:disable */

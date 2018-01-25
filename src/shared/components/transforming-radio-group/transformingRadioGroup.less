@@ -1,0 +1,45 @@
+@import "./../../../../../node_modules/nav-frontend-core/less/_variabler";
+
+.transformingRadioGroup {
+  .skjema__legend {
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .skjemaelement {
+    background-color: @white;
+    padding: 16px;
+    border: 1px solid @navGra20;
+    border-radius: 8px;
+
+    &__label {
+      padding-left: 34px;
+      line-height: 24px;
+    }
+
+    &__label:before {
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+    }
+
+    &__label:after {
+      border-radius: 50%;
+      margin-right: 12px;
+    }
+  }
+
+  &--expanded {
+    .radioknapp {
+      height: 24px;
+      width: 24px;
+    }
+  }
+
+  &--collapsed {
+    .checkboks {
+      border-radius: 50%;
+      outline: 1px solid @navGra20;
+    }
+  }
+}

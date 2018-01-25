@@ -17,9 +17,9 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 			isOpen={props.isOpen}
 			contentLabel="Utsettelse"
 			onRequestClose={() => props.onClose()}
-			className="utsettelseSkjemaDialog">
-			{props.isOpen && <UtsettelseSkjema />}
-		</Modal>
+			className="utsettelseSkjemaDialog"
+			children={props.isOpen && <UtsettelseSkjema />}
+		/>
 	</div>
 );
 

@@ -8,6 +8,11 @@ export default {
 		labelDekningsgrad100: (uker: number) => `100% i (${uker} uker)`,
 		fordelingFellespermisjon: `Fordeling av fellespermisjonen`,
 		fordelingForelder1: (uker: number, navn?: string) => `${navn || 'Forelder 1'}: ${uker} uker`,
-		fordelingForelder2: (uker: number, navn?: string) => `${navn || 'Forelder 2'}: ${uker} uker`
+		fordelingForelder2: (uker: number, navn?: string) => `${navn || 'Forelder 2'}: ${uker} uker`,
+		info: {
+			dekningsgrad: `Luctus mauris est sit nunc vehicula. Aliquam lacus in. Donec integer odio. 
+			Libero tincidunt arcu est eget pede. Arcu metus quisque in eget sociis.`,
+			fordelingFellesperiode: `Libero tincidunt arcu est eget pede. Arcu metus quisque in eget sociis.`
+		}
 	}
 };

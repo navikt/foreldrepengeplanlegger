@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Row, Column } from 'nav-frontend-grid';
 
+import { Row, Column } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
+
 import DateInput from 'shared/components/dateInput/DateInput';
 import RangeInput, { RangeInputValueLabelRendererOptions } from 'shared/components/rangeInput/RangeInput';
 import TransformingRadioGroup from 'shared/components/transformingRadioGroup/TransformingRadioGroup';
@@ -17,6 +18,7 @@ import {
 } from 'app/redux/actions';
 import Tekst from 'app/tekst';
 import { Dekningsgrad } from 'app/types';
+import SkjemaInfotekst from 'app/components/skjemaInfotekst/SkjemaInfotekst';
 
 export interface StateProps {
 	form: FormState;
@@ -89,6 +91,7 @@ class Skjema extends React.Component<Props> {
 				</div>
 
 				<div className="blokk-m">
+					<SkjemaInfotekst id="info-dekningsgrad">{Tekst.skjema.info.dekningsgrad}</SkjemaInfotekst>
 					<TransformingRadioGroup
 						stage={{
 							name: 'dekningsgrad',
@@ -115,16 +118,19 @@ class Skjema extends React.Component<Props> {
 				</div>
 
 				{form.ukerFellesperiode && (
-					<RangeInput
-						label={Tekst.skjema.fordelingFellespermisjon}
-						value={form.ukerForelder1}
-						min={0}
-						max={form.ukerFellesperiode}
-						onChange={(dager) => dispatch(settAntallDagerMor(dager))}
-						valueLabelRenderer={(options) =>
-							fordelingFellesperiodeLabelRenderer(options, form.navnForelder1 || 'Forelder 1', form.navnForelder2)
-						}
-					/>
+					<div className="blokk-s">
+						<SkjemaInfotekst id="info-fordeling">{Tekst.skjema.info.fordelingFellesperiode}</SkjemaInfotekst>
+						<RangeInput
+							label={Tekst.skjema.fordelingFellespermisjon}
+							value={form.ukerForelder1}
+							min={0}
+							max={form.ukerFellesperiode}
+							onChange={(dager) => dispatch(settAntallDagerMor(dager))}
+							valueLabelRenderer={(options) =>
+								fordelingFellesperiodeLabelRenderer(options, form.navnForelder1 || 'Forelder 1', form.navnForelder2)
+							}
+						/>
+					</div>
 				)}
 			</div>
 		);

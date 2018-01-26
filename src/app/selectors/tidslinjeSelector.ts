@@ -25,7 +25,7 @@ export const tidslinjeSelector = createSelector(formSelector, (form: FormState):
 		},
 		{
 			dato: termindato,
-			tittel: 'Termin',
+			tittel: 'Termindato',
 			forelder: 'forelder1',
 			type: 'termin'
 		},

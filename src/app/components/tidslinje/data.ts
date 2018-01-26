@@ -10,7 +10,7 @@ export const mockTidslinjeData: TidslinjeInnslag[] = [
 	{
 		dato: new Date(2018, 1, 24),
 		forelder: 'forelder1',
-		tittel: 'Termin',
+		tittel: 'Termindato',
 		type: 'termin'
 	},
 	{

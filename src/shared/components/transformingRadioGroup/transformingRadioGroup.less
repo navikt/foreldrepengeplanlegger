@@ -7,20 +7,26 @@
 		margin-bottom: 0.5rem;
 	}
 	.skjemaelement {
-		background-color: @white;
-		padding: 16px;
-		border: 1px solid @navGra20;
-		border-radius: 8px;
-
 		&__label {
-			padding-left: 34px;
+			width: 100%;
+			padding: 1rem 1rem 1rem 50px;
 			line-height: 24px;
+			background-color: @white;
+			border: 1px solid @navGra20;
+			border-radius: 8px;
+			transition: border-color 200ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+			&:hover {
+				border-color: #0067c5;
+			}
 		}
 
 		&__label:before {
 			border-radius: 50%;
 			width: 24px;
 			height: 24px;
+			top: 50%;
+			margin-top: -12px;
+			margin-left: 12px;
 		}
 
 		&__label:after {

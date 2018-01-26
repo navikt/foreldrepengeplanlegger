@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Checkbox, Fieldset, Radio } from 'nav-frontend-skjema';
-import './transformingRadioGroup.less';
 
 export default class TransformingRadioGroup extends Component {
 	radioGroupClsNames() {

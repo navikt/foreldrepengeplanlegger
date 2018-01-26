@@ -77,7 +77,7 @@ class DayPickerComponent extends Component {
 	}
 
 	getDateFromValue() {
-		const dato = moment(this.props.input.value);
+		const dato = moment(this.props.selectedDate);
 		return dato.isValid() ? dato.toDate() : null;
 	}
 
@@ -112,7 +112,8 @@ class DayPickerComponent extends Component {
 }
 
 DayPickerComponent.propTypes = {
-	input: PT.object.isRequired, // eslint-disable-line react/forbid-prop-types
+	// input: PT.object.isRequired, // eslint-disable-line react/forbid-prop-types
+	selectedDate: PT.instanceOf(Date),
 	onKeyUp: PT.func.isRequired,
 	close: PT.func.isRequired,
 	onDayClick: PT.func.isRequired,
@@ -120,7 +121,8 @@ DayPickerComponent.propTypes = {
 };
 
 DayPickerComponent.defaultProps = {
-	fromDate: undefined
+	fromDate: undefined,
+	selectedDate: undefined
 };
 
 export default DayPickerComponent;

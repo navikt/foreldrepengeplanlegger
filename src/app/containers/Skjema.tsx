@@ -49,7 +49,7 @@ class Skjema extends React.Component<Props> {
 				</Row>
 				<DateInput
 					id="input-termindato"
-					input={{ value: form.termindato }}
+					selectedDate={form.termindato}
 					label={Tekst.skjema.labelTermindato}
 					onChange={(dato) => dispatch(setTermindato(new Date(dato)))}
 				/>

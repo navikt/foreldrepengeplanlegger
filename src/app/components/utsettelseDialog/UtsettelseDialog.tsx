@@ -12,7 +12,7 @@ interface Props {
 
 const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 	<div>
-		<button onClick={() => props.onOpen()}>Vis dialog</button>
+		<button onClick={() => props.onOpen()}>Legg til utsettelse</button>
 		<Modal
 			isOpen={props.isOpen}
 			contentLabel="Utsettelse"

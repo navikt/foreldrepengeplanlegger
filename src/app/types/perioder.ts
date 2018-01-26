@@ -27,9 +27,9 @@ export enum StonadskontoType {
 }
 
 export enum UtsettelseArsakType {
-	'Ferie',
-	'Arbeid',
-	'UbetaltPermisjon'
+	'Ferie' = 'ferie',
+	'Arbeid' = 'arbeid',
+	'UbetaltPermisjon' = 'ubetaltPermisjon'
 }
 
 export interface KravTilUttaksplan {
@@ -39,7 +39,7 @@ export interface KravTilUttaksplan {
 }
 
 export interface UtsettelsePeriode {
-	periode: Tidsperiode;
-	arsak: UtsettelseArsakType;
-	forelder: Forelder;
+	periode?: Tidsperiode;
+	arsak?: UtsettelseArsakType;
+	forelder?: Forelder;
 }

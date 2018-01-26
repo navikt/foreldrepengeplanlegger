@@ -1,6 +1,6 @@
 import { Dekningsgrad, Grunndata, UtsettelsePeriode } from 'app/types';
 
-export type Forelder = 'mor' | 'medforelder';
+export type Forelder = 'forelder1' | 'forelder2';
 
 export interface Action<T> {
 	type: string;

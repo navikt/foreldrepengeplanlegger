@@ -1,30 +1,14 @@
-import { Dekningsgrad, Grunndata } from 'app/types';
-import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from 'app/redux/actionTypes';
+import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from 'app/redux/actions/actionTypes';
 import { getUkerFellesperiode } from 'app/utils/tidsberegninger';
 import { grunndata } from 'app/data/grunndata';
+import { FormState } from '../types';
 
-export interface FormInput {
-	key: string;
-	value: string;
-	savedValue: string;
-}
-
-export interface FormState {
-	navnForelder1?: string;
-	navnForelder2?: string;
-	termindato?: Date;
-	ukerForelder1?: number;
-	ukerForelder2?: number;
-	dekningsgrad?: Dekningsgrad;
-	ukerFellesperiode: number;
-	grunndata: Grunndata;
-}
-
-const antallUkerFellesperiode = getUkerFellesperiode(grunndata, '80%');
+const antallUkerFellesperiode = getUkerFellesperiode(grunndata, '100%');
 
 const defaultState: FormState = {
 	navnForelder1: '',
 	navnForelder2: '',
+	dekningsgrad: '100%',
 	ukerFellesperiode: antallUkerFellesperiode,
 	ukerForelder1: Math.round(antallUkerFellesperiode / 2),
 	grunndata
@@ -39,16 +23,19 @@ const FormReducer = (state = defaultState, action: PlanleggerActionTypes) => {
 		case PlanleggerActionTypeKeys.SET_TERMINDATO:
 			return { ...state, termindato: action.termindato };
 		case PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD:
+			const ukerFellesperiode = getUkerFellesperiode(grunndata, action.dekningsgrad);
 			return {
 				...state,
 				dekningsgrad: action.dekningsgrad,
-				ukerFellesperiode: getUkerFellesperiode(grunndata, action.dekningsgrad)
+				ukerFellesperiode: ukerFellesperiode,
+				ukerForelder1: state.ukerForelder1,
+				ukerForelder2: ukerFellesperiode - (state.ukerForelder1 || 0)
 			};
 		case PlanleggerActionTypeKeys.SET_UKER_FORELDER1:
 			return {
 				...state,
 				ukerForelder1: action.uker,
-				ukerForelder2: state.ukerFellesperiode - action.uker
+				ukerForelder2: state.ukerFellesperiode ? state.ukerFellesperiode - action.uker : 0
 			};
 		default:
 			return state;

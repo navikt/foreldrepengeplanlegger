@@ -3,12 +3,13 @@ import * as React from 'react';
 export interface DateInputProps {
 	id: string;
 	label: React.ReactNode;
-	input: { value?: Date };
+	selectedDate?: Date;
+	inputProps?: React.HTMLProps<HTMLInputElement>;
 	disabled?: boolean;
 	fromDate?: Date;
 	toDate?: Date;
 	errorMessage?: React.ReactNode;
-	onChange: (dato: Date) => void;
+	onChange: (date: string) => void;
 }
 
 declare class DateInput extends React.Component<DateInputProps> {}

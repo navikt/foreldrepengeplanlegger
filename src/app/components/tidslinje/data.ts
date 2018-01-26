@@ -1,34 +1,34 @@
-import { TidslinjeInnslag, InnslagType } from './types';
+import { TidslinjeInnslag } from './types';
 
 export const mockTidslinjeData: TidslinjeInnslag[] = [
 	{
 		dato: new Date(2018, 1, 5),
-		forelder: 'mor',
+		forelder: 'forelder1',
 		tittel: 'Berit starter sin permisjon',
-		type: InnslagType.uttak
+		type: 'uttak'
 	},
 	{
 		dato: new Date(2018, 1, 24),
-		forelder: 'mor',
+		forelder: 'forelder1',
 		tittel: 'Termin',
-		type: InnslagType.termin
+		type: 'termin'
 	},
 	{
 		dato: new Date(2018, 1, 23),
 		tittel: 'Mor avslutter sin permisjon',
-		forelder: 'mor',
-		type: InnslagType.slutt
+		forelder: 'forelder1',
+		type: 'slutt'
 	},
 	{
 		dato: new Date(2018, 6, 2),
 		tittel: 'Bjørn Harald starter sin permisjon',
-		forelder: 'medforelder',
-		type: InnslagType.uttak
+		forelder: 'forelder2',
+		type: 'uttak'
 	},
 	{
 		dato: new Date(2018, 8, 7),
-		forelder: 'medforelder',
 		tittel: 'Bjørn Harald avslutter sin permisjon',
-		type: InnslagType.siste
+		forelder: 'forelder2',
+		type: 'siste'
 	}
 ];

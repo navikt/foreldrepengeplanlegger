@@ -43,3 +43,15 @@ export function setDekningsgrad(dekningsgrad: Dekningsgrad): PlanleggerActionTyp
 		dekningsgrad
 	};
 }
+
+export function utsettelseVisDialog(): PlanleggerActionTypes {
+	return {
+		type: PlanleggerActionTypeKeys.UTSETTELSE_VIS_DIALOG
+	};
+}
+
+export function utsettelseLukkDialog(): PlanleggerActionTypes {
+	return {
+		type: PlanleggerActionTypeKeys.UTSETTELSE_LUKK_DIALOG
+	};
+}

@@ -6,6 +6,7 @@ import { FormState } from '../types';
 const antallUkerFellesperiode = getUkerFellesperiode(grunndata, '100%');
 
 const defaultState: FormState = {
+	termindato: new Date(),
 	navnForelder1: 'Lisa',
 	navnForelder2: 'Frode',
 	dekningsgrad: '100%',

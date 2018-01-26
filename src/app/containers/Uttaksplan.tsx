@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 import Tidslinje from 'app/components/tidslinje/Tidslinje';
-import UtsettelseDialog from 'app/components/utsettelseDialog/UtsettelseDialog';
+// import UtsettelseDialog from 'app/components/utsettelseDialog/UtsettelseDialog';
 import Skjema from './Skjema';
 import { AppState, UtsettelseState, DispatchProps } from 'app/redux/types';
 import { TidslinjeInnslag } from 'app/components/tidslinje/types';
 import { tidslinjeSelector } from 'app/selectors/tidslinjeSelector';
-import { utsettelseLukkDialog, utsettelseVisDialog } from 'app/redux/actions';
+// import { utsettelseLukkDialog, utsettelseVisDialog } from 'app/redux/actions';
 import Veileder from 'shared/components/veileder/Veileder';
 
 export interface StateProps {
@@ -33,12 +33,14 @@ export class Uttaksplan extends React.Component<Props> {
 				</div>
 
 				<Skjema />
-				<UtsettelseDialog
+
+				{/* <UtsettelseDialog
 					isOpen={this.props.utsettelse.isOpen}
 					onOpen={() => this.props.dispatch(utsettelseVisDialog())}
 					onClose={() => this.props.dispatch(utsettelseLukkDialog())}
 				/>
-				<Tidslinje innslag={this.props.innslag} />
+ */}
+				{this.props.innslag && this.props.innslag.length > 0 && <Tidslinje innslag={this.props.innslag} />}
 			</div>
 		);
 	}

@@ -13,6 +13,7 @@
 @lineOffsetBottom: 0rem;
 @arrowLeftSkew: 35deg;
 @dot-z-index: 2;
+@paddingLeft: 3rem;
 
 .setArrowLeftColor(@borderColor, @bkgColor) {
 	background-color: @bkgColor;
@@ -78,8 +79,19 @@
 .tidslinje {
 	> .tidslinje__tidslinjeInnslag {
 		padding-bottom: 1rem;
-		padding-left: 4rem;
+		padding-left: 3.5rem;
+		&:last-child {
+			padding-bottom: 0;
+		}
 	}
+	transition: opacity 0.2 linear;
+	.inactive {
+		opacity: 0;
+	}
+	background-color: #f1f1f1;
+	margin-left: -1rem;
+	margin-right: -1rem;
+	padding: 2rem 2rem @paddingLeft 1rem;
 }
 
 .tidslinjeInnslag {
@@ -114,6 +126,7 @@
 		.tidslinjeInnslag__dato {
 			display: inline-block;
 			padding-right: 1rem;
+			margin-bottom: 0.1rem;
 		}
 		.tidslinjeInnslag__hendelse {
 			display: inline-block;
@@ -143,7 +156,7 @@
 		position: absolute;
 		top: @lineOffsetTop;
 		bottom: @lineOffsetBottom;
-		left: -3.5rem;
+		left: -1 * (@paddingLeft);
 		z-index: 3;
 		&:before {
 			.hendelseDot(@c-purple);
@@ -155,7 +168,7 @@
 			display: none;
 		}
 		&--forelder2 {
-			left: -2rem;
+			left: -1 * (@paddingLeft - 1.2rem);
 			background-color: @c-blue;
 			&:before {
 				.setHendelseDotColor(@c-blue);

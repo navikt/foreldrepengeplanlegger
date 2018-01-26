@@ -9,7 +9,7 @@ p {
 .planlegger {
 	max-width: 600px;
 	margin: 0 auto;
-	padding: 0 1rem 4rem 1rem;
+	padding: 0 1rem 2rem 1rem;
 }
 
 .planlegger-skjema {
@@ -29,5 +29,20 @@ p {
 			max-width: 200px;
 			width: 20%;
 		}
+	}
+}
+
+.skjema_fordelingFellesperiode {
+	display: flex;
+	&__uker {
+		font-size: 1.3em;
+		font-weight: bold;
+	}
+	&__forelder1 {
+		flex-basis: 50%;
+	}
+	&__forelder2 {
+		flex-basis: 50%;
+		text-align: right;
 	}
 }

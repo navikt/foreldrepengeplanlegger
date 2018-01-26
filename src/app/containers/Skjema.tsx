@@ -2,9 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Row, Column } from 'nav-frontend-grid';
 
-import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Input } from 'nav-frontend-skjema';
 import DateInput from 'shared/components/dateInput/DateInput';
-import RangeInput from 'shared/components/rangeInput/RangeInput';
+import RangeInput, { RangeInputValueLabelRendererOptions } from 'shared/components/rangeInput/RangeInput';
 import TransformingRadioGroup from 'shared/components/transformingRadioGroup/TransformingRadioGroup';
 
 import { DispatchProps, AppState, FormState } from 'app/redux/types';
@@ -23,6 +23,35 @@ export interface StateProps {
 }
 
 type Props = StateProps & DispatchProps;
+
+const pluralize = (value: number, singular: string, plural: string): string => (value === 1 ? singular : plural);
+
+const fordelingFellesperiodeLabelRenderer = (
+	options: RangeInputValueLabelRendererOptions,
+	navnForelder1: string,
+	navnForelder2?: string
+) => {
+	const ukerForelder1 = options.value || 0;
+	const ukerForelder2 = options.max - (options.value || 0);
+	return (
+		<div className="skjema_fordelingFellesperiode">
+			<div className="skjema_fordelingFellesperiode__forelder1">
+				<div className="skjema_fordelingFellesperiode__forelderNavn">{navnForelder1}</div>
+				<div className="skjema_fordelingFellesperiode__uker">
+					{ukerForelder1} {pluralize(ukerForelder1 || 0, 'uke', 'uker')}
+				</div>
+			</div>
+			{navnForelder2 && (
+				<div className="skjema_fordelingFellesperiode__forelder2">
+					<div className="skjema_fordelingFellesperiode__forelderNavn">{navnForelder2}</div>
+					<div className="skjema_fordelingFellesperiode__uker">
+						{ukerForelder2} {pluralize(ukerForelder2, 'uke', 'uker')}
+					</div>
+				</div>
+			)}
+		</div>
+	);
+};
 
 class Skjema extends React.Component<Props> {
 	render() {
@@ -50,8 +79,7 @@ class Skjema extends React.Component<Props> {
 						</Column>
 					</Row>
 				</div>
-
-				<div className="blokk-s">
+				<div className="blokk-m">
 					<DateInput
 						id="input-termindato"
 						selectedDate={form.termindato}
@@ -60,7 +88,7 @@ class Skjema extends React.Component<Props> {
 					/>
 				</div>
 
-				<div className="blokk-s">
+				<div className="blokk-m">
 					<TransformingRadioGroup
 						stage={{
 							name: 'dekningsgrad',
@@ -87,16 +115,16 @@ class Skjema extends React.Component<Props> {
 				</div>
 
 				{form.ukerFellesperiode && (
-					<SkjemaGruppe title={Tekst.skjema.fordelingFellespermisjon(form.ukerFellesperiode)} className="skjemaelement">
-						<RangeInput
-							value={form.ukerForelder1}
-							min={0}
-							max={form.ukerFellesperiode}
-							onChange={(dager) => dispatch(settAntallDagerMor(dager))}
-							labelLeft={Tekst.skjema.fordelingForelder1(form.ukerForelder1 || 0, form.navnForelder1)}
-							labelRight={Tekst.skjema.fordelingForelder2(form.ukerForelder2 || 0, form.navnForelder2)}
-						/>
-					</SkjemaGruppe>
+					<RangeInput
+						label={Tekst.skjema.fordelingFellespermisjon}
+						value={form.ukerForelder1}
+						min={0}
+						max={form.ukerFellesperiode}
+						onChange={(dager) => dispatch(settAntallDagerMor(dager))}
+						valueLabelRenderer={(options) =>
+							fordelingFellesperiodeLabelRenderer(options, form.navnForelder1 || 'Forelder 1', form.navnForelder2)
+						}
+					/>
 				)}
 			</div>
 		);

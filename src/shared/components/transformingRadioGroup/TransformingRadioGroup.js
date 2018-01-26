@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Checkbox, Fieldset, Radio } from 'nav-frontend-skjema';
+import { Checkbox, Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 
 export default class TransformingRadioGroup extends Component {
 	radioGroupClsNames() {
@@ -29,14 +29,15 @@ export default class TransformingRadioGroup extends Component {
 	renderExpanded() {
 		const { name, values } = this.props.stage;
 		return values.map((radioAttrs) => (
-			<Radio
-				key={radioAttrs.value}
-				name={name}
-				onClick={($e) => {
-					this.props.onClickExpanded($e, radioAttrs.value);
-				}}
-				{...radioAttrs}
-			/>
+			<div className="transformingRadioGroup__option" key={radioAttrs.value}>
+				<Radio
+					name={name}
+					onClick={($e) => {
+						this.props.onClickExpanded($e, radioAttrs.value);
+					}}
+					{...radioAttrs}
+				/>
+			</div>
 		));
 	}
 
@@ -44,10 +45,10 @@ export default class TransformingRadioGroup extends Component {
 		const { collapsed, expanded } = this.props;
 		return (
 			<div className={this.radioGroupClsNames()}>
-				<Fieldset legend={this.props.stage.legend}>
+				<SkjemaGruppe title={this.props.stage.legend}>
 					{expanded && this.renderExpanded()}
 					{collapsed && this.renderCollapsed()}
-				</Fieldset>
+				</SkjemaGruppe>
 			</div>
 		);
 	}

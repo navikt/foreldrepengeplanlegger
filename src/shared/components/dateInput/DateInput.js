@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import MaskedInput from 'react-maskedinput';
-import { Element } from 'nav-frontend-typografi';
 import Icon from 'nav-frontend-ikoner-assets';
 import classnames from 'classnames';
 
@@ -129,7 +128,9 @@ class DateInput extends Component {
 				ref={(container) => {
 					this.container = container;
 				}}>
-				<Element>{label}</Element>
+				<label className="skjemaelement__label" htmlFor={id}>
+					{label}
+				</label>
 				<div // eslint-disable-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
 					className="datovelger__inner"
 					tabIndex=""

@@ -48,7 +48,7 @@ export interface SetUkerForelder2 {
 
 export interface SetDekningsgrad {
 	type: PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD;
-	dekningsgrad: Dekningsgrad;
+	dekningsgrad: Dekningsgrad | undefined;
 }
 
 export interface UtsettelseVisDialog {

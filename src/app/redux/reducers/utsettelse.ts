@@ -2,7 +2,7 @@ import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from 'app/redux/actio
 import { UtsettelseState } from '../types';
 
 const defaultState: UtsettelseState = {
-	isOpen: true,
+	isOpen: false,
 	utsettelse: undefined
 };
 

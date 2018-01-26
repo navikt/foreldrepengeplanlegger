@@ -37,7 +37,7 @@ export function settAntallDagerMedforelder(uker: number): PlanleggerActionTypes 
 	};
 }
 
-export function setDekningsgrad(dekningsgrad: Dekningsgrad): PlanleggerActionTypes {
+export function setDekningsgrad(dekningsgrad: Dekningsgrad | undefined): PlanleggerActionTypes {
 	return {
 		type: PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD,
 		dekningsgrad

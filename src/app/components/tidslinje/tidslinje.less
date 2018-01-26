@@ -1,18 +1,19 @@
-@arrow-size: 12px;
+@arrow-size: 10px;
 @bkgColor: #e7e7e7;
 @c-purple: #634689;
 @c-purple-bkg: #e0dae7;
 @c-blue: #5eaec7;
 @c-blue-bkg: #ccdee6;
 @c-red: #c30000;
-@dotSize: 14px;
+@dotSize: 12px;
 @dotBorderWidth: 3px;
 @dotOffsetTop: @dotSize/2 - @dotBorderWidth/2;
 @dotOffsetBottom: -1 * @dotOffsetTop;
 @lineOffsetTop: 0rem;
 @lineOffsetBottom: 0rem;
-@arrowLeftSkew: 35deg;
+@arrowLeftSkew: 26deg;
 @dot-z-index: 2;
+@paddingLeft: 3rem;
 
 .setArrowLeftColor(@borderColor, @bkgColor) {
 	background-color: @bkgColor;
@@ -24,9 +25,9 @@
 	z-index: 1;
 	position: absolute;
 	top: -1px;
-	left: -5px;
-	width: @arrow-size - 0.2rem;
-	height: @arrow-size;
+	left: -4px;
+	width: @arrow-size;
+	height: @arrow-size + 3px;
 	border-color: transparent;
 	border-style: solid;
 	border-top-width: 1px;
@@ -78,14 +79,25 @@
 .tidslinje {
 	> .tidslinje__tidslinjeInnslag {
 		padding-bottom: 1rem;
-		padding-left: 4rem;
+		padding-left: 3.5rem;
+		&:last-child {
+			padding-bottom: 0;
+		}
 	}
+	transition: opacity 0.2 linear;
+	.inactive {
+		opacity: 0;
+	}
+	background-color: #f1f1f1;
+	margin-left: -1rem;
+	margin-right: -1rem;
+	padding: 2rem 2rem @paddingLeft 1rem;
 }
 
 .tidslinjeInnslag {
 	position: relative;
 	display: block;
-	background-color: @c-purple-bkg;
+	background-color: white; //@c-purple-bkg;
 	border: 1px solid @c-purple;
 	border-radius: 2px;
 	padding: 1rem;
@@ -93,18 +105,19 @@
 	margin-bottom: -2px;
 	color: #3e3832;
 	&:before {
-		.arrowLeft(@c-purple, @c-purple-bkg);
+		.arrowLeft(@c-purple, white);
 	}
 	&--forelder2 {
 		border-color: @c-blue;
-		background-color: @c-blue-bkg;
+		// background-color: @c-blue-bkg;
 		&:before {
-			.setArrowLeftColor(@c-blue, @c-blue-bkg);
+			.setArrowLeftColor(@c-blue, white);
 		}
 	}
 	&__dato {
 		margin-top: 0;
 		margin-bottom: 0.5rem;
+		font-weight: bold;
 	}
 	&--termin {
 		background-color: transparent;
@@ -114,11 +127,11 @@
 		.tidslinjeInnslag__dato {
 			display: inline-block;
 			padding-right: 1rem;
+			margin-bottom: 0.1rem;
 		}
 		.tidslinjeInnslag__hendelse {
 			display: inline-block;
-			padding-right: 1rem;
-			color: @c-red;
+			padding-right: 1.5rem;
 		}
 		&:before {
 			display: none;
@@ -131,6 +144,7 @@
 	}
 	&__terminHjerte {
 		vertical-align: middle;
+		margin-left: 0.5rem;
 	}
 	&--slutt {
 		&:before {
@@ -143,7 +157,7 @@
 		position: absolute;
 		top: @lineOffsetTop;
 		bottom: @lineOffsetBottom;
-		left: -3.5rem;
+		left: -1 * (@paddingLeft + 0.1rem);
 		z-index: 3;
 		&:before {
 			.hendelseDot(@c-purple);
@@ -155,7 +169,7 @@
 			display: none;
 		}
 		&--forelder2 {
-			left: -2rem;
+			left: -1 * (@paddingLeft - 1.2rem);
 			background-color: @c-blue;
 			&:before {
 				.setHendelseDotColor(@c-blue);

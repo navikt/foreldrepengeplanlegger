@@ -1,9 +1,9 @@
 export default {
 	skjema: {
-		labelForelder1: 'Navn forelder 1',
-		labelForelder2: 'Navn forelder 2',
+		labelForelder1: 'Forelder 1',
+		labelForelder2: 'Forelder 2',
 		labelTermindato: 'Termindato',
-		labelDekningsgrad: 'Hvilken sats ønsker du',
+		labelDekningsgrad: (harForelder2: boolean) => `Hvilken sats ønsker ${harForelder2 ? 'dere' : 'du'}?`,
 		labelDekningsgrad80: (uker: number) => `80% i (${uker} uker)`,
 		labelDekningsgrad100: (uker: number) => `100% i (${uker} uker)`,
 		fordelingFellespermisjon: (ukerFellesperiode: number) =>

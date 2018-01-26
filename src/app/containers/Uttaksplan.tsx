@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 
-import DialogBox from 'shared/components/dialogBox/DialogBox';
 import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import UtsettelseDialog from 'app/components/utsettelseDialog/UtsettelseDialog';
 import Skjema from './Skjema';
@@ -10,6 +9,7 @@ import { AppState, UtsettelseState, DispatchProps } from 'app/redux/types';
 import { TidslinjeInnslag } from 'app/components/tidslinje/types';
 import { tidslinjeSelector } from 'app/selectors/tidslinjeSelector';
 import { utsettelseLukkDialog, utsettelseVisDialog } from 'app/redux/actions';
+import Veileder from 'shared/components/veileder/Veileder';
 
 export interface StateProps {
 	innslag: TidslinjeInnslag[];
@@ -22,13 +22,16 @@ export class Uttaksplan extends React.Component<Props> {
 	render() {
 		return (
 			<div>
-				<div className="blockSpacing">
-					<DialogBox type="info">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus bibendum dui nec ipsum euismod, quis
-						eleifend quam aliquam. Fusce nec aliquam massa. Nam sed est fringilla, volutpat odio sed, fermentum odio. In
-						quis lacus eu mauris ultricies convallis. Nulla eu dignissim mi, ac condimentum purus.
-					</DialogBox>
+				<div className="introtekst">
+					<div className="introtekst__veileder">
+						<Veileder type="intro" svgClassName="veilederSvg" />
+					</div>
+					<p>
+						Hei, hver forelder har rett på 14 uker permisjon hver. I tillegg har dere enten 28 eller 18 uker dere kan
+						fordele mellom dere basert på den totale permisjonslengden dere velger, som er 59 uker eller 49 uker.
+					</p>
 				</div>
+
 				<Skjema />
 				<UtsettelseDialog
 					isOpen={this.props.utsettelse.isOpen}

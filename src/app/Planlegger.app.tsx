@@ -6,7 +6,7 @@ export class PlanleggerIndex extends React.Component {
 	render() {
 		return (
 			<div className="planlegger">
-				<h1>Permisjons&shy;planleggeren</h1>
+				<h1 className="m-textCenter">Permisjons&shy;planleggeren</h1>
 				<Uttaksplan />
 			</div>
 		);

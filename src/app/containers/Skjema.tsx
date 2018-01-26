@@ -30,7 +30,7 @@ class Skjema extends React.Component<Props> {
 			<div className="planlegger-skjema">
 				<Container fluid={true} />
 				<Row>
-					<Column xs="12" md="6">
+					<Column xs="6">
 						<Input
 							name="navnforelder1"
 							label={Tekst.skjema.labelForelder1}
@@ -38,10 +38,10 @@ class Skjema extends React.Component<Props> {
 							onChange={(e: any) => dispatch(setNavnForelder1(e.target.value))}
 						/>
 					</Column>
-					<Column xs="12" md="6">
+					<Column xs="6">
 						<Input
 							name="navnforelder2"
-							label={Tekst.skjema.labelForelder1}
+							label={Tekst.skjema.labelForelder2}
 							value={form.navnForelder2}
 							onChange={(e: any) => dispatch(setNavnForelder2(e.target.value))}
 						/>
@@ -53,7 +53,9 @@ class Skjema extends React.Component<Props> {
 					label={Tekst.skjema.labelTermindato}
 					onChange={(dato) => dispatch(setTermindato(new Date(dato)))}
 				/>
-				<SkjemaGruppe title={Tekst.skjema.labelDekningsgrad} className="skjemaelement">
+				<SkjemaGruppe
+					title={Tekst.skjema.labelDekningsgrad(form.navnForelder2 ? form.navnForelder2 !== '' : false)}
+					className="skjemaelement">
 					<Radio
 						label={Tekst.skjema.labelDekningsgrad80(form.grunndata.antallUkerTotalt80)}
 						checked={form.dekningsgrad === '80%'}

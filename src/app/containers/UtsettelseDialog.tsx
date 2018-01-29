@@ -36,14 +36,15 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 				)
 			}
 		/>
-		{props.utsettelser.map((u) => (
-			<div key={u.id}>
-				<a href="#" onClick={() => props.dispatch(utsettelseVisDialog(u))}>
-					{u.arsak} {u.forelder}
-				</a>}
-				{u.arsak} {u.forelder}
-			</div>
-		))}
+		<ol>
+			{props.utsettelser.map((u) => (
+				<li key={u.id}>
+					<a href="#" onClick={() => props.dispatch(utsettelseVisDialog(u))}>
+						{u.arsak} {u.forelder}
+					</a>
+				</li>
+			))}
+		</ol>
 	</div>
 );
 

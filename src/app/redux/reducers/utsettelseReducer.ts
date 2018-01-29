@@ -14,6 +14,15 @@ const defaultState: UtsettelseState = {
 				sluttdato: new Date(2018, 5, 15)
 			},
 			forelder: 'forelder1'
+		},
+		{
+			arsak: UtsettelseArsakType.Arbeid,
+			id: '2',
+			periode: {
+				startdato: new Date(2018, 0, 1),
+				sluttdato: new Date(2019, 1, 1)
+			},
+			forelder: 'forelder2'
 		}
 	]
 };

@@ -36,14 +36,14 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 				)
 			}
 		/>
-		{/* {props.utsettelser.map((u) => (
+		{props.utsettelser.map((u) => (
 			<div key={u.id}>
 				<a href="#" onClick={() => props.dispatch(utsettelseVisDialog(u))}>
 					{u.arsak} {u.forelder}
 				</a>}
 				{u.arsak} {u.forelder}
 			</div>
-		))} */}
+		))}
 	</div>
 );
 

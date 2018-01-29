@@ -40,10 +40,9 @@ export interface Tidsperiode {
 
 export interface Utsettelse {
 	id?: string;
-	startdato?: Date;
-	sluttdato?: Date;
-	arsak?: UtsettelseArsakType;
-	forelder?: Forelder;
+	periode: Tidsperiode;
+	arsak: UtsettelseArsakType;
+	forelder: Forelder;
 }
 
 export interface Uttaksregler {

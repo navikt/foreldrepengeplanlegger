@@ -1,14 +1,16 @@
-import { Dekningsgrad } from 'app/types';
+import { Dekningsgrad, Utsettelse } from 'app/types';
 
 export enum PlanleggerActionTypeKeys {
-	'SET_NAVN_FORELDER1',
-	'SET_NAVN_FORELDER2',
-	'SET_TERMINDATO',
-	'SET_UKER_FORELDER1',
-	'SET_UKER_FORELDER2',
-	'SETT_DEKNINGSGRAD',
-	'UTSETTELSE_VIS_DIALOG',
-	'UTSETTELSE_LUKK_DIALOG'
+	'SET_NAVN_FORELDER1' = 'setNavnForelder1',
+	'SET_NAVN_FORELDER2' = 'setNavnForelder2',
+	'SET_TERMINDATO' = 'setTermindato',
+	'SET_UKER_FORELDER1' = 'setUkerForelder1',
+	'SET_UKER_FORELDER2' = 'setUkerForelder2',
+	'SETT_DEKNINGSGRAD' = 'setDekningsgrad',
+	'UTSETTELSE_VIS_DIALOG' = 'utsettelseVisDialog',
+	'UTSETTELSE_LUKK_DIALOG' = 'utsettelseLukkDialog',
+	'UTSETTELSE_OPPRETT_ELLER_OPPDATER' = 'utsettelseOpprettEllerOppdater',
+	'UTSETTELSE_SLETT' = 'utsettelseSlett'
 }
 
 export type PlanleggerActionTypes =
@@ -19,7 +21,9 @@ export type PlanleggerActionTypes =
 	| SetUkerForelder1
 	| SetDekningsgrad
 	| UtsettelseVisDialog
-	| UtsettelseLukkDialog;
+	| UtsettelseLukkDialog
+	| OpprettEllerOppdaterUtsettelse
+	| SlettUtsettelse;
 
 export interface SetNavnForelder1 {
 	type: PlanleggerActionTypeKeys.SET_NAVN_FORELDER1;
@@ -53,8 +57,19 @@ export interface SetDekningsgrad {
 
 export interface UtsettelseVisDialog {
 	type: PlanleggerActionTypeKeys.UTSETTELSE_VIS_DIALOG;
+	utsettelse?: Utsettelse;
 }
 
 export interface UtsettelseLukkDialog {
 	type: PlanleggerActionTypeKeys.UTSETTELSE_LUKK_DIALOG;
+}
+
+export interface OpprettEllerOppdaterUtsettelse {
+	type: PlanleggerActionTypeKeys.UTSETTELSE_OPPRETT_ELLER_OPPDATER;
+	utsettelse: Utsettelse;
+}
+
+export interface SlettUtsettelse {
+	type: PlanleggerActionTypeKeys.UTSETTELSE_SLETT;
+	utsettelse: Utsettelse;
 }

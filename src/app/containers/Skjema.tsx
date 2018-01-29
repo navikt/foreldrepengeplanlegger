@@ -8,7 +8,7 @@ import DateInput from 'shared/components/dateInput/DateInput';
 import RangeInput, { RangeInputValueLabelRendererOptions } from 'shared/components/rangeInput/RangeInput';
 import TransformingRadioGroup from 'shared/components/transformingRadioGroup/TransformingRadioGroup';
 
-import { DispatchProps, AppState, FormState } from 'app/redux/types';
+import { DispatchProps, AppState, FormState, UtsettelseState } from 'app/redux/types';
 import {
 	setNavnForelder1,
 	setNavnForelder2,
@@ -22,6 +22,7 @@ import SkjemaInfotekst from 'app/components/skjemaInfotekst/SkjemaInfotekst';
 
 export interface StateProps {
 	form: FormState;
+	utsettelse: UtsettelseState;
 }
 
 type Props = StateProps & DispatchProps;
@@ -139,7 +140,8 @@ class Skjema extends React.Component<Props> {
 
 const mapStateToProps = (state: AppState): StateProps => {
 	return {
-		form: state.form
+		form: state.form,
+		utsettelse: state.utsettelse
 	};
 };
 

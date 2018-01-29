@@ -14,15 +14,11 @@ import {
 	setNavnForelder2,
 	setTermindato,
 	setDekningsgrad,
-	settAntallDagerMor,
-	utsettelseLukkDialog,
-	utsettelseVisDialog,
-	opprettEllerOppdaterUtsettelse
+	settAntallDagerMor
 } from 'app/redux/actions';
 import Tekst from 'app/tekst';
-import { Dekningsgrad, Utsettelse } from 'app/types';
+import { Dekningsgrad } from 'app/types';
 import SkjemaInfotekst from 'app/components/skjemaInfotekst/SkjemaInfotekst';
-import UtsettelseDialog from 'app/components/utsettelseDialog/UtsettelseDialog';
 
 export interface StateProps {
 	form: FormState;
@@ -62,7 +58,7 @@ const fordelingFellesperiodeLabelRenderer = (
 
 class Skjema extends React.Component<Props> {
 	render() {
-		const { dispatch, form, utsettelse } = this.props;
+		const { dispatch, form } = this.props;
 
 		return (
 			<div className="planlegger-skjema">
@@ -137,20 +133,6 @@ class Skjema extends React.Component<Props> {
 						/>
 					</div>
 				)}
-				<UtsettelseDialog
-					isOpen={utsettelse.dialogErApen}
-					utsettelse={utsettelse}
-					forelder1={form.navnForelder1}
-					forelder2={form.navnForelder2}
-					onOpen={() => dispatch(utsettelseVisDialog())}
-					onClose={() => dispatch(utsettelseLukkDialog())}
-					onChange={(u: Utsettelse) => dispatch(opprettEllerOppdaterUtsettelse(u))}
-				/>
-				{utsettelse.utsettelser.map((u) => (
-					<div key={u.id}>
-						{u.arsak} {u.forelder}
-					</div>
-				))}
 			</div>
 		);
 	}

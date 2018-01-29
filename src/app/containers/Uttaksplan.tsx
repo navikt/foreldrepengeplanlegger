@@ -13,6 +13,7 @@ import UtsettelseDialog from 'app/containers/UtsettelseDialog';
 export interface StateProps {
 	innslag: TidslinjeInnslag[];
 	utsettelse: UtsettelseState;
+	visTidslinje: boolean;
 }
 
 export type Props = StateProps & RouteComponentProps<{}> & DispatchProps;
@@ -31,18 +32,27 @@ export class Uttaksplan extends React.Component<Props> {
 					</p>
 				</div>
 
-				<Skjema />
-				<UtsettelseDialog />
+				<div className="blokk-m">
+					<Skjema />
+				</div>
 
-				{this.props.innslag && this.props.innslag.length > 0 && <Tidslinje innslag={this.props.innslag} />}
+				<div className="blokk-m">
+					<UtsettelseDialog />
+				</div>
+
+				{this.props.visTidslinje && <Tidslinje innslag={this.props.innslag} />}
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = (state: AppState): StateProps => ({
-	innslag: tidslinjeSelector(state),
-	utsettelse: state.utsettelse
-});
+const mapStateToProps = (state: AppState): StateProps => {
+	const innslag = tidslinjeSelector(state);
+	return {
+		innslag,
+		utsettelse: state.utsettelse,
+		visTidslinje: innslag && innslag.length > 0
+	};
+};
 
 export default connect(mapStateToProps)(withRouter(Uttaksplan));

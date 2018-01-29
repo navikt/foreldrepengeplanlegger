@@ -44,9 +44,10 @@ export function setDekningsgrad(dekningsgrad: Dekningsgrad | undefined): Planleg
 	};
 }
 
-export function utsettelseVisDialog(): PlanleggerActionTypes {
+export function utsettelseVisDialog(utsettelse?: Utsettelse): PlanleggerActionTypes {
 	return {
-		type: PlanleggerActionTypeKeys.UTSETTELSE_VIS_DIALOG
+		type: PlanleggerActionTypeKeys.UTSETTELSE_VIS_DIALOG,
+		utsettelse
 	};
 }
 

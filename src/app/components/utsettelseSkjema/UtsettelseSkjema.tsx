@@ -12,12 +12,7 @@ interface Props {
 	onChange: (utsettelse: Utsettelse) => void;
 }
 
-interface State {
-	arsak?: UtsettelseArsakType;
-	startdato?: Date;
-	sluttdato?: Date;
-	forelder?: Forelder;
-}
+interface State extends Utsettelse {}
 
 const preventDefaultEvent = (e: FormEvent<HTMLFormElement>) => {
 	e.preventDefault();
@@ -28,25 +23,32 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		super(props);
 		this.hentSkjemadata = this.hentSkjemadata.bind(this);
 		this.erSkjemaGyldig = this.erSkjemaGyldig.bind(this);
+
+		const skjemadata = this.props.utsettelse
+			? {
+					id: this.props.utsettelse.id,
+					arsak: this.props.utsettelse.arsak,
+					startdato: this.props.utsettelse.startdato,
+					sluttdato: this.props.utsettelse.startdato,
+					forelder: this.props.utsettelse.forelder
+				}
+			: {};
+
 		this.state = {
-			startdato: undefined,
-			sluttdato: undefined,
-			arsak: undefined,
-			forelder: undefined
+			...skjemadata
 		};
 	}
 
 	hentSkjemadata(): Utsettelse {
-		const { arsak, startdato, sluttdato, forelder } = this.state;
+		const { id, arsak, startdato, sluttdato, forelder } = this.state;
 		if (!startdato || !sluttdato || !arsak || !forelder) {
 			return {};
 		}
 		return {
+			id,
 			arsak,
-			tidsperiode: {
-				startdato,
-				sluttdato
-			},
+			startdato,
+			sluttdato,
 			forelder
 		};
 	}
@@ -67,7 +69,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 	}
 
 	render() {
-		const { arsak, startdato, sluttdato, forelder } = this.state;
+		const { id, arsak, startdato, sluttdato, forelder } = this.state;
 		const { forelder1, forelder2 } = this.props;
 		return (
 			<form onSubmit={preventDefaultEvent} className="utsettelseSkjema">
@@ -124,7 +126,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				</div>
 
 				<Hovedknapp onClick={() => this.handleSubmitClick()} className="m-fullBredde">
-					Legg til
+					{id ? 'Oppdater' : 'Legg til'}
 				</Hovedknapp>
 			</form>
 		);

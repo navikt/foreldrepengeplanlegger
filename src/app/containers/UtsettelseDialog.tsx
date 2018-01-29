@@ -5,10 +5,12 @@ import UtsettelseSkjema from '../components/utsettelseSkjema/UtsettelseSkjema';
 import { DispatchProps, AppState } from 'app/redux/types';
 import { utsettelseLukkDialog, utsettelseVisDialog, opprettEllerOppdaterUtsettelse } from 'app/redux/actions';
 import { connect } from 'react-redux';
+import { Utsettelse } from 'app/types';
 
 interface StateProps {
 	isOpen: boolean;
-	utsettelse?: {};
+	utsettelser: Utsettelse[];
+	utsettelse?: Utsettelse;
 	forelder1?: string;
 	forelder2?: string;
 }
@@ -34,12 +36,21 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 				)
 			}
 		/>
+		{/* {props.utsettelser.map((u) => (
+			<div key={u.id}>
+				<a href="#" onClick={() => props.dispatch(utsettelseVisDialog(u))}>
+					{u.arsak} {u.forelder}
+				</a>}
+				{u.arsak} {u.forelder}
+			</div>
+		))} */}
 	</div>
 );
 
 const mapStateToProps = (state: AppState): StateProps => {
 	return {
-		utsettelse: state.utsettelse,
+		utsettelser: state.utsettelse.utsettelser,
+		utsettelse: state.utsettelse.valgtUtsettelse,
 		forelder1: state.form.navnForelder1,
 		forelder2: state.form.navnForelder2,
 		isOpen: state.utsettelse.dialogErApen

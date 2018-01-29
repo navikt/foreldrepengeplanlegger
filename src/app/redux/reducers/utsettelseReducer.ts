@@ -9,15 +9,18 @@ const defaultState: UtsettelseState = {
 };
 
 const opprettEllerOppdaterUtsettelse = (state: UtsettelseState, utsettelse: Utsettelse): UtsettelseState => {
+	const utsettelser = utsettelse.id
+		? state.utsettelser.map((u, idx) => (u.id === utsettelse.id ? utsettelse : state.utsettelser[idx]))
+		: [
+				...state.utsettelser,
+				{
+					...utsettelse,
+					id: guid()
+				}
+			];
 	return {
 		...state,
-		utsettelser: [
-			...state.utsettelser,
-			{
-				...utsettelse,
-				id: guid()
-			}
-		],
+		utsettelser,
 		dialogErApen: false
 	};
 };
@@ -25,9 +28,9 @@ const opprettEllerOppdaterUtsettelse = (state: UtsettelseState, utsettelse: Utse
 const UtsettelseReducer = (state = defaultState, action: PlanleggerActionTypes) => {
 	switch (action.type) {
 		case PlanleggerActionTypeKeys.UTSETTELSE_VIS_DIALOG:
-			return { ...state, dialogErApen: true } as UtsettelseState;
+			return { ...state, dialogErApen: true, valgtUtsettelse: action.utsettelse } as UtsettelseState;
 		case PlanleggerActionTypeKeys.UTSETTELSE_LUKK_DIALOG:
-			return { ...state, dialogErApen: false } as UtsettelseState;
+			return { ...state, dialogErApen: false, valgtUtsettelse: undefined } as UtsettelseState;
 		case PlanleggerActionTypeKeys.UTSETTELSE_OPPRETT_ELLER_OPPDATER:
 			return opprettEllerOppdaterUtsettelse(state, action.utsettelse);
 		default:

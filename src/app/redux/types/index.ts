@@ -27,6 +27,7 @@ export interface FormState {
 export interface UtsettelseState {
 	dialogErApen: boolean;
 	utsettelser: Utsettelse[];
+	valgtUtsettelse?: Utsettelse;
 }
 
 export interface AppState {

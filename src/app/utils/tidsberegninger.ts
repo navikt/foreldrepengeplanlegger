@@ -1,10 +1,5 @@
 import { Dekningsgrad, Grunndata } from 'app/types';
 
-export interface Tidsperiode {
-	start: Date;
-	slutt: Date;
-}
-
 export function kalkulerUttaksdagerIPeriode(start: Date, slutt: Date): number {
 	if (start > slutt) {
 		return -1;

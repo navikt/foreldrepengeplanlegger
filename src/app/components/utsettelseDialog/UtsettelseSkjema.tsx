@@ -1,40 +1,23 @@
 import * as React from 'react';
 import { FormEvent } from 'react';
-import TransformingRadioGroup, {
-	TransformingRadioGroupStageValue
-} from 'shared/components/transformingRadioGroup/TransformingRadioGroup';
-import { UtsettelseArsakType, UtsettelsePeriode, Forelder } from 'app/types';
-import { SkjemaGruppe, Radio } from 'nav-frontend-skjema';
+import { UtsettelseArsakType, Utsettelse, Forelder } from 'app/types';
 import DateInput from 'shared/components/dateInput/DateInput';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import Radioliste from 'shared/components/radioliste/Radioliste';
 
 interface Props {
-	utsettelse?: UtsettelsePeriode;
+	utsettelse?: Utsettelse;
 	forelder1?: string;
 	forelder2?: string;
+	onChange: (utsettelse: Utsettelse) => void;
 }
 
 interface State {
-	utsettelseArsak?: UtsettelseArsakType;
-	fraDato?: Date;
-	tilDato?: Date;
+	arsak?: UtsettelseArsakType;
+	startdato?: Date;
+	sluttdato?: Date;
 	forelder?: Forelder;
 }
-
-const utsettelser: TransformingRadioGroupStageValue[] = [
-	{
-		label: 'Ferie',
-		value: UtsettelseArsakType.Ferie
-	},
-	{
-		label: 'Ubetalt permisjon',
-		value: UtsettelseArsakType.UbetaltPermisjon
-	},
-	{
-		label: 'Arbeid',
-		value: UtsettelseArsakType.Arbeid
-	}
-];
 
 const preventDefaultEvent = (e: FormEvent<HTMLFormElement>) => {
 	e.preventDefault();
@@ -43,69 +26,106 @@ const preventDefaultEvent = (e: FormEvent<HTMLFormElement>) => {
 class UtsettelseSkjema extends React.Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
+		this.hentSkjemadata = this.hentSkjemadata.bind(this);
+		this.erSkjemaGyldig = this.erSkjemaGyldig.bind(this);
 		this.state = {
-			fraDato: undefined,
-			tilDato: undefined,
-			utsettelseArsak: undefined,
+			startdato: undefined,
+			sluttdato: undefined,
+			arsak: undefined,
 			forelder: undefined
 		};
 	}
 
+	hentSkjemadata(): Utsettelse {
+		const { arsak, startdato, sluttdato, forelder } = this.state;
+		if (!startdato || !sluttdato || !arsak || !forelder) {
+			return {};
+		}
+		return {
+			arsak,
+			tidsperiode: {
+				startdato,
+				sluttdato
+			},
+			forelder
+		};
+	}
+
+	erSkjemaGyldig(): boolean {
+		return (
+			this.state.arsak !== undefined &&
+			this.state.sluttdato !== undefined &&
+			this.state.startdato !== undefined &&
+			this.state.forelder !== undefined
+		);
+	}
+
 	handleSubmitClick() {
-		return false;
+		if (this.erSkjemaGyldig()) {
+			this.props.onChange(this.hentSkjemadata());
+		}
 	}
 
 	render() {
-		const { utsettelseArsak, fraDato, tilDato, forelder } = this.state;
+		const { arsak, startdato, sluttdato, forelder } = this.state;
+		const { forelder1, forelder2 } = this.props;
 		return (
-			<form onSubmit={preventDefaultEvent}>
-				<h1>Legg til utsettelse</h1>
+			<form onSubmit={preventDefaultEvent} className="utsettelseSkjema">
+				<h1 className="typo-undertittel m-textCenter blokk-s">Legg til utsettelse</h1>
+				<div className="blokk-s">
+					<Radioliste
+						tittel="Velg type"
+						valg={[
+							{
+								tittel: 'Ferie',
+								verdi: UtsettelseArsakType.Ferie
+							},
+							{
+								tittel: 'Ubetalt permisjon',
+								verdi: UtsettelseArsakType.UbetaltPermisjon
+							},
+							{
+								tittel: 'Arbeid',
+								verdi: UtsettelseArsakType.Arbeid
+							}
+						]}
+						inputnavn="utsettelse"
+						valgtVerdi={arsak}
+						onChange={(value) => this.setState({ arsak: value as UtsettelseArsakType })}
+					/>
+				</div>
+				<div className="blokk-s">
+					<DateInput
+						label="Startdato"
+						id="startdato"
+						onChange={(date) => this.setState({ startdato: new Date(date) })}
+						selectedDate={startdato}
+					/>
+				</div>
+				<div className="blokk-s">
+					<DateInput
+						label="Sluttdato"
+						id="sluttdato"
+						onChange={(date) => this.setState({ sluttdato: new Date(date) })}
+						selectedDate={sluttdato}
+					/>
+				</div>
 				<div className="blokk-l">
-					<TransformingRadioGroup
-						stage={{
-							name: 'utsettelse',
-							legend: 'Velg type',
-							values: utsettelser,
-							selectedValue: utsettelseArsak
-						}}
-						collapsed={!!utsettelseArsak}
-						expanded={!!!utsettelseArsak}
-						onClickCollapsed={(value) => this.setState({ utsettelseArsak: undefined })}
-						onClickExpanded={(evt, value) => {
-							this.setState({ utsettelseArsak: value as UtsettelseArsakType });
-						}}
+					<Radioliste
+						tittel="Hvem gjelder det?"
+						inputnavn="forelder"
+						valg={[
+							{ tittel: forelder1 || 'Forelder 1', verdi: 'forelder1' },
+							{ tittel: forelder2 || 'Forelder 2', verdi: 'forelder2' }
+						]}
+						valgtVerdi={forelder}
+						onChange={(value) => this.setState({ forelder: value as Forelder })}
 					/>
-					<DateInput
-						label="Fra"
-						id="fraDato"
-						onChange={(date) => this.setState({ fraDato: new Date(date) })}
-						selectedDate={fraDato}
-					/>
-					<DateInput
-						label="Til"
-						id="tilDato"
-						onChange={(date) => this.setState({ tilDato: new Date(date) })}
-						selectedDate={tilDato}
-					/>
-					<SkjemaGruppe title="Hvem gjelder det?">
-						<Radio
-							name="forelder"
-							value="forelder1"
-							checked={forelder === 'forelder1'}
-							onChange={() => this.setState({ forelder: 'forelder1' })}
-							label={this.props.forelder1 || 'Forelder 1'}
-						/>
-						<Radio
-							name="forelder"
-							value="forelder2"
-							checked={forelder === 'forelder2'}
-							onChange={() => this.setState({ forelder: 'forelder2' })}
-							label={this.props.forelder2 || 'Forelder 2'}
-						/>
-					</SkjemaGruppe>
 				</div>
 
-				<Hovedknapp onClick={() => this.handleSubmitClick()}>Legg til</Hovedknapp>
+				<Hovedknapp onClick={() => this.handleSubmitClick()} className="m-fullBredde">
+					Legg til
+				</Hovedknapp>
 			</form>
 		);
 	}

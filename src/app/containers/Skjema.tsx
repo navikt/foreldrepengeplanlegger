@@ -8,20 +8,25 @@ import DateInput from 'shared/components/dateInput/DateInput';
 import RangeInput, { RangeInputValueLabelRendererOptions } from 'shared/components/rangeInput/RangeInput';
 import TransformingRadioGroup from 'shared/components/transformingRadioGroup/TransformingRadioGroup';
 
-import { DispatchProps, AppState, FormState } from 'app/redux/types';
+import { DispatchProps, AppState, FormState, UtsettelseState } from 'app/redux/types';
 import {
 	setNavnForelder1,
 	setNavnForelder2,
 	setTermindato,
 	setDekningsgrad,
-	settAntallDagerMor
+	settAntallDagerMor,
+	utsettelseLukkDialog,
+	utsettelseVisDialog,
+	opprettEllerOppdaterUtsettelse
 } from 'app/redux/actions';
 import Tekst from 'app/tekst';
-import { Dekningsgrad } from 'app/types';
+import { Dekningsgrad, Utsettelse } from 'app/types';
 import SkjemaInfotekst from 'app/components/skjemaInfotekst/SkjemaInfotekst';
+import UtsettelseDialog from 'app/components/utsettelseDialog/UtsettelseDialog';
 
 export interface StateProps {
 	form: FormState;
+	utsettelse: UtsettelseState;
 }
 
 type Props = StateProps & DispatchProps;
@@ -57,7 +62,7 @@ const fordelingFellesperiodeLabelRenderer = (
 
 class Skjema extends React.Component<Props> {
 	render() {
-		const { dispatch, form } = this.props;
+		const { dispatch, form, utsettelse } = this.props;
 
 		return (
 			<div className="planlegger-skjema">
@@ -132,6 +137,20 @@ class Skjema extends React.Component<Props> {
 						/>
 					</div>
 				)}
+				<UtsettelseDialog
+					isOpen={utsettelse.dialogErApen}
+					utsettelse={utsettelse}
+					forelder1={form.navnForelder1}
+					forelder2={form.navnForelder2}
+					onOpen={() => dispatch(utsettelseVisDialog())}
+					onClose={() => dispatch(utsettelseLukkDialog())}
+					onChange={(u: Utsettelse) => dispatch(opprettEllerOppdaterUtsettelse(u))}
+				/>
+				{utsettelse.utsettelser.map((u) => (
+					<div key={u.id}>
+						{u.arsak} {u.forelder}
+					</div>
+				))}
 			</div>
 		);
 	}
@@ -139,7 +158,8 @@ class Skjema extends React.Component<Props> {
 
 const mapStateToProps = (state: AppState): StateProps => {
 	return {
-		form: state.form
+		form: state.form,
+		utsettelse: state.utsettelse
 	};
 };
 

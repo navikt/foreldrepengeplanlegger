@@ -1,4 +1,4 @@
-import { Dekningsgrad, Grunndata, UtsettelsePeriode } from 'app/types';
+import { Dekningsgrad, Grunndata, Utsettelse } from 'app/types';
 
 export type Forelder = 'forelder1' | 'forelder2';
 
@@ -25,8 +25,8 @@ export interface FormState {
 }
 
 export interface UtsettelseState {
-	isOpen: boolean;
-	utsettelse?: UtsettelsePeriode;
+	dialogErApen: boolean;
+	utsettelser: Utsettelse[];
 }
 
 export interface AppState {

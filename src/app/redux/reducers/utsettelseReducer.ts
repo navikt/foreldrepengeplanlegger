@@ -3,30 +3,32 @@ import { UtsettelseState } from '../types';
 import { Utsettelsesperiode, UtsettelseArsakType, Periodetype } from 'app/types';
 import { guid } from 'nav-frontend-js-utils';
 
+export const mockUtsettelser: Utsettelsesperiode[] = [
+	{
+		id: '1',
+		type: Periodetype.Utsettelse,
+		arsak: UtsettelseArsakType.Ferie,
+		tidsperiode: {
+			startdato: new Date(2018, 5, 1),
+			sluttdato: new Date(2018, 5, 15)
+		},
+		forelder: 'forelder1'
+	},
+	{
+		id: '2',
+		type: Periodetype.Utsettelse,
+		arsak: UtsettelseArsakType.Arbeid,
+		tidsperiode: {
+			startdato: new Date(2018, 7, 1),
+			sluttdato: new Date(2018, 8, 1)
+		},
+		forelder: 'forelder2'
+	}
+];
+
 const defaultState: UtsettelseState = {
 	dialogErApen: false,
-	utsettelser: [
-		{
-			id: '1',
-			type: Periodetype.Utsettelse,
-			arsak: UtsettelseArsakType.Ferie,
-			tidsperiode: {
-				startdato: new Date(2018, 5, 1),
-				sluttdato: new Date(2018, 5, 15)
-			},
-			forelder: 'forelder1'
-		},
-		{
-			id: '2',
-			type: Periodetype.Utsettelse,
-			arsak: UtsettelseArsakType.Arbeid,
-			tidsperiode: {
-				startdato: new Date(2018, 7, 1),
-				sluttdato: new Date(2018, 8, 1)
-			},
-			forelder: 'forelder2'
-		}
-	]
+	utsettelser: []
 };
 
 const opprettEllerOppdaterUtsettelse = (state: UtsettelseState, utsettelse: Utsettelsesperiode): UtsettelseState => {

@@ -17,10 +17,7 @@ const TidslinjeStrek: React.StatelessComponent<TidslinjeInnslagProps> = ({ innsl
 		className={classNames(
 			'tidslinjeInnslag__linje',
 			`tidslinjeInnslag__linje--${innslag.forelder}`,
-			`tidslinjeInnslag__linje--${innslag.type}`,
-			{
-				'tidslinjeInnslag__linje--gradert': innslag.gradert
-			}
+			`tidslinjeInnslag__linje--${innslag.type}`
 		)}
 	/>
 );

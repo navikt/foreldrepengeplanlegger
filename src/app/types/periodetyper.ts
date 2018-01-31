@@ -29,6 +29,7 @@ interface PeriodeBase {
 	id?: string;
 	type: Periodetype;
 	tidsperiode: Tidsperiode;
+	fastPeriode?: boolean;
 }
 
 export type Stonadskontoer = StonadskontoType.Fedrekvote | StonadskontoType.Modrekvote | StonadskontoType.Fellesperiode;

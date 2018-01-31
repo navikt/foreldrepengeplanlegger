@@ -7,13 +7,17 @@ import {
 	getStartdatoUtFraTermindato,
 	getForsteUttaksdagEtterDato,
 	getForsteUttaksdagPaEllerEtterDato,
-	getPerioderUtenUtsettelser
+	getPerioderUtenUtsettelser,
+	justerPerioderMedUtsettelser
 } from 'app/utils/periodeUtils';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 
 const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
 
+/**
+ * Henter ut alle perioder gitt formState
+ */
 export const periodeSelector = createSelector(formSelector, (form: FormState): Periode[] => {
 	if (!form.termindato || !form.dekningsgrad) {
 		return [];
@@ -28,6 +32,9 @@ export const periodeSelector = createSelector(formSelector, (form: FormState): P
 	return perioder;
 });
 
+/**
+ * Oppretter tidslinjeInnslag ut fra perioder, utsettelser
+ */
 export const tidslinjeFraPerioder = createSelector(
 	periodeSelector,
 	utsettelseSelector,
@@ -37,41 +44,48 @@ export const tidslinjeFraPerioder = createSelector(
 		if (!termindato || !dekningsgrad) {
 			return [];
 		}
-		const innslag: TidslinjeInnslag[] = [];
+		const alleInnslag: TidslinjeInnslag[] = [];
 
-		// Legg inn periode
-		perioder.concat(utsettelser).forEach((periode) => {
+		const justertePerioder: Periode[] = justerPerioderMedUtsettelser(
+			perioder.concat(utsettelser).sort(sorterPeriodeEtterStartdato)
+		);
+
+		// Lag tidslinjeinnslag ut fra perioder
+		justertePerioder.forEach((periode) => {
 			const i = periodeTilTidslinjeinnslag(periode);
 			if (i) {
-				innslag.push(i);
+				alleInnslag.push(i);
 			}
 		});
 
-		// Legg til termin
-		innslag.push({
+		// Legg til punkt for termindato
+		alleInnslag.push({
 			dato: termindato,
 			forelder: 'forelder1',
 			type: 'termin',
 			tittel: 'Termindato'
 		});
 
-		// Legg til slutt
-		const sistePeriode = perioder[perioder.length - 1];
-		innslag.push({
+		// Legg til punkt for permisjonsslutt
+		const sistePeriode = justertePerioder[justertePerioder.length - 1];
+		alleInnslag.push({
 			dato: sistePeriode.tidsperiode.sluttdato,
 			forelder: sistePeriode.forelder,
 			type: 'siste',
 			tittel: 'Siste permisjonsdag'
 		});
 
-		innslag.sort(sorterTidslinjeinnslagEtterStartdato);
+		alleInnslag.sort(sorterTidslinjeinnslagEtterStartdato);
 
-		return innslag;
+		return alleInnslag;
 	}
 );
 
 const sorterTidslinjeinnslagEtterStartdato = (innslag1: TidslinjeInnslag, innslag2: TidslinjeInnslag) =>
 	innslag1.dato >= innslag2.dato ? 1 : -1;
+
+const sorterPeriodeEtterStartdato = (p1: Periode, p2: Periode) =>
+	p1.tidsperiode.startdato >= p2.tidsperiode.startdato ? 1 : -1;
 
 export const periodeTilTidslinjeinnslag = (periode: Periode): TidslinjeInnslag | undefined => {
 	switch (periode.type) {
@@ -80,7 +94,8 @@ export const periodeTilTidslinjeinnslag = (periode: Periode): TidslinjeInnslag |
 				dato: periode.tidsperiode.startdato,
 				type: 'uttak',
 				tittel: `Søknadsperiode (${periode.konto})`,
-				forelder: periode.forelder
+				forelder: periode.forelder,
+				fastPeriode: periode.fastPeriode
 			};
 		case Periodetype.Utsettelse:
 			return {

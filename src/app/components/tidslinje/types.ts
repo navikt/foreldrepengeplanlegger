@@ -7,5 +7,5 @@ export interface TidslinjeInnslag {
 	tittel: string;
 	type: InnslagType;
 	forelder: Forelder;
-	gradert?: boolean;
+	fastPeriode?: boolean;
 }

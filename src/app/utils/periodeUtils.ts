@@ -1,4 +1,4 @@
-import { addWeeks, addDays, getISODay } from 'date-fns';
+import { addWeeks, addDays, getISODay, differenceInCalendarDays } from 'date-fns';
 
 import { Tidsperiode, StonadskontoType, Periodetype, Grunnfordeling, Dekningsgrad, Periode } from 'app/types';
 import Periodeberegner from 'app/utils/Periodeberegner';
@@ -50,13 +50,15 @@ export const getPerioderUtenUtsettelser = (
 			type: Periodetype.Stonadsperiode,
 			forelder: 'forelder1',
 			konto: StonadskontoType.Modrekvote,
-			tidsperiode: periodeberegner.getModrekvotePreTermin()
+			tidsperiode: periodeberegner.getModrekvotePreTermin(),
+			fastPeriode: true
 		},
 		{
 			type: Periodetype.Stonadsperiode,
 			forelder: 'forelder1',
 			konto: StonadskontoType.Modrekvote,
-			tidsperiode: periodeberegner.getModrekvotePostTermin()
+			tidsperiode: periodeberegner.getModrekvotePostTermin(),
+			fastPeriode: true
 		},
 		{
 			type: Periodetype.Stonadsperiode,
@@ -77,6 +79,33 @@ export const getPerioderUtenUtsettelser = (
 			tidsperiode: periodeberegner.getFedrekvote()
 		}
 	];
+};
+
+/**
+ * Justerer datoer på perioder ut fra om det er låst eller ikke
+ * @param perioder
+ */
+export const justerPerioderMedUtsettelser = (perioder: Periode[]): Periode[] => {
+	const justertePerioder: Periode[] = [];
+	let sluttdatoForrigePeriode: Date;
+	perioder.forEach((periode) => {
+		if (periode.fastPeriode) {
+			justertePerioder.push(periode);
+		} else {
+			const dagerIPeriode = differenceInCalendarDays(periode.tidsperiode.sluttdato, periode.tidsperiode.startdato);
+			const startdato = getForsteUttaksdagEtterDato(sluttdatoForrigePeriode);
+			const sluttdato = addDays(startdato, dagerIPeriode);
+			justertePerioder.push({
+				...periode,
+				tidsperiode: {
+					startdato,
+					sluttdato
+				}
+			});
+		}
+		sluttdatoForrigePeriode = periode.tidsperiode.sluttdato;
+	});
+	return justertePerioder;
 };
 
 /**

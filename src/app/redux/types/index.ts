@@ -1,4 +1,4 @@
-import { Dekningsgrad, Grunndata, Utsettelsesperiode } from 'app/types';
+import { Dekningsgrad, Grunnfordeling, Utsettelsesperiode } from 'app/types';
 
 export type Forelder = 'forelder1' | 'forelder2';
 
@@ -21,7 +21,7 @@ export interface FormState {
 	ukerForelder2?: number;
 	dekningsgrad?: Dekningsgrad;
 	ukerFellesperiode?: number;
-	grunndata: Grunndata;
+	grunnfordeling: Grunnfordeling;
 }
 
 export interface UtsettelseState {

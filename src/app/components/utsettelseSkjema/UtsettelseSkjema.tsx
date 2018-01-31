@@ -81,6 +81,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				<div className="blokk-s">
 					<Radioliste
 						tittel="Velg type"
+						stil="ekstern"
 						valg={[
 							{
 								tittel: 'Ferie',
@@ -120,6 +121,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					<Radioliste
 						tittel="Hvem gjelder det?"
 						inputnavn="forelder"
+						stil="ekstern"
 						valg={[
 							{ tittel: forelder1 || 'Forelder 1', verdi: 'forelder1' },
 							{ tittel: forelder2 || 'Forelder 2', verdi: 'forelder2' }

@@ -9,7 +9,7 @@ import { TidslinjeInnslag } from 'app/components/tidslinje/types';
 import { tidslinjeSelector } from 'app/selectors/tidslinjeSelector';
 import Veileder from 'shared/components/veileder/Veileder';
 import UtsettelseDialog from 'app/containers/UtsettelseDialog';
-import { getPerioderMedUtsettelser, getPeriodedetaljer } from 'app/utils/periodeUtils';
+import { getPeriodedetaljer, getPerioderUtenUtsettelser } from 'app/utils/periodeUtils';
 
 export interface StateProps {
 	form: FormState;
@@ -22,11 +22,12 @@ export type Props = StateProps & RouteComponentProps<{}> & DispatchProps;
 
 export class Uttaksplan extends React.Component<Props> {
 	render() {
-		const perioder = getPerioderMedUtsettelser(
+		const perioder = getPerioderUtenUtsettelser(
 			this.props.form.termindato || new Date(),
 			this.props.form.dekningsgrad || '100%',
-			this.props.utsettelse.utsettelser,
-			this.props.form.grunndata
+			this.props.form.grunnfordeling,
+			this.props.form.ukerForelder1 || 0,
+			this.props.form.ukerForelder2 || 0
 		);
 		return (
 			<div>

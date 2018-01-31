@@ -9,7 +9,14 @@ export interface Tidsperiode {
 	sluttdato: Date;
 }
 
-export interface Grunndata {
+export interface Soknadsdata {
+	termindato: Date;
+	dekningsgrad: Dekningsgrad;
+	fellesukerForelder1: number;
+	fellesukerForelder2: number;
+}
+
+export interface Grunnfordeling {
 	antallUkerTotalt100: number;
 	antallUkerTotalt80: number;
 	antallUkerForelder1ForFodsel: number;

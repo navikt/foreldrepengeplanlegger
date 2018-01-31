@@ -5,10 +5,10 @@ import { addWeeks, addDays } from 'date-fns';
 import { Utsettelsesperiode, Stonadsperiode, StonadskontoType, Periodetype, Periode } from 'app/types';
 import {
 	getStartdatoUtFraTermindato,
-	getForsteDagEtterTermin,
-	getForsteArbeidsdagEtterDato
+	getForsteUttaksdagEtterDato,
+	getForsteUttaksdagPaEllerEtterDato
 } from 'app/utils/periodeUtils';
-import { grunndata } from 'app/data/grunndata';
+import { grunnfordeling } from 'app/data/grunnfordeling';
 
 const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
@@ -22,7 +22,7 @@ export const periodeSelector = createSelector(formSelector, (form: FormState): P
 		forelder: 'forelder1',
 		konto: StonadskontoType.Modrekvote,
 		tidsperiode: {
-			startdato: getStartdatoUtFraTermindato(form.termindato, form.grunndata.antallUkerForelder1ForFodsel),
+			startdato: getStartdatoUtFraTermindato(form.termindato, form.grunnfordeling.antallUkerForelder1ForFodsel),
 			sluttdato: form.termindato
 		}
 	};
@@ -37,10 +37,10 @@ export const tidslinjeSelector = createSelector(
 		if (!termindato) {
 			return [];
 		}
-		const startDato = getStartdatoUtFraTermindato(termindato, grunndata.antallUkerForelder1ForFodsel);
-		const forsteDagEtterTermin = getForsteDagEtterTermin(termindato);
+		const startDato = getStartdatoUtFraTermindato(termindato, grunnfordeling.antallUkerForelder1ForFodsel);
+		const forsteDagEtterTermin = getForsteUttaksdagEtterDato(termindato);
 		const sluttModrekvote = addWeeks(forsteDagEtterTermin, 6 + (ukerForelder1 ? ukerForelder1 : 1));
-		const startFedrekvote = getForsteArbeidsdagEtterDato(addDays(sluttModrekvote, 1));
+		const startFedrekvote = getForsteUttaksdagPaEllerEtterDato(addDays(sluttModrekvote, 1));
 		const sluttFedrekvote = addWeeks(sluttModrekvote, ukerForelder2 ? ukerForelder2 : 0);
 
 		const innslag: TidslinjeInnslag[] = [

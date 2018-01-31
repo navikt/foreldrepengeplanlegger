@@ -5,12 +5,13 @@ import {
 	Stonadsperiode,
 	StonadskontoType,
 	Periodetype,
-	Fellesperiode,
-	Grunndata,
+	Grunnfordeling,
 	Dekningsgrad,
-	Utsettelsesperiode,
-	Periode
+	Periode,
+	Stonadskontoer
 } from 'app/types';
+import { Forelder } from 'app/redux/types';
+import Periodeberegner from 'app/utils/Periodeberegner';
 
 export const getPeriodedetaljer = (periode: Periode): string => {
 	const tidsperiode = `
@@ -28,7 +29,7 @@ export const getPeriodedetaljer = (periode: Periode): string => {
 				default:
 					forelder = undefined;
 			}
-			return `${konto}. ${forelder}. ${tidsperiode}`;
+			return `${konto}. ${forelder ? `${forelder}. ` : ''} ${tidsperiode}`;
 		case Periodetype.Utsettelse:
 			const arsak = `Stønadsperiode. ${periode.arsak}`;
 			return `Utsettelse. ${arsak}. ${forelder}. ${tidsperiode}`;
@@ -37,58 +38,121 @@ export const getPeriodedetaljer = (periode: Periode): string => {
 	}
 };
 
-export const getPerioderMedUtsettelser = (
+export const getPerioderUtenUtsettelser = (
 	termindato: Date,
 	dekningsgrad: Dekningsgrad,
-	utsettelser: Utsettelsesperiode[],
-	grunndata: Grunndata
+	grunnfordeling: Grunnfordeling,
+	fellesukerForelder1: number,
+	fellesukerForelder2: number
 ): Periode[] => {
-	const perioder = getFastePerioder(termindato, dekningsgrad, grunndata);
+	const periodeberegner = Periodeberegner(
+		{
+			termindato,
+			dekningsgrad,
+			fellesukerForelder1,
+			fellesukerForelder2
+		},
+		grunnfordeling
+	);
+
+	const perioder: Periode[] = [
+		{
+			type: Periodetype.Stonadsperiode,
+			forelder: 'forelder1',
+			konto: StonadskontoType.Modrekvote,
+			tidsperiode: periodeberegner.getModrekvotePreTermin()
+		},
+		{
+			type: Periodetype.Stonadsperiode,
+			forelder: 'forelder1',
+			konto: StonadskontoType.Modrekvote,
+			tidsperiode: periodeberegner.getModrekvotePostTermin()
+		},
+		{
+			type: Periodetype.Stonadsperiode,
+			forelder: 'forelder1',
+			konto: StonadskontoType.Fellesperiode,
+			tidsperiode: periodeberegner.getFellesperiodeForelder1()
+		},
+		{
+			type: Periodetype.Stonadsperiode,
+			forelder: 'forelder2',
+			konto: StonadskontoType.Fellesperiode,
+			tidsperiode: periodeberegner.getFellesperiodeForelder2()
+		},
+		{
+			type: Periodetype.Stonadsperiode,
+			forelder: 'forelder2',
+			konto: StonadskontoType.Fedrekvote,
+			tidsperiode: periodeberegner.getFedrekvote()
+		}
+	];
+
 	return perioder;
+
+	// const periodePostTermin = getPeriodePostTermin(termindato, grunnfordeling.antallUkerForelder1Totalt);
+	// const morFellesperiode = getStonadsperiode(
+	// 	getForsteUttaksdagEtterDato(periodePostTermin.tidsperiode.sluttdato),
+	// 	fellesukerForelder1,
+	// 	'forelder1',
+	// 	StonadskontoType.Fellesperiode
+	// );
+	// const farFellesperiode = getStonadsperiode(
+	// 	getForsteUttaksdagEtterDato(morFellesperiode.tidsperiode.sluttdato),
+	// 	fellesukerForelder2,
+	// 	'forelder2',
+	// 	StonadskontoType.Fellesperiode
+	// );
+	// const farFedrekvote = getStonadsperiode(
+	// 	getForsteUttaksdagEtterDato(farFellesperiode.tidsperiode.sluttdato),
+	// 	grunnfordeling.antallUkerForelder2Totalt,
+	// 	'forelder2',
+	// 	StonadskontoType.Fedrekvote
+	// );
+
+	// return [periodePreTermin, periodePostTermin, morFellesperiode, farFellesperiode, farFedrekvote];
 };
 
-export const getFastePerioder = (termindato: Date, dekningsgrad: Dekningsgrad, grunndata: Grunndata): Periode[] => {
-	const perioder: Periode[] = [];
-	perioder.push(getPeriodeForTermin(termindato, grunndata.antallUkerForelder1ForFodsel));
-	perioder.push(getPeriodeEtterTermin(termindato, grunndata.antallUkerForelder1EtterFodsel));
-	return perioder;
-};
-
-export const getPeriodeForTermin = (termindato: Date, uker: number): Stonadsperiode => ({
-	type: Periodetype.Stonadsperiode,
-	konto: StonadskontoType.Modrekvote,
-	forelder: 'forelder1',
-	tidsperiode: getTidsperiodeForTermin(termindato, uker)
-});
-
-export const getPeriodeEtterTermin = (termindato: Date, uker: number): Stonadsperiode => ({
-	type: Periodetype.Stonadsperiode,
-	konto: StonadskontoType.Modrekvote,
-	forelder: 'forelder1',
-	tidsperiode: getTidsperiodeEtterTermin(termindato, uker)
-});
-
-export const getFellesperiode = (termindato: Date, uker: number): Fellesperiode => ({
-	type: Periodetype.Stonadsperiode,
-	konto: StonadskontoType.Fellesperiode,
-	tidsperiode: getTidsperiodeFellesperiode(termindato, uker)
-});
-
-// export const getPeriodeEtterFellesperiode = (termindato: Date, uker: number): Uttaksperiode => ({
+// export const getPeriodePreTermin = (termindato: Date, uker: number): Stonadsperiode => ({
 // 	type: Periodetype.Stonadsperiode,
-// 	konto: StonadskontoType.Fedrekvote,
-// 	forelder: 'forelder2',
-// 	tidsperiode: getTidsperiodeEtterFellesperiode
-// })
+// 	konto: StonadskontoType.Modrekvote,
+// 	forelder: 'forelder1',
+// 	tidsperiode: getTidsperiodePreTermin(termindato, uker)
+// });
+
+// export const getPeriodePostTermin = (termindato: Date, uker: number): Stonadsperiode => ({
+// 	type: Periodetype.Stonadsperiode,
+// 	konto: StonadskontoType.Modrekvote,
+// 	forelder: 'forelder1',
+// 	tidsperiode: getTidsperiodePostTermin(termindato, uker)
+// });
+
+export const getStonadsperiode = (
+	startdato: Date,
+	uker: number,
+	forelder: Forelder,
+	konto: Stonadskontoer
+): Stonadsperiode => {
+	return {
+		type: Periodetype.Stonadsperiode,
+		konto,
+		forelder,
+		tidsperiode: {
+			startdato,
+			sluttdato: getPeriodesluttDato(startdato, uker)
+		}
+	};
+};
+
 /**
  * Finner tidsperiode for mors permisjon før termin
  * @param termindato
  */
-export const getTidsperiodeForTermin = (termindato: Date, uker: number): Tidsperiode => {
+export const getTidsperiodePreTermin = (termindato: Date, uker: number): Tidsperiode => {
 	const startdato = getStartdatoUtFraTermindato(termindato, uker);
 	return {
 		startdato,
-		sluttdato: termindato
+		sluttdato: getPeriodesluttDato(startdato, uker)
 	};
 };
 
@@ -97,41 +161,35 @@ export const getTidsperiodeForTermin = (termindato: Date, uker: number): Tidsper
  *
  * @param termindato
  */
-export const getTidsperiodeEtterTermin = (termindato: Date, uker: number): Tidsperiode => {
-	const startdato = getForsteArbeidsdagEtterTermin(termindato);
+export const getTidsperiodePostTermin = (termindato: Date, uker: number): Tidsperiode => {
 	return {
-		startdato,
-		sluttdato: addWeeks(startdato, uker)
+		startdato: termindato,
+		sluttdato: getPeriodesluttDato(termindato, uker)
 	};
 };
 
 /**
- * Finner tidsperiode for medforelders permisjon på slutten av permisjonperioden
+ * Finner startdato for permisjonsperiode
  *
- * @param termindato
- * @param uker Antall uker fellesperioden varer
+ * @param termin
+ * @param uker antall uker som er forbeholdt denne perioden
  */
-export const getTidsperiodeFellesperiode = (termindato: Date, uker: number): Tidsperiode => {
-	const startdato = getForsteArbeidsdagEtterDato(getTidsperiodeEtterTermin(termindato, uker).sluttdato);
-	return {
-		startdato,
-		sluttdato: addWeeks(startdato, uker)
-	};
-};
-
 export const getStartdatoUtFraTermindato = (termin: Date, uker: number): Date => {
-	let date = getForsteArbeidsdagEtterDato(addWeeks(termin, -1 * uker));
-	return date;
+	return getForsteUttaksdagPaEllerEtterDato(addWeeks(termin, -1 * uker));
 };
 
-export const getForsteDagEtterTermin = (termin: Date): Date => {
-	return getForsteArbeidsdagEtterDato(addDays(termin, 1));
-};
+/**
+ * Første gyldige uttaksdag etter termin
+ * @param termin
+ */
+export const getForsteUttaksdagEtterDato = (termin: Date): Date =>
+	getForsteUttaksdagPaEllerEtterDato(addDays(termin, 1));
 
-export const getForsteArbeidsdagEtterTermin = (termin: Date): Date =>
-	getForsteArbeidsdagEtterDato(getForsteDagEtterTermin(termin));
-
-export const getForsteArbeidsdagEtterDato = (dato: Date): Date => {
+/**
+ * Sjekker om dato er en ukedag, dersom ikke finner den nærmeste påfølgende mandag
+ * @param dato
+ */
+export const getForsteUttaksdagPaEllerEtterDato = (dato: Date): Date => {
 	switch (getUkedag(dato)) {
 		case 6:
 			return addDays(dato, 2);
@@ -142,12 +200,44 @@ export const getForsteArbeidsdagEtterDato = (dato: Date): Date => {
 	}
 };
 
-export const getUkerFellesperiode = (grunndata: Grunndata, dekningsgrad?: Dekningsgrad) => {
-	const totaltAntallUker = dekningsgrad === '80%' ? grunndata.antallUkerTotalt80 : grunndata.antallUkerTotalt100;
-	return totaltAntallUker - grunndata.antallUkerForelder1Totalt - grunndata.antallUkerForelder2Totalt;
+/**
+ * Sjekker om dato er en ukedag, dersom ikke finner den foregående fredag
+ * @param dato
+ */
+export const getForsteUkedagPaEllerForDato = (dato: Date): Date => {
+	switch (getUkedag(dato)) {
+		case 6:
+			return addDays(dato, -1);
+		case 7:
+			return addDays(dato, -2);
+		default:
+			return dato;
+	}
+};
+
+export const getAntallUkerFellesperiode = (grunnfordeling: Grunnfordeling, dekningsgrad?: Dekningsgrad) => {
+	const totaltAntallUker =
+		dekningsgrad === '80%' ? grunnfordeling.antallUkerTotalt80 : grunnfordeling.antallUkerTotalt100;
+	return totaltAntallUker - grunnfordeling.antallUkerForelder1Totalt - grunnfordeling.antallUkerForelder2Totalt;
 };
 
 export const getUkedag = (dato: Date) => getISODay(dato);
+
+/**
+ * Finner gyldig sluttdato for en periode ut fra antall uker den skal være og startdato
+ * @param startdato
+ * @param uker
+ */
+export const getPeriodesluttDato = (startdato: Date, uker: number): Date => {
+	let sluttdato = addDays(addWeeks(startdato, uker), -1);
+	// return erUttaksdag(sluttdato)
+	// if (erUttaksdag(sluttdato)) {
+	// 	return sluttdato;
+	// }
+	return getForsteUkedagPaEllerForDato(sluttdato);
+};
+
+export const erUttaksdag = (dato: Date): boolean => getISODay(dato) !== 6 && getISODay(dato) !== 7;
 
 export function kalkulerUttaksdagerIPeriode(start: Date, slutt: Date): number {
 	if (start > slutt) {

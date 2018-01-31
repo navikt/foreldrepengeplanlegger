@@ -45,7 +45,7 @@ export const getPerioderUtenUtsettelser = (
 		grunnfordeling
 	);
 
-	return [
+	const perioder: Periode[] = [
 		{
 			type: Periodetype.Stonadsperiode,
 			forelder: 'forelder1',
@@ -62,23 +62,31 @@ export const getPerioderUtenUtsettelser = (
 		},
 		{
 			type: Periodetype.Stonadsperiode,
-			forelder: 'forelder1',
-			konto: StonadskontoType.Fellesperiode,
-			tidsperiode: periodeberegner.getFellesperiodeForelder1()
-		},
-		{
-			type: Periodetype.Stonadsperiode,
-			forelder: 'forelder2',
-			konto: StonadskontoType.Fellesperiode,
-			tidsperiode: periodeberegner.getFellesperiodeForelder2()
-		},
-		{
-			type: Periodetype.Stonadsperiode,
 			forelder: 'forelder2',
 			konto: StonadskontoType.Fedrekvote,
 			tidsperiode: periodeberegner.getFedrekvote()
 		}
 	];
+
+	if (fellesukerForelder1 > 0) {
+		perioder.push({
+			type: Periodetype.Stonadsperiode,
+			forelder: 'forelder1',
+			konto: StonadskontoType.Fellesperiode,
+			tidsperiode: periodeberegner.getFellesperiodeForelder1()
+		});
+	}
+
+	if (fellesukerForelder2 > 0) {
+		perioder.push({
+			type: Periodetype.Stonadsperiode,
+			forelder: 'forelder2',
+			konto: StonadskontoType.Fellesperiode,
+			tidsperiode: periodeberegner.getFellesperiodeForelder2()
+		});
+	}
+
+	return perioder;
 };
 
 /**

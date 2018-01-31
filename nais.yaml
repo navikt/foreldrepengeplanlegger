@@ -24,7 +24,3 @@ resources:
     memory: 256Mi
 ingress:
   enabled: true 
-fasitResources:
-  used:
-  - alias: foreldrepengesoknad-api
-    resourceType: restservice

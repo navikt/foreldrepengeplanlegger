@@ -113,21 +113,22 @@ class Skjema extends React.Component<Props> {
 					/>
 				</div>
 
-				{form.ukerFellesperiode && (
-					<div className="blokk-s">
-						<SkjemaInfotekst id="info-fordeling">{Tekst.skjema.info.fordelingFellesperiode}</SkjemaInfotekst>
-						<RangeInput
-							label={Tekst.skjema.fordelingFellespermisjon}
-							value={form.ukerForelder1}
-							min={0}
-							max={form.ukerFellesperiode}
-							onChange={(dager) => dispatch(settAntallDagerMor(dager))}
-							valueLabelRenderer={(options) =>
-								fordelingFellesperiodeLabelRenderer(options, form.navnForelder1 || 'Forelder 1', form.navnForelder2)
-							}
-						/>
-					</div>
-				)}
+				{form.ukerFellesperiode &&
+					form.dekningsgrad && (
+						<div className="blokk-s">
+							<SkjemaInfotekst id="info-fordeling">{Tekst.skjema.info.fordelingFellesperiode}</SkjemaInfotekst>
+							<RangeInput
+								label={Tekst.skjema.fordelingFellespermisjon}
+								value={form.ukerForelder1}
+								min={0}
+								max={form.ukerFellesperiode}
+								onChange={(dager) => dispatch(settAntallDagerMor(dager))}
+								valueLabelRenderer={(options) =>
+									fordelingFellesperiodeLabelRenderer(options, form.navnForelder1 || 'Forelder 1', form.navnForelder2)
+								}
+							/>
+						</div>
+					)}
 			</div>
 		);
 	}

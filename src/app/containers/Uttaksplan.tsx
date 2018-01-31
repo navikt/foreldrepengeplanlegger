@@ -65,7 +65,7 @@ const mapStateToProps = (state: AppState): StateProps => {
 		innslag,
 		form: state.form,
 		utsettelse: state.utsettelse,
-		visTidslinje: innslag && innslag.length > 0
+		visTidslinje: innslag && innslag.length > 0 && state.form.dekningsgrad !== undefined
 	};
 };
 

@@ -23,6 +23,25 @@ const getDefaultState = (): FormState => {
 const beregnUkerForelder2 = (ukerFellesperiode: number | undefined, ukerForelder1: number | undefined): number =>
 	ukerFellesperiode ? ukerFellesperiode - (ukerForelder1 || 0) : 0;
 
+const refordelFellesperiode = (
+	nesteUkerFellesperiode: number | undefined,
+	ukerFellesperiode: number | undefined,
+	ukerForelder1: number | undefined
+) => {
+	if (!ukerFellesperiode || !nesteUkerFellesperiode || !ukerForelder1) {
+		return {
+			ukerForelder1: 0,
+			ukerForelder2: 0
+		};
+	}
+	const diff = (nesteUkerFellesperiode - (ukerFellesperiode || 0)) / 2;
+	let nyUkerForelder1 = Math.max(ukerForelder1 + diff, 0);
+	return {
+		ukerForelder1: nyUkerForelder1,
+		ukerForelder2: beregnUkerForelder2(ukerFellesperiode, nyUkerForelder1)
+	};
+};
+
 const FormReducer = (state = getDefaultState(), action: PlanleggerActionTypes) => {
 	switch (action.type) {
 		case PlanleggerActionTypeKeys.SET_NAVN_FORELDER1:
@@ -33,13 +52,17 @@ const FormReducer = (state = getDefaultState(), action: PlanleggerActionTypes) =
 			return { ...state, termindato: action.termindato };
 		case PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD:
 			const ukerFellesperiode = getAntallUkerFellesperiode(grunnfordeling, action.dekningsgrad);
-			// const diff = ukerFellesperiode - (state.ukerFellesperiode || 0);
+			const { ukerForelder1, ukerForelder2 } = refordelFellesperiode(
+				ukerFellesperiode,
+				state.ukerFellesperiode,
+				state.ukerForelder1
+			);
 			return {
 				...state,
 				dekningsgrad: action.dekningsgrad,
 				ukerFellesperiode: ukerFellesperiode,
-				ukerForelder1: state.ukerForelder1,
-				ukerForelder2: beregnUkerForelder2(ukerFellesperiode, state.ukerForelder1)
+				ukerForelder1,
+				ukerForelder2
 			};
 		case PlanleggerActionTypeKeys.SET_UKER_FORELDER1:
 			return {

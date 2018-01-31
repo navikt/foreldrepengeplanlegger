@@ -1,0 +1,30 @@
+.radioliste {
+	&__radio {
+		margin-top: 0.7rem;
+		margin-bottom: 0.5rem;
+		label {
+			font-weight: normal;
+		}
+	}
+	&--ekstern {
+		.nav-frontend-radiobuttonEkstern();
+	}
+	&--toKolonner {
+		@media screen and (min-width: @screen-sm) {
+			.radioliste__radioer {
+				display: flex;
+				.radioliste__radio {
+					flex-basis: 50%;
+					margin-top: 0;
+					margin-bottom: 1rem;
+					&:first-child {
+						margin-right: 0.5rem;
+					}
+					&:last-child {
+						margin-left: 0.5rem;
+					}
+				}
+			}
+		}
+	}
+}

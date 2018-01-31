@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import formReducer from './form';
-import utsettelseReducer from './utsettelse';
+import formReducer from './formReducer';
+import utsettelseReducer from './utsettelseReducer';
 
 const PlanleggerAppReducer = combineReducers({ form: formReducer, utsettelse: utsettelseReducer });
 

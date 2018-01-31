@@ -40,21 +40,11 @@ export const tidslinjeFraPerioder = createSelector(
 		const innslag: TidslinjeInnslag[] = [];
 
 		// Legg inn periode
-		perioder.forEach((periode) => {
+		perioder.concat(utsettelser).forEach((periode) => {
 			const i = periodeTilTidslinjeinnslag(periode);
 			if (i) {
 				innslag.push(i);
 			}
-		});
-
-		// Legg til utsettelser
-		utsettelser.forEach((utsettelse) => {
-			innslag.push({
-				dato: utsettelse.tidsperiode.startdato,
-				forelder: utsettelse.forelder,
-				tittel: 'Utsettelse',
-				type: 'utsettelse'
-			});
 		});
 
 		// Legg til termin
@@ -80,14 +70,14 @@ export const periodeTilTidslinjeinnslag = (periode: Periode): TidslinjeInnslag |
 			return {
 				dato: periode.tidsperiode.startdato,
 				type: 'uttak',
-				tittel: 'Søknadsperiode',
+				tittel: `Søknadsperiode (${periode.konto})`,
 				forelder: periode.forelder
 			};
 		case Periodetype.Utsettelse:
 			return {
 				dato: periode.tidsperiode.startdato,
 				type: 'utsettelse',
-				tittel: 'Utsettelse',
+				tittel: `Utsettelse (${periode.arsak})`,
 				forelder: periode.forelder
 			};
 		default:

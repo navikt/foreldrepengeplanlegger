@@ -3,17 +3,20 @@ import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 import Tidslinje from 'app/components/tidslinje/Tidslinje';
-// import UtsettelseDialog from 'app/components/utsettelseDialog/UtsettelseDialog';
 import Skjema from './Skjema';
-import { AppState, UtsettelseState, DispatchProps } from 'app/redux/types';
+import { AppState, UtsettelseState, DispatchProps, FormState } from 'app/redux/types';
 import { TidslinjeInnslag } from 'app/components/tidslinje/types';
-import { tidslinjeSelector } from 'app/selectors/tidslinjeSelector';
-// import { utsettelseLukkDialog, utsettelseVisDialog } from 'app/redux/actions';
+import { periodeSelector, tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import Veileder from 'shared/components/veileder/Veileder';
+import UtsettelseDialog from 'app/containers/UtsettelseDialog';
+import { Periode } from 'app/types';
 
 export interface StateProps {
+	form: FormState;
 	innslag: TidslinjeInnslag[];
+	perioder: Periode[];
 	utsettelse: UtsettelseState;
+	visTidslinje: boolean;
 }
 
 export type Props = StateProps & RouteComponentProps<{}> & DispatchProps;
@@ -32,23 +35,30 @@ export class Uttaksplan extends React.Component<Props> {
 					</p>
 				</div>
 
-				<Skjema />
+				<div className="blokk-m">
+					<Skjema />
+				</div>
 
-				{/* <UtsettelseDialog
-					isOpen={this.props.utsettelse.isOpen}
-					onOpen={() => this.props.dispatch(utsettelseVisDialog())}
-					onClose={() => this.props.dispatch(utsettelseLukkDialog())}
-				/>
- */}
-				{this.props.innslag && this.props.innslag.length > 0 && <Tidslinje innslag={this.props.innslag} />}
+				<div className="blokk-m">
+					<UtsettelseDialog />
+				</div>
+
+				{this.props.visTidslinje && <Tidslinje innslag={this.props.innslag} />}
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = (state: AppState): StateProps => ({
-	innslag: tidslinjeSelector(state),
-	utsettelse: state.utsettelse
-});
+const mapStateToProps = (state: AppState): StateProps => {
+	const innslag = tidslinjeFraPerioder(state);
+	const perioder = periodeSelector(state);
+	return {
+		innslag,
+		perioder,
+		form: state.form,
+		utsettelse: state.utsettelse,
+		visTidslinje: innslag && innslag.length > 0 && state.form.dekningsgrad !== undefined
+	};
+};
 
 export default connect(mapStateToProps)(withRouter(Uttaksplan));

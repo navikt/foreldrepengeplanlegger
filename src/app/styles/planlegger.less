@@ -1,5 +1,6 @@
 @import '../../shared/styles/shared.less';
-@import '../components/utsettelseDialog/utsettelseDialog.less';
+@import '../components/utsettelseSkjema/utsettelseSkjema.less';
+@import '../components/leggTilKnapp/leggTilKnapp.less';
 @import './moduloverstyring.less';
 
 p {
@@ -27,7 +28,7 @@ p {
 		margin-bottom: 1rem;
 		svg {
 			max-width: 200px;
-			width: 20%;
+			width: 32%;
 		}
 	}
 }
@@ -35,7 +36,7 @@ p {
 .skjema_fordelingFellesperiode {
 	display: flex;
 	&__uker {
-		font-size: 1.3em;
+		font-size: 1.375rem;
 		font-weight: bold;
 	}
 	&__forelder1 {
@@ -54,4 +55,9 @@ p {
 		right: 0;
 		top: -2px;
 	}
+}
+
+.utsettelseSkjemaDialog {
+	width: 100%;
+	max-width: 35em;
 }

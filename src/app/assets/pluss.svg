@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/add/simple</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="A6" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-313.000000, -1073.000000)">
+        <g id="Icons/add/simple" transform="translate(311.000000, 1071.000000)" fill="#0067C5">
+            <path d="M11.25,11.25 L11.25,2.76923546 C11.25,2.34615876 11.586,1.99846663 12,2.00000509 C12.414,2.00000509 12.75,2.34462029 12.75,2.76923546 L12.75,11.25 L21.2307645,11.25 C21.6553797,11.2515 22.0015334,11.586 21.9999949,12 C21.9999949,12.4125 21.6553797,12.75 21.2307645,12.75 L12.75,12.75 L12.75,21.2307645 C12.7485,21.6553797 12.414,22.0015334 12,21.9999949 C11.5875,21.9999949 11.25,21.6553797 11.25,21.2307645 L11.25,12.75 L2.76923546,12.75 C2.34615876,12.75 1.99846663,12.414 2.00000509,12 C2.00000509,11.586 2.34462029,11.25 2.76923546,11.25 L11.25,11.25 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

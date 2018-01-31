@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 
-import TerminIkon from 'app/components/tidslinje/TerminIkon';
+import TerminIkon from 'app/components/ikoner/TerminIkon';
 import Dato from 'app/components/dato/Dato';
-import { kalkulerUttaksdagerIPeriode } from 'app/utils/tidsberegninger';
 
 import { TidslinjeInnslag } from './types';
+import { kalkulerUttaksdagerIPeriode } from 'app/utils/periodeUtils';
 
 interface TidslinjeInnslagProps {
 	innslag: TidslinjeInnslag;

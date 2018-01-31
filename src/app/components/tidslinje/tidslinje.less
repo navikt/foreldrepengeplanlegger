@@ -1,5 +1,6 @@
 @arrow-size: 10px;
 @bkgColor: #e7e7e7;
+@c-green: #06893a;
 @c-purple: #634689;
 @c-purple-bkg: #e0dae7;
 @c-blue: #5eaec7;
@@ -66,13 +67,13 @@
 	border-color: @borderColor;
 }
 
-.gradering(@col1, @col2: white) {
+.gradering(@col1, @col2:transparent) {
 	background: repeating-linear-gradient(
 		0deg,
-		@col2,
-		@col2 2px,
-		@col1 2px,
-		@col1 4px
+		@col1,
+		@col1 3px,
+		@col2 3px,
+		@col2 6px
 	);
 }
 
@@ -109,9 +110,14 @@
 	}
 	&--forelder2 {
 		border-color: @c-blue;
-		// background-color: @c-blue-bkg;
 		&:before {
 			.setArrowLeftColor(@c-blue, white);
+		}
+	}
+	&--utsettelse {
+		border-color: @c-green;
+		&:before {
+			.setArrowLeftColor(@c-green, white);
 		}
 	}
 	&__dato {
@@ -183,6 +189,15 @@
 		}
 		&--gradert {
 			.gradering(@c-purple);
+		}
+		&--utsettelse {
+			.gradering(@c-green);
+			&:before {
+				.setHendelseDotColor(@c-green);
+			}
+			&:after {
+				.setHendelseDotColor(@c-green);
+			}
 		}
 		&--slutt {
 			top: 0rem;

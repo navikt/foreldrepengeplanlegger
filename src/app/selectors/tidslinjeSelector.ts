@@ -55,6 +55,15 @@ export const tidslinjeFraPerioder = createSelector(
 			tittel: 'Termindato'
 		});
 
+		// Legg til slutt
+		const sistePeriode = perioder[perioder.length - 1];
+		innslag.push({
+			dato: sistePeriode.tidsperiode.sluttdato,
+			forelder: sistePeriode.forelder,
+			type: 'siste',
+			tittel: 'Siste permisjonsdag'
+		});
+
 		innslag.sort(sorterTidslinjeinnslagEtterStartdato);
 
 		return innslag;

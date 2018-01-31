@@ -3,9 +3,9 @@ import * as classNames from 'classnames';
 
 import TerminIkon from 'app/components/tidslinje/TerminIkon';
 import Dato from 'app/components/dato/Dato';
-import { kalkulerUttaksdagerIPeriode } from 'app/utils/tidsberegninger';
 
 import { TidslinjeInnslag } from './types';
+import { kalkulerUttaksdagerIPeriode } from 'app/utils/periodeUtils';
 
 interface TidslinjeInnslagProps {
 	innslag: TidslinjeInnslag;

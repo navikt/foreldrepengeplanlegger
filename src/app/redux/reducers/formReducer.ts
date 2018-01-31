@@ -1,7 +1,7 @@
 import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from 'app/redux/actions/actionTypes';
-import { getUkerFellesperiode } from 'app/utils/tidsberegninger';
 import { grunndata } from 'app/data/grunndata';
 import { FormState } from '../types';
+import { getUkerFellesperiode } from 'app/utils/periodeUtils';
 
 const antallUkerFellesperiode = getUkerFellesperiode(grunndata, '100%');
 

@@ -1,24 +1,26 @@
 import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from 'app/redux/actions/actionTypes';
 import { UtsettelseState } from '../types';
-import { Utsettelse, UtsettelseArsakType } from 'app/types';
+import { Utsettelsesperiode, UtsettelseArsakType, Periodetype } from 'app/types';
 import { guid } from 'nav-frontend-js-utils';
 
 const defaultState: UtsettelseState = {
 	dialogErApen: false,
 	utsettelser: [
 		{
-			arsak: UtsettelseArsakType.Ferie,
 			id: '1',
-			periode: {
+			type: Periodetype.Utsettelse,
+			arsak: UtsettelseArsakType.Ferie,
+			tidsperiode: {
 				startdato: new Date(2018, 5, 1),
 				sluttdato: new Date(2018, 5, 15)
 			},
 			forelder: 'forelder1'
 		},
 		{
-			arsak: UtsettelseArsakType.Arbeid,
 			id: '2',
-			periode: {
+			type: Periodetype.Utsettelse,
+			arsak: UtsettelseArsakType.Arbeid,
+			tidsperiode: {
 				startdato: new Date(2018, 0, 1),
 				sluttdato: new Date(2019, 1, 1)
 			},
@@ -27,7 +29,7 @@ const defaultState: UtsettelseState = {
 	]
 };
 
-const opprettEllerOppdaterUtsettelse = (state: UtsettelseState, utsettelse: Utsettelse): UtsettelseState => {
+const opprettEllerOppdaterUtsettelse = (state: UtsettelseState, utsettelse: Utsettelsesperiode): UtsettelseState => {
 	const utsettelser = utsettelse.id
 		? state.utsettelser.map((u, idx) => (u.id === utsettelse.id ? utsettelse : state.utsettelser[idx]))
 		: [

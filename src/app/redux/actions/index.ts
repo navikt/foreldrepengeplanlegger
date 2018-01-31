@@ -1,4 +1,4 @@
-import { Dekningsgrad, Utsettelse } from 'app/types';
+import { Dekningsgrad, Utsettelsesperiode } from 'app/types';
 
 import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from './actionTypes';
 
@@ -44,7 +44,7 @@ export function setDekningsgrad(dekningsgrad: Dekningsgrad | undefined): Planleg
 	};
 }
 
-export function utsettelseVisDialog(utsettelse?: Utsettelse): PlanleggerActionTypes {
+export function utsettelseVisDialog(utsettelse?: Utsettelsesperiode): PlanleggerActionTypes {
 	return {
 		type: PlanleggerActionTypeKeys.UTSETTELSE_VIS_DIALOG,
 		utsettelse
@@ -57,14 +57,14 @@ export function utsettelseLukkDialog(): PlanleggerActionTypes {
 	};
 }
 
-export function opprettEllerOppdaterUtsettelse(utsettelse: Utsettelse): PlanleggerActionTypes {
+export function opprettEllerOppdaterUtsettelse(utsettelse: Utsettelsesperiode): PlanleggerActionTypes {
 	return {
 		type: PlanleggerActionTypeKeys.UTSETTELSE_OPPRETT_ELLER_OPPDATER,
 		utsettelse
 	};
 }
 
-export function slettUtsettelse(utsettelse: Utsettelse): PlanleggerActionTypes {
+export function slettUtsettelse(utsettelse: Utsettelsesperiode): PlanleggerActionTypes {
 	return {
 		type: PlanleggerActionTypeKeys.UTSETTELSE_SLETT,
 		utsettelse

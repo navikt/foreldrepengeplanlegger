@@ -1,21 +1,43 @@
 import { createSelector } from 'reselect';
 import { AppState, FormState } from 'app/redux/types';
 import { TidslinjeInnslag } from 'app/components/tidslinje/types';
-import { addWeeks, addDays, getISODay } from 'date-fns';
-import { Utsettelse } from 'app/types';
+import { addWeeks, addDays } from 'date-fns';
+import { Utsettelsesperiode, Stonadsperiode, StonadskontoType, Periodetype, Periode } from 'app/types';
+import {
+	getStartdatoUtFraTermindato,
+	getForsteDagEtterTermin,
+	getForsteArbeidsdagEtterDato
+} from 'app/utils/periodeUtils';
+import { grunndata } from 'app/data/grunndata';
 
 const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
 
+export const periodeSelector = createSelector(formSelector, (form: FormState): Periode[] => {
+	if (!form.termindato) {
+		return [];
+	}
+	const forTerminPeriode: Stonadsperiode = {
+		type: Periodetype.Stonadsperiode,
+		forelder: 'forelder1',
+		konto: StonadskontoType.Modrekvote,
+		tidsperiode: {
+			startdato: getStartdatoUtFraTermindato(form.termindato, form.grunndata.antallUkerForelder1ForFodsel),
+			sluttdato: form.termindato
+		}
+	};
+	return [forTerminPeriode];
+});
+
 export const tidslinjeSelector = createSelector(
 	formSelector,
 	utsettelseSelector,
-	(form: FormState, utsettelser: Utsettelse[]): TidslinjeInnslag[] => {
+	(form: FormState, utsettelser: Utsettelsesperiode[]): TidslinjeInnslag[] => {
 		const { navnForelder1, navnForelder2, ukerForelder1, ukerForelder2, termindato /*, dekningsgrad*/ } = form;
 		if (!termindato) {
 			return [];
 		}
-		const startDato = getStartdatoUtFraTermin(termindato);
+		const startDato = getStartdatoUtFraTermindato(termindato, grunndata.antallUkerForelder1ForFodsel);
 		const forsteDagEtterTermin = getForsteDagEtterTermin(termindato);
 		const sluttModrekvote = addWeeks(forsteDagEtterTermin, 6 + (ukerForelder1 ? ukerForelder1 : 1));
 		const startFedrekvote = getForsteArbeidsdagEtterDato(addDays(sluttModrekvote, 1));
@@ -65,25 +87,3 @@ export const tidslinjeSelector = createSelector(
 		return innslag;
 	}
 );
-
-const getStartdatoUtFraTermin = (termin: Date): Date => {
-	let date = getForsteArbeidsdagEtterDato(addWeeks(termin, -3));
-	return date;
-};
-
-export const getForsteDagEtterTermin = (termin: Date): Date => {
-	return getForsteArbeidsdagEtterDato(addDays(termin, 1));
-};
-
-export const getForsteArbeidsdagEtterDato = (dato: Date): Date => {
-	switch (getUkedag(dato)) {
-		case 6:
-			return addDays(dato, 2);
-		case 7:
-			return addDays(dato, 1);
-		default:
-			return dato;
-	}
-};
-
-export const getUkedag = (dato: Date) => getISODay(dato);

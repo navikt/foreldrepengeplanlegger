@@ -5,12 +5,12 @@ import UtsettelseSkjema from '../components/utsettelseSkjema/UtsettelseSkjema';
 import { DispatchProps, AppState } from 'app/redux/types';
 import { utsettelseLukkDialog, utsettelseVisDialog, opprettEllerOppdaterUtsettelse } from 'app/redux/actions';
 import { connect } from 'react-redux';
-import { Utsettelse } from 'app/types';
+import { Utsettelsesperiode } from 'app/types';
 
 interface StateProps {
 	isOpen: boolean;
-	utsettelser: Utsettelse[];
-	utsettelse?: Utsettelse;
+	utsettelser: Utsettelsesperiode[];
+	utsettelse?: Utsettelsesperiode;
 	forelder1?: string;
 	forelder2?: string;
 }

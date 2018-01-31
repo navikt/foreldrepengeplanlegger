@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { FormEvent } from 'react';
-import { UtsettelseArsakType, Utsettelse, Forelder } from 'app/types';
+import { UtsettelseArsakType, Utsettelsesperiode, Forelder, Periodetype } from 'app/types';
 import DateInput from 'shared/components/dateInput/DateInput';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Radioliste from 'shared/components/radioliste/Radioliste';
 
 interface Props {
-	utsettelse?: Utsettelse;
+	utsettelse?: Utsettelsesperiode;
 	forelder1?: string;
 	forelder2?: string;
-	onChange: (utsettelse: Utsettelse) => void;
+	onChange: (utsettelse: Utsettelsesperiode) => void;
 }
 
 interface State {
@@ -32,8 +32,8 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			? {
 					arsak: utsettelse.arsak,
 					forelder: utsettelse.forelder,
-					startdato: utsettelse.periode ? utsettelse.periode.startdato : undefined,
-					sluttdato: utsettelse.periode ? utsettelse.periode.sluttdato : undefined
+					startdato: utsettelse.tidsperiode ? utsettelse.tidsperiode.startdato : undefined,
+					sluttdato: utsettelse.tidsperiode ? utsettelse.tidsperiode.sluttdato : undefined
 				}
 			: {};
 
@@ -42,7 +42,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		};
 	}
 
-	hentGyldigSkjemadata(): Utsettelse | undefined {
+	hentGyldigSkjemadata(): Utsettelsesperiode | undefined {
 		if (
 			this.state.arsak !== undefined &&
 			this.state.sluttdato !== undefined &&
@@ -52,8 +52,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			const { arsak, startdato, sluttdato, forelder } = this.state;
 			return {
 				id: this.props.utsettelse ? this.props.utsettelse.id : undefined,
+				type: Periodetype.Utsettelse,
 				arsak,
-				periode: {
+				tidsperiode: {
 					startdato,
 					sluttdato
 				},
@@ -80,6 +81,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				<div className="blokk-s">
 					<Radioliste
 						tittel="Velg type"
+						stil="ekstern"
 						valg={[
 							{
 								tittel: 'Ferie',
@@ -119,6 +121,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					<Radioliste
 						tittel="Hvem gjelder det?"
 						inputnavn="forelder"
+						stil="ekstern"
 						valg={[
 							{ tittel: forelder1 || 'Forelder 1', verdi: 'forelder1' },
 							{ tittel: forelder2 || 'Forelder 2', verdi: 'forelder2' }

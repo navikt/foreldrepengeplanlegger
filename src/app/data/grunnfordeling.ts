@@ -1,6 +1,6 @@
-import { Grunndata } from 'app/types';
+import { Grunnfordeling } from 'app/types';
 
-export const grunndata: Grunndata = {
+export const grunnfordeling: Grunnfordeling = {
 	antallUkerForelder1ForFodsel: 3,
 	antallUkerForelder1EtterFodsel: 6,
 	antallUkerForelder1Totalt: 10,

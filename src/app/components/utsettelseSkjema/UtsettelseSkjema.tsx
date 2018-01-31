@@ -4,6 +4,7 @@ import { UtsettelseArsakType, Utsettelsesperiode, Forelder, Periodetype } from '
 import DateInput from 'shared/components/dateInput/DateInput';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Radioliste from 'shared/components/radioliste/Radioliste';
+import { Row, Column } from 'nav-frontend-grid';
 
 interface Props {
 	utsettelse?: Utsettelsesperiode;
@@ -82,6 +83,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					<Radioliste
 						tittel="Velg type"
 						stil="ekstern"
+						kolonner="2"
 						valg={[
 							{
 								tittel: 'Ferie',
@@ -102,23 +104,28 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					/>
 				</div>
 				<div className="blokk-s">
-					<DateInput
-						label="Startdato"
-						id="startdato"
-						onChange={(date) => this.setState({ startdato: new Date(date) })}
-						selectedDate={startdato}
-					/>
-				</div>
-				<div className="blokk-s">
-					<DateInput
-						label="Sluttdato"
-						id="sluttdato"
-						onChange={(date) => this.setState({ sluttdato: new Date(date) })}
-						selectedDate={sluttdato}
-					/>
+					<Row>
+						<Column xs="12" sm="6">
+							<DateInput
+								label="Startdato"
+								id="startdato"
+								onChange={(date) => this.setState({ startdato: new Date(date) })}
+								selectedDate={startdato}
+							/>
+						</Column>
+						<Column xs="12" sm="6">
+							<DateInput
+								label="Sluttdato"
+								id="sluttdato"
+								onChange={(date) => this.setState({ sluttdato: new Date(date) })}
+								selectedDate={sluttdato}
+							/>
+						</Column>
+					</Row>
 				</div>
 				<div className="blokk-l">
 					<Radioliste
+						kolonner="2"
 						tittel="Hvem gjelder det?"
 						inputnavn="forelder"
 						stil="ekstern"

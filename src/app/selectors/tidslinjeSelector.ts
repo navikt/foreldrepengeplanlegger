@@ -38,6 +38,8 @@ export const tidslinjeFraPerioder = createSelector(
 			return [];
 		}
 		const innslag: TidslinjeInnslag[] = [];
+
+		// Legg inn periode
 		perioder.forEach((periode) => {
 			const i = periodeTilTidslinjeinnslag(periode);
 			if (i) {
@@ -45,6 +47,7 @@ export const tidslinjeFraPerioder = createSelector(
 			}
 		});
 
+		// Legg til utsettelser
 		utsettelser.forEach((utsettelse) => {
 			innslag.push({
 				dato: utsettelse.tidsperiode.startdato,
@@ -52,6 +55,14 @@ export const tidslinjeFraPerioder = createSelector(
 				tittel: 'Utsettelse',
 				type: 'utsettelse'
 			});
+		});
+
+		// Legg til termin
+		innslag.push({
+			dato: termindato,
+			forelder: 'forelder1',
+			type: 'termin',
+			tittel: 'Termindato'
 		});
 
 		innslag.sort(sorterTidslinjeinnslagEtterStartdato);

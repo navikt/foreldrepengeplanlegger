@@ -1,11 +1,16 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+
 import Modal from 'nav-frontend-modal';
 
 import UtsettelseSkjema from '../components/utsettelseSkjema/UtsettelseSkjema';
 import { DispatchProps, AppState } from 'app/redux/types';
 import { utsettelseLukkDialog, utsettelseVisDialog, opprettEllerOppdaterUtsettelse } from 'app/redux/actions';
-import { connect } from 'react-redux';
 import { Utsettelsesperiode } from 'app/types';
+import LeggTilKnapp from 'app/components/leggTilKnapp/LeggTilKnapp';
+import SkjemaInputElement from 'shared/components/skjemaInputElement/SkjemaInputElement';
+import SkjemaInfotekst from 'app/components/skjemaInfotekst/SkjemaInfotekst';
+import Tekst from 'app/tekst';
 
 interface StateProps {
 	isOpen: boolean;
@@ -19,7 +24,10 @@ type Props = StateProps & DispatchProps;
 
 const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 	<div>
-		<button onClick={() => props.dispatch(utsettelseVisDialog())}>Legg til utsettelse</button>
+		<SkjemaInfotekst id="info-dekningsgrad">{Tekst.skjema.info.utsettelse}</SkjemaInfotekst>
+		<SkjemaInputElement label="Utsettelse av permisjonstiden">
+			<LeggTilKnapp onClick={() => props.dispatch(utsettelseVisDialog())} />
+		</SkjemaInputElement>
 		<Modal
 			isOpen={props.isOpen}
 			contentLabel="Utsettelse"
@@ -36,15 +44,6 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 				)
 			}
 		/>
-		<ol>
-			{props.utsettelser.map((u) => (
-				<li key={u.id}>
-					<a href="#" onClick={() => props.dispatch(utsettelseVisDialog(u))}>
-						{u.arsak} {u.forelder}
-					</a>
-				</li>
-			))}
-		</ol>
 	</div>
 );
 

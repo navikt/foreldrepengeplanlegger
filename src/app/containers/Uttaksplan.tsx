@@ -9,7 +9,6 @@ import { TidslinjeInnslag } from 'app/components/tidslinje/types';
 import { periodeSelector, tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import Veileder from 'shared/components/veileder/Veileder';
 import UtsettelseDialog from 'app/containers/UtsettelseDialog';
-import { getPeriodedetaljer } from 'app/utils/periodeUtils';
 import { Periode } from 'app/types';
 
 export interface StateProps {
@@ -42,10 +41,6 @@ export class Uttaksplan extends React.Component<Props> {
 
 				<div className="blokk-m">
 					<UtsettelseDialog />
-				</div>
-
-				<div className="blokk-m">
-					<ul>{this.props.perioder.map((p, idx) => <li key={idx}>{getPeriodedetaljer(p)}</li>)}</ul>
 				</div>
 
 				{this.props.visTidslinje && <Tidslinje innslag={this.props.innslag} />}

@@ -12,7 +12,8 @@ export default {
 		info: {
 			dekningsgrad: `Luctus mauris est sit nunc vehicula. Aliquam lacus in. Donec integer odio. 
 			Libero tincidunt arcu est eget pede. Arcu metus quisque in eget sociis.`,
-			fordelingFellesperiode: `Libero tincidunt arcu est eget pede. Arcu metus quisque in eget sociis.`
+			fordelingFellesperiode: `Libero tincidunt arcu est eget pede. Arcu metus quisque in eget sociis.`,
+			utsettelse: `Luctus mauris est sit nunc vehicula. Aliquam lacus in. Donec integer odio.`
 		}
 	}
 };

@@ -39,15 +39,10 @@ export interface Stonadsperiode extends PeriodeBase {
 	forelder: Forelder;
 }
 
-export interface Fellesperiode extends PeriodeBase {
-	type: Periodetype.Stonadsperiode;
-	konto: StonadskontoType.Fellesperiode;
-}
-
 export interface Utsettelsesperiode extends PeriodeBase {
 	type: Periodetype.Utsettelse;
 	arsak: UtsettelseArsakType;
 	forelder: Forelder;
 }
 
-export type Periode = Stonadsperiode | Utsettelsesperiode | Fellesperiode;
+export type Periode = Stonadsperiode | Utsettelsesperiode;

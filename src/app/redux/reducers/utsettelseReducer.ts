@@ -21,8 +21,8 @@ const defaultState: UtsettelseState = {
 			type: Periodetype.Utsettelse,
 			arsak: UtsettelseArsakType.Arbeid,
 			tidsperiode: {
-				startdato: new Date(2018, 0, 1),
-				sluttdato: new Date(2019, 1, 1)
+				startdato: new Date(2018, 7, 1),
+				sluttdato: new Date(2018, 8, 1)
 			},
 			forelder: 'forelder2'
 		}

@@ -6,14 +6,16 @@ import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import Skjema from './Skjema';
 import { AppState, UtsettelseState, DispatchProps, FormState } from 'app/redux/types';
 import { TidslinjeInnslag } from 'app/components/tidslinje/types';
-import { tidslinjeSelector } from 'app/selectors/tidslinjeSelector';
+import { periodeSelector, tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import Veileder from 'shared/components/veileder/Veileder';
 import UtsettelseDialog from 'app/containers/UtsettelseDialog';
-import { getPeriodedetaljer, getPerioderUtenUtsettelser } from 'app/utils/periodeUtils';
+import { getPeriodedetaljer } from 'app/utils/periodeUtils';
+import { Periode } from 'app/types';
 
 export interface StateProps {
 	form: FormState;
 	innslag: TidslinjeInnslag[];
+	perioder: Periode[];
 	utsettelse: UtsettelseState;
 	visTidslinje: boolean;
 }
@@ -22,13 +24,6 @@ export type Props = StateProps & RouteComponentProps<{}> & DispatchProps;
 
 export class Uttaksplan extends React.Component<Props> {
 	render() {
-		const perioder = getPerioderUtenUtsettelser(
-			this.props.form.termindato || new Date(),
-			this.props.form.dekningsgrad || '100%',
-			this.props.form.grunnfordeling,
-			this.props.form.ukerForelder1 || 0,
-			this.props.form.ukerForelder2 || 0
-		);
 		return (
 			<div>
 				<div className="introtekst">
@@ -50,7 +45,7 @@ export class Uttaksplan extends React.Component<Props> {
 				</div>
 
 				<div className="blokk-m">
-					<ul>{perioder.map((p, idx) => <li key={idx}>{getPeriodedetaljer(p)}</li>)}</ul>
+					<ul>{this.props.perioder.map((p, idx) => <li key={idx}>{getPeriodedetaljer(p)}</li>)}</ul>
 				</div>
 
 				{this.props.visTidslinje && <Tidslinje innslag={this.props.innslag} />}
@@ -60,9 +55,11 @@ export class Uttaksplan extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: AppState): StateProps => {
-	const innslag = tidslinjeSelector(state);
+	const innslag = tidslinjeFraPerioder(state);
+	const perioder = periodeSelector(state);
 	return {
 		innslag,
+		perioder,
 		form: state.form,
 		utsettelse: state.utsettelse,
 		visTidslinje: innslag && innslag.length > 0 && state.form.dekningsgrad !== undefined

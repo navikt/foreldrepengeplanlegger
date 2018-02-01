@@ -9,8 +9,6 @@ import { TidslinjeInnslag } from 'app/components/tidslinje/types';
 import { tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import Veileder from 'shared/components/veileder/Veileder';
 import UtsettelseDialog from 'app/containers/UtsettelseDialog';
-import { toggleMockUtsettelse } from 'app/redux/actions';
-import { Knapp } from 'nav-frontend-knapper';
 
 export interface StateProps {
 	form: FormState;
@@ -43,22 +41,7 @@ export class Uttaksplan extends React.Component<Props> {
 					<UtsettelseDialog />
 				</div>
 
-				{this.props.visTidslinje && (
-					<div>
-						<div className="blokk-m">
-							<Knapp type="standard" onClick={() => this.props.dispatch(toggleMockUtsettelse())}>
-								0
-							</Knapp>
-							<Knapp type="standard" onClick={() => this.props.dispatch(toggleMockUtsettelse('1'))}>
-								1
-							</Knapp>
-							<Knapp type="standard" onClick={() => this.props.dispatch(toggleMockUtsettelse('2'))}>
-								2
-							</Knapp>
-						</div>
-						<Tidslinje innslag={this.props.innslag} />
-					</div>
-				)}
+				{this.props.visTidslinje && <Tidslinje innslag={this.props.innslag} />}
 			</div>
 		);
 	}

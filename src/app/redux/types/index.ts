@@ -14,13 +14,13 @@ export interface DispatchProps {
 }
 
 export interface FormState {
-	navnForelder1?: string;
-	navnForelder2?: string;
-	termindato?: Date;
-	ukerForelder1?: number;
-	ukerForelder2?: number;
-	dekningsgrad?: Dekningsgrad;
-	ukerFellesperiode?: number;
+	navnForelder1: string;
+	navnForelder2: string;
+	termindato: Date;
+	ukerForelder1: number;
+	ukerForelder2: number;
+	dekningsgrad: Dekningsgrad;
+	ukerFellesperiode: number;
 	grunnfordeling: Grunnfordeling;
 }
 

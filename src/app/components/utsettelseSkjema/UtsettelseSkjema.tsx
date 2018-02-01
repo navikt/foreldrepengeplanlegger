@@ -1,13 +1,16 @@
 import * as React from 'react';
 import { FormEvent } from 'react';
-import { UtsettelseArsakType, Utsettelsesperiode, Forelder, Periodetype } from 'app/types';
+
+import { UtsettelseArsakType, Utsettelsesperiode, Forelder, Periodetype, Tidsperiode } from 'app/types';
 import DateInput from 'shared/components/dateInput/DateInput';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Radioliste from 'shared/components/radioliste/Radioliste';
 import { Row, Column } from 'nav-frontend-grid';
 
 interface Props {
+	tidsrom: Tidsperiode;
 	utsettelse?: Utsettelsesperiode;
+	registrerteUtsettelser?: Utsettelsesperiode[];
 	forelder1?: string;
 	forelder2?: string;
 	onChange: (utsettelse: Utsettelsesperiode) => void;
@@ -75,7 +78,20 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 
 	render() {
 		const { arsak, startdato, sluttdato, forelder } = this.state;
-		const { utsettelse, forelder1, forelder2 } = this.props;
+		const { utsettelse, forelder1, forelder2, tidsrom, registrerteUtsettelser } = this.props;
+
+		const tilTidsrom: Tidsperiode = {
+			startdato: startdato ? startdato : tidsrom.startdato,
+			sluttdato: tidsrom.sluttdato
+		};
+
+		const ugyldigeTidsrom =
+			registrerteUtsettelser &&
+			registrerteUtsettelser.map((u) => ({
+				from: u.tidsperiode.startdato,
+				to: u.tidsperiode.sluttdato
+			}));
+
 		return (
 			<form onSubmit={preventDefaultEvent} className="utsettelseSkjema">
 				<h1 className="typo-undertittel m-textCenter blokk-s">Legg til utsettelse</h1>
@@ -103,26 +119,38 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						onChange={(value) => this.setState({ arsak: value as UtsettelseArsakType })}
 					/>
 				</div>
-				<div className="blokk-s">
-					<Row>
-						<Column xs="12" sm="6">
+				<Row>
+					<Column xs="12" sm="6">
+						<div className="blokk-s">
 							<DateInput
 								label="Startdato"
 								id="startdato"
+								fromDate={tidsrom.startdato}
+								toDate={tidsrom.sluttdato}
 								onChange={(date) => this.setState({ startdato: new Date(date) })}
 								selectedDate={startdato}
+								disabledRanges={ugyldigeTidsrom}
+								disableWeekends={true}
+								fullscreen={true}
 							/>
-						</Column>
-						<Column xs="12" sm="6">
+						</div>
+					</Column>
+					<Column xs="12" sm="6">
+						<div className="blokk-s">
 							<DateInput
 								label="Sluttdato"
 								id="sluttdato"
+								fromDate={tilTidsrom.startdato}
+								toDate={tilTidsrom.sluttdato}
 								onChange={(date) => this.setState({ sluttdato: new Date(date) })}
 								selectedDate={sluttdato}
+								disabledRanges={ugyldigeTidsrom}
+								disableWeekends={true}
+								fullscreen={true}
 							/>
-						</Column>
-					</Row>
-				</div>
+						</div>
+					</Column>
+				</Row>
 				<div className="blokk-l">
 					<Radioliste
 						kolonner="2"

@@ -9,13 +9,6 @@ export interface Tidsperiode {
 	sluttdato: Date;
 }
 
-export interface Soknadsdata {
-	termindato: Date;
-	dekningsgrad: Dekningsgrad;
-	fellesukerForelder1: number;
-	fellesukerForelder2: number;
-}
-
 export interface Grunnfordeling {
 	antallUkerTotalt100: number;
 	antallUkerTotalt80: number;
@@ -24,4 +17,5 @@ export interface Grunnfordeling {
 	antallUkerForelder1Totalt: number;
 	antallUkerForelder2Totalt: number;
 	tidligstUkerUttakForelder1: number;
+	maksPermisjonslengdeIAr: number;
 }

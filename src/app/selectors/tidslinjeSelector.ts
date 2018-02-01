@@ -20,30 +20,68 @@ export const tidslinjeFraPerioder = createSelector(
 			return [];
 		}
 
-		const alleInnslag: TidslinjeInnslag[] = perioder.map((periode) => periodeTilTidslinjeinnslag(periode) || {});
-
-		// Legg til punkt for termindato
-		alleInnslag.push({
-			startdato: termindato,
-			forelder: 'forelder1',
-			type: 'termin',
-			tittel: 'Termindato'
-		});
-
-		// Legg til punkt for permisjonsslutt
 		const sistePeriode = perioder[perioder.length - 1];
-		alleInnslag.push({
-			startdato: sistePeriode.tidsperiode.sluttdato,
-			forelder: sistePeriode.forelder,
-			type: 'siste',
-			tittel: 'Siste permisjonsdag'
+
+		const alleInnslag: TidslinjeInnslag[] = [
+			...perioder.map((periode) => periodeTilTidslinjeinnslag(periode)),
+			{
+				startdato: termindato,
+				sluttdato: termindato,
+				forelder: 'forelder1',
+				type: 'termin',
+				tittel: 'Termindato'
+			},
+			{
+				startdato: sistePeriode.tidsperiode.sluttdato,
+				sluttdato: sistePeriode.tidsperiode.sluttdato,
+				forelder: sistePeriode.forelder,
+				type: 'siste',
+				tittel: 'Siste permisjonsdag'
+			}
+		];
+
+		return alleInnslag.sort(sorterTidslinjeinnslagEtterStartdato).map((innslag, index) => {
+			if (innslag.type !== 'uttak') {
+				return innslag;
+			}
+			const justertInnslag: TidslinjeInnslag = {
+				...innslag,
+				fortsetter: fortsetterInnslag(alleInnslag, innslag, index),
+				erFortsettelse: erInnslagFortsettelse(alleInnslag, innslag, index),
+				erSlutt: erInnslagSisteIPeriode(alleInnslag, innslag, index)
+			};
+			return justertInnslag;
 		});
-
-		alleInnslag.sort(sorterTidslinjeinnslagEtterStartdato);
-
-		return alleInnslag;
 	}
 );
+
+const fortsetterInnslag = (alleInnslag: TidslinjeInnslag[], innslag: TidslinjeInnslag, index: number): boolean => {
+	if (index === alleInnslag.length - 1) {
+		return false;
+	}
+	const nesteInnslag: TidslinjeInnslag = alleInnslag[index + 1];
+	return (
+		(nesteInnslag.type === 'uttak' || nesteInnslag.type === 'utsettelse') && nesteInnslag.forelder === innslag.forelder
+	);
+};
+
+const erInnslagFortsettelse = (alleInnslag: TidslinjeInnslag[], innslag: TidslinjeInnslag, index: number): boolean => {
+	if (index === 0) {
+		return false;
+	}
+	const forrigeInnslag = alleInnslag[index - 1];
+	return forrigeInnslag.type !== 'uttak' ? true : forrigeInnslag.forelder === innslag.forelder;
+};
+const erInnslagSisteIPeriode = (alleInnslag: TidslinjeInnslag[], innslag: TidslinjeInnslag, index: number): boolean => {
+	if (index === alleInnslag.length - 1 || innslag.type !== 'uttak') {
+		return false;
+	}
+	const nesteInnslag: TidslinjeInnslag = alleInnslag[index + 1];
+	return (
+		(nesteInnslag.type === 'uttak' && nesteInnslag.forelder !== innslag.forelder) ||
+		nesteInnslag.forelder !== innslag.forelder
+	);
+};
 
 const sorterTidslinjeinnslagEtterStartdato = (innslag1: TidslinjeInnslag, innslag2: TidslinjeInnslag) => {
 	if (innslag1.startdato === innslag2.startdato) {

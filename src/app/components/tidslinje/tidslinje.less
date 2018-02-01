@@ -50,7 +50,6 @@
 
 .hendelseDot(@borderColor) {
 	content: '';
-	display: none;
 	z-index: @dot-z-index;
 	position: absolute;
 	top: 0;
@@ -159,6 +158,7 @@
 			.moveArrowLeftToBottom();
 		}
 	}
+
 	&__linje {
 		width: 8px;
 		background-color: @c-purple;
@@ -201,6 +201,11 @@
 				.setHendelseDotColor(@c-green);
 			}
 		}
+		&--fortsettelse {
+			&:before {
+				display: none;
+			}
+		}
 		&--slutt {
 			top: 0rem;
 			&:before {
@@ -224,6 +229,9 @@
 			&:after {
 				display: block;
 			}
+		}
+		&--fortsetter {
+			bottom: -1rem;
 		}
 
 		/** Rød sirkel */

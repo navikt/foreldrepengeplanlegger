@@ -174,6 +174,9 @@ class DateInput extends Component {
 							onDayClick={this.onDayClick}
 							onKeyUp={this.onKeyUp}
 							close={this.close}
+							disabledRanges={this.props.disabledRanges}
+							disableWeekends={this.props.disableWeekends}
+							fullscreen={this.props.fullscreen}
 						/>
 					)}
 				</div>
@@ -196,7 +199,15 @@ DateInput.propTypes = {
 	disabled: PT.bool,
 	fromDate: PT.instanceOf(Date),
 	toDate: PT.instanceOf(Date),
+	disableWeekends: PT.bool,
+	disabledRanges: PT.arrayOf(
+		PT.shape({
+			from: PT.instanceOf(Date).isRequired,
+			to: PT.instanceOf(Date).isRequired
+		})
+	),
 	errorMessage: PT.oneOfType([PT.arrayOf(PT.node), PT.node]),
+	fullscreen: PT.bool,
 	onChange: PT.func.isRequired
 };
 
@@ -206,6 +217,9 @@ DateInput.defaultProps = {
 	toDate: undefined,
 	errorMessage: undefined,
 	selectedDate: undefined,
-	inputProps: undefined
+	inputProps: undefined,
+	disableWeekends: false,
+	disabledRanges: undefined,
+	fullscreen: false
 };
 export default DateInput;

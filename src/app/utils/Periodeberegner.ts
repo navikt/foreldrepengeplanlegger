@@ -1,12 +1,18 @@
-import { Grunnfordeling, Soknadsdata, Tidsperiode } from 'app/types';
+import { Grunnfordeling, Tidsperiode, Dekningsgrad } from 'app/types';
 import {
 	getForsteUttaksdagPaEllerEtterDato,
 	getPeriodesluttDato,
 	getForsteUttaksdagEtterDato
 } from 'app/utils/periodeUtils';
-import { addWeeks } from 'date-fns';
+import { addWeeks, addYears } from 'date-fns';
 
-const Periodeberegner = (soknad: Soknadsdata, grunnfordeling: Grunnfordeling) => {
+const Periodeberegner = (
+	termindato: Date,
+	dekningsgrad: Dekningsgrad,
+	fellesukerForelder1: number,
+	fellesukerForelder2: number,
+	grunnfordeling: Grunnfordeling
+) => {
 	const getModrekvotePreTermin = (): Tidsperiode => {
 		const startdato = getStartdato();
 		return {
@@ -17,8 +23,8 @@ const Periodeberegner = (soknad: Soknadsdata, grunnfordeling: Grunnfordeling) =>
 
 	const getModrekvotePostTermin = (): Tidsperiode => {
 		return {
-			startdato: soknad.termindato,
-			sluttdato: getPeriodesluttDato(soknad.termindato, grunnfordeling.antallUkerForelder1EtterFodsel)
+			startdato: termindato,
+			sluttdato: getPeriodesluttDato(termindato, grunnfordeling.antallUkerForelder1EtterFodsel)
 		};
 	};
 
@@ -26,7 +32,7 @@ const Periodeberegner = (soknad: Soknadsdata, grunnfordeling: Grunnfordeling) =>
 		const startdato = getForsteUttaksdagEtterDato(getModrekvotePostTermin().sluttdato);
 		return {
 			startdato,
-			sluttdato: getPeriodesluttDato(startdato, soknad.fellesukerForelder1)
+			sluttdato: getPeriodesluttDato(startdato, fellesukerForelder1)
 		};
 	};
 
@@ -34,7 +40,7 @@ const Periodeberegner = (soknad: Soknadsdata, grunnfordeling: Grunnfordeling) =>
 		const startdato = getForsteUttaksdagEtterDato(getFellesperiodeForelder1().sluttdato);
 		return {
 			startdato,
-			sluttdato: getPeriodesluttDato(startdato, soknad.fellesukerForelder2)
+			sluttdato: getPeriodesluttDato(startdato, fellesukerForelder2)
 		};
 	};
 
@@ -47,9 +53,15 @@ const Periodeberegner = (soknad: Soknadsdata, grunnfordeling: Grunnfordeling) =>
 	};
 
 	const getStartdato = (): Date => {
-		return getForsteUttaksdagPaEllerEtterDato(
-			addWeeks(soknad.termindato, -1 * grunnfordeling.antallUkerForelder1ForFodsel)
-		);
+		return getForsteUttaksdagPaEllerEtterDato(addWeeks(termindato, -1 * grunnfordeling.antallUkerForelder1ForFodsel));
+	};
+
+	const getForsteMuligeUtsettelsesdag = (): Date => {
+		return getForsteUttaksdagEtterDato(getPeriodesluttDato(termindato, grunnfordeling.antallUkerForelder1EtterFodsel));
+	};
+
+	const getSistePermisjonsdag = (): Date => {
+		return addYears(termindato, grunnfordeling.maksPermisjonslengdeIAr);
 	};
 
 	return {
@@ -57,7 +69,9 @@ const Periodeberegner = (soknad: Soknadsdata, grunnfordeling: Grunnfordeling) =>
 		getModrekvotePostTermin,
 		getFellesperiodeForelder1,
 		getFellesperiodeForelder2,
-		getFedrekvote
+		getFedrekvote,
+		getForsteMuligeUtsettelsesdag,
+		getSistePermisjonsdag
 	};
 };
 

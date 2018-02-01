@@ -10,8 +10,8 @@ export const utsettelse1: Utsettelsesperiode = {
 	type: Periodetype.Utsettelse,
 	arsak: UtsettelseArsakType.Ferie,
 	tidsperiode: {
-		startdato: new Date(2018, 4, 7),
-		sluttdato: new Date(2018, 4, 10)
+		startdato: new Date(2018, 2, 21),
+		sluttdato: new Date(2018, 2, 23)
 	},
 	forelder: 'forelder1'
 };
@@ -25,6 +25,9 @@ export const utsettelse2: Utsettelsesperiode = {
 	},
 	forelder: 'forelder2'
 };
+
+// mockUtsettelser.push(utsettelse1);
+// mockUtsettelser.push(utsettelse1);
 
 const defaultState: UtsettelseState = {
 	dialogErApen: false,

@@ -24,10 +24,13 @@ export interface FormState {
 	grunnfordeling: Grunnfordeling;
 }
 
+export type MockUtsettelse = '1' | '2';
+
 export interface UtsettelseState {
 	dialogErApen: boolean;
 	utsettelser: Utsettelsesperiode[];
 	valgtUtsettelse?: Utsettelsesperiode;
+	mock?: MockUtsettelse;
 }
 
 export interface AppState {

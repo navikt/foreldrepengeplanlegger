@@ -1,6 +1,7 @@
 import { Dekningsgrad, Utsettelsesperiode } from 'app/types';
 
 import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from './actionTypes';
+import { MockUtsettelse } from 'app/redux/types';
 
 export function setNavnForelder1(navn: string): PlanleggerActionTypes {
 	return {
@@ -68,5 +69,12 @@ export function slettUtsettelse(utsettelse: Utsettelsesperiode): PlanleggerActio
 	return {
 		type: PlanleggerActionTypeKeys.UTSETTELSE_SLETT,
 		utsettelse
+	};
+}
+
+export function toggleMockUtsettelse(mock?: MockUtsettelse): PlanleggerActionTypes {
+	return {
+		type: PlanleggerActionTypeKeys.UTSETTELSE_TOGGLE_MOCK,
+		mock
 	};
 }

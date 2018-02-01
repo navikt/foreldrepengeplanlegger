@@ -1,5 +1,5 @@
 import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from 'app/redux/actions/actionTypes';
-import { UtsettelseState } from '../types';
+import { UtsettelseState, MockUtsettelse } from '../types';
 import { Utsettelsesperiode, UtsettelseArsakType, Periodetype } from 'app/types';
 import { guid } from 'nav-frontend-js-utils';
 
@@ -26,9 +26,6 @@ export const utsettelse2: Utsettelsesperiode = {
 	forelder: 'forelder2'
 };
 
-mockUtsettelser.push(utsettelse1);
-mockUtsettelser.push(utsettelse2);
-
 const defaultState: UtsettelseState = {
 	dialogErApen: false,
 	utsettelser: mockUtsettelser
@@ -51,6 +48,17 @@ const opprettEllerOppdaterUtsettelse = (state: UtsettelseState, utsettelse: Utse
 	};
 };
 
+const getMockUtsettelser = (mock?: MockUtsettelse): Utsettelsesperiode[] => {
+	if (!mock) {
+		return [];
+	}
+	const utsettelser: Utsettelsesperiode[] = [utsettelse1];
+	if (mock === '2') {
+		utsettelser.push(utsettelse2);
+	}
+	return utsettelser;
+};
+
 const UtsettelseReducer = (state = defaultState, action: PlanleggerActionTypes) => {
 	switch (action.type) {
 		case PlanleggerActionTypeKeys.UTSETTELSE_VIS_DIALOG:
@@ -59,6 +67,11 @@ const UtsettelseReducer = (state = defaultState, action: PlanleggerActionTypes) 
 			return { ...state, dialogErApen: false, valgtUtsettelse: undefined } as UtsettelseState;
 		case PlanleggerActionTypeKeys.UTSETTELSE_OPPRETT_ELLER_OPPDATER:
 			return opprettEllerOppdaterUtsettelse(state, action.utsettelse);
+		case PlanleggerActionTypeKeys.UTSETTELSE_TOGGLE_MOCK:
+			return {
+				...state,
+				utsettelser: getMockUtsettelser(action.mock)
+			};
 		default:
 			return state;
 	}

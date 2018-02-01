@@ -107,13 +107,15 @@ export const leggInnUtsettelerIPerioder = (
 					sluttdato: getForsteUttaksdagForDato(u.tidsperiode.startdato)
 				}
 			});
-			p.push({
+			const utsettelse = {
 				...(u as Utsettelsesperiode),
 				tidsperiode: {
 					startdato: getForsteUttaksdagForDato(u.tidsperiode.startdato),
 					sluttdato: getForsteUttaksdagPaEllerForDato(u.tidsperiode.sluttdato)
 				}
-			});
+			};
+			console.log(utsettelse);
+			p.push(utsettelse);
 			p.push({
 				...(periode as Stonadsperiode),
 				tidsperiode: {
@@ -140,10 +142,18 @@ export const justerPerioderMedUtsettelser = (perioder: Periode[]): Periode[] => 
 	perioder.forEach((periode) => {
 		if (periode.fastPeriode) {
 			justertePerioder.push(periode);
+			sluttdatoForrigePeriode = periode.tidsperiode.sluttdato;
 		} else {
 			const dagerIPeriode = differenceInCalendarDays(periode.tidsperiode.sluttdato, periode.tidsperiode.startdato);
 			const startdato = getForsteUttaksdagEtterDato(sluttdatoForrigePeriode);
-			const sluttdato = addDays(startdato, dagerIPeriode);
+			const sluttdato = getForsteUttaksdagEtterDato(addDays(startdato, dagerIPeriode));
+			// let sluttdato;
+			// if (periode.type === Periodetype.Utsettelse) {
+			// 	sluttdato = getForsteUttaksdagPaEllerForDato(addDays(startdato, dagerIPeriode));
+			// } else {
+			// 	sluttdato = getForsteUttaksdagEtterDato(addDays(startdato, dagerIPeriode));
+			// }
+			// console.log(sluttdato);
 			justertePerioder.push({
 				...periode,
 				tidsperiode: {
@@ -151,8 +161,8 @@ export const justerPerioderMedUtsettelser = (perioder: Periode[]): Periode[] => 
 					sluttdato
 				}
 			});
+			sluttdatoForrigePeriode = periode.tidsperiode.sluttdato;
 		}
-		sluttdatoForrigePeriode = periode.tidsperiode.sluttdato;
 	});
 	return justertePerioder;
 };

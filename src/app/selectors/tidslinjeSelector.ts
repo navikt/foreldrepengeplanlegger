@@ -1,17 +1,8 @@
 import { createSelector } from 'reselect';
 import { AppState, FormState } from 'app/redux/types';
 import { TidslinjeInnslag } from 'app/components/tidslinje/types';
-// import { addWeeks, addDays } from 'date-fns';
 import { Utsettelsesperiode, Periode, Periodetype, Stonadsperiode } from 'app/types';
-import {
-	// getStartdatoUtFraTermindato,
-	// getForsteUttaksdagEtterDato,
-	// getForsteUttaksdagPaEllerEtterDato,
-	getStonadsperioder,
-	justerPerioderMedUtsettelser,
-	leggInnUtsettelerIPerioder
-} from 'app/utils/periodeUtils';
-// import { grunnfordeling } from 'app/data/grunnfordeling';
+import { getStonadsperioder, justerPerioderMedUtsettelser, leggInnUtsettelerIPerioder } from 'app/utils/periodeUtils';
 
 const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
@@ -40,7 +31,7 @@ export const periodeSelector = createSelector(
 );
 
 /**
- * Oppretter tidslinjeInnslag ut fra perioder, utsettelser
+ * Oppretter tidslinjeInnslag ut fra perioder og utsettelser
  */
 export const tidslinjeFraPerioder = createSelector(
 	periodeSelector,
@@ -52,11 +43,7 @@ export const tidslinjeFraPerioder = createSelector(
 			return [];
 		}
 		const alleInnslag: TidslinjeInnslag[] = [];
-
-		const justertePerioder: Periode[] = justerPerioderMedUtsettelser(
-			// perioder.concat(utsettelser).sort(sorterPeriodeEtterStartdato)
-			perioder.sort(sorterPeriodeEtterStartdato)
-		);
+		const justertePerioder: Periode[] = justerPerioderMedUtsettelser(perioder.sort(sorterPeriodeEtterStartdato));
 
 		// Lag tidslinjeinnslag ut fra perioder
 		justertePerioder.forEach((periode) => {
@@ -122,53 +109,3 @@ export const periodeTilTidslinjeinnslag = (periode: Periode): TidslinjeInnslag |
 			return undefined;
 	}
 };
-
-// export const tidslinjeSelector = createSelector(
-// 	formSelector,
-// 	utsettelseSelector,
-// 	(form: FormState, utsettelser: Utsettelsesperiode[]): TidslinjeInnslag[] => {
-// 		const { navnForelder1, navnForelder2, ukerForelder1, ukerForelder2, termindato /*, dekningsgrad*/ } = form;
-// 		if (!termindato) {
-// 			return [];
-// 		}
-// 		const startDato = getStartdatoUtFraTermindato(termindato, grunnfordeling.antallUkerForelder1ForFodsel);
-// 		const forsteDagEtterTermin = getForsteUttaksdagEtterDato(termindato);
-// 		const sluttModrekvote = addWeeks(forsteDagEtterTermin, 6 + (ukerForelder1 ? ukerForelder1 : 1));
-// 		const startFedrekvote = getForsteUttaksdagPaEllerEtterDato(addDays(sluttModrekvote, 1));
-// 		const sluttFedrekvote = addWeeks(sluttModrekvote, ukerForelder2 ? ukerForelder2 : 0);
-
-// 		const innslag: TidslinjeInnslag[] = [
-// 			{
-// 				startdato: startDato,
-// 				tittel: `${navnForelder1 || 'Mor'} starter sin permisjon`,
-// 				forelder: 'forelder1',
-// 				type: 'uttak'
-// 			},
-// 			{
-// 				startdato: termindato,
-// 				tittel: 'Termindato',
-// 				forelder: 'forelder1',
-// 				type: 'termin'
-// 			},
-// 			{
-// 				startdato: sluttModrekvote,
-// 				tittel: `${navnForelder1 || 'Mor'} avslutter sin permisjon`,
-// 				forelder: 'forelder1',
-// 				type: 'slutt'
-// 			},
-// 			{
-// 				startdato: startFedrekvote,
-// 				tittel: `${navnForelder2 || 'Medforelder'} starter sin permisjon`,
-// 				forelder: 'forelder2',
-// 				type: 'uttak'
-// 			},
-// 			{
-// 				startdato: sluttFedrekvote,
-// 				tittel: `${navnForelder2 || 'Medforelder'} slutter sin permisjon`,
-// 				forelder: 'forelder2',
-// 				type: 'siste'
-// 			}
-// 		];
-// 		return innslag;
-// 	}
-// );

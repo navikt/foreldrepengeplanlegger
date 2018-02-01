@@ -23,8 +23,8 @@ export const periodeSelector = createSelector(
 			return [];
 		}
 		const stonadsperioder: Stonadsperiode[] = getStonadsperioder(
-			form.termindato || new Date(),
-			form.dekningsgrad || '100%',
+			form.termindato,
+			form.dekningsgrad,
 			form.grunnfordeling,
 			form.ukerForelder1 || 0,
 			form.ukerForelder2 || 0

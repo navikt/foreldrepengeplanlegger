@@ -3,6 +3,7 @@ import { AppState } from 'app/redux/types';
 import { TidslinjeInnslag } from 'app/components/tidslinje/types';
 import { Periode, Periodetype } from 'app/types';
 import { periodeSelector } from './periodeSelector';
+
 const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
 
@@ -18,14 +19,8 @@ export const tidslinjeFraPerioder = createSelector(
 		if (!termindato || !dekningsgrad) {
 			return [];
 		}
-		const alleInnslag: TidslinjeInnslag[] = [];
-		// Lag tidslinjeinnslag ut fra perioder
-		perioder.forEach((periode) => {
-			const i = periodeTilTidslinjeinnslag(periode);
-			if (i) {
-				alleInnslag.push(i);
-			}
-		});
+
+		const alleInnslag: TidslinjeInnslag[] = perioder.map((periode) => periodeTilTidslinjeinnslag(periode) || {});
 
 		// Legg til punkt for termindato
 		alleInnslag.push({
@@ -57,17 +52,8 @@ const sorterTidslinjeinnslagEtterStartdato = (innslag1: TidslinjeInnslag, innsla
 	return innslag1.startdato >= innslag2.startdato ? 1 : -1;
 };
 
-export const periodeTilTidslinjeinnslag = (periode: Periode): TidslinjeInnslag | undefined => {
+export const periodeTilTidslinjeinnslag = (periode: Periode): TidslinjeInnslag => {
 	switch (periode.type) {
-		case Periodetype.Stonadsperiode:
-			return {
-				startdato: periode.tidsperiode.startdato,
-				sluttdato: periode.tidsperiode.sluttdato,
-				type: 'uttak',
-				tittel: `Søknadsperiode (${periode.konto})`,
-				forelder: periode.forelder,
-				fastPeriode: periode.fastPeriode
-			};
 		case Periodetype.Utsettelse:
 			return {
 				startdato: periode.tidsperiode.startdato,
@@ -77,6 +63,13 @@ export const periodeTilTidslinjeinnslag = (periode: Periode): TidslinjeInnslag |
 				forelder: periode.forelder
 			};
 		default:
-			return undefined;
+			return {
+				startdato: periode.tidsperiode.startdato,
+				sluttdato: periode.tidsperiode.sluttdato,
+				type: 'uttak',
+				tittel: `Søknadsperiode (${periode.konto})`,
+				forelder: periode.forelder,
+				fastPeriode: periode.fastPeriode
+			};
 	}
 };

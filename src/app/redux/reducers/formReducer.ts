@@ -54,7 +54,7 @@ const FormReducer = (state = getDefaultState(), action: PlanleggerActionTypes) =
 			const ukerFellesperiode = getAntallUkerFellesperiode(grunnfordeling, action.dekningsgrad);
 			const { ukerForelder1, ukerForelder2 } = refordelFellesperiode(
 				ukerFellesperiode,
-				state.ukerFellesperiode,
+				ukerFellesperiode,
 				state.ukerForelder1
 			);
 			return {

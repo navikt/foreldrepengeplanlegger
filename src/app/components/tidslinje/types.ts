@@ -13,4 +13,6 @@ export interface TidslinjeInnslag {
 	fortsetter?: boolean;
 	/** Om neste periode er av samme Periodetype og har samme forelder */
 	erFortsettelse?: boolean;
+	/** Om dette er slutten på en permisjonsperiode */
+	erSlutt?: boolean;
 }

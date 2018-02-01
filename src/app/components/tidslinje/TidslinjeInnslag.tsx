@@ -5,11 +5,10 @@ import TerminIkon from 'app/components/ikoner/TerminIkon';
 import Dato from 'app/components/dato/Dato';
 
 import { TidslinjeInnslag } from './types';
-import { kalkulerUttaksdagerIPeriode } from 'app/utils/periodeUtils';
+import { getAntallDagerITidsperiode } from 'app/utils/periodeUtils';
 
 interface TidslinjeInnslagProps {
 	innslag: TidslinjeInnslag;
-	nesteInnslag?: TidslinjeInnslag;
 }
 
 const TidslinjeStrek: React.StatelessComponent<TidslinjeInnslagProps> = ({ innslag }) => (
@@ -17,18 +16,23 @@ const TidslinjeStrek: React.StatelessComponent<TidslinjeInnslagProps> = ({ innsl
 		className={classNames(
 			'tidslinjeInnslag__linje',
 			`tidslinjeInnslag__linje--${innslag.forelder}`,
-			`tidslinjeInnslag__linje--${innslag.type}`
+			`tidslinjeInnslag__linje--${innslag.type}`,
+			{
+				'tidslinjeInnslag__linje--start': !innslag.erFortsettelse,
+				'tidslinjeInnslag__linje--fortsetter': innslag.fortsetter,
+				'tidslinjeInnslag__linje--slutt': !innslag.fortsetter
+			}
 		)}
 	/>
 );
 
-const TidslinjeInnslag: React.StatelessComponent<TidslinjeInnslagProps> = ({ innslag, nesteInnslag }) => {
+const TidslinjeInnslag: React.StatelessComponent<TidslinjeInnslagProps> = ({ innslag }) => {
 	const cls = classNames(
 		'tidslinjeInnslag',
 		`tidslinjeInnslag--${innslag.type}`,
 		`tidslinjeInnslag--${innslag.forelder}`
 	);
-	const antallUttaksdager = nesteInnslag ? kalkulerUttaksdagerIPeriode(innslag.startdato, nesteInnslag.startdato) : -1;
+	const varighet = getAntallDagerITidsperiode({ startdato: innslag.startdato, sluttdato: innslag.sluttdato });
 	return (
 		<div className={cls}>
 			<TidslinjeStrek innslag={innslag} />
@@ -40,7 +44,7 @@ const TidslinjeInnslag: React.StatelessComponent<TidslinjeInnslagProps> = ({ inn
 						- <Dato dato={innslag.sluttdato} />
 					</span>
 				)}
-				{antallUttaksdager >= 1 && <span> ({antallUttaksdager} dager)</span>}
+				{varighet >= 1 && <span> ({varighet} dager)</span>}
 			</div>
 			<div className="tidslinjeInnslag__hendelse">
 				{innslag.tittel}{' '}

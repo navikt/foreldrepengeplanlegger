@@ -20,11 +20,19 @@ export const tidslinjeFraPerioder = createSelector(
 			return [];
 		}
 
-		const alleInnslag: TidslinjeInnslag[] = perioder.map((periode) => periodeTilTidslinjeinnslag(periode) || {});
+		const antallPerioder = perioder.length;
+		let forrigePeriode: Periode;
+		const alleInnslag: TidslinjeInnslag[] = perioder.map((periode, index) => {
+			const nestePeriode = index < antallPerioder - 1 ? perioder[index + 1] : undefined;
+			const innslag = periodeTilTidslinjeinnslag(periode, forrigePeriode, nestePeriode) || {};
+			forrigePeriode = periode;
+			return innslag;
+		});
 
 		// Legg til punkt for termindato
 		alleInnslag.push({
 			startdato: termindato,
+			sluttdato: termindato,
 			forelder: 'forelder1',
 			type: 'termin',
 			tittel: 'Termindato'
@@ -34,6 +42,7 @@ export const tidslinjeFraPerioder = createSelector(
 		const sistePeriode = perioder[perioder.length - 1];
 		alleInnslag.push({
 			startdato: sistePeriode.tidsperiode.sluttdato,
+			sluttdato: sistePeriode.tidsperiode.sluttdato,
 			forelder: sistePeriode.forelder,
 			type: 'siste',
 			tittel: 'Siste permisjonsdag'
@@ -52,7 +61,13 @@ const sorterTidslinjeinnslagEtterStartdato = (innslag1: TidslinjeInnslag, innsla
 	return innslag1.startdato >= innslag2.startdato ? 1 : -1;
 };
 
-export const periodeTilTidslinjeinnslag = (periode: Periode): TidslinjeInnslag => {
+export const periodeTilTidslinjeinnslag = (
+	periode: Periode,
+	forrigePeriode: Periode,
+	nestePeriode?: Periode
+): TidslinjeInnslag => {
+	const fortsetter = nestePeriode && nestePeriode.forelder === periode.forelder;
+	const erFortsettelse = forrigePeriode && forrigePeriode.forelder === periode.forelder;
 	switch (periode.type) {
 		case Periodetype.Utsettelse:
 			return {
@@ -60,7 +75,9 @@ export const periodeTilTidslinjeinnslag = (periode: Periode): TidslinjeInnslag =
 				sluttdato: periode.tidsperiode.sluttdato,
 				type: 'utsettelse',
 				tittel: `Utsettelse (${periode.arsak})`,
-				forelder: periode.forelder
+				forelder: periode.forelder,
+				fortsetter,
+				erFortsettelse
 			};
 		default:
 			return {
@@ -69,7 +86,8 @@ export const periodeTilTidslinjeinnslag = (periode: Periode): TidslinjeInnslag =
 				type: 'uttak',
 				tittel: `Søknadsperiode (${periode.konto})`,
 				forelder: periode.forelder,
-				fastPeriode: periode.fastPeriode
+				fastPeriode: periode.fastPeriode,
+				fortsetter
 			};
 	}
 };

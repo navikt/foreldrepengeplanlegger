@@ -1,37 +1,13 @@
 import { createSelector } from 'reselect';
-import { AppState, FormState } from 'app/redux/types';
+import { AppState } from 'app/redux/types';
 import { TidslinjeInnslag } from 'app/components/tidslinje/types';
-import { Utsettelsesperiode, Periode, Periodetype, Stonadsperiode } from 'app/types';
-import { getStonadsperioder, justerPerioderMedUtsettelser, leggInnUtsettelerIPerioder } from 'app/utils/periodeUtils';
-
+import { Periode, Periodetype } from 'app/types';
+import { periodeSelector } from './periodeSelector';
 const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
 
 /**
- * Henter ut alle perioder gitt formState og utsettelser
- */
-export const periodeSelector = createSelector(
-	formSelector,
-	utsettelseSelector,
-	(form: FormState, utsettelser: Utsettelsesperiode[]): Periode[] => {
-		if (!form.termindato || !form.dekningsgrad) {
-			return [];
-		}
-		const stonadsperioder: Stonadsperiode[] = getStonadsperioder(
-			form.termindato || new Date(),
-			form.dekningsgrad || '100%',
-			form.grunnfordeling,
-			form.ukerForelder1 || 0,
-			form.ukerForelder2 || 0
-		);
-
-		const perioder = leggInnUtsettelerIPerioder(stonadsperioder, utsettelser);
-		return perioder;
-	}
-);
-
-/**
- * Oppretter tidslinjeInnslag ut fra perioder og utsettelser
+ * Oppretter tidslinjeInnslag ut fra perioder
  */
 export const tidslinjeFraPerioder = createSelector(
 	periodeSelector,
@@ -43,10 +19,8 @@ export const tidslinjeFraPerioder = createSelector(
 			return [];
 		}
 		const alleInnslag: TidslinjeInnslag[] = [];
-		const justertePerioder: Periode[] = justerPerioderMedUtsettelser(perioder.sort(sorterPeriodeEtterStartdato));
-
 		// Lag tidslinjeinnslag ut fra perioder
-		justertePerioder.forEach((periode) => {
+		perioder.forEach((periode) => {
 			const i = periodeTilTidslinjeinnslag(periode);
 			if (i) {
 				alleInnslag.push(i);
@@ -62,7 +36,7 @@ export const tidslinjeFraPerioder = createSelector(
 		});
 
 		// Legg til punkt for permisjonsslutt
-		const sistePeriode = justertePerioder[justertePerioder.length - 1];
+		const sistePeriode = perioder[perioder.length - 1];
 		alleInnslag.push({
 			startdato: sistePeriode.tidsperiode.sluttdato,
 			forelder: sistePeriode.forelder,
@@ -82,9 +56,6 @@ const sorterTidslinjeinnslagEtterStartdato = (innslag1: TidslinjeInnslag, innsla
 	}
 	return innslag1.startdato >= innslag2.startdato ? 1 : -1;
 };
-
-const sorterPeriodeEtterStartdato = (p1: Periode, p2: Periode) =>
-	p1.tidsperiode.startdato >= p2.tidsperiode.startdato ? 1 : -1;
 
 export const periodeTilTidslinjeinnslag = (periode: Periode): TidslinjeInnslag | undefined => {
 	switch (periode.type) {

@@ -10,8 +10,8 @@ export const utsettelse1: Utsettelsesperiode = {
 	type: Periodetype.Utsettelse,
 	arsak: UtsettelseArsakType.Ferie,
 	tidsperiode: {
-		startdato: new Date(2018, 4, 1),
-		sluttdato: new Date(2018, 4, 5)
+		startdato: new Date(2018, 4, 7),
+		sluttdato: new Date(2018, 4, 10)
 	},
 	forelder: 'forelder1'
 };
@@ -20,8 +20,8 @@ export const utsettelse2: Utsettelsesperiode = {
 	type: Periodetype.Utsettelse,
 	arsak: UtsettelseArsakType.Arbeid,
 	tidsperiode: {
-		startdato: new Date(2018, 7, 1),
-		sluttdato: new Date(2018, 7, 19)
+		startdato: new Date(2018, 7, 10),
+		sluttdato: new Date(2018, 7, 17)
 	},
 	forelder: 'forelder2'
 };

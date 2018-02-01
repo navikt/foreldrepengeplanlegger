@@ -79,92 +79,72 @@ export const getStonadsperioder = (
 	return perioder;
 };
 
-/**
- * Legger inn utsettelser i periodene, og splitter perioden hvor
- * utsettelsen skal være
- * @param perioder
- * @param alleUtsettelser
- */
-export const leggInnUtsettelerIPerioder = (
-	perioder: Stonadsperiode[],
-	alleUtsettelser: Utsettelsesperiode[]
-): Periode[] => {
-	const p: Periode[] = [];
-	perioder.forEach((periode) => {
-		const utsettelserIPeriode = finnUtsettelserIPeriode(periode, alleUtsettelser);
-		if (utsettelserIPeriode.length === 0) {
-			p.push(periode);
-			return;
+export const sorterPerioder = (p1: Periode, p2: Periode) => {
+	return p1.tidsperiode.startdato >= p2.tidsperiode.startdato ? 1 : -1;
+};
+
+export const leggUtsettelseInnIPeriode = (periode: Periode, utsettelse: Utsettelsesperiode): Periode[] => {
+	const dagerIPeriode = differenceInCalendarDays(periode.tidsperiode.sluttdato, periode.tidsperiode.startdato);
+	const dagerForsteDel = differenceInCalendarDays(periode.tidsperiode.sluttdato, utsettelse.tidsperiode.startdato);
+	const dagerSisteDel = dagerIPeriode - dagerForsteDel;
+
+	return [
+		{
+			...(periode as Stonadsperiode),
+			tidsperiode: {
+				startdato: periode.tidsperiode.startdato,
+				sluttdato: getForsteUttaksdagForDato(utsettelse.tidsperiode.startdato)
+			}
+		},
+		{
+			...utsettelse,
+			tidsperiode: {
+				startdato: getForsteUttaksdagPaEllerEtterDato(utsettelse.tidsperiode.startdato),
+				sluttdato: getForsteUttaksdagPaEllerForDato(utsettelse.tidsperiode.sluttdato)
+			}
+		},
+		{
+			...(periode as Stonadsperiode),
+			tidsperiode: {
+				startdato: getForsteUttaksdagEtterDato(utsettelse.tidsperiode.sluttdato),
+				sluttdato: getForsteUttaksdagPaEllerForDato(addDays(utsettelse.tidsperiode.sluttdato, dagerSisteDel))
+			}
 		}
-		utsettelserIPeriode.forEach((u) => {
-			const dagerIPeriode = differenceInCalendarDays(periode.tidsperiode.sluttdato, periode.tidsperiode.startdato);
-			const dagerForsteDel = differenceInCalendarDays(periode.tidsperiode.sluttdato, u.tidsperiode.startdato);
-			const dagerSisteDel = dagerIPeriode - dagerForsteDel;
-			p.push({
-				...(periode as Stonadsperiode),
-				tidsperiode: {
-					startdato: periode.tidsperiode.startdato,
-					sluttdato: getForsteUttaksdagForDato(u.tidsperiode.startdato)
-				}
-			});
-			const utsettelse = {
-				...(u as Utsettelsesperiode),
-				tidsperiode: {
-					startdato: getForsteUttaksdagForDato(u.tidsperiode.startdato),
-					sluttdato: getForsteUttaksdagPaEllerForDato(u.tidsperiode.sluttdato)
-				}
-			};
-			console.log(utsettelse);
-			p.push(utsettelse);
-			p.push({
-				...(periode as Stonadsperiode),
-				tidsperiode: {
-					startdato: getForsteUttaksdagEtterDato(u.tidsperiode.sluttdato),
-					sluttdato: getForsteUttaksdagPaEllerForDato(addDays(u.tidsperiode.sluttdato, dagerSisteDel))
-				}
-			});
-		});
-	});
-	return p;
+	];
 };
 
 export const finnUtsettelserIPeriode = (periode: Periode, utsettelser: Utsettelsesperiode[]): Utsettelsesperiode[] =>
 	utsettelser.filter((u) =>
 		isWithinRange(u.tidsperiode.startdato, periode.tidsperiode.startdato, periode.tidsperiode.sluttdato)
 	);
-/**
- * Justerer datoer på perioder ut fra om det er låst eller ikke
- * @param perioder
- */
-export const justerPerioderMedUtsettelser = (perioder: Periode[]): Periode[] => {
-	const justertePerioder: Periode[] = [];
-	let sluttdatoForrigePeriode: Date;
-	perioder.forEach((periode) => {
-		if (periode.fastPeriode) {
-			justertePerioder.push(periode);
-			sluttdatoForrigePeriode = periode.tidsperiode.sluttdato;
-		} else {
-			const dagerIPeriode = differenceInCalendarDays(periode.tidsperiode.sluttdato, periode.tidsperiode.startdato);
-			const startdato = getForsteUttaksdagEtterDato(sluttdatoForrigePeriode);
-			const sluttdato = getForsteUttaksdagEtterDato(addDays(startdato, dagerIPeriode));
-			// let sluttdato;
-			// if (periode.type === Periodetype.Utsettelse) {
-			// 	sluttdato = getForsteUttaksdagPaEllerForDato(addDays(startdato, dagerIPeriode));
-			// } else {
-			// 	sluttdato = getForsteUttaksdagEtterDato(addDays(startdato, dagerIPeriode));
-			// }
-			// console.log(sluttdato);
-			justertePerioder.push({
-				...periode,
-				tidsperiode: {
-					startdato,
-					sluttdato
-				}
-			});
-			sluttdatoForrigePeriode = periode.tidsperiode.sluttdato;
-		}
-	});
-	return justertePerioder;
+
+export const finnPeriodeMedDato = (perioder: Periode[], dato: Date): Periode | undefined => {
+	return perioder.find((periode) => isWithinRange(dato, periode.tidsperiode.startdato, periode.tidsperiode.sluttdato));
+};
+
+export const getAntallDagerITidsperiode = (tidsperiode: Tidsperiode): number => {
+	return differenceInCalendarDays(tidsperiode.sluttdato, tidsperiode.startdato);
+};
+
+export const flyttTidsperiode = (tidsperiode: Tidsperiode, startdato: Date): Tidsperiode => {
+	return {
+		startdato,
+		sluttdato: addDays(startdato, getAntallDagerITidsperiode(tidsperiode))
+	};
+};
+
+interface Periodesplitt {
+	perioderFor: Periode[];
+	perioderEtter: Periode[];
+}
+export const hentPerioderForOgEtterPeriode = (perioder: Periode[], periode: Periode): Periodesplitt => {
+	const index = perioder.findIndex((p) => p === periode);
+	const perioderEtter = perioder.splice(index + 1);
+	const perioderFor: Periode[] = [...perioder.slice(0, index)];
+	return {
+		perioderFor,
+		perioderEtter
+	};
 };
 
 /**

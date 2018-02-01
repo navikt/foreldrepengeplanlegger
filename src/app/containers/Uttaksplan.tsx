@@ -6,17 +6,15 @@ import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import Skjema from './Skjema';
 import { AppState, UtsettelseState, DispatchProps, FormState } from 'app/redux/types';
 import { TidslinjeInnslag } from 'app/components/tidslinje/types';
-import { periodeSelector, tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
+import { tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import Veileder from 'shared/components/veileder/Veileder';
 import UtsettelseDialog from 'app/containers/UtsettelseDialog';
-import { Periode } from 'app/types';
 import { toggleMockUtsettelse } from 'app/redux/actions';
 import { Knapp } from 'nav-frontend-knapper';
 
 export interface StateProps {
 	form: FormState;
 	innslag: TidslinjeInnslag[];
-	perioder: Periode[];
 	utsettelse: UtsettelseState;
 	visTidslinje: boolean;
 }
@@ -68,10 +66,8 @@ export class Uttaksplan extends React.Component<Props> {
 
 const mapStateToProps = (state: AppState): StateProps => {
 	const innslag = tidslinjeFraPerioder(state);
-	const perioder = periodeSelector(state);
 	return {
 		innslag,
-		perioder,
 		form: state.form,
 		utsettelse: state.utsettelse,
 		visTidslinje: innslag && innslag.length > 0 && state.form.dekningsgrad !== undefined

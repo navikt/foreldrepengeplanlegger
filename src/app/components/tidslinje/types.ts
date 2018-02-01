@@ -3,7 +3,8 @@ import { Forelder } from 'app/types';
 export type InnslagType = 'uttak' | 'utsettelse' | 'termin' | 'slutt' | 'siste';
 
 export interface TidslinjeInnslag {
-	dato: Date;
+	startdato: Date;
+	sluttdato?: Date;
 	tittel: string;
 	type: InnslagType;
 	forelder: Forelder;

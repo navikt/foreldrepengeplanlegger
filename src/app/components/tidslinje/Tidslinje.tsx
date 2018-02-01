@@ -21,7 +21,7 @@ const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({ innslag }) => {
 				const nesteInnslag = idx < antallInnslag - 1 ? innslag[idx + 1] : undefined;
 				return (
 					<div className="tidslinje__tidslinjeInnslag" key={idx}>
-						<TidslinjeInnslag key={i.dato.toDateString()} innslag={i} nesteInnslag={nesteInnslag} />
+						<TidslinjeInnslag key={i.startdato.toDateString()} innslag={i} nesteInnslag={nesteInnslag} />
 					</div>
 				);
 			})}

@@ -1,40 +1,34 @@
-import { addWeeks, addDays, getISODay, differenceInCalendarDays } from 'date-fns';
+import { addWeeks, addDays, getISODay, differenceInCalendarDays, isWithinRange } from 'date-fns';
 
-import { Tidsperiode, StonadskontoType, Periodetype, Grunnfordeling, Dekningsgrad, Periode } from 'app/types';
+import {
+	Tidsperiode,
+	StonadskontoType,
+	Periodetype,
+	Grunnfordeling,
+	Dekningsgrad,
+	Periode,
+	Stonadsperiode,
+	Utsettelsesperiode
+} from 'app/types';
 import Periodeberegner from 'app/utils/Periodeberegner';
 
-// export const getPeriodedetaljer = (periode: Periode): string => {
-// 	const tidsperiode = `
-// 	${periode.tidsperiode.startdato.toDateString()} -> ${periode.tidsperiode.sluttdato.toDateString()}`;
-
-// 	switch (periode.type) {
-// 		case Periodetype.Stonadsperiode:
-// 			const konto = `Stønadsperiode. ${periode.konto}`;
-// 			let forelder;
-// 			switch (periode.konto) {
-// 				case StonadskontoType.Fedrekvote:
-// 				case StonadskontoType.Modrekvote:
-// 					forelder = periode.forelder;
-// 					break;
-// 				default:
-// 					forelder = undefined;
-// 			}
-// 			return `${konto}. ${forelder ? `${forelder}. ` : ''} ${tidsperiode}`;
-// 		case Periodetype.Utsettelse:
-// 			const arsak = `Stønadsperiode. ${periode.arsak}`;
-// 			return `Utsettelse. ${arsak}. ${forelder}. ${tidsperiode}`;
-// 		default:
-// 			return `Ukjent type: ${periode}`;
-// 	}
-// };
-
-export const getPerioderUtenUtsettelser = (
+/**
+ * Setter opp basisoppsett for perioder uten utsettelser hvor
+ * mor tar første del av permisjonen og fedrekvote er etter
+ * fellesperiode
+ * @param termindato
+ * @param dekningsgrad
+ * @param grunnfordeling
+ * @param fellesukerForelder1
+ * @param fellesukerForelder2
+ */
+export const getStonadsperioder = (
 	termindato: Date,
 	dekningsgrad: Dekningsgrad,
 	grunnfordeling: Grunnfordeling,
 	fellesukerForelder1: number,
 	fellesukerForelder2: number
-): Periode[] => {
+): Stonadsperiode[] => {
 	const periodeberegner = Periodeberegner(
 		{
 			termindato,
@@ -44,8 +38,7 @@ export const getPerioderUtenUtsettelser = (
 		},
 		grunnfordeling
 	);
-
-	const perioder: Periode[] = [
+	const perioder: Stonadsperiode[] = [
 		{
 			type: Periodetype.Stonadsperiode,
 			forelder: 'forelder1',
@@ -67,7 +60,6 @@ export const getPerioderUtenUtsettelser = (
 			tidsperiode: periodeberegner.getFedrekvote()
 		}
 	];
-
 	if (fellesukerForelder1 > 0) {
 		perioder.push({
 			type: Periodetype.Stonadsperiode,
@@ -76,7 +68,6 @@ export const getPerioderUtenUtsettelser = (
 			tidsperiode: periodeberegner.getFellesperiodeForelder1()
 		});
 	}
-
 	if (fellesukerForelder2 > 0) {
 		perioder.push({
 			type: Periodetype.Stonadsperiode,
@@ -85,10 +76,60 @@ export const getPerioderUtenUtsettelser = (
 			tidsperiode: periodeberegner.getFellesperiodeForelder2()
 		});
 	}
-
 	return perioder;
 };
 
+/**
+ * Legger inn utsettelser i periodene, og splitter perioden hvor
+ * utsettelsen skal være
+ * @param perioder
+ * @param utsettelser
+ */
+export const leggInnUtsettelerIPerioder = (
+	perioder: Stonadsperiode[],
+	utsettelser: Utsettelsesperiode[]
+): Periode[] => {
+	const p: Periode[] = [];
+	perioder.forEach((periode) => {
+		const utsettelserIPeriode = finnUtsettelserIPeriode(periode, utsettelser);
+		if (utsettelserIPeriode.length === 0) {
+			p.push(periode);
+			return;
+		}
+		utsettelser.forEach((u) => {
+			const dagerIPeriode = differenceInCalendarDays(periode.tidsperiode.sluttdato, periode.tidsperiode.startdato);
+			const dagerForsteDel = differenceInCalendarDays(periode.tidsperiode.sluttdato, u.tidsperiode.startdato);
+			const dagerSisteDel = dagerIPeriode - dagerForsteDel;
+			p.push({
+				...(periode as Stonadsperiode),
+				tidsperiode: {
+					startdato: periode.tidsperiode.startdato,
+					sluttdato: getForsteUttaksdagForDato(u.tidsperiode.startdato)
+				}
+			});
+			p.push({
+				...(u as Utsettelsesperiode),
+				tidsperiode: {
+					startdato: getForsteUttaksdagForDato(u.tidsperiode.startdato),
+					sluttdato: getForsteUttaksdagPaEllerForDato(u.tidsperiode.sluttdato)
+				}
+			});
+			p.push({
+				...(periode as Stonadsperiode),
+				tidsperiode: {
+					startdato: getForsteUttaksdagEtterDato(u.tidsperiode.sluttdato),
+					sluttdato: getForsteUttaksdagPaEllerForDato(addDays(u.tidsperiode.sluttdato, dagerSisteDel))
+				}
+			});
+		});
+	});
+	return p;
+};
+
+export const finnUtsettelserIPeriode = (periode: Periode, utsettelser: Utsettelsesperiode[]): Utsettelsesperiode[] =>
+	utsettelser.filter((u) =>
+		isWithinRange(u.tidsperiode.startdato, periode.tidsperiode.startdato, periode.tidsperiode.sluttdato)
+	);
 /**
  * Justerer datoer på perioder ut fra om det er låst eller ikke
  * @param perioder
@@ -164,7 +205,7 @@ export const getForsteUttaksdagPaEllerEtterDato = (dato: Date): Date => {
  * Sjekker om dato er en ukedag, dersom ikke finner den foregående fredag
  * @param dato
  */
-export const getForsteUkedagPaEllerForDato = (dato: Date): Date => {
+export const getForsteUttaksdagPaEllerForDato = (dato: Date): Date => {
 	switch (getUkedag(dato)) {
 		case 6:
 			return addDays(dato, -1);
@@ -173,6 +214,10 @@ export const getForsteUkedagPaEllerForDato = (dato: Date): Date => {
 		default:
 			return dato;
 	}
+};
+
+export const getForsteUttaksdagForDato = (dato: Date): Date => {
+	return getForsteUttaksdagPaEllerForDato(addDays(dato, -1));
 };
 
 export const getAntallUkerFellesperiode = (grunnfordeling: Grunnfordeling, dekningsgrad?: Dekningsgrad) => {
@@ -192,11 +237,7 @@ export const erUttaksdag = (dato: Date): boolean => getISODay(dato) !== 6 && get
  */
 export const getPeriodesluttDato = (startdato: Date, uker: number): Date => {
 	let sluttdato = addDays(addWeeks(startdato, uker), -1);
-	// return erUttaksdag(sluttdato)
-	// if (erUttaksdag(sluttdato)) {
-	// 	return sluttdato;
-	// }
-	return getForsteUkedagPaEllerForDato(sluttdato);
+	return getForsteUttaksdagPaEllerForDato(sluttdato);
 };
 
 export function kalkulerUttaksdagerIPeriode(start: Date, slutt: Date): number {

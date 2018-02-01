@@ -28,12 +28,18 @@ const TidslinjeInnslag: React.StatelessComponent<TidslinjeInnslagProps> = ({ inn
 		`tidslinjeInnslag--${innslag.type}`,
 		`tidslinjeInnslag--${innslag.forelder}`
 	);
-	const antallUttaksdager = nesteInnslag ? kalkulerUttaksdagerIPeriode(innslag.dato, nesteInnslag.dato) : -1;
+	const antallUttaksdager = nesteInnslag ? kalkulerUttaksdagerIPeriode(innslag.startdato, nesteInnslag.startdato) : -1;
 	return (
 		<div className={cls}>
 			<TidslinjeStrek innslag={innslag} />
 			<div className="tidslinjeInnslag__dato">
-				<Dato dato={innslag.dato} />
+				<Dato dato={innslag.startdato} />{' '}
+				{innslag.sluttdato && (
+					<span>
+						{' '}
+						- <Dato dato={innslag.sluttdato} />
+					</span>
+				)}
 				{antallUttaksdager >= 1 && <span> ({antallUttaksdager} dager)</span>}
 			</div>
 			<div className="tidslinjeInnslag__hendelse">

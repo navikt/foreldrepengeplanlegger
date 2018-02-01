@@ -83,20 +83,20 @@ export const getStonadsperioder = (
  * Legger inn utsettelser i periodene, og splitter perioden hvor
  * utsettelsen skal være
  * @param perioder
- * @param utsettelser
+ * @param alleUtsettelser
  */
 export const leggInnUtsettelerIPerioder = (
 	perioder: Stonadsperiode[],
-	utsettelser: Utsettelsesperiode[]
+	alleUtsettelser: Utsettelsesperiode[]
 ): Periode[] => {
 	const p: Periode[] = [];
 	perioder.forEach((periode) => {
-		const utsettelserIPeriode = finnUtsettelserIPeriode(periode, utsettelser);
+		const utsettelserIPeriode = finnUtsettelserIPeriode(periode, alleUtsettelser);
 		if (utsettelserIPeriode.length === 0) {
 			p.push(periode);
 			return;
 		}
-		utsettelser.forEach((u) => {
+		utsettelserIPeriode.forEach((u) => {
 			const dagerIPeriode = differenceInCalendarDays(periode.tidsperiode.sluttdato, periode.tidsperiode.startdato);
 			const dagerForsteDel = differenceInCalendarDays(periode.tidsperiode.sluttdato, u.tidsperiode.startdato);
 			const dagerSisteDel = dagerIPeriode - dagerForsteDel;

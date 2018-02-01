@@ -1,6 +1,7 @@
 /* eslint-env browser */
 import React, { Component } from 'react';
 import PT from 'prop-types';
+import classnames from 'classnames';
 import moment from 'moment';
 import NavFrontendChevron from 'nav-frontend-chevron';
 import DayPicker, { DateUtils } from 'react-day-picker';
@@ -119,7 +120,9 @@ class DayPickerComponent extends Component {
 
 		return (
 			<div // eslint-disable-line jsx-a11y/no-static-element-interactions
-				className="datovelger__DayPicker"
+				className={classnames('datovelger__DayPicker', {
+					'datovelger__DayPicker--fullscreen': this.props.fullscreen
+				})}
 				onKeyUp={(e) => {
 					onKeyUp(e);
 				}}>
@@ -152,7 +155,8 @@ DayPickerComponent.propTypes = {
 			from: PT.instanceOf(Date).isRequired,
 			to: PT.instanceOf(Date).isRequired
 		})
-	)
+	),
+	fullscreen: PT.bool
 };
 
 DayPickerComponent.defaultProps = {
@@ -160,7 +164,8 @@ DayPickerComponent.defaultProps = {
 	toDate: undefined,
 	selectedDate: undefined,
 	disableWeekends: false,
-	disabledRanges: []
+	disabledRanges: [],
+	fullscreen: false
 };
 
 export default DayPickerComponent;

@@ -176,6 +176,7 @@ class DateInput extends Component {
 							close={this.close}
 							disabledRanges={this.props.disabledRanges}
 							disableWeekends={this.props.disableWeekends}
+							fullscreen={this.props.fullscreen}
 						/>
 					)}
 				</div>
@@ -206,6 +207,7 @@ DateInput.propTypes = {
 		})
 	),
 	errorMessage: PT.oneOfType([PT.arrayOf(PT.node), PT.node]),
+	fullscreen: PT.bool,
 	onChange: PT.func.isRequired
 };
 
@@ -217,6 +219,7 @@ DateInput.defaultProps = {
 	selectedDate: undefined,
 	inputProps: undefined,
 	disableWeekends: false,
-	disabledRanges: undefined
+	disabledRanges: undefined,
+	fullscreen: false
 };
 export default DateInput;

@@ -16,6 +16,7 @@ export interface DateInputProps {
 	errorMessage?: React.ReactNode;
 	disabledRanges?: Range[];
 	disableWeekends?: boolean;
+	fullscreen?: boolean;
 	onChange: (date: string) => void;
 }
 

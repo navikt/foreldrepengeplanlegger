@@ -119,9 +119,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						onChange={(value) => this.setState({ arsak: value as UtsettelseArsakType })}
 					/>
 				</div>
-				<div className="blokk-s">
-					<Row>
-						<Column xs="12" sm="6">
+				<Row>
+					<Column xs="12" sm="6">
+						<div className="blokk-s">
 							<DateInput
 								label="Startdato"
 								id="startdato"
@@ -131,9 +131,12 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								selectedDate={startdato}
 								disabledRanges={ugyldigeTidsrom}
 								disableWeekends={true}
+								fullscreen={true}
 							/>
-						</Column>
-						<Column xs="12" sm="6">
+						</div>
+					</Column>
+					<Column xs="12" sm="6">
+						<div className="blokk-s">
 							<DateInput
 								label="Sluttdato"
 								id="sluttdato"
@@ -143,10 +146,11 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								selectedDate={sluttdato}
 								disabledRanges={ugyldigeTidsrom}
 								disableWeekends={true}
+								fullscreen={true}
 							/>
-						</Column>
-					</Row>
-				</div>
+						</div>
+					</Column>
+				</Row>
 				<div className="blokk-l">
 					<Radioliste
 						kolonner="2"

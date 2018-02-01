@@ -6,6 +6,7 @@ import NavFrontendChevron from 'nav-frontend-chevron';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import MomentLocaleUtils from 'react-day-picker/moment';
 import 'moment/locale/nb';
+import { addDays } from 'date-fns';
 
 const localeUtils = {
 	...MomentLocaleUtils,
@@ -77,20 +78,45 @@ class DayPickerComponent extends Component {
 	}
 
 	getDateFromValue() {
-		const dato = moment(this.props.selectedDate);
+		const dato = moment(this.props.selectedDate || this.props.fromDate);
 		return dato.isValid() ? dato.toDate() : null;
 	}
 
 	getInitialMonth() {
-		return this.getDateFromValue() || this.props.fromDate || new Date();
+		return this.getDateFromValue() || new Date();
 	}
 
 	selectedDays(day) {
 		return DateUtils.isSameDay(this.getDateFromValue() || new Date(), day);
 	}
 
+	getDisabledRanges() {
+		if (!this.props.disabledRanges || this.props.disabledRanges.length === 0) {
+			return [];
+		}
+		return this.props.disabledRanges.map((r) => ({
+			before: addDays(r.to, 1),
+			after: addDays(r.from, -1)
+		}));
+	}
+
+	getDisabledDays() {
+		const disabledDays = this.getDisabledRanges();
+		if (this.props.disableWeekends) {
+			disabledDays.push({ daysOfWeek: [0, 6] });
+		}
+		if (this.props.fromDate) {
+			disabledDays.push({ before: this.props.fromDate });
+		}
+		if (this.props.toDate) {
+			disabledDays.push({ after: this.props.toDate });
+		}
+		return disabledDays;
+	}
 	render() {
 		const { onKeyUp } = this.props;
+		const disabledDays = this.getDisabledDays();
+
 		return (
 			<div // eslint-disable-line jsx-a11y/no-static-element-interactions
 				className="datovelger__DayPicker"
@@ -103,6 +129,7 @@ class DayPickerComponent extends Component {
 					localeUtils={localeUtils}
 					firstDayOfWeek={1}
 					navbarElement={<NavBar />}
+					disabledDays={disabledDays}
 					selectedDays={(day) => this.selectedDays(day)}
 					onDayClick={(event) => this.props.onDayClick(event)}
 				/>
@@ -117,12 +144,23 @@ DayPickerComponent.propTypes = {
 	onKeyUp: PT.func.isRequired,
 	close: PT.func.isRequired,
 	onDayClick: PT.func.isRequired,
-	fromDate: PT.instanceOf(Date)
+	fromDate: PT.instanceOf(Date),
+	toDate: PT.instanceOf(Date),
+	disableWeekends: PT.bool,
+	disabledRanges: PT.arrayOf(
+		PT.shape({
+			from: PT.instanceOf(Date).isRequired,
+			to: PT.instanceOf(Date).isRequired
+		})
+	)
 };
 
 DayPickerComponent.defaultProps = {
 	fromDate: undefined,
-	selectedDate: undefined
+	toDate: undefined,
+	selectedDate: undefined,
+	disableWeekends: false,
+	disabledRanges: []
 };
 
 export default DayPickerComponent;

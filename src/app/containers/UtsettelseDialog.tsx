@@ -6,15 +6,18 @@ import Modal from 'nav-frontend-modal';
 import UtsettelseSkjema from '../components/utsettelseSkjema/UtsettelseSkjema';
 import { DispatchProps, AppState } from 'app/redux/types';
 import { utsettelseLukkDialog, utsettelseVisDialog, opprettEllerOppdaterUtsettelse } from 'app/redux/actions';
-import { Utsettelsesperiode } from 'app/types';
+import { Utsettelsesperiode, Tidsperiode } from 'app/types';
 import LeggTilKnapp from 'app/components/leggTilKnapp/LeggTilKnapp';
 import SkjemaInputElement from 'shared/components/skjemaInputElement/SkjemaInputElement';
 import SkjemaInfotekst from 'app/components/skjemaInfotekst/SkjemaInfotekst';
 import Tekst from 'app/tekst';
+import Periodeberegner from 'app/utils/Periodeberegner';
+import { grunnfordeling } from 'app/data/grunnfordeling';
 
 interface StateProps {
 	isOpen: boolean;
 	utsettelser: Utsettelsesperiode[];
+	tidsrom: Tidsperiode;
 	utsettelse?: Utsettelsesperiode;
 	forelder1?: string;
 	forelder2?: string;
@@ -36,9 +39,11 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 			children={
 				props.isOpen && (
 					<UtsettelseSkjema
+						registrerteUtsettelser={props.utsettelser}
 						utsettelse={props.utsettelse}
 						forelder1={props.forelder1}
 						forelder2={props.forelder2}
+						tidsrom={props.tidsrom}
 						onChange={(utsettelse) => props.dispatch(opprettEllerOppdaterUtsettelse(utsettelse))}
 					/>
 				)
@@ -48,12 +53,24 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 );
 
 const mapStateToProps = (state: AppState): StateProps => {
+	const periodeberegner = Periodeberegner(
+		state.form.termindato,
+		state.form.dekningsgrad,
+		state.form.ukerForelder1,
+		state.form.ukerForelder2,
+		grunnfordeling
+	);
+
 	return {
 		utsettelser: state.utsettelse.utsettelser,
 		utsettelse: state.utsettelse.valgtUtsettelse,
 		forelder1: state.form.navnForelder1,
 		forelder2: state.form.navnForelder2,
-		isOpen: state.utsettelse.dialogErApen
+		isOpen: state.utsettelse.dialogErApen,
+		tidsrom: {
+			startdato: periodeberegner.getModrekvotePostTermin().sluttdato,
+			sluttdato: periodeberegner.getSistePermisjonsdag()
+		}
 	};
 };
 

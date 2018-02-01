@@ -7,5 +7,6 @@ export const grunnfordeling: Grunnfordeling = {
 	antallUkerForelder2Totalt: 10,
 	antallUkerTotalt100: 49,
 	antallUkerTotalt80: 59,
-	tidligstUkerUttakForelder1: 12
+	tidligstUkerUttakForelder1: 12,
+	maksPermisjonslengdeIAr: 3
 };

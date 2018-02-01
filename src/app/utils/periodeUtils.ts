@@ -30,12 +30,10 @@ export const getStonadsperioder = (
 	fellesukerForelder2: number
 ): Stonadsperiode[] => {
 	const periodeberegner = Periodeberegner(
-		{
-			termindato,
-			dekningsgrad,
-			fellesukerForelder1,
-			fellesukerForelder2
-		},
+		termindato,
+		dekningsgrad,
+		fellesukerForelder1,
+		fellesukerForelder2,
 		grunnfordeling
 	);
 	const perioder: Stonadsperiode[] = [

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 
-import TerminIkon from 'app/components/tidslinje/TerminIkon';
+import TerminIkon from 'app/components/ikoner/TerminIkon';
 import Dato from 'app/components/dato/Dato';
-import { kalkulerUttaksdagerIPeriode } from 'app/utils/tidsberegninger';
 
 import { TidslinjeInnslag } from './types';
+import { kalkulerUttaksdagerIPeriode } from 'app/utils/periodeUtils';
 
 interface TidslinjeInnslagProps {
 	innslag: TidslinjeInnslag;
@@ -17,10 +17,7 @@ const TidslinjeStrek: React.StatelessComponent<TidslinjeInnslagProps> = ({ innsl
 		className={classNames(
 			'tidslinjeInnslag__linje',
 			`tidslinjeInnslag__linje--${innslag.forelder}`,
-			`tidslinjeInnslag__linje--${innslag.type}`,
-			{
-				'tidslinjeInnslag__linje--gradert': innslag.gradert
-			}
+			`tidslinjeInnslag__linje--${innslag.type}`
 		)}
 	/>
 );
@@ -31,12 +28,18 @@ const TidslinjeInnslag: React.StatelessComponent<TidslinjeInnslagProps> = ({ inn
 		`tidslinjeInnslag--${innslag.type}`,
 		`tidslinjeInnslag--${innslag.forelder}`
 	);
-	const antallUttaksdager = nesteInnslag ? kalkulerUttaksdagerIPeriode(innslag.dato, nesteInnslag.dato) : -1;
+	const antallUttaksdager = nesteInnslag ? kalkulerUttaksdagerIPeriode(innslag.startdato, nesteInnslag.startdato) : -1;
 	return (
 		<div className={cls}>
 			<TidslinjeStrek innslag={innslag} />
 			<div className="tidslinjeInnslag__dato">
-				<Dato dato={innslag.dato} />
+				<Dato dato={innslag.startdato} />{' '}
+				{innslag.sluttdato && (
+					<span>
+						{' '}
+						- <Dato dato={innslag.sluttdato} />
+					</span>
+				)}
 				{antallUttaksdager >= 1 && <span> ({antallUttaksdager} dager)</span>}
 			</div>
 			<div className="tidslinjeInnslag__hendelse">

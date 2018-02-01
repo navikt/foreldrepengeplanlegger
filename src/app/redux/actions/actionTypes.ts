@@ -1,14 +1,18 @@
-import { Dekningsgrad } from 'app/types';
+import { Dekningsgrad, Utsettelsesperiode } from 'app/types';
+import { MockUtsettelse } from 'app/redux/types';
 
 export enum PlanleggerActionTypeKeys {
-	'SET_NAVN_FORELDER1',
-	'SET_NAVN_FORELDER2',
-	'SET_TERMINDATO',
-	'SET_UKER_FORELDER1',
-	'SET_UKER_FORELDER2',
-	'SETT_DEKNINGSGRAD',
-	'UTSETTELSE_VIS_DIALOG',
-	'UTSETTELSE_LUKK_DIALOG'
+	'SET_NAVN_FORELDER1' = 'setNavnForelder1',
+	'SET_NAVN_FORELDER2' = 'setNavnForelder2',
+	'SET_TERMINDATO' = 'setTermindato',
+	'SET_UKER_FORELDER1' = 'setUkerForelder1',
+	'SET_UKER_FORELDER2' = 'setUkerForelder2',
+	'SETT_DEKNINGSGRAD' = 'setDekningsgrad',
+	'UTSETTELSE_VIS_DIALOG' = 'utsettelseVisDialog',
+	'UTSETTELSE_LUKK_DIALOG' = 'utsettelseLukkDialog',
+	'UTSETTELSE_OPPRETT_ELLER_OPPDATER' = 'utsettelseOpprettEllerOppdater',
+	'UTSETTELSE_SLETT' = 'utsettelseSlett',
+	'UTSETTELSE_TOGGLE_MOCK' = 'utsettelseToggleMock'
 }
 
 export type PlanleggerActionTypes =
@@ -19,7 +23,10 @@ export type PlanleggerActionTypes =
 	| SetUkerForelder1
 	| SetDekningsgrad
 	| UtsettelseVisDialog
-	| UtsettelseLukkDialog;
+	| UtsettelseLukkDialog
+	| OpprettEllerOppdaterUtsettelse
+	| ToggleMockUtsettelse
+	| SlettUtsettelse;
 
 export interface SetNavnForelder1 {
 	type: PlanleggerActionTypeKeys.SET_NAVN_FORELDER1;
@@ -53,8 +60,24 @@ export interface SetDekningsgrad {
 
 export interface UtsettelseVisDialog {
 	type: PlanleggerActionTypeKeys.UTSETTELSE_VIS_DIALOG;
+	utsettelse?: Utsettelsesperiode;
 }
 
 export interface UtsettelseLukkDialog {
 	type: PlanleggerActionTypeKeys.UTSETTELSE_LUKK_DIALOG;
+}
+
+export interface OpprettEllerOppdaterUtsettelse {
+	type: PlanleggerActionTypeKeys.UTSETTELSE_OPPRETT_ELLER_OPPDATER;
+	utsettelse: Utsettelsesperiode;
+}
+
+export interface SlettUtsettelse {
+	type: PlanleggerActionTypeKeys.UTSETTELSE_SLETT;
+	utsettelse: Utsettelsesperiode;
+}
+
+export interface ToggleMockUtsettelse {
+	type: PlanleggerActionTypeKeys.UTSETTELSE_TOGGLE_MOCK;
+	mock?: MockUtsettelse;
 }

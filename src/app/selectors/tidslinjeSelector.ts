@@ -41,14 +41,14 @@ export const tidslinjeFraPerioder = createSelector(
 		];
 
 		return alleInnslag.sort(sorterTidslinjeinnslagEtterStartdato).map((innslag, index) => {
-			if (innslag.type !== 'uttak') {
+			if (innslag.type !== 'uttak' && innslag.type !== 'utsettelse') {
 				return innslag;
 			}
 			const justertInnslag: TidslinjeInnslag = {
 				...innslag,
 				fortsetter: fortsetterInnslag(alleInnslag, innslag, index),
-				erFortsettelse: erInnslagFortsettelse(alleInnslag, innslag, index),
-				erSlutt: erInnslagSisteIPeriode(alleInnslag, innslag, index)
+				fortsettelse: erInnslagFortsettelse(alleInnslag, innslag, index),
+				slutter: erInnslagSisteIPeriode(alleInnslag, innslag, index)
 			};
 			return justertInnslag;
 		});
@@ -60,9 +60,7 @@ const fortsetterInnslag = (alleInnslag: TidslinjeInnslag[], innslag: TidslinjeIn
 		return false;
 	}
 	const nesteInnslag: TidslinjeInnslag = alleInnslag[index + 1];
-	return (
-		(nesteInnslag.type === 'uttak' || nesteInnslag.type === 'utsettelse') && nesteInnslag.forelder === innslag.forelder
-	);
+	return erUtsettelse(innslag) || (erUttakEllerUtsettelse(nesteInnslag) && nesteInnslag.forelder === innslag.forelder);
 };
 
 const erInnslagFortsettelse = (alleInnslag: TidslinjeInnslag[], innslag: TidslinjeInnslag, index: number): boolean => {
@@ -70,18 +68,26 @@ const erInnslagFortsettelse = (alleInnslag: TidslinjeInnslag[], innslag: Tidslin
 		return false;
 	}
 	const forrigeInnslag = alleInnslag[index - 1];
-	return forrigeInnslag.type !== 'uttak' ? true : forrigeInnslag.forelder === innslag.forelder;
+	if (erUtsettelse(innslag) || erUtsettelse(forrigeInnslag)) {
+		return false;
+	}
+	return !erUttak(forrigeInnslag) ? true : forrigeInnslag.forelder === innslag.forelder;
 };
 const erInnslagSisteIPeriode = (alleInnslag: TidslinjeInnslag[], innslag: TidslinjeInnslag, index: number): boolean => {
-	if (index === alleInnslag.length - 1 || innslag.type !== 'uttak') {
+	if (index === alleInnslag.length - 1) {
 		return false;
 	}
 	const nesteInnslag: TidslinjeInnslag = alleInnslag[index + 1];
-	return (
-		(nesteInnslag.type === 'uttak' && nesteInnslag.forelder !== innslag.forelder) ||
-		nesteInnslag.forelder !== innslag.forelder
-	);
+	if (erUttak(innslag) && erUtsettelse(nesteInnslag)) {
+		return true;
+	}
+	return nesteInnslag.forelder !== innslag.forelder;
 };
+
+const erUttak = (innslag: TidslinjeInnslag): boolean => innslag.type === 'uttak';
+const erUtsettelse = (innslag: TidslinjeInnslag): boolean => innslag.type === 'utsettelse';
+const erUttakEllerUtsettelse = (innslag: TidslinjeInnslag): boolean =>
+	innslag.type === 'uttak' || innslag.type === 'utsettelse';
 
 const sorterTidslinjeinnslagEtterStartdato = (innslag1: TidslinjeInnslag, innslag2: TidslinjeInnslag) => {
 	if (innslag1.startdato === innslag2.startdato) {

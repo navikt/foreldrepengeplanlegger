@@ -5,7 +5,6 @@ import TerminIkon from 'app/components/ikoner/TerminIkon';
 import Dato from 'app/components/dato/Dato';
 
 import { TidslinjeInnslag } from './types';
-import { getAntallDagerITidsperiode } from 'app/utils/periodeUtils';
 
 interface TidslinjeInnslagProps {
 	innslag: TidslinjeInnslag;
@@ -32,19 +31,11 @@ const TidslinjeInnslag: React.StatelessComponent<TidslinjeInnslagProps> = ({ inn
 		`tidslinjeInnslag--${innslag.type}`,
 		`tidslinjeInnslag--${innslag.forelder}`
 	);
-	const varighet = getAntallDagerITidsperiode({ startdato: innslag.startdato, sluttdato: innslag.sluttdato });
 	return (
 		<div className={cls}>
 			<TidslinjeStrek innslag={innslag} />
 			<div className="tidslinjeInnslag__dato">
-				<Dato dato={innslag.startdato} />{' '}
-				{innslag.sluttdato && (
-					<span>
-						{' '}
-						- <Dato dato={innslag.sluttdato} />
-					</span>
-				)}
-				{varighet >= 1 && <span> ({varighet} dager)</span>}
+				<Dato dato={innslag.startdato} />
 			</div>
 			<div className="tidslinjeInnslag__hendelse">
 				{innslag.tittel}{' '}

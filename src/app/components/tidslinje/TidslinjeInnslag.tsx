@@ -17,9 +17,9 @@ const TidslinjeStrek: React.StatelessComponent<TidslinjeInnslagProps> = ({ innsl
 			`tidslinjeInnslag__linje--${innslag.forelder}`,
 			`tidslinjeInnslag__linje--${innslag.type}`,
 			{
-				'tidslinjeInnslag__linje--fortsettelse': innslag.erFortsettelse,
+				'tidslinjeInnslag__linje--fortsettelse': innslag.fortsettelse,
 				'tidslinjeInnslag__linje--fortsetter': innslag.fortsetter,
-				'tidslinjeInnslag__linje--slutt': innslag.erSlutt
+				'tidslinjeInnslag__linje--slutt': innslag.slutter
 			}
 		)}
 	/>
@@ -29,7 +29,10 @@ const TidslinjeInnslag: React.StatelessComponent<TidslinjeInnslagProps> = ({ inn
 	const cls = classNames(
 		'tidslinjeInnslag',
 		`tidslinjeInnslag--${innslag.type}`,
-		`tidslinjeInnslag--${innslag.forelder}`
+		`tidslinjeInnslag--${innslag.forelder}`,
+		{
+			'tidslinjeInnslag--slutt': innslag.slutter
+		}
 	);
 	return (
 		<div className={cls}>

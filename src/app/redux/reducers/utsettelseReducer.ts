@@ -26,7 +26,7 @@ export const utsettelse2: Utsettelsesperiode = {
 	forelder: 'forelder2'
 };
 
-// mockUtsettelser.push(utsettelse1);
+mockUtsettelser.push(utsettelse1);
 // mockUtsettelser.push(utsettelse1);
 
 const defaultState: UtsettelseState = {

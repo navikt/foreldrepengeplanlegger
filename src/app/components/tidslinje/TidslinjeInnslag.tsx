@@ -50,7 +50,7 @@ const TidslinjeInnslag: React.StatelessComponent<TidslinjeInnslagProps> = ({ inn
 				)}
 				{innslag.type === 'utsettelse' && (
 					<div className="tidslinjeInnslag__info">
-						<Infotekst tittel="Nyttig informasjon" apen={false} />
+						<Infotekst tittel="Nyttig informasjon" />
 					</div>
 				)}
 			</div>

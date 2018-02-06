@@ -2,7 +2,8 @@ import { Grunnfordeling, Tidsperiode, Dekningsgrad } from 'app/types';
 import {
 	getForsteUttaksdagPaEllerEtterDato,
 	getPeriodesluttDato,
-	getForsteUttaksdagEtterDato
+	getForsteUttaksdagEtterDato,
+	normaliserDato
 } from 'app/utils/periodeUtils';
 import { addWeeks, addYears } from 'date-fns';
 
@@ -13,7 +14,7 @@ const Periodeberegner = (
 	fellesukerForelder2: number,
 	grunnfordeling: Grunnfordeling
 ) => {
-	termindato = new Date(termindato.getFullYear(), termindato.getMonth(), termindato.getDate());
+	termindato = normaliserDato(termindato);
 	const getModrekvotePreTermin = (): Tidsperiode => {
 		const startdato = getStartdato();
 		return {

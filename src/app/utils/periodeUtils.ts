@@ -149,28 +149,6 @@ export const hentPerioderForOgEtterPeriode = (perioder: Periode[], periode: Peri
 };
 
 /**
- * Finner tidsperiode for mors permisjon etter fødsel
- *
- * @param termindato
- */
-export const getTidsperiodePostTermin = (termindato: Date, uker: number): Tidsperiode => {
-	return {
-		startdato: termindato,
-		sluttdato: getPeriodesluttDato(termindato, uker)
-	};
-};
-
-/**
- * Finner startdato for permisjonsperiode
- *
- * @param termin
- * @param uker antall uker som er forbeholdt denne perioden
- */
-export const getStartdatoUtFraTermindato = (termin: Date, uker: number): Date => {
-	return getForsteUttaksdagPaEllerEtterDato(addWeeks(termin, -1 * uker));
-};
-
-/**
  * Første gyldige uttaksdag etter termin
  * @param termin
  */
@@ -246,3 +224,5 @@ export function kalkulerUttaksdagerIPeriode(start: Date, slutt: Date): number {
 	}
 	return antall;
 }
+
+export const normaliserDato = (dato: Date): Date => new Date(dato.getFullYear(), dato.getMonth(), dato.getDate());

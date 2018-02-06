@@ -7,6 +7,7 @@ import Dato from 'app/components/dato/Dato';
 import { TidslinjeInnslag } from './types';
 import Infotekst from 'app/components/infotekst/Infotekst';
 import { kalkulerUttaksdagerIPeriode } from 'app/utils/periodeUtils';
+import { erUttakEllerUtsettelse } from 'app/selectors/tidslinjeSelector';
 
 interface TidslinjeInnslagProps {
 	innslag: TidslinjeInnslag;
@@ -41,7 +42,13 @@ const TidslinjeInnslag: React.StatelessComponent<TidslinjeInnslagProps> = ({ inn
 		<div className={cls}>
 			<TidslinjeStrek innslag={innslag} />
 			<div className="tidslinjeInnslag__dato">
-				<Dato dato={innslag.startdato} /> - <Dato dato={innslag.sluttdato} /> ({dager} dager)
+				<Dato dato={innslag.startdato} />
+				{erUttakEllerUtsettelse(innslag) && (
+					<span>
+						{' '}
+						- <Dato dato={innslag.sluttdato} /> ({dager} dager)
+					</span>
+				)}
 			</div>
 			<div className="tidslinjeInnslag__hendelse">
 				{innslag.tittel}{' '}

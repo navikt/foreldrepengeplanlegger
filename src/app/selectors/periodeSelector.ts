@@ -63,10 +63,33 @@ const settInnUtsettelser = (stonadsperioder: Stonadsperiode[], utsettelser: Utse
  */
 const settInnUtsettelse = (perioder: Periode[], utsettelse: Utsettelsesperiode): Periode[] => {
 	const periode = finnPeriodeMedDato(perioder, utsettelse.tidsperiode.startdato);
-	if (!periode) {
-		// TODO - fh: krever at utsettelse.startdato treffer en periode
-		return perioder;
+
+	// Finn periode som skal forskyves
+	if (periode) {
+		return settInnUtsettelseIPeriode(perioder, periode, utsettelse);
+	} else {
+		const pafolgendePeriode = perioder.find((p) => p.tidsperiode.startdato === utsettelse.tidsperiode.startdato);
+		if (!pafolgendePeriode) {
+			throw 'Ingen periode funnet som passer til utsettelse';
+		}
+		// return settInnUtsettelseEtterPeriode(perioder, pafolgendePeriode, utsettelse);
+		const { perioderFor, perioderEtter } = hentPerioderForOgEtterPeriode(perioder, pafolgendePeriode);
+		return [
+			...perioderFor,
+			...[utsettelse],
+			...flyttPerioderUtFraDato(
+				[pafolgendePeriode, ...perioderEtter],
+				getForsteUttaksdagEtterDato(utsettelse.tidsperiode.sluttdato)
+			)
+		];
 	}
+};
+
+const settInnUtsettelseIPeriode = (
+	perioder: Periode[],
+	periode: Periode,
+	utsettelse: Utsettelsesperiode
+): Periode[] => {
 	const { perioderFor, perioderEtter } = hentPerioderForOgEtterPeriode(perioder, periode);
 	const periodeSplittetMedUtsettelse = leggUtsettelseInnIPeriode(periode, utsettelse);
 	const sisteSplittetPeriode = periodeSplittetMedUtsettelse[2];

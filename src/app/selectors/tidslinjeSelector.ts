@@ -84,9 +84,9 @@ const erInnslagSisteIPeriode = (alleInnslag: TidslinjeInnslag[], innslag: Tidsli
 	return nesteInnslag.forelder !== innslag.forelder;
 };
 
-const erUttak = (innslag: TidslinjeInnslag): boolean => innslag.type === 'uttak';
-const erUtsettelse = (innslag: TidslinjeInnslag): boolean => innslag.type === 'utsettelse';
-const erUttakEllerUtsettelse = (innslag: TidslinjeInnslag): boolean =>
+export const erUttak = (innslag: TidslinjeInnslag): boolean => innslag.type === 'uttak';
+export const erUtsettelse = (innslag: TidslinjeInnslag): boolean => innslag.type === 'utsettelse';
+export const erUttakEllerUtsettelse = (innslag: TidslinjeInnslag): boolean =>
 	innslag.type === 'uttak' || innslag.type === 'utsettelse';
 
 const sorterTidslinjeinnslagEtterStartdato = (innslag1: TidslinjeInnslag, innslag2: TidslinjeInnslag) => {

@@ -1,13 +1,17 @@
 import { createSelector } from 'reselect';
 import { AppState, FormState } from 'app/redux/types';
-import { Utsettelsesperiode, Periode, Stonadsperiode } from 'app/types';
+import { Utsettelsesperiode, Periode, Stonadsperiode, Tidsperiode } from 'app/types';
 import {
 	getStonadsperioder,
 	sorterPerioder,
 	finnPeriodeMedDato,
 	hentPerioderForOgEtterPeriode,
-	leggUtsettelseInnIPeriode
+	leggUtsettelseInnIPeriode,
+	getForsteUttaksdagEtterDato,
+	getForsteUttaksdagPaEllerEtterDato,
+	kalkulerUttaksdagerIPeriode
 } from 'app/utils/periodeUtils';
+import { differenceInCalendarDays, addDays } from 'date-fns';
 
 const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
@@ -64,5 +68,34 @@ const settInnUtsettelse = (perioder: Periode[], utsettelse: Utsettelsesperiode):
 		return perioder;
 	}
 	const { perioderFor, perioderEtter } = hentPerioderForOgEtterPeriode(perioder, periode);
-	return [...perioderFor, ...leggUtsettelseInnIPeriode(periode, utsettelse), ...perioderEtter];
+	const periodeSplittetMedUtsettelse = leggUtsettelseInnIPeriode(periode, utsettelse);
+	const sisteSplittetPeriode = periodeSplittetMedUtsettelse[2];
+	return [
+		...perioderFor,
+		...periodeSplittetMedUtsettelse,
+		...flyttPerioderUtFraDato(perioderEtter, getForsteUttaksdagEtterDato(sisteSplittetPeriode.tidsperiode.sluttdato))
+	];
+};
+
+const flyttPerioderUtFraDato = (perioder: Periode[], dato: Date): Periode[] => {
+	let forrigeDato = dato;
+	return perioder.map((periode) => {
+		const dager = differenceInCalendarDays(forrigeDato, periode.tidsperiode.startdato);
+		const tidsperiode = flyttTidsperiodeDager(periode.tidsperiode, dager);
+		forrigeDato = tidsperiode.sluttdato;
+		return {
+			...periode,
+			tidsperiode
+		};
+	});
+};
+
+const flyttTidsperiodeDager = (tidsperiode: Tidsperiode, dager: number): Tidsperiode => {
+	const periodedager = kalkulerUttaksdagerIPeriode(tidsperiode.startdato, tidsperiode.sluttdato);
+	const startdato = getForsteUttaksdagPaEllerEtterDato(addDays(tidsperiode.startdato, dager));
+	const sluttdato = getForsteUttaksdagPaEllerEtterDato(addDays(startdato, periodedager));
+	return {
+		startdato,
+		sluttdato
+	};
 };

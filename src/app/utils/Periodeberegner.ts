@@ -13,6 +13,7 @@ const Periodeberegner = (
 	fellesukerForelder2: number,
 	grunnfordeling: Grunnfordeling
 ) => {
+	termindato = new Date(termindato.getFullYear(), termindato.getMonth(), termindato.getDate());
 	const getModrekvotePreTermin = (): Tidsperiode => {
 		const startdato = getStartdato();
 		return {

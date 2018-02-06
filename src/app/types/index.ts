@@ -16,6 +16,5 @@ export interface Grunnfordeling {
 	antallUkerForelder1EtterFodsel: number;
 	antallUkerForelder1Totalt: number;
 	antallUkerForelder2Totalt: number;
-	tidligstUkerUttakForelder1: number;
 	maksPermisjonslengdeIAr: number;
 }

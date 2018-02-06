@@ -28,7 +28,7 @@ export class Uttaksplan extends React.Component<Props> {
 						<Veileder type="intro" svgClassName="veilederSvg" />
 					</div>
 					<p>
-						Hei, hver forelder har rett på 14 uker permisjon hver. I tillegg har dere enten 28 eller 18 uker dere kan
+						Hei, hver forelder har rett på 10 uker permisjon hver. I tillegg har dere enten 36 eller 26 uker dere kan
 						fordele mellom dere basert på den totale permisjonslengden dere velger, som er 59 uker eller 49 uker.
 					</p>
 				</div>

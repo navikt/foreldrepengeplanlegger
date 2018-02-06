@@ -26,7 +26,7 @@ const Periodeberegner = (
 	const getModrekvotePostTermin = (): Tidsperiode => {
 		return {
 			startdato: termindato,
-			sluttdato: getPeriodesluttDato(termindato, grunnfordeling.antallUkerForelder1EtterFodsel)
+			sluttdato: getPeriodesluttDato(termindato, grunnfordeling.antallUkerForelder1Totalt)
 		};
 	};
 

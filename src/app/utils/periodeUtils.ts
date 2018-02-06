@@ -192,7 +192,12 @@ export const getForsteUttaksdagForDato = (dato: Date): Date => {
 export const getAntallUkerFellesperiode = (grunnfordeling: Grunnfordeling, dekningsgrad?: Dekningsgrad) => {
 	const totaltAntallUker =
 		dekningsgrad === '80%' ? grunnfordeling.antallUkerTotalt80 : grunnfordeling.antallUkerTotalt100;
-	return totaltAntallUker - grunnfordeling.antallUkerForelder1Totalt - grunnfordeling.antallUkerForelder2Totalt;
+	return (
+		totaltAntallUker -
+		grunnfordeling.antallUkerForelder1Totalt -
+		grunnfordeling.antallUkerForelder2Totalt -
+		grunnfordeling.antallUkerForelder1ForFodsel
+	);
 };
 
 export const getUkedag = (dato: Date) => getISODay(dato);

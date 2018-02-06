@@ -13,7 +13,7 @@ import SkjemaInfotekst from 'app/components/skjemaInfotekst/SkjemaInfotekst';
 import Tekst from 'app/tekst';
 import Periodeberegner from 'app/utils/Periodeberegner';
 import { grunnfordeling } from 'app/data/grunnfordeling';
-import { getForsteUttaksdagEtterDato } from 'app/utils/periodeUtils';
+import { getForsteUttaksdagEtterDato } from 'app/utils/uttaksdagerUtils';
 
 interface StateProps {
 	isOpen: boolean;

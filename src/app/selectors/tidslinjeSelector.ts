@@ -56,6 +56,12 @@ export const tidslinjeFraPerioder = createSelector(
 	}
 );
 
+/**
+ * Sjekker om perioden skal vis at den fortsetter inn i neste periode
+ * @param alleInnslag
+ * @param innslag
+ * @param index
+ */
 const fortsetterInnslag = (alleInnslag: TidslinjeInnslag[], innslag: TidslinjeInnslag, index: number): boolean => {
 	if (index === alleInnslag.length - 1) {
 		return false;
@@ -64,6 +70,12 @@ const fortsetterInnslag = (alleInnslag: TidslinjeInnslag[], innslag: TidslinjeIn
 	return erUtsettelse(innslag) || (erUttakEllerUtsettelse(nesteInnslag) && nesteInnslag.forelder === innslag.forelder);
 };
 
+/**
+ * Sjekker om perioden er en fortsettelse av forrige periode
+ * @param alleInnslag
+ * @param innslag
+ * @param index
+ */
 const erInnslagFortsettelse = (alleInnslag: TidslinjeInnslag[], innslag: TidslinjeInnslag, index: number): boolean => {
 	if (index === 0) {
 		return false;
@@ -74,6 +86,12 @@ const erInnslagFortsettelse = (alleInnslag: TidslinjeInnslag[], innslag: Tidslin
 	}
 	return !erUttak(forrigeInnslag) ? true : forrigeInnslag.forelder === innslag.forelder;
 };
+/**
+ * Sjekker om perioden er den siste for forelder
+ * @param alleInnslag
+ * @param innslag
+ * @param index
+ */
 const erInnslagSisteIPeriode = (alleInnslag: TidslinjeInnslag[], innslag: TidslinjeInnslag, index: number): boolean => {
 	if (index === alleInnslag.length - 1) {
 		return false;
@@ -87,8 +105,7 @@ const erInnslagSisteIPeriode = (alleInnslag: TidslinjeInnslag[], innslag: Tidsli
 
 export const erUttak = (innslag: TidslinjeInnslag): boolean => innslag.type === 'uttak';
 export const erUtsettelse = (innslag: TidslinjeInnslag): boolean => innslag.type === 'utsettelse';
-export const erUttakEllerUtsettelse = (innslag: TidslinjeInnslag): boolean =>
-	innslag.type === 'uttak' || innslag.type === 'utsettelse';
+export const erUttakEllerUtsettelse = (innslag: TidslinjeInnslag): boolean => erUttak(innslag) || erUtsettelse(innslag);
 
 const sorterTidslinjeinnslagEtterStartdato = (innslag1: TidslinjeInnslag, innslag2: TidslinjeInnslag) => {
 	if (isSameDay(innslag1.startdato, innslag2.startdato)) {
@@ -97,6 +114,10 @@ const sorterTidslinjeinnslagEtterStartdato = (innslag1: TidslinjeInnslag, innsla
 	return innslag1.startdato >= innslag2.startdato ? 1 : -1;
 };
 
+/**
+ * Oppretter et tidslinjeinnslag ut fra periode
+ * @param periode
+ */
 export const periodeTilTidslinjeinnslag = (periode: Periode): TidslinjeInnslag => {
 	switch (periode.type) {
 		case Periodetype.Utsettelse:

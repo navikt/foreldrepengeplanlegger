@@ -1,0 +1,24 @@
+@var: 24px;
+@smallSpacing: 8px;
+
+.modal {
+	overflow: visible;
+
+	.header {
+		&__illustration {
+			height: 96px;
+			position: absolute;
+			top: -38px - @var;
+			margin: auto;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+
+		&__title {
+			margin: 0 auto;
+			text-align: center;
+			padding-top: 25px;
+			padding-bottom: 8px;
+		}
+	}
+}

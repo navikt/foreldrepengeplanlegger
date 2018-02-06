@@ -13,6 +13,7 @@ import SkjemaInfotekst from 'app/components/skjemaInfotekst/SkjemaInfotekst';
 import Tekst from 'app/tekst';
 import Periodeberegner from 'app/utils/Periodeberegner';
 import { grunnfordeling } from 'app/data/grunnfordeling';
+import { getForsteUttaksdagEtterDato } from 'app/utils/periodeUtils';
 
 interface StateProps {
 	isOpen: boolean;
@@ -68,7 +69,7 @@ const mapStateToProps = (state: AppState): StateProps => {
 		forelder2: state.form.navnForelder2,
 		isOpen: state.utsettelse.dialogErApen,
 		tidsrom: {
-			startdato: periodeberegner.getModrekvotePostTermin().sluttdato,
+			startdato: getForsteUttaksdagEtterDato(periodeberegner.getModrekvotePostTermin().sluttdato),
 			sluttdato: periodeberegner.getSistePermisjonsdag()
 		}
 	};

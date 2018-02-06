@@ -5,7 +5,7 @@ import { Row, Column } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
 
 import DateInput from 'shared/components/dateInput/DateInput';
-import RangeInput, { RangeInputValueLabelRendererOptions } from 'shared/components/rangeInput/RangeInput';
+import Radioliste from 'shared/components/radioliste/Radioliste';
 
 import { DispatchProps, AppState, FormState, UtsettelseState } from 'app/redux/types';
 import {
@@ -18,7 +18,7 @@ import {
 import Tekst from 'app/tekst';
 import { Dekningsgrad } from 'app/types';
 import SkjemaInfotekst from 'app/components/skjemaInfotekst/SkjemaInfotekst';
-import Radioliste from 'shared/components/radioliste/Radioliste';
+import FordelingFellesperiodeRange from 'app/components/fordelingFellesperiodeRange/FordelingFellesperiodeRange';
 
 export interface StateProps {
 	form: FormState;
@@ -26,35 +26,6 @@ export interface StateProps {
 }
 
 type Props = StateProps & DispatchProps;
-
-const pluralize = (value: number, singular: string, plural: string): string => (value === 1 ? singular : plural);
-
-const fordelingFellesperiodeLabelRenderer = (
-	options: RangeInputValueLabelRendererOptions,
-	navnForelder1: string,
-	navnForelder2?: string
-) => {
-	const ukerForelder1 = options.value || 0;
-	const ukerForelder2 = options.max - (options.value || 0);
-	return (
-		<div className="skjema_fordelingFellesperiode">
-			<div className="skjema_fordelingFellesperiode__forelder1">
-				<div className="skjema_fordelingFellesperiode__forelderNavn">{navnForelder1}</div>
-				<div className="skjema_fordelingFellesperiode__uker">
-					{ukerForelder1} {pluralize(ukerForelder1 || 0, 'uke', 'uker')}
-				</div>
-			</div>
-			{navnForelder2 && (
-				<div className="skjema_fordelingFellesperiode__forelder2">
-					<div className="skjema_fordelingFellesperiode__forelderNavn">{navnForelder2}</div>
-					<div className="skjema_fordelingFellesperiode__uker">
-						{ukerForelder2} {pluralize(ukerForelder2, 'uke', 'uker')}
-					</div>
-				</div>
-			)}
-		</div>
-	);
-};
 
 class Skjema extends React.Component<Props> {
 	render() {
@@ -118,15 +89,12 @@ class Skjema extends React.Component<Props> {
 					form.dekningsgrad && (
 						<div className="blokk-s">
 							<SkjemaInfotekst id="info-fordeling">{Tekst.skjema.info.fordelingFellesperiode}</SkjemaInfotekst>
-							<RangeInput
-								label={Tekst.skjema.fordelingFellespermisjon}
-								value={form.ukerForelder1}
-								min={0}
-								max={form.ukerFellesperiode}
-								onChange={(dager) => dispatch(settAntallDagerMor(dager))}
-								valueLabelRenderer={(options) =>
-									fordelingFellesperiodeLabelRenderer(options, form.navnForelder1 || 'Forelder 1', form.navnForelder2)
-								}
+							<FordelingFellesperiodeRange
+								navnForelder1={form.navnForelder1}
+								navnForelder2={form.navnForelder2}
+								ukerFellesperiode={form.ukerFellesperiode}
+								ukerForelder1={form.ukerForelder1}
+								onChange={(uker) => dispatch(settAntallDagerMor(uker))}
 							/>
 						</div>
 					)}

@@ -5,6 +5,9 @@ import TerminIkon from 'app/components/ikoner/TerminIkon';
 import Dato from 'app/components/dato/Dato';
 
 import { TidslinjeInnslag } from './types';
+import Infotekst from 'app/components/infotekst/Infotekst';
+import { kalkulerUttaksdagerIPeriode } from 'app/utils/periodeUtils';
+import { erUttakEllerUtsettelse } from 'app/selectors/tidslinjeSelector';
 
 interface TidslinjeInnslagProps {
 	innslag: TidslinjeInnslag;
@@ -34,11 +37,18 @@ const TidslinjeInnslag: React.StatelessComponent<TidslinjeInnslagProps> = ({ inn
 			'tidslinjeInnslag--slutt': innslag.slutter
 		}
 	);
+	const dager = kalkulerUttaksdagerIPeriode(innslag.startdato, innslag.sluttdato);
 	return (
 		<div className={cls}>
 			<TidslinjeStrek innslag={innslag} />
 			<div className="tidslinjeInnslag__dato">
 				<Dato dato={innslag.startdato} />
+				{erUttakEllerUtsettelse(innslag) && (
+					<span>
+						{' '}
+						- <Dato dato={innslag.sluttdato} /> ({dager} dager)
+					</span>
+				)}
 			</div>
 			<div className="tidslinjeInnslag__hendelse">
 				{innslag.tittel}{' '}
@@ -46,6 +56,11 @@ const TidslinjeInnslag: React.StatelessComponent<TidslinjeInnslagProps> = ({ inn
 					<span className="tidslinjeInnslag__terminHjerte">
 						<TerminIkon />
 					</span>
+				)}
+				{innslag.type === 'utsettelse' && (
+					<div className="tidslinjeInnslag__info">
+						<Infotekst tittel="Nyttig informasjon" />
+					</div>
 				)}
 			</div>
 		</div>

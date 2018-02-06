@@ -7,6 +7,7 @@ export interface ModalProps {
 	title: string;
 	children: React.ReactNode | string;
 	isOpen: boolean;
+	onClose: () => void;
 }
 
 declare class Modal extends React.Component<ModalProps> {}

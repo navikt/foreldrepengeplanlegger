@@ -92,7 +92,6 @@ export const erUttakEllerUtsettelse = (innslag: TidslinjeInnslag): boolean =>
 
 const sorterTidslinjeinnslagEtterStartdato = (innslag1: TidslinjeInnslag, innslag2: TidslinjeInnslag) => {
 	if (isSameDay(innslag1.startdato, innslag2.startdato)) {
-		console.log('whoo');
 		return innslag1.type === 'termin' ? -1 : 1;
 	}
 	return innslag1.startdato >= innslag2.startdato ? 1 : -1;

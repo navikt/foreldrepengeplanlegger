@@ -69,8 +69,6 @@ const settInnUtsettelse = (perioder: Periode[], utsettelse: Utsettelsesperiode):
 
 	// Finn periode som skal forskyves
 	if (isSameDay(periode.tidsperiode.startdato, utsettelse.tidsperiode.startdato)) {
-		// const pafolgendePeriode = perioder.find((p) => p.tidsperiode.startdato === utsettelse.tidsperiode.startdato);
-		// return settInnUtsettelseEtterPeriode(perioder, pafolgendePeriode, utsettelse);
 		const { perioderFor, perioderEtter } = hentPerioderForOgEtterPeriode(perioder, periode);
 		return [
 			...perioderFor,

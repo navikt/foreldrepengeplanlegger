@@ -1,5 +1,4 @@
-import { Tidsperiode } from 'app/types';
-import { Forelder } from 'app/redux/types';
+import { Tidsperiode, Forelder } from 'app/types';
 
 export enum Periodetype {
 	'Stonadsperiode' = 'Stønadsperiode',

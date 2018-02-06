@@ -1,7 +1,11 @@
 import { Grunnfordeling, Tidsperiode, Dekningsgrad } from 'app/types';
-import { getPeriodeSluttdato, normaliserDato } from 'app/utils/periodeUtils';
+import {
+	getForsteUttaksdagEtterDato,
+	getForsteUttaksdagPaEllerEtterDato,
+	getPeriodeSluttdato,
+	normaliserDato
+} from 'app/utils';
 import { addWeeks, addYears } from 'date-fns';
-import { getForsteUttaksdagEtterDato, getForsteUttaksdagPaEllerEtterDato } from 'app/utils/uttaksdagerUtils';
 
 const Periodeberegner = (
 	termindato: Date,
@@ -11,6 +15,7 @@ const Periodeberegner = (
 	grunnfordeling: Grunnfordeling
 ) => {
 	termindato = normaliserDato(termindato);
+
 	const getModrekvotePreTermin = (): Tidsperiode => {
 		const startdato = getStartdato();
 		return {
@@ -22,7 +27,7 @@ const Periodeberegner = (
 	const getModrekvotePostTermin = (): Tidsperiode => {
 		return {
 			startdato: termindato,
-			sluttdato: getPeriodeSluttdato(termindato, grunnfordeling.antallUkerForelder1Totalt)
+			sluttdato: getPeriodeSluttdato(termindato, grunnfordeling.antallUkerForelder1EtterFodsel)
 		};
 	};
 

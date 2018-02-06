@@ -1,7 +1,5 @@
 import { Dekningsgrad, Grunnfordeling, Utsettelsesperiode } from 'app/types';
 
-export type Forelder = 'forelder1' | 'forelder2';
-
 export interface Action<T> {
 	type: string;
 	payload: T;

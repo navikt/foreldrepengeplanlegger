@@ -11,7 +11,7 @@ import {
 	getForsteUttaksdagPaEllerEtterDato,
 	kalkulerUttaksdagerIPeriode
 } from 'app/utils/periodeUtils';
-import { differenceInCalendarDays, addDays } from 'date-fns';
+import { differenceInCalendarDays, addDays, isSameDay } from 'date-fns';
 
 const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
@@ -63,25 +63,25 @@ const settInnUtsettelser = (stonadsperioder: Stonadsperiode[], utsettelser: Utse
  */
 const settInnUtsettelse = (perioder: Periode[], utsettelse: Utsettelsesperiode): Periode[] => {
 	const periode = finnPeriodeMedDato(perioder, utsettelse.tidsperiode.startdato);
+	if (!periode) {
+		throw 'Ingen periode funnet som passer til utsettelse';
+	}
 
 	// Finn periode som skal forskyves
-	if (periode) {
-		return settInnUtsettelseIPeriode(perioder, periode, utsettelse);
-	} else {
-		const pafolgendePeriode = perioder.find((p) => p.tidsperiode.startdato === utsettelse.tidsperiode.startdato);
-		if (!pafolgendePeriode) {
-			throw 'Ingen periode funnet som passer til utsettelse';
-		}
+	if (isSameDay(periode.tidsperiode.startdato, utsettelse.tidsperiode.startdato)) {
+		// const pafolgendePeriode = perioder.find((p) => p.tidsperiode.startdato === utsettelse.tidsperiode.startdato);
 		// return settInnUtsettelseEtterPeriode(perioder, pafolgendePeriode, utsettelse);
-		const { perioderFor, perioderEtter } = hentPerioderForOgEtterPeriode(perioder, pafolgendePeriode);
+		const { perioderFor, perioderEtter } = hentPerioderForOgEtterPeriode(perioder, periode);
 		return [
 			...perioderFor,
 			...[utsettelse],
 			...flyttPerioderUtFraDato(
-				[pafolgendePeriode, ...perioderEtter],
+				[periode, ...perioderEtter],
 				getForsteUttaksdagEtterDato(utsettelse.tidsperiode.sluttdato)
 			)
 		];
+	} else {
+		return settInnUtsettelseIPeriode(perioder, periode, utsettelse);
 	}
 };
 

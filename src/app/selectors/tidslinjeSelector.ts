@@ -3,6 +3,7 @@ import { AppState } from 'app/redux/types';
 import { TidslinjeInnslag } from 'app/components/tidslinje/types';
 import { Periode, Periodetype } from 'app/types';
 import { periodeSelector } from './periodeSelector';
+import { isSameDay } from 'date-fns';
 
 const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
@@ -90,7 +91,8 @@ export const erUttakEllerUtsettelse = (innslag: TidslinjeInnslag): boolean =>
 	innslag.type === 'uttak' || innslag.type === 'utsettelse';
 
 const sorterTidslinjeinnslagEtterStartdato = (innslag1: TidslinjeInnslag, innslag2: TidslinjeInnslag) => {
-	if (innslag1.startdato === innslag2.startdato) {
+	if (isSameDay(innslag1.startdato, innslag2.startdato)) {
+		console.log('whoo');
 		return innslag1.type === 'termin' ? -1 : 1;
 	}
 	return innslag1.startdato >= innslag2.startdato ? 1 : -1;

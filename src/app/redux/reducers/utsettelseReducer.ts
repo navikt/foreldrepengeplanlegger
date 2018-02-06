@@ -10,7 +10,7 @@ export const utsettelse1: Utsettelsesperiode = {
 	type: Periodetype.Utsettelse,
 	arsak: UtsettelseArsakType.Ferie,
 	tidsperiode: {
-		startdato: new Date(2018, 2, 21),
+		startdato: new Date(2018, 2, 20),
 		sluttdato: new Date(2018, 2, 23)
 	},
 	forelder: 'forelder1'

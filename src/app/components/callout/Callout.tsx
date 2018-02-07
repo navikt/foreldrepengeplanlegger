@@ -1,13 +1,17 @@
 import * as React from 'react';
 
-export interface Props {}
+export type CalloutBorderColor = 'green' | 'purple' | 'blue' | 'gray';
 
-const Callout: React.StatelessComponent<Props> = (props) => (
-	<div className="callout">
+export interface Props {
+	borderColor?: CalloutBorderColor;
+}
+
+const Callout: React.StatelessComponent<Props> = ({ borderColor = 'gray', children }) => (
+	<div className={`callout callout--${borderColor}`}>
 		<div className="callout__arrow">
 			<div className="topLeftArrow" />
 		</div>
-		<div className="callout__content">{props.children}</div>
+		<div className="callout__content">{children}</div>
 	</div>
 );
 

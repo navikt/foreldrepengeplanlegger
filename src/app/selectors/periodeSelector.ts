@@ -7,7 +7,8 @@ import {
 	Dekningsgrad,
 	Grunnfordeling,
 	Periodetype,
-	StonadskontoType
+	StonadskontoType,
+	SammenslattPeriode
 } from 'app/types';
 import { sorterPerioder, leggUtsettelserTilPerioder } from 'app/utils/periodeUtils';
 import Periodeberegner from 'app/utils/Periodeberegner';
@@ -16,25 +17,73 @@ const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
 
 /**
+ * Henter ut sortert liste med alle stønadsperioder basert på formState
+ */
+export const getStonadsperioder = createSelector(formSelector, (form: FormState): Stonadsperiode[] => {
+	if (!form.termindato || !form.dekningsgrad) {
+		return [];
+	}
+	return opprettStonadsperioder(
+		form.termindato,
+		form.dekningsgrad,
+		form.grunnfordeling,
+		form.ukerForelder1 || 0,
+		form.ukerForelder2 || 0
+	).sort(sorterPerioder);
+});
+
+/**
  * Henter ut alle perioder gitt formState og utsettelser
  */
-export const periodeSelector = createSelector(
-	formSelector,
+export const getPerioderMedUtsettelser = createSelector(
+	getStonadsperioder,
 	utsettelseSelector,
-	(form: FormState, utsettelser: Utsettelsesperiode[]): Periode[] => {
-		if (!form.termindato || !form.dekningsgrad) {
-			return [];
-		}
-		const stonadsperioder: Stonadsperiode[] = getStonadsperioder(
-			form.termindato,
-			form.dekningsgrad,
-			form.grunnfordeling,
-			form.ukerForelder1 || 0,
-			form.ukerForelder2 || 0
-		).sort(sorterPerioder);
+	(stonadsperioder: Stonadsperiode[], utsettelser: Utsettelsesperiode[]): Periode[] => {
 		return leggUtsettelserTilPerioder(stonadsperioder, utsettelser);
 	}
 );
+
+/**
+ * Returnerer liste hvor påfølgende perioder med samme forelder er slått sammen til en periode
+ * Perioder før termin vil ikke blir slått sammen
+ */
+export const getPerioderForTidslinje = createSelector(
+	getStonadsperioder,
+	utsettelseSelector,
+	(perioder: Stonadsperiode[], utsettelser: Utsettelsesperiode[]): Periode[] => {
+		const liste: (Stonadsperiode | SammenslattPeriode)[] = [];
+		let stonadsperioderSammeForelder: Stonadsperiode[] = [];
+		perioder.forEach((p, index) => {
+			const forrige = stonadsperioderSammeForelder[stonadsperioderSammeForelder.length - 1];
+			if (!forrige || p.forelder === forrige.forelder) {
+				stonadsperioderSammeForelder.push(p);
+			} else {
+				if (stonadsperioderSammeForelder.length === 1) {
+					liste.push(forrige);
+				} else {
+					liste.push(lagSammenslattPeriode(stonadsperioderSammeForelder));
+				}
+				stonadsperioderSammeForelder = [p];
+			}
+		});
+		if (stonadsperioderSammeForelder.length === 1) {
+			liste.push(stonadsperioderSammeForelder[0]);
+		} else if (stonadsperioderSammeForelder.length > 1) {
+			liste.push(lagSammenslattPeriode(stonadsperioderSammeForelder));
+		}
+		return leggUtsettelserTilPerioder(liste, utsettelser);
+	}
+);
+
+const lagSammenslattPeriode = (perioder: Stonadsperiode[]): SammenslattPeriode => ({
+	type: Periodetype.SammenslattPeriode,
+	forelder: perioder[0].forelder,
+	tidsperiode: {
+		startdato: perioder[0].tidsperiode.startdato,
+		sluttdato: perioder[perioder.length - 1].tidsperiode.sluttdato
+	},
+	perioder: perioder.map((sp) => sp)
+});
 
 /**
  * Setter opp basisoppsett for perioder uten utsettelser hvor
@@ -46,7 +95,7 @@ export const periodeSelector = createSelector(
  * @param fellesukerForelder1
  * @param fellesukerForelder2
  */
-const getStonadsperioder = (
+const opprettStonadsperioder = (
 	termindato: Date,
 	dekningsgrad: Dekningsgrad,
 	grunnfordeling: Grunnfordeling,
@@ -64,7 +113,7 @@ const getStonadsperioder = (
 		{
 			type: Periodetype.Stonadsperiode,
 			forelder: 'forelder1',
-			konto: StonadskontoType.Modrekvote,
+			konto: StonadskontoType.ForeldrepengerForFodsel,
 			tidsperiode: periodeberegner.getModrekvotePreTermin(),
 			fastPeriode: true
 		},

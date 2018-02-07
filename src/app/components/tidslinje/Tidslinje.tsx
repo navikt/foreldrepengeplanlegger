@@ -19,7 +19,7 @@ const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({ innslag }) => {
 			{innslag.map((i, idx) => {
 				return (
 					<div className="tidslinje__tidslinjeInnslag" key={idx}>
-						<TidslinjeInnslag key={i.startdato.toDateString()} innslag={i} />
+						<TidslinjeInnslag key={i.tidsperiode.startdato.toDateString()} innslag={i} />
 					</div>
 				);
 			})}

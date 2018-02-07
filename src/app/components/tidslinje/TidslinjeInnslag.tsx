@@ -8,6 +8,7 @@ import { TidslinjeInnslag } from './types';
 import Infotekst from 'app/components/infotekst/Infotekst';
 import { erUttakEllerUtsettelse } from 'app/selectors/tidslinjeSelector';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
+import Callout from 'app/components/callout/Callout';
 
 interface TidslinjeInnslagProps {
 	innslag: TidslinjeInnslag;
@@ -37,32 +38,36 @@ const TidslinjeInnslag: React.StatelessComponent<TidslinjeInnslagProps> = ({ inn
 			'tidslinjeInnslag--slutt': innslag.slutter
 		}
 	);
-	const dager = getAntallUttaksdagerITidsperiode(innslag.startdato, innslag.sluttdato);
+	const dager = getAntallUttaksdagerITidsperiode(innslag.tidsperiode.startdato, innslag.tidsperiode.sluttdato);
 	return (
 		<div className={cls}>
 			<TidslinjeStrek innslag={innslag} />
-			<div className="tidslinjeInnslag__dato">
-				<Dato dato={innslag.startdato} />
-				{erUttakEllerUtsettelse(innslag) && (
-					<span>
-						{' '}
-						- <Dato dato={innslag.sluttdato} /> ({dager} dager)
-					</span>
-				)}
-			</div>
-			<div className="tidslinjeInnslag__hendelse">
-				{innslag.tittel}{' '}
-				{innslag.type === 'termin' && (
-					<span className="tidslinjeInnslag__terminHjerte">
-						<TerminIkon />
-					</span>
-				)}
-				{innslag.type === 'utsettelse' && (
-					<div className="tidslinjeInnslag__info">
-						<Infotekst tittel="Nyttig informasjon" />
+			<Callout>
+				<div className="m-padding-s">
+					<div className="tidslinjeInnslag__dato">
+						<Dato dato={innslag.tidsperiode.startdato} />
+						{erUttakEllerUtsettelse(innslag) && (
+							<span>
+								{' '}
+								- <Dato dato={innslag.tidsperiode.sluttdato} /> ({dager} dager)
+							</span>
+						)}
 					</div>
-				)}
-			</div>
+					<div className="tidslinjeInnslag__hendelse">
+						{innslag.tittel}{' '}
+						{innslag.type === 'termin' && (
+							<span className="tidslinjeInnslag__terminHjerte">
+								<TerminIkon />
+							</span>
+						)}
+						{innslag.type === 'utsettelse' && (
+							<div className="tidslinjeInnslag__info">
+								<Infotekst tittel="Nyttig informasjon" />
+							</div>
+						)}
+					</div>
+				</div>
+			</Callout>
 		</div>
 	);
 };

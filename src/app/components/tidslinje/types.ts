@@ -1,10 +1,9 @@
-import { Forelder } from 'app/types';
+import { Forelder, Tidsperiode } from 'app/types';
 
-export type InnslagType = 'uttak' | 'utsettelse' | 'termin' | 'slutt' | 'siste';
+export type InnslagType = 'uttak' | 'utsettelse' | 'termin' | 'periodeslutt' | 'sistePermisjonsdag';
 
 export interface TidslinjeInnslag {
-	startdato: Date;
-	sluttdato: Date;
+	tidsperiode: Tidsperiode;
 	tittel: string;
 	type: InnslagType;
 	forelder: Forelder;

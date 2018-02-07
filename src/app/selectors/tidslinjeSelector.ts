@@ -26,17 +26,21 @@ export const tidslinjeFraPerioder = createSelector(
 		const alleInnslag: TidslinjeInnslag[] = [
 			...perioder.map((periode) => periodeTilTidslinjeinnslag(periode)),
 			{
-				startdato: termindato,
-				sluttdato: termindato,
+				tidsperiode: {
+					startdato: termindato,
+					sluttdato: termindato
+				},
 				forelder: 'forelder1',
 				type: 'termin',
 				tittel: 'Termindato'
 			},
 			{
-				startdato: sistePeriode.tidsperiode.sluttdato,
-				sluttdato: sistePeriode.tidsperiode.sluttdato,
+				tidsperiode: {
+					startdato: sistePeriode.tidsperiode.sluttdato,
+					sluttdato: sistePeriode.tidsperiode.sluttdato
+				},
 				forelder: sistePeriode.forelder,
-				type: 'siste',
+				type: 'sistePermisjonsdag',
 				tittel: 'Siste permisjonsdag'
 			}
 		];
@@ -108,10 +112,10 @@ export const erUtsettelse = (innslag: TidslinjeInnslag): boolean => innslag.type
 export const erUttakEllerUtsettelse = (innslag: TidslinjeInnslag): boolean => erUttak(innslag) || erUtsettelse(innslag);
 
 const sorterTidslinjeinnslagEtterStartdato = (innslag1: TidslinjeInnslag, innslag2: TidslinjeInnslag) => {
-	if (isSameDay(innslag1.startdato, innslag2.startdato)) {
+	if (isSameDay(innslag1.tidsperiode.startdato, innslag2.tidsperiode.startdato)) {
 		return innslag1.type === 'termin' ? -1 : 1;
 	}
-	return innslag1.startdato >= innslag2.startdato ? 1 : -1;
+	return innslag1.tidsperiode.startdato >= innslag2.tidsperiode.startdato ? 1 : -1;
 };
 
 /**
@@ -122,16 +126,20 @@ export const periodeTilTidslinjeinnslag = (periode: Periode): TidslinjeInnslag =
 	switch (periode.type) {
 		case Periodetype.Utsettelse:
 			return {
-				startdato: periode.tidsperiode.startdato,
-				sluttdato: periode.tidsperiode.sluttdato,
+				tidsperiode: {
+					startdato: periode.tidsperiode.startdato,
+					sluttdato: periode.tidsperiode.sluttdato
+				},
 				type: 'utsettelse',
 				tittel: `Utsettelse (${periode.arsak})`,
 				forelder: periode.forelder
 			};
 		default:
 			return {
-				startdato: periode.tidsperiode.startdato,
-				sluttdato: periode.tidsperiode.sluttdato,
+				tidsperiode: {
+					startdato: periode.tidsperiode.startdato,
+					sluttdato: periode.tidsperiode.sluttdato
+				},
 				type: 'uttak',
 				tittel: `Søknadsperiode (${periode.konto})`,
 				forelder: periode.forelder,

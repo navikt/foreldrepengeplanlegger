@@ -1,14 +1,14 @@
 import { createSelector } from 'reselect';
 import { AppState } from 'app/redux/types';
 import { Tidslinjeinnslag, TidslinjeinnslagType } from 'app/components/tidslinje/types';
-import { getPerioderMedUtsettelser } from './periodeSelector';
+import { getPerioderForTidslinje } from './periodeSelector';
 import { isSameDay } from 'date-fns';
 
 const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
 
 export const tidslinjeFraPerioder = createSelector(
-	getPerioderMedUtsettelser,
+	getPerioderForTidslinje,
 	utsettelseSelector,
 	formSelector,
 	(perioder, utsettelser, form): Tidslinjeinnslag[] => {

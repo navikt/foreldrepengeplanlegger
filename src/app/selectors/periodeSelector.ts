@@ -7,7 +7,8 @@ import {
 	Dekningsgrad,
 	Grunnfordeling,
 	Periodetype,
-	StonadskontoType
+	StonadskontoType,
+	SammenslattPeriode
 } from 'app/types';
 import { sorterPerioder, leggUtsettelserTilPerioder } from 'app/utils/periodeUtils';
 import Periodeberegner from 'app/utils/Periodeberegner';
@@ -43,6 +44,53 @@ export const getPerioderMedUtsettelser = createSelector(
 );
 
 /**
+ * Returnerer liste hvor påfølgende perioder med samme forelder er slått sammen til en periode
+ * Perioder før termin vil ikke blir slått sammen
+ */
+export const getPerioderForTidslinje = createSelector(getPerioderMedUtsettelser, (perioder: Periode[]): Periode[] => {
+	const liste: Periode[] = [];
+	let stonadsperioderSammeForelder: Stonadsperiode[] = [];
+	perioder.forEach((p, index) => {
+		if (p.type === Periodetype.Stonadsperiode) {
+			if (p.konto === StonadskontoType.ForeldrepengerForFodsel) {
+				liste.push(p);
+				return;
+			}
+			const forrige = stonadsperioderSammeForelder[stonadsperioderSammeForelder.length - 1];
+			if (!forrige || p.forelder === forrige.forelder) {
+				stonadsperioderSammeForelder.push(p);
+			} else {
+				if (stonadsperioderSammeForelder.length === 1) {
+					liste.push(forrige);
+				} else {
+					liste.push(lagSammenslattPeriode(stonadsperioderSammeForelder));
+				}
+				stonadsperioderSammeForelder = [p];
+			}
+		} else {
+			liste.push(p);
+		}
+	});
+	if (stonadsperioderSammeForelder.length === 1) {
+		liste.push(stonadsperioderSammeForelder[0]);
+	} else if (stonadsperioderSammeForelder.length > 1) {
+		liste.push(lagSammenslattPeriode(stonadsperioderSammeForelder));
+	}
+
+	return liste;
+});
+
+const lagSammenslattPeriode = (perioder: Stonadsperiode[]): SammenslattPeriode => ({
+	type: Periodetype.SammenslattPeriode,
+	forelder: perioder[0].forelder,
+	tidsperiode: {
+		startdato: perioder[0].tidsperiode.startdato,
+		sluttdato: perioder[perioder.length - 1].tidsperiode.sluttdato
+	},
+	perioder: perioder.map((sp) => sp)
+});
+
+/**
  * Setter opp basisoppsett for perioder uten utsettelser hvor
  * mor tar første del av permisjonen og fedrekvote er etter
  * fellesperiode
@@ -70,7 +118,7 @@ const opprettStonadsperioder = (
 		{
 			type: Periodetype.Stonadsperiode,
 			forelder: 'forelder1',
-			konto: StonadskontoType.Modrekvote,
+			konto: StonadskontoType.ForeldrepengerForFodsel,
 			tidsperiode: periodeberegner.getModrekvotePreTermin(),
 			fastPeriode: true
 		},

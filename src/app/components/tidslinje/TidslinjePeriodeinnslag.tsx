@@ -27,7 +27,7 @@ const TidslinjePeriodeinnslag: React.StatelessComponent<Props> = ({ innslag }) =
 			<Callout borderColor={getInnslagfarge(innslag)}>
 				<div className="m-padding-s">
 					<div className="periodeinnslag__dato">
-						<TidsperiodeTekst tidsperiode={periode.tidsperiode} visDager={true} />
+						<TidsperiodeTekst tidsperiode={periode.tidsperiode} />
 					</div>
 					<div className="periodeinnslag__type">{periode.type} </div>
 				</div>

@@ -3,9 +3,10 @@ import {
 	getForsteUttaksdagPaEllerEtterDato,
 	getForsteUttaksdagForDato,
 	getForsteUttaksdagEtterDato,
-	getAntallUttaksdagerITidsperiode
-} from './uttaksdagerUtils';
-import { Tidsperiode } from '../types';
+	getAntallUttaksdagerITidsperiode,
+	leggUttaksdagerTilDato
+} from '../uttaksdagerUtils';
+import { Tidsperiode } from '../../types';
 
 describe('uttaksdagerUtils', () => {
 	const mandag = new Date(2018, 0, 1);
@@ -16,6 +17,7 @@ describe('uttaksdagerUtils', () => {
 	const lordag = new Date(2018, 0, 6);
 	const sondag = new Date(2018, 0, 7);
 	const nesteMandag = new Date(2018, 0, 8);
+	const nesteTirsdag = new Date(2018, 0, 9);
 	const mandagNesteAr = new Date(2019, 0, 1);
 
 	const tidsperiodeEnDag: Tidsperiode = {
@@ -28,8 +30,28 @@ describe('uttaksdagerUtils', () => {
 		sluttdato: tirsdag
 	};
 
+	const tidsperiodeTreDager: Tidsperiode = {
+		startdato: mandag,
+		sluttdato: onsdag
+	};
+
+	const tidsperiodeFireDager: Tidsperiode = {
+		startdato: mandag,
+		sluttdato: torsdag
+	};
+
+	const tidsperiodeFemDager: Tidsperiode = {
+		startdato: tirsdag,
+		sluttdato: nesteMandag
+	};
+
 	const tidsperiodeOverHelg: Tidsperiode = {
 		startdato: mandag,
+		sluttdato: nesteMandag
+	};
+
+	const tidsperiodeOverHelg2: Tidsperiode = {
+		startdato: fredag,
 		sluttdato: nesteMandag
 	};
 
@@ -84,7 +106,41 @@ describe('uttaksdagerUtils', () => {
 	describe('getAntallUttaksdagerITidsperiode', () => {
 		expect(getAntallUttaksdagerITidsperiode(tidsperiodeEnDag)).toBe(1);
 		expect(getAntallUttaksdagerITidsperiode(tidsperiodeToDager)).toBe(2);
+		expect(getAntallUttaksdagerITidsperiode(tidsperiodeTreDager)).toBe(3);
+		expect(getAntallUttaksdagerITidsperiode(tidsperiodeFireDager)).toBe(4);
+		expect(getAntallUttaksdagerITidsperiode(tidsperiodeFemDager)).toBe(5);
 		expect(getAntallUttaksdagerITidsperiode(tidsperiodeOverHelg)).toBe(6);
+		expect(getAntallUttaksdagerITidsperiode(tidsperiodeOverHelg2)).toBe(2);
 		expect(getAntallUttaksdagerITidsperiode(tidsperiodeOverEttAr)).toBe(262);
+	});
+
+	describe('leggUttaksdagerTilDato', () => {
+		it('legger til en uttaksdag på en dato riktig', () => {
+			expect(leggUttaksdagerTilDato(mandag, 1)).toEqual(tirsdag);
+		});
+		it('legger til to uttaksdager på en dato riktig', () => {
+			expect(leggUttaksdagerTilDato(mandag, 2)).toEqual(onsdag);
+		});
+		it('legger til to uttaksdager på en dato riktig', () => {
+			expect(leggUttaksdagerTilDato(torsdag, 2)).toEqual(nesteMandag);
+		});
+		it('legger til to uttaksdager på en dato riktig', () => {
+			expect(leggUttaksdagerTilDato(fredag, 2)).toEqual(nesteTirsdag);
+		});
+		it('legger til tre uttaksdager på en dato riktig', () => {
+			expect(leggUttaksdagerTilDato(mandag, 3)).toEqual(torsdag);
+		});
+		it('legger til fire uttaksdager på en dato riktig', () => {
+			expect(leggUttaksdagerTilDato(mandag, 4)).toEqual(fredag);
+		});
+		it('legger til fem uttaksdager på en dato riktig', () => {
+			expect(leggUttaksdagerTilDato(mandag, 5)).toEqual(nesteMandag);
+		});
+		it('legger til sekls uttaksdager på en dato riktig', () => {
+			expect(leggUttaksdagerTilDato(mandag, 6)).toEqual(nesteTirsdag);
+		});
+		it('legger til fem uttaksdag på en dato riktig', () => {
+			expect(leggUttaksdagerTilDato(fredag, 1)).toEqual(nesteMandag);
+		});
 	});
 });

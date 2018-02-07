@@ -8,7 +8,7 @@ import {
 	Periodesplitt,
 	SammenslattPeriode
 } from '../types';
-import { forskyvTidsperiode } from './tidsperiodeUtils';
+import { flyttTidsperiode } from './tidsperiodeUtils';
 import {
 	getForsteUttaksdagPaEllerForDato,
 	getForsteUttaksdagForDato,
@@ -174,8 +174,10 @@ export const leggTilUtsettelseIPeriode = (
 export const forskyvPerioder = (perioder: Periode[], startdato: Date): Periode[] => {
 	let forrigeDato = startdato;
 	return perioder.map((periode) => {
-		const dager = differenceInCalendarDays(forrigeDato, periode.tidsperiode.startdato);
-		const tidsperiode = forskyvTidsperiode(periode.tidsperiode, dager);
+		const tidsperiode = flyttTidsperiode(
+			periode.tidsperiode,
+			getForsteUttaksdagPaEllerEtterDato(addDays(forrigeDato, 1))
+		);
 		forrigeDato = tidsperiode.sluttdato;
 		return {
 			...periode,

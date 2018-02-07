@@ -6,8 +6,8 @@ import Dato from 'app/components/dato/Dato';
 
 import { TidslinjeInnslag } from './types';
 import Infotekst from 'app/components/infotekst/Infotekst';
-import { kalkulerUttaksdagerIPeriode } from 'app/utils/periodeUtils';
 import { erUttakEllerUtsettelse } from 'app/selectors/tidslinjeSelector';
+import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 
 interface TidslinjeInnslagProps {
 	innslag: TidslinjeInnslag;
@@ -37,7 +37,7 @@ const TidslinjeInnslag: React.StatelessComponent<TidslinjeInnslagProps> = ({ inn
 			'tidslinjeInnslag--slutt': innslag.slutter
 		}
 	);
-	const dager = kalkulerUttaksdagerIPeriode(innslag.startdato, innslag.sluttdato);
+	const dager = getAntallUttaksdagerITidsperiode(innslag.startdato, innslag.sluttdato);
 	return (
 		<div className={cls}>
 			<TidslinjeStrek innslag={innslag} />

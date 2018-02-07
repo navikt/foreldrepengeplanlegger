@@ -1,7 +1,7 @@
 import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from 'app/redux/actions/actionTypes';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import { FormState } from '../types';
-import { getAntallUkerFellesperiode, normaliserDato } from 'app/utils/periodeUtils';
+import { getAntallUkerFellesperiode, normaliserDato } from 'app/utils';
 
 const getDefaultState = (): FormState => {
 	const ukerFellesperiode = getAntallUkerFellesperiode(grunnfordeling, '100%');

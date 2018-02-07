@@ -1,3 +1,5 @@
+import { Periode } from 'app/types/periodetyper';
+
 export * from './periodetyper';
 
 export type Dekningsgrad = '80%' | '100%';
@@ -17,4 +19,9 @@ export interface Grunnfordeling {
 	antallUkerForelder1Totalt: number;
 	antallUkerForelder2Totalt: number;
 	maksPermisjonslengdeIAr: number;
+}
+
+export interface Periodesplitt {
+	perioderFor: Periode[];
+	perioderEtter: Periode[];
 }

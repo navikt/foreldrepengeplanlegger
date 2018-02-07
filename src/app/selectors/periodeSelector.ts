@@ -1,17 +1,16 @@
 import { createSelector } from 'reselect';
 import { AppState, FormState } from 'app/redux/types';
-import { Utsettelsesperiode, Periode, Stonadsperiode, Tidsperiode } from 'app/types';
 import {
-	getStonadsperioder,
-	sorterPerioder,
-	finnPeriodeMedDato,
-	hentPerioderForOgEtterPeriode,
-	leggUtsettelseInnIPeriode,
-	getForsteUttaksdagEtterDato,
-	getForsteUttaksdagPaEllerEtterDato,
-	kalkulerUttaksdagerIPeriode
-} from 'app/utils/periodeUtils';
-import { differenceInCalendarDays, addDays, isSameDay } from 'date-fns';
+	Utsettelsesperiode,
+	Periode,
+	Stonadsperiode,
+	Dekningsgrad,
+	Grunnfordeling,
+	Periodetype,
+	StonadskontoType
+} from 'app/types';
+import { sorterPerioder, leggUtsettelserTilPerioder } from 'app/utils/periodeUtils';
+import Periodeberegner from 'app/utils/Periodeberegner';
 
 const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
@@ -33,90 +32,71 @@ export const periodeSelector = createSelector(
 			form.ukerForelder1 || 0,
 			form.ukerForelder2 || 0
 		).sort(sorterPerioder);
-		return settInnUtsettelser(stonadsperioder, utsettelser);
+		return leggUtsettelserTilPerioder(stonadsperioder, utsettelser);
 	}
 );
 
 /**
- * Legger utsettelser inn i periodene og flytter perioder som er etter utsettelsene
- *
- * @param stonadsperioder
- * @param utsettelser
- * @returns periodeliste
+ * Setter opp basisoppsett for perioder uten utsettelser hvor
+ * mor tar første del av permisjonen og fedrekvote er etter
+ * fellesperiode
+ * @param termindato
+ * @param dekningsgrad
+ * @param grunnfordeling
+ * @param fellesukerForelder1
+ * @param fellesukerForelder2
  */
-const settInnUtsettelser = (stonadsperioder: Stonadsperiode[], utsettelser: Utsettelsesperiode[]): Periode[] => {
-	if (utsettelser.length === 0) {
-		return stonadsperioder;
-	}
-	let perioder: Periode[] = ([] as Periode[]).concat(stonadsperioder);
-	utsettelser.forEach((utsettelse) => {
-		perioder = settInnUtsettelse(perioder, utsettelse);
-	});
-	return perioder;
-};
-
-/**
- * Finner periode som er berørt av utsettelse, splitter den i to og
- * legger inn utsettelse i mellom. Flytter dato for påfølgende perioder
- * @param perioder
- * @param utsettelse
- */
-const settInnUtsettelse = (perioder: Periode[], utsettelse: Utsettelsesperiode): Periode[] => {
-	const periode = finnPeriodeMedDato(perioder, utsettelse.tidsperiode.startdato);
-	if (!periode) {
-		throw 'Ingen periode funnet som passer til utsettelse';
-	}
-
-	// Finn periode som skal forskyves
-	if (isSameDay(periode.tidsperiode.startdato, utsettelse.tidsperiode.startdato)) {
-		const { perioderFor, perioderEtter } = hentPerioderForOgEtterPeriode(perioder, periode);
-		return [
-			...perioderFor,
-			...[utsettelse],
-			...flyttPerioderUtFraDato(
-				[periode, ...perioderEtter],
-				getForsteUttaksdagEtterDato(utsettelse.tidsperiode.sluttdato)
-			)
-		];
-	} else {
-		return settInnUtsettelseIPeriode(perioder, periode, utsettelse);
-	}
-};
-
-const settInnUtsettelseIPeriode = (
-	perioder: Periode[],
-	periode: Periode,
-	utsettelse: Utsettelsesperiode
-): Periode[] => {
-	const { perioderFor, perioderEtter } = hentPerioderForOgEtterPeriode(perioder, periode);
-	const periodeSplittetMedUtsettelse = leggUtsettelseInnIPeriode(periode, utsettelse);
-	const sisteSplittetPeriode = periodeSplittetMedUtsettelse[2];
-	return [
-		...perioderFor,
-		...periodeSplittetMedUtsettelse,
-		...flyttPerioderUtFraDato(perioderEtter, getForsteUttaksdagEtterDato(sisteSplittetPeriode.tidsperiode.sluttdato))
+const getStonadsperioder = (
+	termindato: Date,
+	dekningsgrad: Dekningsgrad,
+	grunnfordeling: Grunnfordeling,
+	fellesukerForelder1: number,
+	fellesukerForelder2: number
+): Stonadsperiode[] => {
+	const periodeberegner = Periodeberegner(
+		termindato,
+		dekningsgrad,
+		fellesukerForelder1,
+		fellesukerForelder2,
+		grunnfordeling
+	);
+	const perioder: Stonadsperiode[] = [
+		{
+			type: Periodetype.Stonadsperiode,
+			forelder: 'forelder1',
+			konto: StonadskontoType.Modrekvote,
+			tidsperiode: periodeberegner.getModrekvotePreTermin(),
+			fastPeriode: true
+		},
+		{
+			type: Periodetype.Stonadsperiode,
+			forelder: 'forelder1',
+			konto: StonadskontoType.Modrekvote,
+			tidsperiode: periodeberegner.getModrekvotePostTermin(),
+			fastPeriode: true
+		},
+		{
+			type: Periodetype.Stonadsperiode,
+			forelder: 'forelder2',
+			konto: StonadskontoType.Fedrekvote,
+			tidsperiode: periodeberegner.getFedrekvote()
+		}
 	];
-};
-
-const flyttPerioderUtFraDato = (perioder: Periode[], dato: Date): Periode[] => {
-	let forrigeDato = dato;
-	return perioder.map((periode) => {
-		const dager = differenceInCalendarDays(forrigeDato, periode.tidsperiode.startdato);
-		const tidsperiode = flyttTidsperiodeDager(periode.tidsperiode, dager);
-		forrigeDato = tidsperiode.sluttdato;
-		return {
-			...periode,
-			tidsperiode
-		};
-	});
-};
-
-const flyttTidsperiodeDager = (tidsperiode: Tidsperiode, dager: number): Tidsperiode => {
-	const periodedager = kalkulerUttaksdagerIPeriode(tidsperiode.startdato, tidsperiode.sluttdato);
-	const startdato = getForsteUttaksdagPaEllerEtterDato(addDays(tidsperiode.startdato, dager));
-	const sluttdato = getForsteUttaksdagPaEllerEtterDato(addDays(startdato, periodedager));
-	return {
-		startdato,
-		sluttdato
-	};
+	if (fellesukerForelder1 > 0) {
+		perioder.push({
+			type: Periodetype.Stonadsperiode,
+			forelder: 'forelder1',
+			konto: StonadskontoType.Fellesperiode,
+			tidsperiode: periodeberegner.getFellesperiodeForelder1()
+		});
+	}
+	if (fellesukerForelder2 > 0) {
+		perioder.push({
+			type: Periodetype.Stonadsperiode,
+			forelder: 'forelder2',
+			konto: StonadskontoType.Fellesperiode,
+			tidsperiode: periodeberegner.getFellesperiodeForelder2()
+		});
+	}
+	return perioder;
 };

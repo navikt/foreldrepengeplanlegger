@@ -16,22 +16,28 @@ const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
 
 /**
+ * Henter ut sortert liste med alle stønadsperioder basert på formState
+ */
+export const getStonadsperioder = createSelector(formSelector, (form: FormState): Stonadsperiode[] => {
+	if (!form.termindato || !form.dekningsgrad) {
+		return [];
+	}
+	return opprettStonadsperioder(
+		form.termindato,
+		form.dekningsgrad,
+		form.grunnfordeling,
+		form.ukerForelder1 || 0,
+		form.ukerForelder2 || 0
+	).sort(sorterPerioder);
+});
+
+/**
  * Henter ut alle perioder gitt formState og utsettelser
  */
-export const periodeSelector = createSelector(
-	formSelector,
+export const getPerioderMedUtsettelser = createSelector(
+	getStonadsperioder,
 	utsettelseSelector,
-	(form: FormState, utsettelser: Utsettelsesperiode[]): Periode[] => {
-		if (!form.termindato || !form.dekningsgrad) {
-			return [];
-		}
-		const stonadsperioder: Stonadsperiode[] = getStonadsperioder(
-			form.termindato,
-			form.dekningsgrad,
-			form.grunnfordeling,
-			form.ukerForelder1 || 0,
-			form.ukerForelder2 || 0
-		).sort(sorterPerioder);
+	(stonadsperioder: Stonadsperiode[], utsettelser: Utsettelsesperiode[]): Periode[] => {
 		return leggUtsettelserTilPerioder(stonadsperioder, utsettelser);
 	}
 );
@@ -46,7 +52,7 @@ export const periodeSelector = createSelector(
  * @param fellesukerForelder1
  * @param fellesukerForelder2
  */
-const getStonadsperioder = (
+const opprettStonadsperioder = (
 	termindato: Date,
 	dekningsgrad: Dekningsgrad,
 	grunnfordeling: Grunnfordeling,

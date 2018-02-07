@@ -1,6 +1,7 @@
 import * as React from 'react';
+import * as classnames from 'classnames';
 
-import { Element } from 'nav-frontend-typografi';
+import { Systemtittel } from 'nav-frontend-typografi';
 import { Tidslinjeinnslag, TidslinjeinnslagType } from 'app/components/tidslinje/types';
 import TidslinjePeriodeinnslag from './TidslinjePeriodeinnslag';
 import './tidslinje.less';
@@ -15,11 +16,12 @@ const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({ innslag }) => {
 	return (
 		<div className="tidslinje">
 			<div className="blokk-m">
-				<Element>Din tidsplan</Element>
+				<Systemtittel>Din tidsplan</Systemtittel>
 			</div>
 			{innslag.map((i, idx) => {
+				const className = classnames('tidslinje__innslag', `tidslinje__innslag--${i.type}`);
 				return (
-					<div className="tidslinje__tidslinjeinnslag" key={idx}>
+					<div className={className} key={idx}>
 						<Tidslinjestrek innslag={i} />
 						{i.type === TidslinjeinnslagType.periode ? (
 							<TidslinjePeriodeinnslag innslag={i} />

@@ -10,15 +10,15 @@ interface Props {
 
 const TidslinjeHendelseinnslag: React.StatelessComponent<Props> = ({ innslag }) => {
 	return (
-		<div className="tidslinjeinnslag--hendelse">
+		<div className="hendelseinnslag">
 			<div className="m-padding-s">
-				<div className="tidslinjeinnslag__dato">
+				<div className="hendelseinnslag__dato">
 					<Dato dato={innslag.dato} />
 				</div>
-				<div className="tidslinjeinnslag__hendelse">
+				<div className="hendelseinnslag__hendelse">
 					{innslag.hendelse}
 					{innslag.hendelse === 'termin' && (
-						<span className="tidslinjeInnslag__terminHjerte">
+						<span className="hendelseinnslag__ikon">
 							<TerminIkon />
 						</span>
 					)}

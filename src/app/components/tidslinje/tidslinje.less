@@ -1,3 +1,46 @@
+.tidslinje {
+	@verticalSpacing: 1rem;
+	background-color: #f1f1f1;
+	margin-left: -2rem;
+	margin-right: -2rem;
+	border-radius: 8px;
+	padding: 2rem 3rem 2rem 2rem;
+
+	&__innslag {
+		margin-bottom: @verticalSpacing;
+		&__dato {
+			font-weight: bold;
+		}
+		&--hendelse {
+			margin-top: -1 * @verticalSpacing;
+			margin-bottom: 0;
+		}
+	}
+}
+
+.hendelseinnslag {
+	&__dato {
+		font-weight: bold;
+		display: inline-block;
+		margin-right: 0.5rem;
+	}
+	&__hendelse {
+		display: inline-block;
+	}
+	&__ikon {
+		vertical-align: middle;
+		margin-left: 0.5rem;
+	}
+}
+
+.periodeinnslag {
+	&__dato {
+		font-weight: bold;
+		display: block;
+		margin-bottom: 0.5rem;
+	}
+}
+
 // @arrow-size: 10px;
 // @bkgColor: #e7e7e7;
 // @c-green: #06893a;

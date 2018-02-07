@@ -129,11 +129,17 @@
 	&__info {
 		margin-top: 0.5rem;
 	}
+	&--siste,
 	&--termin {
 		background-color: transparent;
 		border-color: transparent;
 		padding-left: 0;
 		padding: 0;
+		&:before {
+			display: none;
+		}
+	}
+	&--termin  {
 		.tidslinjeInnslag__dato {
 			display: inline-block;
 			padding-right: 1rem;
@@ -142,9 +148,6 @@
 		.tidslinjeInnslag__hendelse {
 			display: inline-block;
 			padding-right: 1.5rem;
-		}
-		&:before {
-			display: none;
 		}
 		svg use {
 			* {
@@ -216,14 +219,14 @@
 				display: block;
 			}
 		}
+		&--termin,
 		&--termin {
 			margin-top: -1rem;
 			margin-bottom: -1rem;
 		}
 		&--siste {
 			top: -2rem;
-			height: 2rem;
-			bottom: auto;
+			bottom: 2.5rem;
 			&:before {
 				display: none;
 			}

@@ -57,8 +57,8 @@ const mapStateToProps = (state: AppState): StateProps => {
 	const periodeberegner = Periodeberegner(
 		state.form.termindato,
 		state.form.dekningsgrad,
-		state.form.ukerForelder1,
-		state.form.ukerForelder2,
+		state.form.fellesperiodeukerForelder1,
+		state.form.fellesperiodeukerForelder2,
 		grunnfordeling
 	);
 

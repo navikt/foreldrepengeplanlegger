@@ -1,7 +1,3 @@
-export * from './periodeUtils';
-export * from './tidsperiodeUtils';
-export * from './uttaksdagerUtils';
-
 /**
  * Fjerner klokkeslett på dato
  */

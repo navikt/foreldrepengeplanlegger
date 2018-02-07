@@ -23,5 +23,5 @@
 			"app/*": ["./app/*"]
 		}
 	},
-	"exclude": ["node_modules", "build", "scripts", "config", "jest", "src/build", "src/config"]
+	"exclude": ["node_modules", "build", "scripts", "config", "jest", "src/build", "config"]
 }

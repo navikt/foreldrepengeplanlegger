@@ -15,9 +15,9 @@ export interface FormState {
 	navnForelder1: string;
 	navnForelder2: string;
 	termindato: Date;
-	ukerForelder1: number;
-	ukerForelder2: number;
 	dekningsgrad: Dekningsgrad;
+	fellesperiodeukerForelder1: number;
+	fellesperiodeukerForelder2: number;
 	ukerFellesperiode: number;
 	grunnfordeling: Grunnfordeling;
 }

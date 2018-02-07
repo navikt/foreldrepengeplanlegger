@@ -7,14 +7,14 @@ import {
 	Utsettelsesperiode,
 	Periodesplitt,
 	SammenslattPeriode
-} from 'app/types';
-import { forskyvTidsperiode } from 'app/utils/tidsperiodeUtils';
+} from '../types';
+import { forskyvTidsperiode } from './tidsperiodeUtils';
 import {
 	getForsteUttaksdagPaEllerForDato,
 	getForsteUttaksdagForDato,
 	getForsteUttaksdagPaEllerEtterDato,
 	getForsteUttaksdagEtterDato
-} from 'app/utils/uttaksdagerUtils';
+} from './uttaksdagerUtils';
 
 export const sorterPerioder = (p1: Periode, p2: Periode) => {
 	return p1.tidsperiode.startdato >= p2.tidsperiode.startdato ? 1 : -1;

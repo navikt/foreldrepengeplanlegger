@@ -1,15 +1,12 @@
 import { Tidsperiode } from 'app/types';
-import { differenceInCalendarDays, addDays } from 'date-fns';
-import { getForsteUttaksdagPaEllerEtterDato } from 'app/utils/uttaksdagerUtils';
-
-export const getAntallDagerITidsperiode = (tidsperiode: Tidsperiode): number => {
-	return differenceInCalendarDays(tidsperiode.sluttdato, tidsperiode.startdato);
-};
+import { addDays } from 'date-fns';
+import { getForsteUttaksdagPaEllerEtterDato } from './uttaksdagerUtils';
+import { getAntallUttaksdagerITidsperiode } from '../utils';
 
 export const forskyvTidsperiode = (tidsperiode: Tidsperiode, dager: number): Tidsperiode => {
-	const periodedager = differenceInCalendarDays(tidsperiode.sluttdato, tidsperiode.startdato);
+	const periodedager = getAntallUttaksdagerITidsperiode(tidsperiode);
 	const startdato = getForsteUttaksdagPaEllerEtterDato(addDays(tidsperiode.startdato, dager));
-	const sluttdato = getForsteUttaksdagPaEllerEtterDato(addDays(startdato, periodedager));
+	const sluttdato = getForsteUttaksdagPaEllerEtterDato(addDays(startdato, periodedager - 1));
 	return {
 		startdato,
 		sluttdato

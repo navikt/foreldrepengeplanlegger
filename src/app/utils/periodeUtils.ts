@@ -1,5 +1,13 @@
 import { addWeeks, addDays, differenceInCalendarDays, isWithinRange, isSameDay } from 'date-fns';
-import { Grunnfordeling, Dekningsgrad, Periode, Stonadsperiode, Utsettelsesperiode, Periodesplitt } from 'app/types';
+import {
+	Grunnfordeling,
+	Dekningsgrad,
+	Periode,
+	Stonadsperiode,
+	Utsettelsesperiode,
+	Periodesplitt,
+	SammenslattPeriode
+} from 'app/types';
 import { forskyvTidsperiode } from 'app/utils/tidsperiodeUtils';
 import {
 	getForsteUttaksdagPaEllerForDato,
@@ -14,7 +22,7 @@ export const sorterPerioder = (p1: Periode, p2: Periode) => {
 
 export const leggUtsettelseInnIPeriode = (periode: Periode, utsettelse: Utsettelsesperiode): Periode[] => {
 	const dagerIPeriode = differenceInCalendarDays(periode.tidsperiode.sluttdato, periode.tidsperiode.startdato);
-	const dagerForsteDel = differenceInCalendarDays(periode.tidsperiode.startdato, utsettelse.tidsperiode.startdato);
+	const dagerForsteDel = differenceInCalendarDays(utsettelse.tidsperiode.startdato, periode.tidsperiode.startdato);
 	const dagerSisteDel = dagerIPeriode - dagerForsteDel;
 
 	const forste: Stonadsperiode = {
@@ -98,13 +106,13 @@ export const getPeriodeSluttdato = (startdato: Date, uker: number): Date => {
  * @returns periodeliste
  */
 export const leggUtsettelserTilPerioder = (
-	stonadsperioder: Stonadsperiode[],
+	stonadsperioder: (Stonadsperiode | SammenslattPeriode)[],
 	utsettelser: Utsettelsesperiode[]
 ): Periode[] => {
 	if (utsettelser.length === 0) {
 		return stonadsperioder;
 	}
-	let perioder: Periode[] = ([] as Periode[]).concat(stonadsperioder);
+	let perioder: Periode[] = stonadsperioder.map((p) => p);
 	utsettelser.forEach((utsettelse) => {
 		perioder = leggTilUtsettelse(perioder, utsettelse);
 	});

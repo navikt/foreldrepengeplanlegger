@@ -47,15 +47,13 @@ export const getPerioderMedUtsettelser = createSelector(
  * Returnerer liste hvor påfølgende perioder med samme forelder er slått sammen til en periode
  * Perioder før termin vil ikke blir slått sammen
  */
-export const getPerioderForTidslinje = createSelector(getPerioderMedUtsettelser, (perioder: Periode[]): Periode[] => {
-	const liste: Periode[] = [];
-	let stonadsperioderSammeForelder: Stonadsperiode[] = [];
-	perioder.forEach((p, index) => {
-		if (p.type === Periodetype.Stonadsperiode) {
-			if (p.konto === StonadskontoType.ForeldrepengerForFodsel) {
-				liste.push(p);
-				return;
-			}
+export const getPerioderForTidslinje = createSelector(
+	getStonadsperioder,
+	utsettelseSelector,
+	(perioder: Stonadsperiode[], utsettelser: Utsettelsesperiode[]): Periode[] => {
+		const liste: (Stonadsperiode | SammenslattPeriode)[] = [];
+		let stonadsperioderSammeForelder: Stonadsperiode[] = [];
+		perioder.forEach((p, index) => {
 			const forrige = stonadsperioderSammeForelder[stonadsperioderSammeForelder.length - 1];
 			if (!forrige || p.forelder === forrige.forelder) {
 				stonadsperioderSammeForelder.push(p);
@@ -67,18 +65,15 @@ export const getPerioderForTidslinje = createSelector(getPerioderMedUtsettelser,
 				}
 				stonadsperioderSammeForelder = [p];
 			}
-		} else {
-			liste.push(p);
+		});
+		if (stonadsperioderSammeForelder.length === 1) {
+			liste.push(stonadsperioderSammeForelder[0]);
+		} else if (stonadsperioderSammeForelder.length > 1) {
+			liste.push(lagSammenslattPeriode(stonadsperioderSammeForelder));
 		}
-	});
-	if (stonadsperioderSammeForelder.length === 1) {
-		liste.push(stonadsperioderSammeForelder[0]);
-	} else if (stonadsperioderSammeForelder.length > 1) {
-		liste.push(lagSammenslattPeriode(stonadsperioderSammeForelder));
+		return leggUtsettelserTilPerioder(liste, utsettelser);
 	}
-
-	return liste;
-});
+);
 
 const lagSammenslattPeriode = (perioder: Stonadsperiode[]): SammenslattPeriode => ({
 	type: Periodetype.SammenslattPeriode,

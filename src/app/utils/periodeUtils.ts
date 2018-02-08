@@ -1,4 +1,4 @@
-import { addWeeks, addDays, differenceInCalendarDays, isWithinRange, isSameDay } from 'date-fns';
+import { addWeeks, addDays, isWithinRange, isSameDay } from 'date-fns';
 import {
 	Grunnfordeling,
 	Dekningsgrad,
@@ -7,13 +7,15 @@ import {
 	Utsettelsesperiode,
 	Periodesplitt,
 	SammenslattPeriode
-} from '../types';
+} from 'app/types';
 import { flyttTidsperiode } from './tidsperiodeUtils';
 import {
 	getForsteUttaksdagPaEllerForDato,
 	getForsteUttaksdagForDato,
 	getForsteUttaksdagPaEllerEtterDato,
-	getForsteUttaksdagEtterDato
+	getForsteUttaksdagEtterDato,
+	leggUttaksdagerTilDato,
+	getAntallUttaksdagerITidsperiode
 } from './uttaksdagerUtils';
 
 export const sorterPerioder = (p1: Periode, p2: Periode) => {
@@ -21,10 +23,12 @@ export const sorterPerioder = (p1: Periode, p2: Periode) => {
 };
 
 export const leggUtsettelseInnIPeriode = (periode: Periode, utsettelse: Utsettelsesperiode): Periode[] => {
-	const dagerIPeriode = differenceInCalendarDays(periode.tidsperiode.sluttdato, periode.tidsperiode.startdato);
-	const dagerForsteDel = differenceInCalendarDays(utsettelse.tidsperiode.startdato, periode.tidsperiode.startdato);
+	const dagerIPeriode = getAntallUttaksdagerITidsperiode(periode.tidsperiode);
+	const dagerForsteDel = getAntallUttaksdagerITidsperiode({
+		startdato: periode.tidsperiode.startdato,
+		sluttdato: addDays(utsettelse.tidsperiode.startdato, -1)
+	});
 	const dagerSisteDel = dagerIPeriode - dagerForsteDel;
-
 	const forste: Stonadsperiode = {
 		...(periode as Stonadsperiode),
 		tidsperiode: {
@@ -44,7 +48,7 @@ export const leggUtsettelseInnIPeriode = (periode: Periode, utsettelse: Utsettel
 		...(periode as Stonadsperiode),
 		tidsperiode: {
 			startdato: startSisteDel,
-			sluttdato: getForsteUttaksdagPaEllerForDato(addDays(startSisteDel, dagerSisteDel - 1))
+			sluttdato: leggUttaksdagerTilDato(startSisteDel, dagerSisteDel - 1)
 		}
 	};
 

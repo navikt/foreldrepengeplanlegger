@@ -1,11 +1,8 @@
-import { Grunnfordeling, Tidsperiode, Dekningsgrad } from 'app/types';
-import {
-	getForsteUttaksdagEtterDato,
-	getForsteUttaksdagPaEllerEtterDato,
-	getPeriodeSluttdato,
-	normaliserDato
-} from 'app/utils';
 import { addWeeks, addYears } from 'date-fns';
+import { Grunnfordeling, Tidsperiode, Dekningsgrad, Stonadsperiode, Periodetype, StonadskontoType } from 'app/types';
+import { getPeriodeSluttdato } from 'app/utils/periodeUtils';
+import { normaliserDato } from 'app/utils';
+import { getForsteUttaksdagEtterDato, getForsteUttaksdagPaEllerEtterDato } from 'app/utils/uttaksdagerUtils';
 
 const Periodeberegner = (
 	termindato: Date,
@@ -67,6 +64,53 @@ const Periodeberegner = (
 		return addYears(termindato, grunnfordeling.maksPermisjonslengdeIAr);
 	};
 
+	/**
+	 * Setter opp basisoppsett for perioder uten utsettelser hvor
+	 * mor tar første del av permisjonen og fedrekvote er etter
+	 * fellesperiode
+	 */
+	const opprettStonadsperioder = (): Stonadsperiode[] => {
+		const perioder: Stonadsperiode[] = [
+			{
+				type: Periodetype.Stonadsperiode,
+				forelder: 'forelder1',
+				konto: StonadskontoType.ForeldrepengerForFodsel,
+				tidsperiode: getModrekvotePreTermin(),
+				fastPeriode: true
+			},
+			{
+				type: Periodetype.Stonadsperiode,
+				forelder: 'forelder1',
+				konto: StonadskontoType.Modrekvote,
+				tidsperiode: getModrekvotePostTermin(),
+				fastPeriode: true
+			},
+			{
+				type: Periodetype.Stonadsperiode,
+				forelder: 'forelder2',
+				konto: StonadskontoType.Fedrekvote,
+				tidsperiode: getFedrekvote()
+			}
+		];
+		if (fellesukerForelder1 > 0) {
+			perioder.push({
+				type: Periodetype.Stonadsperiode,
+				forelder: 'forelder1',
+				konto: StonadskontoType.Fellesperiode,
+				tidsperiode: getFellesperiodeForelder1()
+			});
+		}
+		if (fellesukerForelder2 > 0) {
+			perioder.push({
+				type: Periodetype.Stonadsperiode,
+				forelder: 'forelder2',
+				konto: StonadskontoType.Fellesperiode,
+				tidsperiode: getFellesperiodeForelder2()
+			});
+		}
+		return perioder;
+	};
+
 	return {
 		getModrekvotePreTermin,
 		getModrekvotePostTermin,
@@ -74,7 +118,8 @@ const Periodeberegner = (
 		getFellesperiodeForelder2,
 		getFedrekvote,
 		getForsteMuligeUtsettelsesdag,
-		getSistePermisjonsdag
+		getSistePermisjonsdag,
+		opprettStonadsperioder
 	};
 };
 

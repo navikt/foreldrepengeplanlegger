@@ -1,7 +1,7 @@
-import { Tidsperiode } from '../../../app/types';
-import { flyttTidsperiode } from '../tidsperiodeUtils';
-import { getAntallUttaksdagerITidsperiode } from '../uttaksdagerUtils';
 import { addDays } from 'date-fns';
+import { Tidsperiode } from 'app/types';
+import { flyttTidsperiode } from 'app/utils/tidsperiodeUtils';
+import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 
 describe('tidsperiodeUtils', () => {
 	const tidsperiodeEnDag: Tidsperiode = {

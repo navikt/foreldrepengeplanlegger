@@ -1,5 +1,5 @@
 import { Tidsperiode } from 'app/types';
-import { getAntallUttaksdagerITidsperiode, leggUttaksdagerTilDato } from '../utils';
+import { getAntallUttaksdagerITidsperiode, leggUttaksdagerTilDato } from 'app/utils/uttaksdagerUtils';
 
 export const flyttTidsperiode = (tidsperiode: Tidsperiode, startdato: Date): Tidsperiode => {
 	const uttaksdager = getAntallUttaksdagerITidsperiode(tidsperiode);

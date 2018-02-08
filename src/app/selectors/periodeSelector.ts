@@ -23,13 +23,15 @@ export const getStonadsperioder = createSelector(formSelector, (form: FormState)
 	if (!form.termindato || !form.dekningsgrad) {
 		return [];
 	}
-	return opprettStonadsperioder(
+	return Periodeberegner(
 		form.termindato,
 		form.dekningsgrad,
-		form.grunnfordeling,
 		form.ukerForelder1 || 0,
-		form.ukerForelder2 || 0
-	).sort(sorterPerioder);
+		form.ukerForelder2 || 0,
+		form.grunnfordeling
+	)
+		.opprettStonadsperioder()
+		.sort(sorterPerioder);
 });
 
 /**
@@ -84,68 +86,3 @@ const lagSammenslattPeriode = (perioder: Stonadsperiode[]): SammenslattPeriode =
 	},
 	perioder: perioder.map((sp) => sp)
 });
-
-/**
- * Setter opp basisoppsett for perioder uten utsettelser hvor
- * mor tar første del av permisjonen og fedrekvote er etter
- * fellesperiode
- * @param termindato
- * @param dekningsgrad
- * @param grunnfordeling
- * @param fellesukerForelder1
- * @param fellesukerForelder2
- */
-const opprettStonadsperioder = (
-	termindato: Date,
-	dekningsgrad: Dekningsgrad,
-	grunnfordeling: Grunnfordeling,
-	fellesukerForelder1: number,
-	fellesukerForelder2: number
-): Stonadsperiode[] => {
-	const periodeberegner = Periodeberegner(
-		termindato,
-		dekningsgrad,
-		fellesukerForelder1,
-		fellesukerForelder2,
-		grunnfordeling
-	);
-	const perioder: Stonadsperiode[] = [
-		{
-			type: Periodetype.Stonadsperiode,
-			forelder: 'forelder1',
-			konto: StonadskontoType.ForeldrepengerForFodsel,
-			tidsperiode: periodeberegner.getModrekvotePreTermin(),
-			fastPeriode: true
-		},
-		{
-			type: Periodetype.Stonadsperiode,
-			forelder: 'forelder1',
-			konto: StonadskontoType.Modrekvote,
-			tidsperiode: periodeberegner.getModrekvotePostTermin(),
-			fastPeriode: true
-		},
-		{
-			type: Periodetype.Stonadsperiode,
-			forelder: 'forelder2',
-			konto: StonadskontoType.Fedrekvote,
-			tidsperiode: periodeberegner.getFedrekvote()
-		}
-	];
-	if (fellesukerForelder1 > 0) {
-		perioder.push({
-			type: Periodetype.Stonadsperiode,
-			forelder: 'forelder1',
-			konto: StonadskontoType.Fellesperiode,
-			tidsperiode: periodeberegner.getFellesperiodeForelder1()
-		});
-	}
-	if (fellesukerForelder2 > 0) {
-		perioder.push({
-			type: Periodetype.Stonadsperiode,
-			forelder: 'forelder2',
-			konto: StonadskontoType.Fellesperiode,
-			tidsperiode: periodeberegner.getFellesperiodeForelder2()
-		});
-	}
-	return perioder;
-};

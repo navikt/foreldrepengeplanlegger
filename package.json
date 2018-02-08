@@ -141,7 +141,9 @@
 		},
 		"transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$"],
 		"moduleNameMapper": {
-			"^react-native$": "react-native-web"
+			"^react-native$": "react-native-web",
+			"^app/(.*)": "<rootDir>/src/app/$1",
+			"^shared/(.*)": "<rootDir>/src/shared/$1"
 		},
 		"moduleFileExtensions": ["mjs", "web.ts", "ts", "web.tsx", "tsx", "web.js", "js", "web.jsx", "jsx", "json", "node"],
 		"globals": {

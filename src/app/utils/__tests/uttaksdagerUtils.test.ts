@@ -1,12 +1,12 @@
+import { Tidsperiode } from 'app/types';
 import {
 	erUttaksdag,
-	getForsteUttaksdagPaEllerEtterDato,
 	getForsteUttaksdagForDato,
+	getForsteUttaksdagPaEllerEtterDato,
 	getForsteUttaksdagEtterDato,
 	getAntallUttaksdagerITidsperiode,
 	leggUttaksdagerTilDato
-} from '../uttaksdagerUtils';
-import { Tidsperiode } from '../../types';
+} from 'app/utils/uttaksdagerUtils';
 
 describe('uttaksdagerUtils', () => {
 	const mandag = new Date(2018, 0, 1);

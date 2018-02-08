@@ -1,4 +1,4 @@
-import { addWeeks, addDays, isWithinRange, isSameDay } from 'date-fns';
+import { addDays, isWithinRange, isSameDay } from 'date-fns';
 import {
 	Grunnfordeling,
 	Dekningsgrad,
@@ -86,8 +86,8 @@ export const getAntallUkerFellesperiode = (grunnfordeling: Grunnfordeling, dekni
 		dekningsgrad === '80%' ? grunnfordeling.antallUkerTotalt80 : grunnfordeling.antallUkerTotalt100;
 	return (
 		totaltAntallUker -
-		grunnfordeling.antallUkerForelder1Totalt -
-		grunnfordeling.antallUkerForelder2Totalt -
+		grunnfordeling.antallUkerModrekvote -
+		grunnfordeling.antallUkerFedrekvote -
 		grunnfordeling.antallUkerForelder1ForFodsel
 	);
 };
@@ -98,7 +98,7 @@ export const getAntallUkerFellesperiode = (grunnfordeling: Grunnfordeling, dekni
  * @param uker
  */
 export const getPeriodeSluttdato = (startdato: Date, uker: number): Date => {
-	let sluttdato = addDays(addWeeks(startdato, uker), -1);
+	let sluttdato = leggUttaksdagerTilDato(startdato, uker * 5 - 1);
 	return getForsteUttaksdagPaEllerForDato(sluttdato);
 };
 

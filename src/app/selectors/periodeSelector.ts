@@ -1,15 +1,6 @@
 import { createSelector } from 'reselect';
 import { AppState, FormState } from 'app/redux/types';
-import {
-	Utsettelsesperiode,
-	Periode,
-	Stonadsperiode,
-	Dekningsgrad,
-	Grunnfordeling,
-	Periodetype,
-	StonadskontoType,
-	SammenslattPeriode
-} from 'app/types';
+import { Utsettelsesperiode, Periode, Stonadsperiode, Periodetype, SammenslattPeriode } from 'app/types';
 import { sorterPerioder, leggUtsettelserTilPerioder } from 'app/utils/periodeUtils';
 import Periodeberegner from 'app/utils/Periodeberegner';
 
@@ -26,12 +17,10 @@ export const getStonadsperioder = createSelector(formSelector, (form: FormState)
 	return Periodeberegner(
 		form.termindato,
 		form.dekningsgrad,
-		form.ukerForelder1 || 0,
-		form.ukerForelder2 || 0,
+		form.fellesperiodeukerForelder1 || 0,
+		form.fellesperiodeukerForelder2 || 0,
 		form.grunnfordeling
-	)
-		.opprettStonadsperioder()
-		.sort(sorterPerioder);
+	).opprettStonadsperioder();
 });
 
 /**

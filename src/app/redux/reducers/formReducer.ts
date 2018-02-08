@@ -1,7 +1,8 @@
 import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from 'app/redux/actions/actionTypes';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import { FormState } from '../types';
-import { getAntallUkerFellesperiode, normaliserDato } from 'app/utils';
+import { getAntallUkerFellesperiode } from 'app/utils/periodeUtils';
+import { normaliserDato } from 'app/utils';
 
 const getDefaultState = (): FormState => {
 	const ukerFellesperiode = getAntallUkerFellesperiode(grunnfordeling, '100%');
@@ -14,8 +15,8 @@ const getDefaultState = (): FormState => {
 		navnForelder2: 'Ola',
 		dekningsgrad: '100%',
 		ukerFellesperiode,
-		ukerForelder1,
-		ukerForelder2,
+		fellesperiodeukerForelder1: ukerForelder1,
+		fellesperiodeukerForelder2: ukerForelder2,
 		grunnfordeling
 	};
 };
@@ -55,7 +56,7 @@ const FormReducer = (state = getDefaultState(), action: PlanleggerActionTypes) =
 			const { ukerForelder1, ukerForelder2 } = refordelFellesperiode(
 				ukerFellesperiode,
 				ukerFellesperiode,
-				state.ukerForelder1
+				state.fellesperiodeukerForelder1
 			);
 			return {
 				...state,

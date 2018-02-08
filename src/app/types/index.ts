@@ -12,12 +12,23 @@ export interface Tidsperiode {
 }
 
 export interface Grunnfordeling {
-	antallUkerTotalt100: number;
+	/** Totalt antall uker ved 80% */
 	antallUkerTotalt80: number;
+	/** Totalt antall uker ved 100% */
+	antallUkerTotalt100: number;
+	/** Antall uker som er forbeholdt mor før fødsel */
 	antallUkerForelder1ForFodsel: number;
+	/** Antall uker som er forbeholdt mor etter fødsel */
 	antallUkerForelder1EtterFodsel: number;
-	antallUkerForelder1Totalt: number;
-	antallUkerForelder2Totalt: number;
+	/** Mødrekvote */
+	antallUkerModrekvote: number;
+	/** Fedrekvote */
+	antallUkerFedrekvote: number;
+	/** Antall uker som kan fordeles ved 80% */
+	antallUkerFellesperiode80: number;
+	/** Antall uker som kan fordeles ved 100% */
+	antallUkerFellesperiode100: number;
+	/** Frist for når en må ta ut siste permisjonsdag */
 	maksPermisjonslengdeIAr: number;
 }
 

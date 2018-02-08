@@ -1,42 +1,125 @@
-import { AppState } from 'app/redux/types';
+import { FormState } from 'app/redux/types';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import { getStonadsperioder } from 'app/selectors/periodeSelector';
+import { Tidsperiode, Forelder, StonadskontoType, Periodetype } from 'app/types';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
-import { Tidsperiode } from 'app/types';
 
-const state: AppState = {
-	form: {
-		grunnfordeling,
-		termindato: new Date(2018, 5, 1),
-		dekningsgrad: '80%',
-		navnForelder1: 'Kari',
-		navnForelder2: 'Ola',
-		ukerFellesperiode: 26,
-		ukerForelder1: 13,
-		ukerForelder2: 13
-	},
-	utsettelse: {
-		dialogErApen: false,
-		utsettelser: [],
-		valgtUtsettelse: undefined
-	}
+const forstePermisjonsdag = new Date(2018, 0, 8);
+const termindato = new Date(2018, 0, 27);
+
+// const form100: FormState = {
+// 	grunnfordeling,
+// 	termindato,
+// 	dekningsgrad: '100%',
+// 	navnForelder1: 'Kari',
+// 	navnForelder2: 'Ola',
+// 	ukerFellesperiode: 26,
+// 	fellesperiodeukerForelder1: 13,
+// 	fellesperiodeukerForelder2: 13
+// };
+
+const form80: FormState = {
+	grunnfordeling,
+	termindato,
+	dekningsgrad: '80%',
+	navnForelder1: 'Kari',
+	navnForelder2: 'Ola',
+	ukerFellesperiode: 36,
+	fellesperiodeukerForelder1: 18,
+	fellesperiodeukerForelder2: 18
 };
 
-const uttaksdager80 = grunnfordeling.antallUkerTotalt80 * 5;
-const uttaksdager100 = grunnfordeling.antallUkerTotalt100 * 5;
-
 describe('periodeberegner', () => {
-	const perioder = getStonadsperioder.resultFunc(state.form);
-	it('oppretter 5 ulike perioder ut fra termindato', () => {
-		expect(perioder.length).toBe(5);
+	it('har gyldige grunndata', () => {
+		const totaltAntallUker =
+			form80.grunnfordeling.antallUkerForelder1ForFodsel +
+			grunnfordeling.antallUkerModrekvote +
+			form80.fellesperiodeukerForelder1 +
+			form80.fellesperiodeukerForelder2 +
+			grunnfordeling.antallUkerFedrekvote;
+
+		expect(totaltAntallUker).toBe(grunnfordeling.antallUkerTotalt80);
 	});
-	// describe('ved 80% dekningsgrad', () => {
+
+	const perioder80 = getStonadsperioder.resultFunc(form80);
+	const uttaksdager80 = grunnfordeling.antallUkerTotalt80 * 5;
+	const forelder1: Forelder = 'forelder1';
+	const forelder2: Forelder = 'forelder2';
+	describe('ved 80% dekningsgrad', () => {
+		const dagerModrekvoteForFodsel = grunnfordeling.antallUkerForelder1ForFodsel * 5;
+		const dagerPakrevdModrekvoteEtterFodsel = grunnfordeling.antallUkerForelder1EtterFodsel * 5;
+		const dagerModrekvoteEtterFodsel =
+			(grunnfordeling.antallUkerModrekvote - grunnfordeling.antallUkerForelder1EtterFodsel) * 5;
+		const dagerForelder1Fellesperiode = form80.fellesperiodeukerForelder1 * 5;
+		const dagerForelder2Fellesperiode = form80.fellesperiodeukerForelder2 * 5;
+		const dagerFedrekvote = grunnfordeling.antallUkerFedrekvote * 5;
+
+		it('oppretter 6 ulike perioder ut fra termindato sortert i riktig rekkefølge', () => {
+			expect(perioder80.length).toBe(6);
+		});
+
+		let periodenr = 0;
+		it('oppretter perioden før termin riktig', () => {
+			const periode = perioder80[periodenr++];
+			expect(periode.forelder).toEqual(forelder1);
+			expect(periode.fastPeriode).toBeTruthy();
+			expect(periode.konto).toEqual(StonadskontoType.ForeldrepengerForFodsel);
+			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(dagerModrekvoteForFodsel);
+		});
+		it('oppretter påkrevd mødrekvoteperiode etter termin riktig', () => {
+			const periode = perioder80[periodenr++];
+			expect(periode.forelder).toEqual(forelder1);
+			expect(periode.fastPeriode).toBeTruthy();
+			expect(periode.konto).toEqual(StonadskontoType.Modrekvote);
+			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(dagerPakrevdModrekvoteEtterFodsel);
+		});
+		it('oppretter valgfri mødrekvoteperiode etter termin riktig', () => {
+			const periode = perioder80[periodenr++];
+			expect(periode.forelder).toEqual(forelder1);
+			expect(periode.fastPeriode).toBeFalsy();
+			expect(periode.konto).toEqual(StonadskontoType.Modrekvote);
+			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(dagerModrekvoteEtterFodsel);
+		});
+		it('oppretter mors uttak av fellesperioden riktig', () => {
+			const periode = perioder80[periodenr++];
+			expect(periode.forelder).toEqual(forelder1);
+			expect(periode.fastPeriode).toBeFalsy();
+			expect(periode.konto).toEqual(StonadskontoType.Fellesperiode);
+			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(dagerForelder1Fellesperiode);
+		});
+
+		it('oppretter fars uttak av fellesperioden riktig', () => {
+			const periode = perioder80[periodenr++];
+			expect(periode.forelder).toEqual(forelder2);
+			expect(periode.fastPeriode).toBeFalsy();
+			expect(periode.konto).toEqual(StonadskontoType.Fellesperiode);
+			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(dagerForelder2Fellesperiode);
+		});
+
+		it('oppretter fedrekvoteperioden riktig', () => {
+			const periode = perioder80[periodenr++];
+			expect(periode.forelder).toEqual(forelder2);
+			expect(periode.fastPeriode).toBeFalsy();
+			expect(periode.konto).toEqual(StonadskontoType.Fedrekvote);
+			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(dagerFedrekvote);
+		});
+
+		it(`totalt antall ${uttaksdager80} uttaksdager er riktig`, () => {
+			const tidsperiode: Tidsperiode = {
+				startdato: perioder80[0].tidsperiode.startdato,
+				sluttdato: perioder80[5].tidsperiode.sluttdato
+			};
+			expect(getAntallUttaksdagerITidsperiode(tidsperiode)).toBe(uttaksdager80);
+		});
+	});
+
+	// describe('ved 100% dekningsgrad', () => {
 	// 	const tidsperiode: Tidsperiode = {
-	// 		startdato: state.form.termindato,
-	// 		sluttdato: perioder[perioder.length - 1].tidsperiode.sluttdato
+	// 		startdato: form100.termindato,
+	// 		sluttdato: perioder100[perioder100.length - 1].tidsperiode.sluttdato
 	// 	};
-	// 	it(`har den totalt ${uttaksdager80} uttaksdager`, () => {
-	// 		expect(getAntallUttaksdagerITidsperiode(tidsperiode)).toBe(uttaksdager80);
+	// 	it(`har den totalt ${uttaksdager100} uttaksdager`, () => {
+	// 		expect(getAntallUttaksdagerITidsperiode(tidsperiode)).toBe(uttaksdager100);
 	// 	});
 	// });
 });

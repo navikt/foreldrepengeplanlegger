@@ -1,11 +1,13 @@
 import { Grunnfordeling } from 'app/types';
 
 export const grunnfordeling: Grunnfordeling = {
+	antallUkerTotalt100: 49,
+	antallUkerFellesperiode100: 26,
+	antallUkerTotalt80: 59,
+	antallUkerFellesperiode80: 36,
 	antallUkerForelder1ForFodsel: 3,
 	antallUkerForelder1EtterFodsel: 6,
-	antallUkerForelder1Totalt: 10,
-	antallUkerForelder2Totalt: 10,
-	antallUkerTotalt100: 49,
-	antallUkerTotalt80: 59,
+	antallUkerFedrekvote: 10,
+	antallUkerModrekvote: 10,
 	maksPermisjonslengdeIAr: 3
 };

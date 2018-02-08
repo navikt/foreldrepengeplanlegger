@@ -79,3 +79,17 @@ export const leggUttaksdagerTilDato = (dato: Date, uttaksdager: number): Date =>
 	}
 	return nyDato;
 };
+
+export const trekkUttaksdagerFraDato = (dato: Date, uttaksdager: number): Date => {
+	let nyDato = dato;
+	let dagteller = 0;
+	let uttaksdageteller = 0;
+	while (uttaksdageteller > uttaksdager) {
+		const tellerdato = addDays(dato, dagteller--);
+		if (erUttaksdag(tellerdato)) {
+			nyDato = tellerdato;
+			uttaksdageteller--;
+		}
+	}
+	return nyDato;
+};

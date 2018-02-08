@@ -1,5 +1,12 @@
-import { Stonadsperiode, StonadskontoType, Periodetype, UtsettelseArsakType, Utsettelsesperiode } from 'app/types';
-import { leggUtsettelseInnIPeriode, getAntallUkerFellesperiode } from 'app/utils/periodeUtils';
+import {
+	Stonadsperiode,
+	StonadskontoType,
+	Periodetype,
+	UtsettelseArsakType,
+	Utsettelsesperiode,
+	Tidsperiode
+} from 'app/types';
+import { leggUtsettelseInnIPeriode, getAntallUkerFellesperiode, getPeriodeSluttdato } from 'app/utils/periodeUtils';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 
@@ -13,15 +20,15 @@ const periode: Stonadsperiode = {
 	}
 };
 
-const periode2: Stonadsperiode = {
-	type: Periodetype.Stonadsperiode,
-	konto: StonadskontoType.Fellesperiode,
-	forelder: 'forelder1',
-	tidsperiode: {
-		startdato: new Date(2018, 1, 2),
-		sluttdato: new Date(2018, 1, 6)
-	}
-};
+// const periode2: Stonadsperiode = {
+// 	type: Periodetype.Stonadsperiode,
+// 	konto: StonadskontoType.Fellesperiode,
+// 	forelder: 'forelder1',
+// 	tidsperiode: {
+// 		startdato: new Date(2018, 1, 2),
+// 		sluttdato: new Date(2018, 1, 6)
+// 	}
+// };
 
 const utsettelse: Utsettelsesperiode = {
 	arsak: UtsettelseArsakType.Arbeid,
@@ -60,15 +67,29 @@ describe('periodeUtils', () => {
 		});
 	});
 
-	describe('legge utsettelser inn i perioder', () => {
-		it('antall uttaksdager er det samme etter at utsettelse er lagt til', () => {});
-	});
-
 	it('finner riktig antall uker for fellesperioden 80%', () => {
 		expect(getAntallUkerFellesperiode(grunnfordeling, '80%')).toBe(36);
 	});
 
 	it('finner riktig antall uker for fellesperioden 100%', () => {
 		expect(getAntallUkerFellesperiode(grunnfordeling, '100%')).toBe(26);
+	});
+
+	it('finner riktig periodesluttdato', () => {
+		const periodeEnUke: Tidsperiode = {
+			startdato: new Date(2018, 0, 1),
+			sluttdato: new Date(2018, 0, 5)
+		};
+		const periodeToUker: Tidsperiode = {
+			startdato: new Date(2018, 0, 1),
+			sluttdato: new Date(2018, 0, 12)
+		};
+		const periodeTreUkerForskyvet: Tidsperiode = {
+			startdato: new Date(2018, 0, 4),
+			sluttdato: new Date(2018, 0, 17)
+		};
+		expect(getPeriodeSluttdato(periodeEnUke.startdato, 1)).toEqual(periodeEnUke.sluttdato);
+		expect(getPeriodeSluttdato(periodeToUker.startdato, 2)).toEqual(periodeToUker.sluttdato);
+		expect(getPeriodeSluttdato(periodeTreUkerForskyvet.startdato, 2)).toEqual(periodeTreUkerForskyvet.sluttdato);
 	});
 });

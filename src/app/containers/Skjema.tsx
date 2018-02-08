@@ -93,7 +93,7 @@ class Skjema extends React.Component<Props> {
 								navnForelder1={form.navnForelder1}
 								navnForelder2={form.navnForelder2}
 								ukerFellesperiode={form.ukerFellesperiode}
-								ukerForelder1={form.ukerForelder1}
+								ukerForelder1={form.fellesperiodeukerForelder1}
 								onChange={(uker) => dispatch(settAntallDagerMor(uker))}
 							/>
 						</div>

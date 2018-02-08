@@ -7,7 +7,8 @@ import {
 	Utsettelsesperiode,
 	Periodesplitt,
 	SammenslattPeriode,
-	Tidsperiode
+	Tidsperiode,
+	Forelder
 } from 'app/types';
 import {
 	getForsteUttaksdagPaEllerForDato,
@@ -226,4 +227,16 @@ export const flyttTidsperiode = (tidsperiode: Tidsperiode, startdato: Date): Tid
 		startdato,
 		sluttdato
 	};
+};
+
+/**
+ * Henter ut antall uttaksdager for en forelder fra perioder[]. Tar ikke
+ * høyde for overlappende perioder
+ */
+export const getUttaksdagerForForelder = (forelder: Forelder, perioder: Periode[]): number => {
+	return perioder.reduce(
+		(dager: number, periode: Periode) =>
+			periode.forelder === forelder ? dager + getAntallUttaksdagerITidsperiode(periode.tidsperiode) : dager,
+		0
+	);
 };

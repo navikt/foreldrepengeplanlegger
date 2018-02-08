@@ -1,8 +1,9 @@
 import { FormState } from 'app/redux/types';
 import { grunnfordeling } from 'app/data/grunnfordeling';
-import { getStonadsperioder } from 'app/selectors/periodeSelector';
+import { getStonadsperioder, getSammenslattePerioder } from 'app/selectors/periodeSelector';
 import { Tidsperiode, Forelder, StonadskontoType } from 'app/types';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
+import { getUttaksdagerForForelder } from 'app/utils/periodeUtils';
 
 const forstePermisjonsdag = new Date(2018, 0, 8);
 const termindato = new Date(2018, 0, 27);
@@ -45,6 +46,9 @@ describe('periodeberegner', () => {
 	const uttaksdager80 = grunnfordeling.antallUkerTotalt80 * 5;
 	const forelder1: Forelder = 'forelder1';
 	const forelder2: Forelder = 'forelder2';
+	const antallDagerForelder1 = 155;
+	const antallDagerForelder2 = 140;
+
 	describe('ved 80% dekningsgrad', () => {
 		const dagerModrekvoteForFodsel = grunnfordeling.antallUkerForelder1ForFodsel * 5;
 		const dagerPakrevdModrekvoteEtterFodsel = grunnfordeling.antallUkerForelder1EtterFodsel * 5;
@@ -112,15 +116,32 @@ describe('periodeberegner', () => {
 			};
 			expect(getAntallUttaksdagerITidsperiode(tidsperiode)).toBe(uttaksdager80);
 		});
+
+		it(`oppretter riktig antall uttaksdager for forelder1`, () => {
+			expect(getUttaksdagerForForelder('forelder1', perioder80)).toBe(antallDagerForelder1);
+		});
+
+		it(`oppretter riktig antall uttaksdager for forelder2`, () => {
+			expect(getUttaksdagerForForelder('forelder2', perioder80)).toBe(antallDagerForelder2);
+		});
 	});
 
-	// describe('ved 100% dekningsgrad', () => {
-	// 	const tidsperiode: Tidsperiode = {
-	// 		startdato: form100.termindato,
-	// 		sluttdato: perioder100[perioder100.length - 1].tidsperiode.sluttdato
-	// 	};
-	// 	it(`har den totalt ${uttaksdager100} uttaksdager`, () => {
-	// 		expect(getAntallUttaksdagerITidsperiode(tidsperiode)).toBe(uttaksdager100);
-	// 	});
-	// });
+	describe('når en slår sammen tilhørende perioder', () => {
+		const sammenslattePerioder = getSammenslattePerioder.resultFunc(perioder80);
+		it('har en fortsatt samme totalt antall uttaksdager i periode', () => {
+			expect(
+				getAntallUttaksdagerITidsperiode({
+					startdato: sammenslattePerioder[0].tidsperiode.startdato,
+					sluttdato: sammenslattePerioder[sammenslattePerioder.length - 1].tidsperiode.sluttdato
+				})
+			).toEqual(uttaksdager80);
+		});
+		it(`oppretter riktig antall uttaksdager for forelder1`, () => {
+			expect(getUttaksdagerForForelder('forelder1', sammenslattePerioder)).toBe(antallDagerForelder1);
+		});
+
+		it(`oppretter riktig antall uttaksdager for forelder2`, () => {
+			expect(getUttaksdagerForForelder('forelder2', sammenslattePerioder)).toBe(antallDagerForelder2);
+		});
+	});
 });

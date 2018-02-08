@@ -6,7 +6,12 @@ import {
 	Utsettelsesperiode,
 	Tidsperiode
 } from 'app/types';
-import { leggUtsettelseInnIPeriode, getAntallUkerFellesperiode, getPeriodeSluttdato } from 'app/utils/periodeUtils';
+import {
+	leggUtsettelseInnIPeriode,
+	getAntallUkerFellesperiode,
+	getPeriodeSluttdato,
+	getUttaksdagerForForelder
+} from 'app/utils/periodeUtils';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 
@@ -81,5 +86,17 @@ describe('periodeUtils', () => {
 		expect(getPeriodeSluttdato(periodeEnUke.startdato, 1)).toEqual(periodeEnUke.sluttdato);
 		expect(getPeriodeSluttdato(periodeToUker.startdato, 2)).toEqual(periodeToUker.sluttdato);
 		expect(getPeriodeSluttdato(periodeTreUkerForskyvet.startdato, 2)).toEqual(periodeTreUkerForskyvet.sluttdato);
+	});
+
+	it('henter ut riktig antall uttaksdager for en forelder', () => {
+		const perioder: Stonadsperiode[] = [
+			{ ...periode },
+			{
+				...periode,
+				forelder: 'forelder2'
+			}
+		];
+		expect(getUttaksdagerForForelder('forelder1', perioder)).toBe(10);
+		expect(getUttaksdagerForForelder('forelder2', perioder)).toBe(10);
 	});
 });

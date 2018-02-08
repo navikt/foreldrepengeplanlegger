@@ -1,5 +1,5 @@
 import { addDays, getISODay } from 'date-fns';
-import { Tidsperiode } from 'app/types';
+import { Tidsperiode, Forelder, Periode } from 'app/types';
 
 export const getUkedag = (dato: Date) => getISODay(dato);
 

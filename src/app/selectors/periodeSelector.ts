@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { AppState, FormState } from 'app/redux/types';
 import { Utsettelsesperiode, Periode, Stonadsperiode, Periodetype, SammenslattPeriode } from 'app/types';
-import { sorterPerioder, leggUtsettelserTilPerioder } from 'app/utils/periodeUtils';
+import { leggUtsettelserTilPerioder } from 'app/utils/periodeUtils';
 import Periodeberegner from 'app/utils/Periodeberegner';
 
 const formSelector = (state: AppState) => state.form;

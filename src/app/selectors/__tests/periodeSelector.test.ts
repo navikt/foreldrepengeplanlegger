@@ -1,7 +1,7 @@
 import { FormState } from 'app/redux/types';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import { getStonadsperioder } from 'app/selectors/periodeSelector';
-import { Tidsperiode, Forelder, StonadskontoType, Periodetype } from 'app/types';
+import { Tidsperiode, Forelder, StonadskontoType } from 'app/types';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 
 const forstePermisjonsdag = new Date(2018, 0, 8);
@@ -64,6 +64,7 @@ describe('periodeberegner', () => {
 			expect(periode.forelder).toEqual(forelder1);
 			expect(periode.fastPeriode).toBeTruthy();
 			expect(periode.konto).toEqual(StonadskontoType.ForeldrepengerForFodsel);
+			expect(periode.tidsperiode.startdato).toEqual(forstePermisjonsdag);
 			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(dagerModrekvoteForFodsel);
 		});
 		it('oppretter påkrevd mødrekvoteperiode etter termin riktig', () => {

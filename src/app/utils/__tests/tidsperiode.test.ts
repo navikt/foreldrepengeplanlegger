@@ -1,6 +1,6 @@
 import { addDays } from 'date-fns';
 import { Tidsperiode } from 'app/types';
-import { flyttTidsperiode } from 'app/utils/tidsperiodeUtils';
+import { flyttTidsperiode } from 'app/utils/periodeUtils';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 
 describe('tidsperiodeUtils', () => {

@@ -20,16 +20,6 @@ const periode: Stonadsperiode = {
 	}
 };
 
-// const periode2: Stonadsperiode = {
-// 	type: Periodetype.Stonadsperiode,
-// 	konto: StonadskontoType.Fellesperiode,
-// 	forelder: 'forelder1',
-// 	tidsperiode: {
-// 		startdato: new Date(2018, 1, 2),
-// 		sluttdato: new Date(2018, 1, 6)
-// 	}
-// };
-
 const utsettelse: Utsettelsesperiode = {
 	arsak: UtsettelseArsakType.Arbeid,
 	forelder: 'forelder1',

@@ -6,9 +6,9 @@ import {
 	Stonadsperiode,
 	Utsettelsesperiode,
 	Periodesplitt,
-	SammenslattPeriode
+	SammenslattPeriode,
+	Tidsperiode
 } from 'app/types';
-import { flyttTidsperiode } from './tidsperiodeUtils';
 import {
 	getForsteUttaksdagPaEllerForDato,
 	getForsteUttaksdagForDato,
@@ -188,4 +188,18 @@ export const forskyvPerioder = (perioder: Periode[], startdato: Date): Periode[]
 			tidsperiode
 		};
 	});
+};
+
+/**
+ * Flytter en tidsperiode til ny startdato
+ * @param tidsperiode
+ * @param startdato
+ */
+export const flyttTidsperiode = (tidsperiode: Tidsperiode, startdato: Date): Tidsperiode => {
+	const uttaksdager = getAntallUttaksdagerITidsperiode(tidsperiode);
+	const sluttdato = leggUttaksdagerTilDato(startdato, uttaksdager - 1);
+	return {
+		startdato,
+		sluttdato
+	};
 };

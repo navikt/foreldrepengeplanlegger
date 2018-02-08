@@ -36,3 +36,8 @@ export interface Periodesplitt {
 	perioderFor: Periode[];
 	perioderEtter: Periode[];
 }
+
+export interface FellesperiodeFordeling {
+	ukerForelder1: number;
+	ukerForelder2: number;
+}

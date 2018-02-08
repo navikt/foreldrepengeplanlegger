@@ -43,7 +43,7 @@ const refordelFellesperiode = (
 	};
 };
 
-const FormReducer = (state = getDefaultState(), action: PlanleggerActionTypes) => {
+const FormReducer = (state = getDefaultState(), action: PlanleggerActionTypes): FormState => {
 	switch (action.type) {
 		case PlanleggerActionTypeKeys.SET_NAVN_FORELDER1:
 			return { ...state, navnForelder1: action.navn };
@@ -52,6 +52,9 @@ const FormReducer = (state = getDefaultState(), action: PlanleggerActionTypes) =
 		case PlanleggerActionTypeKeys.SET_TERMINDATO:
 			return { ...state, termindato: normaliserDato(action.termindato) };
 		case PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD:
+			if (!action.dekningsgrad) {
+				return state;
+			}
 			const ukerFellesperiode = getAntallUkerFellesperiode(grunnfordeling, action.dekningsgrad);
 			const { ukerForelder1, ukerForelder2 } = refordelFellesperiode(
 				ukerFellesperiode,
@@ -62,14 +65,14 @@ const FormReducer = (state = getDefaultState(), action: PlanleggerActionTypes) =
 				...state,
 				dekningsgrad: action.dekningsgrad,
 				ukerFellesperiode: ukerFellesperiode,
-				ukerForelder1,
-				ukerForelder2
+				fellesperiodeukerForelder1: ukerForelder1,
+				fellesperiodeukerForelder2: ukerForelder2
 			};
 		case PlanleggerActionTypeKeys.SET_UKER_FORELDER1:
 			return {
 				...state,
-				ukerForelder1: action.uker,
-				ukerForelder2: beregnUkerForelder2(state.ukerFellesperiode, action.uker)
+				fellesperiodeukerForelder1: action.uker,
+				fellesperiodeukerForelder2: beregnUkerForelder2(state.ukerFellesperiode, action.uker)
 			};
 		default:
 			return state;

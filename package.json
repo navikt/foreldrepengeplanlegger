@@ -9,6 +9,7 @@
 	"devDependencies": {
 		"@types/classnames": "^2.2.3",
 		"@types/date-fns": "^2.6.0",
+		"@types/jest": "^22.1.1",
 		"@types/react": "^16.0.34",
 		"@types/react-dom": "^16.0.3",
 		"@types/react-redux": "^5.0.14",
@@ -41,6 +42,7 @@
 		"file-loader": "^1.1.5",
 		"html-webpack-plugin": "^2.30.1",
 		"ignore-styles": "^5.0.1",
+		"jest": "20.0.4",
 		"jsdom": "^11.4.0",
 		"less": "^2.7.3",
 		"less-loader": "^4.0.5",
@@ -67,7 +69,7 @@
 		"start-express": "node ./server.js",
 		"start": "node ./src/build/scripts/start-dev.js",
 		"start-ext": "node ./src/build/scripts/start-dev-ext.js",
-		"test": "cross-env NODE_ENV=test mocha --opts ./mocha.opts ./src/app/**/*.spec.js",
+		"test": "node ./src/build/scripts/test.js --env=jsdom",
 		"lint": "eslint src/**"
 	},
 	"dependencies": {
@@ -125,5 +127,29 @@
 		"tslint-loader": "^3.5.3",
 		"tslint-react": "^3.2.0",
 		"typescript": "~2.5.3"
+	},
+	"jest": {
+		"collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}"],
+		"setupFiles": ["<rootDir>/config/polyfills.js"],
+		"testMatch": ["<rootDir>/src/**/__tests__/**/*.ts?(x)", "<rootDir>/src/**/?(*.)(spec|test).ts?(x)"],
+		"testEnvironment": "node",
+		"testURL": "http://localhost",
+		"transform": {
+			"^.+\\.tsx?$": "<rootDir>/config/jest/typescriptTransform.js",
+			"^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+			"^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+		},
+		"transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$"],
+		"moduleNameMapper": {
+			"^react-native$": "react-native-web",
+			"^app/(.*)": "<rootDir>/src/app/$1",
+			"^shared/(.*)": "<rootDir>/src/shared/$1"
+		},
+		"moduleFileExtensions": ["mjs", "web.ts", "ts", "web.tsx", "tsx", "web.js", "js", "web.jsx", "jsx", "json", "node"],
+		"globals": {
+			"ts-jest": {
+				"tsConfigFile": "./tsconfig.test.json"
+			}
+		}
 	}
 }

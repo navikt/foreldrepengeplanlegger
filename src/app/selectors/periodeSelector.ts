@@ -1,102 +1,89 @@
 import { createSelector } from 'reselect';
 import { AppState, FormState } from 'app/redux/types';
-import {
-	Utsettelsesperiode,
-	Periode,
-	Stonadsperiode,
-	Dekningsgrad,
-	Grunnfordeling,
-	Periodetype,
-	StonadskontoType
-} from 'app/types';
-import { sorterPerioder, leggUtsettelserTilPerioder } from 'app/utils/periodeUtils';
+import { Utsettelsesperiode, Periode, Stonadsperiode, Periodetype, SammenslattPeriode } from 'app/types';
+import { leggUtsettelserTilPerioder } from 'app/utils/periodeUtils';
 import Periodeberegner from 'app/utils/Periodeberegner';
 
 const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
 
 /**
+ * Henter ut sortert liste med alle stønadsperioder basert på formState
+ */
+export const getStonadsperioder = createSelector(formSelector, (form: FormState): Stonadsperiode[] => {
+	if (!form.termindato || !form.dekningsgrad) {
+		return [];
+	}
+	return Periodeberegner(
+		form.termindato,
+		form.dekningsgrad,
+		form.fellesperiodeukerForelder1 || 0,
+		form.fellesperiodeukerForelder2 || 0,
+		form.grunnfordeling
+	).opprettStonadsperioder();
+});
+
+/**
  * Henter ut alle perioder gitt formState og utsettelser
  */
-export const periodeSelector = createSelector(
-	formSelector,
+export const getPerioderMedUtsettelser = createSelector(
+	getStonadsperioder,
 	utsettelseSelector,
-	(form: FormState, utsettelser: Utsettelsesperiode[]): Periode[] => {
-		if (!form.termindato || !form.dekningsgrad) {
-			return [];
-		}
-		const stonadsperioder: Stonadsperiode[] = getStonadsperioder(
-			form.termindato,
-			form.dekningsgrad,
-			form.grunnfordeling,
-			form.ukerForelder1 || 0,
-			form.ukerForelder2 || 0
-		).sort(sorterPerioder);
+	(stonadsperioder: Stonadsperiode[], utsettelser: Utsettelsesperiode[]): Periode[] => {
 		return leggUtsettelserTilPerioder(stonadsperioder, utsettelser);
 	}
 );
 
 /**
- * Setter opp basisoppsett for perioder uten utsettelser hvor
- * mor tar første del av permisjonen og fedrekvote er etter
- * fellesperiode
- * @param termindato
- * @param dekningsgrad
- * @param grunnfordeling
- * @param fellesukerForelder1
- * @param fellesukerForelder2
+ * Returnerer liste hvor påfølgende perioder med samme forelder er slått sammen til en periode
+ * Perioder før termin vil ikke blir slått sammen
  */
-const getStonadsperioder = (
-	termindato: Date,
-	dekningsgrad: Dekningsgrad,
-	grunnfordeling: Grunnfordeling,
-	fellesukerForelder1: number,
-	fellesukerForelder2: number
-): Stonadsperiode[] => {
-	const periodeberegner = Periodeberegner(
-		termindato,
-		dekningsgrad,
-		fellesukerForelder1,
-		fellesukerForelder2,
-		grunnfordeling
-	);
-	const perioder: Stonadsperiode[] = [
-		{
-			type: Periodetype.Stonadsperiode,
-			forelder: 'forelder1',
-			konto: StonadskontoType.Modrekvote,
-			tidsperiode: periodeberegner.getModrekvotePreTermin(),
-			fastPeriode: true
-		},
-		{
-			type: Periodetype.Stonadsperiode,
-			forelder: 'forelder1',
-			konto: StonadskontoType.Modrekvote,
-			tidsperiode: periodeberegner.getModrekvotePostTermin(),
-			fastPeriode: true
-		},
-		{
-			type: Periodetype.Stonadsperiode,
-			forelder: 'forelder2',
-			konto: StonadskontoType.Fedrekvote,
-			tidsperiode: periodeberegner.getFedrekvote()
+export const getSammenslattePerioder = createSelector(getStonadsperioder, (perioder: Stonadsperiode[]): Periode[] => {
+	const liste: (Stonadsperiode | SammenslattPeriode)[] = [];
+	let stonadsperioderSammeForelder: Stonadsperiode[] = [];
+	perioder.forEach((p, index) => {
+		const forrige = stonadsperioderSammeForelder[stonadsperioderSammeForelder.length - 1];
+		if (!forrige || p.forelder === forrige.forelder) {
+			stonadsperioderSammeForelder.push(p);
+		} else {
+			if (stonadsperioderSammeForelder.length === 1) {
+				liste.push(forrige);
+			} else {
+				liste.push(slaSammenPerioder(stonadsperioderSammeForelder));
+			}
+			stonadsperioderSammeForelder = [p];
 		}
-	];
-	if (fellesukerForelder1 > 0) {
-		perioder.push({
-			type: Periodetype.Stonadsperiode,
-			forelder: 'forelder1',
-			konto: StonadskontoType.Fellesperiode,
-			tidsperiode: periodeberegner.getFellesperiodeForelder1()
-		});
+	});
+	if (stonadsperioderSammeForelder.length === 1) {
+		liste.push(stonadsperioderSammeForelder[0]);
+	} else if (stonadsperioderSammeForelder.length > 1) {
+		liste.push(slaSammenPerioder(stonadsperioderSammeForelder));
 	}
-	if (fellesukerForelder2 > 0) {
-		perioder.push({
-			type: Periodetype.Stonadsperiode,
-			forelder: 'forelder2',
-			konto: StonadskontoType.Fellesperiode,
-			tidsperiode: periodeberegner.getFellesperiodeForelder2()
-		});
+	return liste;
+});
+
+/**
+ * Returnerer liste hvor påfølgende perioder med samme forelder er slått sammen til en periode
+ * Perioder før termin vil ikke blir slått sammen
+ */
+export const getPerioderForTidslinje = createSelector(
+	getSammenslattePerioder,
+	utsettelseSelector,
+	(perioder: Stonadsperiode[], utsettelser: Utsettelsesperiode[]): Periode[] => {
+		return leggUtsettelserTilPerioder(perioder, utsettelser);
 	}
-	return perioder;
-};
+);
+
+/**
+ * Slår sammen perioder til en periode
+ * @param perioder
+ */
+export const slaSammenPerioder = (perioder: Stonadsperiode[]): SammenslattPeriode => ({
+	type: Periodetype.SammenslattPeriode,
+	forelder: perioder[0].forelder,
+	tidsperiode: {
+		startdato: perioder[0].tidsperiode.startdato,
+		sluttdato: perioder[perioder.length - 1].tidsperiode.sluttdato
+	},
+	perioder: perioder.map((sp) => sp)
+});

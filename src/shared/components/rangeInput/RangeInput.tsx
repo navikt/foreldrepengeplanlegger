@@ -8,7 +8,9 @@ export interface RangeInputValueLabelRendererOptions {
 	max: number;
 }
 
-export type RangeInputValueLabelRenderer = (options: RangeInputValueLabelRendererOptions) => React.ReactElement<any>;
+export type RangeInputValueLabelRenderer = (
+	options: RangeInputValueLabelRendererOptions
+) => React.ReactElement<any>;
 
 interface Props {
 	label: string;
@@ -21,7 +23,9 @@ interface Props {
 	onChange: (value: number) => void;
 }
 
-const defaultValueLabelRenderer: RangeInputValueLabelRenderer = (options: RangeInputValueLabelRendererOptions) => (
+const defaultValueLabelRenderer: RangeInputValueLabelRenderer = (
+	options: RangeInputValueLabelRendererOptions
+) => (
 	<div className="rangeInput__valueLabels">
 		<div className="rangeInput__valueLabels__left">{options.min}</div>
 		<div className="rangeInput__valueLabels__right">{options.max}</div>

@@ -48,10 +48,14 @@ describe('periodeUtils', () => {
 		const p2 = splittetPeriode[2];
 
 		it('setter første del av splittet periode før utsettelse', () => {
-			expect(p1.tidsperiode.sluttdato.getTime()).toBeLessThan(u.tidsperiode.sluttdato.getTime());
+			expect(p1.tidsperiode.sluttdato.getTime()).toBeLessThan(
+				u.tidsperiode.sluttdato.getTime()
+			);
 		});
 		it('setter siste del av splittet periode etter utsettelse', () => {
-			expect(p2.tidsperiode.startdato.getTime()).toBeGreaterThan(u.tidsperiode.sluttdato.getTime());
+			expect(p2.tidsperiode.startdato.getTime()).toBeGreaterThan(
+				u.tidsperiode.sluttdato.getTime()
+			);
 		});
 
 		it('splittede perioder har samme antall uttaksdager som opprinnelig periode', () => {
@@ -83,9 +87,15 @@ describe('periodeUtils', () => {
 			startdato: new Date(2018, 0, 4),
 			sluttdato: new Date(2018, 0, 17)
 		};
-		expect(getPeriodeSluttdato(periodeEnUke.startdato, 1)).toEqual(periodeEnUke.sluttdato);
-		expect(getPeriodeSluttdato(periodeToUker.startdato, 2)).toEqual(periodeToUker.sluttdato);
-		expect(getPeriodeSluttdato(periodeTreUkerForskyvet.startdato, 2)).toEqual(periodeTreUkerForskyvet.sluttdato);
+		expect(getPeriodeSluttdato(periodeEnUke.startdato, 1)).toEqual(
+			periodeEnUke.sluttdato
+		);
+		expect(getPeriodeSluttdato(periodeToUker.startdato, 2)).toEqual(
+			periodeToUker.sluttdato
+		);
+		expect(getPeriodeSluttdato(periodeTreUkerForskyvet.startdato, 2)).toEqual(
+			periodeTreUkerForskyvet.sluttdato
+		);
 	});
 
 	it('henter ut riktig antall uttaksdager for en forelder', () => {

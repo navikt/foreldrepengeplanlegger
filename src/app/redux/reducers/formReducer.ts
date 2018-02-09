@@ -1,4 +1,7 @@
-import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from 'app/redux/actions/actionTypes';
+import {
+	PlanleggerActionTypes,
+	PlanleggerActionTypeKeys
+} from 'app/redux/actions/actionTypes';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import { FormState } from '../types';
 import { getAntallUkerFellesperiode } from 'app/utils/periodeUtils';
@@ -22,8 +25,10 @@ const getDefaultState = (): FormState => {
 	};
 };
 
-const beregnUkerForelder2 = (ukerFellesperiode: number | undefined, ukerForelder1: number | undefined): number =>
-	ukerFellesperiode ? ukerFellesperiode - (ukerForelder1 || 0) : 0;
+const beregnUkerForelder2 = (
+	ukerFellesperiode: number | undefined,
+	ukerForelder1: number | undefined
+): number => (ukerFellesperiode ? ukerFellesperiode - (ukerForelder1 || 0) : 0);
 
 export const refordelFellesperiode = (
 	ukerFellesperiode: number,
@@ -38,7 +43,10 @@ export const refordelFellesperiode = (
 	};
 };
 
-const FormReducer = (state = getDefaultState(), action: PlanleggerActionTypes): FormState => {
+const FormReducer = (
+	state = getDefaultState(),
+	action: PlanleggerActionTypes
+): FormState => {
 	switch (action.type) {
 		case PlanleggerActionTypeKeys.SET_NAVN_FORELDER1:
 			return { ...state, navnForelder1: action.navn };
@@ -50,8 +58,14 @@ const FormReducer = (state = getDefaultState(), action: PlanleggerActionTypes): 
 			if (!action.dekningsgrad) {
 				return state;
 			}
-			const ukerFellesperiode = getAntallUkerFellesperiode(grunnfordeling, state.dekningsgrad);
-			const nesteUkerFellesperiode = getAntallUkerFellesperiode(grunnfordeling, action.dekningsgrad);
+			const ukerFellesperiode = getAntallUkerFellesperiode(
+				grunnfordeling,
+				state.dekningsgrad
+			);
+			const nesteUkerFellesperiode = getAntallUkerFellesperiode(
+				grunnfordeling,
+				action.dekningsgrad
+			);
 			const { ukerForelder1, ukerForelder2 } = refordelFellesperiode(
 				ukerFellesperiode,
 				nesteUkerFellesperiode,
@@ -68,7 +82,10 @@ const FormReducer = (state = getDefaultState(), action: PlanleggerActionTypes): 
 			return {
 				...state,
 				fellesperiodeukerForelder1: action.uker,
-				fellesperiodeukerForelder2: beregnUkerForelder2(state.ukerFellesperiode, action.uker)
+				fellesperiodeukerForelder2: beregnUkerForelder2(
+					state.ukerFellesperiode,
+					action.uker
+				)
 			};
 		default:
 			return state;

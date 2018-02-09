@@ -1,6 +1,9 @@
 import { FormState } from 'app/redux/types';
 import { grunnfordeling } from 'app/data/grunnfordeling';
-import { getStonadsperioder, getSammenslattePerioder } from 'app/selectors/periodeSelector';
+import {
+	getStonadsperioder,
+	getSammenslattePerioder
+} from 'app/selectors/periodeSelector';
 import { Tidsperiode, Forelder, StonadskontoType } from 'app/types';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 import { getUttaksdagerForForelder } from 'app/utils/periodeUtils';
@@ -50,10 +53,14 @@ describe('periodeberegner', () => {
 	const antallDagerForelder2 = 140;
 
 	describe('ved 80% dekningsgrad', () => {
-		const dagerModrekvoteForFodsel = grunnfordeling.antallUkerForelder1ForFodsel * 5;
-		const dagerPakrevdModrekvoteEtterFodsel = grunnfordeling.antallUkerForelder1EtterFodsel * 5;
+		const dagerModrekvoteForFodsel =
+			grunnfordeling.antallUkerForelder1ForFodsel * 5;
+		const dagerPakrevdModrekvoteEtterFodsel =
+			grunnfordeling.antallUkerForelder1EtterFodsel * 5;
 		const dagerModrekvoteEtterFodsel =
-			(grunnfordeling.antallUkerModrekvote - grunnfordeling.antallUkerForelder1EtterFodsel) * 5;
+			(grunnfordeling.antallUkerModrekvote -
+				grunnfordeling.antallUkerForelder1EtterFodsel) *
+			5;
 		const dagerForelder1Fellesperiode = form80.fellesperiodeukerForelder1 * 5;
 		const dagerForelder2Fellesperiode = form80.fellesperiodeukerForelder2 * 5;
 		const dagerFedrekvote = grunnfordeling.antallUkerFedrekvote * 5;
@@ -69,28 +76,36 @@ describe('periodeberegner', () => {
 			expect(periode.fastPeriode).toBeTruthy();
 			expect(periode.konto).toEqual(StonadskontoType.ForeldrepengerForFodsel);
 			expect(periode.tidsperiode.startdato).toEqual(forstePermisjonsdag);
-			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(dagerModrekvoteForFodsel);
+			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(
+				dagerModrekvoteForFodsel
+			);
 		});
 		it('oppretter påkrevd mødrekvoteperiode etter termin riktig', () => {
 			const periode = perioder80[periodenr++];
 			expect(periode.forelder).toEqual(forelder1);
 			expect(periode.fastPeriode).toBeTruthy();
 			expect(periode.konto).toEqual(StonadskontoType.Modrekvote);
-			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(dagerPakrevdModrekvoteEtterFodsel);
+			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(
+				dagerPakrevdModrekvoteEtterFodsel
+			);
 		});
 		it('oppretter valgfri mødrekvoteperiode etter termin riktig', () => {
 			const periode = perioder80[periodenr++];
 			expect(periode.forelder).toEqual(forelder1);
 			expect(periode.fastPeriode).toBeFalsy();
 			expect(periode.konto).toEqual(StonadskontoType.Modrekvote);
-			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(dagerModrekvoteEtterFodsel);
+			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(
+				dagerModrekvoteEtterFodsel
+			);
 		});
 		it('oppretter mors uttak av fellesperioden riktig', () => {
 			const periode = perioder80[periodenr++];
 			expect(periode.forelder).toEqual(forelder1);
 			expect(periode.fastPeriode).toBeFalsy();
 			expect(periode.konto).toEqual(StonadskontoType.Fellesperiode);
-			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(dagerForelder1Fellesperiode);
+			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(
+				dagerForelder1Fellesperiode
+			);
 		});
 
 		it('oppretter fars uttak av fellesperioden riktig', () => {
@@ -98,7 +113,9 @@ describe('periodeberegner', () => {
 			expect(periode.forelder).toEqual(forelder2);
 			expect(periode.fastPeriode).toBeFalsy();
 			expect(periode.konto).toEqual(StonadskontoType.Fellesperiode);
-			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(dagerForelder2Fellesperiode);
+			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(
+				dagerForelder2Fellesperiode
+			);
 		});
 
 		it('oppretter fedrekvoteperioden riktig', () => {
@@ -106,7 +123,9 @@ describe('periodeberegner', () => {
 			expect(periode.forelder).toEqual(forelder2);
 			expect(periode.fastPeriode).toBeFalsy();
 			expect(periode.konto).toEqual(StonadskontoType.Fedrekvote);
-			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(dagerFedrekvote);
+			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(
+				dagerFedrekvote
+			);
 		});
 
 		it(`totalt antall ${uttaksdager80} uttaksdager er riktig`, () => {
@@ -118,11 +137,15 @@ describe('periodeberegner', () => {
 		});
 
 		it(`oppretter riktig antall uttaksdager for forelder1`, () => {
-			expect(getUttaksdagerForForelder('forelder1', perioder80)).toBe(antallDagerForelder1);
+			expect(getUttaksdagerForForelder('forelder1', perioder80)).toBe(
+				antallDagerForelder1
+			);
 		});
 
 		it(`oppretter riktig antall uttaksdager for forelder2`, () => {
-			expect(getUttaksdagerForForelder('forelder2', perioder80)).toBe(antallDagerForelder2);
+			expect(getUttaksdagerForForelder('forelder2', perioder80)).toBe(
+				antallDagerForelder2
+			);
 		});
 	});
 
@@ -132,16 +155,22 @@ describe('periodeberegner', () => {
 			expect(
 				getAntallUttaksdagerITidsperiode({
 					startdato: sammenslattePerioder[0].tidsperiode.startdato,
-					sluttdato: sammenslattePerioder[sammenslattePerioder.length - 1].tidsperiode.sluttdato
+					sluttdato:
+						sammenslattePerioder[sammenslattePerioder.length - 1].tidsperiode
+							.sluttdato
 				})
 			).toEqual(uttaksdager80);
 		});
 		it(`oppretter riktig antall uttaksdager for forelder1`, () => {
-			expect(getUttaksdagerForForelder('forelder1', sammenslattePerioder)).toBe(antallDagerForelder1);
+			expect(getUttaksdagerForForelder('forelder1', sammenslattePerioder)).toBe(
+				antallDagerForelder1
+			);
 		});
 
 		it(`oppretter riktig antall uttaksdager for forelder2`, () => {
-			expect(getUttaksdagerForForelder('forelder2', sammenslattePerioder)).toBe(antallDagerForelder2);
+			expect(getUttaksdagerForForelder('forelder2', sammenslattePerioder)).toBe(
+				antallDagerForelder2
+			);
 		});
 	});
 });

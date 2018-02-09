@@ -8,7 +8,9 @@ interface Props {
 	innslag: Hendelseinnslag;
 }
 
-const TidslinjeHendelseinnslag: React.StatelessComponent<Props> = ({ innslag }) => {
+const TidslinjeHendelseinnslag: React.StatelessComponent<Props> = ({
+	innslag
+}) => {
 	return (
 		<div className="hendelseinnslag">
 			<div className="m-padding-s">

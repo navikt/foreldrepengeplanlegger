@@ -20,13 +20,20 @@ export class Infotekst extends React.Component<Props, State> {
 	render() {
 		return (
 			<div className="infotekst">
-				<button type="button" className="infotekst__knapp" onClick={(e) => this.setState({ apen: true })}>
+				<button
+					type="button"
+					className="infotekst__knapp"
+					onClick={(e) => this.setState({ apen: true })}>
 					<span className="infotekst__knapp__ikon">
 						<InfoDameIkon />
 					</span>
 					<span className="infotekst__knapp__label">{this.props.tittel}</span>
 				</button>
-				<Modal title="ABC" type="success" isOpen={this.state.apen} onClose={() => this.setState({ apen: false })}>
+				<Modal
+					title="ABC"
+					type="success"
+					isOpen={this.state.apen}
+					onClose={() => this.setState({ apen: false })}>
 					asdfhd
 				</Modal>
 			</div>

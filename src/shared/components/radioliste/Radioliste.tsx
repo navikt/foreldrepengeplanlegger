@@ -42,7 +42,16 @@ const RadiolisteRadio: React.StatelessComponent<RadiolisteRadioProps> = ({
 	valgt,
 	onChange,
 	radioProps
-}) => <Radio {...radioProps} name={navn} value={verdi} label={tittel} checked={valgt} onChange={onChange} />;
+}) => (
+	<Radio
+		{...radioProps}
+		name={navn}
+		value={verdi}
+		label={tittel}
+		checked={valgt}
+		onChange={onChange}
+	/>
+);
 
 const Radioliste: React.StatelessComponent<Props> = ({
 	valg,
@@ -62,7 +71,9 @@ const Radioliste: React.StatelessComponent<Props> = ({
 		<SkjemaGruppe className={cls} feil={feil} title={tittel}>
 			<div className="radioliste__radioer">
 				{valg.map((option) => (
-					<div className="radioliste__radio" key={`${inputnavn}${option.verdi}`}>
+					<div
+						className="radioliste__radio"
+						key={`${inputnavn}${option.verdi}`}>
 						<RadiolisteRadio
 							{...option}
 							navn={inputnavn}

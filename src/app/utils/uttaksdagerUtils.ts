@@ -3,7 +3,8 @@ import { Tidsperiode } from 'app/types';
 
 export const getUkedag = (dato: Date) => getISODay(dato);
 
-export const erUttaksdag = (dato: Date): boolean => getUkedag(dato) !== 6 && getUkedag(dato) !== 7;
+export const erUttaksdag = (dato: Date): boolean =>
+	getUkedag(dato) !== 6 && getUkedag(dato) !== 7;
 
 export const getForsteUttaksdagForDato = (dato: Date): Date => {
 	return getForsteUttaksdagPaEllerForDato(addDays(dato, -1));
@@ -28,7 +29,8 @@ export const getForsteUttaksdagPaEllerForDato = (dato: Date): Date => {
  * Første gyldige uttaksdag etter dato
  * @param termin
  */
-export const getForsteUttaksdagEtterDato = (dato: Date): Date => getForsteUttaksdagPaEllerEtterDato(addDays(dato, 1));
+export const getForsteUttaksdagEtterDato = (dato: Date): Date =>
+	getForsteUttaksdagPaEllerEtterDato(addDays(dato, 1));
 
 /**
  * Sjekker om dato er en ukedag, dersom ikke finner den nærmeste påfølgende mandag
@@ -50,7 +52,9 @@ export const getForsteUttaksdagPaEllerEtterDato = (dato: Date): Date => {
  * @param startdato
  * @param sluttdato
  */
-export function getAntallUttaksdagerITidsperiode(tidsperiode: Tidsperiode): number {
+export function getAntallUttaksdagerITidsperiode(
+	tidsperiode: Tidsperiode
+): number {
 	if (tidsperiode.startdato > tidsperiode.sluttdato) {
 		return -1;
 	}
@@ -66,7 +70,10 @@ export function getAntallUttaksdagerITidsperiode(tidsperiode: Tidsperiode): numb
 	return antall;
 }
 
-export const leggUttaksdagerTilDato = (dato: Date, uttaksdager: number): Date => {
+export const leggUttaksdagerTilDato = (
+	dato: Date,
+	uttaksdager: number
+): Date => {
 	let nyDato = dato;
 	let dagteller = 0;
 	let uttaksdageteller = 0;
@@ -80,7 +87,10 @@ export const leggUttaksdagerTilDato = (dato: Date, uttaksdager: number): Date =>
 	return nyDato;
 };
 
-export const trekkUttaksdagerFraDato = (dato: Date, uttaksdager: number): Date => {
+export const trekkUttaksdagerFraDato = (
+	dato: Date,
+	uttaksdager: number
+): Date => {
 	let nyDato = dato;
 	let dagteller = 0;
 	let uttaksdageteller = 0;

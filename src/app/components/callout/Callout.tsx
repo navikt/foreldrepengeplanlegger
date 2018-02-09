@@ -6,7 +6,10 @@ export interface Props {
 	borderColor?: CalloutBorderColor;
 }
 
-const Callout: React.StatelessComponent<Props> = ({ borderColor = 'gray', children }) => (
+const Callout: React.StatelessComponent<Props> = ({
+	borderColor = 'gray',
+	children
+}) => (
 	<div className={`callout callout--${borderColor}`}>
 		<div className="callout__arrow">
 			<div className="topLeftArrow" />

@@ -8,10 +8,16 @@ export interface Props {
 	visDager?: boolean;
 }
 
-const TidsperiodeTelst: React.StatelessComponent<Props> = ({ tidsperiode, visDager }) => (
+const TidsperiodeTelst: React.StatelessComponent<Props> = ({
+	tidsperiode,
+	visDager
+}) => (
 	<div>
-		<Dato dato={tidsperiode.startdato} /> - <Dato dato={tidsperiode.sluttdato} />
-		{visDager && <span> ({getAntallUttaksdagerITidsperiode(tidsperiode)} dager)</span>}
+		<Dato dato={tidsperiode.startdato} /> -{' '}
+		<Dato dato={tidsperiode.sluttdato} />
+		{visDager && (
+			<span> ({getAntallUttaksdagerITidsperiode(tidsperiode)} dager)</span>
+		)}
 	</div>
 );
 

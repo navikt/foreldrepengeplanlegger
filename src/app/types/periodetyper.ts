@@ -2,7 +2,8 @@ import { Tidsperiode, Forelder } from 'app/types';
 
 export enum Periodetype {
 	'Stonadsperiode' = 'Stønadsperiode',
-	'Utsettelse' = 'Utsettelse'
+	'Utsettelse' = 'Utsettelse',
+	'SammenslattPeriode' = 'SammenslattPeriode'
 }
 
 export enum StonadskontoType {
@@ -21,7 +22,7 @@ export enum StonadskontoType {
 export enum UtsettelseArsakType {
 	'Ferie' = 'ferie',
 	'Arbeid' = 'arbeid',
-	'UbetaltPermisjon' = 'ubetaltPermisjon'
+	'Sykdom' = 'sykdom'
 }
 
 interface PeriodeBase {
@@ -31,7 +32,11 @@ interface PeriodeBase {
 	fastPeriode?: boolean;
 }
 
-export type Stonadskontoer = StonadskontoType.Fedrekvote | StonadskontoType.Modrekvote | StonadskontoType.Fellesperiode;
+export type Stonadskontoer =
+	| StonadskontoType.Fedrekvote
+	| StonadskontoType.Modrekvote
+	| StonadskontoType.Fellesperiode
+	| StonadskontoType.ForeldrepengerForFodsel;
 
 export interface Stonadsperiode extends PeriodeBase {
 	type: Periodetype.Stonadsperiode;
@@ -45,4 +50,11 @@ export interface Utsettelsesperiode extends PeriodeBase {
 	forelder: Forelder;
 }
 
-export type Periode = Stonadsperiode | Utsettelsesperiode;
+export interface SammenslattPeriode extends PeriodeBase {
+	type: Periodetype.SammenslattPeriode;
+	perioder: Periode[];
+	forelder: Forelder;
+	tidsperiode: Tidsperiode;
+}
+
+export type Periode = Stonadsperiode | Utsettelsesperiode | SammenslattPeriode;

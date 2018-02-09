@@ -5,14 +5,14 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import Skjema from './Skjema';
 import { AppState, UtsettelseState, DispatchProps, FormState } from 'app/redux/types';
-import { TidslinjeInnslag } from 'app/components/tidslinje/types';
 import { tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import Veileder from 'shared/components/veileder/Veileder';
 import UtsettelseDialog from 'app/containers/UtsettelseDialog';
+import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
 
 export interface StateProps {
 	form: FormState;
-	innslag: TidslinjeInnslag[];
+	innslag: Tidslinjeinnslag[];
 	utsettelse: UtsettelseState;
 	visTidslinje: boolean;
 }

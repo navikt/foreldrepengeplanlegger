@@ -1,268 +1,312 @@
-@arrow-size: 10px;
-@bkgColor: #e7e7e7;
-@c-green: #06893a;
-@c-purple: #634689;
-@c-purple-bkg: #e0dae7;
-@c-blue: #5eaec7;
-@c-blue-bkg: #ccdee6;
-@c-red: #c30000;
-@dotSize: 12px;
-@dotBorderWidth: 3px;
-@dotOffsetTop: @dotSize/2 - @dotBorderWidth/2;
-@dotOffsetBottom: -1 * @dotOffsetTop;
-@lineOffsetTop: 0rem;
-@lineOffsetBottom: 0rem;
-@arrowLeftSkew: 26deg;
-@dot-z-index: 2;
-@paddingLeft: 3rem;
-
-.setArrowLeftColor(@borderColor, @bkgColor) {
-	background-color: @bkgColor;
-	border-color: @borderColor;
-}
-
-.arrowLeft(@borderColor: @c-purple, @bkgColor) {
-	content: '';
-	z-index: 1;
-	position: absolute;
-	top: -1px;
-	left: -4px;
-	width: @arrow-size;
-	height: @arrow-size + 3px;
-	border-color: transparent;
-	border-style: solid;
-	border-top-width: 1px;
-	border-left-width: 1px;
-	border-right-width: 0;
-	border-bottom-width: 0;
-	.setArrowLeftColor(@borderColor, @bkgColor);
-	transform: skew(@arrowLeftSkew);
-}
-
-.moveArrowLeftToBottom() {
-	top: auto;
-	bottom: -1px;
-	transform: skew(-1 * @arrowLeftSkew);
-	border-top-color: transparent;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-}
-
-.hendelseDot(@borderColor) {
-	content: '';
-	z-index: @dot-z-index;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: @dotSize;
-	height: @dotSize;
-	border-radius: 50%;
-	border: @dotBorderWidth solid @borderColor;
-	margin-top: -1 * @dotOffsetTop;
-	margin-left: -1 * (@dotSize/2 - @dotBorderWidth) + 1;
-	background-color: white;
-}
-
-.setHendelseDotColor(@borderColor) {
-	border-color: @borderColor;
-}
-
-.gradering(@col1, @col2:transparent) {
-	background: repeating-linear-gradient(
-		0deg,
-		@col1,
-		@col1 3px,
-		@col2 3px,
-		@col2 6px
-	);
-}
-
 .tidslinje {
-	> .tidslinje__tidslinjeInnslag {
-		padding-bottom: 1rem;
-		padding-left: 3.5rem;
-		&:last-child {
-			padding-bottom: 0;
-		}
-	}
-	transition: opacity 0.2 linear;
-	.inactive {
-		opacity: 0;
-	}
+	@verticalSpacing: 1rem;
 	background-color: #f1f1f1;
 	margin-left: -2rem;
 	margin-right: -2rem;
 	border-radius: 8px;
 	padding: 2rem 3rem 2rem 2rem;
+
+	&__innslag {
+		margin-bottom: @verticalSpacing;
+		&__dato {
+			font-weight: bold;
+		}
+		&--hendelse {
+			margin-top: -1 * @verticalSpacing;
+			margin-bottom: 0;
+		}
+	}
 }
 
-.tidslinjeInnslag {
-	position: relative;
-	display: block;
-	background-color: white; //@c-purple-bkg;
-	border: 1px solid @c-purple;
-	border-radius: 2px;
-	padding: 1rem;
-	margin-top: -1px;
-	margin-bottom: -2px;
-	color: #3e3832;
-	&:before {
-		.arrowLeft(@c-purple, white);
-	}
-	&--forelder2 {
-		border-color: @c-blue;
-		&:before {
-			.setArrowLeftColor(@c-blue, white);
-		}
-	}
-	&--utsettelse {
-		border-color: @c-green;
-		&:before {
-			.setArrowLeftColor(@c-green, white);
-		}
-	}
+.hendelseinnslag {
 	&__dato {
-		margin-top: 0;
-		margin-bottom: 0.5rem;
 		font-weight: bold;
+		display: inline-block;
+		margin-right: 0.5rem;
+		margin-bottom: 0.2rem; // justerer vertical alignment av tekst
 	}
-	&__info {
-		margin-top: 0.5rem;
+	&__hendelse {
+		display: inline-block;
 	}
-	&--siste,
-	&--termin {
-		background-color: transparent;
-		border-color: transparent;
-		padding-left: 0;
-		padding: 0;
-		&:before {
-			display: none;
-		}
-	}
-	&--termin  {
-		.tidslinjeInnslag__dato {
-			display: inline-block;
-			padding-right: 1rem;
-			margin-bottom: 0.1rem;
-		}
-		.tidslinjeInnslag__hendelse {
-			display: inline-block;
-			padding-right: 1.5rem;
-		}
-		svg use {
-			* {
-				fill: red;
-			}
-		}
-	}
-	&__terminHjerte {
+	&__ikon {
 		vertical-align: middle;
 		margin-left: 0.5rem;
 	}
-	&--slutt {
-		&:before {
-			.moveArrowLeftToBottom();
-		}
-	}
+}
 
-	&__linje {
-		width: 8px;
-		background-color: @c-purple;
-		position: absolute;
-		top: @lineOffsetTop;
-		bottom: @lineOffsetBottom;
-		left: -1 * (@paddingLeft + 0.1rem);
-		z-index: 3;
-		&:before {
-			.hendelseDot(@c-purple);
-		}
-		&:after {
-			.hendelseDot(@c-purple);
-			top: initial;
-			bottom: @dotOffsetBottom;
-			display: none;
-		}
-		&--forelder2 {
-			left: -1 * (@paddingLeft - 1.2rem);
-			background-color: @c-blue;
-			&:before {
-				.setHendelseDotColor(@c-blue);
-			}
-			&:after {
-				.setHendelseDotColor(@c-blue);
-			}
-			&.tidslinjeInnslag__linje--gradert {
-				.gradering(@c-blue);
-			}
-		}
-		&--gradert {
-			.gradering(@c-purple);
-		}
-		&--utsettelse {
-			.gradering(@c-green);
-			&:before {
-				.setHendelseDotColor(@c-green);
-			}
-			&:after {
-				.setHendelseDotColor(@c-green);
-			}
-		}
-		&--fortsettelse {
-			top: -1rem;
-			&:before {
-				display: none;
-			}
-		}
-		&--slutt {
-			top: 0rem;
-			&:after {
-				display: block;
-			}
-		}
-		&--termin,
-		&--termin {
-			margin-top: -1rem;
-			margin-bottom: -1rem;
-		}
-		&--siste {
-			top: -2rem;
-			bottom: 2.5rem;
-			&:before {
-				display: none;
-			}
-			&:after {
-				display: block;
-			}
-		}
-		&--fortsetter {
-			bottom: -1rem;
-		}
-
-		/** Rød sirkel */
-		&--termin {
-			&:before {
-				@size: @dotSize + 2px;
-				width: @size;
-				height: @size;
-				margin-left: -1 * (@dotSize/2 - @dotBorderWidth);
-				border-color: white;
-				background-color: @c-red;
-				top: 50%;
-				margin-top: -1 * (@size/2 + @dotBorderWidth);
-			}
-		}
+.periodeinnslag {
+	&__dato {
+		font-weight: bold;
+		display: block;
+		margin-bottom: 0.5rem;
 	}
 }
 
-.hendelsesliste {
-	margin: 0;
-	padding: 0;
-	list-style: inside;
-	li {
-		list-style: none;
-	}
-	&__ikon {
-		margin-right: 0.5rem;
-		vertical-align: middle;
-	}
-}
+// @arrow-size: 10px;
+// @bkgColor: #e7e7e7;
+// @c-green: #06893a;
+// @c-purple: #634689;
+// @c-purple-bkg: #e0dae7;
+// @c-blue: #5eaec7;
+// @c-blue-bkg: #ccdee6;
+// @c-red: #c30000;
+// @dotSize: 12px;
+// @dotBorderWidth: 3px;
+// @dotOffsetTop: @dotSize/2 - @dotBorderWidth/2;
+// @dotOffsetBottom: -1 * @dotOffsetTop;
+// @lineOffsetTop: 0rem;
+// @lineOffsetBottom: 0rem;
+// @arrowLeftSkew: 26deg;
+// @dot-z-index: 2;
+// @paddingLeft: 3rem;
+
+// .setArrowLeftColor(@borderColor, @bkgColor) {
+// 	background-color: @bkgColor;
+// 	border-color: @borderColor;
+// }
+
+// .arrowLeft(@borderColor: @c-purple, @bkgColor) {
+// 	content: '';
+// 	z-index: 1;
+// 	position: absolute;
+// 	top: -1px;
+// 	left: -4px;
+// 	width: @arrow-size;
+// 	height: @arrow-size + 3px;
+// 	border-color: transparent;
+// 	border-style: solid;
+// 	border-top-width: 1px;
+// 	border-left-width: 1px;
+// 	border-right-width: 0;
+// 	border-bottom-width: 0;
+// 	.setArrowLeftColor(@borderColor, @bkgColor);
+// 	transform: skew(@arrowLeftSkew);
+// }
+
+// .moveArrowLeftToBottom() {
+// 	top: auto;
+// 	bottom: -1px;
+// 	transform: skew(-1 * @arrowLeftSkew);
+// 	border-top-color: transparent;
+// 	border-bottom-width: 1px;
+// 	border-bottom-style: solid;
+// }
+
+// .hendelseDot(@borderColor) {
+// 	content: '';
+// 	z-index: @dot-z-index;
+// 	position: absolute;
+// 	top: 0;
+// 	left: 0;
+// 	width: @dotSize;
+// 	height: @dotSize;
+// 	border-radius: 50%;
+// 	border: @dotBorderWidth solid @borderColor;
+// 	margin-top: -1 * @dotOffsetTop;
+// 	margin-left: -1 * (@dotSize/2 - @dotBorderWidth) + 1;
+// 	background-color: white;
+// }
+
+// .setHendelseDotColor(@borderColor) {
+// 	border-color: @borderColor;
+// }
+
+// .gradering(@col1, @col2:transparent) {
+// 	background: repeating-linear-gradient(
+// 		0deg,
+// 		@col1,
+// 		@col1 3px,
+// 		@col2 3px,
+// 		@col2 6px
+// 	);
+// }
+
+// .tidslinje {
+// 	> .tidslinje__tidslinjeInnslag {
+// 		padding-bottom: 1rem;
+// 		padding-left: 3.5rem;
+// 		&:last-child {
+// 			padding-bottom: 0;
+// 		}
+// 	}
+// 	transition: opacity 0.2 linear;
+// 	.inactive {
+// 		opacity: 0;
+// 	}
+// 	background-color: #f1f1f1;
+// 	margin-left: -2rem;
+// 	margin-right: -2rem;
+// 	border-radius: 8px;
+// 	padding: 2rem 3rem 2rem 2rem;
+// }
+
+// .tidslinjeInnslag {
+// 	position: relative;
+// 	display: block;
+// 	background-color: white; //@c-purple-bkg;
+// 	border: 1px solid @c-purple;
+// 	border-radius: 2px;
+// 	padding: 1rem;
+// 	margin-top: -1px;
+// 	margin-bottom: -2px;
+// 	color: #3e3832;
+// 	&:before {
+// 		.arrowLeft(@c-purple, white);
+// 	}
+// 	&--forelder2 {
+// 		border-color: @c-blue;
+// 		&:before {
+// 			.setArrowLeftColor(@c-blue, white);
+// 		}
+// 	}
+// 	&--utsettelse {
+// 		border-color: @c-green;
+// 		&:before {
+// 			.setArrowLeftColor(@c-green, white);
+// 		}
+// 	}
+// 	&__dato {
+// 		margin-top: 0;
+// 		margin-bottom: 0.5rem;
+// 		font-weight: bold;
+// 	}
+// 	&__info {
+// 		margin-top: 0.5rem;
+// 	}
+// 	&--siste,
+// 	&--termin {
+// 		background-color: transparent;
+// 		border-color: transparent;
+// 		padding-left: 0;
+// 		padding: 0;
+// 		&:before {
+// 			display: none;
+// 		}
+// 	}
+// 	&--termin  {
+// 		.tidslinjeInnslag__dato {
+// 			display: inline-block;
+// 			padding-right: 1rem;
+// 			margin-bottom: 0.1rem;
+// 		}
+// 		.tidslinjeInnslag__hendelse {
+// 			display: inline-block;
+// 			padding-right: 1.5rem;
+// 		}
+// 		svg use {
+// 			* {
+// 				fill: red;
+// 			}
+// 		}
+// 	}
+// 	&__terminHjerte {
+// 		vertical-align: middle;
+// 		margin-left: 0.5rem;
+// 	}
+// 	&--slutt {
+// 		&:before {
+// 			.moveArrowLeftToBottom();
+// 		}
+// 	}
+
+// 	&__linje {
+// 		width: 8px;
+// 		background-color: @c-purple;
+// 		position: absolute;
+// 		top: @lineOffsetTop;
+// 		bottom: @lineOffsetBottom;
+// 		left: -1 * (@paddingLeft + 0.1rem);
+// 		z-index: 3;
+// 		&:before {
+// 			.hendelseDot(@c-purple);
+// 		}
+// 		&:after {
+// 			.hendelseDot(@c-purple);
+// 			top: initial;
+// 			bottom: @dotOffsetBottom;
+// 			display: none;
+// 		}
+// 		&--forelder2 {
+// 			left: -1 * (@paddingLeft - 1.2rem);
+// 			background-color: @c-blue;
+// 			&:before {
+// 				.setHendelseDotColor(@c-blue);
+// 			}
+// 			&:after {
+// 				.setHendelseDotColor(@c-blue);
+// 			}
+// 			&.tidslinjeInnslag__linje--gradert {
+// 				.gradering(@c-blue);
+// 			}
+// 		}
+// 		&--gradert {
+// 			.gradering(@c-purple);
+// 		}
+// 		&--utsettelse {
+// 			.gradering(@c-green);
+// 			&:before {
+// 				.setHendelseDotColor(@c-green);
+// 			}
+// 			&:after {
+// 				.setHendelseDotColor(@c-green);
+// 			}
+// 		}
+// 		&--fortsettelse {
+// 			top: -1rem;
+// 			&:before {
+// 				display: none;
+// 			}
+// 		}
+// 		&--slutt {
+// 			top: 0rem;
+// 			&:after {
+// 				display: block;
+// 			}
+// 		}
+// 		&--termin,
+// 		&--termin {
+// 			margin-top: -1rem;
+// 			margin-bottom: -1rem;
+// 		}
+// 		&--siste {
+// 			top: -2rem;
+// 			bottom: 2.5rem;
+// 			&:before {
+// 				display: none;
+// 			}
+// 			&:after {
+// 				display: block;
+// 			}
+// 		}
+// 		&--fortsetter {
+// 			bottom: -1rem;
+// 		}
+
+// 		/** Rød sirkel */
+// 		&--termin {
+// 			&:before {
+// 				@size: @dotSize + 2px;
+// 				width: @size;
+// 				height: @size;
+// 				margin-left: -1 * (@dotSize/2 - @dotBorderWidth);
+// 				border-color: white;
+// 				background-color: @c-red;
+// 				top: 50%;
+// 				margin-top: -1 * (@size/2 + @dotBorderWidth);
+// 			}
+// 		}
+// 	}
+// }
+
+// .hendelsesliste {
+// 	margin: 0;
+// 	padding: 0;
+// 	list-style: inside;
+// 	li {
+// 		list-style: none;
+// 	}
+// 	&__ikon {
+// 		margin-right: 0.5rem;
+// 		vertical-align: middle;
+// 	}
+// }

@@ -1,25 +1,33 @@
 import * as React from 'react';
+import * as classnames from 'classnames';
 
-import { Element } from 'nav-frontend-typografi';
-import TidslinjeInnslag from './TidslinjeInnslag';
-import { TidslinjeInnslag as TidslinjeInnslagType } from './types';
-
+import { Systemtittel } from 'nav-frontend-typografi';
+import { Tidslinjeinnslag, TidslinjeinnslagType } from 'app/components/tidslinje/types';
+import TidslinjePeriodeinnslag from './TidslinjePeriodeinnslag';
 import './tidslinje.less';
+import TidslinjeHendelseinnslag from 'app/components/tidslinje/TidslinjeHendelseinnslag';
+import Tidslinjestrek from 'app/components/tidslinje/Tidslinjestrek';
 
 export interface TidslinjeProps {
-	innslag: TidslinjeInnslagType[];
+	innslag: Tidslinjeinnslag[];
 }
 
 const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({ innslag }) => {
 	return (
 		<div className="tidslinje">
 			<div className="blokk-m">
-				<Element>Din tidslinje for planlagt permisjon</Element>
+				<Systemtittel>Din tidsplan</Systemtittel>
 			</div>
 			{innslag.map((i, idx) => {
+				const className = classnames('tidslinje__innslag', `tidslinje__innslag--${i.type}`);
 				return (
-					<div className="tidslinje__tidslinjeInnslag" key={idx}>
-						<TidslinjeInnslag key={i.startdato.toDateString()} innslag={i} />
+					<div className={className} key={idx}>
+						<Tidslinjestrek innslag={i} />
+						{i.type === TidslinjeinnslagType.periode ? (
+							<TidslinjePeriodeinnslag innslag={i} />
+						) : (
+							<TidslinjeHendelseinnslag innslag={i}>hendelse</TidslinjeHendelseinnslag>
+						)}
 					</div>
 				);
 			})}

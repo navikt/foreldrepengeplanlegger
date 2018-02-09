@@ -106,10 +106,6 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								verdi: UtsettelseArsakType.Ferie
 							},
 							{
-								tittel: 'Ubetalt permisjon',
-								verdi: UtsettelseArsakType.UbetaltPermisjon
-							},
-							{
 								tittel: 'Arbeid',
 								verdi: UtsettelseArsakType.Arbeid
 							}

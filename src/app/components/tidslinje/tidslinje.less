@@ -1,46 +1,155 @@
-.tidslinje {
-	@verticalSpacing: 1rem;
-	background-color: #f1f1f1;
-	margin-left: -2rem;
-	margin-right: -2rem;
-	border-radius: 8px;
-	padding: 2rem 3rem 2rem 2rem;
+/** Scopet less for tidslinje */
+.tidslinje() {
+	@padding-left: 2rem;
 
-	&__innslag {
-		margin-bottom: @verticalSpacing;
+	@z-strek: 3;
+	@z-sirkel: 4;
+
+	@strekOffsetTop: 0px;
+	@strekOffsetBottom: 0px;
+
+	@sirkelSize: 12px;
+	@sirkelOffsetTop: 8/2;
+	@sirkelOffsetBottom: -1 * @sirkelOffsetTop;
+	@sirkelBorderWidth: 3px;
+
+	/** Mixins */
+
+	.gradering(@col1, @col2:transparent) {
+		background: repeating-linear-gradient(
+			0deg,
+			@col1,
+			@col1 4px,
+			@col2 4px,
+			@col2 8px
+		);
+	}
+
+	.polkaGradering(@col) {
+		background-color: transparent;
+		background-color: transparent;
+		background-image: radial-gradient(@col 34%, transparent 0);
+		background-size: 14px 14px;
+		background-position: -3px 10px;
+	}
+
+	.sirkel(@borderColor, @bkgColor: white) {
+		content: '';
+		z-index: @z-sirkel;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: @sirkelSize;
+		height: @sirkelSize;
+		border-radius: 50%;
+		border: @sirkelBorderWidth solid @borderColor;
+		background-color: @bkgColor;
+		margin-top: -1 * @sirkelOffsetTop;
+		margin-left: -1 * (@sirkelSize/2 - @sirkelBorderWidth) + 1;
+	}
+
+	.setStrekColor(@color) {
+		background-color: @color;
+		&:before,
+		&:after {
+			border-color: @color;
+		}
+		&:after {
+			background-color: @color;
+		}
+	}
+
+	.visSirkelTop() {
+		&:before {
+			display: block;
+		}
+	}
+	.visSirkelBottom() {
+		&:after {
+			display: block;
+		}
+	}
+
+	/** Klasser */
+	.tidslinje {
+		@verticalSpacing: 1rem;
+		background-color: #f1f1f1;
+		margin-left: -2rem;
+		margin-right: -2rem;
+		border-radius: 8px;
+		padding: 2rem 3rem 2rem 2rem;
+
+		&__innslag {
+			margin-bottom: @verticalSpacing;
+			position: relative;
+			padding-left: @padding-left;
+			&__dato {
+				font-weight: bold;
+			}
+			&--hendelse {
+				margin-top: -1 * @verticalSpacing;
+				margin-bottom: 0;
+			}
+		}
+	}
+	.hendelseinnslag {
 		&__dato {
 			font-weight: bold;
+			display: inline-block;
+			margin-right: 0.5rem;
+			margin-bottom: 0.2rem; // justerer vertical alignment av tekst
 		}
-		&--hendelse {
-			margin-top: -1 * @verticalSpacing;
-			margin-bottom: 0;
+		&__hendelse {
+			display: inline-block;
+		}
+		&__ikon {
+			vertical-align: middle;
+			margin-left: 0.5rem;
+		}
+	}
+
+	.periodeinnslag {
+		&__dato {
+			font-weight: bold;
+			display: block;
+			margin-bottom: 0.5rem;
+		}
+	}
+
+	.tidslinjestrek {
+		&:before {
+			.sirkel(@c-purple);
+			display: none;
+		}
+		&:after {
+			.sirkel(@c-purple, @c-purple);
+			top: initial;
+			bottom: @sirkelOffsetBottom;
+			display: none;
+		}
+		&--periode {
+			width: 8px;
+			background-color: @c-purple;
+			position: absolute;
+			top: @strekOffsetTop;
+			bottom: @strekOffsetBottom;
+			left: 0;
+			z-index: @z-strek;
+			.visSirkelTop();
+			.visSirkelBottom();
+		}
+		&--forelder2 {
+			.setStrekColor(@c-blue);
+		}
+		&--utsettelse {
+			.setStrekColor(@c-green);
+			.polkaGradering(@c-green);
 		}
 	}
 }
 
-.hendelseinnslag {
-	&__dato {
-		font-weight: bold;
-		display: inline-block;
-		margin-right: 0.5rem;
-		margin-bottom: 0.2rem; // justerer vertical alignment av tekst
-	}
-	&__hendelse {
-		display: inline-block;
-	}
-	&__ikon {
-		vertical-align: middle;
-		margin-left: 0.5rem;
-	}
-}
-
-.periodeinnslag {
-	&__dato {
-		font-weight: bold;
-		display: block;
-		margin-bottom: 0.5rem;
-	}
-}
+/** Generer css for tidslinje */
+.tidslinje();
 
 // @arrow-size: 10px;
 // @bkgColor: #e7e7e7;

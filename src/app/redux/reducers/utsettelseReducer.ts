@@ -1,6 +1,13 @@
-import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from 'app/redux/actions/actionTypes';
+import {
+	PlanleggerActionTypes,
+	PlanleggerActionTypeKeys
+} from 'app/redux/actions/actionTypes';
 import { UtsettelseState } from '../types';
-import { Utsettelsesperiode, UtsettelseArsakType, Periodetype } from 'app/types';
+import {
+	Utsettelsesperiode,
+	UtsettelseArsakType,
+	Periodetype
+} from 'app/types';
 import { guid } from 'nav-frontend-js-utils';
 
 export const mockUtsettelser: Utsettelsesperiode[] = [];
@@ -27,16 +34,22 @@ export const utsettelse2: Utsettelsesperiode = {
 };
 
 // mockUtsettelser.push(utsettelse1);
-// mockUtsettelser.push(utsettelse2);
+mockUtsettelser.push(utsettelse2);
 
 const defaultState: UtsettelseState = {
 	dialogErApen: false,
 	utsettelser: mockUtsettelser
 };
 
-const opprettEllerOppdaterUtsettelse = (state: UtsettelseState, utsettelse: Utsettelsesperiode): UtsettelseState => {
+const opprettEllerOppdaterUtsettelse = (
+	state: UtsettelseState,
+	utsettelse: Utsettelsesperiode
+): UtsettelseState => {
 	const utsettelser = utsettelse.id
-		? state.utsettelser.map((u, idx) => (u.id === utsettelse.id ? utsettelse : state.utsettelser[idx]))
+		? state.utsettelser.map(
+				(u, idx) =>
+					u.id === utsettelse.id ? utsettelse : state.utsettelser[idx]
+			)
 		: [
 				...state.utsettelser,
 				{
@@ -51,12 +64,23 @@ const opprettEllerOppdaterUtsettelse = (state: UtsettelseState, utsettelse: Utse
 	};
 };
 
-const UtsettelseReducer = (state = defaultState, action: PlanleggerActionTypes) => {
+const UtsettelseReducer = (
+	state = defaultState,
+	action: PlanleggerActionTypes
+) => {
 	switch (action.type) {
 		case PlanleggerActionTypeKeys.UTSETTELSE_VIS_DIALOG:
-			return { ...state, dialogErApen: true, valgtUtsettelse: action.utsettelse } as UtsettelseState;
+			return {
+				...state,
+				dialogErApen: true,
+				valgtUtsettelse: action.utsettelse
+			} as UtsettelseState;
 		case PlanleggerActionTypeKeys.UTSETTELSE_LUKK_DIALOG:
-			return { ...state, dialogErApen: false, valgtUtsettelse: undefined } as UtsettelseState;
+			return {
+				...state,
+				dialogErApen: false,
+				valgtUtsettelse: undefined
+			} as UtsettelseState;
 		case PlanleggerActionTypeKeys.UTSETTELSE_OPPRETT_ELLER_OPPDATER:
 			return opprettEllerOppdaterUtsettelse(state, action.utsettelse);
 		default:

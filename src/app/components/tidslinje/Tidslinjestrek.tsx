@@ -1,24 +1,40 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
-import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
+import {
+	Tidslinjeinnslag,
+	TidslinjeinnslagType,
+	Hendelseinnslag,
+	Periodeinnslag
+} from 'app/components/tidslinje/types';
 
 export interface Props {
 	innslag: Tidslinjeinnslag;
 }
 
-const Tidslinjestrek: React.StatelessComponent<Props> = (props) => (
-	<div
-		className={classnames(
-			'tidslinjeInnslag__linje'
-			// `tidslinjeInnslag__linje--${innslag.forelder}`,
-			// `tidslinjeInnslag__linje--${innslag.type}`,
-			// {
-			// 	'tidslinjeInnslag__linje--fortsettelse': innslag.fortsettelse,
-			// 	'tidslinjeInnslag__linje--fortsetter': innslag.fortsetter,
-			// 	'tidslinjeInnslag__linje--slutt': innslag.slutter
-			// }
-		)}
-	/>
-);
+const cls = (variant?: string) =>
+	variant ? `tidslinjestrek--${variant}` : 'tidslinjestrek';
+
+const hendelseClassNames = (innslag: Hendelseinnslag): string =>
+	classnames(cls(), cls('hendelse'));
+
+const periodeClassNames = (innslag: Periodeinnslag): string =>
+	classnames(
+		cls(),
+		cls('periode'),
+		cls(innslag.periode.forelder),
+		cls(innslag.periode.type)
+	);
+
+const Tidslinjestrek: React.StatelessComponent<Props> = ({ innslag }) => {
+	return (
+		<div
+			className={
+				innslag.type === TidslinjeinnslagType.hendelse
+					? hendelseClassNames(innslag)
+					: periodeClassNames(innslag)
+			}
+		/>
+	);
+};
 
 export default Tidslinjestrek;

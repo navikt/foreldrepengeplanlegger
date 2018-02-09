@@ -5,7 +5,11 @@ import Modal from 'nav-frontend-modal';
 
 import UtsettelseSkjema from '../components/utsettelseSkjema/UtsettelseSkjema';
 import { DispatchProps, AppState } from 'app/redux/types';
-import { utsettelseLukkDialog, utsettelseVisDialog, opprettEllerOppdaterUtsettelse } from 'app/redux/actions';
+import {
+	utsettelseLukkDialog,
+	utsettelseVisDialog,
+	opprettEllerOppdaterUtsettelse
+} from 'app/redux/actions';
 import { Utsettelsesperiode, Tidsperiode } from 'app/types';
 import LeggTilKnapp from 'app/components/leggTilKnapp/LeggTilKnapp';
 import SkjemaInputElement from 'shared/components/skjemaInputElement/SkjemaInputElement';
@@ -28,7 +32,9 @@ type Props = StateProps & DispatchProps;
 
 const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 	<div>
-		<SkjemaInfotekst id="info-dekningsgrad">{Tekst.skjema.info.utsettelse}</SkjemaInfotekst>
+		<SkjemaInfotekst id="info-dekningsgrad">
+			{Tekst.skjema.info.utsettelse}
+		</SkjemaInfotekst>
 		<SkjemaInputElement label="Utsettelse av permisjonstiden">
 			<LeggTilKnapp onClick={() => props.dispatch(utsettelseVisDialog())} />
 		</SkjemaInputElement>
@@ -45,7 +51,9 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 						forelder1={props.forelder1}
 						forelder2={props.forelder2}
 						tidsrom={props.tidsrom}
-						onChange={(utsettelse) => props.dispatch(opprettEllerOppdaterUtsettelse(utsettelse))}
+						onChange={(utsettelse) =>
+							props.dispatch(opprettEllerOppdaterUtsettelse(utsettelse))
+						}
 					/>
 				)
 			}
@@ -69,7 +77,9 @@ const mapStateToProps = (state: AppState): StateProps => {
 		forelder2: state.form.navnForelder2,
 		isOpen: state.utsettelse.dialogErApen,
 		tidsrom: {
-			startdato: getForsteUttaksdagEtterDato(periodeberegner.getModrekvotePostTermin().sluttdato),
+			startdato: getForsteUttaksdagEtterDato(
+				periodeberegner.getModrekvotePostTermin().sluttdato
+			),
 			sluttdato: periodeberegner.getSistePermisjonsdag()
 		}
 	};

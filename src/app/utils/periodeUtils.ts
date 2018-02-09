@@ -33,9 +33,16 @@ export const sorterPerioder = (p1: Periode, p2: Periode) => {
  * @param perioder
  * @param dato
  */
-export const finnPeriode = (perioder: Periode[], dato: Date): Periode | undefined => {
+export const finnPeriode = (
+	perioder: Periode[],
+	dato: Date
+): Periode | undefined => {
 	return perioder.find((periode) => {
-		return isWithinRange(dato, periode.tidsperiode.startdato, periode.tidsperiode.sluttdato);
+		return isWithinRange(
+			dato,
+			periode.tidsperiode.startdato,
+			periode.tidsperiode.sluttdato
+		);
 	});
 };
 
@@ -44,7 +51,10 @@ export const finnPeriode = (perioder: Periode[], dato: Date): Periode | undefine
  * @param perioder
  * @param periode
  */
-const hentPerioderForOgEtterPeriode = (perioder: Periode[], periode: Periode): Periodesplitt => {
+const hentPerioderForOgEtterPeriode = (
+	perioder: Periode[],
+	periode: Periode
+): Periodesplitt => {
 	const index = perioder.findIndex((p) => p === periode);
 	const perioderEtter = perioder.splice(index + 1);
 	const perioderFor: Periode[] = [...perioder.slice(0, index)];
@@ -59,9 +69,14 @@ const hentPerioderForOgEtterPeriode = (perioder: Periode[], periode: Periode): P
  * @param grunnfordeling
  * @param dekningsgrad
  */
-export const getAntallUkerFellesperiode = (grunnfordeling: Grunnfordeling, dekningsgrad?: Dekningsgrad) => {
+export const getAntallUkerFellesperiode = (
+	grunnfordeling: Grunnfordeling,
+	dekningsgrad?: Dekningsgrad
+) => {
 	const totaltAntallUker =
-		dekningsgrad === '80%' ? grunnfordeling.antallUkerTotalt80 : grunnfordeling.antallUkerTotalt100;
+		dekningsgrad === '80%'
+			? grunnfordeling.antallUkerTotalt80
+			: grunnfordeling.antallUkerTotalt100;
 	return (
 		totaltAntallUker -
 		grunnfordeling.antallUkerModrekvote -
@@ -105,13 +120,18 @@ export const leggUtsettelserTilPerioder = (
  * @param perioder
  * @param utsettelse
  */
-export const leggTilUtsettelse = (perioder: Periode[], utsettelse: Utsettelsesperiode): Periode[] => {
+export const leggTilUtsettelse = (
+	perioder: Periode[],
+	utsettelse: Utsettelsesperiode
+): Periode[] => {
 	const periode = finnPeriode(perioder, utsettelse.tidsperiode.startdato);
 	if (!periode) {
 		throw 'Ingen periode funnet som passer til utsettelse';
 	}
 
-	if (isSameDay(periode.tidsperiode.startdato, utsettelse.tidsperiode.startdato)) {
+	if (
+		isSameDay(periode.tidsperiode.startdato, utsettelse.tidsperiode.startdato)
+	) {
 		return leggTilUtsettelseEtterPeriode(perioder, periode, utsettelse);
 	} else {
 		return leggTilUtsettelseIPeriode(perioder, periode, utsettelse);
@@ -129,11 +149,17 @@ export const leggTilUtsettelseEtterPeriode = (
 	periode: Periode,
 	utsettelse: Utsettelsesperiode
 ): Periode[] => {
-	const { perioderFor, perioderEtter } = hentPerioderForOgEtterPeriode(perioder, periode);
+	const { perioderFor, perioderEtter } = hentPerioderForOgEtterPeriode(
+		perioder,
+		periode
+	);
 	return [
 		...perioderFor,
 		...[utsettelse],
-		...forskyvPerioder([periode, ...perioderEtter], getForsteUttaksdagEtterDato(utsettelse.tidsperiode.sluttdato))
+		...forskyvPerioder(
+			[periode, ...perioderEtter],
+			getForsteUttaksdagEtterDato(utsettelse.tidsperiode.sluttdato)
+		)
 	];
 };
 
@@ -148,13 +174,22 @@ export const leggTilUtsettelseIPeriode = (
 	periode: Periode,
 	utsettelse: Utsettelsesperiode
 ): Periode[] => {
-	const { perioderFor, perioderEtter } = hentPerioderForOgEtterPeriode(perioder, periode);
-	const periodeSplittetMedUtsettelse = leggUtsettelseInnIPeriode(periode, utsettelse);
+	const { perioderFor, perioderEtter } = hentPerioderForOgEtterPeriode(
+		perioder,
+		periode
+	);
+	const periodeSplittetMedUtsettelse = leggUtsettelseInnIPeriode(
+		periode,
+		utsettelse
+	);
 	const sisteSplittetPeriode = periodeSplittetMedUtsettelse[2];
 	return [
 		...perioderFor,
 		...periodeSplittetMedUtsettelse,
-		...forskyvPerioder(perioderEtter, getForsteUttaksdagEtterDato(sisteSplittetPeriode.tidsperiode.sluttdato))
+		...forskyvPerioder(
+			perioderEtter,
+			getForsteUttaksdagEtterDato(sisteSplittetPeriode.tidsperiode.sluttdato)
+		)
 	];
 };
 
@@ -164,7 +199,10 @@ export const leggTilUtsettelseIPeriode = (
  * @param periode
  * @param utsettelse
  */
-export const leggUtsettelseInnIPeriode = (periode: Periode, utsettelse: Utsettelsesperiode): Periode[] => {
+export const leggUtsettelseInnIPeriode = (
+	periode: Periode,
+	utsettelse: Utsettelsesperiode
+): Periode[] => {
 	const dagerIPeriode = getAntallUttaksdagerITidsperiode(periode.tidsperiode);
 	const dagerForsteDel = getAntallUttaksdagerITidsperiode({
 		startdato: periode.tidsperiode.startdato,
@@ -181,11 +219,17 @@ export const leggUtsettelseInnIPeriode = (periode: Periode, utsettelse: Utsettel
 	const midt = {
 		...utsettelse,
 		tidsperiode: {
-			startdato: getForsteUttaksdagPaEllerEtterDato(utsettelse.tidsperiode.startdato),
-			sluttdato: getForsteUttaksdagPaEllerForDato(utsettelse.tidsperiode.sluttdato)
+			startdato: getForsteUttaksdagPaEllerEtterDato(
+				utsettelse.tidsperiode.startdato
+			),
+			sluttdato: getForsteUttaksdagPaEllerForDato(
+				utsettelse.tidsperiode.sluttdato
+			)
 		}
 	};
-	const startSisteDel: Date = getForsteUttaksdagEtterDato(midt.tidsperiode.sluttdato);
+	const startSisteDel: Date = getForsteUttaksdagEtterDato(
+		midt.tidsperiode.sluttdato
+	);
 	const siste: Stonadsperiode = {
 		...(periode as Stonadsperiode),
 		tidsperiode: {
@@ -200,7 +244,10 @@ export const leggUtsettelseInnIPeriode = (periode: Periode, utsettelse: Utsettel
  * @param perioder
  * @param startdato
  */
-export const forskyvPerioder = (perioder: Periode[], startdato: Date): Periode[] => {
+export const forskyvPerioder = (
+	perioder: Periode[],
+	startdato: Date
+): Periode[] => {
 	let forrigeDato = startdato;
 	return perioder.map((periode) => {
 		const tidsperiode = flyttTidsperiode(
@@ -220,7 +267,10 @@ export const forskyvPerioder = (perioder: Periode[], startdato: Date): Periode[]
  * @param tidsperiode
  * @param startdato
  */
-export const flyttTidsperiode = (tidsperiode: Tidsperiode, startdato: Date): Tidsperiode => {
+export const flyttTidsperiode = (
+	tidsperiode: Tidsperiode,
+	startdato: Date
+): Tidsperiode => {
 	const uttaksdager = getAntallUttaksdagerITidsperiode(tidsperiode);
 	const sluttdato = leggUttaksdagerTilDato(startdato, uttaksdager - 1);
 	return {
@@ -233,10 +283,15 @@ export const flyttTidsperiode = (tidsperiode: Tidsperiode, startdato: Date): Tid
  * Henter ut antall uttaksdager for en forelder fra perioder[]. Tar ikke
  * høyde for overlappende perioder
  */
-export const getUttaksdagerForForelder = (forelder: Forelder, perioder: Periode[]): number => {
+export const getUttaksdagerForForelder = (
+	forelder: Forelder,
+	perioder: Periode[]
+): number => {
 	return perioder.reduce(
 		(dager: number, periode: Periode) =>
-			periode.forelder === forelder ? dager + getAntallUttaksdagerITidsperiode(periode.tidsperiode) : dager,
+			periode.forelder === forelder
+				? dager + getAntallUttaksdagerITidsperiode(periode.tidsperiode)
+				: dager,
 		0
 	);
 };

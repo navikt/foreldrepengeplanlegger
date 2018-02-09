@@ -1,6 +1,9 @@
 import { createSelector } from 'reselect';
 import { AppState } from 'app/redux/types';
-import { Tidslinjeinnslag, TidslinjeinnslagType } from 'app/components/tidslinje/types';
+import {
+	Tidslinjeinnslag,
+	TidslinjeinnslagType
+} from 'app/components/tidslinje/types';
 import { getPerioderForTidslinje } from './periodeSelector';
 import { isSameDay } from 'date-fns';
 
@@ -44,7 +47,10 @@ export const tidslinjeFraPerioder = createSelector(
 	}
 );
 
-const sorterTidslinjeinnslagEtterStartdato = (innslag1: Tidslinjeinnslag, innslag2: Tidslinjeinnslag) => {
+const sorterTidslinjeinnslagEtterStartdato = (
+	innslag1: Tidslinjeinnslag,
+	innslag2: Tidslinjeinnslag
+) => {
 	const startdato1 = getStartdato(innslag1);
 	const startdato2 = getStartdato(innslag2);
 
@@ -55,7 +61,10 @@ const sorterTidslinjeinnslagEtterStartdato = (innslag1: Tidslinjeinnslag, innsla
 };
 
 export const getStartdato = (innslag: Tidslinjeinnslag): Date =>
-	innslag.type === TidslinjeinnslagType.hendelse ? innslag.dato : innslag.periode.tidsperiode.startdato;
+	innslag.type === TidslinjeinnslagType.hendelse
+		? innslag.dato
+		: innslag.periode.tidsperiode.startdato;
 
 export const erTerminHendelse = (innslag: Tidslinjeinnslag): boolean =>
-	innslag.type === TidslinjeinnslagType.hendelse && innslag.hendelse === 'termin';
+	innslag.type === TidslinjeinnslagType.hendelse &&
+	innslag.hendelse === 'termin';

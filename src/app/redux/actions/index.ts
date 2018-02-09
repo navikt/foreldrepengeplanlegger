@@ -30,21 +30,27 @@ export function settAntallDagerMor(uker: number): PlanleggerActionTypes {
 	};
 }
 
-export function settAntallDagerMedforelder(uker: number): PlanleggerActionTypes {
+export function settAntallDagerMedforelder(
+	uker: number
+): PlanleggerActionTypes {
 	return {
 		type: PlanleggerActionTypeKeys.SET_UKER_FORELDER2,
 		uker
 	};
 }
 
-export function setDekningsgrad(dekningsgrad: Dekningsgrad | undefined): PlanleggerActionTypes {
+export function setDekningsgrad(
+	dekningsgrad: Dekningsgrad | undefined
+): PlanleggerActionTypes {
 	return {
 		type: PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD,
 		dekningsgrad
 	};
 }
 
-export function utsettelseVisDialog(utsettelse?: Utsettelsesperiode): PlanleggerActionTypes {
+export function utsettelseVisDialog(
+	utsettelse?: Utsettelsesperiode
+): PlanleggerActionTypes {
 	return {
 		type: PlanleggerActionTypeKeys.UTSETTELSE_VIS_DIALOG,
 		utsettelse
@@ -57,14 +63,18 @@ export function utsettelseLukkDialog(): PlanleggerActionTypes {
 	};
 }
 
-export function opprettEllerOppdaterUtsettelse(utsettelse: Utsettelsesperiode): PlanleggerActionTypes {
+export function opprettEllerOppdaterUtsettelse(
+	utsettelse: Utsettelsesperiode
+): PlanleggerActionTypes {
 	return {
 		type: PlanleggerActionTypeKeys.UTSETTELSE_OPPRETT_ELLER_OPPDATER,
 		utsettelse
 	};
 }
 
-export function slettUtsettelse(utsettelse: Utsettelsesperiode): PlanleggerActionTypes {
+export function slettUtsettelse(
+	utsettelse: Utsettelsesperiode
+): PlanleggerActionTypes {
 	return {
 		type: PlanleggerActionTypeKeys.UTSETTELSE_SLETT,
 		utsettelse

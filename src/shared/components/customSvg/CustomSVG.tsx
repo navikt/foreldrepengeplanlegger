@@ -8,7 +8,11 @@ export interface Props {
 	className?: string;
 }
 
-const CustomSVGFromSprite: React.StatelessComponent<Props> = ({ iconRef, size, className }) => {
+const CustomSVGFromSprite: React.StatelessComponent<Props> = ({
+	iconRef,
+	size,
+	className
+}) => {
 	const attrs = {
 		'view-box': iconRef.viewBox,
 		height: typeof size === 'number' ? size : size ? size.height : undefined,

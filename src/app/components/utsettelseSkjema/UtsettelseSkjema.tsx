@@ -1,7 +1,13 @@
 import * as React from 'react';
 import { FormEvent } from 'react';
 
-import { UtsettelseArsakType, Utsettelsesperiode, Forelder, Periodetype, Tidsperiode } from 'app/types';
+import {
+	UtsettelseArsakType,
+	Utsettelsesperiode,
+	Forelder,
+	Periodetype,
+	Tidsperiode
+} from 'app/types';
 import DateInput from 'shared/components/dateInput/DateInput';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Radioliste from 'shared/components/radioliste/Radioliste';
@@ -36,8 +42,12 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			? {
 					arsak: utsettelse.arsak,
 					forelder: utsettelse.forelder,
-					startdato: utsettelse.tidsperiode ? utsettelse.tidsperiode.startdato : undefined,
-					sluttdato: utsettelse.tidsperiode ? utsettelse.tidsperiode.sluttdato : undefined
+					startdato: utsettelse.tidsperiode
+						? utsettelse.tidsperiode.startdato
+						: undefined,
+					sluttdato: utsettelse.tidsperiode
+						? utsettelse.tidsperiode.sluttdato
+						: undefined
 				}
 			: {};
 
@@ -78,7 +88,13 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 
 	render() {
 		const { arsak, startdato, sluttdato, forelder } = this.state;
-		const { utsettelse, forelder1, forelder2, tidsrom, registrerteUtsettelser } = this.props;
+		const {
+			utsettelse,
+			forelder1,
+			forelder2,
+			tidsrom,
+			registrerteUtsettelser
+		} = this.props;
 
 		const tilTidsrom: Tidsperiode = {
 			startdato: startdato ? startdato : tidsrom.startdato,
@@ -94,7 +110,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 
 		return (
 			<form onSubmit={preventDefaultEvent} className="utsettelseSkjema">
-				<h1 className="typo-undertittel m-textCenter blokk-s">Legg til utsettelse</h1>
+				<h1 className="typo-undertittel m-textCenter blokk-s">
+					Legg til utsettelse
+				</h1>
 				<div className="blokk-s">
 					<Radioliste
 						tittel="Velg type"
@@ -112,7 +130,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						]}
 						inputnavn="utsettelse"
 						valgtVerdi={arsak}
-						onChange={(value) => this.setState({ arsak: value as UtsettelseArsakType })}
+						onChange={(value) =>
+							this.setState({ arsak: value as UtsettelseArsakType })
+						}
 					/>
 				</div>
 				<Row>
@@ -123,7 +143,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								id="startdato"
 								fromDate={tidsrom.startdato}
 								toDate={tidsrom.sluttdato}
-								onChange={(date) => this.setState({ startdato: new Date(date) })}
+								onChange={(date) =>
+									this.setState({ startdato: new Date(date) })
+								}
 								selectedDate={startdato}
 								disabledRanges={ugyldigeTidsrom}
 								disableWeekends={true}
@@ -138,7 +160,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								id="sluttdato"
 								fromDate={tilTidsrom.startdato}
 								toDate={tilTidsrom.sluttdato}
-								onChange={(date) => this.setState({ sluttdato: new Date(date) })}
+								onChange={(date) =>
+									this.setState({ sluttdato: new Date(date) })
+								}
 								selectedDate={sluttdato}
 								disabledRanges={ugyldigeTidsrom}
 								disableWeekends={true}
@@ -162,7 +186,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					/>
 				</div>
 
-				<Hovedknapp onClick={() => this.handleSubmitClick()} className="m-fullBredde">
+				<Hovedknapp
+					onClick={() => this.handleSubmitClick()}
+					className="m-fullBredde">
 					{utsettelse ? 'Oppdater' : 'Legg til'}
 				</Hovedknapp>
 			</form>

@@ -19,7 +19,9 @@ const getInnslagfarge = (innslag: Periodeinnslag): CalloutBorderColor => {
 	return 'blue';
 };
 
-const TidslinjePeriodeinnslag: React.StatelessComponent<Props> = ({ innslag }) => {
+const TidslinjePeriodeinnslag: React.StatelessComponent<Props> = ({
+	innslag
+}) => {
 	const { periode } = innslag;
 
 	return (

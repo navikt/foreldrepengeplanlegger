@@ -7,7 +7,12 @@ import { Input } from 'nav-frontend-skjema';
 import DateInput from 'shared/components/dateInput/DateInput';
 import Radioliste from 'shared/components/radioliste/Radioliste';
 
-import { DispatchProps, AppState, FormState, UtsettelseState } from 'app/redux/types';
+import {
+	DispatchProps,
+	AppState,
+	FormState,
+	UtsettelseState
+} from 'app/redux/types';
 import {
 	setNavnForelder1,
 	setNavnForelder2,
@@ -40,7 +45,9 @@ class Skjema extends React.Component<Props> {
 								name="navnforelder1"
 								label={Tekst.skjema.labelForelder1}
 								value={form.navnForelder1}
-								onChange={(e: any) => dispatch(setNavnForelder1(e.target.value))}
+								onChange={(e: any) =>
+									dispatch(setNavnForelder1(e.target.value))
+								}
 							/>
 						</Column>
 						<Column xs="6">
@@ -48,7 +55,9 @@ class Skjema extends React.Component<Props> {
 								name="navnforelder2"
 								label={Tekst.skjema.labelForelder2}
 								value={form.navnForelder2}
-								onChange={(e: any) => dispatch(setNavnForelder2(e.target.value))}
+								onChange={(e: any) =>
+									dispatch(setNavnForelder2(e.target.value))
+								}
 							/>
 						</Column>
 					</Row>
@@ -64,21 +73,31 @@ class Skjema extends React.Component<Props> {
 				</div>
 
 				<div className="blokk-m">
-					<SkjemaInfotekst id="info-dekningsgrad">{Tekst.skjema.info.dekningsgrad}</SkjemaInfotekst>
+					<SkjemaInfotekst id="info-dekningsgrad">
+						{Tekst.skjema.info.dekningsgrad}
+					</SkjemaInfotekst>
 					<Radioliste
 						inputnavn="dekningsgrad"
-						tittel={Tekst.skjema.labelDekningsgrad(form.navnForelder2 ? form.navnForelder2 !== '' : false)}
+						tittel={Tekst.skjema.labelDekningsgrad(
+							form.navnForelder2 ? form.navnForelder2 !== '' : false
+						)}
 						valgtVerdi={form.dekningsgrad}
-						onChange={(value) => dispatch(setDekningsgrad(value as Dekningsgrad))}
+						onChange={(value) =>
+							dispatch(setDekningsgrad(value as Dekningsgrad))
+						}
 						stil="ekstern"
 						kolonner="2"
 						valg={[
 							{
-								tittel: Tekst.skjema.labelDekningsgrad80(form.grunnfordeling.antallUkerTotalt80),
+								tittel: Tekst.skjema.labelDekningsgrad80(
+									form.grunnfordeling.antallUkerTotalt80
+								),
 								verdi: '80%'
 							},
 							{
-								tittel: Tekst.skjema.labelDekningsgrad100(form.grunnfordeling.antallUkerTotalt100),
+								tittel: Tekst.skjema.labelDekningsgrad100(
+									form.grunnfordeling.antallUkerTotalt100
+								),
 								verdi: '100%'
 							}
 						]}
@@ -88,7 +107,9 @@ class Skjema extends React.Component<Props> {
 				{form.ukerFellesperiode &&
 					form.dekningsgrad && (
 						<div className="blokk-s">
-							<SkjemaInfotekst id="info-fordeling">{Tekst.skjema.info.fordelingFellesperiode}</SkjemaInfotekst>
+							<SkjemaInfotekst id="info-fordeling">
+								{Tekst.skjema.info.fordelingFellesperiode}
+							</SkjemaInfotekst>
 							<FordelingFellesperiodeRange
 								navnForelder1={form.navnForelder1}
 								navnForelder2={form.navnForelder2}

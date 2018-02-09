@@ -9,8 +9,13 @@ export interface Props extends React.HTMLProps<HTMLButtonElement> {
 }
 
 const LeggTilKnapp: React.StatelessComponent<Props> = (props) => (
-	<button type="button" onClick={(e) => props.onClick(e)} className="m-fullBredde leggTilKnapp">
-		<span className="leggTilKnapp__label">Legg til ferie, permisjon eller arbeid</span>
+	<button
+		type="button"
+		onClick={(e) => props.onClick(e)}
+		className="m-fullBredde leggTilKnapp">
+		<span className="leggTilKnapp__label">
+			Legg til ferie, permisjon eller arbeid
+		</span>
 		<span className="leggTilKnapp__pluss">
 			<CustomSVG iconRef={pluss.default} size={24} />
 		</span>

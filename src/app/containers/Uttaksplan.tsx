@@ -4,7 +4,12 @@ import { RouteComponentProps, withRouter } from 'react-router';
 
 import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import Skjema from './Skjema';
-import { AppState, UtsettelseState, DispatchProps, FormState } from 'app/redux/types';
+import {
+	AppState,
+	UtsettelseState,
+	DispatchProps,
+	FormState
+} from 'app/redux/types';
 import { tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import Veileder from 'shared/components/veileder/Veileder';
 import UtsettelseDialog from 'app/containers/UtsettelseDialog';
@@ -28,8 +33,10 @@ export class Uttaksplan extends React.Component<Props> {
 						<Veileder type="intro" svgClassName="veilederSvg" />
 					</div>
 					<p>
-						Hei, hver forelder har rett på 10 uker permisjon hver. I tillegg har dere enten 36 eller 26 uker dere kan
-						fordele mellom dere basert på den totale permisjonslengden dere velger, som er 59 uker eller 49 uker.
+						Hei, hver forelder har rett på 10 uker permisjon hver. I tillegg har
+						dere enten 36 eller 26 uker dere kan fordele mellom dere basert på
+						den totale permisjonslengden dere velger, som er 59 uker eller 49
+						uker.
 					</p>
 				</div>
 
@@ -53,7 +60,8 @@ const mapStateToProps = (state: AppState): StateProps => {
 		innslag,
 		form: state.form,
 		utsettelse: state.utsettelse,
-		visTidslinje: innslag && innslag.length > 0 && state.form.dekningsgrad !== undefined
+		visTidslinje:
+			innslag && innslag.length > 0 && state.form.dekningsgrad !== undefined
 	};
 };
 

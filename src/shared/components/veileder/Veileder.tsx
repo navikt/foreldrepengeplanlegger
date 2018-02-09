@@ -12,7 +12,11 @@ export interface Props {
 	svgClassName?: string;
 }
 
-const Veileder: React.StatelessComponent<Props> = ({ type, size, svgClassName }) => {
+const Veileder: React.StatelessComponent<Props> = ({
+	type,
+	size,
+	svgClassName
+}) => {
 	return <CustomSVG iconRef={svg[type]} size={size} className={svgClassName} />;
 };
 

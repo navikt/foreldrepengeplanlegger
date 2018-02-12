@@ -1,15 +1,13 @@
 import * as React from 'react';
 
 import { RangeInputValueLabelRendererOptions } from 'shared/components/rangeInput/RangeInput';
+import { pluralize } from 'app/utils';
 
 export interface Props {
 	options: RangeInputValueLabelRendererOptions;
 	navnForelder1: string;
 	navnForelder2: string;
 }
-
-const pluralize = (value: number, singular: string, plural: string): string =>
-	value === 1 ? singular : plural;
 
 const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 	options,

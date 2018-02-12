@@ -8,7 +8,7 @@ export interface Props {
 	visDager?: boolean;
 }
 
-const TidsperiodeTelst: React.StatelessComponent<Props> = ({
+const TidsperiodeTekst: React.StatelessComponent<Props> = ({
 	tidsperiode,
 	visDager
 }) => (
@@ -21,4 +21,4 @@ const TidsperiodeTelst: React.StatelessComponent<Props> = ({
 	</div>
 );
 
-export default TidsperiodeTelst;
+export default TidsperiodeTekst;

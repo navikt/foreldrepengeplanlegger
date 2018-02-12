@@ -52,7 +52,7 @@ export interface Utsettelsesperiode extends PeriodeBase {
 
 export interface SammenslattPeriode extends PeriodeBase {
 	type: Periodetype.SammenslattPeriode;
-	perioder: Periode[];
+	perioder: (Stonadsperiode | Utsettelsesperiode)[];
 	forelder: Forelder;
 	tidsperiode: Tidsperiode;
 }

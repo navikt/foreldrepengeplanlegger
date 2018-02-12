@@ -12,9 +12,15 @@ import Tidslinjestrek from 'app/components/tidslinje/Tidslinjestrek';
 
 export interface TidslinjeProps {
 	innslag: Tidslinjeinnslag[];
+	navnForelder1: string;
+	navnForelder2: string;
 }
 
-const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({ innslag }) => {
+const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({
+	innslag,
+	navnForelder1,
+	navnForelder2
+}) => {
 	return (
 		<div className="tidslinje">
 			<div className="blokk-m">
@@ -29,7 +35,11 @@ const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({ innslag }) => {
 					<div className={className} key={idx}>
 						<Tidslinjestrek innslag={i} />
 						{i.type === TidslinjeinnslagType.periode ? (
-							<TidslinjePeriodeinnslag innslag={i} />
+							<TidslinjePeriodeinnslag
+								innslag={i}
+								navnForelder1={navnForelder1}
+								navnForelder2={navnForelder2}
+							/>
 						) : (
 							<TidslinjeHendelseinnslag innslag={i}>
 								hendelse

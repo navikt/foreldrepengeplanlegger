@@ -9,17 +9,20 @@ import {
 import Tidslinjestrek from 'app/components/tidslinje/elementer/Tidslinjestrek';
 import Periodeinnslag from 'app/components/tidslinje/Periodeinnslag';
 import Hendelseinnslag from 'app/components/tidslinje/Hendelseinnslag';
+import { Utsettelsesperiode } from 'app/types';
 
 export interface TidslinjeProps {
 	innslag: Tidslinjeinnslag[];
 	navnForelder1: string;
 	navnForelder2: string;
+	onRedigerUtsettelse?: (utsettelse: Utsettelsesperiode) => void;
 }
 
 const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({
 	innslag,
 	navnForelder1,
-	navnForelder2
+	navnForelder2,
+	onRedigerUtsettelse
 }) => {
 	return (
 		<div className="tidslinje">
@@ -39,6 +42,7 @@ const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({
 								innslag={i}
 								navnForelder1={navnForelder1}
 								navnForelder2={navnForelder2}
+								onRedigerUtsettelse={onRedigerUtsettelse}
 							/>
 						) : (
 							<Hendelseinnslag innslag={i} />

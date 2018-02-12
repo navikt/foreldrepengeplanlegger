@@ -1,4 +1,4 @@
-import { Periodeinnslag } from 'app/components/tidslinje/types';
+import { InnslagPeriodetype } from 'app/components/tidslinje/types';
 import {
 	Tidsperiode,
 	Periodetype,
@@ -38,7 +38,7 @@ export const normaliserKontotype = (
  * @param innslag
  */
 export const oppsummeringPerioder = (
-	innslag: Periodeinnslag
+	innslag: InnslagPeriodetype
 ): SammenslattPeriodeOppsummering => {
 	const tidsperiode = {
 		startdato: innslag.perioderekke[0].tidsperiode.sluttdato,
@@ -70,7 +70,7 @@ export const oppsummeringPerioder = (
  * @param innslag
  */
 export const getInnslagfarge = (
-	innslag: Periodeinnslag
+	innslag: InnslagPeriodetype
 ): CalloutBorderColor => {
 	if (innslag.periode.type === Periodetype.Utsettelse) {
 		return 'green';
@@ -85,11 +85,11 @@ export const getInnslagfarge = (
  * Sjekker om forrige innslag har samme forelder
  * @param innslag
  */
-export const innslagErFortsettelse = (innslag: Periodeinnslag): boolean =>
+export const innslagErFortsettelse = (innslag: InnslagPeriodetype): boolean =>
 	innslag.perioderekke.length > 1 &&
 	innslag.perioderekke.findIndex((p) => p === innslag.periode) > 0;
 
-export const innslagFortsetter = (innslag: Periodeinnslag): boolean =>
+export const innslagFortsetter = (innslag: InnslagPeriodetype): boolean =>
 	innslag.perioderekke.length > 1 &&
 	innslag.perioderekke.findIndex((p) => p === innslag.periode) <
 		innslag.perioderekke.length - 1;

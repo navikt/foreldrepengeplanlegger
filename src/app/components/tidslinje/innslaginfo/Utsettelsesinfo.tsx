@@ -2,13 +2,12 @@ import * as React from 'react';
 import { Utsettelsesperiode, UtsettelseArsakType } from 'app/types';
 import { getForelderNavn } from 'app/components/tidslinje/tidslinjeUtils';
 import InnslagLayout from 'app/components/tidslinje/elementer/InnslagLayout';
-
 import { PeriodeinnslagProps } from '../Periodeinnslag';
 
 const Utsettelsesinfo: React.StatelessComponent<PeriodeinnslagProps> = (
 	props
 ) => {
-	const { innslag } = props;
+	const { innslag, onRedigerUtsettelse } = props;
 	const periode: Utsettelsesperiode = innslag.periode as Utsettelsesperiode;
 	const getArsakTekst = (arsak: UtsettelseArsakType) => {
 		switch (arsak) {
@@ -23,7 +22,11 @@ const Utsettelsesinfo: React.StatelessComponent<PeriodeinnslagProps> = (
 		}
 	};
 	return (
-		<InnslagLayout tidsperiode={innslag.periode.tidsperiode}>
+		<InnslagLayout
+			tidsperiode={innslag.periode.tidsperiode}
+			onRediger={
+				onRedigerUtsettelse ? () => onRedigerUtsettelse(periode) : undefined
+			}>
 			{getForelderNavn(
 				periode.forelder,
 				props.navnForelder1,

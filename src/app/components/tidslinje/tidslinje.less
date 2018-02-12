@@ -155,10 +155,21 @@
 	}
 
 	.periodeinnslag {
+		&__topp {
+			display: flex;
+		}
 		&__dato {
+			flex-grow: 2;
+			flex-basis: 100%;
 			font-weight: bold;
 			display: block;
 			margin-bottom: 0.5rem;
+		}
+		&__rediger {
+			flex-basis: 1;
+			flex-grow: 0;
+			white-space: nowrap;
+			text-align: right;
 		}
 	}
 

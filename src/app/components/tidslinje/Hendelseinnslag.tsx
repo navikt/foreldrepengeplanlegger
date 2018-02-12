@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import TerminIkon from 'app/components/ikoner/TerminIkon';
 import Dato from 'app/components/dato/Dato';
-import { Hendelseinnslag } from 'app/components/tidslinje/types';
+import { InnslagHendelsetype } from 'app/components/tidslinje/types';
 
 interface Props {
-	innslag: Hendelseinnslag;
+	innslag: InnslagHendelsetype;
 }
 
 const Hendelseinnslag: React.StatelessComponent<Props> = ({ innslag }) => {

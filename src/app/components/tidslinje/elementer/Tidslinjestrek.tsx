@@ -3,8 +3,8 @@ import * as classnames from 'classnames';
 import {
 	Tidslinjeinnslag,
 	TidslinjeinnslagType,
-	Hendelseinnslag,
-	Periodeinnslag
+	InnslagHendelsetype,
+	InnslagPeriodetype
 } from 'app/components/tidslinje/types';
 import { Periodetype } from 'app/types';
 import {
@@ -19,10 +19,10 @@ export interface Props {
 const cls = (variant?: string) =>
 	variant ? `tidslinjestrek--${variant}` : 'tidslinjestrek';
 
-const hendelseClassNames = (innslag: Hendelseinnslag): string =>
+const hendelseClassNames = (innslag: InnslagHendelsetype): string =>
 	classnames(cls(), cls('hendelse'), cls(`hendelse--${innslag.hendelse}`));
 
-const periodeClassNames = (innslag: Periodeinnslag): string =>
+const periodeClassNames = (innslag: InnslagPeriodetype): string =>
 	classnames(
 		cls(),
 		cls('periode'),

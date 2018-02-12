@@ -5,16 +5,16 @@ export enum TidslinjeinnslagType {
 	'hendelse' = 'hendelse'
 }
 
-export interface Hendelseinnslag {
+export interface InnslagHendelsetype {
 	type: TidslinjeinnslagType.hendelse;
 	hendelse: 'termin' | 'permisjonsslutt';
 	dato: Date;
 }
 
-export interface Periodeinnslag {
+export interface InnslagPeriodetype {
 	type: TidslinjeinnslagType.periode;
 	periode: Periode;
 	perioderekke: Periode[];
 }
 
-export type Tidslinjeinnslag = Periodeinnslag | Hendelseinnslag;
+export type Tidslinjeinnslag = InnslagPeriodetype | InnslagHendelsetype;

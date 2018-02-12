@@ -1,12 +1,12 @@
 import {
 	Tidslinjeinnslag,
 	TidslinjeinnslagType,
-	Hendelseinnslag,
-	Periodeinnslag
+	InnslagHendelsetype,
+	InnslagPeriodetype
 } from 'app/components/tidslinje/types';
 
 const getHendelseinnslagTekst = (
-	innslag: Hendelseinnslag,
+	innslag: InnslagHendelsetype,
 	navnForelder1: string,
 	navnForelder2: string
 ) => {
@@ -14,7 +14,7 @@ const getHendelseinnslagTekst = (
 };
 
 const getPeriodeinnslagTekst = (
-	innslag: Periodeinnslag,
+	innslag: InnslagPeriodetype,
 	navnForelder1: string,
 	navnForelder2: string
 ) => {

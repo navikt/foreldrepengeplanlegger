@@ -111,7 +111,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		return (
 			<form onSubmit={preventDefaultEvent} className="utsettelseSkjema">
 				<h1 className="typo-undertittel m-textCenter blokk-s">
-					Legg til utsettelse
+					{utsettelse ? 'Endre utsettelse' : 'Legg til utsettelse'}
 				</h1>
 				<div className="blokk-s">
 					<Radioliste

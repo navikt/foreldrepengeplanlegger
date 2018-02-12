@@ -7,6 +7,10 @@ import {
 	Periodeinnslag
 } from 'app/components/tidslinje/types';
 import { Periodetype } from 'app/types';
+import {
+	innslagErFortsettelse,
+	innslagFortsetter
+} from 'app/components/tidslinje/tidslinjeUtils';
 
 export interface Props {
 	innslag: Tidslinjeinnslag;
@@ -27,12 +31,10 @@ const periodeClassNames = (innslag: Periodeinnslag): string =>
 		{
 			'tidslinjestrek--fortsettelse':
 				innslag.periode.type !== Periodetype.Utsettelse &&
-				innslag.forrigePeriode &&
-				innslag.forrigePeriode.forelder === innslag.periode.forelder,
+				innslagErFortsettelse(innslag),
 			'tidslinjestrek--fortsetter':
 				innslag.periode.type !== Periodetype.Utsettelse &&
-				innslag.nestePeriode &&
-				innslag.nestePeriode.forelder === innslag.periode.forelder
+				innslagFortsetter(innslag)
 		}
 	);
 

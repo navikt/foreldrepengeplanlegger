@@ -21,10 +21,7 @@ export const StonadsperiodeBeskrivelse: React.StatelessComponent<
 	const periode: Stonadsperiode = innslag.periode as Stonadsperiode;
 
 	// Stønadsperiode før termin
-	if (
-		periode.konto === StonadskontoType.ForeldrepengerForFodsel &&
-		innslag.nestePeriode
-	) {
+	if (periode.konto === StonadskontoType.ForeldrepengerForFodsel) {
 		const oppsummering = oppsummeringMor(innslag);
 		return (
 			<InnslagLayout tidsperiode={oppsummering.tidsperiode}>

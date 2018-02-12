@@ -6,7 +6,7 @@ import { Periodetype } from 'app/types';
 
 import {
 	getInnslagfarge,
-	erFortsettelse,
+	innslagErFortsettelse,
 	getForelderNavn
 } from 'app/components/tidslinje/tidslinjeUtils';
 import InnslagLayout from 'app/components/tidslinje/elementer/InnslagLayout';
@@ -27,7 +27,10 @@ const Periodeinnslag: React.StatelessComponent<PeriodeinnslagProps> = (
 	const { innslag, navnForelder1, navnForelder2 } = props;
 
 	const getInnslagbeskrivelse = (): React.ReactNode => {
-		if (erFortsettelse(innslag)) {
+		if (
+			innslagErFortsettelse(innslag) &&
+			innslag.periode.type !== Periodetype.Utsettelse
+		) {
 			return (
 				<InnslagLayout>
 					{getForelderNavn(
@@ -55,7 +58,7 @@ const Periodeinnslag: React.StatelessComponent<PeriodeinnslagProps> = (
 		<div className="periodeinnslag">
 			<Callout
 				borderColor={getInnslagfarge(innslag)}
-				hideArrow={erFortsettelse(innslag)}>
+				hideArrow={innslagErFortsettelse(innslag)}>
 				{getInnslagbeskrivelse()}
 			</Callout>
 		</div>

@@ -353,7 +353,13 @@ export const getSammenhengendePerioder = (
 	periode: Periode,
 	perioder: Periode[]
 ): Periode[] => {
-	const periodeIndex = perioder.findIndex((p) => p === periode);
+	// Filtrer bort utsettelser
+	const stonadsperioder = perioder.filter(
+		(p) => p.type !== Periodetype.Utsettelse
+	);
+	const periodeIndex = stonadsperioder.findIndex((p) => p === periode);
+	let forstePeriode = periode;
+	let sistePeriode = periode;
 
 	// Finn startperioden med samme forelder før periode
 	let forstePeriodeIndex = periodeIndex;
@@ -361,17 +367,18 @@ export const getSammenhengendePerioder = (
 		let sammeForelder = true;
 		while (forstePeriodeIndex > 0 && sammeForelder) {
 			sammeForelder =
-				perioder[forstePeriodeIndex - 1].forelder === periode.forelder;
+				stonadsperioder[forstePeriodeIndex - 1].forelder === periode.forelder;
 			if (sammeForelder) {
 				forstePeriodeIndex--;
+				forstePeriode = stonadsperioder[forstePeriodeIndex];
 			}
 		}
 	}
 
 	// Finn sluttperioden med samme forelder etter periode
-	let sistePeriodeIndex = perioder.length - 1;
+	let sistePeriodeIndex = stonadsperioder.length - 1;
 	if (periodeIndex < sistePeriodeIndex) {
-		const sliced = perioder.slice(periodeIndex);
+		const sliced = stonadsperioder.slice(periodeIndex);
 		const periodeMedAnnenForelderIndex = sliced.findIndex(
 			(p) => p.forelder !== periode.forelder
 		);
@@ -379,9 +386,13 @@ export const getSammenhengendePerioder = (
 			periodeMedAnnenForelderIndex >= 0
 				? periodeIndex + periodeMedAnnenForelderIndex
 				: sistePeriodeIndex;
+		sistePeriode = stonadsperioder[sistePeriodeIndex];
 	}
 
 	return forstePeriodeIndex === sistePeriodeIndex
 		? [periode]
-		: perioder.slice(forstePeriodeIndex, sistePeriodeIndex);
+		: perioder.slice(
+				perioder.findIndex((p) => p === forstePeriode),
+				perioder.findIndex((p) => p === sistePeriode)
+			);
 };

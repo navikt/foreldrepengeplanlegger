@@ -126,11 +126,14 @@ export const getInnslagfarge = (
  * Sjekker om forrige innslag har samme forelder
  * @param innslag
  */
-export const erFortsettelse = (innslag: Periodeinnslag): boolean =>
-	(innslag.periode.type !== Periodetype.Utsettelse &&
-		innslag.forrigePeriode &&
-		innslag.forrigePeriode.forelder === innslag.periode.forelder) ||
-	false;
+export const innslagErFortsettelse = (innslag: Periodeinnslag): boolean =>
+	innslag.perioderekke.length > 1 &&
+	innslag.perioderekke.findIndex((p) => p === innslag.periode) > 0;
+
+export const innslagFortsetter = (innslag: Periodeinnslag): boolean =>
+	innslag.perioderekke.length > 1 &&
+	innslag.perioderekke.findIndex((p) => p === innslag.periode) <
+		innslag.perioderekke.length - 1;
 
 export const getForelderNavn = (
 	forelder: Forelder,

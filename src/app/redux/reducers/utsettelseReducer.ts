@@ -40,7 +40,7 @@ export const utsettelseTiDager: Utsettelsesperiode = {
 		startdato: new Date(2018, 3, 9),
 		sluttdato: new Date(2018, 3, 20)
 	},
-	forelder: 'forelder1'
+	forelder: 'forelder2'
 };
 export const utsettelse2: Utsettelsesperiode = {
 	id: '2',
@@ -54,7 +54,7 @@ export const utsettelse2: Utsettelsesperiode = {
 };
 
 // mockUtsettelser.push(utsettelseEnDag);
-// mockUtsettelser.push(utsettelseTiDager);
+mockUtsettelser.push(utsettelseTiDager);
 // mockUtsettelser.push(utsettelse2);
 
 const defaultState: UtsettelseState = {

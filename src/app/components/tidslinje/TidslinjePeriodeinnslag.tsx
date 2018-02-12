@@ -8,7 +8,9 @@ import {
 	Stonadsperiode,
 	StonadskontoType,
 	Tidsperiode,
-	Forelder
+	Forelder,
+	Utsettelsesperiode,
+	UtsettelseArsakType
 } from 'app/types';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import Tekst from 'app/tekst';
@@ -30,14 +32,28 @@ const getInnslagfarge = (innslag: Periodeinnslag): CalloutBorderColor => {
 	return 'blue';
 };
 
-const Utsettelse: React.StatelessComponent<Props> = ({
-	innslag,
-	navnForelder1,
-	navnForelder2
-}) => {
+const getForelderNavn = (forelder: Forelder, props: Props): string =>
+	forelder === 'forelder1' ? props.navnForelder1 : props.navnForelder2;
+
+const Utsettelse: React.StatelessComponent<Props> = (props) => {
+	const { innslag } = props;
+	const periode: Utsettelsesperiode = innslag.periode as Utsettelsesperiode;
+	const getArsakTekst = (arsak: UtsettelseArsakType) => {
+		switch (arsak) {
+			case UtsettelseArsakType.Arbeid:
+				return 'arbeid';
+			case UtsettelseArsakType.Ferie:
+				return 'ferie';
+			case UtsettelseArsakType.Sykdom:
+				return 'sykdom';
+			default:
+				return '';
+		}
+	};
 	return (
 		<InnslagLayout tidsperiode={innslag.periode.tidsperiode}>
-			Utsettelse
+			{getForelderNavn(periode.forelder, props)} utsetter med{' '}
+			{getArsakTekst(periode.arsak)}.
 		</InnslagLayout>
 	);
 };
@@ -126,15 +142,13 @@ const erFortsettelse = (innslag: Periodeinnslag): boolean =>
 const TidslinjePeriodeinnslag: React.StatelessComponent<Props> = (props) => {
 	const { innslag } = props;
 
-	const getForelderNavn = (forelder: Forelder): string =>
-		forelder === 'forelder1' ? props.navnForelder1 : props.navnForelder2;
-
 	const getInnslagbeskrivelse = (): React.ReactNode => {
 		// Dette er en fortsettelse av forrige innslag
 		if (erFortsettelse(innslag)) {
 			return (
 				<InnslagLayout>
-					{getForelderNavn(innslag.periode.forelder)} fortsetter sin permisjon.
+					{getForelderNavn(innslag.periode.forelder, props)} fortsetter sin
+					permisjon.
 				</InnslagLayout>
 			);
 		}

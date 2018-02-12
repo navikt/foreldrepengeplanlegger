@@ -14,6 +14,8 @@ import { tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import Veileder from 'shared/components/veileder/Veileder';
 import UtsettelseDialog from 'app/containers/UtsettelseDialog';
 import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
+import { utsettelseVisDialog } from 'app/redux/actions';
+import { Utsettelsesperiode } from 'app/types';
 
 export interface StateProps {
 	form: FormState;
@@ -53,6 +55,9 @@ export class Uttaksplan extends React.Component<Props> {
 						innslag={this.props.innslag}
 						navnForelder1={this.props.form.navnForelder1}
 						navnForelder2={this.props.form.navnForelder2}
+						onRedigerUtsettelse={(utsettelse: Utsettelsesperiode) =>
+							this.props.dispatch(utsettelseVisDialog(utsettelse))
+						}
 					/>
 				)}
 			</div>

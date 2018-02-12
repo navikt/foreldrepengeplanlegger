@@ -8,7 +8,8 @@ import {
 	Periodesplitt,
 	SammenslattPeriode,
 	Tidsperiode,
-	Forelder
+	Forelder,
+	Periodetype
 } from 'app/types';
 import {
 	getForsteUttaksdagPaEllerForDato,
@@ -295,3 +296,50 @@ export const getUttaksdagerForForelder = (
 		0
 	);
 };
+
+/** Henter siste uttaksdag i periode */
+export const getSisteUttaksdagIPeriode = (periode: Periode): Date =>
+	periode.type === Periodetype.SammenslattPeriode
+		? periode.perioder[periode.perioder.length - 1].tidsperiode.sluttdato
+		: periode.tidsperiode.sluttdato;
+
+export const splittPerioderEtterType = (
+	perioder: Periode[]
+): {
+	stonadsperioder: Stonadsperiode[];
+	utsettelsesperioder: Utsettelsesperiode[];
+} => {
+	let stonadsperioder: Stonadsperiode[] = [];
+	let utsettelsesperioder: Utsettelsesperiode[] = [];
+
+	perioder.forEach((periode) => {
+		if (periode.type === Periodetype.Stonadsperiode) {
+			stonadsperioder.push(periode);
+		} else if (periode.type === Periodetype.Utsettelse) {
+			utsettelsesperioder.push(periode);
+		} else {
+			const splitt = splittPerioderEtterType(periode.perioder);
+			stonadsperioder = stonadsperioder.concat(splitt.stonadsperioder);
+			utsettelsesperioder = utsettelsesperioder.concat(
+				splitt.utsettelsesperioder
+			);
+		}
+	});
+
+	return {
+		stonadsperioder,
+		utsettelsesperioder
+	};
+};
+
+// export const getStonadsperioder = (perioder: Periode[]): Stonadsperiode[] =>
+// 	perioder.filter(
+// 		(periode) => periode.type === Periodetype.Stonadsperiode
+// 	) as Stonadsperiode[];
+
+// export const getUtsettelsesperioder = (
+// 	perioder: Periode[]
+// ): Utsettelsesperiode[] =>
+// 	perioder.filter(
+// 		(periode) => periode.type === Periodetype.Utsettelse
+// 	) as Utsettelsesperiode[];

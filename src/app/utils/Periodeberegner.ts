@@ -1,4 +1,4 @@
-import { addYears } from 'date-fns';
+import { addYears, addDays } from 'date-fns';
 import {
 	Grunnfordeling,
 	Tidsperiode,
@@ -94,7 +94,7 @@ const Periodeberegner = (
 
 	const getStartdato = (): Date => {
 		return trekkUttaksdagerFraDato(
-			termindato,
+			addDays(termindato, -1), // Siste uttaksdag i denne perioden er dagen før termin
 			-1 * (grunnfordeling.antallUkerForelder1ForFodsel * 5)
 		);
 	};

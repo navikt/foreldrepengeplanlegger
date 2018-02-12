@@ -27,7 +27,8 @@ export const tidslinjeFraPerioder = createSelector(
 					({
 						type: TidslinjeinnslagType.periode,
 						periode,
-						nestePeriode: antallPerioder > index ? perioder[index] : undefined,
+						nestePeriode:
+							antallPerioder > index ? perioder[index + 1] : undefined,
 						forrigePeriode: index > 0 ? perioder[index - 1] : undefined
 					} as Tidslinjeinnslag)
 			),

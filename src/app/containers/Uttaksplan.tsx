@@ -48,7 +48,13 @@ export class Uttaksplan extends React.Component<Props> {
 					<UtsettelseDialog />
 				</div>
 
-				{this.props.visTidslinje && <Tidslinje innslag={this.props.innslag} />}
+				{this.props.visTidslinje && (
+					<Tidslinje
+						innslag={this.props.innslag}
+						navnForelder1={this.props.form.navnForelder1}
+						navnForelder2={this.props.form.navnForelder2}
+					/>
+				)}
 			</div>
 		);
 	}

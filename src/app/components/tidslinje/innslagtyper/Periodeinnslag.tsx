@@ -12,7 +12,7 @@ import {
 import InnslagLayout from 'app/components/tidslinje/elementer/InnslagLayout';
 import {
 	UtsettelseBeskrivelse,
-	SammenslattPeriodeBeskrivelse
+	Periodebeskrivelse
 } from 'app/components/tidslinje/innslagtyper/PeriodeinnslagTyper';
 
 export interface PeriodeinnslagProps {
@@ -44,11 +44,11 @@ const Periodeinnslag: React.StatelessComponent<PeriodeinnslagProps> = (
 		}
 		switch (innslag.periode.type) {
 			case Periodetype.Stonadsperiode:
-				return <SammenslattPeriodeBeskrivelse {...props} />;
+				return <Periodebeskrivelse {...props} />;
 			case Periodetype.Utsettelse:
 				return <UtsettelseBeskrivelse {...props} />;
 			case Periodetype.SammenslattPeriode:
-				return <SammenslattPeriodeBeskrivelse {...props} />;
+				return <Periodebeskrivelse {...props} />;
 			default:
 				return <div />;
 		}

@@ -1,12 +1,10 @@
 import * as React from 'react';
 import {
-	Stonadsperiode,
 	StonadskontoType,
 	Utsettelsesperiode,
 	UtsettelseArsakType
 } from 'app/types';
 import {
-	oppsummeringMor,
 	getForelderNavn,
 	oppsummeringPerioder
 } from 'app/components/tidslinje/tidslinjeUtils';
@@ -14,31 +12,6 @@ import InnslagLayout from 'app/components/tidslinje/elementer/InnslagLayout';
 import Tekst from 'app/tekst';
 
 import { PeriodeinnslagProps } from './Periodeinnslag';
-
-export const StonadsperiodeBeskrivelse: React.StatelessComponent<
-	PeriodeinnslagProps
-> = ({ innslag, navnForelder1, navnForelder2 }) => {
-	const periode: Stonadsperiode = innslag.periode as Stonadsperiode;
-
-	// Stønadsperiode før termin
-	if (periode.konto === StonadskontoType.ForeldrepengerForFodsel) {
-		const oppsummering = oppsummeringMor(innslag);
-		return (
-			<InnslagLayout tidsperiode={oppsummering.tidsperiode}>
-				{navnForelder1} starter sin permisjon:{' '}
-				{Tekst.uker(oppsummering.ukerTotalt)} totalt oppdelt i{' '}
-				{Tekst.uker(oppsummering.ukerModrekvote)} mødrekvote og{' '}
-				{Tekst.uker(oppsummering.ukerFellespermisjon)} fellespermisjon.
-			</InnslagLayout>
-		);
-	}
-	/** Vanlig stønadperiode */
-	return (
-		<InnslagLayout tidsperiode={periode.tidsperiode}>
-			Stønadsperiode
-		</InnslagLayout>
-	);
-};
 
 export const UtsettelseBeskrivelse: React.StatelessComponent<
 	PeriodeinnslagProps
@@ -83,7 +56,7 @@ export const getStondskontoNavn = (konto: StonadskontoType) => {
 	}
 };
 
-export const SammenslattPeriodeBeskrivelse: React.StatelessComponent<
+export const Periodebeskrivelse: React.StatelessComponent<
 	PeriodeinnslagProps
 > = (props) => {
 	const { periode } = props.innslag;

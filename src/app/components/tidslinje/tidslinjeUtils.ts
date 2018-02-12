@@ -9,46 +9,8 @@ import {
 	getAntallUttaksdagerIPerioder,
 	splittPerioderEtterType
 } from 'app/utils/periodeUtils';
-import { grunnfordeling } from 'app/data/grunnfordeling';
 import { CalloutBorderColor } from 'app/components/callout/Callout';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
-
-/**
- * Oppsummerer et periodeinnslag
- * @param innslag
- */
-export const oppsummeringMor = (
-	innslag: Periodeinnslag
-): {
-	dagerTotalt: number;
-	tidsperiode: Tidsperiode;
-	ukerTotalt: number;
-	ukerModrekvote: number;
-	ukerFellespermisjon: number;
-} => {
-	const tidsperiode = {
-		startdato: innslag.perioderekke[0].tidsperiode.sluttdato,
-		sluttdato:
-			innslag.perioderekke[innslag.perioderekke.length - 1].tidsperiode
-				.sluttdato
-	};
-
-	const dagerTotalt = getAntallUttaksdagerIPerioder(innslag.perioderekke);
-	const ukerTotalt = dagerTotalt / 5;
-	const ukerFellespermisjon = Math.min(
-		ukerTotalt -
-			grunnfordeling.antallUkerModrekvote -
-			grunnfordeling.antallUkerForelder1ForFodsel
-	);
-	const ukerModrekvote = ukerTotalt - ukerFellespermisjon;
-	return {
-		tidsperiode,
-		dagerTotalt,
-		ukerTotalt,
-		ukerModrekvote,
-		ukerFellespermisjon
-	};
-};
 
 /**
  * Oppsummerer et periodeinnslag
@@ -84,11 +46,8 @@ export const oppsummeringPerioder = (
 			innslag.perioderekke[innslag.perioderekke.length - 1].tidsperiode
 				.sluttdato
 	};
-	const dagerTotalt = getAntallUttaksdagerIPerioder(innslag.perioderekke);
-	const ukerTotalt = dagerTotalt / 5;
-	// Hent ut alle stønadsperioder i perioderekken
+	const ukerTotalt = getAntallUttaksdagerIPerioder(innslag.perioderekke) / 5;
 	const { stonadsperioder } = splittPerioderEtterType(innslag.perioderekke);
-	// Gå gjennom og summer opp antall dager på de ulike kontoene som er brukt
 	const perioder: Periodeoppsummering = new Map();
 	stonadsperioder.forEach((p) => {
 		if (p.type === Periodetype.Stonadsperiode) {

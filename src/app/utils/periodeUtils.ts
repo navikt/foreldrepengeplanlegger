@@ -381,5 +381,7 @@ export const getSammenhengendePerioder = (
 				: sistePeriodeIndex;
 	}
 
-	return perioder.slice(forstePeriodeIndex, sistePeriodeIndex);
+	return forstePeriodeIndex === sistePeriodeIndex
+		? [periode]
+		: perioder.slice(forstePeriodeIndex, sistePeriodeIndex);
 };

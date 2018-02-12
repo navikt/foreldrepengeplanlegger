@@ -6,8 +6,9 @@ import {
 	UtsettelseArsakType
 } from 'app/types';
 import {
-	oppsummerPeriodeinnslag,
-	getForelderNavn
+	oppsummeringMor,
+	getForelderNavn,
+	oppsummeringPerioder
 } from 'app/components/tidslinje/tidslinjeUtils';
 import InnslagLayout from 'app/components/tidslinje/elementer/InnslagLayout';
 import Tekst from 'app/tekst';
@@ -24,7 +25,7 @@ export const StonadsperiodeBeskrivelse: React.StatelessComponent<
 		periode.konto === StonadskontoType.ForeldrepengerForFodsel &&
 		innslag.nestePeriode
 	) {
-		const oppsummering = oppsummerPeriodeinnslag(innslag);
+		const oppsummering = oppsummeringMor(innslag);
 		return (
 			<InnslagLayout tidsperiode={oppsummering.tidsperiode}>
 				{navnForelder1} starter sin permisjon:{' '}
@@ -71,12 +72,40 @@ export const UtsettelseBeskrivelse: React.StatelessComponent<
 	);
 };
 
+export const getStondskontoNavn = (konto: StonadskontoType) => {
+	switch (konto) {
+		case StonadskontoType.Fellesperiode:
+			return 'fellespermisjon';
+		case StonadskontoType.Fedrekvote:
+			return 'fedrekvote';
+		case StonadskontoType.Modrekvote:
+		case StonadskontoType.ForeldrepengerForFodsel:
+			return 'mødrekvote';
+		default:
+			return '';
+	}
+};
+
 export const SammenslattPeriodeBeskrivelse: React.StatelessComponent<
 	PeriodeinnslagProps
 > = (props) => {
+	const { periode } = props.innslag;
+	const oppsummering = oppsummeringPerioder(props.innslag);
+	const detaljetekster: string[] = [];
+	oppsummering.perioder.forEach((uker, key) => {
+		detaljetekster.push(`${Tekst.uker(uker)} ${getStondskontoNavn(key)}`);
+	});
+
 	return (
 		<InnslagLayout tidsperiode={props.innslag.periode.tidsperiode}>
-			Sammenslått periode
+			{getForelderNavn(
+				periode.forelder,
+				props.navnForelder1,
+				props.navnForelder2
+			)}{' '}
+			starter sin permisjon: {Tekst.uker(oppsummering.ukerTotalt)} totalt{' '}
+			oppdelt i{' '}
+			{detaljetekster.join(detaljetekster.length === 2 ? ' og ' : ', ')}.
 		</InnslagLayout>
 	);
 };

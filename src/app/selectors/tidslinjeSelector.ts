@@ -21,8 +21,6 @@ const mapPeriodeTilTidslinjeinnslag = (
 	return {
 		type: TidslinjeinnslagType.periode,
 		periode,
-		nestePeriode: antallPerioder > index ? perioder[index + 1] : undefined,
-		forrigePeriode: index > 0 ? perioder[index - 1] : undefined,
 		perioderekke: getSammenhengendePerioder(periode, perioder)
 	};
 };

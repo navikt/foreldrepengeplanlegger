@@ -14,8 +14,6 @@ export interface Hendelseinnslag {
 export interface Periodeinnslag {
 	type: TidslinjeinnslagType.periode;
 	periode: Periode;
-	nestePeriode?: Periode;
-	forrigePeriode?: Periode;
 	perioderekke: Periode[];
 }
 

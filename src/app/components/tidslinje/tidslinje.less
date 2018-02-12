@@ -59,14 +59,34 @@
 		}
 	}
 
+	.visStrek(@color) {
+		width: 8px;
+		position: absolute;
+		top: @strekOffsetTop;
+		bottom: @strekOffsetBottom;
+		left: 0;
+		z-index: @z-strek;
+		.setStrekColor(@color);
+	}
+
 	.visSirkelTop() {
 		&:before {
 			display: block;
 		}
 	}
+	.skjulSirkelTop() {
+		&:before {
+			display: none;
+		}
+	}
 	.visSirkelBottom() {
 		&:after {
 			display: block;
+		}
+	}
+	.skjulSirkelBottom() {
+		&:after {
+			display: none;
 		}
 	}
 
@@ -128,22 +148,25 @@
 			display: none;
 		}
 		&--periode {
-			width: 8px;
-			background-color: @c-purple;
-			position: absolute;
-			top: @strekOffsetTop;
-			bottom: @strekOffsetBottom;
-			left: 0;
-			z-index: @z-strek;
+			.visStrek(@c-purple);
 			.visSirkelTop();
 			.visSirkelBottom();
 		}
-		&--forelder2 {
-			.setStrekColor(@c-blue);
+		&--hendelse--termin {
+			.visStrek(@c-purple);
 		}
 		&--utsettelse {
 			.setStrekColor(@c-green);
 			.polkaGradering(@c-green);
+		}
+		&--forelder2 {
+			.setStrekColor(@c-blue);
+		}
+		&--fortsettelse {
+			.skjulSirkelTop();
+		}
+		&--fortsetter {
+			.skjulSirkelBottom();
 		}
 	}
 }

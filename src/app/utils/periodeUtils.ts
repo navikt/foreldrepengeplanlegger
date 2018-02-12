@@ -331,15 +331,3 @@ export const splittPerioderEtterType = (
 		utsettelsesperioder
 	};
 };
-
-// export const getStonadsperioder = (perioder: Periode[]): Stonadsperiode[] =>
-// 	perioder.filter(
-// 		(periode) => periode.type === Periodetype.Stonadsperiode
-// 	) as Stonadsperiode[];
-
-// export const getUtsettelsesperioder = (
-// 	perioder: Periode[]
-// ): Utsettelsesperiode[] =>
-// 	perioder.filter(
-// 		(periode) => periode.type === Periodetype.Utsettelse
-// 	) as Utsettelsesperiode[];

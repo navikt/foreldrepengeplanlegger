@@ -1,9 +1,5 @@
 import * as React from 'react';
-import {
-	StonadskontoType,
-	Utsettelsesperiode,
-	UtsettelseArsakType
-} from 'app/types';
+import { StonadskontoType } from 'app/types';
 import {
 	getForelderNavn,
 	oppsummeringPerioder
@@ -11,36 +7,7 @@ import {
 import InnslagLayout from 'app/components/tidslinje/elementer/InnslagLayout';
 import Tekst from 'app/tekst';
 
-import { PeriodeinnslagProps } from './Periodeinnslag';
-
-export const UtsettelseBeskrivelse: React.StatelessComponent<
-	PeriodeinnslagProps
-> = (props) => {
-	const { innslag } = props;
-	const periode: Utsettelsesperiode = innslag.periode as Utsettelsesperiode;
-	const getArsakTekst = (arsak: UtsettelseArsakType) => {
-		switch (arsak) {
-			case UtsettelseArsakType.Arbeid:
-				return 'arbeid';
-			case UtsettelseArsakType.Ferie:
-				return 'ferie';
-			case UtsettelseArsakType.Sykdom:
-				return 'sykdom';
-			default:
-				return '';
-		}
-	};
-	return (
-		<InnslagLayout tidsperiode={innslag.periode.tidsperiode}>
-			{getForelderNavn(
-				periode.forelder,
-				props.navnForelder1,
-				props.navnForelder2
-			)}{' '}
-			utsetter med {getArsakTekst(periode.arsak)}.
-		</InnslagLayout>
-	);
-};
+import { PeriodeinnslagProps } from '../Periodeinnslag';
 
 export const getStondskontoNavn = (konto: StonadskontoType) => {
 	switch (konto) {
@@ -56,9 +23,7 @@ export const getStondskontoNavn = (konto: StonadskontoType) => {
 	}
 };
 
-export const Periodebeskrivelse: React.StatelessComponent<
-	PeriodeinnslagProps
-> = (props) => {
+const Periodeinfo: React.StatelessComponent<PeriodeinnslagProps> = (props) => {
 	const { periode } = props.innslag;
 	const oppsummering = oppsummeringPerioder(props.innslag);
 	const detaljetekster: string[] = [];
@@ -79,3 +44,5 @@ export const Periodebeskrivelse: React.StatelessComponent<
 		</InnslagLayout>
 	);
 };
+
+export default Periodeinfo;

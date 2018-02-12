@@ -7,8 +7,8 @@ import {
 	TidslinjeinnslagType
 } from 'app/components/tidslinje/types';
 import Tidslinjestrek from 'app/components/tidslinje/elementer/Tidslinjestrek';
-import Periodeinnslag from 'app/components/tidslinje/innslagtyper/Periodeinnslag';
-import Hendelseinnslag from 'app/components/tidslinje/innslagtyper/Hendelseinnslag';
+import Periodeinnslag from 'app/components/tidslinje/Periodeinnslag';
+import Hendelseinnslag from 'app/components/tidslinje/Hendelseinnslag';
 
 export interface TidslinjeProps {
 	innslag: Tidslinjeinnslag[];
@@ -41,7 +41,7 @@ const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({
 								navnForelder2={navnForelder2}
 							/>
 						) : (
-							<Hendelseinnslag innslag={i}>hendelse</Hendelseinnslag>
+							<Hendelseinnslag innslag={i} />
 						)}
 					</div>
 				);

@@ -9,11 +9,9 @@ import {
 	innslagErFortsettelse,
 	getForelderNavn
 } from 'app/components/tidslinje/tidslinjeUtils';
-import InnslagLayout from 'app/components/tidslinje/elementer/InnslagLayout';
-import {
-	UtsettelseBeskrivelse,
-	Periodebeskrivelse
-} from 'app/components/tidslinje/innslagtyper/PeriodeinnslagTyper';
+import Fortsettelsesinfo from 'app/components/tidslinje/innslaginfo/Fortsettelseinfo';
+import Utsettelsesinfo from 'app/components/tidslinje/innslaginfo/Utsettelsesinfo';
+import Periodeinfo from 'app/components/tidslinje/innslaginfo/Periodeinfo';
 
 export interface PeriodeinnslagProps {
 	innslag: Periodeinnslag;
@@ -26,32 +24,26 @@ const Periodeinnslag: React.StatelessComponent<PeriodeinnslagProps> = (
 ) => {
 	const { innslag, navnForelder1, navnForelder2 } = props;
 
-	const getInnslagbeskrivelse = (): React.ReactNode => {
+	const getInnslaginfo = (): React.ReactNode => {
 		if (
 			innslagErFortsettelse(innslag) &&
 			innslag.periode.type !== Periodetype.Utsettelse
 		) {
 			return (
-				<InnslagLayout>
-					{getForelderNavn(
+				<Fortsettelsesinfo
+					navn={getForelderNavn(
 						innslag.periode.forelder,
 						navnForelder1,
 						navnForelder2
-					)}{' '}
-					fortsetter sin permisjon.
-				</InnslagLayout>
+					)}
+				/>
 			);
 		}
-		switch (innslag.periode.type) {
-			case Periodetype.Stonadsperiode:
-				return <Periodebeskrivelse {...props} />;
-			case Periodetype.Utsettelse:
-				return <UtsettelseBeskrivelse {...props} />;
-			case Periodetype.SammenslattPeriode:
-				return <Periodebeskrivelse {...props} />;
-			default:
-				return <div />;
-		}
+		return innslag.periode.type === Periodetype.Utsettelse ? (
+			<Utsettelsesinfo {...props} />
+		) : (
+			<Periodeinfo {...props} />
+		);
 	};
 
 	return (
@@ -59,7 +51,7 @@ const Periodeinnslag: React.StatelessComponent<PeriodeinnslagProps> = (
 			<Callout
 				borderColor={getInnslagfarge(innslag)}
 				hideArrow={innslagErFortsettelse(innslag)}>
-				{getInnslagbeskrivelse()}
+				{getInnslaginfo()}
 			</Callout>
 		</div>
 	);

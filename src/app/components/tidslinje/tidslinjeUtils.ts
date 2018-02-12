@@ -63,6 +63,13 @@ export interface SammenslattPeriodeOppsummering {
 
 export type Periodeoppsummering = Map<StonadskontoType, number>;
 
+export const normaliserKontotype = (
+	konto: StonadskontoType
+): StonadskontoType =>
+	konto === StonadskontoType.Modrekvote ||
+	konto === StonadskontoType.ForeldrepengerForFodsel
+		? StonadskontoType.Modrekvote
+		: konto;
 /**
  * Går gjennom alle perioder i en perioderekke og summerer opp antall
  * dager som er brukt per StonadskontoType
@@ -79,15 +86,16 @@ export const oppsummeringPerioder = (
 	};
 	const dagerTotalt = getAntallUttaksdagerIPerioder(innslag.perioderekke);
 	const ukerTotalt = dagerTotalt / 5;
-	/** Hent ut alle støndasperioder i perioderekken */
+	// Hent ut alle stønadsperioder i perioderekken
 	const { stonadsperioder } = splittPerioderEtterType(innslag.perioderekke);
-	/** Gå gjennom og summer opp antall dager på de ulike kontoene som er brukt */
+	// Gå gjennom og summer opp antall dager på de ulike kontoene som er brukt
 	const perioder: Periodeoppsummering = new Map();
 	stonadsperioder.forEach((p) => {
 		if (p.type === Periodetype.Stonadsperiode) {
-			const eksisterendeDager = perioder.get(p.konto) || 0;
+			const konto = normaliserKontotype(p.konto);
+			const eksisterendeDager = perioder.get(konto) || 0;
 			const nyeDager = getAntallUttaksdagerITidsperiode(p.tidsperiode);
-			perioder.set(p.konto, eksisterendeDager + nyeDager);
+			perioder.set(konto, eksisterendeDager + nyeDager);
 		}
 	});
 	perioder.forEach((value, key) => perioder.set(key, value / 5));

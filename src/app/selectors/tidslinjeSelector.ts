@@ -6,9 +6,26 @@ import {
 } from 'app/components/tidslinje/types';
 import { getPerioderForTidslinje } from './periodeSelector';
 import { isSameDay } from 'date-fns';
+import { Periode } from 'app/types';
+import { getSammenhengendePerioder } from 'app/utils/periodeUtils';
 
 const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
+
+const mapPeriodeTilTidslinjeinnslag = (
+	periode: Periode,
+	index: number,
+	perioder: Periode[],
+	antallPerioder: number
+): Tidslinjeinnslag => {
+	return {
+		type: TidslinjeinnslagType.periode,
+		periode,
+		nestePeriode: antallPerioder > index ? perioder[index + 1] : undefined,
+		forrigePeriode: index > 0 ? perioder[index - 1] : undefined,
+		perioderekke: getSammenhengendePerioder(periode, perioder)
+	};
+};
 
 export const tidslinjeFraPerioder = createSelector(
 	getPerioderForTidslinje,
@@ -20,17 +37,9 @@ export const tidslinjeFraPerioder = createSelector(
 			return [];
 		}
 		const antallPerioder = perioder.length;
-
 		const alleInnslag: Tidslinjeinnslag[] = [
-			...perioder.map(
-				(periode, index) =>
-					({
-						type: TidslinjeinnslagType.periode,
-						periode,
-						nestePeriode:
-							antallPerioder > index ? perioder[index + 1] : undefined,
-						forrigePeriode: index > 0 ? perioder[index - 1] : undefined
-					} as Tidslinjeinnslag)
+			...perioder.map((periode: Periode, index: number) =>
+				mapPeriodeTilTidslinjeinnslag(periode, index, perioder, antallPerioder)
 			),
 			{
 				type: TidslinjeinnslagType.hendelse,

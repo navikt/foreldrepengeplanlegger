@@ -12,13 +12,33 @@ import { guid } from 'nav-frontend-js-utils';
 
 export const mockUtsettelser: Utsettelsesperiode[] = [];
 
-export const utsettelse1: Utsettelsesperiode = {
+export const utsettelseEnDag: Utsettelsesperiode = {
 	id: '1',
 	type: Periodetype.Utsettelse,
 	arsak: UtsettelseArsakType.Ferie,
 	tidsperiode: {
 		startdato: new Date(2018, 2, 20),
-		sluttdato: new Date(2018, 2, 23)
+		sluttdato: new Date(2018, 2, 20)
+	},
+	forelder: 'forelder1'
+};
+export const utsettelseToDager: Utsettelsesperiode = {
+	id: '1',
+	type: Periodetype.Utsettelse,
+	arsak: UtsettelseArsakType.Ferie,
+	tidsperiode: {
+		startdato: new Date(2018, 2, 20),
+		sluttdato: new Date(2018, 2, 21)
+	},
+	forelder: 'forelder1'
+};
+export const utsettelseTiDager: Utsettelsesperiode = {
+	id: '1',
+	type: Periodetype.Utsettelse,
+	arsak: UtsettelseArsakType.Ferie,
+	tidsperiode: {
+		startdato: new Date(2018, 3, 9),
+		sluttdato: new Date(2018, 3, 20)
 	},
 	forelder: 'forelder1'
 };
@@ -33,7 +53,8 @@ export const utsettelse2: Utsettelsesperiode = {
 	forelder: 'forelder2'
 };
 
-// mockUtsettelser.push(utsettelse1);
+// mockUtsettelser.push(utsettelseEnDag);
+// mockUtsettelser.push(utsettelseTiDager);
 // mockUtsettelser.push(utsettelse2);
 
 const defaultState: UtsettelseState = {

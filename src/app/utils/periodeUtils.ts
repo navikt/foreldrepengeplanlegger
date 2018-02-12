@@ -86,6 +86,15 @@ export const getAntallUkerFellesperiode = (
 	);
 };
 
+export const getAntallUttaksdagerIPerioder = (perioder: Periode[]): number => {
+	return perioder.reduce((dager: number, periode: Periode) => {
+		if (periode.type !== Periodetype.Utsettelse) {
+			return dager + getAntallUttaksdagerITidsperiode(periode.tidsperiode);
+		}
+		return dager;
+	}, 0);
+};
+
 /**
  * Finner gyldig sluttdato for en periode ut fra startdato og varighet i antall uker
  * @param startdato
@@ -303,6 +312,11 @@ export const getSisteUttaksdagIPeriode = (periode: Periode): Date =>
 		? periode.perioder[periode.perioder.length - 1].tidsperiode.sluttdato
 		: periode.tidsperiode.sluttdato;
 
+/**
+ * Går gjennom liste av perioder og deler de opp etter om de er utsettelse
+ * eller stønadsperiode
+ * @param perioder
+ */
 export const splittPerioderEtterType = (
 	perioder: Periode[]
 ): {
@@ -330,4 +344,42 @@ export const splittPerioderEtterType = (
 		stonadsperioder,
 		utsettelsesperioder
 	};
+};
+
+/** Henter tidsperioden hvor en forelder har sammenhengende permisjon, uavhengig av utsettelser,
+ * med start i en periode som er i periodelisten
+ */
+export const getSammenhengendePerioder = (
+	periode: Periode,
+	perioder: Periode[]
+): Periode[] => {
+	const periodeIndex = perioder.findIndex((p) => p === periode);
+
+	// Finn startperioden med samme forelder før periode
+	let forstePeriodeIndex = periodeIndex;
+	if (periodeIndex > 0) {
+		let sammeForelder = true;
+		while (forstePeriodeIndex > 0 && sammeForelder) {
+			sammeForelder =
+				perioder[forstePeriodeIndex - 1].forelder === periode.forelder;
+			if (sammeForelder) {
+				forstePeriodeIndex--;
+			}
+		}
+	}
+
+	// Finn sluttperioden med samme forelder etter periode
+	let sistePeriodeIndex = perioder.length - 1;
+	if (periodeIndex < sistePeriodeIndex) {
+		const sliced = perioder.slice(periodeIndex);
+		const periodeMedAnnenForelderIndex = sliced.findIndex(
+			(p) => p.forelder !== periode.forelder
+		);
+		sistePeriodeIndex =
+			periodeMedAnnenForelderIndex >= 0
+				? periodeIndex + periodeMedAnnenForelderIndex
+				: sistePeriodeIndex;
+	}
+
+	return perioder.slice(forstePeriodeIndex, sistePeriodeIndex);
 };

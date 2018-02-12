@@ -10,9 +10,9 @@ import {
 	Tidsperiode,
 	Forelder
 } from 'app/types';
-import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import Tekst from 'app/tekst';
+import { getAntallUttaksdagerIPerioder } from 'app/utils/periodeUtils';
 
 interface Props {
 	innslag: Periodeinnslag;
@@ -67,13 +67,13 @@ const Stonadsperiode: React.StatelessComponent<{
 		innslag.nestePeriode
 	) {
 		const tidsperiode = {
-			startdato: periode.tidsperiode.startdato,
-			sluttdato: innslag.nestePeriode
-				? innslag.nestePeriode.tidsperiode.sluttdato
-				: periode.tidsperiode.sluttdato
+			startdato: innslag.perioderekke[0].tidsperiode.sluttdato,
+			sluttdato:
+				innslag.perioderekke[innslag.perioderekke.length - 1].tidsperiode
+					.sluttdato
 		};
 
-		const dagerTotalt = getAntallUttaksdagerITidsperiode(tidsperiode);
+		const dagerTotalt = getAntallUttaksdagerIPerioder(innslag.perioderekke);
 		const ukerTotalt = dagerTotalt / 5;
 		const ukerFellespermisjon = Math.min(
 			ukerTotalt -
@@ -113,6 +113,12 @@ const InnslagLayout: React.StatelessComponent<{
 	</div>
 );
 
+const erFortsettelse = (innslag: Periodeinnslag): boolean =>
+	(innslag.periode.type !== Periodetype.Utsettelse &&
+		innslag.forrigePeriode &&
+		innslag.forrigePeriode.forelder === innslag.periode.forelder) ||
+	false;
+
 /**
  *
  * @param props Et innslag i tidslinjen
@@ -125,11 +131,7 @@ const TidslinjePeriodeinnslag: React.StatelessComponent<Props> = (props) => {
 
 	const getInnslagbeskrivelse = (): React.ReactNode => {
 		// Dette er en fortsettelse av forrige innslag
-		if (
-			innslag.periode.type !== Periodetype.Utsettelse &&
-			innslag.forrigePeriode &&
-			innslag.forrigePeriode.forelder === innslag.periode.forelder
-		) {
+		if (erFortsettelse(innslag)) {
 			return (
 				<InnslagLayout>
 					{getForelderNavn(innslag.periode.forelder)} fortsetter sin permisjon.
@@ -150,7 +152,9 @@ const TidslinjePeriodeinnslag: React.StatelessComponent<Props> = (props) => {
 
 	return (
 		<div className="periodeinnslag">
-			<Callout borderColor={getInnslagfarge(innslag)}>
+			<Callout
+				borderColor={getInnslagfarge(innslag)}
+				hideArrow={erFortsettelse(innslag)}>
 				{getInnslagbeskrivelse()}
 			</Callout>
 		</div>

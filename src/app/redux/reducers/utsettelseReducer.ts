@@ -58,7 +58,7 @@ mockUtsettelser.push(utsettelseTiDager);
 // mockUtsettelser.push(utsettelse2);
 
 const defaultState: UtsettelseState = {
-	dialogErApen: false,
+	dialogErApen: true,
 	utsettelser: mockUtsettelser
 };
 

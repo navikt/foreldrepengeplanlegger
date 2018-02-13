@@ -61,8 +61,10 @@
 	"scripts": {
 		"build": "node src/build/scripts/production-build.js",
 		"clean-build": "rimraf ./dist",
-		"docker-build": "npm run clean-build && npm run build && docker build . -t p2-selvbetjening-frontend",
-		"docker-start": "docker run --name p2-selvbetjening-frontend -p 8080:8080 -d p2-selvbetjening-frontend",
+		"docker-build":
+			"npm run clean-build && npm run build && docker build . -t p2-selvbetjening-frontend",
+		"docker-start":
+			"docker run --name p2-selvbetjening-frontend -p 8080:8080 -d p2-selvbetjening-frontend",
 		"docker-kill": "npm run docker-stop && npm run docker-rm",
 		"docker-rm": "docker rm p2-selvbetjening-frontend",
 		"docker-stop": "docker stop p2-selvbetjening-frontend",
@@ -71,6 +73,7 @@
 		"start": "node ./src/build/scripts/start-dev.js",
 		"start-no-decorator": "node ./src/build/scripts/start-no-decorator.js",
 		"test": "node ./src/build/scripts/test.js --env=jsdom",
+		"test:dev": "node ./src/build/scripts/test.js --env=jsdom --watch",
 		"lint": "eslint src/**",
 		"tslint-check": "tslint-config-prettier-check ./tslint.json"
 	},
@@ -134,12 +137,8 @@
 		"typescript": "~2.5.3"
 	},
 	"jest": {
-		"collectCoverageFrom": [
-			"src/**/*.{js,jsx,ts,tsx}"
-		],
-		"setupFiles": [
-			"<rootDir>/config/polyfills.js"
-		],
+		"collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}"],
+		"setupFiles": ["<rootDir>/config/polyfills.js"],
 		"testMatch": [
 			"<rootDir>/src/**/__tests__/**/*.ts?(x)",
 			"<rootDir>/src/**/?(*.)(spec|test).ts?(x)"
@@ -149,7 +148,8 @@
 		"transform": {
 			"^.+\\.tsx?$": "<rootDir>/config/jest/typescriptTransform.js",
 			"^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-			"^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+			"^(?!.*\\.(js|jsx|mjs|css|json)$)":
+				"<rootDir>/config/jest/fileTransform.js"
 		},
 		"transformIgnorePatterns": [
 			"[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$"

@@ -1,45 +1,19 @@
-.infotekst__knapp--hover() {
-	.infotekst__knapp__label {
-		color: #0067c5;
-		border-color: #0067c5;
-	}
-}
-
-.infotekst__knapp--focus() {
-	.infotekst__knapp--hover();
-	.infotekst__knapp__label {
-		background-color: @orangeFocus;
-	}
-}
-
 .infotekst {
-	&__knapp {
-		border: none;
-		margin: 0.3rem -0.2rem -0.2rem -0.2rem;
-		padding: 0.2rem;
-		background: transparent;
-		display: inline-block;
-		border-radius: 2px;
-		&__ikon {
-			display: inline-block;
-			vertical-align: bottom;
-			margin-right: 0.5rem;
+	background-color: @navLillaLighten80;
+	border-radius: @defaultBorderRadius;
+	padding: 1rem;
+
+	&__veileder {
+		float: right;
+		margin-left: 1rem;
+		margin-bottom: 1rem;
+		svg {
+			width: 4rem;
+			height: 4rem;
 		}
-		&__label {
-			border-bottom: 1px solid #b7b1a9;
-			display: inline-block;
-		}
-		&:hover {
-			.infotekst__knapp--hover();
-		}
-		&:active {
-			.infotekst__knapp__label {
-				background-color: @orangeFocus;
-			}
-		}
-		&:focus {
-			.infotekst__knapp--focus();
-			outline: none;
-		}
+	}
+
+	&__utvidetInfo {
+		margin-top: 1rem;
 	}
 }

@@ -2,6 +2,8 @@
 @import '../components/utsettelseSkjema/utsettelseSkjema.less';
 @import '../components/leggTilKnapp/leggTilKnapp.less';
 @import '../components/infotekst/infotekst.less';
+@import '../components/utvidetInformasjon/utvidetInformasjon.less';
+@import '../components/toggleLenke/toggleLenke.less';
 @import '../components/callout/callout.less';
 @import '../components/tidslinje/tidslinje.less';
 @import './moduloverstyring.less';
@@ -70,7 +72,7 @@ p {
 	border: 1px solid transparent;
 	padding: 0.3rem;
 	margin: -0.3rem;
-	border-radius: 4px;
+	border-radius: @knappBorderRadius;
 	cursor: pointer;
 	&:hover {
 		border: 1px solid #0067c5;

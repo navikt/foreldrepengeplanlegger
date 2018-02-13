@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { FormEvent } from 'react';
-
+import Lenke from 'nav-frontend-lenker';
+import EksterneLenker from 'app/eksterneLenker';
 import {
 	UtsettelseArsakType,
 	Utsettelsesperiode,
@@ -12,6 +13,7 @@ import DateInput from 'shared/components/dateInput/DateInput';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Radioliste from 'shared/components/radioliste/Radioliste';
 import { Row, Column } from 'nav-frontend-grid';
+import Infotekst from 'app/components/infotekst/Infotekst';
 
 interface Props {
 	tidsrom: Tidsperiode;
@@ -111,11 +113,11 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		return (
 			<form onSubmit={preventDefaultEvent} className="utsettelseSkjema">
 				<h1 className="typo-undertittel m-textCenter blokk-s">
-					{utsettelse ? 'Endre utsettelse' : 'Legg til utsettelse'}
+					Opphold i foreldrepengeperioden
 				</h1>
-				<div className="blokk-s">
+				<div className="blokk-xxs">
 					<Radioliste
-						tittel="Velg type"
+						tittel="Velg type utsettelse"
 						stil="ekstern"
 						kolonner="2"
 						valg={[
@@ -135,46 +137,29 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						}
 					/>
 				</div>
-				<Row>
-					<Column xs="12" sm="6">
-						<div className="blokk-s">
-							<DateInput
-								label="Startdato"
-								id="startdato"
-								fromDate={tidsrom.startdato}
-								toDate={tidsrom.sluttdato}
-								onChange={(date) =>
-									this.setState({ startdato: new Date(date) })
-								}
-								selectedDate={startdato}
-								disabledRanges={ugyldigeTidsrom}
-								disableWeekends={true}
-								fullscreen={true}
-							/>
-						</div>
-					</Column>
-					<Column xs="12" sm="6">
-						<div className="blokk-s">
-							<DateInput
-								label="Sluttdato"
-								id="sluttdato"
-								fromDate={tilTidsrom.startdato}
-								toDate={tilTidsrom.sluttdato}
-								onChange={(date) =>
-									this.setState({ sluttdato: new Date(date) })
-								}
-								selectedDate={sluttdato}
-								disabledRanges={ugyldigeTidsrom}
-								disableWeekends={true}
-								fullscreen={true}
-							/>
-						</div>
-					</Column>
-				</Row>
-				<div className="blokk-l">
+				<div className="blokk-s">
+					<Infotekst
+						utvidetInfo={
+							<p>
+								Du må avtale ulønnet permisjon med din arbeidsgiver. Ulønnet
+								permisjon i mer enn 14 dager kan påvirke din rett til blant
+								annet sykepenger og pleiepenger. Les mer på{' '}
+								<Lenke
+									href={EksterneLenker.nav_ubetaltPermisjon}
+									ariaLabel="Les mer om ulønnet permisjon på nav.no"
+									target="_blank">
+									nav.no
+								</Lenke>
+							</p>
+						}>
+						Ønsker dere å ha opphold i foreldrepengene med ulønnet permisjon må
+						den andre forelderen søke om utsettelse.
+					</Infotekst>
+				</div>
+				<div className="blokk-s">
 					<Radioliste
 						kolonner="2"
-						tittel="Hvem gjelder det?"
+						tittel="Hvem skal utsette sin permisjon?"
 						inputnavn="forelder"
 						stil="ekstern"
 						valg={[
@@ -184,6 +169,44 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						valgtVerdi={forelder}
 						onChange={(value) => this.setState({ forelder: value as Forelder })}
 					/>
+				</div>
+				<div className="blokk-m">
+					<Row>
+						<Column xs="12" sm="6">
+							<div className="blokk-s">
+								<DateInput
+									label="Startdato"
+									id="startdato"
+									fromDate={tidsrom.startdato}
+									toDate={tidsrom.sluttdato}
+									onChange={(date) =>
+										this.setState({ startdato: new Date(date) })
+									}
+									selectedDate={startdato}
+									disabledRanges={ugyldigeTidsrom}
+									disableWeekends={true}
+									fullscreen={true}
+								/>
+							</div>
+						</Column>
+						<Column xs="12" sm="6">
+							<div className="blokk-s">
+								<DateInput
+									label="Sluttdato"
+									id="sluttdato"
+									fromDate={tilTidsrom.startdato}
+									toDate={tilTidsrom.sluttdato}
+									onChange={(date) =>
+										this.setState({ sluttdato: new Date(date) })
+									}
+									selectedDate={sluttdato}
+									disabledRanges={ugyldigeTidsrom}
+									disableWeekends={true}
+									fullscreen={true}
+								/>
+							</div>
+						</Column>
+					</Row>
 				</div>
 
 				<Hovedknapp

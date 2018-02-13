@@ -23,7 +23,10 @@ const RangeStepper: React.StatelessComponent<Props> = ({
 		className="rangeStepper"
 		disabled={disabled}
 		title={label}>
-		<Chevron type={direction === 'previous' ? 'venstre' : 'høyre'} />
+		<Chevron
+			type={direction === 'previous' ? 'venstre' : 'høyre'}
+			className={`rangeStepper__chevron--${direction}`}
+		/>
 		<AriaText>{label}</AriaText>
 	</button>
 );

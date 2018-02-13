@@ -1,5 +1,5 @@
 .rangeInputStyling(@width: 100%, @trackColor: #66cbec, @thumbBkg: white, @thumbBorder: #0067c5) {
-	@thumbSize: 32px;
+	@thumbSize: 24px;
 	@thumbBorderWidth: 3px;
 	.thumb() {
 		border-radius: 50%;
@@ -16,10 +16,9 @@
 		background: @trackColor;
 		border: none;
 		border-radius: 3px;
-		margin-bottom: 1rem;
 	}
 	input[type='range'] {
-		margin: 0.5rem 0;
+		// margin: 0.5rem 0;
 		-webkit-appearance: none; /** removes default webkit styles */
 		border: 1px solid white; /** fix for FF unable to apply focus style bug */
 		width: @width; /** required for proper track sizing in FF */
@@ -36,6 +35,8 @@
 		}
 		&::-moz-range-thumb {
 			.thumb();
+			width: @thumbSize - 4px;
+			height: @thumbSize - 4px;
 		}
 		&:focus {
 			outline: none;
@@ -102,7 +103,7 @@
 	padding-top: 0.5rem;
 	&--withSteppers {
 		display: flex;
-		vertical-align: middle;
+		align-items: center;
 		.rangeInput__range {
 			padding: 0 0.5rem;
 		}
@@ -112,7 +113,6 @@
 	}
 	&__stepper {
 		flex-basis: 0;
-		margin-top: -5px; // Pga styling av range
 	}
 }
 

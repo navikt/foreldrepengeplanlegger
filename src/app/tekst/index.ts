@@ -9,7 +9,9 @@ export default {
 			`Hvilken sats ønsker ${harForelder2 ? 'dere' : 'du'}?`,
 		labelDekningsgrad80: (uker: number) => `80% lønn i ${uker} uker`,
 		labelDekningsgrad100: (uker: number) => `100% lønn i ${uker} uker`,
-		fordelingFellespermisjon: `Fordeling av fellespermisjonen`,
+		fordelingFellespermisjon: `Hvordan vil dere fordele fellesperioden?`,
+		fordelingFellespermisjonInfo: (uker: number) =>
+			`I tillegg til fellesperioden har dere ${uker} uker hver.`,
 		fordelingForelder1: (uker: number, navn?: string) =>
 			`${navn || 'Forelder 1'}: ${uker} uker`,
 		fordelingForelder2: (uker: number, navn?: string) =>

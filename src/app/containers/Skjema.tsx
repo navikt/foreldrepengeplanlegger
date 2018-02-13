@@ -24,6 +24,8 @@ import Tekst from 'app/tekst';
 import { Dekningsgrad } from 'app/types';
 import SkjemaInfotekst from 'app/components/skjemaInfotekst/SkjemaInfotekst';
 import FordelingFellesperiodeRange from 'app/components/fordelingFellesperiodeRange/FordelingFellesperiodeRange';
+import { grunnfordeling } from 'app/data/grunnfordeling';
+import Infotekst from 'app/components/infotekst/Infotekst';
 
 export interface StateProps {
 	form: FormState;
@@ -81,6 +83,12 @@ class Skjema extends React.Component<Props> {
 						tittel={Tekst.skjema.labelDekningsgrad(
 							form.navnForelder2 ? form.navnForelder2 !== '' : false
 						)}
+						beskrivelse={
+							<Infotekst stil="kompakt">
+								Valget av antall uker gjelder dere begge. Den totale
+								utbetalingen blir høyere ved å velge 100 prosent.
+							</Infotekst>
+						}
 						valgtVerdi={form.dekningsgrad}
 						onChange={(value) =>
 							dispatch(setDekningsgrad(value as Dekningsgrad))
@@ -115,6 +123,7 @@ class Skjema extends React.Component<Props> {
 								navnForelder2={form.navnForelder2}
 								ukerFellesperiode={form.ukerFellesperiode}
 								ukerForelder1={form.fellesperiodeukerForelder1}
+								ukerHver={grunnfordeling.antallUkerFedrekvote}
 								onChange={(uker) => dispatch(settAntallDagerMor(uker))}
 							/>
 						</div>

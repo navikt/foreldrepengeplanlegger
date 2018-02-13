@@ -6,6 +6,10 @@ export const getUkedag = (dato: Date) => getISODay(dato);
 export const erUttaksdag = (dato: Date): boolean =>
 	getUkedag(dato) !== 6 && getUkedag(dato) !== 7;
 
+/**
+ * Finner første uttaksdag før dato
+ * @param dato
+ */
 export const getForsteUttaksdagForDato = (dato: Date): Date => {
 	return getForsteUttaksdagPaEllerForDato(addDays(dato, -1));
 };
@@ -52,9 +56,9 @@ export const getForsteUttaksdagPaEllerEtterDato = (dato: Date): Date => {
  * @param startdato
  * @param sluttdato
  */
-export function getAntallUttaksdagerITidsperiode(
+export const getAntallUttaksdagerITidsperiode = (
 	tidsperiode: Tidsperiode
-): number {
+): number => {
 	if (tidsperiode.startdato > tidsperiode.sluttdato) {
 		return -1;
 	}
@@ -68,8 +72,13 @@ export function getAntallUttaksdagerITidsperiode(
 		startDato.setDate(startDato.getDate() + 1);
 	}
 	return antall;
-}
+};
 
+/**
+ * Legger til dager til en dato og returnerer ny dato
+ * @param dato
+ * @param uttaksdager
+ */
 export const leggUttaksdagerTilDato = (
 	dato: Date,
 	uttaksdager: number
@@ -87,6 +96,11 @@ export const leggUttaksdagerTilDato = (
 	return nyDato;
 };
 
+/**
+ * Trekker uttaksdager fra en dato og returnerer ny dato
+ * @param dato
+ * @param uttaksdager
+ */
 export const trekkUttaksdagerFraDato = (
 	dato: Date,
 	uttaksdager: number
@@ -94,11 +108,11 @@ export const trekkUttaksdagerFraDato = (
 	let nyDato = dato;
 	let dagteller = 0;
 	let uttaksdageteller = 0;
-	while (uttaksdageteller > uttaksdager) {
-		const tellerdato = addDays(dato, dagteller--);
+	while (uttaksdageteller < Math.abs(uttaksdager)) {
+		const tellerdato = addDays(dato, --dagteller);
 		if (erUttaksdag(tellerdato)) {
 			nyDato = tellerdato;
-			uttaksdageteller--;
+			uttaksdageteller++;
 		}
 	}
 	return nyDato;

@@ -5,7 +5,8 @@ import {
 	getForsteUttaksdagPaEllerEtterDato,
 	getForsteUttaksdagEtterDato,
 	getAntallUttaksdagerITidsperiode,
-	leggUttaksdagerTilDato
+	leggUttaksdagerTilDato,
+	trekkUttaksdagerFraDato
 } from 'app/utils/uttaksdagerUtils';
 
 describe('uttaksdagerUtils', () => {
@@ -81,6 +82,21 @@ describe('uttaksdagerUtils', () => {
 		});
 		it('søndag er ikke uttaksdag', () => {
 			expect(erUttaksdag(sondag)).toBeFalsy();
+		});
+	});
+
+	describe('trekkUttaksdagerFraDato', () => {
+		it('trekker fra 1 dag riktig', () => {
+			expect(trekkUttaksdagerFraDato(onsdag, 1)).toEqual(tirsdag);
+		});
+		it('trekker fra 4 dager riktig', () => {
+			expect(trekkUttaksdagerFraDato(fredag, 4)).toEqual(mandag);
+		});
+		it('trekker fra 5 dager riktig', () => {
+			expect(trekkUttaksdagerFraDato(nesteMandag, 5)).toEqual(mandag);
+		});
+		it('trekker fra 6 dager riktig', () => {
+			expect(trekkUttaksdagerFraDato(nesteTirsdag, 6)).toEqual(mandag);
 		});
 	});
 

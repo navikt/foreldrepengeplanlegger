@@ -54,11 +54,11 @@ export const utsettelse2: Utsettelsesperiode = {
 };
 
 // mockUtsettelser.push(utsettelseEnDag);
-mockUtsettelser.push(utsettelseTiDager);
+// mockUtsettelser.push(utsettelseTiDager);
 // mockUtsettelser.push(utsettelse2);
 
 const defaultState: UtsettelseState = {
-	dialogErApen: true,
+	dialogErApen: false,
 	utsettelser: mockUtsettelser
 };
 

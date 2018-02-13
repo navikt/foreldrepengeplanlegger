@@ -1,9 +1,12 @@
 import * as React from 'react';
+import * as classnames from 'classnames';
+
 import SkjemaInputElement from 'shared/components/skjemaInputElement/SkjemaInputElement';
 import { guid } from 'nav-frontend-js-utils';
+import RangeStepper from 'shared/components/rangeInput/RangeStepper';
 
 export interface RangeInputValueLabelRendererOptions {
-	value: number | undefined;
+	value: number;
 	min: number;
 	max: number;
 }
@@ -14,12 +17,16 @@ export type RangeInputValueLabelRenderer = (
 
 interface Props {
 	label: string;
-	value: number | undefined;
+	value: number;
 	min: number;
 	max: number;
 	step?: number;
 	inputId?: string;
 	valueLabelRenderer?: RangeInputValueLabelRenderer;
+	steppers?: {
+		increaseLabel: string;
+		reduceLabel: string;
+	};
 	onChange: (value: number) => void;
 }
 
@@ -33,19 +40,44 @@ const defaultValueLabelRenderer: RangeInputValueLabelRenderer = (
 );
 
 const RangeInput: React.StatelessComponent<Props> = (props) => {
-	const { label, inputId, valueLabelRenderer, ...rest } = props;
+	const { label, inputId, valueLabelRenderer, steppers, ...rest } = props;
 	const id = inputId || guid();
 	const labelRenderer = valueLabelRenderer || defaultValueLabelRenderer;
 	return (
 		<SkjemaInputElement label={label} id={id}>
 			{labelRenderer({ value: props.value, min: props.min, max: props.max })}
-			<input
-				{...rest}
-				id={id}
-				className="nav-frontend-range-input"
-				type="range"
-				onChange={(e) => props.onChange(parseInt(e.target.value, 10))}
-			/>
+			<div
+				className={classnames('rangeInput', {
+					'rangeInput--withSteppers': steppers !== undefined
+				})}>
+				{steppers && (
+					<div className="rangeInput__stepper rangeInput__stepper--previous">
+						<RangeStepper
+							direction="previous"
+							onClick={() => props.onChange(props.value - 1)}
+							label={steppers ? steppers.reduceLabel : 'Mindre'}
+						/>
+					</div>
+				)}
+				<div className="rangeInput__range">
+					<input
+						{...rest}
+						id={id}
+						className="nav-frontend-range-input"
+						type="range"
+						onChange={(e) => props.onChange(parseInt(e.target.value, 10))}
+					/>
+				</div>
+				{steppers && (
+					<div className="rangeInput__stepper rangeInput__stepper--next">
+						<RangeStepper
+							direction="next"
+							onClick={() => props.onChange(props.value + 1)}
+							label={steppers ? steppers.increaseLabel : 'Mer'}
+						/>
+					</div>
+				)}
+			</div>
 		</SkjemaInputElement>
 	);
 };

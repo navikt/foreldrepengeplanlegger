@@ -24,6 +24,10 @@ const FordelingFellesperiodeRange: React.StatelessComponent<Props> = ({
 		min={0}
 		max={ukerFellesperiode}
 		onChange={onChange}
+		steppers={{
+			reduceLabel: `En uke mindre fellespermisjon til ${navnForelder1}`,
+			increaseLabel: `En uke mindre fellespermisjon til ${navnForelder2}`
+		}}
 		valueLabelRenderer={(options) => (
 			<FordelingFellesperiodeLabelRenderer
 				options={options}

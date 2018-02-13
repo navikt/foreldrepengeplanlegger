@@ -69,7 +69,7 @@
 		"docker-rm": "docker rm p2-selvbetjening-frontend",
 		"docker-stop": "docker stop p2-selvbetjening-frontend",
 		"docker-rmi": "npm run docker-kill && docker rmi p2-selvbetjening-frontend",
-		"start-express": "node ./server.js",
+		"start-express": "node ./src/server.js",
 		"start": "node ./src/build/scripts/start-dev.js",
 		"start-no-decorator": "node ./src/build/scripts/start-no-decorator.js",
 		"test": "node ./src/build/scripts/test.js --env=jsdom",
@@ -136,6 +136,7 @@
 		"tslint-react": "^3.2.0",
 		"typescript": "~2.5.3"
 	},
+	"postCSS": {},
 	"jest": {
 		"collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}"],
 		"setupFiles": ["<rootDir>/config/polyfills.js"],

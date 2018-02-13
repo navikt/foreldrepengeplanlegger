@@ -97,6 +97,25 @@
 /** Sett default styling på slider */
 .rangeInputStyling();
 
+.rangeInput {
+	width: 100%;
+	padding-top: 0.5rem;
+	&--withSteppers {
+		display: flex;
+		vertical-align: middle;
+		.rangeInput__range {
+			padding: 0 0.5rem;
+		}
+	}
+	&__range {
+		flex-basis: 100%;
+	}
+	&__stepper {
+		flex-basis: 0;
+		margin-top: -5px; // Pga styling av range
+	}
+}
+
 .rangeInput__valueLabels {
 	display: flex;
 	&__left {

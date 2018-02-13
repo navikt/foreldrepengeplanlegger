@@ -1,5 +1,7 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
+import { Collapse } from 'react-collapse';
+
 import ToggleLenke from 'app/components/toggleLenke/ToggleLenke';
 
 interface Props {
@@ -26,7 +28,8 @@ class UtvidetInformasjon extends React.Component<Props, State> {
 		const { apneLabel = 'Les mer', lukkLabel = 'Lukk' } = this.props;
 		return (
 			<div className={cls}>
-				{this.state.apen ? (
+				<Collapse isOpened={this.state.apen}>
+					{' '}
 					<div className="utvidetInformasjon__innholdContainer">
 						<div className="utvidetInformasjon__innhold">
 							{this.props.children}
@@ -37,7 +40,8 @@ class UtvidetInformasjon extends React.Component<Props, State> {
 							{lukkLabel}
 						</ToggleLenke>
 					</div>
-				) : (
+				</Collapse>
+				{!this.state.apen && (
 					<ToggleLenke
 						onToggle={() => this.setState({ apen: true })}
 						apen={false}>

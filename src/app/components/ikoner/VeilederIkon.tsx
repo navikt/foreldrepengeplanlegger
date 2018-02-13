@@ -21,11 +21,22 @@ const getVeilederIkon = (uttrykk: VeilederUttrykk): any => {
 	}
 };
 
-const VeilederIkon: React.StatelessComponent<{
+interface Props {
 	size?: number;
 	uttrykk?: VeilederUttrykk;
-}> = ({ size = 28, uttrykk = 'noytral' }) => (
-	<CustomSVG iconRef={getVeilederIkon(uttrykk).default} size={size} />
+	svgClassName?: string;
+}
+
+const VeilederIkon: React.StatelessComponent<Props> = ({
+	size = 28,
+	uttrykk = 'noytral',
+	svgClassName
+}) => (
+	<CustomSVG
+		iconRef={getVeilederIkon(uttrykk).default}
+		size={size}
+		className={svgClassName}
+	/>
 );
 
 export default VeilederIkon;

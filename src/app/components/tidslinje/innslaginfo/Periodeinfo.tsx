@@ -16,8 +16,9 @@ export const getStondskontoNavn = (konto: StonadskontoType) => {
 		case StonadskontoType.Fedrekvote:
 			return 'fedrekvote';
 		case StonadskontoType.Modrekvote:
-		case StonadskontoType.ForeldrepengerForFodsel:
 			return 'mødrekvote';
+		case StonadskontoType.ForeldrepengerForFodsel:
+			return 'foreldrepenger';
 		default:
 			return '';
 	}

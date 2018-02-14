@@ -38,7 +38,7 @@ const periode: Stonadsperiode = {
 	forelder: 'forelder1',
 	tidsperiode: {
 		startdato: new Date(2018, 0, 1),
-		tom: new Date(2018, 0, 12)
+		sluttdato: new Date(2018, 0, 12)
 	}
 };
 
@@ -47,7 +47,7 @@ const utsettelse: Utsettelsesperiode = {
 	forelder: 'forelder1',
 	tidsperiode: {
 		startdato: new Date(2018, 3, 16),
-		tom: new Date(2018, 3, 17)
+		sluttdato: new Date(2018, 3, 17)
 	},
 	type: Periodetype.Utsettelse
 };
@@ -56,7 +56,7 @@ const lagUtsettelse = (dager: number): Utsettelsesperiode => ({
 	...utsettelse,
 	tidsperiode: {
 		startdato: utsettelse.tidsperiode.startdato,
-		tom: leggUttaksdagerTilDato(utsettelse.tidsperiode.startdato, dager - 1)
+		sluttdato: leggUttaksdagerTilDato(utsettelse.tidsperiode.startdato, dager - 1)
 	}
 });
 
@@ -89,13 +89,13 @@ describe('periodeUtils', () => {
 			it(`forskyver sluttdato med ${dager} dager`, () => {
 				const nySluttdato =
 					perioderMedUtsettelse[perioderMedUtsettelse.length - 1].tidsperiode
-						.tom;
+						.sluttdato;
 				expect(nySluttdato).toEqual(forventetSluttdato);
 			});
 		};
 
 		const opprinneligSluttdato =
-			stonadsperioder[stonadsperioder.length - 1].tidsperiode.tom;
+			stonadsperioder[stonadsperioder.length - 1].tidsperiode.sluttdato;
 
 		testUtsettelse(1, leggUttaksdagerTilDato(opprinneligSluttdato, 1));
 		testUtsettelse(2, leggUttaksdagerTilDato(opprinneligSluttdato, 2));
@@ -113,24 +113,24 @@ describe('periodeUtils', () => {
 	it('finner riktig periodesluttdato', () => {
 		const periodeEnUke: Tidsperiode = {
 			startdato: new Date(2018, 0, 1),
-			tom: new Date(2018, 0, 5)
+			sluttdato: new Date(2018, 0, 5)
 		};
 		const periodeToUker: Tidsperiode = {
 			startdato: new Date(2018, 0, 1),
-			tom: new Date(2018, 0, 12)
+			sluttdato: new Date(2018, 0, 12)
 		};
 		const periodeTreUkerForskyvet: Tidsperiode = {
 			startdato: new Date(2018, 0, 4),
-			tom: new Date(2018, 0, 17)
+			sluttdato: new Date(2018, 0, 17)
 		};
 		expect(getPeriodeSluttdato(periodeEnUke.startdato, 1)).toEqual(
-			periodeEnUke.tom
+			periodeEnUke.sluttdato
 		);
 		expect(getPeriodeSluttdato(periodeToUker.startdato, 2)).toEqual(
-			periodeToUker.tom
+			periodeToUker.sluttdato
 		);
 		expect(getPeriodeSluttdato(periodeTreUkerForskyvet.startdato, 2)).toEqual(
-			periodeTreUkerForskyvet.tom
+			periodeTreUkerForskyvet.sluttdato
 		);
 	});
 

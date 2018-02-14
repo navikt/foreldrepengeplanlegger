@@ -28,7 +28,7 @@ interface State {
 	arsak?: UtsettelseArsakType;
 	forelder?: Forelder;
 	startdato?: Date;
-	tom?: Date;
+	sluttdato?: Date;
 }
 
 const preventDefaultEvent = (e: FormEvent<HTMLFormElement>) => {
@@ -44,8 +44,12 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			? {
 					arsak: utsettelse.arsak,
 					forelder: utsettelse.forelder,
-					startdato: utsettelse.tidsperiode ? utsettelse.tidsperiode.startdato : undefined,
-					tom: utsettelse.tidsperiode ? utsettelse.tidsperiode.tom : undefined
+					startdato: utsettelse.tidsperiode
+						? utsettelse.tidsperiode.startdato
+						: undefined,
+					sluttdato: utsettelse.tidsperiode
+						? utsettelse.tidsperiode.sluttdato
+						: undefined
 				}
 			: {};
 
@@ -57,18 +61,18 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 	hentGyldigSkjemadata(): Utsettelsesperiode | undefined {
 		if (
 			this.state.arsak !== undefined &&
-			this.state.tom !== undefined &&
+			this.state.sluttdato !== undefined &&
 			this.state.startdato !== undefined &&
 			this.state.forelder !== undefined
 		) {
-			const { arsak, startdato, tom, forelder } = this.state;
+			const { arsak, startdato, sluttdato, forelder } = this.state;
 			return {
 				id: this.props.utsettelse ? this.props.utsettelse.id : undefined,
 				type: Periodetype.Utsettelse,
 				arsak,
 				tidsperiode: {
 					startdato,
-					tom
+					sluttdato
 				},
 				forelder
 			};
@@ -85,7 +89,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 	}
 
 	render() {
-		const { arsak, startdato, tom, forelder } = this.state;
+		const { arsak, startdato, sluttdato, forelder } = this.state;
 		const {
 			utsettelse,
 			forelder1,
@@ -96,14 +100,14 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 
 		const tilTidsrom: Tidsperiode = {
 			startdato: startdato ? startdato : tidsrom.startdato,
-			tom: tidsrom.tom
+			sluttdato: tidsrom.sluttdato
 		};
 
 		const ugyldigeTidsrom =
 			registrerteUtsettelser &&
 			registrerteUtsettelser.map((u) => ({
 				from: u.tidsperiode.startdato,
-				to: u.tidsperiode.tom
+				to: u.tidsperiode.sluttdato
 			}));
 
 		return (
@@ -174,8 +178,10 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 									label="Startdato"
 									id="startdato"
 									fromDate={tidsrom.startdato}
-									toDate={tidsrom.tom}
-									onChange={(date) => this.setState({ startdato: new Date(date) })}
+									toDate={tidsrom.sluttdato}
+									onChange={(date) =>
+										this.setState({ startdato: new Date(date) })
+									}
 									selectedDate={startdato}
 									disabledRanges={ugyldigeTidsrom}
 									disableWeekends={true}
@@ -189,9 +195,11 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 									label="Sluttdato"
 									id="sluttdato"
 									fromDate={tilTidsrom.startdato}
-									toDate={tilTidsrom.tom}
-									onChange={(date) => this.setState({ tom: new Date(date) })}
-									selectedDate={tom}
+									toDate={tilTidsrom.sluttdato}
+									onChange={(date) =>
+										this.setState({ sluttdato: new Date(date) })
+									}
+									selectedDate={sluttdato}
 									disabledRanges={ugyldigeTidsrom}
 									disableWeekends={true}
 									fullscreen={true}

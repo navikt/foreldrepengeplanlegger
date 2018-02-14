@@ -41,8 +41,10 @@ export const oppsummeringPerioder = (
 	innslag: InnslagPeriodetype
 ): SammenslattPeriodeOppsummering => {
 	const tidsperiode: Tidsperiode = {
-		startdato: innslag.perioderekke[0].tidsperiode.tom,
-		tom: innslag.perioderekke[innslag.perioderekke.length - 1].tidsperiode.tom
+		startdato: innslag.perioderekke[0].tidsperiode.sluttdato,
+		sluttdato:
+			innslag.perioderekke[innslag.perioderekke.length - 1].tidsperiode
+				.sluttdato
 	};
 	const ukerTotalt = getAntallUttaksdagerIPerioder(innslag.perioderekke) / 5;
 	const { stonadsperioder } = splittPerioderEtterType(innslag.perioderekke);

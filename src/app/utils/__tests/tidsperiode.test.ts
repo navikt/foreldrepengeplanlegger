@@ -6,22 +6,22 @@ import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 describe('tidsperiodeUtils', () => {
 	const tidsperiodeEnDag: Tidsperiode = {
 		startdato: new Date(2018, 0, 1),
-		tom: new Date(2018, 0, 1)
+		sluttdato: new Date(2018, 0, 1)
 	};
 
 	const tidsperiode: Tidsperiode = {
 		startdato: new Date(2018, 0, 1),
-		tom: new Date(2018, 0, 4)
+		sluttdato: new Date(2018, 0, 4)
 	};
 
 	const tidsperiodeTorFre: Tidsperiode = {
 		startdato: new Date(2018, 0, 4),
-		tom: new Date(2018, 0, 5)
+		sluttdato: new Date(2018, 0, 5)
 	};
 
 	const tidsperiodeFreMan: Tidsperiode = {
 		startdato: new Date(2018, 0, 5),
-		tom: new Date(2018, 0, 8)
+		sluttdato: new Date(2018, 0, 8)
 	};
 
 	describe('flyttTidsperiode', () => {
@@ -31,7 +31,7 @@ describe('tidsperiodeUtils', () => {
 				new Date(2018, 0, 2)
 			);
 			expect(forskyvetPeriode.startdato).toEqual(new Date(2018, 0, 2));
-			expect(forskyvetPeriode.tom).toEqual(new Date(2018, 0, 5));
+			expect(forskyvetPeriode.sluttdato).toEqual(new Date(2018, 0, 5));
 			expect(getAntallUttaksdagerITidsperiode(tidsperiode)).toBe(
 				getAntallUttaksdagerITidsperiode(forskyvetPeriode)
 			);
@@ -42,7 +42,7 @@ describe('tidsperiodeUtils', () => {
 				new Date(2018, 0, 3)
 			);
 			expect(forskyvetPeriode.startdato).toEqual(new Date(2018, 0, 3));
-			expect(forskyvetPeriode.tom).toEqual(new Date(2018, 0, 3));
+			expect(forskyvetPeriode.sluttdato).toEqual(new Date(2018, 0, 3));
 			expect(getAntallUttaksdagerITidsperiode(tidsperiodeEnDag)).toBe(
 				getAntallUttaksdagerITidsperiode(forskyvetPeriode)
 			);
@@ -53,7 +53,7 @@ describe('tidsperiodeUtils', () => {
 				new Date(2018, 0, 4)
 			);
 			expect(forskyvetPeriode.startdato).toEqual(new Date(2018, 0, 4));
-			expect(forskyvetPeriode.tom).toEqual(new Date(2018, 0, 4));
+			expect(forskyvetPeriode.sluttdato).toEqual(new Date(2018, 0, 4));
 			expect(getAntallUttaksdagerITidsperiode(tidsperiodeEnDag)).toBe(
 				getAntallUttaksdagerITidsperiode(forskyvetPeriode)
 			);
@@ -64,7 +64,7 @@ describe('tidsperiodeUtils', () => {
 				new Date(2018, 0, 5)
 			);
 			expect(forskyvetPeriode.startdato).toEqual(new Date(2018, 0, 5));
-			expect(forskyvetPeriode.tom).toEqual(new Date(2018, 0, 5));
+			expect(forskyvetPeriode.sluttdato).toEqual(new Date(2018, 0, 5));
 			expect(getAntallUttaksdagerITidsperiode(tidsperiodeEnDag)).toBe(
 				getAntallUttaksdagerITidsperiode(forskyvetPeriode)
 			);
@@ -75,7 +75,7 @@ describe('tidsperiodeUtils', () => {
 				new Date(2018, 0, 8)
 			);
 			expect(forskyvetPeriode.startdato).toEqual(new Date(2018, 0, 8));
-			expect(forskyvetPeriode.tom).toEqual(new Date(2018, 0, 8));
+			expect(forskyvetPeriode.sluttdato).toEqual(new Date(2018, 0, 8));
 			expect(getAntallUttaksdagerITidsperiode(tidsperiodeEnDag)).toBe(
 				getAntallUttaksdagerITidsperiode(forskyvetPeriode)
 			);
@@ -86,7 +86,7 @@ describe('tidsperiodeUtils', () => {
 				new Date(2018, 0, 3)
 			);
 			expect(forskyvetPeriode.startdato).toEqual(new Date(2018, 0, 3));
-			expect(forskyvetPeriode.tom).toEqual(new Date(2018, 0, 8));
+			expect(forskyvetPeriode.sluttdato).toEqual(new Date(2018, 0, 8));
 			expect(getAntallUttaksdagerITidsperiode(tidsperiode)).toBe(
 				getAntallUttaksdagerITidsperiode(forskyvetPeriode)
 			);
@@ -97,7 +97,7 @@ describe('tidsperiodeUtils', () => {
 				addDays(tidsperiodeTorFre.startdato, 1)
 			);
 			expect(forskyvetPeriode.startdato).toEqual(new Date(2018, 0, 5));
-			expect(forskyvetPeriode.tom).toEqual(new Date(2018, 0, 8));
+			expect(forskyvetPeriode.sluttdato).toEqual(new Date(2018, 0, 8));
 			expect(getAntallUttaksdagerITidsperiode(tidsperiodeTorFre)).toBe(
 				getAntallUttaksdagerITidsperiode(forskyvetPeriode)
 			);
@@ -108,7 +108,7 @@ describe('tidsperiodeUtils', () => {
 				addDays(tidsperiodeTorFre.startdato, 4)
 			);
 			expect(forskyvetPeriode.startdato).toEqual(new Date(2018, 0, 8));
-			expect(forskyvetPeriode.tom).toEqual(new Date(2018, 0, 9));
+			expect(forskyvetPeriode.sluttdato).toEqual(new Date(2018, 0, 9));
 			expect(getAntallUttaksdagerITidsperiode(tidsperiodeFreMan)).toBe(
 				getAntallUttaksdagerITidsperiode(forskyvetPeriode)
 			);

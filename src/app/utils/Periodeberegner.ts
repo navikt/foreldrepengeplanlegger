@@ -28,14 +28,17 @@ const Periodeberegner = (
 		const startdato = getStartdato();
 		return {
 			startdato,
-			tom: getPeriodeSluttdato(startdato, grunnfordeling.antallUkerForelder1ForFodsel)
+			sluttdato: getPeriodeSluttdato(
+				startdato,
+				grunnfordeling.antallUkerForelder1ForFodsel
+			)
 		};
 	};
 
 	const getPakrevdModrekvotePostTermin = (): Tidsperiode => {
 		return {
 			startdato: termindato,
-			tom: getPeriodeSluttdato(
+			sluttdato: getPeriodeSluttdato(
 				termindato,
 				grunnfordeling.antallUkerForelder1EtterFodsel
 			)
@@ -44,11 +47,11 @@ const Periodeberegner = (
 
 	const getModrekvotePostTermin = (): Tidsperiode => {
 		const startdato = getForsteUttaksdagEtterDato(
-			getPakrevdModrekvotePostTermin().tom
+			getPakrevdModrekvotePostTermin().sluttdato
 		);
 		return {
 			startdato,
-			tom: getPeriodeSluttdato(
+			sluttdato: getPeriodeSluttdato(
 				startdato,
 				grunnfordeling.antallUkerModrekvote -
 					grunnfordeling.antallUkerForelder1EtterFodsel
@@ -58,31 +61,34 @@ const Periodeberegner = (
 
 	const getFellesperiodeForelder1 = (): Tidsperiode => {
 		const startdato = getForsteUttaksdagEtterDato(
-			getModrekvotePostTermin().tom
+			getModrekvotePostTermin().sluttdato
 		);
 		return {
 			startdato,
-			tom: getPeriodeSluttdato(startdato, fellesukerForelder1)
+			sluttdato: getPeriodeSluttdato(startdato, fellesukerForelder1)
 		};
 	};
 
 	const getFellesperiodeForelder2 = (): Tidsperiode => {
 		const startdato = getForsteUttaksdagEtterDato(
-			getFellesperiodeForelder1().tom
+			getFellesperiodeForelder1().sluttdato
 		);
 		return {
 			startdato,
-			tom: getPeriodeSluttdato(startdato, fellesukerForelder2)
+			sluttdato: getPeriodeSluttdato(startdato, fellesukerForelder2)
 		};
 	};
 
 	const getFedrekvote = (): Tidsperiode => {
 		const startdato = getForsteUttaksdagEtterDato(
-			getFellesperiodeForelder2().tom
+			getFellesperiodeForelder2().sluttdato
 		);
 		return {
 			startdato,
-			tom: getPeriodeSluttdato(startdato, grunnfordeling.antallUkerFedrekvote)
+			sluttdato: getPeriodeSluttdato(
+				startdato,
+				grunnfordeling.antallUkerFedrekvote
+			)
 		};
 	};
 

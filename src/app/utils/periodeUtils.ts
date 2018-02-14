@@ -43,7 +43,7 @@ export const finnPeriode = (
 		return isWithinRange(
 			dato,
 			periode.tidsperiode.startdato,
-			periode.tidsperiode.tom
+			periode.tidsperiode.sluttdato
 		);
 	});
 };
@@ -170,7 +170,7 @@ export const leggTilUtsettelseEtterPeriode = (
 		...[utsettelse],
 		...forskyvPerioder(
 			[periode, ...perioderEtter],
-			getForsteUttaksdagPaEllerEtterDato(utsettelse.tidsperiode.tom)
+			getForsteUttaksdagPaEllerEtterDato(utsettelse.tidsperiode.sluttdato)
 		)
 	];
 };
@@ -200,7 +200,9 @@ export const leggTilUtsettelseIPeriode = (
 		...periodeSplittetMedUtsettelse,
 		...forskyvPerioder(
 			perioderEtter,
-			getForsteUttaksdagPaEllerEtterDato(sisteSplittetPeriode.tidsperiode.tom)
+			getForsteUttaksdagPaEllerEtterDato(
+				sisteSplittetPeriode.tidsperiode.sluttdato
+			)
 		)
 	];
 };
@@ -218,14 +220,14 @@ export const leggUtsettelseInnIPeriode = (
 	const dagerIPeriode = getAntallUttaksdagerITidsperiode(periode.tidsperiode);
 	const dagerForsteDel = getAntallUttaksdagerITidsperiode({
 		startdato: periode.tidsperiode.startdato,
-		tom: addDays(utsettelse.tidsperiode.startdato, -1)
+		sluttdato: addDays(utsettelse.tidsperiode.startdato, -1)
 	});
 	const dagerSisteDel = dagerIPeriode - dagerForsteDel;
 	const forste: Stonadsperiode = {
 		...(periode as Stonadsperiode),
 		tidsperiode: {
 			startdato: periode.tidsperiode.startdato,
-			tom: getForsteUttaksdagForDato(utsettelse.tidsperiode.startdato)
+			sluttdato: getForsteUttaksdagForDato(utsettelse.tidsperiode.startdato)
 		}
 	};
 	const midt: Utsettelsesperiode = {
@@ -234,15 +236,19 @@ export const leggUtsettelseInnIPeriode = (
 			startdato: getForsteUttaksdagPaEllerEtterDato(
 				utsettelse.tidsperiode.startdato
 			),
-			tom: getForsteUttaksdagPaEllerForDato(utsettelse.tidsperiode.tom)
+			sluttdato: getForsteUttaksdagPaEllerForDato(
+				utsettelse.tidsperiode.sluttdato
+			)
 		}
 	};
-	const startSisteDel: Date = getForsteUttaksdagEtterDato(midt.tidsperiode.tom);
+	const startSisteDel: Date = getForsteUttaksdagEtterDato(
+		midt.tidsperiode.sluttdato
+	);
 	const siste: Stonadsperiode = {
 		...(periode as Stonadsperiode),
 		tidsperiode: {
 			startdato: startSisteDel,
-			tom: utsettDatoUttaksdager(startSisteDel, dagerSisteDel)
+			sluttdato: utsettDatoUttaksdager(startSisteDel, dagerSisteDel)
 		}
 	};
 	return [forste, midt, siste];
@@ -262,7 +268,7 @@ export const forskyvPerioder = (
 			periode.tidsperiode,
 			getForsteUttaksdagPaEllerEtterDato(addDays(forrigeDato, 1))
 		);
-		forrigeDato = tidsperiode.tom;
+		forrigeDato = tidsperiode.sluttdato;
 		return {
 			...periode,
 			tidsperiode
@@ -280,10 +286,9 @@ export const flyttTidsperiode = (
 	startdato: Date
 ): Tidsperiode => {
 	const uttaksdager = getAntallUttaksdagerITidsperiode(tidsperiode);
-	const tom = leggUttaksdagerTilDato(startdato, uttaksdager - 1);
 	return {
 		startdato,
-		tom
+		sluttdato: leggUttaksdagerTilDato(startdato, uttaksdager - 1)
 	};
 };
 
@@ -307,8 +312,8 @@ export const getUttaksdagerForForelder = (
 /** Henter siste uttaksdag i periode */
 export const getSisteUttaksdagIPeriode = (periode: Periode): Date =>
 	periode.type === Periodetype.SammenslattPeriode
-		? periode.perioder[periode.perioder.length - 1].tidsperiode.tom
-		: periode.tidsperiode.tom;
+		? periode.perioder[periode.perioder.length - 1].tidsperiode.sluttdato
+		: periode.tidsperiode.sluttdato;
 
 /**
  * Går gjennom liste av perioder og deler de opp etter om de er utsettelse

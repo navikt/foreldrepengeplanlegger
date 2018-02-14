@@ -57,11 +57,11 @@ export const getForsteUttaksdagPaEllerEtterDato = (dato: Date): Date => {
 export const getAntallUttaksdagerITidsperiode = (
 	tidsperiode: Tidsperiode
 ): number => {
-	if (tidsperiode.startdato > tidsperiode.tom) {
+	if (tidsperiode.startdato > tidsperiode.sluttdato) {
 		return -1;
 	}
 	let startDato = new Date(tidsperiode.startdato.getTime());
-	let sluttDato = new Date(tidsperiode.tom.getTime());
+	let sluttDato = new Date(tidsperiode.sluttdato.getTime());
 	let antall = 0;
 	while (startDato <= sluttDato) {
 		if (erUttaksdag(startDato)) {

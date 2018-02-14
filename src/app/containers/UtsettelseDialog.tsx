@@ -76,9 +76,9 @@ const mapStateToProps = (state: AppState): StateProps => {
 		isOpen: state.utsettelse.dialogErApen,
 		tidsrom: {
 			startdato: getForsteUttaksdagEtterDato(
-				periodeberegner.getModrekvotePostTermin().tom
+				periodeberegner.getModrekvotePostTermin().sluttdato
 			),
-			tom: periodeberegner.getSistePermisjonsdag()
+			sluttdato: periodeberegner.getSistePermisjonsdag()
 		}
 	};
 };

@@ -23,42 +23,42 @@ describe('uttaksdagerUtils', () => {
 
 	const tidsperiodeEnDag: Tidsperiode = {
 		startdato: mandag,
-		tom: mandag
+		sluttdato: mandag
 	};
 
 	const tidsperiodeToDager: Tidsperiode = {
 		startdato: mandag,
-		tom: tirsdag
+		sluttdato: tirsdag
 	};
 
 	const tidsperiodeTreDager: Tidsperiode = {
 		startdato: mandag,
-		tom: onsdag
+		sluttdato: onsdag
 	};
 
 	const tidsperiodeFireDager: Tidsperiode = {
 		startdato: mandag,
-		tom: torsdag
+		sluttdato: torsdag
 	};
 
 	const tidsperiodeFemDager: Tidsperiode = {
 		startdato: tirsdag,
-		tom: nesteMandag
+		sluttdato: nesteMandag
 	};
 
 	const tidsperiodeOverHelg: Tidsperiode = {
 		startdato: mandag,
-		tom: nesteMandag
+		sluttdato: nesteMandag
 	};
 
 	const tidsperiodeOverHelg2: Tidsperiode = {
 		startdato: fredag,
-		tom: nesteMandag
+		sluttdato: nesteMandag
 	};
 
 	const tidsperiodeOverEttAr: Tidsperiode = {
 		startdato: mandag,
-		tom: mandagNesteAr
+		sluttdato: mandagNesteAr
 	};
 
 	describe('getUkedag', () => {

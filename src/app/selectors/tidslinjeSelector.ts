@@ -47,7 +47,7 @@ export const tidslinjeFraPerioder = createSelector(
 			{
 				type: TidslinjeinnslagType.hendelse,
 				hendelse: 'permisjonsslutt',
-				dato: perioder[antallPerioder - 1].tidsperiode.sluttdato
+				dato: perioder[antallPerioder - 1].tidsperiode.tom
 			}
 		];
 

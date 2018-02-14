@@ -40,18 +40,16 @@ export const normaliserKontotype = (
 export const oppsummeringPerioder = (
 	innslag: InnslagPeriodetype
 ): SammenslattPeriodeOppsummering => {
-	const tidsperiode = {
-		startdato: innslag.perioderekke[0].tidsperiode.sluttdato,
-		sluttdato:
-			innslag.perioderekke[innslag.perioderekke.length - 1].tidsperiode
-				.sluttdato
+	const tidsperiode: Tidsperiode = {
+		startdato: innslag.perioderekke[0].tidsperiode.tom,
+		tom: innslag.perioderekke[innslag.perioderekke.length - 1].tidsperiode.tom
 	};
 	const ukerTotalt = getAntallUttaksdagerIPerioder(innslag.perioderekke) / 5;
 	const { stonadsperioder } = splittPerioderEtterType(innslag.perioderekke);
 	const perioder: Periodeoppsummering = new Map();
 	stonadsperioder.forEach((p) => {
 		if (p.type === Periodetype.Stonadsperiode) {
-			const konto = normaliserKontotype(p.konto);
+			const konto = p.konto;
 			const eksisterendeDager = perioder.get(konto) || 0;
 			const nyeDager = getAntallUttaksdagerITidsperiode(p.tidsperiode);
 			perioder.set(konto, eksisterendeDager + nyeDager);

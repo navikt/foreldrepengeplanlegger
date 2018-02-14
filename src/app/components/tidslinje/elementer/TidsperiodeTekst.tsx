@@ -14,7 +14,7 @@ const TidsperiodeTekst: React.StatelessComponent<Props> = ({
 }) => (
 	<div>
 		<Dato dato={tidsperiode.startdato} /> -{' '}
-		<Dato dato={tidsperiode.sluttdato} />
+		<Dato dato={tidsperiode.tom} />
 		{visDager && (
 			<span> ({getAntallUttaksdagerITidsperiode(tidsperiode)} dager)</span>
 		)}

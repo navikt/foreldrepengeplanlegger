@@ -1,19 +1,36 @@
 import {
-	Stonadsperiode,
-	StonadskontoType,
 	Periodetype,
 	UtsettelseArsakType,
 	Utsettelsesperiode,
+	Stonadsperiode,
+	StonadskontoType,
 	Tidsperiode
 } from 'app/types';
 import {
-	leggUtsettelseInnIPeriode,
+	leggTilUtsettelse,
+	getAntallUttaksdagerIPerioder,
+	getUttaksdagerForForelder,
 	getAntallUkerFellesperiode,
-	getPeriodeSluttdato,
-	getUttaksdagerForForelder
+	getPeriodeSluttdato
 } from 'app/utils/periodeUtils';
 import { grunnfordeling } from 'app/data/grunnfordeling';
-import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
+import Periodeberegner from 'app/utils/Periodeberegner';
+import { leggUttaksdagerTilDato } from 'app/utils/uttaksdagerUtils';
+
+const datoer = {
+	termin: new Date(2018, 0, 24),
+	mandag: new Date(2018, 0, 1),
+	tirsdag: new Date(2018, 0, 2),
+	onsdag: new Date(2018, 0, 3),
+	torsdag: new Date(2018, 0, 4),
+	fredag: new Date(2018, 0, 5),
+	lordag: new Date(2018, 0, 6),
+	sondag: new Date(2018, 0, 7),
+	nesteMandag: new Date(2018, 0, 8),
+	nesteTirsdag: new Date(2018, 0, 9),
+	nesteFredag: new Date(2018, 0, 12),
+	mandagNesteAr: new Date(2019, 0, 1)
+};
 
 const periode: Stonadsperiode = {
 	type: Periodetype.Stonadsperiode,
@@ -21,7 +38,7 @@ const periode: Stonadsperiode = {
 	forelder: 'forelder1',
 	tidsperiode: {
 		startdato: new Date(2018, 0, 1),
-		sluttdato: new Date(2018, 0, 12)
+		tom: new Date(2018, 0, 12)
 	}
 };
 
@@ -29,41 +46,60 @@ const utsettelse: Utsettelsesperiode = {
 	arsak: UtsettelseArsakType.Arbeid,
 	forelder: 'forelder1',
 	tidsperiode: {
-		startdato: new Date(2018, 0, 2),
-		sluttdato: new Date(2018, 0, 4)
+		startdato: new Date(2018, 3, 16),
+		tom: new Date(2018, 3, 17)
 	},
 	type: Periodetype.Utsettelse
 };
 
+const lagUtsettelse = (dager: number): Utsettelsesperiode => ({
+	...utsettelse,
+	tidsperiode: {
+		startdato: utsettelse.tidsperiode.startdato,
+		tom: leggUttaksdagerTilDato(utsettelse.tidsperiode.startdato, dager)
+	}
+});
+
 describe('periodeUtils', () => {
-	describe('leggUtsettelseInnIPeriode', () => {
-		const splittetPeriode = leggUtsettelseInnIPeriode(periode, utsettelse);
+	describe('legger til utsettelse', () => {
+		const periodeberegner = Periodeberegner(
+			datoer.termin,
+			'100%',
+			13,
+			13,
+			grunnfordeling
+		);
 
-		it('splitter periode i tre deler', () => {
-			expect(splittetPeriode.length).toBe(3);
-		});
+		const stonadsperioder = periodeberegner.opprettStonadsperioder();
 
-		const p1 = splittetPeriode[0];
-		const u = splittetPeriode[1];
-		const p2 = splittetPeriode[2];
-
-		it('setter første del av splittet periode før utsettelse', () => {
-			expect(p1.tidsperiode.sluttdato.getTime()).toBeLessThan(
-				u.tidsperiode.sluttdato.getTime()
+		const testUtsettelse = (dager: number, forventetSluttdato: Date) => {
+			const uttaksdagerUtenUtsettelse = getAntallUttaksdagerIPerioder(
+				stonadsperioder
 			);
-		});
-		it('setter siste del av splittet periode etter utsettelse', () => {
-			expect(p2.tidsperiode.startdato.getTime()).toBeGreaterThan(
-				u.tidsperiode.sluttdato.getTime()
+			const perioderMedUtsettelse = leggTilUtsettelse(
+				stonadsperioder,
+				lagUtsettelse(dager)
 			);
-		});
+			const uttaksdagerMedUtsettelse = getAntallUttaksdagerIPerioder(
+				perioderMedUtsettelse
+			);
+			it('antall uttaksdager er det samme', () => {
+				expect(uttaksdagerUtenUtsettelse).toEqual(uttaksdagerMedUtsettelse);
+			});
+			it(`forskyver sluttdato med ${dager} dager`, () => {
+				const nySluttdato =
+					perioderMedUtsettelse[perioderMedUtsettelse.length - 1].tidsperiode
+						.tom;
+				expect(nySluttdato).toEqual(forventetSluttdato);
+			});
+		};
 
-		it('splittede perioder har samme antall uttaksdager som opprinnelig periode', () => {
-			const uttaksdager = getAntallUttaksdagerITidsperiode(periode.tidsperiode);
-			const p1Dager = getAntallUttaksdagerITidsperiode(p1.tidsperiode);
-			const p2Dager = getAntallUttaksdagerITidsperiode(p2.tidsperiode);
-			expect(p1Dager + p2Dager).toEqual(uttaksdager);
-		});
+		const opprinneligSluttdato =
+			stonadsperioder[stonadsperioder.length - 1].tidsperiode.tom;
+
+		testUtsettelse(1, leggUttaksdagerTilDato(opprinneligSluttdato, 1));
+		testUtsettelse(2, leggUttaksdagerTilDato(opprinneligSluttdato, 2));
+		testUtsettelse(3, leggUttaksdagerTilDato(opprinneligSluttdato, 3));
 	});
 
 	it('finner riktig antall uker for fellesperioden 80%', () => {
@@ -77,24 +113,22 @@ describe('periodeUtils', () => {
 	it('finner riktig periodesluttdato', () => {
 		const periodeEnUke: Tidsperiode = {
 			startdato: new Date(2018, 0, 1),
-			sluttdato: new Date(2018, 0, 5)
+			tom: new Date(2018, 0, 5)
 		};
 		const periodeToUker: Tidsperiode = {
 			startdato: new Date(2018, 0, 1),
-			sluttdato: new Date(2018, 0, 12)
+			tom: new Date(2018, 0, 12)
 		};
 		const periodeTreUkerForskyvet: Tidsperiode = {
 			startdato: new Date(2018, 0, 4),
-			sluttdato: new Date(2018, 0, 17)
+			tom: new Date(2018, 0, 17)
 		};
-		expect(getPeriodeSluttdato(periodeEnUke.startdato, 1)).toEqual(
-			periodeEnUke.sluttdato
-		);
+		expect(getPeriodeSluttdato(periodeEnUke.startdato, 1)).toEqual(periodeEnUke.tom);
 		expect(getPeriodeSluttdato(periodeToUker.startdato, 2)).toEqual(
-			periodeToUker.sluttdato
+			periodeToUker.tom
 		);
 		expect(getPeriodeSluttdato(periodeTreUkerForskyvet.startdato, 2)).toEqual(
-			periodeTreUkerForskyvet.sluttdato
+			periodeTreUkerForskyvet.tom
 		);
 	});
 

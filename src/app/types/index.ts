@@ -8,7 +8,7 @@ export type Forelder = 'forelder1' | 'forelder2';
 
 export interface Tidsperiode {
 	startdato: Date;
-	sluttdato: Date;
+	tom: Date;
 }
 
 export interface Grunnfordeling {

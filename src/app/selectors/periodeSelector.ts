@@ -108,7 +108,7 @@ export const slaSammenPerioder = (
 	forelder: perioder[0].forelder,
 	tidsperiode: {
 		startdato: perioder[0].tidsperiode.startdato,
-		sluttdato: perioder[perioder.length - 1].tidsperiode.sluttdato
+		tom: perioder[perioder.length - 1].tidsperiode.tom
 	},
 	perioder: perioder.map((sp) => sp)
 });

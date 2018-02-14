@@ -131,7 +131,7 @@ describe('periodeberegner', () => {
 		it(`totalt antall ${uttaksdager80} uttaksdager er riktig`, () => {
 			const tidsperiode: Tidsperiode = {
 				startdato: perioder80[0].tidsperiode.startdato,
-				sluttdato: perioder80[5].tidsperiode.sluttdato
+				tom: perioder80[5].tidsperiode.tom
 			};
 			expect(getAntallUttaksdagerITidsperiode(tidsperiode)).toBe(uttaksdager80);
 		});
@@ -155,9 +155,9 @@ describe('periodeberegner', () => {
 			expect(
 				getAntallUttaksdagerITidsperiode({
 					startdato: sammenslattePerioder[0].tidsperiode.startdato,
-					sluttdato:
+					tom:
 						sammenslattePerioder[sammenslattePerioder.length - 1].tidsperiode
-							.sluttdato
+							.tom
 				})
 			).toEqual(uttaksdager80);
 		});

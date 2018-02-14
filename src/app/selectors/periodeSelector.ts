@@ -48,7 +48,6 @@ export const getPerioderMedUtsettelser = createSelector(
 
 /**
  * Returnerer liste hvor påfølgende perioder med samme forelder er slått sammen til en periode
- * Perioder før termin vil ikke blir slått sammen
  */
 export const getSammenslattePerioder = createSelector(
 	getStonadsperioder,

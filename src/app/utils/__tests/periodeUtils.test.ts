@@ -56,7 +56,10 @@ const lagUtsettelse = (dager: number): Utsettelsesperiode => ({
 	...utsettelse,
 	tidsperiode: {
 		startdato: utsettelse.tidsperiode.startdato,
-		sluttdato: leggUttaksdagerTilDato(utsettelse.tidsperiode.startdato, dager - 1)
+		sluttdato: leggUttaksdagerTilDato(
+			utsettelse.tidsperiode.startdato,
+			dager - 1
+		)
 	}
 });
 

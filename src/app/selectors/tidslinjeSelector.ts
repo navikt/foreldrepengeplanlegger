@@ -10,7 +10,6 @@ import { Periode } from 'app/types';
 import { getSammenhengendePerioder } from 'app/utils/periodeUtils';
 
 const formSelector = (state: AppState) => state.form;
-const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
 
 const mapPeriodeTilTidslinjeinnslag = (
 	periode: Periode,
@@ -27,9 +26,8 @@ const mapPeriodeTilTidslinjeinnslag = (
 
 export const tidslinjeFraPerioder = createSelector(
 	getPerioderForTidslinje,
-	utsettelseSelector,
 	formSelector,
-	(perioder, utsettelser, form): Tidslinjeinnslag[] => {
+	(perioder, form): Tidslinjeinnslag[] => {
 		const { dekningsgrad, termindato } = form;
 		if (!termindato || !dekningsgrad) {
 			return [];

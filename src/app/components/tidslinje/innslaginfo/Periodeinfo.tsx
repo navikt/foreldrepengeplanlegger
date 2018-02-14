@@ -17,6 +17,8 @@ export const getStondskontoNavn = (konto: StonadskontoType) => {
 			return 'fedrekvote';
 		case StonadskontoType.Modrekvote:
 			return 'mødrekvote';
+		case StonadskontoType.ModrekvotePakrevd:
+			return 'mødrekvotePåkrevd';
 		case StonadskontoType.ForeldrepengerForFodsel:
 			return 'foreldrepenger';
 		default:
@@ -25,7 +27,6 @@ export const getStondskontoNavn = (konto: StonadskontoType) => {
 };
 
 const Periodeinfo: React.StatelessComponent<PeriodeinnslagProps> = (props) => {
-	const { periode } = props.innslag;
 	const oppsummering = oppsummeringPerioder(props.innslag);
 	const detaljetekster: string[] = [];
 	oppsummering.perioder.forEach((uker, key) => {
@@ -35,7 +36,7 @@ const Periodeinfo: React.StatelessComponent<PeriodeinnslagProps> = (props) => {
 	return (
 		<InnslagLayout tidsperiode={props.innslag.periode.tidsperiode}>
 			{getForelderNavn(
-				periode.forelder,
+				props.innslag.periode.forelder,
 				props.navnForelder1,
 				props.navnForelder2
 			)}{' '}

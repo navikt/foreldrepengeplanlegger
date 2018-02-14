@@ -11,17 +11,6 @@ import { getUttaksdagerForForelder } from 'app/utils/periodeUtils';
 const forstePermisjonsdag = new Date(2018, 0, 8);
 const termindato = new Date(2018, 0, 27);
 
-// const form100: FormState = {
-// 	grunnfordeling,
-// 	termindato,
-// 	dekningsgrad: '100%',
-// 	navnForelder1: 'Kari',
-// 	navnForelder2: 'Ola',
-// 	ukerFellesperiode: 26,
-// 	fellesperiodeukerForelder1: 13,
-// 	fellesperiodeukerForelder2: 13
-// };
-
 const form80: FormState = {
 	grunnfordeling,
 	termindato,

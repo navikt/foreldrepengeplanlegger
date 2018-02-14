@@ -30,6 +30,18 @@ export const sorterPerioder = (p1: Periode, p2: Periode) => {
 	return p1.tidsperiode.startdato >= p2.tidsperiode.startdato ? 1 : -1;
 };
 
+export const getUtsettelsesperioder = (
+	perioder: Periode[]
+): Utsettelsesperiode[] =>
+	perioder.filter(
+		(periode) => periode.type === Periodetype.Utsettelse
+	) as Utsettelsesperiode[];
+
+export const getStonadsperioder = (perioder: Periode[]): Stonadsperiode[] =>
+	perioder.filter(
+		(periode) => periode.type === Periodetype.Stonadsperiode
+	) as Stonadsperiode[];
+
 /**
  * Finner periode som inneholder dato
  * @param perioder
@@ -315,6 +327,24 @@ export const getSisteUttaksdagIPeriode = (periode: Periode): Date =>
 		? periode.perioder[periode.perioder.length - 1].tidsperiode.sluttdato
 		: periode.tidsperiode.sluttdato;
 
+export const flattenStonadsperioder = (
+	perioder: Periode[]
+): Stonadsperiode[] => {
+	const returPerioder: Stonadsperiode[] = [];
+	perioder.forEach((periode) => {
+		if (periode.type === Periodetype.Stonadsperiode) {
+			returPerioder.push(periode);
+		} else if (periode.type === Periodetype.SammenslattPeriode) {
+			periode.perioder.forEach((p) => {
+				if (p.type === Periodetype.Stonadsperiode) {
+					returPerioder.push(p);
+				}
+			});
+		}
+	});
+	return returPerioder;
+};
+
 /**
  * Går gjennom liste av perioder og deler de opp etter om de er utsettelse
  * eller stønadsperiode
@@ -335,10 +365,11 @@ export const splittPerioderEtterType = (
 		} else if (periode.type === Periodetype.Utsettelse) {
 			utsettelsesperioder.push(periode);
 		} else {
-			const splitt = splittPerioderEtterType(periode.perioder);
-			stonadsperioder = stonadsperioder.concat(splitt.stonadsperioder);
+			stonadsperioder = stonadsperioder.concat(
+				flattenStonadsperioder(periode.perioder)
+			);
 			utsettelsesperioder = utsettelsesperioder.concat(
-				splitt.utsettelsesperioder
+				getUtsettelsesperioder(periode.perioder)
 			);
 		}
 	});

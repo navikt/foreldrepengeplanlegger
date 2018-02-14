@@ -56,7 +56,7 @@ const lagUtsettelse = (dager: number): Utsettelsesperiode => ({
 	...utsettelse,
 	tidsperiode: {
 		startdato: utsettelse.tidsperiode.startdato,
-		tom: leggUttaksdagerTilDato(utsettelse.tidsperiode.startdato, dager)
+		tom: leggUttaksdagerTilDato(utsettelse.tidsperiode.startdato, dager - 1)
 	}
 });
 
@@ -123,7 +123,9 @@ describe('periodeUtils', () => {
 			startdato: new Date(2018, 0, 4),
 			tom: new Date(2018, 0, 17)
 		};
-		expect(getPeriodeSluttdato(periodeEnUke.startdato, 1)).toEqual(periodeEnUke.tom);
+		expect(getPeriodeSluttdato(periodeEnUke.startdato, 1)).toEqual(
+			periodeEnUke.tom
+		);
 		expect(getPeriodeSluttdato(periodeToUker.startdato, 2)).toEqual(
 			periodeToUker.tom
 		);

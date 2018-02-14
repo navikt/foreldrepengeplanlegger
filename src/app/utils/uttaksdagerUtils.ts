@@ -53,8 +53,6 @@ export const getForsteUttaksdagPaEllerEtterDato = (dato: Date): Date => {
 
 /**
  * Finner antall dager i tidsperioden som er uttaksdager
- * @param startdato
- * @param sluttdato
  */
 export const getAntallUttaksdagerITidsperiode = (
 	tidsperiode: Tidsperiode
@@ -87,6 +85,28 @@ export const leggUttaksdagerTilDato = (
 	let dagteller = 0;
 	let uttaksdageteller = 0;
 	while (uttaksdageteller <= uttaksdager) {
+		const tellerdato = addDays(dato, dagteller++);
+		if (erUttaksdag(tellerdato)) {
+			nyDato = tellerdato;
+			uttaksdageteller++;
+		}
+	}
+	return nyDato;
+};
+
+/**
+ * Legger til dager til en dato og returnerer ny dato
+ * @param dato
+ * @param uttaksdager
+ */
+export const utsettDatoUttaksdager = (
+	dato: Date,
+	uttaksdager: number
+): Date => {
+	let nyDato = dato;
+	let dagteller = 0;
+	let uttaksdageteller = 0;
+	while (uttaksdageteller < uttaksdager) {
 		const tellerdato = addDays(dato, dagteller++);
 		if (erUttaksdag(tellerdato)) {
 			nyDato = tellerdato;

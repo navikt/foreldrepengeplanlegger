@@ -13,8 +13,6 @@ import {
 import { Utsettelsesperiode, Tidsperiode } from 'app/types';
 import LeggTilKnapp from 'app/components/leggTilKnapp/LeggTilKnapp';
 import SkjemaInputElement from 'shared/components/skjemaInputElement/SkjemaInputElement';
-import SkjemaInfotekst from 'app/components/skjemaInfotekst/SkjemaInfotekst';
-import Tekst from 'app/tekst';
 import Periodeberegner from 'app/utils/Periodeberegner';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import { getForsteUttaksdagEtterDato } from 'app/utils/uttaksdagerUtils';
@@ -32,9 +30,9 @@ type Props = StateProps & DispatchProps;
 
 const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 	<div>
-		<SkjemaInfotekst id="info-dekningsgrad">
+		{/* <SkjemaInfotekst id="info-dekningsgrad">
 			{Tekst.skjema.info.utsettelse}
-		</SkjemaInfotekst>
+		</SkjemaInfotekst> */}
 		<SkjemaInputElement label="Utsettelse av permisjonstiden">
 			<LeggTilKnapp onClick={() => props.dispatch(utsettelseVisDialog())} />
 		</SkjemaInputElement>

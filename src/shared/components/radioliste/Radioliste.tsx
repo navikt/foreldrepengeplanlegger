@@ -19,6 +19,7 @@ export interface Props {
 	valg: RadiolisteValg[];
 	inputnavn: string;
 	tittel: string;
+	beskrivelse?: React.ReactNode;
 	valgtVerdi?: RadiolisteValgVerdi;
 	onChange: RadiolisteChangeEvent;
 	feil?: Feil;
@@ -59,6 +60,7 @@ const Radioliste: React.StatelessComponent<Props> = ({
 	inputnavn,
 	feil,
 	tittel,
+	beskrivelse,
 	onChange,
 	stil,
 	kolonner
@@ -69,6 +71,9 @@ const Radioliste: React.StatelessComponent<Props> = ({
 	});
 	return (
 		<SkjemaGruppe className={cls} feil={feil} title={tittel}>
+			{beskrivelse && (
+				<div className="radioliste__beskrivelse">{beskrivelse}</div>
+			)}
 			<div className="radioliste__radioer">
 				{valg.map((option) => (
 					<div

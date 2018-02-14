@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Chevron from 'nav-frontend-chevron';
-import AriaText from 'shared/components/aria/AriaText';
+import Sirkelknapp from 'shared/components/sirkelknapp/Sirkelknapp';
 
 export type Direction = 'next' | 'previous';
 
@@ -17,15 +17,18 @@ const RangeStepper: React.StatelessComponent<Props> = ({
 	label,
 	disabled
 }) => (
-	<button
-		type="button"
+	<Sirkelknapp
+		stil="hvit"
 		onClick={() => onClick()}
-		className="rangeStepper"
+		label={label}
 		disabled={disabled}
-		title={label}>
-		<Chevron type={direction === 'previous' ? 'venstre' : 'høyre'} />
-		<AriaText>{label}</AriaText>
-	</button>
+		ikon={
+			<Chevron
+				type={direction === 'previous' ? 'venstre' : 'høyre'}
+				className={`rangeStepper__chevron--${direction}`}
+			/>
+		}
+	/>
 );
 
 export default RangeStepper;

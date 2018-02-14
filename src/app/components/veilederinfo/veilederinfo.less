@@ -1,4 +1,5 @@
-.infotekst {
+.veilederinfo {
+	.clearfix();
 	background-color: @navLillaLighten80;
 	border-radius: @defaultBorderRadius;
 	padding: 1.5rem 1rem;
@@ -16,5 +17,19 @@
 
 	&__utvidetInfo {
 		padding-top: 1rem;
+	}
+
+	&--kompakt {
+		padding: 1rem;
+		min-height: 2rem;
+		.veilederinfo__veileder {
+			float: left;
+			margin: 0 1rem 0 0;
+			svg {
+				margin: 0;
+				width: 2.5rem;
+				height: 2.5rem;
+			}
+		}
 	}
 }

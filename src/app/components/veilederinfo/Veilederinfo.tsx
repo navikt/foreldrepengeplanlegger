@@ -1,24 +1,27 @@
 import * as React from 'react';
+import * as classnames from 'classnames';
 
 import VeilederIkon from 'app/components/ikoner/VeilederIkon';
 import UtvidetInformasjon from 'app/components/utvidetInformasjon/UtvidetInformasjon';
 
 interface Props {
 	utvidetInfo?: React.ReactNode;
+	stil?: 'kompakt' | 'vanlig';
 }
 
-const Infotekst: React.StatelessComponent<Props> = ({
+const Veilederinfo: React.StatelessComponent<Props> = ({
 	utvidetInfo,
+	stil = 'kompakt',
 	children
 }) => (
-	<div className="infotekst">
-		<div className="infotekst__innhold">
-			<span className="infotekst__veileder">
+	<div className={classnames('veilederinfo', `veilederinfo--${stil}`)}>
+		<div className="veilederinfo__innhold">
+			<span className="veilederinfo__veileder">
 				<VeilederIkon />
 			</span>
 			{children}
 			{utvidetInfo && (
-				<div className="infotekst__utvidetInfo">
+				<div className="veilederinfo__utvidetInfo">
 					<UtvidetInformasjon>{utvidetInfo}</UtvidetInformasjon>
 				</div>
 			)}
@@ -26,4 +29,4 @@ const Infotekst: React.StatelessComponent<Props> = ({
 	</div>
 );
 
-export default Infotekst;
+export default Veilederinfo;

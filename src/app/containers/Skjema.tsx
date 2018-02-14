@@ -22,8 +22,12 @@ import {
 } from 'app/redux/actions';
 import Tekst from 'app/tekst';
 import { Dekningsgrad } from 'app/types';
-import SkjemaInfotekst from 'app/components/skjemaInfotekst/SkjemaInfotekst';
+import SkjemaveilederKnapp from 'app/components/skjemaveilederKnapp/SkjemaveilederKnapp';
 import FordelingFellesperiodeRange from 'app/components/fordelingFellesperiodeRange/FordelingFellesperiodeRange';
+import { grunnfordeling } from 'app/data/grunnfordeling';
+import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
+import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
+import Infotekster from 'app/tekst/infotekster';
 
 export interface StateProps {
 	form: FormState;
@@ -73,14 +77,20 @@ class Skjema extends React.Component<Props> {
 				</div>
 
 				<div className="blokk-m">
-					<SkjemaInfotekst id="info-dekningsgrad">
-						{Tekst.skjema.info.dekningsgrad}
-					</SkjemaInfotekst>
+					<SkjemaveilederKnapp id={Infotekster.sats} label="Les mer om sats" />
 					<Radioliste
 						inputnavn="dekningsgrad"
 						tittel={Tekst.skjema.labelDekningsgrad(
 							form.navnForelder2 ? form.navnForelder2 !== '' : false
 						)}
+						beskrivelse={
+							<VeilederinfoContainer id={Infotekster.sats}>
+								<Veilederinfo stil="kompakt">
+									Valget av antall uker gjelder dere begge. Den totale
+									utbetalingen blir høyere ved å velge 100 prosent.
+								</Veilederinfo>
+							</VeilederinfoContainer>
+						}
 						valgtVerdi={form.dekningsgrad}
 						onChange={(value) =>
 							dispatch(setDekningsgrad(value as Dekningsgrad))
@@ -107,14 +117,16 @@ class Skjema extends React.Component<Props> {
 				{form.ukerFellesperiode &&
 					form.dekningsgrad && (
 						<div className="blokk-s">
-							<SkjemaInfotekst id="info-fordeling">
-								{Tekst.skjema.info.fordelingFellesperiode}
-							</SkjemaInfotekst>
+							<SkjemaveilederKnapp
+								id={Infotekster.fordelingFellespermisjon}
+								label="Les mer om fordeling av fellesperioden"
+							/>
 							<FordelingFellesperiodeRange
 								navnForelder1={form.navnForelder1}
 								navnForelder2={form.navnForelder2}
 								ukerFellesperiode={form.ukerFellesperiode}
 								ukerForelder1={form.fellesperiodeukerForelder1}
+								ukerHver={grunnfordeling.antallUkerFedrekvote}
 								onChange={(uker) => dispatch(settAntallDagerMor(uker))}
 							/>
 						</div>

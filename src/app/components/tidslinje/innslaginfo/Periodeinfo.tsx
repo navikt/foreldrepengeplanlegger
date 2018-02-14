@@ -16,15 +16,17 @@ export const getStondskontoNavn = (konto: StonadskontoType) => {
 		case StonadskontoType.Fedrekvote:
 			return 'fedrekvote';
 		case StonadskontoType.Modrekvote:
-		case StonadskontoType.ForeldrepengerForFodsel:
 			return 'mødrekvote';
+		case StonadskontoType.ModrekvotePakrevd:
+			return 'mødrekvotePåkrevd';
+		case StonadskontoType.ForeldrepengerForFodsel:
+			return 'foreldrepenger';
 		default:
 			return '';
 	}
 };
 
 const Periodeinfo: React.StatelessComponent<PeriodeinnslagProps> = (props) => {
-	const { periode } = props.innslag;
 	const oppsummering = oppsummeringPerioder(props.innslag);
 	const detaljetekster: string[] = [];
 	oppsummering.perioder.forEach((uker, key) => {
@@ -34,7 +36,7 @@ const Periodeinfo: React.StatelessComponent<PeriodeinnslagProps> = (props) => {
 	return (
 		<InnslagLayout tidsperiode={props.innslag.periode.tidsperiode}>
 			{getForelderNavn(
-				periode.forelder,
+				props.innslag.periode.forelder,
 				props.navnForelder1,
 				props.navnForelder2
 			)}{' '}

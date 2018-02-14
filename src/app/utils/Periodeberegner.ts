@@ -122,7 +122,7 @@ const Periodeberegner = (
 			{
 				type: Periodetype.Stonadsperiode,
 				forelder: 'forelder1',
-				konto: StonadskontoType.Modrekvote,
+				konto: StonadskontoType.ModrekvotePakrevd,
 				tidsperiode: getPakrevdModrekvotePostTermin(),
 				fastPeriode: true
 			},

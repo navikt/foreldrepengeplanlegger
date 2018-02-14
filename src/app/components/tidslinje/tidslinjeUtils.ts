@@ -7,7 +7,7 @@ import {
 } from 'app/types';
 import {
 	getAntallUttaksdagerIPerioder,
-	splittPerioderEtterType
+	getStonadsperioder
 } from 'app/utils/periodeUtils';
 import { CalloutBorderColor } from 'app/components/callout/Callout';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
@@ -25,13 +25,6 @@ export interface SammenslattPeriodeOppsummering {
 
 export type Periodeoppsummering = Map<StonadskontoType, number>;
 
-export const normaliserKontotype = (
-	konto: StonadskontoType
-): StonadskontoType =>
-	konto === StonadskontoType.Modrekvote ||
-	konto === StonadskontoType.ForeldrepengerForFodsel
-		? StonadskontoType.Modrekvote
-		: konto;
 /**
  * Går gjennom alle perioder i en perioderekke og summerer opp antall
  * dager som er brukt per StonadskontoType
@@ -40,22 +33,20 @@ export const normaliserKontotype = (
 export const oppsummeringPerioder = (
 	innslag: InnslagPeriodetype
 ): SammenslattPeriodeOppsummering => {
-	const tidsperiode = {
+	const tidsperiode: Tidsperiode = {
 		startdato: innslag.perioderekke[0].tidsperiode.sluttdato,
 		sluttdato:
 			innslag.perioderekke[innslag.perioderekke.length - 1].tidsperiode
 				.sluttdato
 	};
 	const ukerTotalt = getAntallUttaksdagerIPerioder(innslag.perioderekke) / 5;
-	const { stonadsperioder } = splittPerioderEtterType(innslag.perioderekke);
+	const stonadsperioder = getStonadsperioder(innslag.perioderekke);
 	const perioder: Periodeoppsummering = new Map();
 	stonadsperioder.forEach((p) => {
-		if (p.type === Periodetype.Stonadsperiode) {
-			const konto = normaliserKontotype(p.konto);
-			const eksisterendeDager = perioder.get(konto) || 0;
-			const nyeDager = getAntallUttaksdagerITidsperiode(p.tidsperiode);
-			perioder.set(konto, eksisterendeDager + nyeDager);
-		}
+		const konto = p.konto;
+		const eksisterendeDager = perioder.get(konto) || 0;
+		const nyeDager = getAntallUttaksdagerITidsperiode(p.tidsperiode);
+		perioder.set(konto, eksisterendeDager + nyeDager);
 	});
 	perioder.forEach((value, key) => perioder.set(key, value / 5));
 	return {

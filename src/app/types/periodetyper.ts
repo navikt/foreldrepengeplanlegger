@@ -8,6 +8,8 @@ export enum Periodetype {
 
 export enum StonadskontoType {
 	/** Kvote forbeholdt mor */
+	'ModrekvotePakrevd' = 'ModrekvotePakrevd',
+	/** Kvote forbeholdt mor */
 	'Modrekvote' = 'Modrekvote',
 	/** Kvote forbehold medforelder */
 	'Fedrekvote' = 'Fedrekvote',
@@ -35,6 +37,7 @@ interface PeriodeBase {
 export type Stonadskontoer =
 	| StonadskontoType.Fedrekvote
 	| StonadskontoType.Modrekvote
+	| StonadskontoType.ModrekvotePakrevd
 	| StonadskontoType.Fellesperiode
 	| StonadskontoType.ForeldrepengerForFodsel;
 
@@ -50,11 +53,4 @@ export interface Utsettelsesperiode extends PeriodeBase {
 	forelder: Forelder;
 }
 
-export interface SammenslattPeriode extends PeriodeBase {
-	type: Periodetype.SammenslattPeriode;
-	perioder: (Stonadsperiode | Utsettelsesperiode)[];
-	forelder: Forelder;
-	tidsperiode: Tidsperiode;
-}
-
-export type Periode = Stonadsperiode | Utsettelsesperiode | SammenslattPeriode;
+export type Periode = Stonadsperiode | Utsettelsesperiode;

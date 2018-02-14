@@ -3,6 +3,8 @@ import * as classnames from 'classnames';
 
 import AriaText from 'shared/components/aria/AriaText';
 
+export type Stil = 'hvit' | 'bla';
+
 export interface Props {
 	/** Tekst som blir lest opp og satt som tittel på knappen */
 	label: string;
@@ -16,6 +18,8 @@ export interface Props {
 	toggle?: {
 		pressed: boolean;
 	};
+	/** Layout varianter */
+	stil?: Stil;
 }
 
 const Sirkelknapp: React.StatelessComponent<Props> = ({
@@ -23,12 +27,13 @@ const Sirkelknapp: React.StatelessComponent<Props> = ({
 	label,
 	ikon,
 	toggle,
-	disabled
+	disabled,
+	stil = 'hvit'
 }) => (
 	<button
 		type="button"
 		onClick={() => onClick()}
-		className={classnames(`sirkelknapp`, {
+		className={classnames(`sirkelknapp`, `sirkelknapp--${stil}`, {
 			'sirkelknapp--pressed': toggle && toggle.pressed
 		})}
 		disabled={disabled}

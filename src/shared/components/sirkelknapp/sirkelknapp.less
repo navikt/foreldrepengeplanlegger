@@ -1,5 +1,17 @@
+.sirkelknappBla() {
+	background-color: @c-buttonBlue;
+	color: white;
+	border-color: @c-buttonBlue;
+}
+.sirkelknappHvit() {
+	background-color: white;
+	color: @c-buttonBlue;
+	border-color: @c-buttonBlue;
+}
+
 .sirkelknapp  {
 	.borderButton();
+	.sirkelknappBla();
 	border-radius: 50%;
 	width: 24px;
 	height: 24px;
@@ -10,10 +22,15 @@
 	&__ikon {
 		display: block;
 		width: 100%;
+		text-align: center;
 	}
 	&--pressed {
-		background-color: @c-buttonBlue;
-		color: white;
-		border-color: @c-buttonBlue;
+		.sirkelknappHvit();
+	}
+	&--hvit {
+		.sirkelknappHvit();
+		&.sirkelknapp--pressed {
+			.sirkelknappBla();
+		}
 	}
 }

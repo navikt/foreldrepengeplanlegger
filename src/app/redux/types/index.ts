@@ -11,6 +11,8 @@ export interface DispatchProps {
 	dispatch: Dispatch;
 }
 
+export type SynligInfoMap = Map<string, boolean>;
+
 export interface FormState {
 	navnForelder1: string;
 	navnForelder2: string;
@@ -28,7 +30,12 @@ export interface UtsettelseState {
 	valgtUtsettelse?: Utsettelsesperiode;
 }
 
+export interface ViewState {
+	synligInfo: SynligInfoMap;
+}
+
 export interface AppState {
 	form: FormState;
 	utsettelse: UtsettelseState;
+	view: ViewState;
 }

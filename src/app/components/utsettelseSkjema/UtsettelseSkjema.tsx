@@ -13,7 +13,7 @@ import DateInput from 'shared/components/dateInput/DateInput';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Radioliste from 'shared/components/radioliste/Radioliste';
 import { Row, Column } from 'nav-frontend-grid';
-import Infotekst from 'app/components/infotekst/Infotekst';
+import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
 
 interface Props {
 	tidsrom: Tidsperiode;
@@ -138,7 +138,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					/>
 				</div>
 				<div className="blokk-s">
-					<Infotekst
+					<Veilederinfo
 						utvidetInfo={
 							<p>
 								Du må avtale ulønnet permisjon med din arbeidsgiver. Ulønnet
@@ -154,7 +154,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						}>
 						Ønsker dere å ha opphold i foreldrepengene med ulønnet permisjon må
 						den andre forelderen søke om utsettelse.
-					</Infotekst>
+					</Veilederinfo>
 				</div>
 				<div className="blokk-s">
 					<Radioliste

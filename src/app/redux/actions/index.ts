@@ -80,3 +80,16 @@ export function slettUtsettelse(
 		utsettelse
 	};
 }
+
+export function visInfo(id: string): PlanleggerActionTypes {
+	return {
+		type: PlanleggerActionTypeKeys.INFO_VIS,
+		id
+	};
+}
+export function skjulInfo(id: string): PlanleggerActionTypes {
+	return {
+		type: PlanleggerActionTypeKeys.INFO_SKJUL,
+		id
+	};
+}

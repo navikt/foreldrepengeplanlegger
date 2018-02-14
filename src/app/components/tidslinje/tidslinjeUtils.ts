@@ -7,7 +7,7 @@ import {
 } from 'app/types';
 import {
 	getAntallUttaksdagerIPerioder,
-	splittPerioderEtterType
+	getStonadsperioder
 } from 'app/utils/periodeUtils';
 import { CalloutBorderColor } from 'app/components/callout/Callout';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
@@ -40,12 +40,11 @@ export const oppsummeringPerioder = (
 				.sluttdato
 	};
 	const ukerTotalt = getAntallUttaksdagerIPerioder(innslag.perioderekke) / 5;
-	const { stonadsperioder } = splittPerioderEtterType(innslag.perioderekke);
+	const stonadsperioder = getStonadsperioder(innslag.perioderekke);
 	const perioder: Periodeoppsummering = new Map();
 	stonadsperioder.forEach((p) => {
 		const konto = p.konto;
 		const eksisterendeDager = perioder.get(konto) || 0;
-		console.log(p.konto, p.tidsperiode);
 		const nyeDager = getAntallUttaksdagerITidsperiode(p.tidsperiode);
 		perioder.set(konto, eksisterendeDager + nyeDager);
 	});

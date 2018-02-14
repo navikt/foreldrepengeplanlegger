@@ -6,7 +6,6 @@ import {
 	Stonadsperiode,
 	Utsettelsesperiode,
 	Periodesplitt,
-	SammenslattPeriode,
 	Tidsperiode,
 	Forelder,
 	Periodetype
@@ -125,7 +124,7 @@ export const getPeriodeSluttdato = (startdato: Date, uker: number): Date => {
  * @param utsettelser
  */
 export const leggUtsettelserTilPerioder = (
-	stonadsperioder: (Stonadsperiode | SammenslattPeriode)[],
+	stonadsperioder: Stonadsperiode[],
 	utsettelser: Utsettelsesperiode[]
 ): Periode[] => {
 	if (utsettelser.length === 0) {
@@ -323,62 +322,42 @@ export const getUttaksdagerForForelder = (
 
 /** Henter siste uttaksdag i periode */
 export const getSisteUttaksdagIPeriode = (periode: Periode): Date =>
-	periode.type === Periodetype.SammenslattPeriode
-		? periode.perioder[periode.perioder.length - 1].tidsperiode.sluttdato
-		: periode.tidsperiode.sluttdato;
-
-export const flattenStonadsperioder = (
-	perioder: Periode[]
-): Stonadsperiode[] => {
-	const returPerioder: Stonadsperiode[] = [];
-	perioder.forEach((periode) => {
-		if (periode.type === Periodetype.Stonadsperiode) {
-			returPerioder.push(periode);
-		} else if (periode.type === Periodetype.SammenslattPeriode) {
-			periode.perioder.forEach((p) => {
-				if (p.type === Periodetype.Stonadsperiode) {
-					returPerioder.push(p);
-				}
-			});
-		}
-	});
-	return returPerioder;
-};
+	periode.tidsperiode.sluttdato;
 
 /**
  * Går gjennom liste av perioder og deler de opp etter om de er utsettelse
  * eller stønadsperiode
  * @param perioder
  */
-export const splittPerioderEtterType = (
-	perioder: Periode[]
-): {
-	stonadsperioder: Stonadsperiode[];
-	utsettelsesperioder: Utsettelsesperiode[];
-} => {
-	let stonadsperioder: Stonadsperiode[] = [];
-	let utsettelsesperioder: Utsettelsesperiode[] = [];
+// export const splittPerioderEtterType = (
+// 	perioder: Periode[]
+// ): {
+// 	stonadsperioder: Stonadsperiode[];
+// 	utsettelsesperioder: Utsettelsesperiode[];
+// } => {
+// 	let stonadsperioder: Stonadsperiode[] = [];
+// 	let utsettelsesperioder: Utsettelsesperiode[] = [];
 
-	perioder.forEach((periode) => {
-		if (periode.type === Periodetype.Stonadsperiode) {
-			stonadsperioder.push(periode);
-		} else if (periode.type === Periodetype.Utsettelse) {
-			utsettelsesperioder.push(periode);
-		} else {
-			stonadsperioder = stonadsperioder.concat(
-				flattenStonadsperioder(periode.perioder)
-			);
-			utsettelsesperioder = utsettelsesperioder.concat(
-				getUtsettelsesperioder(periode.perioder)
-			);
-		}
-	});
+// 	perioder.forEach((periode) => {
+// 		if (periode.type === Periodetype.Stonadsperiode) {
+// 			stonadsperioder.push(periode);
+// 		} else if (periode.type === Periodetype.Utsettelse) {
+// 			utsettelsesperioder.push(periode);
+// 		} else {
+// 			stonadsperioder = stonadsperioder.concat(
+// 				flattenStonadsperioder(periode.perioder)
+// 			);
+// 			utsettelsesperioder = utsettelsesperioder.concat(
+// 				getUtsettelsesperioder(periode.perioder)
+// 			);
+// 		}
+// 	});
 
-	return {
-		stonadsperioder,
-		utsettelsesperioder
-	};
-};
+// 	return {
+// 		stonadsperioder,
+// 		utsettelsesperioder
+// 	};
+// };
 
 /** Henter tidsperioden hvor en forelder har sammenhengende permisjon, uavhengig av utsettelser,
  * med start i en periode som er i periodelisten

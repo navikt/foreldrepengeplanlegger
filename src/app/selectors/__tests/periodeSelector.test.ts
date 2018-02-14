@@ -1,9 +1,6 @@
 import { FormState } from 'app/redux/types';
 import { grunnfordeling } from 'app/data/grunnfordeling';
-import {
-	getStonadsperioder,
-	getSammenslattePerioder
-} from 'app/selectors/periodeSelector';
+import { getStonadsperioder } from 'app/selectors/periodeSelector';
 import { Tidsperiode, Forelder, StonadskontoType } from 'app/types';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 import { getUttaksdagerForForelder } from 'app/utils/periodeUtils';
@@ -133,31 +130,6 @@ describe('periodeberegner', () => {
 
 		it(`oppretter riktig antall uttaksdager for forelder2`, () => {
 			expect(getUttaksdagerForForelder('forelder2', perioder80)).toBe(
-				antallDagerForelder2
-			);
-		});
-	});
-
-	describe('når en slår sammen tilhørende perioder', () => {
-		const sammenslattePerioder = getSammenslattePerioder.resultFunc(perioder80);
-		it('har en fortsatt samme totalt antall uttaksdager i periode', () => {
-			expect(
-				getAntallUttaksdagerITidsperiode({
-					startdato: sammenslattePerioder[0].tidsperiode.startdato,
-					sluttdato:
-						sammenslattePerioder[sammenslattePerioder.length - 1].tidsperiode
-							.sluttdato
-				})
-			).toEqual(uttaksdager80);
-		});
-		it(`oppretter riktig antall uttaksdager for forelder1`, () => {
-			expect(getUttaksdagerForForelder('forelder1', sammenslattePerioder)).toBe(
-				antallDagerForelder1
-			);
-		});
-
-		it(`oppretter riktig antall uttaksdager for forelder2`, () => {
-			expect(getUttaksdagerForForelder('forelder2', sammenslattePerioder)).toBe(
 				antallDagerForelder2
 			);
 		});

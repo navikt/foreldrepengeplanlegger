@@ -1,26 +1,12 @@
 import { FormState } from 'app/redux/types';
 import { grunnfordeling } from 'app/data/grunnfordeling';
-import {
-	getStonadsperioder,
-	getSammenslattePerioder
-} from 'app/selectors/periodeSelector';
+import { getStonadsperioder } from 'app/selectors/periodeSelector';
 import { Tidsperiode, Forelder, StonadskontoType } from 'app/types';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 import { getUttaksdagerForForelder } from 'app/utils/periodeUtils';
 
 const forstePermisjonsdag = new Date(2018, 0, 8);
 const termindato = new Date(2018, 0, 27);
-
-// const form100: FormState = {
-// 	grunnfordeling,
-// 	termindato,
-// 	dekningsgrad: '100%',
-// 	navnForelder1: 'Kari',
-// 	navnForelder2: 'Ola',
-// 	ukerFellesperiode: 26,
-// 	fellesperiodeukerForelder1: 13,
-// 	fellesperiodeukerForelder2: 13
-// };
 
 const form80: FormState = {
 	grunnfordeling,
@@ -84,7 +70,7 @@ describe('periodeberegner', () => {
 			const periode = perioder80[periodenr++];
 			expect(periode.forelder).toEqual(forelder1);
 			expect(periode.fastPeriode).toBeTruthy();
-			expect(periode.konto).toEqual(StonadskontoType.Modrekvote);
+			expect(periode.konto).toEqual(StonadskontoType.ModrekvotePakrevd);
 			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(
 				dagerPakrevdModrekvoteEtterFodsel
 			);
@@ -144,31 +130,6 @@ describe('periodeberegner', () => {
 
 		it(`oppretter riktig antall uttaksdager for forelder2`, () => {
 			expect(getUttaksdagerForForelder('forelder2', perioder80)).toBe(
-				antallDagerForelder2
-			);
-		});
-	});
-
-	describe('når en slår sammen tilhørende perioder', () => {
-		const sammenslattePerioder = getSammenslattePerioder.resultFunc(perioder80);
-		it('har en fortsatt samme totalt antall uttaksdager i periode', () => {
-			expect(
-				getAntallUttaksdagerITidsperiode({
-					startdato: sammenslattePerioder[0].tidsperiode.startdato,
-					sluttdato:
-						sammenslattePerioder[sammenslattePerioder.length - 1].tidsperiode
-							.sluttdato
-				})
-			).toEqual(uttaksdager80);
-		});
-		it(`oppretter riktig antall uttaksdager for forelder1`, () => {
-			expect(getUttaksdagerForForelder('forelder1', sammenslattePerioder)).toBe(
-				antallDagerForelder1
-			);
-		});
-
-		it(`oppretter riktig antall uttaksdager for forelder2`, () => {
-			expect(getUttaksdagerForForelder('forelder2', sammenslattePerioder)).toBe(
 				antallDagerForelder2
 			);
 		});

@@ -6,7 +6,6 @@ import {
 	Stonadsperiode,
 	Utsettelsesperiode,
 	Periodesplitt,
-	SammenslattPeriode,
 	Tidsperiode,
 	Forelder,
 	Periodetype
@@ -17,7 +16,8 @@ import {
 	getForsteUttaksdagPaEllerEtterDato,
 	getForsteUttaksdagEtterDato,
 	leggUttaksdagerTilDato,
-	getAntallUttaksdagerITidsperiode
+	getAntallUttaksdagerITidsperiode,
+	utsettDatoUttaksdager
 } from './uttaksdagerUtils';
 
 /**
@@ -28,6 +28,18 @@ import {
 export const sorterPerioder = (p1: Periode, p2: Periode) => {
 	return p1.tidsperiode.startdato >= p2.tidsperiode.startdato ? 1 : -1;
 };
+
+export const getUtsettelsesperioder = (
+	perioder: Periode[]
+): Utsettelsesperiode[] =>
+	perioder.filter(
+		(periode) => periode.type === Periodetype.Utsettelse
+	) as Utsettelsesperiode[];
+
+export const getStonadsperioder = (perioder: Periode[]): Stonadsperiode[] =>
+	perioder.filter(
+		(periode) => periode.type === Periodetype.Stonadsperiode
+	) as Stonadsperiode[];
 
 /**
  * Finner periode som inneholder dato
@@ -56,9 +68,10 @@ const hentPerioderForOgEtterPeriode = (
 	perioder: Periode[],
 	periode: Periode
 ): Periodesplitt => {
-	const index = perioder.findIndex((p) => p === periode);
-	const perioderEtter = perioder.splice(index + 1);
-	const perioderFor: Periode[] = [...perioder.slice(0, index)];
+	const arr: Periode[] = [...perioder];
+	const index = arr.findIndex((p) => p === periode);
+	const perioderEtter = arr.splice(index + 1);
+	const perioderFor: Periode[] = [...arr.slice(0, index)];
 	return {
 		perioderFor,
 		perioderEtter
@@ -111,7 +124,7 @@ export const getPeriodeSluttdato = (startdato: Date, uker: number): Date => {
  * @param utsettelser
  */
 export const leggUtsettelserTilPerioder = (
-	stonadsperioder: (Stonadsperiode | SammenslattPeriode)[],
+	stonadsperioder: Stonadsperiode[],
 	utsettelser: Utsettelsesperiode[]
 ): Periode[] => {
 	if (utsettelser.length === 0) {
@@ -168,7 +181,7 @@ export const leggTilUtsettelseEtterPeriode = (
 		...[utsettelse],
 		...forskyvPerioder(
 			[periode, ...perioderEtter],
-			getForsteUttaksdagEtterDato(utsettelse.tidsperiode.sluttdato)
+			getForsteUttaksdagPaEllerEtterDato(utsettelse.tidsperiode.sluttdato)
 		)
 	];
 };
@@ -198,7 +211,9 @@ export const leggTilUtsettelseIPeriode = (
 		...periodeSplittetMedUtsettelse,
 		...forskyvPerioder(
 			perioderEtter,
-			getForsteUttaksdagEtterDato(sisteSplittetPeriode.tidsperiode.sluttdato)
+			getForsteUttaksdagPaEllerEtterDato(
+				sisteSplittetPeriode.tidsperiode.sluttdato
+			)
 		)
 	];
 };
@@ -226,7 +241,7 @@ export const leggUtsettelseInnIPeriode = (
 			sluttdato: getForsteUttaksdagForDato(utsettelse.tidsperiode.startdato)
 		}
 	};
-	const midt = {
+	const midt: Utsettelsesperiode = {
 		...utsettelse,
 		tidsperiode: {
 			startdato: getForsteUttaksdagPaEllerEtterDato(
@@ -244,7 +259,7 @@ export const leggUtsettelseInnIPeriode = (
 		...(periode as Stonadsperiode),
 		tidsperiode: {
 			startdato: startSisteDel,
-			sluttdato: leggUttaksdagerTilDato(startSisteDel, dagerSisteDel - 1)
+			sluttdato: utsettDatoUttaksdager(startSisteDel, dagerSisteDel)
 		}
 	};
 	return [forste, midt, siste];
@@ -282,10 +297,9 @@ export const flyttTidsperiode = (
 	startdato: Date
 ): Tidsperiode => {
 	const uttaksdager = getAntallUttaksdagerITidsperiode(tidsperiode);
-	const sluttdato = leggUttaksdagerTilDato(startdato, uttaksdager - 1);
 	return {
 		startdato,
-		sluttdato
+		sluttdato: leggUttaksdagerTilDato(startdato, uttaksdager - 1)
 	};
 };
 
@@ -308,43 +322,7 @@ export const getUttaksdagerForForelder = (
 
 /** Henter siste uttaksdag i periode */
 export const getSisteUttaksdagIPeriode = (periode: Periode): Date =>
-	periode.type === Periodetype.SammenslattPeriode
-		? periode.perioder[periode.perioder.length - 1].tidsperiode.sluttdato
-		: periode.tidsperiode.sluttdato;
-
-/**
- * Går gjennom liste av perioder og deler de opp etter om de er utsettelse
- * eller stønadsperiode
- * @param perioder
- */
-export const splittPerioderEtterType = (
-	perioder: Periode[]
-): {
-	stonadsperioder: Stonadsperiode[];
-	utsettelsesperioder: Utsettelsesperiode[];
-} => {
-	let stonadsperioder: Stonadsperiode[] = [];
-	let utsettelsesperioder: Utsettelsesperiode[] = [];
-
-	perioder.forEach((periode) => {
-		if (periode.type === Periodetype.Stonadsperiode) {
-			stonadsperioder.push(periode);
-		} else if (periode.type === Periodetype.Utsettelse) {
-			utsettelsesperioder.push(periode);
-		} else {
-			const splitt = splittPerioderEtterType(periode.perioder);
-			stonadsperioder = stonadsperioder.concat(splitt.stonadsperioder);
-			utsettelsesperioder = utsettelsesperioder.concat(
-				splitt.utsettelsesperioder
-			);
-		}
-	});
-
-	return {
-		stonadsperioder,
-		utsettelsesperioder
-	};
-};
+	periode.tidsperiode.sluttdato;
 
 /** Henter tidsperioden hvor en forelder har sammenhengende permisjon, uavhengig av utsettelser,
  * med start i en periode som er i periodelisten
@@ -354,12 +332,8 @@ export const getSammenhengendePerioder = (
 	perioder: Periode[]
 ): Periode[] => {
 	// Filtrer bort utsettelser
-	const stonadsperioder = perioder.filter(
-		(p) => p.type !== Periodetype.Utsettelse
-	);
+	const stonadsperioder = getStonadsperioder(perioder);
 	const periodeIndex = stonadsperioder.findIndex((p) => p === periode);
-	let forstePeriode = periode;
-	let sistePeriode = periode;
 
 	// Finn startperioden med samme forelder før periode
 	let forstePeriodeIndex = periodeIndex;
@@ -370,29 +344,17 @@ export const getSammenhengendePerioder = (
 				stonadsperioder[forstePeriodeIndex - 1].forelder === periode.forelder;
 			if (sammeForelder) {
 				forstePeriodeIndex--;
-				forstePeriode = stonadsperioder[forstePeriodeIndex];
 			}
 		}
 	}
 
 	// Finn sluttperioden med samme forelder etter periode
-	let sistePeriodeIndex = stonadsperioder.length - 1;
-	if (periodeIndex < sistePeriodeIndex) {
-		const sliced = stonadsperioder.slice(periodeIndex);
-		const periodeMedAnnenForelderIndex = sliced.findIndex(
-			(p) => p.forelder !== periode.forelder
-		);
-		sistePeriodeIndex =
-			periodeMedAnnenForelderIndex >= 0
-				? periodeIndex + periodeMedAnnenForelderIndex
-				: sistePeriodeIndex;
-		sistePeriode = stonadsperioder[sistePeriodeIndex];
-	}
+	const idx = stonadsperioder
+		.slice(periodeIndex)
+		.findIndex((p) => p.forelder !== periode.forelder);
 
-	return forstePeriodeIndex === sistePeriodeIndex
-		? [periode]
-		: perioder.slice(
-				perioder.findIndex((p) => p === forstePeriode),
-				perioder.findIndex((p) => p === sistePeriode)
-			);
+	const sistePeriodeIndex =
+		idx === -1 ? stonadsperioder.length : periodeIndex + idx;
+
+	return stonadsperioder.slice(forstePeriodeIndex, sistePeriodeIndex);
 };

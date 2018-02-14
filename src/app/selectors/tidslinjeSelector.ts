@@ -48,8 +48,26 @@ export const tidslinjeFraPerioder = createSelector(
 				dato: perioder[antallPerioder - 1].tidsperiode.sluttdato
 			}
 		];
-
-		return alleInnslag.sort(sorterTidslinjeinnslagEtterStartdato);
+		return alleInnslag
+			.sort(sorterTidslinjeinnslagEtterStartdato)
+			.filter((innslag, index) => {
+				if (index === 0) {
+					return true;
+				}
+				const forrigeInnslag = alleInnslag[index - 1];
+				if (forrigeInnslag.type !== innslag.type) {
+					return true;
+				}
+				if (
+					forrigeInnslag.type === TidslinjeinnslagType.periode &&
+					forrigeInnslag.type === innslag.type &&
+					(forrigeInnslag.periode.forelder !== innslag.periode.forelder ||
+						forrigeInnslag.periode.type !== innslag.periode.type)
+				) {
+					return true;
+				}
+				return false;
+			});
 	}
 );
 

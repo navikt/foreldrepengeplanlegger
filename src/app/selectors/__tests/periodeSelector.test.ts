@@ -70,7 +70,7 @@ describe('periodeberegner', () => {
 			const periode = perioder80[periodenr++];
 			expect(periode.forelder).toEqual(forelder1);
 			expect(periode.fastPeriode).toBeTruthy();
-			expect(periode.konto).toEqual(StonadskontoType.Modrekvote);
+			expect(periode.konto).toEqual(StonadskontoType.ModrekvotePakrevd);
 			expect(getAntallUttaksdagerITidsperiode(periode.tidsperiode)).toBe(
 				dagerPakrevdModrekvoteEtterFodsel
 			);

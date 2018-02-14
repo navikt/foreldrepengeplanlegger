@@ -2,12 +2,13 @@ import * as React from 'react';
 import { StonadskontoType } from 'app/types';
 import {
 	getForelderNavn,
-	oppsummeringPerioder
+	oppsummerPerioder
 } from 'app/components/tidslinje/tidslinjeUtils';
 import InnslagLayout from 'app/components/tidslinje/elementer/InnslagLayout';
 import Tekst from 'app/tekst';
 
 import { PeriodeinnslagProps } from '../Periodeinnslag';
+import { separerTekstArray } from 'app/utils';
 
 export const getStondskontoNavn = (konto: StonadskontoType) => {
 	switch (konto) {
@@ -27,7 +28,7 @@ export const getStondskontoNavn = (konto: StonadskontoType) => {
 };
 
 const Periodeinfo: React.StatelessComponent<PeriodeinnslagProps> = (props) => {
-	const oppsummering = oppsummeringPerioder(props.innslag);
+	const oppsummering = oppsummerPerioder(props.innslag);
 	const detaljetekster: string[] = [];
 	oppsummering.perioder.forEach((uker, key) => {
 		detaljetekster.push(`${Tekst.uker(uker)} ${getStondskontoNavn(key)}`);
@@ -41,8 +42,7 @@ const Periodeinfo: React.StatelessComponent<PeriodeinnslagProps> = (props) => {
 				props.navnForelder2
 			)}{' '}
 			starter sin permisjon: {Tekst.uker(oppsummering.ukerTotalt)} totalt{' '}
-			oppdelt i{' '}
-			{detaljetekster.join(detaljetekster.length === 2 ? ' og ' : ', ')}.
+			oppdelt i {separerTekstArray(detaljetekster)}.
 		</InnslagLayout>
 	);
 };

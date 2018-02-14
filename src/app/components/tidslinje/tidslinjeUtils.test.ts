@@ -8,7 +8,7 @@ import {
 import { leggTilUtsettelse } from 'app/utils/periodeUtils';
 import { tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import { FormState } from 'app/redux/types';
-import { oppsummeringPerioder } from 'app/components/tidslinje/tidslinjeUtils';
+import { oppsummerPerioder } from 'app/components/tidslinje/tidslinjeUtils';
 import { InnslagPeriodetype } from 'app/components/tidslinje/types';
 
 const datoer = {
@@ -61,7 +61,7 @@ describe('tidslinjeUtils', () => {
 		formState
 	);
 	it('lager riktig oppsummering uten utsettelser', () => {
-		const oppsummering = oppsummeringPerioder(
+		const oppsummering = oppsummerPerioder(
 			innslagUtenUtsettelse[0] as InnslagPeriodetype
 		);
 		expect(oppsummering.perioder.size).toBe(4);
@@ -74,7 +74,7 @@ describe('tidslinjeUtils', () => {
 	);
 
 	it('lager riktig oppsummering', () => {
-		const oppsummering = oppsummeringPerioder(
+		const oppsummering = oppsummerPerioder(
 			innslagMedUtsettelse[0] as InnslagPeriodetype
 		);
 		expect(oppsummering.perioder.size).toBe(4);

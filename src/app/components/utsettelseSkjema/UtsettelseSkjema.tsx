@@ -9,11 +9,12 @@ import {
 	Periodetype,
 	Tidsperiode
 } from 'app/types';
-import DateInput from 'shared/components/dateInput/DateInput';
+import DateInput, { Range } from 'shared/components/dateInput/DateInput';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Radioliste from 'shared/components/radioliste/Radioliste';
 import { Row, Column } from 'nav-frontend-grid';
 import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
+import { erGyldigDato } from 'app/utils';
 
 interface Props {
 	tidsrom: Tidsperiode;
@@ -103,7 +104,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			sluttdato: tidsrom.sluttdato
 		};
 
-		const ugyldigeTidsrom =
+		const ugyldigeTidsrom: Range[] | undefined =
 			registrerteUtsettelser &&
 			registrerteUtsettelser.map((u) => ({
 				from: u.tidsperiode.startdato,
@@ -180,7 +181,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 									fromDate={tidsrom.startdato}
 									toDate={tidsrom.sluttdato}
 									onChange={(date) =>
-										this.setState({ startdato: new Date(date) })
+										erGyldigDato(new Date(date), tidsrom, ugyldigeTidsrom)
+											? this.setState({ startdato: new Date(date) })
+											: null
 									}
 									selectedDate={startdato}
 									disabledRanges={ugyldigeTidsrom}
@@ -197,7 +200,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 									fromDate={tilTidsrom.startdato}
 									toDate={tilTidsrom.sluttdato}
 									onChange={(date) =>
-										this.setState({ sluttdato: new Date(date) })
+										erGyldigDato(new Date(date), tilTidsrom, ugyldigeTidsrom)
+											? this.setState({ sluttdato: new Date(date) })
+											: null
 									}
 									selectedDate={sluttdato}
 									disabledRanges={ugyldigeTidsrom}

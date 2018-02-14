@@ -35,7 +35,7 @@ const Periodeinfo: React.StatelessComponent<PeriodeinnslagProps> = (props) => {
 	});
 
 	return (
-		<InnslagLayout tidsperiode={props.innslag.periode.tidsperiode}>
+		<InnslagLayout tidsperiode={oppsummering.tidsperiode}>
 			{getForelderNavn(
 				props.innslag.periode.forelder,
 				props.navnForelder1,

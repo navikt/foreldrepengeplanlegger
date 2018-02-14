@@ -46,7 +46,7 @@ export const oppsummerPerioder = (
 	innslag: InnslagPeriodetype
 ): SammenslattPeriodeOppsummering => {
 	const tidsperiode: Tidsperiode = {
-		startdato: innslag.perioderekke[0].tidsperiode.sluttdato,
+		startdato: innslag.perioderekke[0].tidsperiode.startdato,
 		sluttdato:
 			innslag.perioderekke[innslag.perioderekke.length - 1].tidsperiode
 				.sluttdato

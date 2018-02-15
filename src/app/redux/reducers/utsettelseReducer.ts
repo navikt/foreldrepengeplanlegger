@@ -17,8 +17,8 @@ export const utsettelseEnDag: Utsettelsesperiode = {
 	type: Periodetype.Utsettelse,
 	arsak: UtsettelseArsakType.Ferie,
 	tidsperiode: {
-		startdato: new Date(2018, 2, 20),
-		sluttdato: new Date(2018, 2, 20)
+		startdato: new Date(2018, 5, 20),
+		sluttdato: new Date(2018, 5, 20)
 	},
 	forelder: 'forelder1'
 };
@@ -27,8 +27,8 @@ export const utsettelseToDager: Utsettelsesperiode = {
 	type: Periodetype.Utsettelse,
 	arsak: UtsettelseArsakType.Ferie,
 	tidsperiode: {
-		startdato: new Date(2018, 2, 20),
-		sluttdato: new Date(2018, 2, 21)
+		startdato: new Date(2018, 5, 6),
+		sluttdato: new Date(2018, 5, 7)
 	},
 	forelder: 'forelder1'
 };
@@ -37,8 +37,8 @@ export const utsettelseTiDager: Utsettelsesperiode = {
 	type: Periodetype.Utsettelse,
 	arsak: UtsettelseArsakType.Ferie,
 	tidsperiode: {
-		startdato: new Date(2018, 3, 9),
-		sluttdato: new Date(2018, 3, 20)
+		startdato: new Date(2018, 5, 6),
+		sluttdato: new Date(2018, 5, 19)
 	},
 	forelder: 'forelder2'
 };

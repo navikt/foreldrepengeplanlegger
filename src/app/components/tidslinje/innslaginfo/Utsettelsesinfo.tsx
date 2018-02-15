@@ -3,6 +3,8 @@ import { Utsettelsesperiode, UtsettelseArsakType } from 'app/types';
 import { getForelderNavn } from 'app/components/tidslinje/tidslinjeUtils';
 import InnslagLayout from 'app/components/tidslinje/elementer/InnslagLayout';
 import { PeriodeinnslagProps } from '../Periodeinnslag';
+import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
+import { pluralize } from 'app/utils';
 
 const Utsettelsesinfo: React.StatelessComponent<PeriodeinnslagProps> = (
 	props
@@ -21,6 +23,7 @@ const Utsettelsesinfo: React.StatelessComponent<PeriodeinnslagProps> = (
 				return '';
 		}
 	};
+	const dager = getAntallUttaksdagerITidsperiode(periode.tidsperiode);
 	return (
 		<InnslagLayout
 			tidsperiode={innslag.periode.tidsperiode}
@@ -32,7 +35,11 @@ const Utsettelsesinfo: React.StatelessComponent<PeriodeinnslagProps> = (
 				props.navnForelder1,
 				props.navnForelder2
 			)}{' '}
-			utsetter med {getArsakTekst(periode.arsak)}.
+			utsetter med {getArsakTekst(periode.arsak)} ({`${dager} ${pluralize(
+				dager,
+				'dag',
+				'dager'
+			)}`}).
 		</InnslagLayout>
 	);
 };

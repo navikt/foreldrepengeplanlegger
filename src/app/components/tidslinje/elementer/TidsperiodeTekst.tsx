@@ -6,15 +6,22 @@ import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 export interface Props {
 	tidsperiode: Tidsperiode;
 	visDager?: boolean;
+	visSluttdato?: boolean;
 }
 
 const TidsperiodeTekst: React.StatelessComponent<Props> = ({
 	tidsperiode,
-	visDager
+	visDager,
+	visSluttdato
 }) => (
 	<div>
-		<Dato dato={tidsperiode.startdato} /> -{' '}
-		<Dato dato={tidsperiode.sluttdato} />
+		<Dato dato={tidsperiode.startdato} />
+		{visSluttdato && (
+			<span>
+				{' '}
+				- <Dato dato={tidsperiode.sluttdato} />
+			</span>
+		)}
 		{visDager && (
 			<span> ({getAntallUttaksdagerITidsperiode(tidsperiode)} dager)</span>
 		)}

@@ -1,0 +1,128 @@
+@blinkDuration: 5s;
+
+.veileder {
+	width: 100%;
+	@noseColor: #d1bfa3;
+	@mouthColor: #d19e9c;
+	.hair {
+		animation: hair 6s infinite;
+		transform-origin: 50% 0;
+	}
+	.mouth {
+		stroke: @mouthColor;
+		stroke-width: 0.2;
+		vector-effect: non-scaling-stroke;
+		animation: mouth @blinkDuration * 1.5 infinite;
+		transform-origin: 50% 50%;
+	}
+	.nose {
+		stroke: @noseColor;
+		stroke-width: 0.2;
+		vector-effect: non-scaling-stroke;
+		animation: noseUp @blinkDuration infinite;
+		animation-timing-function: ease;
+	}
+	.eye {
+		animation: eyeBlink @blinkDuration infinite;
+		animation-timing-function: ease;
+	}
+	#ansikt--glad {
+		opacity: 0;
+		transition: all 0.3s ease;
+	}
+	#ansikt--skeptisk {
+		opacity: 0;
+		transition: all 0.3s ease;
+	}
+	#ansikt--undrende {
+		opacity: 0;
+		transition: all 0.3s ease;
+		.mouth,
+		.nose {
+			stroke-width: 2;
+		}
+	}
+	&--glad #ansikt--glad {
+		opacity: 1;
+	}
+
+	&--skeptisk #ansikt--skeptisk {
+		opacity: 1;
+	}
+
+	&--undrende #ansikt--undrende {
+		opacity: 1;
+	}
+
+	#bakgrunn {
+		transition: fill 0.5s ease;
+	}
+	&--tema-purple #bakgrunn {
+		fill: #c1b5d0;
+	}
+	&--tema-green #bakgrunn {
+		fill: #9bd0b0;
+	}
+	&--tema-blue #bakgrunn {
+		fill: #c2eaf7;
+	}
+}
+
+@keyframes eyeBlink {
+	0% {
+		transform: scaleY(1);
+	}
+	79% {
+		transform: scaleY(1);
+	}
+	80% {
+		transform: translate(0, 3px) scaleY(0.1);
+	}
+	81.5% {
+		transform: scaleY(1);
+	}
+}
+
+@keyframes noseUp {
+	0% {
+		transform: scaleY(1);
+	}
+	79% {
+		transform: scaleY(1);
+	}
+	80% {
+		transform: translate(0, -0.4px);
+	}
+	81.5% {
+		transform: scaleY(1);
+	}
+}
+
+@keyframes mouth {
+	0% {
+		transform: scaleY(1);
+	}
+	30% {
+		transform: scaleY(1);
+	}
+	60% {
+		transform: translateX(0) scaleY(0.8) scaleX(0.92);
+	}
+	89% {
+		transform: translateX(0) scaleY(0.9) scaleX(0.97);
+	}
+	96% {
+		transform: scaleY(1);
+	}
+}
+@keyframes hair {
+	50% {
+		transform: skewX(1deg);
+	}
+	60% {
+		transform: skewX(-1deg);
+	}
+	70% {
+		transform: skewX(1deg);
+	}
+}

@@ -7,8 +7,9 @@ export default {
 		labelTermindato: 'Termindato',
 		labelDekningsgrad: (harForelder2: boolean) =>
 			`Hvilken sats ønsker ${harForelder2 ? 'dere' : 'du'}?`,
-		labelDekningsgrad80: (uker: number) => `80% lønn i ${uker} uker`,
-		labelDekningsgrad100: (uker: number) => `100% lønn i ${uker} uker`,
+		labelDekningsgrad80: (uker: number) => `80% foreldrepenger i ${uker} uker`,
+		labelDekningsgrad100: (uker: number) =>
+			`100% foreldrepenger i ${uker} uker`,
 		fordelingFellespermisjon: `Hvordan vil dere fordele fellesperioden?`,
 		fordelingFellespermisjonInfo: (uker: number) =>
 			`I tillegg til fellesperioden har dere ${uker} uker hver.`,

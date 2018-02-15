@@ -16,6 +16,7 @@ import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
 import { utsettelseVisDialog } from 'app/redux/actions';
 import { Utsettelsesperiode } from 'app/types';
 import VeilederIkon from 'app/components/ikoner/VeilederIkon';
+import Veileder from 'app/components/veileder/Veileder';
 
 export interface StateProps {
 	form: FormState;
@@ -32,11 +33,7 @@ export class Uttaksplan extends React.Component<Props> {
 			<div>
 				<div className="introtekst">
 					<div className="introtekst__veileder">
-						<VeilederIkon
-							uttrykk="glad"
-							svgClassName="veilederSvg"
-							size={150}
-						/>
+						<Veileder ansikt="glad" farge="purple" className="veilederSvg" />
 					</div>
 					<p>
 						Hei, hver forelder har rett på 10 uker permisjon hver. I tillegg har

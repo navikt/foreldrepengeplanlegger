@@ -64,7 +64,7 @@ describe('tidslinjeUtils', () => {
 		const oppsummering = oppsummerPerioder(
 			innslagUtenUtsettelse[0] as InnslagPeriodetype
 		);
-		expect(oppsummering.perioder.size).toBe(4);
+		expect(oppsummering.perioder.size).toBe(3);
 	});
 
 	const perioderMedUtsettelse = leggTilUtsettelse(stonadsperioder, utsettelse);
@@ -77,6 +77,6 @@ describe('tidslinjeUtils', () => {
 		const oppsummering = oppsummerPerioder(
 			innslagMedUtsettelse[0] as InnslagPeriodetype
 		);
-		expect(oppsummering.perioder.size).toBe(4);
+		expect(oppsummering.perioder.size).toBe(3);
 	});
 });

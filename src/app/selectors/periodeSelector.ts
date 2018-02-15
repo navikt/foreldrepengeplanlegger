@@ -42,41 +42,6 @@ export const getPerioderMedUtsettelser = createSelector(
 
 /**
  * Returnerer liste hvor påfølgende perioder med samme forelder er slått sammen til en periode
- */
-// export const getSammenslattePerioder = createSelector(
-// 	getStonadsperioder,
-// 	(perioder: Stonadsperiode[]): Periode[] => {
-// 		const liste: (Stonadsperiode | SammenslattPeriode)[] = [];
-// 		let stonadsperioderSammeForelder: Stonadsperiode[] = [];
-// 		perioder.forEach((p, index) => {
-// 			if (index === 0) {
-// 				liste.push(p);
-// 				return;
-// 			}
-// 			const forrige =
-// 				stonadsperioderSammeForelder[stonadsperioderSammeForelder.length - 1];
-// 			if (!forrige || p.forelder === forrige.forelder) {
-// 				stonadsperioderSammeForelder.push(p);
-// 			} else {
-// 				if (stonadsperioderSammeForelder.length === 1) {
-// 					liste.push(forrige);
-// 				} else {
-// 					liste.push(slaSammenPerioder(stonadsperioderSammeForelder));
-// 				}
-// 				stonadsperioderSammeForelder = [p];
-// 			}
-// 		});
-// 		if (stonadsperioderSammeForelder.length === 1) {
-// 			liste.push(stonadsperioderSammeForelder[0]);
-// 		} else if (stonadsperioderSammeForelder.length > 1) {
-// 			liste.push(slaSammenPerioder(stonadsperioderSammeForelder));
-// 		}
-// 		return liste;
-// 	}
-// );
-
-/**
- * Returnerer liste hvor påfølgende perioder med samme forelder er slått sammen til en periode
  * Perioder før termin vil ikke blir slått sammen
  */
 export const getPerioderForTidslinje = createSelector(

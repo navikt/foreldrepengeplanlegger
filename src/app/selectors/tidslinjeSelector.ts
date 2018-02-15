@@ -6,7 +6,7 @@ import {
 } from 'app/components/tidslinje/types';
 import { getPerioderForTidslinje } from './periodeSelector';
 import { isSameDay } from 'date-fns';
-import { Periode } from 'app/types';
+import { Periode, Periodetype } from 'app/types';
 import { getSammenhengendePerioder } from 'app/utils/periodeUtils';
 
 const formSelector = (state: AppState) => state.form;
@@ -51,7 +51,10 @@ export const tidslinjeFraPerioder = createSelector(
 		return alleInnslag
 			.sort(sorterTidslinjeinnslagEtterStartdato)
 			.filter((innslag, index) => {
-				if (index === 0) {
+				if (index === 0 || innslag.type === TidslinjeinnslagType.hendelse) {
+					return true;
+				}
+				if (innslag.periode.type === Periodetype.Utsettelse) {
 					return true;
 				}
 				const forrigeInnslag = alleInnslag[index - 1];

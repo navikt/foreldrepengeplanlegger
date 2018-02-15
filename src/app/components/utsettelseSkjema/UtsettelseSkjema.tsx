@@ -15,6 +15,7 @@ import Radioliste from 'shared/components/radioliste/Radioliste';
 import { Row, Column } from 'nav-frontend-grid';
 import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
 import { erGyldigDato } from 'app/utils';
+import { isBefore, isSameDay, isAfter } from 'date-fns';
 
 interface Props {
 	tidsrom: Tidsperiode;
@@ -41,6 +42,8 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		super(props);
 		const { utsettelse } = props;
 		this.hentGyldigSkjemadata = this.hentGyldigSkjemadata.bind(this);
+		this.setStartdato = this.setStartdato.bind(this);
+		this.setSluttdato = this.setSluttdato.bind(this);
 		const state: State = utsettelse
 			? {
 					arsak: utsettelse.arsak,
@@ -57,6 +60,42 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		this.state = {
 			...state
 		};
+	}
+
+	setStartdato(
+		dato: string,
+		tidsrom: Tidsperiode,
+		ugyldigeTidsrom: Range[] = []
+	) {
+		const startdato = new Date(dato);
+		const sluttdato = this.state.sluttdato;
+		if (erGyldigDato(startdato, tidsrom, ugyldigeTidsrom)) {
+			this.setState({
+				startdato,
+				sluttdato: sluttdato
+					? isBefore(startdato, sluttdato) || isSameDay(startdato, sluttdato)
+						? sluttdato
+						: undefined
+					: undefined
+			});
+		}
+	}
+
+	setSluttdato(
+		dato: string,
+		tilTidsrom: Tidsperiode,
+		ugyldigeTidsrom: Range[] = []
+	) {
+		const sluttdato = new Date(dato);
+		const startdato = this.state.startdato;
+		if (
+			erGyldigDato(sluttdato, tilTidsrom, ugyldigeTidsrom) &&
+			((startdato &&
+				(isAfter(sluttdato, startdato) || isSameDay(sluttdato, startdato))) ||
+				!startdato)
+		) {
+			this.setState({ sluttdato });
+		}
 	}
 
 	hentGyldigSkjemadata(): Utsettelsesperiode | undefined {
@@ -181,9 +220,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 									fromDate={tidsrom.startdato}
 									toDate={tidsrom.sluttdato}
 									onChange={(date) =>
-										erGyldigDato(new Date(date), tidsrom, ugyldigeTidsrom)
-											? this.setState({ startdato: new Date(date) })
-											: null
+										this.setStartdato(date, tidsrom, ugyldigeTidsrom)
 									}
 									selectedDate={startdato}
 									disabledRanges={ugyldigeTidsrom}
@@ -200,9 +237,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 									fromDate={tilTidsrom.startdato}
 									toDate={tilTidsrom.sluttdato}
 									onChange={(date) =>
-										erGyldigDato(new Date(date), tilTidsrom, ugyldigeTidsrom)
-											? this.setState({ sluttdato: new Date(date) })
-											: null
+										this.setSluttdato(date, tilTidsrom, ugyldigeTidsrom)
 									}
 									selectedDate={sluttdato}
 									disabledRanges={ugyldigeTidsrom}

@@ -15,7 +15,6 @@ import UtsettelseDialog from 'app/containers/UtsettelseDialog';
 import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
 import { utsettelseVisDialog } from 'app/redux/actions';
 import { Utsettelsesperiode } from 'app/types';
-import VeilederIkon from 'app/components/ikoner/VeilederIkon';
 import Veileder from 'app/components/veileder/Veileder';
 
 export interface StateProps {

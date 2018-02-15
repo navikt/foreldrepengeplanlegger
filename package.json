@@ -8,13 +8,12 @@
 	"repository": "https://github.com/navikt/permisjonsplanlegger",
 	"devDependencies": {
 		"@types/classnames": "^2.2.3",
-		"@types/date-fns": "^2.6.0",
 		"@types/jest": "^22.1.1",
-		"@types/react": "^16.0.34",
+		"@types/react": "^16.0.38",
+		"@types/react-collapse": "^4.0.1",
 		"@types/react-dom": "^16.0.3",
 		"@types/react-redux": "^5.0.14",
 		"@types/react-router-dom": "^4.2.3",
-		"@types/reselect": "^2.2.0",
 		"axios": "^0.17.1",
 		"babel-core": "^6.26.0",
 		"babel-eslint": "^8.0.2",
@@ -80,7 +79,6 @@
 		"tslint-check": "tslint-config-prettier-check ./tslint.json"
 	},
 	"dependencies": {
-		"@types/react-collapse": "^4.0.1",
 		"axios": "^0.17.1",
 		"babel-polyfill": "^6.26.0",
 		"classnames": "^2.2.5",
@@ -136,7 +134,7 @@
 		"tslint": "^5.7.0",
 		"tslint-loader": "^3.5.3",
 		"tslint-react": "^3.2.0",
-		"typescript": "~2.5.3"
+		"typescript": "2.7.1"
 	},
 	"postCSS": {},
 	"jest": {

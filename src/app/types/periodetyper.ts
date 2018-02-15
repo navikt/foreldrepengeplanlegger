@@ -2,8 +2,7 @@ import { Tidsperiode, Forelder } from 'app/types';
 
 export enum Periodetype {
 	'Stonadsperiode' = 'Stønadsperiode',
-	'Utsettelse' = 'Utsettelse',
-	'SammenslattPeriode' = 'SammenslattPeriode'
+	'Utsettelse' = 'Utsettelse'
 }
 
 export enum StonadskontoType {

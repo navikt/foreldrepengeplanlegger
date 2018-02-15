@@ -1,8 +1,30 @@
 import * as React from 'react';
 import InnslagLayout from 'app/components/tidslinje/elementer/InnslagLayout';
+import Dato from 'app/components/dato/Dato';
 
-const Fortsettelsesinfo: React.StatelessComponent<{ navn: string }> = ({
-	navn
-}) => <InnslagLayout>{navn} fortsetter sin permisjon.</InnslagLayout>;
+interface Props {
+	navn: string;
+	sluttdato?: Date;
+}
+
+const Fortsettelsesinfo: React.StatelessComponent<Props> = ({
+	navn,
+	sluttdato
+}) => (
+	<InnslagLayout>
+		<div className="periodefortsettelse">
+			{sluttdato ? (
+				<div>
+					<span className="periodefortsettelse__dato">
+						<Dato dato={sluttdato} />
+					</span>
+					{navn} avslutter sin permisjon
+				</div>
+			) : (
+				<div>{navn} fortsetter sin permisjon</div>
+			)}
+		</div>
+	</InnslagLayout>
+);
 
 export default Fortsettelsesinfo;

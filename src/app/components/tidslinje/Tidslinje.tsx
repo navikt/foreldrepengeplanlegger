@@ -34,12 +34,15 @@ const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({
 					'tidslinje__innslag',
 					`tidslinje__innslag--${i.type}`
 				);
+				const nesteInnslag =
+					idx === innslag.length - 1 ? undefined : innslag[idx + 1];
 				return (
 					<div className={className} key={idx}>
 						<Tidslinjestrek innslag={i} />
 						{i.type === TidslinjeinnslagType.periode ? (
 							<Periodeinnslag
 								innslag={i}
+								nesteInnslag={nesteInnslag}
 								navnForelder1={navnForelder1}
 								navnForelder2={navnForelder2}
 								onRedigerUtsettelse={onRedigerUtsettelse}

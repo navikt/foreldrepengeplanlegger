@@ -50,29 +50,36 @@ export const tidslinjeFraPerioder = createSelector(
 		];
 		return alleInnslag
 			.sort(sorterTidslinjeinnslagEtterStartdato)
-			.filter((innslag, index) => {
-				if (index === 0 || innslag.type === TidslinjeinnslagType.hendelse) {
-					return true;
-				}
-				if (innslag.periode.type === Periodetype.Utsettelse) {
-					return true;
-				}
-				const forrigeInnslag = alleInnslag[index - 1];
-				if (forrigeInnslag.type !== innslag.type) {
-					return true;
-				}
-				if (
-					forrigeInnslag.type === TidslinjeinnslagType.periode &&
-					forrigeInnslag.type === innslag.type &&
-					(forrigeInnslag.periode.forelder !== innslag.periode.forelder ||
-						forrigeInnslag.periode.type !== innslag.periode.type)
-				) {
-					return true;
-				}
-				return false;
-			});
+			.filter(filtrerOmInnslagSkalVises);
 	}
 );
+
+const filtrerOmInnslagSkalVises = (
+	innslag: Tidslinjeinnslag,
+	index: number,
+	alleInnslag: Tidslinjeinnslag[]
+) => {
+	if (
+		index === 0 ||
+		innslag.type === TidslinjeinnslagType.hendelse ||
+		innslag.periode.type === Periodetype.Utsettelse
+	) {
+		return true;
+	}
+	const forrigeInnslag = alleInnslag[index - 1];
+	if (forrigeInnslag.type !== innslag.type) {
+		return true;
+	}
+	if (
+		forrigeInnslag.type === TidslinjeinnslagType.periode &&
+		forrigeInnslag.type === innslag.type &&
+		(forrigeInnslag.periode.forelder !== innslag.periode.forelder ||
+			forrigeInnslag.periode.type !== innslag.periode.type)
+	) {
+		return true;
+	}
+	return false;
+};
 
 const sorterTidslinjeinnslagEtterStartdato = (
 	innslag1: Tidslinjeinnslag,

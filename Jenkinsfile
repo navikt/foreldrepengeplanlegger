@@ -12,11 +12,10 @@ node {
     def dockerRepo = "docker.adeo.no:5000"
     def branch = "master"
     def groupId = "nais"
-    def environment = 't1'
     def zone = 'sbs'
     def namespace = 'default'
 
-    stage("Checkout") {
+    stage("Initialize") {
         cleanWs()
         withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
             sh(script: "git clone https://github.com/${project}/${repo}.git .")
@@ -27,14 +26,12 @@ node {
         committer = sh(script: 'git log -1 --pretty=format:"%an"', returnStdout: true).trim()
         committerEmail = sh(script: 'git log -1 --pretty=format:"%ae"', returnStdout: true).trim()
         changelog = sh(script: 'git log `git describe --tags --abbrev=0`..HEAD --oneline', returnStdout: true)
-    }
 
-    stage("Initialize") {
         releaseVersion = "${env.major_version}.${env.BUILD_NUMBER}-${commitHashShort}"
         echo "release version: ${releaseVersion}"
     }
 
-    stage("Build, test and install artifact") {
+    stage("Build/Test") {
         withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
             sh "npm -v"
             sh "npm install"
@@ -43,30 +40,40 @@ node {
         }
     }
 
-    stage("Release") {
+    stage("Publish artifacts") {
         sh "docker build --build-arg version=${releaseVersion} --build-arg app_name=${repo} -t ${dockerRepo}/${repo}:${releaseVersion} ."
-    }
-    
-    stage("Publish artifact") {
         sh "docker push ${dockerRepo}/${repo}:${releaseVersion}"
-    }
 
-    stage("publish yaml") {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
             sh "curl --fail -v -u ${env.USERNAME}:${env.PASSWORD} --upload-file ${appConfig} https://repo.adeo.no/repository/raw/${groupId}/${repo}/${releaseVersion}/nais.yaml"
         }
     }
     
-    stage('Deploy to t') {
+    stage('Deploy to Preprod') {
         callback = "${env.BUILD_URL}input/Deploy/"
-        def deploy = deployLib.deployNaisApp(repo, releaseVersion, environment, zone, namespace, callback, committer).key
+        def deploy = deployLib.deployNaisApp(repo, releaseVersion, 't1', zone, namespace, callback, committer).key
         try {
             timeout(time: 15, unit: 'MINUTES') {
                 input id: 'deploy', message: "Check status here:  https://jira.adeo.no/browse/${deploy}"
             }
         } catch (Exception e) {
             throw new Exception("Deploy feilet :( \n Se https://jira.adeo.no/browse/" + deploy + " for detaljer", e)
+        }
+    }
 
+    stage('Deploy to Prod') {
+        timeout(time: 5, unit: 'MINUTES') {
+            input id: 'prod', message: "Deploy to prod?"
+        }
+
+        callback = "${env.BUILD_URL}input/Deploy/"
+        def deploy = deployLib.deployNaisApp(repo, releaseVersion, 't1', zone, namespace, callback, committer).key
+        try {
+            timeout(time: 15, unit: 'MINUTES') {
+                input id: 'deploy', message: "Check status here:  https://jira.adeo.no/browse/${deploy}"
+            }
+        } catch (Exception e) {
+            throw new Exception("Deploy feilet :( \n Se https://jira.adeo.no/browse/" + deploy + " for detaljer", e)
         }
     }
 }

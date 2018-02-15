@@ -1,12 +1,16 @@
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const webpackConfig = require('../webpack/webpack.config.dev');
-const devServerConfig = require('../webpack/devserver.config');
-const configDecorator = require('./decorator');
+const configureDevServer = require('../webpack/devserver.config');
+const getDecorator = require('./decorator');
 
-configDecorator(webpackConfig).then((config) => {
-	const compiler = webpack(config);
-	const server = new WebpackDevServer(compiler, devServerConfig);
+getDecorator(true).then((decoratorData) => {
+	const compiler = webpack(webpackConfig);
+	const server = new WebpackDevServer(
+		compiler,
+		configureDevServer(decoratorData)
+	);
+
 	server.listen(8080, '127.0.0.1', () =>
 		console.log('Started server on http://localhost:8080')
 	);

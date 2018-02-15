@@ -8,7 +8,7 @@ const webpackConfig = {
 	output: {
 		path: path.resolve(__dirname, '../../../dist'),
 		filename: 'bundle.js',
-		publicPath: '/'
+		publicPath: '/permisjonsplanlegger/dist'
 	},
 	resolve: {
 		alias: {

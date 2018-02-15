@@ -1,5 +1,13 @@
 const webpackConfig = require('./webpack.config.global.js');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+webpackConfig.plugins.push(
+	new HtmlWebpackPlugin({
+		template: './src/app/index.html',
+		inject: 'body'
+	})
+);
 
 webpackConfig.plugins.push(
 	new UglifyJsPlugin({

@@ -1,22 +1,21 @@
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const webpackConfig = require('../webpack/webpack.config.dev');
-const devServerConfig = require('../webpack/devserver.config');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const configureDevServer = require('../webpack/devserver.config');
 
-webpackConfig.plugins.push(
-	new HtmlWebpackPlugin({
-		template: './src/app/index.html',
-		inject: 'body',
-		NAVHeading: '',
-		NAVFooter: '',
-		NAVScripts: '',
-		NAVStyles: ''
-	})
-);
+const decoratorData = {
+	NAV_SCRIPTS: '<title>Permisjonsplanlegger</title>',
+	NAV_STYLES: '',
+	NAV_HEADING: '',
+	NAV_FOOTER: ''
+};
 
 const compiler = webpack(webpackConfig);
-const server = new WebpackDevServer(compiler, devServerConfig);
-server.listen(8080, '0.0.0.0', () =>
+const server = new WebpackDevServer(
+	compiler,
+	configureDevServer(decoratorData)
+);
+
+server.listen(8080, '127.0.0.1', () =>
 	console.log('Started server on http://localhost:8080')
 );

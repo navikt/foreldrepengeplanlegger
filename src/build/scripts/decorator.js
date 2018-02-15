@@ -18,21 +18,22 @@ const getDecorator = (noDecorator) =>
 		(decoratorResponse) => {
 			const html = decoratorResponse.data;
 			const { document } = new JSDOM(html).window;
-			const prop = 'innerHTML';
-
 			return {
-				NAV_SCRIPTS: document.getElementById('scripts')[prop],
-				NAV_STYLES: document.getElementById('styles')[prop],
-				NAV_HEADING: document.getElementById('header')[prop],
-				NAV_FOOTER: document.getElementById('footer')[prop]
+				NAV_SCRIPTS: document.getElementById('scripts').innerHTML,
+				NAV_STYLES: document.getElementById('styles').innerHTML,
+				NAV_HEADING: document.getElementById('header').innerHTML,
+				NAV_FOOTER: document.getElementById('footer').innerHTML
 			};
 		},
-		() => ({
-			NAV_SCRIPTS: '',
-			NAV_STYLES: '',
-			NAV_HEADING: '',
-			NAV_FOOTER: ''
-		})
+		() => {
+			console.warn('Decorator failed, running clean mode');
+			return {
+				NAV_SCRIPTS: '',
+				NAV_STYLES: '',
+				NAV_HEADING: '',
+				NAV_FOOTER: ''
+			};
+		}
 	);
 
 module.exports = getDecorator;

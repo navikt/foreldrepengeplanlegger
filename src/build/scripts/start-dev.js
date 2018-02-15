@@ -4,7 +4,7 @@ const webpackConfig = require('../webpack/webpack.config.dev');
 const configureDevServer = require('../webpack/devserver.config');
 const getDecorator = require('./decorator');
 
-getDecorator(true).then((decoratorData) => {
+getDecorator().then((decoratorData) => {
 	const compiler = webpack(webpackConfig);
 	const server = new WebpackDevServer(
 		compiler,

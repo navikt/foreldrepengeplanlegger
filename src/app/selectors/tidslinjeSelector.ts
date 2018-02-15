@@ -50,7 +50,8 @@ export const tidslinjeFraPerioder = createSelector(
 		];
 		return alleInnslag
 			.sort(sorterTidslinjeinnslagEtterStartdato)
-			.filter(filtrerOmInnslagSkalVises);
+			.filter(filtrerOmInnslagSkalVises)
+			.filter(skjulForstePeriodeEtterTermin);
 	}
 );
 
@@ -67,6 +68,7 @@ const filtrerOmInnslagSkalVises = (
 		return true;
 	}
 	const forrigeInnslag = alleInnslag[index - 1];
+
 	if (forrigeInnslag.type !== innslag.type) {
 		return true;
 	}
@@ -79,6 +81,33 @@ const filtrerOmInnslagSkalVises = (
 		return true;
 	}
 	return false;
+};
+
+const skjulForstePeriodeEtterTermin = (
+	innslag: Tidslinjeinnslag,
+	index: number,
+	alleInnslag: Tidslinjeinnslag[]
+) => {
+	const { forrige, neste } = getForrigeNeste<Tidslinjeinnslag>(
+		index,
+		alleInnslag
+	);
+	// Se om forrige var termin
+	if (
+		forrige &&
+		forrige.type === TidslinjeinnslagType.hendelse &&
+		forrige.hendelse === 'termin'
+	) {
+		// Se om neste er ikke utsettelse
+		if (
+			neste &&
+			neste.type === TidslinjeinnslagType.periode &&
+			neste.periode.type === Periodetype.Utsettelse
+		) {
+			return false;
+		}
+	}
+	return true;
 };
 
 const sorterTidslinjeinnslagEtterStartdato = (
@@ -102,3 +131,16 @@ export const getStartdato = (innslag: Tidslinjeinnslag): Date =>
 export const erTerminHendelse = (innslag: Tidslinjeinnslag): boolean =>
 	innslag.type === TidslinjeinnslagType.hendelse &&
 	innslag.hendelse === 'termin';
+
+export const getForrigeNeste = <T>(
+	index: number,
+	elementer: T[]
+): { forrige: T | undefined; neste: T | undefined } => {
+	const antall = elementer.length;
+	const forrige = index > 0 && antall > 0 ? elementer[index - 1] : undefined;
+	const neste = index < antall - 1 ? elementer[index + 1] : undefined;
+	return {
+		forrige,
+		neste
+	};
+};

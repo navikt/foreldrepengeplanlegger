@@ -9,7 +9,8 @@ const webpackConfig = {
 	output: {
 		path: path.resolve(__dirname, '../../../dist'),
 		filename: 'js/bundle.js',
-		publicPath: '/permisjonsplanlegger/dist'
+		publicPath: '/permisjonsplanlegger/dist',
+		crossOriginLoading: 'anonymous'
 	},
 	resolve: {
 		alias: {

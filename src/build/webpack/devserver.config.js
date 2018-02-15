@@ -26,17 +26,9 @@ const configureDevServer = (decoratorFragments) => ({
 		);
 	},
 	watchContentBase: true,
-	quiet: true,
+	quiet: false,
 	noInfo: false,
-	stats: {
-		assets: false,
-		colors: true,
-		version: false,
-		hash: false,
-		timings: false,
-		chunks: false,
-		chunkModules: false
-	},
+	stats: 'minimal',
 	publicPath: '/permisjonsplanlegger/dist'
 });
 

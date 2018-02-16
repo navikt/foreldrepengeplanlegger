@@ -67,6 +67,13 @@ node {
             input id: 'prod', message: "Deploy to prod?"
         }
 
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+            def appPolicies = deployLib.buildAppPolicies(app)
+            sh "echo '${appPolicies}' > app-policies.xml"
+            sh "curl --fail -v -u ${env.USERNAME}:${env.PASSWORD} --upload-file app-policies.xml https://repo.adeo.no/repository/raw/${groupId}/${app}/${releaseVersion}/am/app-policies.xml"
+            sh "curl --fail -v -u ${env.USERNAME}:${env.PASSWORD} --upload-file not-enforced-urls.txt https://repo.adeo.no/repository/raw/${groupId}/${app}/${releaseVersion}/am/not-enforced-urls.txt"
+        }
+
         callback = "${env.BUILD_URL}input/Deploy/"
         def deploy = deployLib.deployNaisApp(app, releaseVersion, 'p', zone, namespace, callback, committer).key
         try {

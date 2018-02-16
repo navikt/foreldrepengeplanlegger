@@ -4,12 +4,12 @@ import * as classnames from 'classnames';
 import UtvidetInformasjon from 'app/components/utvidetInformasjon/UtvidetInformasjon';
 import Veileder from 'app/components/veileder/Veileder';
 
-interface Props {
+export interface VeilederInfoProps {
 	utvidetInfo?: React.ReactNode;
 	stil?: 'kompakt' | 'normal';
 }
 
-const Veilederinfo: React.StatelessComponent<Props> = ({
+const Veilederinfo: React.StatelessComponent<VeilederInfoProps> = ({
 	utvidetInfo,
 	stil = 'normal',
 	children

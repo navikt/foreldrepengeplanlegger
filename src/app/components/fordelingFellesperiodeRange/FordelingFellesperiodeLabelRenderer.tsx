@@ -26,7 +26,7 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 		<div>
 			<VeilederinfoContainer id={Infotekster.fordelingFellespermisjon}>
 				<div className="blokkPad-s">
-					<Veilederinfo>
+					<Veilederinfo stil="kompakt">
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
 						quis lectus metus, at posuere neque. Sed pharetra nibh eget orci
 						convallis at posuere leo convallis. Sed blandit augue vitae augue

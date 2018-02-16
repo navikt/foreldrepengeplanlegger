@@ -1,18 +1,37 @@
+@initVeilederSize: 4.5rem;
+
+.setVeilederSize(@veilederSize, @spacing: 1rem) {
+	.veilederinfo__innhold {
+		padding-left: @veilederSize/2 + @spacing;
+		margin-left: -1 * @veilederSize/2;
+	}
+	.veilederinfo__veileder {
+		width: @veilederSize;
+		position: relative;
+		svg {
+			width: @veilederSize;
+			height: @veilederSize;
+		}
+	}
+}
 .veilederinfo {
 	.clearfix();
-	background-color: @navLillaLighten80;
-	border-radius: @defaultBorderRadius;
-	padding: 1.5rem 1rem;
+	position: relative;
+	display: flex;
+	align-items: center;
+	.setVeilederSize(@initVeilederSize);
+
+	&__innhold {
+		width: 100%;
+		flex-grow: 2;
+		background-color: white;
+		border: 2px solid @c-infoBlue;
+		border-radius: 0.5rem;
+		padding: 1.5rem 1.5rem 1.5rem @initVeilederSize + 0.5rem;
+	}
 
 	&__veileder {
-		float: right;
-		margin-left: 1rem;
-		margin-bottom: 1rem;
-		svg {
-			margin-top: -0.5rem;
-			width: 3.5rem;
-			height: 3.5rem;
-		}
+		z-index: 2;
 	}
 
 	&__utvidetInfo {
@@ -21,15 +40,6 @@
 
 	&--kompakt {
 		padding: 1rem;
-		min-height: 2rem;
-		.veilederinfo__veileder {
-			float: left;
-			margin: 0 1rem 0 0;
-			svg {
-				margin: 0;
-				width: 2.5rem;
-				height: 2.5rem;
-			}
-		}
+		.setVeilederSize(3rem, 0.5rem);
 	}
 }

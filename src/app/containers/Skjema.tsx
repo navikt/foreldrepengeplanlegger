@@ -25,9 +25,9 @@ import { Dekningsgrad } from 'app/types';
 import SkjemaveilederKnapp from 'app/components/skjemaveilederKnapp/SkjemaveilederKnapp';
 import FordelingFellesperiodeRange from 'app/components/fordelingFellesperiodeRange/FordelingFellesperiodeRange';
 import { grunnfordeling } from 'app/data/grunnfordeling';
-import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
 import Infotekster from 'app/tekst/infotekster';
+import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 
 export interface StateProps {
 	form: FormState;

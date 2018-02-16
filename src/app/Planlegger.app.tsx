@@ -28,7 +28,7 @@ export class PlanleggerIndex extends React.Component {
 						</p>
 					</Alertstripe>
 				</div>
-				<h1 className="m-textCenter">Foreldrepengeplanleggeren</h1>
+				<h1 className="m-textCenter">Foreldrepenge&shy;planleggeren</h1>
 				<Uttaksplan />
 			</div>
 		);

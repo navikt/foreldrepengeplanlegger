@@ -32,7 +32,7 @@ export class Uttaksplan extends React.Component<Props> {
 			<div>
 				<div className="introtekst">
 					<div className="introtekst__veileder">
-						<Veileder ansikt="glad" farge="purple" className="veilederSvg" />
+						<Veileder ansikt="glad" farge="lilla" className="veilederSvg" />
 					</div>
 					<p>
 						Hei, hver forelder har rett på 10 uker permisjon hver. I tillegg har

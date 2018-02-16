@@ -3,7 +3,7 @@ import * as classnames from 'classnames';
 
 import AriaText from 'shared/components/aria/AriaText';
 
-export type Stil = 'hvit' | 'bla';
+export type Stil = 'hvit' | 'bla' | 'info';
 
 export interface Props {
 	/** Tekst som blir lest opp og satt som tittel på knappen */
@@ -28,7 +28,7 @@ const Sirkelknapp: React.StatelessComponent<Props> = ({
 	ikon,
 	toggle,
 	disabled,
-	stil = 'hvit'
+	stil = 'info'
 }) => (
 	<button
 		type="button"

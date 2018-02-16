@@ -21,7 +21,7 @@ const renderApp = (decoratorFragments) =>
 					REST_API_URL:
 						process.env.NODE_ENV === 'heroku'
 							? 'heroku'
-							: 'process.env.PERMISJONSPLANLEGGER_API_URL'
+							: 'process.env.FORELDREPENGEPLANLEGGER_API_URL'
 				},
 				decoratorFragments
 			),
@@ -37,16 +37,20 @@ const renderApp = (decoratorFragments) =>
 
 const startServer = (html) => {
 	server.use(
-		'/permisjonsplanlegger/dist/js',
+		'/foreldrepengeplanlegger/dist/js',
 		express.static(path.resolve(__dirname, 'dist/js'))
 	);
 	server.use(
-		'/permisjonsplanlegger/dist/css',
+		'/foreldrepengeplanlegger/dist/css',
 		express.static(path.resolve(__dirname, 'dist/css'))
 	);
 
 	server.get(
-		['/', '/permisjonsplanlegger/?', /^\/permisjonsplanlegger\/(?!.*dist).*$/],
+		[
+			'/',
+			'/foreldrepengeplanlegger/?',
+			/^\/foreldrepengeplanlegger\/(?!.*dist).*$/
+		],
 		(req, res) => {
 			res.send(html);
 		}

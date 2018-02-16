@@ -9,15 +9,15 @@ const configureDevServer = (decoratorFragments) => ({
 		app.get(
 			[
 				'/',
-				'/permisjonsplanlegger/?',
-				/^\/permisjonsplanlegger\/(?!.*dist).*$/
+				'/foreldrepengeplanlegger/?',
+				/^\/foreldrepengeplanlegger\/(?!.*dist).*$/
 			],
 			(req, res) => {
 				res.render(
 					'index.html',
 					Object.assign(
 						{
-							REST_API_URL: process.env.PERMISJONSPLANLEGGER_API_URL
+							REST_API_URL: process.env.FORELDREPENGEPLANLEGGER_API_URL
 						},
 						decoratorFragments
 					)
@@ -29,7 +29,7 @@ const configureDevServer = (decoratorFragments) => ({
 	quiet: false,
 	noInfo: false,
 	stats: 'minimal',
-	publicPath: '/permisjonsplanlegger/dist'
+	publicPath: '/foreldrepengeplanlegger/dist'
 });
 
 module.exports = configureDevServer;

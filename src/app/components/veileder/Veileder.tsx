@@ -256,6 +256,15 @@ const Veileder = (props: Props) => {
 							/>
 						</g>
 					</g>
+					<g id="hairstrand">
+						<g transform="translate(37, 17) rotate(-20deg)">
+							<path
+								className="hairstrand"
+								d="M0,0 C3.80040015,22.5096208 1.28605361,24.1687325 18.25,34.328125"
+								id="Path-2"
+							/>
+						</g>
+					</g>
 				</g>
 			</g>
 		</svg>

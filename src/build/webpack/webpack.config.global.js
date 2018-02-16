@@ -9,7 +9,7 @@ const webpackConfig = {
 	output: {
 		path: path.resolve(__dirname, '../../../dist'),
 		filename: 'js/bundle.js',
-		publicPath: '/permisjonsplanlegger/dist',
+		publicPath: '/foreldrepengeplanlegger/dist',
 		crossOriginLoading: 'anonymous'
 	},
 	resolve: {

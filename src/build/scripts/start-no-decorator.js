@@ -4,7 +4,7 @@ const webpackConfig = require('../webpack/webpack.config.dev');
 const configureDevServer = require('../webpack/devserver.config');
 
 const decoratorData = {
-	NAV_SCRIPTS: '<title>Permisjonsplanlegger</title>',
+	NAV_SCRIPTS: '<title>Foreldrepengeplanlegger</title>',
 	NAV_STYLES: '',
 	NAV_HEADING: '',
 	NAV_FOOTER: ''

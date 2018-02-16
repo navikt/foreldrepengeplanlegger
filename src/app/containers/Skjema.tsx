@@ -25,7 +25,6 @@ import { Dekningsgrad } from 'app/types';
 import SkjemaveilederKnapp from 'app/components/skjemaveilederKnapp/SkjemaveilederKnapp';
 import FordelingFellesperiodeRange from 'app/components/fordelingFellesperiodeRange/FordelingFellesperiodeRange';
 import { grunnfordeling } from 'app/data/grunnfordeling';
-import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
 import Infotekster from 'app/tekst/infotekster';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 
@@ -84,11 +83,9 @@ class Skjema extends React.Component<Props> {
 							form.navnForelder2 ? form.navnForelder2 !== '' : false
 						)}
 						beskrivelse={
-							<VeilederinfoContainer id={Infotekster.sats}>
-								<Veilederinfo stil="kompakt">
-									Valget av antall uker gjelder dere begge. Den totale
-									utbetalingen blir høyere ved å velge 100 prosent.
-								</Veilederinfo>
+							<VeilederinfoContainer id={Infotekster.sats} stil="kompakt">
+								Valget av antall uker gjelder dere begge. Den totale
+								utbetalingen blir høyere ved å velge 100 prosent.
 							</VeilederinfoContainer>
 						}
 						valgtVerdi={form.dekningsgrad}

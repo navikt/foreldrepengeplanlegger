@@ -22,11 +22,11 @@ import {
 } from 'app/redux/actions';
 import Tekst from 'app/tekst';
 import { Dekningsgrad } from 'app/types';
-import SkjemaveilederKnapp from 'app/components/skjemaveilederKnapp/SkjemaveilederKnapp';
 import FordelingFellesperiodeRange from 'app/components/fordelingFellesperiodeRange/FordelingFellesperiodeRange';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import Infotekster from 'app/tekst/infotekster';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
+import VeilederinfoKnappContainer from 'app/connectedComponents/VeilederinfoKnappContainer';
 
 export interface StateProps {
 	form: FormState;
@@ -76,7 +76,10 @@ class Skjema extends React.Component<Props> {
 				</div>
 
 				<div className="blokk-m">
-					<SkjemaveilederKnapp id={Infotekster.sats} label="Les mer om sats" />
+					<VeilederinfoKnappContainer
+						id={Infotekster.sats}
+						label="Les mer om sats"
+					/>
 					<Radioliste
 						inputnavn="dekningsgrad"
 						tittel={Tekst.skjema.labelDekningsgrad(
@@ -114,8 +117,8 @@ class Skjema extends React.Component<Props> {
 				{form.ukerFellesperiode &&
 					form.dekningsgrad && (
 						<div className="blokk-s">
-							<SkjemaveilederKnapp
-								id={Infotekster.fordelingFellespermisjon}
+							<VeilederinfoKnappContainer
+								id={Infotekster.sats}
 								label="Les mer om fordeling av fellesperioden"
 							/>
 							<FordelingFellesperiodeRange

@@ -7,6 +7,12 @@
 	width: 100%;
 	@noseColor: #d1bfa3;
 	@mouthColor: #d19e9c;
+	/** Zoom inn */
+	&--kompakt {
+		.veileder-person {
+			transform: scale(1.1) translateX(-4.5px);
+		}
+	}
 	.hairstrand {
 		stroke: #d2654c;
 		stroke-width: 1;
@@ -72,13 +78,13 @@
 	#bakgrunn {
 		transition: fill 0.5s ease;
 	}
-	&--tema-purple #bakgrunn {
+	&--tema-lilla #bakgrunn {
 		fill: #c1b5d0;
 	}
-	&--tema-green #bakgrunn {
+	&--tema-gronn #bakgrunn {
 		fill: #9bd0b0;
 	}
-	&--tema-blue #bakgrunn {
+	&--tema-bla #bakgrunn {
 		fill: #c2eaf7;
 	}
 }

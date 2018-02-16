@@ -16,7 +16,7 @@ const Veilederinfo: React.StatelessComponent<Props> = ({
 }) => (
 	<div className={classnames('veilederinfo', `veilederinfo--${stil}`)}>
 		<span className="veilederinfo__veileder">
-			<Veileder farge="purple" ansikt="glad" />
+			<Veileder farge="lilla" ansikt="glad" stil="kompakt" />
 		</span>
 		<div className="veilederinfo__innhold">
 			{children}

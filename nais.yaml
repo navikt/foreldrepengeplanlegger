@@ -7,10 +7,10 @@ replicas:
 port: 8080
 healthcheck: 
   liveness:
-    path: /health/isAlive
+    path: /foreldrepengeplanlegger/internal/isAlive
     initialDelay: 60
   readiness:
-    path: /health/isReady
+    path: /foreldrepengeplanlegger/internal/isReady
     initialDelay: 60
 prometheus: 
   enabled: false 

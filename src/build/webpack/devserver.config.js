@@ -13,15 +13,7 @@ const configureDevServer = (decoratorFragments) => ({
 				/^\/foreldrepengeplanlegger\/(?!.*dist).*$/
 			],
 			(req, res) => {
-				res.render(
-					'index.html',
-					Object.assign(
-						{
-							REST_API_URL: process.env.FORELDREPENGEPLANLEGGER_API_URL
-						},
-						decoratorFragments
-					)
-				);
+				res.render('index.html', Object.assign({}, decoratorFragments));
 			}
 		);
 	},

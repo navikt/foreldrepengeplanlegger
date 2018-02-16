@@ -1,2 +1,2 @@
-https://${DomainName}/permisjonsplanlegger
-https://${DomainName}/permisjonsplanlegger/*
+https://${DomainName}/foreldrepengeplanlegger
+https://${DomainName}/foreldrepengeplanlegger/*

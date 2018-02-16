@@ -75,7 +75,7 @@ node {
         }
 
         callback = "${env.BUILD_URL}input/Deploy/"
-        def deploy = deployLib.deployNaisApp(app, releaseVersion, 'p', zone, namespace, callback, committer, 'No').key
+        def deploy = deployLib.deployNaisApp(app, releaseVersion, 'p', zone, namespace, callback, committer, false).key
         try {
             timeout(time: 15, unit: 'MINUTES') {
                 input id: 'deploy', message: "Check status here:  https://jira.adeo.no/browse/${deploy}"

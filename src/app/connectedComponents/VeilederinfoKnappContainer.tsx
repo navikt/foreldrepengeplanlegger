@@ -22,7 +22,7 @@ class VeilederinfoKnappContainer extends React.Component<Props, {}> {
 		const { id, label, isOpen, dispatch } = this.props;
 		return (
 			<Sirkelknapp
-				stil="bla"
+				stil="info"
 				label={label}
 				ikon={isOpen ? <LukkInfoIkon /> : <InfoIkon />}
 				toggle={{ pressed: isOpen }}

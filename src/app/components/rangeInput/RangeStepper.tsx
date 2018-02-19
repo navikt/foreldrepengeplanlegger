@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Chevron from 'nav-frontend-chevron';
-import Sirkelknapp from 'app/components/sirkelknapp/Sirkelknapp';
+import Sirkelknapp from 'app/elements/sirkelknapp/Sirkelknapp';
+
+import './rangeStepper.less';
 
 export type Direction = 'next' | 'previous';
 

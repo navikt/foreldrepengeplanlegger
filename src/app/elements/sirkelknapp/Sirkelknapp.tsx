@@ -3,6 +3,8 @@ import * as classnames from 'classnames';
 
 import AriaText from 'shared/components/aria/AriaText';
 
+import './sirkelknapp.less';
+
 export type Stil = 'hvit' | 'bla' | 'info';
 
 export interface Props {

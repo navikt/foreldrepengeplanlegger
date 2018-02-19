@@ -1,7 +1,9 @@
 import * as React from 'react';
 
 import { Knapp } from 'nav-frontend-knapper';
-import PlussIkon from '../ikoner/PlussIkon';
+import PlussIkon from 'app/elements/ikoner/PlussIkon';
+
+import './leggTilKnapp.less';
 
 export interface Props extends React.HTMLProps<HTMLButtonElement> {
 	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;

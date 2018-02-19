@@ -17,6 +17,8 @@ import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
 import { erGyldigDato } from 'app/utils';
 import { isBefore, isSameDay, isAfter } from 'date-fns';
 
+import './utsettelseSkjema.less';
+
 interface Props {
 	tidsrom: Tidsperiode;
 	utsettelse?: Utsettelsesperiode;

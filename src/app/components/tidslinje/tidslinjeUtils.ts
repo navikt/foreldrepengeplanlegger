@@ -9,8 +9,8 @@ import {
 	getAntallUttaksdagerIPerioder,
 	getStonadsperioder
 } from 'app/utils/periodeUtils';
-import { CalloutBorderColor } from 'app/components/callout/Callout';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
+import { CalloutBorderColor } from 'app/elements/callout/Callout';
 
 /**
  * Oppsummerer et periodeinnslag

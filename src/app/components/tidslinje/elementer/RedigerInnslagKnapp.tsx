@@ -1,5 +1,5 @@
 import * as React from 'react';
-import RedigerIkon from 'app/components/ikoner/RedigerIkon';
+import RedigerIkon from 'app/elements/ikoner/RedigerIkon';
 
 export interface Props {
 	title?: string;

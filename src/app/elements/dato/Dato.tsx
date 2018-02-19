@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { år, måned, dagIMåned, ukedag } from './datoUtils';
 
-export type Datoformat = 'Full';
 import './dato.less';
+
+export type Datoformat = 'Full';
 
 interface Props {
 	dato: Date;

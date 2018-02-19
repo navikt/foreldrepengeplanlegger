@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import TerminIkon from 'app/components/ikoner/TerminIkon';
-import Dato from 'app/components/dato/Dato';
 import { InnslagHendelsetype } from 'app/components/tidslinje/types';
+import Dato from 'app/elements/dato/Dato';
+import TerminIkon from 'app/elements/ikoner/TerminIkon';
 
 interface Props {
 	innslag: InnslagHendelsetype;

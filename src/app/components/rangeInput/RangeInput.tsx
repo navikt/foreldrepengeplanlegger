@@ -4,6 +4,8 @@ import { guid } from 'nav-frontend-js-utils';
 import RangeStepper from 'app/components/rangeInput/RangeStepper';
 import SkjemaInputElement from 'app/components/skjemaInputElement/SkjemaInputElement';
 
+import './rangeInput.less';
+
 export interface RangeInputValueLabelRendererOptions {
 	value: number;
 	min: number;

@@ -9,6 +9,8 @@ import Periodeinnslag from 'app/components/tidslinje/Periodeinnslag';
 import Hendelseinnslag from 'app/components/tidslinje/Hendelseinnslag';
 import { Utsettelsesperiode, Periodetype } from 'app/types';
 
+import './tidslinje.less';
+
 export interface TidslinjeProps {
 	innslag: Tidslinjeinnslag[];
 	navnForelder1: string;

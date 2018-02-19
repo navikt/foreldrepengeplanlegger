@@ -1,0 +1,80 @@
+p {
+	margin-top: 0;
+}
+
+.planlegger {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 0 1rem 2rem 1rem;
+}
+
+.planlegger-skjema {
+	margin-bottom: 2rem;
+}
+
+.blockSpacing {
+	margin-bottom: 2rem;
+}
+
+.introtekst {
+	margin-bottom: 2rem;
+	&__veileder {
+		text-align: center;
+		margin-bottom: 1rem;
+		.veilederSvg {
+			max-width: 200px;
+			width: 32%;
+		}
+	}
+}
+
+.skjema_fordelingFellesperiode {
+	display: flex;
+	&__uker {
+		font-size: 1.375rem;
+		font-weight: bold;
+	}
+	&__forelder1 {
+		flex-basis: 50%;
+	}
+	&__forelder2 {
+		flex-basis: 50%;
+		text-align: right;
+	}
+}
+
+.skjemaveilederKnapp {
+	position: relative;
+	&__knappWrapper {
+		position: absolute;
+		right: 0;
+		top: -2px;
+	}
+}
+
+.utsettelseSkjemaDialog {
+	width: 100%;
+	max-width: 35em;
+}
+
+.redigerUtsettelseKnapp {
+	border: 1px solid transparent;
+	padding: 0.3rem;
+	margin: -0.3rem;
+	border-radius: @knappBorderRadius;
+	cursor: pointer;
+	&:hover {
+		border: 1px solid #0067c5;
+	}
+	&:focus {
+		.buttonFocus();
+	}
+}
+
+.tidsplan {
+	background-color: #f1f1f1;
+	margin-left: -2rem;
+	margin-right: -2rem;
+	border-radius: 8px;
+	padding: 2rem;
+}

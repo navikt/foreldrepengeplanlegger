@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Dato from 'app/components/dato/Dato';
+import Dato from 'app/elements/dato/Dato';
 import { Tidsperiode } from 'app/types';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 

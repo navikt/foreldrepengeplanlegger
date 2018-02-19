@@ -12,11 +12,11 @@ import {
 	slettUtsettelse
 } from 'app/redux/actions';
 import { Utsettelsesperiode, Tidsperiode } from 'app/types';
-import LeggTilKnapp from 'app/components/leggTilKnapp/LeggTilKnapp';
 import Periodeberegner from 'app/utils/Periodeberegner';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import { getForsteUttaksdagEtterDato } from 'app/utils/uttaksdagerUtils';
 import { Element } from 'nav-frontend-typografi';
+import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
 
 interface StateProps {
 	isOpen: boolean;

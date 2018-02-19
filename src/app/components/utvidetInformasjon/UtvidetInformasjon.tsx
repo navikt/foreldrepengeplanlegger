@@ -1,8 +1,10 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 import { Collapse } from 'react-collapse';
-import InfoToggler from 'app/components/infoToggler/InfoToggler';
 import { guid } from 'nav-frontend-js-utils';
+import InfoToggler from 'app/components/utvidetInformasjon/InfoToggler';
+
+import './utvidetInformasjon.less';
 
 interface Props {
 	children: React.ReactNode;

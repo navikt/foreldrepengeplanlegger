@@ -54,7 +54,8 @@ const Periodeinnslag: React.StatelessComponent<PeriodeinnslagProps> = (
 					)}
 					sluttdato={
 						avsluttendePeriode
-							? innslag.periode.tidsperiode.sluttdato
+							? innslag.perioderekke[innslag.perioderekke.length - 1]
+									.tidsperiode.sluttdato
 							: undefined
 					}
 				/>

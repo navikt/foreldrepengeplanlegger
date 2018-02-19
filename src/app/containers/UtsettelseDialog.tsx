@@ -8,7 +8,8 @@ import { DispatchProps, AppState } from 'app/redux/types';
 import {
 	utsettelseLukkDialog,
 	utsettelseVisDialog,
-	opprettEllerOppdaterUtsettelse
+	opprettEllerOppdaterUtsettelse,
+	slettUtsettelse
 } from 'app/redux/actions';
 import { Utsettelsesperiode, Tidsperiode } from 'app/types';
 import LeggTilKnapp from 'app/components/leggTilKnapp/LeggTilKnapp';
@@ -51,6 +52,9 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 						tidsrom={props.tidsrom}
 						onChange={(utsettelse) =>
 							props.dispatch(opprettEllerOppdaterUtsettelse(utsettelse))
+						}
+						onFjern={(utsettelse) =>
+							props.dispatch(slettUtsettelse(utsettelse))
 						}
 					/>
 				)

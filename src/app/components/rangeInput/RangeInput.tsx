@@ -17,7 +17,7 @@ export type RangeInputValueLabelRenderer = (
 ) => React.ReactElement<any>;
 
 interface Props {
-	label: string;
+	label: string | React.ReactNode;
 	value: number;
 	min: number;
 	max: number;

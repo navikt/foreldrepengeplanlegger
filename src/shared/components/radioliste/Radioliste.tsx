@@ -18,7 +18,7 @@ export interface RadiolisteValg {
 export interface Props {
 	valg: RadiolisteValg[];
 	inputnavn: string;
-	tittel: string;
+	tittel: string | React.ReactNode;
 	beskrivelse?: React.ReactNode;
 	valgtVerdi?: RadiolisteValgVerdi;
 	onChange: RadiolisteChangeEvent;

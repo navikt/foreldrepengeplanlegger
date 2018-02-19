@@ -4,7 +4,7 @@ import { Feil } from 'nav-frontend-skjema';
 import SkjemaelementFeilmelding from './SkjemaelementFeilmelding';
 
 interface Props {
-	label: string;
+	label: string | React.ReactNode;
 	feil?: Feil;
 	id?: string;
 	children: React.ReactNode;

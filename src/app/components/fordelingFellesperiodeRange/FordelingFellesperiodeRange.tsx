@@ -2,6 +2,8 @@ import * as React from 'react';
 import RangeInput from 'app/components/rangeInput/RangeInput';
 import Tekst from 'app/tekst';
 import FordelingFellesperiodeLabelRenderer from './FordelingFellesperiodeLabelRenderer';
+import Sporsmal from 'app/elements/sporsmal/Sporsmal';
+import Infotekster from 'app/tekst/infotekster';
 
 export interface Props {
 	navnForelder1: string;
@@ -21,7 +23,17 @@ const FordelingFellesperiodeRange: React.StatelessComponent<Props> = ({
 	onChange
 }) => (
 	<RangeInput
-		label={Tekst.skjema.fordelingFellespermisjon}
+		label={
+			<span>
+				<Sporsmal
+					info={{
+						id: Infotekster.fordelingFellespermisjon,
+						label: 'Les mer om fordeling av fellesperioden'
+					}}>
+					{Tekst.skjema.fordelingFellespermisjon}
+				</Sporsmal>
+			</span>
+		}
 		value={ukerForelder1}
 		min={0}
 		max={ukerFellesperiode}

@@ -1,8 +1,9 @@
 import * as React from 'react';
 import VeilederinfoKnappContainer from 'app/connectedComponents/VeilederinfoKnappContainer';
 
+import './sporsmal.less';
+
 export interface Props {
-	label: string;
 	info: {
 		id: string;
 		label: string;
@@ -10,14 +11,16 @@ export interface Props {
 }
 
 const Sporsmal: React.StatelessComponent<Props> = (props) => (
-	<div className="skjemasporsmal">
-		<span className="skjemasporsmal__sporsmal">{props.children}</span>
-		{props.info && (
-			<span className="skjemasporsmal__info">
-				<VeilederinfoKnappContainer {...props.info} />
-			</span>
-		)}
-	</div>
+	<span className="skjemasporsmal__wrapper">
+		<span className="skjemasporsmal">
+			<span className="skjemasporsmal__sporsmal">{props.children}</span>
+			{props.info && (
+				<span className="skjemasporsmal__info">
+					<VeilederinfoKnappContainer {...props.info} />
+				</span>
+			)}
+		</span>
+	</span>
 );
 
 export default Sporsmal;

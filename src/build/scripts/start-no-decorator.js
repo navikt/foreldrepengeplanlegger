@@ -16,6 +16,6 @@ const server = new WebpackDevServer(
 	configureDevServer(decoratorData)
 );
 
-server.listen(8080, '127.0.0.1', () =>
+server.listen(8080, '0.0.0.0', () =>
 	console.log('Started server on http://localhost:8080')
 );

@@ -27,6 +27,7 @@ import { grunnfordeling } from 'app/data/grunnfordeling';
 import Infotekster from 'app/tekst/infotekster';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 import VeilederinfoKnappContainer from 'app/connectedComponents/VeilederinfoKnappContainer';
+import Sporsmal from 'app/elements/sporsmal/Sporsmal';
 
 export interface StateProps {
 	form: FormState;
@@ -76,17 +77,16 @@ class Skjema extends React.Component<Props> {
 				</div>
 
 				<div className="blokk-m">
-					<span className="float-right">
-						<VeilederinfoKnappContainer
-							id={Infotekster.sats}
-							label="Les mer om sats"
-						/>
-					</span>
 					<Radioliste
 						inputnavn="dekningsgrad"
-						tittel={Tekst.skjema.labelDekningsgrad(
-							form.navnForelder2 ? form.navnForelder2 !== '' : false
-						)}
+						tittel={
+							<Sporsmal
+								info={{ id: Infotekster.sats, label: 'Les mer om sats' }}>
+								{Tekst.skjema.labelDekningsgrad(
+									form.navnForelder2 ? form.navnForelder2 !== '' : false
+								)}
+							</Sporsmal>
+						}
 						beskrivelse={
 							<VeilederinfoContainer id={Infotekster.sats} stil="kompakt">
 								Valget av antall uker gjelder dere begge. Den totale
@@ -119,12 +119,6 @@ class Skjema extends React.Component<Props> {
 				{form.ukerFellesperiode &&
 					form.dekningsgrad && (
 						<div className="blokk-s">
-							<span className="float-right">
-								<VeilederinfoKnappContainer
-									id={Infotekster.fordelingFellespermisjon}
-									label="Les mer om fordeling av fellesperioden"
-								/>
-							</span>
 							<FordelingFellesperiodeRange
 								navnForelder1={form.navnForelder1}
 								navnForelder2={form.navnForelder2}

@@ -49,7 +49,7 @@ export class Uttaksplan extends React.Component<Props> {
 					<Skjema />
 				</div>
 
-				<div className="blokk-m no-print">
+				<div className="blokk-l no-print">
 					<UtsettelseDialog />
 				</div>
 

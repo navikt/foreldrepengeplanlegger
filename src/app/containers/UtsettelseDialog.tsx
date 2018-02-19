@@ -31,10 +31,10 @@ type Props = StateProps & DispatchProps;
 
 const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 	<div>
-		<div className="blokk-s">
+		<div className="blokk-xs">
 			<Element>Utsettelse av permisjonstiden</Element>
-			<LeggTilKnapp onClick={() => props.dispatch(utsettelseVisDialog())} />
 		</div>
+		<LeggTilKnapp onClick={() => props.dispatch(utsettelseVisDialog())} />
 		<Modal
 			isOpen={props.isOpen}
 			contentLabel="Utsettelse"

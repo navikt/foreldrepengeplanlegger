@@ -53,7 +53,9 @@ const RangeInput: React.StatelessComponent<Props> = (props) => {
 					<div className="rangeInput__stepper rangeInput__stepper--previous">
 						<RangeStepper
 							direction="previous"
-							onClick={() => props.onChange(props.value - 1)}
+							onClick={() =>
+								props.value > props.min ? props.onChange(props.value - 1) : null
+							}
 							label={steppers ? steppers.reduceLabel : 'Mindre'}
 						/>
 					</div>
@@ -71,7 +73,9 @@ const RangeInput: React.StatelessComponent<Props> = (props) => {
 					<div className="rangeInput__stepper rangeInput__stepper--next">
 						<RangeStepper
 							direction="next"
-							onClick={() => props.onChange(props.value + 1)}
+							onClick={() =>
+								props.value < props.max ? props.onChange(props.value + 1) : null
+							}
 							label={steppers ? steppers.increaseLabel : 'Mer'}
 						/>
 					</div>

@@ -45,9 +45,10 @@ const Sirkelknapp: React.StatelessComponent<Props> = ({
 			}
 		)}
 		disabled={disabled}
-		aria-pressed={toggle ? toggle.pressed : undefined}
-		title={label}>
-		<span className="sirkelknapp__ikon">{ikon}</span>
+		aria-pressed={toggle ? toggle.pressed : undefined}>
+		<span className="sirkelknapp__ikon" role="presentation">
+			{ikon}
+		</span>
 		<AriaText>{label}</AriaText>
 	</button>
 );

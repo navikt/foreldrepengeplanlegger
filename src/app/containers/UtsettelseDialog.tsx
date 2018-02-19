@@ -13,10 +13,10 @@ import {
 } from 'app/redux/actions';
 import { Utsettelsesperiode, Tidsperiode } from 'app/types';
 import LeggTilKnapp from 'app/components/leggTilKnapp/LeggTilKnapp';
-import SkjemaInputElement from 'app/components/skjemaInputElement/SkjemaInputElement';
 import Periodeberegner from 'app/utils/Periodeberegner';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import { getForsteUttaksdagEtterDato } from 'app/utils/uttaksdagerUtils';
+import { Element } from 'nav-frontend-typografi';
 
 interface StateProps {
 	isOpen: boolean;
@@ -31,9 +31,10 @@ type Props = StateProps & DispatchProps;
 
 const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 	<div>
-		<SkjemaInputElement label="Utsettelse av permisjonstiden">
+		<div className="blokk-s">
+			<Element>Utsettelse av permisjonstiden</Element>
 			<LeggTilKnapp onClick={() => props.dispatch(utsettelseVisDialog())} />
-		</SkjemaInputElement>
+		</div>
 		<Modal
 			isOpen={props.isOpen}
 			contentLabel="Utsettelse"

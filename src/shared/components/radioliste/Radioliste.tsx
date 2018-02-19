@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 
-import { Radio, SkjemaGruppe, RadioProps, Feil } from 'nav-frontend-skjema';
+import { Radio, RadioProps, Feil } from 'nav-frontend-skjema';
 
 type RadiolisteValgVerdi = string | number | undefined;
 
@@ -70,7 +70,8 @@ const Radioliste: React.StatelessComponent<Props> = ({
 		'radioliste--toKolonner': kolonner === '2'
 	});
 	return (
-		<SkjemaGruppe className={cls} feil={feil} title={tittel}>
+		<fieldset className={cls}>
+			<legend>{tittel}</legend>
 			{beskrivelse && (
 				<div className="radioliste__beskrivelse">{beskrivelse}</div>
 			)}
@@ -88,7 +89,7 @@ const Radioliste: React.StatelessComponent<Props> = ({
 					</div>
 				))}
 			</div>
-		</SkjemaGruppe>
+		</fieldset>
 	);
 };
 

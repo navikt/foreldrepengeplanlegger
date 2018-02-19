@@ -15,8 +15,20 @@
 }
 
 .leggTilKnapp {
-	.customButton();
 	display: flex;
+	align-items: center;
+	height: 3rem;
+	padding-left: 1.5rem;
+	&__pluss {
+		padding-right: 0.5rem;
+	}
+	&:hover {
+		.leggTilKnapp__pluss {
+			svg * {
+				fill: white;
+			}
+		}
+	}
 	&__label {
 		text-align: left;
 		flex-basis: 100%;

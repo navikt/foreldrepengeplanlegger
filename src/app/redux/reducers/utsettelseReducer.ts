@@ -23,7 +23,7 @@ export const utsettelseEnDag: Utsettelsesperiode = {
 	forelder: 'forelder1'
 };
 export const utsettelseToDager: Utsettelsesperiode = {
-	id: '1',
+	id: '2',
 	type: Periodetype.Utsettelse,
 	arsak: UtsettelseArsakType.Ferie,
 	tidsperiode: {
@@ -33,7 +33,7 @@ export const utsettelseToDager: Utsettelsesperiode = {
 	forelder: 'forelder1'
 };
 export const utsettelseTiDager: Utsettelsesperiode = {
-	id: '1',
+	id: '3',
 	type: Periodetype.Utsettelse,
 	arsak: UtsettelseArsakType.Ferie,
 	tidsperiode: {
@@ -43,7 +43,7 @@ export const utsettelseTiDager: Utsettelsesperiode = {
 	forelder: 'forelder2'
 };
 export const utsettelse2: Utsettelsesperiode = {
-	id: '2',
+	id: '4',
 	type: Periodetype.Utsettelse,
 	arsak: UtsettelseArsakType.Arbeid,
 	tidsperiode: {
@@ -104,6 +104,15 @@ const UtsettelseReducer = (
 			} as UtsettelseState;
 		case PlanleggerActionTypeKeys.UTSETTELSE_OPPRETT_ELLER_OPPDATER:
 			return opprettEllerOppdaterUtsettelse(state, action.utsettelse);
+		case PlanleggerActionTypeKeys.UTSETTELSE_SLETT:
+			return {
+				...state,
+				utsettelser: state.utsettelser.filter(
+					(u) => u.id !== action.utsettelse.id
+				),
+				valgtUtsettelse: undefined,
+				dialogErApen: false
+			};
 		default:
 			return state;
 	}

@@ -14,6 +14,7 @@ import {
 
 export interface Props {
 	innslag: Tidslinjeinnslag;
+	erSisteInnslagForForelder?: boolean;
 }
 
 const cls = (variant?: string) =>
@@ -22,7 +23,10 @@ const cls = (variant?: string) =>
 const hendelseClassNames = (innslag: InnslagHendelsetype): string =>
 	classnames(cls(), cls('hendelse'), cls(`hendelse--${innslag.hendelse}`));
 
-const periodeClassNames = (innslag: InnslagPeriodetype): string =>
+const periodeClassNames = (
+	innslag: InnslagPeriodetype,
+	erSisteInnslagForForelder?: boolean
+): string =>
 	classnames(
 		cls(),
 		cls('periode'),
@@ -34,17 +38,21 @@ const periodeClassNames = (innslag: InnslagPeriodetype): string =>
 				innslagErFortsettelse(innslag),
 			'tidslinjestrek--fortsetter':
 				innslag.periode.type !== Periodetype.Utsettelse &&
-				innslagFortsetter(innslag)
+				innslagFortsetter(innslag) &&
+				!erSisteInnslagForForelder
 		}
 	);
 
-const Tidslinjestrek: React.StatelessComponent<Props> = ({ innslag }) => {
+const Tidslinjestrek: React.StatelessComponent<Props> = ({
+	innslag,
+	erSisteInnslagForForelder
+}) => {
 	return (
 		<div
 			className={
 				innslag.type === TidslinjeinnslagType.hendelse
 					? hendelseClassNames(innslag)
-					: periodeClassNames(innslag)
+					: periodeClassNames(innslag, erSisteInnslagForForelder)
 			}
 		/>
 	);

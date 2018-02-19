@@ -1,25 +1,22 @@
 import * as React from 'react';
 
-import CustomSVG from 'shared/components/customSvg/CustomSVG';
-
-const pluss = require('app/assets/pluss.svg');
+import { Knapp } from 'nav-frontend-knapper';
+import PlussIkon from '../ikoner/PlussIkon';
 
 export interface Props extends React.HTMLProps<HTMLButtonElement> {
 	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const LeggTilKnapp: React.StatelessComponent<Props> = (props) => (
-	<button
-		type="button"
+	<Knapp
+		type="standard"
 		onClick={(e) => props.onClick(e)}
 		className="m-fullBredde leggTilKnapp">
-		<span className="leggTilKnapp__label">
-			Legg til ferie, permisjon eller arbeid
-		</span>
 		<span className="leggTilKnapp__pluss">
-			<CustomSVG iconRef={pluss.default} size={24} />
+			<PlussIkon />
 		</span>
-	</button>
+		<span className="leggTilKnapp__label">Legg til utsettelse</span>
+	</Knapp>
 );
 
 export default LeggTilKnapp;

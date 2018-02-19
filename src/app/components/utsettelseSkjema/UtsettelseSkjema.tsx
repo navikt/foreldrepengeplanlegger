@@ -10,7 +10,7 @@ import {
 	Tidsperiode
 } from 'app/types';
 import DateInput, { Range } from 'shared/components/dateInput/DateInput';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import Radioliste from 'shared/components/radioliste/Radioliste';
 import { Row, Column } from 'nav-frontend-grid';
 import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
@@ -24,6 +24,7 @@ interface Props {
 	forelder1?: string;
 	forelder2?: string;
 	onChange: (utsettelse: Utsettelsesperiode) => void;
+	onFjern: (utsettelse: Utsettelsesperiode) => void;
 }
 
 interface State {
@@ -249,11 +250,27 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					</Row>
 				</div>
 
-				<Hovedknapp
-					onClick={() => this.handleSubmitClick()}
-					className="m-fullBredde">
-					{utsettelse ? 'Oppdater' : 'Legg til'}
-				</Hovedknapp>
+				<Row>
+					<Column xs="12" sm={utsettelse ? '6' : '12'}>
+						<div className="blokk-xxs">
+							<Hovedknapp
+								onClick={() => this.handleSubmitClick()}
+								className="m-fullBredde">
+								{utsettelse ? 'Oppdater' : 'Legg til'}
+							</Hovedknapp>
+						</div>
+					</Column>
+					{utsettelse && (
+						<Column xs="12" sm="6">
+							<Knapp
+								type="standard"
+								onClick={() => this.props.onFjern(utsettelse)}
+								className="m-fullBredde">
+								Fjern
+							</Knapp>
+						</Column>
+					)}
+				</Row>
 			</form>
 		);
 	}

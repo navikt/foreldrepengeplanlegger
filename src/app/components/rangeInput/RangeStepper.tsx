@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Chevron from 'nav-frontend-chevron';
-import Sirkelknapp from 'shared/components/sirkelknapp/Sirkelknapp';
+import Sirkelknapp from 'app/components/sirkelknapp/Sirkelknapp';
 
 export type Direction = 'next' | 'previous';
 

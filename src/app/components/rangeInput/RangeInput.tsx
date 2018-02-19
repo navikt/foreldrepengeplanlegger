@@ -1,9 +1,8 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
-
-import SkjemaInputElement from 'shared/components/skjemaInputElement/SkjemaInputElement';
 import { guid } from 'nav-frontend-js-utils';
-import RangeStepper from 'shared/components/rangeInput/RangeStepper';
+import RangeStepper from 'app/components/rangeInput/RangeStepper';
+import SkjemaInputElement from 'app/components/skjemaInputElement/SkjemaInputElement';
 
 export interface RangeInputValueLabelRendererOptions {
 	value: number;

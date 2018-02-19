@@ -13,7 +13,7 @@ import {
 } from 'app/redux/actions';
 import { Utsettelsesperiode, Tidsperiode } from 'app/types';
 import LeggTilKnapp from 'app/components/leggTilKnapp/LeggTilKnapp';
-import SkjemaInputElement from 'shared/components/skjemaInputElement/SkjemaInputElement';
+import SkjemaInputElement from 'app/components/skjemaInputElement/SkjemaInputElement';
 import Periodeberegner from 'app/utils/Periodeberegner';
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import { getForsteUttaksdagEtterDato } from 'app/utils/uttaksdagerUtils';

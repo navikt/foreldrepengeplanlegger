@@ -1,5 +1,5 @@
 import * as React from 'react';
-import RangeInput from 'shared/components/rangeInput/RangeInput';
+import RangeInput from 'app/components/rangeInput/RangeInput';
 import Tekst from 'app/tekst';
 import FordelingFellesperiodeLabelRenderer from './FordelingFellesperiodeLabelRenderer';
 

@@ -1,0 +1,28 @@
+.permisjonsoppsummering {
+	display: flex;
+	width: 100%;
+
+	&__forelder {
+		width: 50%;
+		flex-basis: 50%;
+		&:first-child {
+			padding-right: 0.5rem;
+		}
+		&:last-child {
+			padding-left: 0.5rem;
+		}
+	}
+	&__kvote {
+		padding: 1.1rem 1rem 1rem 1rem;
+		background-color: #e0dae7;
+		margin-bottom: 0.5rem;
+		border-radius: 2px;
+		&__uker {
+			font-size: 1.5rem;
+			font-weight: bold;
+		}
+		&--forelder2  {
+			background-color: #ccdee6;
+		}
+	}
+}

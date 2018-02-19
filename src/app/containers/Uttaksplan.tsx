@@ -16,6 +16,9 @@ import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
 import { utsettelseVisDialog } from 'app/redux/actions';
 import { Utsettelsesperiode } from 'app/types';
 import Veileder from 'app/components/veileder/Veileder';
+import { Systemtittel } from 'nav-frontend-typografi';
+import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
+import { grunnfordeling } from 'app/data/grunnfordeling';
 
 export interface StateProps {
 	form: FormState;
@@ -51,14 +54,30 @@ export class Uttaksplan extends React.Component<Props> {
 				</div>
 
 				{this.props.visTidslinje && (
-					<Tidslinje
-						innslag={this.props.innslag}
-						navnForelder1={this.props.form.navnForelder1}
-						navnForelder2={this.props.form.navnForelder2}
-						onRedigerUtsettelse={(utsettelse: Utsettelsesperiode) =>
-							this.props.dispatch(utsettelseVisDialog(utsettelse))
-						}
-					/>
+					<div className="tidsplan">
+						<div className="blokk-s">
+							<Systemtittel>Deres tidslinje</Systemtittel>
+						</div>
+						<div className="blokk-m">
+							<Permisjonsoppsummering
+								foreldrepengerMor={grunnfordeling.antallUkerForelder1ForFodsel}
+								modrekvote={grunnfordeling.antallUkerModrekvote}
+								fedrekvote={grunnfordeling.antallUkerFedrekvote}
+								fellesukerForelder1={this.props.form.fellesperiodeukerForelder1}
+								fellesukerForelder2={this.props.form.fellesperiodeukerForelder2}
+								navnForelder1={this.props.form.navnForelder1}
+								navnForelder2={this.props.form.navnForelder2}
+							/>
+						</div>
+						<Tidslinje
+							innslag={this.props.innslag}
+							navnForelder1={this.props.form.navnForelder1}
+							navnForelder2={this.props.form.navnForelder2}
+							onRedigerUtsettelse={(utsettelse: Utsettelsesperiode) =>
+								this.props.dispatch(utsettelseVisDialog(utsettelse))
+							}
+						/>
+					</div>
 				)}
 			</div>
 		);

@@ -1,7 +1,5 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
-
-import { Systemtittel } from 'nav-frontend-typografi';
 import {
 	Tidslinjeinnslag,
 	TidslinjeinnslagType
@@ -46,9 +44,6 @@ const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({
 }) => {
 	return (
 		<div className="tidslinje">
-			<div className="blokk-m">
-				<Systemtittel>Din tidsplan</Systemtittel>
-			</div>
 			{innslag.map((i, idx) => {
 				const className = classnames(
 					'tidslinje__innslag',

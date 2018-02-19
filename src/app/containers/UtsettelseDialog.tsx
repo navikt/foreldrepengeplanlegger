@@ -31,9 +31,6 @@ type Props = StateProps & DispatchProps;
 
 const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
 	<div>
-		{/* <SkjemaInfotekst id="info-dekningsgrad">
-			{Tekst.skjema.info.utsettelse}
-		</SkjemaInfotekst> */}
 		<SkjemaInputElement label="Utsettelse av permisjonstiden">
 			<LeggTilKnapp onClick={() => props.dispatch(utsettelseVisDialog())} />
 		</SkjemaInputElement>

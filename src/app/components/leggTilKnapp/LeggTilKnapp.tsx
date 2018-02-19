@@ -11,7 +11,7 @@ const LeggTilKnapp: React.StatelessComponent<Props> = (props) => (
 	<Knapp
 		type="standard"
 		onClick={(e) => props.onClick(e)}
-		className="m-fullBredde leggTilKnapp">
+		className="leggTilKnapp">
 		<span className="leggTilKnapp__pluss">
 			<PlussIkon />
 		</span>

@@ -20,6 +20,8 @@ export interface Props {
 	};
 	/** Layout varianter */
 	stil?: Stil;
+	/** Størrelse - default normal */
+	size?: 'normal' | 'stor';
 }
 
 const Sirkelknapp: React.StatelessComponent<Props> = ({
@@ -28,14 +30,20 @@ const Sirkelknapp: React.StatelessComponent<Props> = ({
 	ikon,
 	toggle,
 	disabled,
-	stil = 'info'
+	stil = 'info',
+	size = 'normal'
 }) => (
 	<button
 		type="button"
 		onClick={() => onClick()}
-		className={classnames(`sirkelknapp`, `sirkelknapp--${stil}`, {
-			'sirkelknapp--pressed': toggle && toggle.pressed
-		})}
+		className={classnames(
+			`sirkelknapp`,
+			`sirkelknapp--${stil}`,
+			`sirkelknapp--${size}`,
+			{
+				'sirkelknapp--pressed': toggle && toggle.pressed
+			}
+		)}
 		disabled={disabled}
 		aria-pressed={toggle ? toggle.pressed : undefined}
 		title={label}>

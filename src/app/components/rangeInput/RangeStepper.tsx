@@ -18,6 +18,7 @@ const RangeStepper: React.StatelessComponent<Props> = ({
 	disabled
 }) => (
 	<Sirkelknapp
+		size="stor"
 		stil="hvit"
 		onClick={() => onClick()}
 		label={label}

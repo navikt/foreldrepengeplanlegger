@@ -76,10 +76,12 @@ class Skjema extends React.Component<Props> {
 				</div>
 
 				<div className="blokk-m">
-					<VeilederinfoKnappContainer
-						id={Infotekster.sats}
-						label="Les mer om sats"
-					/>
+					<span className="float-right">
+						<VeilederinfoKnappContainer
+							id={Infotekster.sats}
+							label="Les mer om sats"
+						/>
+					</span>
 					<Radioliste
 						inputnavn="dekningsgrad"
 						tittel={Tekst.skjema.labelDekningsgrad(
@@ -117,10 +119,12 @@ class Skjema extends React.Component<Props> {
 				{form.ukerFellesperiode &&
 					form.dekningsgrad && (
 						<div className="blokk-s">
-							<VeilederinfoKnappContainer
-								id={Infotekster.sats}
-								label="Les mer om fordeling av fellesperioden"
-							/>
+							<span className="float-right">
+								<VeilederinfoKnappContainer
+									id={Infotekster.fordelingFellespermisjon}
+									label="Les mer om fordeling av fellesperioden"
+								/>
+							</span>
 							<FordelingFellesperiodeRange
 								navnForelder1={form.navnForelder1}
 								navnForelder2={form.navnForelder2}

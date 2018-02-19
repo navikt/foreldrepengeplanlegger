@@ -26,7 +26,6 @@ import FordelingFellesperiodeRange from 'app/components/fordelingFellesperiodeRa
 import { grunnfordeling } from 'app/data/grunnfordeling';
 import Infotekster from 'app/tekst/infotekster';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
-import VeilederinfoKnappContainer from 'app/connectedComponents/VeilederinfoKnappContainer';
 import Sporsmal from 'app/elements/sporsmal/Sporsmal';
 
 export interface StateProps {

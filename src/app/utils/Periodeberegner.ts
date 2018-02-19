@@ -71,7 +71,9 @@ const Periodeberegner = (
 
 	const getFellesperiodeForelder2 = (): Tidsperiode => {
 		const startdato = getForsteUttaksdagEtterDato(
-			getFellesperiodeForelder1().sluttdato
+			fellesukerForelder1 === 0
+				? getModrekvotePostTermin().sluttdato
+				: getFellesperiodeForelder1().sluttdato
 		);
 		return {
 			startdato,
@@ -81,7 +83,9 @@ const Periodeberegner = (
 
 	const getFedrekvote = (): Tidsperiode => {
 		const startdato = getForsteUttaksdagEtterDato(
-			getFellesperiodeForelder2().sluttdato
+			fellesukerForelder2 === 0
+				? getFellesperiodeForelder1().sluttdato
+				: getFellesperiodeForelder2().sluttdato
 		);
 		return {
 			startdato,

@@ -13,29 +13,6 @@
 			transform: scale(1.1) translateX(-4.5px);
 		}
 	}
-	.hairstrand {
-		stroke: #d2654c;
-		stroke-width: 1;
-		transform-origin: 0 0;
-		transform: @hairstrandNBaseTransform;
-		animation: hairstrand @blowHairDuration infinite;
-		animation-delay: @blowHairDelay;
-	}
-	.hair {
-		transition: all 2s ease;
-	}
-	.hair {
-		animation: hair 15s infinite;
-		transform-origin: 50% 0;
-	}
-	.mouth {
-		stroke: @mouthColor;
-		stroke-width: 0.2;
-		vector-effect: non-scaling-stroke;
-		animation: mouth2 @blowHairDuration infinite;
-		animation-delay: @blowHairDelay;
-		transform-origin: 50% 50%;
-	}
 	.nose {
 		stroke: @noseColor;
 		stroke-width: 0.2;
@@ -134,56 +111,5 @@
 	}
 	96% {
 		transform: scaleY(1);
-	}
-}
-@keyframes mouth2 {
-	7.5% {
-		transform: none;
-	}
-	8.5% {
-		transform: scaleY(-0.6) skewX(40deg) scaleX(0.8) rotate(8deg)
-			translateX(3px) translateY(2px);
-	}
-	9% {
-		transform: none;
-	}
-}
-
-@keyframes hairstrand {
-	3% {
-		transform: @hairstrandNBaseTransform;
-	}
-	6.5% {
-		transform: rotate(-17deg) translateX(30px) translateY(23px);
-	}
-	8% {
-		transform: rotate(-16deg) translateX(30px) translateY(23px);
-	}
-	8.2% {
-		transform: @hairstrandNBaseTransform;
-	}
-}
-
-@keyframes hair {
-	10% {
-		transform: skewX(0deg);
-	}
-	20% {
-		transform: skewX(0.3deg);
-	}
-	54% {
-		transform: skewX(-0.2deg);
-	}
-	61% {
-		transform: skewX(-1deg);
-	}
-	65% {
-		transform: skewX(0.1deg);
-	}
-	75% {
-		transform: skewX(0deg);
-	}
-	90% {
-		transform: skewX(0.5deg);
 	}
 }

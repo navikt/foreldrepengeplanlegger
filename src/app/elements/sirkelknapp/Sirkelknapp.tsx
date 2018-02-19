@@ -3,6 +3,8 @@ import * as classnames from 'classnames';
 
 import AriaText from 'shared/components/aria/AriaText';
 
+import './sirkelknapp.less';
+
 export type Stil = 'hvit' | 'bla' | 'info';
 
 export interface Props {
@@ -20,6 +22,8 @@ export interface Props {
 	};
 	/** Layout varianter */
 	stil?: Stil;
+	/** Størrelse - default normal */
+	size?: 'normal' | 'stor';
 }
 
 const Sirkelknapp: React.StatelessComponent<Props> = ({
@@ -28,18 +32,25 @@ const Sirkelknapp: React.StatelessComponent<Props> = ({
 	ikon,
 	toggle,
 	disabled,
-	stil = 'info'
+	stil = 'info',
+	size = 'normal'
 }) => (
 	<button
 		type="button"
 		onClick={() => onClick()}
-		className={classnames(`sirkelknapp`, `sirkelknapp--${stil}`, {
-			'sirkelknapp--pressed': toggle && toggle.pressed
-		})}
+		className={classnames(
+			`sirkelknapp`,
+			`sirkelknapp--${stil}`,
+			`sirkelknapp--${size}`,
+			{
+				'sirkelknapp--pressed': toggle && toggle.pressed
+			}
+		)}
 		disabled={disabled}
-		aria-pressed={toggle ? toggle.pressed : undefined}
-		title={label}>
-		<span className="sirkelknapp__ikon">{ikon}</span>
+		aria-pressed={toggle ? toggle.pressed : undefined}>
+		<span className="sirkelknapp__ikon" role="presentation">
+			{ikon}
+		</span>
 		<AriaText>{label}</AriaText>
 	</button>
 );

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import InfoIkon from 'app/components/ikoner/InfoIkon';
-import LukkInfoIkon from 'app/components/ikoner/LukkInfoIkon';
-import Sirkelknapp from 'shared/components/sirkelknapp/Sirkelknapp';
 import { DispatchProps, AppState } from 'app/redux/types';
 import { visInfo, skjulInfo } from 'app/redux/actions';
+import Sirkelknapp from 'app/elements/sirkelknapp/Sirkelknapp';
+import LukkInfoIkon from 'app/elements/ikoner/LukkInfoIkon';
+import InfoIkon from 'app/elements/ikoner/InfoIkon';
 
 interface OwnProps {
 	id: string;

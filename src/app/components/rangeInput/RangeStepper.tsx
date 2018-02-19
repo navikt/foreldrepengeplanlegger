@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Chevron from 'nav-frontend-chevron';
-import Sirkelknapp from 'shared/components/sirkelknapp/Sirkelknapp';
+import Sirkelknapp from 'app/elements/sirkelknapp/Sirkelknapp';
+
+import './rangeStepper.less';
 
 export type Direction = 'next' | 'previous';
 
@@ -18,6 +20,7 @@ const RangeStepper: React.StatelessComponent<Props> = ({
 	disabled
 }) => (
 	<Sirkelknapp
+		size="stor"
 		stil="hvit"
 		onClick={() => onClick()}
 		label={label}

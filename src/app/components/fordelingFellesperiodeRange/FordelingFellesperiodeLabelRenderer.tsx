@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { RangeInputValueLabelRendererOptions } from 'shared/components/rangeInput/RangeInput';
+import { RangeInputValueLabelRendererOptions } from 'app/components/rangeInput/RangeInput';
 import { pluralize } from 'app/utils';
 import Tekst from 'app/tekst';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';

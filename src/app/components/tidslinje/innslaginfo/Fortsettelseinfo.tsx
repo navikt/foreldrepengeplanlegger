@@ -1,6 +1,6 @@
 import * as React from 'react';
 import InnslagLayout from 'app/components/tidslinje/elementer/InnslagLayout';
-import Dato from 'app/components/dato/Dato';
+import Dato from 'app/elements/dato/Dato';
 
 interface Props {
 	navn: string;

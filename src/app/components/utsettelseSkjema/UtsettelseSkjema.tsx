@@ -17,6 +17,8 @@ import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
 import { erGyldigDato } from 'app/utils';
 import { isBefore, isSameDay, isAfter } from 'date-fns';
 
+import './utsettelseSkjema.less';
+
 interface Props {
 	tidsrom: Tidsperiode;
 	utsettelse?: Utsettelsesperiode;
@@ -35,6 +37,7 @@ interface State {
 }
 
 const preventDefaultEvent = (e: FormEvent<HTMLFormElement>) => {
+	e.stopPropagation();
 	e.preventDefault();
 };
 
@@ -122,7 +125,8 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		}
 	}
 
-	handleSubmitClick() {
+	handleSubmitClick(evt: React.MouseEvent<HTMLButtonElement>) {
+		evt.preventDefault();
 		const skjemadata = this.hentGyldigSkjemadata();
 		if (skjemadata) {
 			this.props.onChange(skjemadata);
@@ -152,7 +156,10 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			}));
 
 		return (
-			<form onSubmit={preventDefaultEvent} className="utsettelseSkjema">
+			<form
+				action="#"
+				onSubmit={preventDefaultEvent}
+				className="utsettelseSkjema">
 				<h1 className="typo-undertittel m-textCenter blokk-s">
 					Opphold i foreldrepengeperioden
 				</h1>
@@ -254,7 +261,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					<Column xs="12" sm={utsettelse ? '6' : '12'}>
 						<div className="blokk-xxs">
 							<Hovedknapp
-								onClick={() => this.handleSubmitClick()}
+								onClick={(evt) => this.handleSubmitClick(evt)}
 								className="m-fullBredde">
 								{utsettelse ? 'Oppdater' : 'Legg til'}
 							</Hovedknapp>
@@ -264,6 +271,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						<Column xs="12" sm="6">
 							<Knapp
 								type="standard"
+								htmlType="button"
 								onClick={() => this.props.onFjern(utsettelse)}
 								className="m-fullBredde">
 								Fjern

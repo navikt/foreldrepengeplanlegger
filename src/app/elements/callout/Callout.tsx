@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './callout.less';
 
 export type CalloutBorderColor = 'green' | 'purple' | 'blue' | 'gray';
 

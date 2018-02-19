@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Callout from 'app/components/callout/Callout';
+import Callout from 'app/elements/callout/Callout';
 import {
 	InnslagPeriodetype,
 	Tidslinjeinnslag,

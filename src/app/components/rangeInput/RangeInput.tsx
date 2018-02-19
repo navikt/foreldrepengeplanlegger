@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
-
-import SkjemaInputElement from 'shared/components/skjemaInputElement/SkjemaInputElement';
 import { guid } from 'nav-frontend-js-utils';
-import RangeStepper from 'shared/components/rangeInput/RangeStepper';
+import RangeStepper from 'app/components/rangeInput/RangeStepper';
+import SkjemaInputElement from 'app/components/skjemaInputElement/SkjemaInputElement';
+
+import './rangeInput.less';
 
 export interface RangeInputValueLabelRendererOptions {
 	value: number;
@@ -16,7 +17,7 @@ export type RangeInputValueLabelRenderer = (
 ) => React.ReactElement<any>;
 
 interface Props {
-	label: string;
+	label: string | React.ReactNode;
 	value: number;
 	min: number;
 	max: number;
@@ -54,7 +55,9 @@ const RangeInput: React.StatelessComponent<Props> = (props) => {
 					<div className="rangeInput__stepper rangeInput__stepper--previous">
 						<RangeStepper
 							direction="previous"
-							onClick={() => props.onChange(props.value - 1)}
+							onClick={() =>
+								props.value > props.min ? props.onChange(props.value - 1) : null
+							}
 							label={steppers ? steppers.reduceLabel : 'Mindre'}
 						/>
 					</div>
@@ -72,7 +75,9 @@ const RangeInput: React.StatelessComponent<Props> = (props) => {
 					<div className="rangeInput__stepper rangeInput__stepper--next">
 						<RangeStepper
 							direction="next"
-							onClick={() => props.onChange(props.value + 1)}
+							onClick={() =>
+								props.value < props.max ? props.onChange(props.value + 1) : null
+							}
 							label={steppers ? steppers.increaseLabel : 'Mer'}
 						/>
 					</div>

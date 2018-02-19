@@ -1,8 +1,9 @@
-declare module "nav-frontend-typografi" {
-	import * as React from "react";
+declare module 'nav-frontend-typografi' {
+	import * as React from 'react';
 
 	export interface Props {
 		className?: string;
+		tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
 	}
 
 	export class Sidetittel extends React.Component<Props, {}> {}

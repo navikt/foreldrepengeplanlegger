@@ -53,9 +53,9 @@ export const utsettelse2: Utsettelsesperiode = {
 	forelder: 'forelder2'
 };
 
-mockUtsettelser.push(utsettelseEnDag);
-mockUtsettelser.push(utsettelseTiDager);
-mockUtsettelser.push(utsettelse2);
+// mockUtsettelser.push(utsettelseEnDag);
+// mockUtsettelser.push(utsettelseTiDager);
+// mockUtsettelser.push(utsettelse2);
 
 const defaultState: UtsettelseState = {
 	dialogErApen: false,

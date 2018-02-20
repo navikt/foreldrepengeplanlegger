@@ -17,14 +17,14 @@ const SvgComponent = (props: any) => (
 		<g
 			id="Symbols"
 			stroke="none"
-			stroke-width="1"
+			strokeWidth="1"
 			fill="none"
-			fill-rule="evenodd">
+			fillRule="evenodd">
 			<g id="icon/fill/edition/-pencil-2">
 				<mask id="mask-2" fill="white">
 					<use xlinkHref="#path-1" />
 				</mask>
-				<use id="Mask" fill="#0067C5" fill-rule="nonzero" xlinkHref="#path-1" />
+				<use id="Mask" fill="#0067C5" fillRule="nonzero" xlinkHref="#path-1" />
 			</g>
 		</g>
 	</svg>

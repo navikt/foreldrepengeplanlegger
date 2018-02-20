@@ -36,7 +36,7 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 			</VeilederinfoContainer>
 			<div className="skjema_fordelingFellesperiode">
 				<div className="skjema_fordelingFellesperiode__forelder1">
-					<div className="skjema_fordelingFellesperiode__forelderNavn">
+					<div className="skjema_fordelingFellesperiode__forelderNavn blokk-xxxs">
 						{navnForelder1}
 					</div>
 					<div className="skjema_fordelingFellesperiode__uker">
@@ -45,7 +45,7 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 				</div>
 				{navnForelder2 && (
 					<div className="skjema_fordelingFellesperiode__forelder2">
-						<div className="skjema_fordelingFellesperiode__forelderNavn">
+						<div className="skjema_fordelingFellesperiode__forelderNavn  blokk-xxxs">
 							{navnForelder2}
 						</div>
 						<div className="skjema_fordelingFellesperiode__uker">

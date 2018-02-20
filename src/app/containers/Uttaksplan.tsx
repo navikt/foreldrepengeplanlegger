@@ -46,18 +46,21 @@ export class Uttaksplan extends React.Component<Props> {
 					</p>
 				</div>
 
-				<div className="blokk-m no-print">
-					<Skjema />
-				</div>
-
-				{this.props.visTidslinjeOgUtsettelse && (
-					<div className="blokk-l no-print">
-						<UtsettelseDialog />
+				<section>
+					<h2 className="sr-only">Fyll ut skjema og se din permisjonsplan</h2>
+					<div className="blokk-m no-print">
+						<Skjema />
 					</div>
-				)}
+
+					{this.props.visTidslinjeOgUtsettelse && (
+						<div className="blokk-l no-print">
+							<UtsettelseDialog />
+						</div>
+					)}
+				</section>
 
 				{this.props.visTidslinjeOgUtsettelse && (
-					<div className="tidsplan">
+					<section className="tidsplan">
 						<div className="blokk-s">
 							<Systemtittel>Deres tidslinje</Systemtittel>
 						</div>
@@ -72,6 +75,7 @@ export class Uttaksplan extends React.Component<Props> {
 								navnForelder2={this.props.form.navnForelder2 || Tekst.forelder2}
 							/>
 						</div>
+						<h3 className="sr-only">Tidslinjen</h3>
 						<Tidslinje
 							innslag={this.props.innslag}
 							navnForelder1={this.props.form.navnForelder1 || Tekst.forelder1}
@@ -80,7 +84,7 @@ export class Uttaksplan extends React.Component<Props> {
 								this.props.dispatch(utsettelseVisDialog(utsettelse))
 							}
 						/>
-					</div>
+					</section>
 				)}
 			</div>
 		);

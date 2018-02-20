@@ -25,14 +25,11 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 			<VeilederinfoContainer
 				id={Infotekster.fordelingFellespermisjon}
 				stil="info">
-				<div className="blokkPad-s">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-					quis lectus metus, at posuere neque. Sed pharetra nibh eget orci
-					convallis at posuere leo convallis. Sed blandit augue vitae augue
-					scelerisque bibendum. Vivamus sit amet libero turpis, non venenatis
-					urna. In blandit, odio convallis suscipit venenatis, ante ipsum cursus
-					augue.
-				</div>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis
+				lectus metus, at posuere neque. Sed pharetra nibh eget orci convallis at
+				posuere leo convallis. Sed blandit augue vitae augue scelerisque
+				bibendum. Vivamus sit amet libero turpis, non venenatis urna. In
+				blandit, odio convallis suscipit venenatis, ante ipsum cursus augue.
 			</VeilederinfoContainer>
 			<div className="skjema_fordelingFellesperiode">
 				<div className="skjema_fordelingFellesperiode__forelder1">

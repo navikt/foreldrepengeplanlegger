@@ -19,6 +19,7 @@ import Veileder from 'app/components/veileder/Veileder';
 import { Systemtittel } from 'nav-frontend-typografi';
 import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
 import { grunnfordeling } from 'app/data/grunnfordeling';
+import Tekst from 'app/tekst';
 
 export interface StateProps {
 	form: FormState;
@@ -65,14 +66,14 @@ export class Uttaksplan extends React.Component<Props> {
 								fedrekvote={grunnfordeling.antallUkerFedrekvote}
 								fellesukerForelder1={this.props.form.fellesperiodeukerForelder1}
 								fellesukerForelder2={this.props.form.fellesperiodeukerForelder2}
-								navnForelder1={this.props.form.navnForelder1}
-								navnForelder2={this.props.form.navnForelder2}
+								navnForelder1={this.props.form.navnForelder1 || Tekst.forelder1}
+								navnForelder2={this.props.form.navnForelder2 || Tekst.forelder2}
 							/>
 						</div>
 						<Tidslinje
 							innslag={this.props.innslag}
-							navnForelder1={this.props.form.navnForelder1}
-							navnForelder2={this.props.form.navnForelder2}
+							navnForelder1={this.props.form.navnForelder1 || Tekst.forelder1}
+							navnForelder2={this.props.form.navnForelder2 || Tekst.forelder2}
 							onRedigerUtsettelse={(utsettelse: Utsettelsesperiode) =>
 								this.props.dispatch(utsettelseVisDialog(utsettelse))
 							}

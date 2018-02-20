@@ -119,8 +119,8 @@ class Skjema extends React.Component<Props> {
 					form.dekningsgrad && (
 						<div className="blokk-s">
 							<FordelingFellesperiodeRange
-								navnForelder1={form.navnForelder1}
-								navnForelder2={form.navnForelder2}
+								navnForelder1={form.navnForelder1 || Tekst.forelder1}
+								navnForelder2={form.navnForelder2 || Tekst.forelder2}
 								ukerFellesperiode={form.ukerFellesperiode}
 								ukerForelder1={form.fellesperiodeukerForelder1}
 								ukerHver={grunnfordeling.antallUkerFedrekvote}

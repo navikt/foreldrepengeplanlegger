@@ -14,8 +14,8 @@ export interface DispatchProps {
 export type SynligInfoMap = Map<string, boolean>;
 
 export interface FormState {
-	navnForelder1: string;
-	navnForelder2: string;
+	navnForelder1: string | undefined;
+	navnForelder2: string | undefined;
 	termindato: Date;
 	dekningsgrad: Dekningsgrad;
 	fellesperiodeukerForelder1: number;

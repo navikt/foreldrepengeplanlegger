@@ -25,7 +25,7 @@ export interface StateProps {
 	form: FormState;
 	innslag: Tidslinjeinnslag[];
 	utsettelse: UtsettelseState;
-	visTidslinje: boolean;
+	visTidslinjeOgUtsettelse: boolean;
 }
 
 export type Props = StateProps & RouteComponentProps<{}> & DispatchProps;
@@ -50,11 +50,13 @@ export class Uttaksplan extends React.Component<Props> {
 					<Skjema />
 				</div>
 
-				<div className="blokk-l no-print">
-					<UtsettelseDialog />
-				</div>
+				{this.props.visTidslinjeOgUtsettelse && (
+					<div className="blokk-l no-print">
+						<UtsettelseDialog />
+					</div>
+				)}
 
-				{this.props.visTidslinje && (
+				{this.props.visTidslinjeOgUtsettelse && (
 					<div className="tidsplan">
 						<div className="blokk-s">
 							<Systemtittel>Deres tidslinje</Systemtittel>
@@ -91,8 +93,11 @@ const mapStateToProps = (state: AppState): StateProps => {
 		innslag,
 		form: state.form,
 		utsettelse: state.utsettelse,
-		visTidslinje:
-			innslag && innslag.length > 0 && state.form.dekningsgrad !== undefined
+		visTidslinjeOgUtsettelse:
+			innslag &&
+			innslag.length > 0 &&
+			state.form.dekningsgrad !== undefined &&
+			state.form.termindato !== undefined
 	};
 };
 

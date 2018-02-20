@@ -47,7 +47,7 @@ class Skjema extends React.Component<Props> {
 							<Input
 								name="navnforelder1"
 								label={Tekst.skjema.labelForelder1}
-								value={form.navnForelder1}
+								value={form.navnForelder1 || ''}
 								onChange={(e: any) =>
 									dispatch(setNavnForelder1(e.target.value))
 								}
@@ -57,7 +57,7 @@ class Skjema extends React.Component<Props> {
 							<Input
 								name="navnforelder2"
 								label={Tekst.skjema.labelForelder2}
-								value={form.navnForelder2}
+								value={form.navnForelder2 || ''}
 								onChange={(e: any) =>
 									dispatch(setNavnForelder2(e.target.value))
 								}
@@ -116,7 +116,8 @@ class Skjema extends React.Component<Props> {
 				</div>
 
 				{form.ukerFellesperiode &&
-					form.dekningsgrad && (
+					form.dekningsgrad &&
+					form.termindato && (
 						<div className="blokk-s">
 							<FordelingFellesperiodeRange
 								navnForelder1={form.navnForelder1 || Tekst.forelder1}

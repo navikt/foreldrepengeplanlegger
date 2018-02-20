@@ -16,8 +16,8 @@ export type SynligInfoMap = Map<string, boolean>;
 export interface FormState {
 	navnForelder1: string | undefined;
 	navnForelder2: string | undefined;
-	termindato: Date;
-	dekningsgrad: Dekningsgrad;
+	termindato?: Date;
+	dekningsgrad?: Dekningsgrad;
 	fellesperiodeukerForelder1: number;
 	fellesperiodeukerForelder2: number;
 	ukerFellesperiode: number;

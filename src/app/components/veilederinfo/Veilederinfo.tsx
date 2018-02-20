@@ -8,27 +8,32 @@ import './veilederinfo.less';
 
 export interface VeilederInfoProps {
 	utvidetInfo?: React.ReactNode;
-	stil?: 'kompakt' | 'normal';
+	stil?: 'kompakt' | 'normal' | 'info';
 }
 
 const Veilederinfo: React.StatelessComponent<VeilederInfoProps> = ({
 	utvidetInfo,
 	stil = 'normal',
 	children
-}) => (
-	<div className={classnames('veilederinfo', `veilederinfo--${stil}`)}>
-		<span className="veilederinfo__veileder">
-			<Veileder farge="lilla" ansikt="glad" stil="kompakt" />
-		</span>
-		<div className="veilederinfo__innhold">
-			{children}
-			{utvidetInfo && (
-				<div className="veilederinfo__utvidetInfo">
-					<UtvidetInformasjon>{utvidetInfo}</UtvidetInformasjon>
-				</div>
+}) => {
+	const visVeileder = stil !== 'info';
+	return (
+		<div className={classnames('veilederinfo', `veilederinfo--${stil}`)}>
+			{visVeileder && (
+				<span className="veilederinfo__veileder">
+					<Veileder farge="lilla" ansikt="glad" stil="kompakt" />
+				</span>
 			)}
+			<div className="veilederinfo__innhold">
+				{children}
+				{utvidetInfo && (
+					<div className="veilederinfo__utvidetInfo">
+						<UtvidetInformasjon>{utvidetInfo}</UtvidetInformasjon>
+					</div>
+				)}
+			</div>
 		</div>
-	</div>
-);
+	);
+};
 
 export default Veilederinfo;

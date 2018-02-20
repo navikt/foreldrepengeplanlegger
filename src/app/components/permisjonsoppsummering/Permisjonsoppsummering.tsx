@@ -50,9 +50,10 @@ const Permisjonsoppsummering: React.StatelessComponent<Props> = ({
 	fellesukerForelder2
 }) => (
 	<div className="permisjonsoppsummering">
+		<h3 className="sr-only">Deres fordeling av uker</h3>
 		<div className="permisjonsoppsummering__forelder">
 			<div className="blokk-xxs">
-				<Element tag="h3">{navnForelder1}</Element>
+				<Element tag="h4">{navnForelder1}</Element>
 			</div>
 			<Kvote navn="Mødrekvote" uker={modrekvote} forelder="forelder1" />
 			<Kvote
@@ -63,7 +64,7 @@ const Permisjonsoppsummering: React.StatelessComponent<Props> = ({
 		</div>
 		<div className="permisjonsoppsummering__forelder">
 			<div className="blokk-xxs">
-				<Element tag="h3">{navnForelder2}</Element>
+				<Element tag="h4">{navnForelder2}</Element>
 			</div>
 			<Kvote navn="Fedrekvote" uker={modrekvote} forelder="forelder2" />
 			<Kvote

@@ -1,6 +1,8 @@
 import { pluralize } from 'app/utils';
 
-export default {
+const Tekst = {
+	forelder1: 'Forelder 1',
+	forelder2: 'Forelder 2',
 	skjema: {
 		labelForelder1: 'Forelder 1',
 		labelForelder2: 'Forelder 2',
@@ -26,3 +28,5 @@ export default {
 	},
 	uker: (uker: number) => `${uker} ${pluralize(uker, 'uke', 'uker')}`
 };
+
+export default Tekst;

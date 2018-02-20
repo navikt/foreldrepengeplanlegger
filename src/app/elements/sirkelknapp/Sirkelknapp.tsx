@@ -5,6 +5,7 @@ import AriaText from 'shared/components/aria/AriaText';
 
 import './sirkelknapp.less';
 import preventDoubleTapZoom from 'app/utils/preventDoubleTapZoom';
+import { guid } from 'nav-frontend-js-utils';
 
 export type Stil = 'hvit' | 'bla' | 'info';
 
@@ -35,26 +36,30 @@ const Sirkelknapp: React.StatelessComponent<Props> = ({
 	disabled,
 	stil = 'info',
 	size = 'normal'
-}) => (
-	<button
-		type="button"
-		onClick={() => onClick()}
-		onTouchStart={preventDoubleTapZoom}
-		className={classnames(
-			`sirkelknapp`,
-			`sirkelknapp--${stil}`,
-			`sirkelknapp--${size}`,
-			{
-				'sirkelknapp--pressed': toggle && toggle.pressed
-			}
-		)}
-		disabled={disabled}
-		aria-pressed={toggle ? toggle.pressed : undefined}>
-		<span className="sirkelknapp__ikon" role="presentation">
-			{ikon}
-		</span>
-		<AriaText>{label}</AriaText>
-	</button>
-);
+}) => {
+	const labelId = guid();
+	return (
+		<button
+			type="button"
+			onClick={() => onClick()}
+			onTouchStart={preventDoubleTapZoom}
+			aria-labelledby={labelId}
+			className={classnames(
+				`sirkelknapp`,
+				`sirkelknapp--${stil}`,
+				`sirkelknapp--${size}`,
+				{
+					'sirkelknapp--pressed': toggle && toggle.pressed
+				}
+			)}
+			disabled={disabled}
+			aria-pressed={toggle ? toggle.pressed : undefined}>
+			<span className="sirkelknapp__ikon" role="presentation">
+				{ikon}
+			</span>
+			<AriaText id={labelId}>{label}</AriaText>
+		</button>
+	);
+};
 
 export default Sirkelknapp;

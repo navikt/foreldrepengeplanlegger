@@ -19,12 +19,13 @@ import Veileder from 'app/components/veileder/Veileder';
 import { Systemtittel } from 'nav-frontend-typografi';
 import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
 import { grunnfordeling } from 'app/data/grunnfordeling';
+import Tekst from 'app/tekst';
 
 export interface StateProps {
 	form: FormState;
 	innslag: Tidslinjeinnslag[];
 	utsettelse: UtsettelseState;
-	visTidslinje: boolean;
+	visTidslinjeOgUtsettelse: boolean;
 }
 
 export type Props = StateProps & RouteComponentProps<{}> & DispatchProps;
@@ -45,16 +46,21 @@ export class Uttaksplan extends React.Component<Props> {
 					</p>
 				</div>
 
-				<div className="blokk-m no-print">
-					<Skjema />
-				</div>
+				<section>
+					<h2 className="sr-only">Fyll ut skjema og se din permisjonsplan</h2>
+					<div className="blokk-m no-print">
+						<Skjema />
+					</div>
 
-				<div className="blokk-l no-print">
-					<UtsettelseDialog />
-				</div>
+					{this.props.visTidslinjeOgUtsettelse && (
+						<div className="blokk-l no-print">
+							<UtsettelseDialog />
+						</div>
+					)}
+				</section>
 
-				{this.props.visTidslinje && (
-					<div className="tidsplan">
+				{this.props.visTidslinjeOgUtsettelse && (
+					<section className="tidsplan">
 						<div className="blokk-s">
 							<Systemtittel>Deres tidslinje</Systemtittel>
 						</div>
@@ -65,19 +71,20 @@ export class Uttaksplan extends React.Component<Props> {
 								fedrekvote={grunnfordeling.antallUkerFedrekvote}
 								fellesukerForelder1={this.props.form.fellesperiodeukerForelder1}
 								fellesukerForelder2={this.props.form.fellesperiodeukerForelder2}
-								navnForelder1={this.props.form.navnForelder1}
-								navnForelder2={this.props.form.navnForelder2}
+								navnForelder1={this.props.form.navnForelder1 || Tekst.forelder1}
+								navnForelder2={this.props.form.navnForelder2 || Tekst.forelder2}
 							/>
 						</div>
+						<h3 className="sr-only">Tidslinjen</h3>
 						<Tidslinje
 							innslag={this.props.innslag}
-							navnForelder1={this.props.form.navnForelder1}
-							navnForelder2={this.props.form.navnForelder2}
+							navnForelder1={this.props.form.navnForelder1 || Tekst.forelder1}
+							navnForelder2={this.props.form.navnForelder2 || Tekst.forelder2}
 							onRedigerUtsettelse={(utsettelse: Utsettelsesperiode) =>
 								this.props.dispatch(utsettelseVisDialog(utsettelse))
 							}
 						/>
-					</div>
+					</section>
 				)}
 			</div>
 		);
@@ -90,8 +97,11 @@ const mapStateToProps = (state: AppState): StateProps => {
 		innslag,
 		form: state.form,
 		utsettelse: state.utsettelse,
-		visTidslinje:
-			innslag && innslag.length > 0 && state.form.dekningsgrad !== undefined
+		visTidslinjeOgUtsettelse:
+			innslag &&
+			innslag.length > 0 &&
+			state.form.dekningsgrad !== undefined &&
+			state.form.termindato !== undefined
 	};
 };
 

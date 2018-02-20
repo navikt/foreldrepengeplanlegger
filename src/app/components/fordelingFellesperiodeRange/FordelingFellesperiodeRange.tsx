@@ -24,7 +24,7 @@ const FordelingFellesperiodeRange: React.StatelessComponent<Props> = ({
 }) => (
 	<RangeInput
 		label={
-			<span>
+			<div className="blokk-xs">
 				<Sporsmal
 					info={{
 						id: Infotekster.fordelingFellespermisjon,
@@ -32,7 +32,7 @@ const FordelingFellesperiodeRange: React.StatelessComponent<Props> = ({
 					}}>
 					{Tekst.skjema.fordelingFellespermisjon}
 				</Sporsmal>
-			</span>
+			</div>
 		}
 		value={ukerForelder1}
 		min={0}

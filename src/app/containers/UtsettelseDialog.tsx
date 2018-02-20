@@ -29,42 +29,44 @@ interface StateProps {
 
 type Props = StateProps & DispatchProps;
 
-const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => (
-	<div>
-		<div className="blokk-xs">
-			<Element>Utsettelse av permisjonstiden</Element>
+const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => {
+	return (
+		<div>
+			<div className="blokk-xs">
+				<Element>Utsettelse av permisjonstiden</Element>
+			</div>
+			<LeggTilKnapp onClick={() => props.dispatch(utsettelseVisDialog())} />
+			<Modal
+				isOpen={props.isOpen}
+				contentLabel="Utsettelse"
+				onRequestClose={() => props.dispatch(utsettelseLukkDialog())}
+				className="utsettelseSkjemaDialog"
+				children={
+					props.isOpen && (
+						<UtsettelseSkjema
+							registrerteUtsettelser={props.utsettelser}
+							utsettelse={props.utsettelse}
+							forelder1={props.forelder1}
+							forelder2={props.forelder2}
+							tidsrom={props.tidsrom}
+							onChange={(utsettelse) =>
+								props.dispatch(opprettEllerOppdaterUtsettelse(utsettelse))
+							}
+							onFjern={(utsettelse) =>
+								props.dispatch(slettUtsettelse(utsettelse))
+							}
+						/>
+					)
+				}
+			/>
 		</div>
-		<LeggTilKnapp onClick={() => props.dispatch(utsettelseVisDialog())} />
-		<Modal
-			isOpen={props.isOpen}
-			contentLabel="Utsettelse"
-			onRequestClose={() => props.dispatch(utsettelseLukkDialog())}
-			className="utsettelseSkjemaDialog"
-			children={
-				props.isOpen && (
-					<UtsettelseSkjema
-						registrerteUtsettelser={props.utsettelser}
-						utsettelse={props.utsettelse}
-						forelder1={props.forelder1}
-						forelder2={props.forelder2}
-						tidsrom={props.tidsrom}
-						onChange={(utsettelse) =>
-							props.dispatch(opprettEllerOppdaterUtsettelse(utsettelse))
-						}
-						onFjern={(utsettelse) =>
-							props.dispatch(slettUtsettelse(utsettelse))
-						}
-					/>
-				)
-			}
-		/>
-	</div>
-);
+	);
+};
 
 const mapStateToProps = (state: AppState): StateProps => {
 	const periodeberegner = Periodeberegner(
-		state.form.termindato,
-		state.form.dekningsgrad,
+		state.form.termindato || new Date(),
+		state.form.dekningsgrad || '100%',
 		state.form.fellesperiodeukerForelder1,
 		state.form.fellesperiodeukerForelder2,
 		grunnfordeling

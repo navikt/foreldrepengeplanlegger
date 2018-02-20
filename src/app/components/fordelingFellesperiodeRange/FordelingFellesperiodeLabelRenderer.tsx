@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { RangeInputValueLabelRendererOptions } from 'app/components/rangeInput/RangeInput';
 import { pluralize } from 'app/utils';
-import Tekst from 'app/tekst';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 import Infotekster from 'app/tekst/infotekster';
 
@@ -25,20 +24,16 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 		<div>
 			<VeilederinfoContainer
 				id={Infotekster.fordelingFellespermisjon}
-				stil="kompakt">
-				<div className="blokkPad-s">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-					quis lectus metus, at posuere neque. Sed pharetra nibh eget orci
-					convallis at posuere leo convallis. Sed blandit augue vitae augue
-					scelerisque bibendum. Vivamus sit amet libero turpis, non venenatis
-					urna. In blandit, odio convallis suscipit venenatis, ante ipsum cursus
-					augue.
-				</div>
+				stil="info">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis
+				lectus metus, at posuere neque. Sed pharetra nibh eget orci convallis at
+				posuere leo convallis. Sed blandit augue vitae augue scelerisque
+				bibendum. Vivamus sit amet libero turpis, non venenatis urna. In
+				blandit, odio convallis suscipit venenatis, ante ipsum cursus augue.
 			</VeilederinfoContainer>
-			<p>{Tekst.skjema.fordelingFellespermisjonInfo(ukerHver)}</p>
 			<div className="skjema_fordelingFellesperiode">
 				<div className="skjema_fordelingFellesperiode__forelder1">
-					<div className="skjema_fordelingFellesperiode__forelderNavn">
+					<div className="skjema_fordelingFellesperiode__forelderNavn blokk-xxxs">
 						{navnForelder1}
 					</div>
 					<div className="skjema_fordelingFellesperiode__uker">
@@ -47,7 +42,7 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 				</div>
 				{navnForelder2 && (
 					<div className="skjema_fordelingFellesperiode__forelder2">
-						<div className="skjema_fordelingFellesperiode__forelderNavn">
+						<div className="skjema_fordelingFellesperiode__forelderNavn  blokk-xxxs">
 							{navnForelder2}
 						</div>
 						<div className="skjema_fordelingFellesperiode__uker">

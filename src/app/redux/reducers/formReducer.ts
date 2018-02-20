@@ -15,8 +15,8 @@ const getDefaultState = (): FormState => {
 
 	return {
 		termindato: new Date(),
-		navnForelder1: 'Kari',
-		navnForelder2: 'Ola',
+		navnForelder1: '',
+		navnForelder2: '',
 		dekningsgrad: '100%',
 		ukerFellesperiode,
 		fellesperiodeukerForelder1: ukerForelder1,

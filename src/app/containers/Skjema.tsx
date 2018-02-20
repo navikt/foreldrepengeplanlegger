@@ -87,7 +87,7 @@ class Skjema extends React.Component<Props> {
 							</Sporsmal>
 						}
 						beskrivelse={
-							<VeilederinfoContainer id={Infotekster.sats} stil="kompakt">
+							<VeilederinfoContainer id={Infotekster.sats} stil="info">
 								Valget av antall uker gjelder dere begge. Den totale
 								utbetalingen blir høyere ved å velge 100 prosent.
 							</VeilederinfoContainer>

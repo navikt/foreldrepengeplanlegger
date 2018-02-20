@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { RangeInputValueLabelRendererOptions } from 'app/components/rangeInput/RangeInput';
 import { pluralize } from 'app/utils';
-import Tekst from 'app/tekst';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 import Infotekster from 'app/tekst/infotekster';
 
@@ -25,7 +24,7 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 		<div>
 			<VeilederinfoContainer
 				id={Infotekster.fordelingFellespermisjon}
-				stil="kompakt">
+				stil="info">
 				<div className="blokkPad-s">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
 					quis lectus metus, at posuere neque. Sed pharetra nibh eget orci
@@ -35,7 +34,6 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 					augue.
 				</div>
 			</VeilederinfoContainer>
-			<p>{Tekst.skjema.fordelingFellespermisjonInfo(ukerHver)}</p>
 			<div className="skjema_fordelingFellesperiode">
 				<div className="skjema_fordelingFellesperiode__forelder1">
 					<div className="skjema_fordelingFellesperiode__forelderNavn">

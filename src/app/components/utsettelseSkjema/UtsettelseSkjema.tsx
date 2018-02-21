@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { FormEvent } from 'react';
-import Lenke from 'nav-frontend-lenker';
-import EksterneLenker from 'app/eksterneLenker';
 import {
 	UtsettelseArsakType,
 	Utsettelsesperiode,
@@ -13,11 +11,12 @@ import DateInput, { Range } from 'shared/components/dateInput/DateInput';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import Radioliste from 'shared/components/radioliste/Radioliste';
 import { Row, Column } from 'nav-frontend-grid';
-import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
 import { erGyldigDato } from 'app/utils';
 import { isBefore, isSameDay, isAfter } from 'date-fns';
 
 import './utsettelseSkjema.less';
+import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
+import { Collapse } from 'react-collapse';
 
 interface Props {
 	tidsrom: Tidsperiode;
@@ -39,6 +38,15 @@ interface State {
 const preventDefaultEvent = (e: FormEvent<HTMLFormElement>) => {
 	e.stopPropagation();
 	e.preventDefault();
+};
+
+const getHvemTittel = (arsak: UtsettelseArsakType | undefined): string => {
+	if (!arsak) {
+		return 'Hvem skal ha opphold i permisjonen?';
+	}
+	return arsak === UtsettelseArsakType.Ferie
+		? `Hvem skal ta ut ferie?`
+		: 'Hvem skal arbeide?';
 };
 
 class UtsettelseSkjema extends React.Component<Props, State> {
@@ -159,22 +167,22 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			<form
 				action="#"
 				onSubmit={preventDefaultEvent}
-				className="utsettelseSkjema">
+				className="utsettelseSkjema dialogContent">
 				<h1 className="typo-undertittel m-textCenter blokk-s">
-					Opphold i foreldrepengeperioden
+					Opphold i permisjonen
 				</h1>
 				<div className="blokk-xxs">
 					<Radioliste
-						tittel="Velg type utsettelse"
+						tittel="Hva skal du gjøre?"
 						stil="ekstern"
 						kolonner="2"
 						valg={[
 							{
-								tittel: 'Ferie',
+								tittel: 'Ta ut ferie',
 								verdi: UtsettelseArsakType.Ferie
 							},
 							{
-								tittel: 'Arbeid',
+								tittel: 'Arbeide fulltid',
 								verdi: UtsettelseArsakType.Arbeid
 							}
 						]}
@@ -185,29 +193,17 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						}
 					/>
 				</div>
-				<div className="blokk-s">
-					<Veilederinfo
-						utvidetInfo={
-							<p>
-								Du må avtale ulønnet permisjon med din arbeidsgiver. Ulønnet
-								permisjon i mer enn 14 dager kan påvirke din rett til blant
-								annet sykepenger og pleiepenger. Les mer på{' '}
-								<Lenke
-									href={EksterneLenker.nav_ubetaltPermisjon}
-									ariaLabel="Les mer om ulønnet permisjon på nav.no"
-									target="_blank">
-									nav.no
-								</Lenke>
-							</p>
-						}>
-						Ønsker dere å ha opphold i foreldrepengene med ulønnet permisjon må
-						den andre forelderen søke om utsettelse.
-					</Veilederinfo>
-				</div>
+				<Collapse
+					isOpened={this.state.arsak === UtsettelseArsakType.Ferie}
+					springConfig={{ stiffness: 250, damping: 30 }}>
+					<div className="blokkPad-s">
+						<Veilederinfo>Informasjon om ferie[todo]</Veilederinfo>
+					</div>
+				</Collapse>
 				<div className="blokk-s">
 					<Radioliste
 						kolonner="2"
-						tittel="Hvem skal utsette sin permisjon?"
+						tittel={getHvemTittel(this.state.arsak)}
 						inputnavn="forelder"
 						stil="ekstern"
 						valg={[

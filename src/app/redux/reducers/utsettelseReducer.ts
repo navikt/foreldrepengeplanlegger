@@ -90,6 +90,8 @@ const UtsettelseReducer = (
 	action: PlanleggerActionTypes
 ) => {
 	switch (action.type) {
+		case PlanleggerActionTypeKeys.SET_TERMINDATO:
+			return defaultState;
 		case PlanleggerActionTypeKeys.UTSETTELSE_VIS_DIALOG:
 			return {
 				...state,

@@ -11,6 +11,7 @@ export interface Props {
 	navnForelder2: string;
 	ukerFedrekvote: number;
 	ukerModrekvote: number;
+	ukerForTermin: number;
 }
 
 const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
@@ -18,9 +19,10 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 	navnForelder1,
 	navnForelder2,
 	ukerModrekvote,
-	ukerFedrekvote
+	ukerFedrekvote,
+	ukerForTermin
 }) => {
-	const ukerForelder1 = (options.value || 0) + ukerModrekvote;
+	const ukerForelder1 = (options.value || 0) + ukerModrekvote + ukerForTermin;
 	const ukerForelder2 = options.max - (options.value || 0) + ukerFedrekvote;
 	return (
 		<div>

@@ -13,7 +13,7 @@ import {
 	getAntallUkerFellesperiode,
 	getPeriodeSluttdato
 } from 'app/utils/periodeUtils';
-import { grunnfordeling } from 'app/data/grunnfordeling';
+import { getGrunnfordeling } from 'app/data/grunnfordeling';
 import Periodeberegner from 'app/utils/Periodeberegner';
 import { leggUttaksdagerTilDato } from 'app/utils/uttaksdagerUtils';
 
@@ -31,6 +31,8 @@ const datoer = {
 	nesteFredag: new Date(2018, 0, 12),
 	mandagNesteAr: new Date(2019, 0, 1)
 };
+
+const grunnfordeling = getGrunnfordeling(datoer.termin);
 
 const periode: Stonadsperiode = {
 	type: Periodetype.Stonadsperiode,

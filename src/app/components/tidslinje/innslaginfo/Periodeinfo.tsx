@@ -27,7 +27,14 @@ export const getStondskontoNavn = (konto: StonadskontoType) => {
 	}
 };
 
-const Periodeinfo: React.StatelessComponent<PeriodeinnslagProps> = (props) => {
+interface OwnProps {
+	/** Default false. Om en skal vise fordeling av kvoter */
+	visDetaljer?: boolean;
+}
+
+type Props = OwnProps & PeriodeinnslagProps;
+
+const Periodeinfo: React.StatelessComponent<Props> = (props) => {
 	const oppsummering = oppsummerPerioder(props.innslag);
 	const detaljetekster: string[] = [];
 	oppsummering.perioder.forEach((uker, key) => {
@@ -41,8 +48,15 @@ const Periodeinfo: React.StatelessComponent<PeriodeinnslagProps> = (props) => {
 				props.navnForelder1,
 				props.navnForelder2
 			)}{' '}
-			starter sin permisjon: {Tekst.uker(oppsummering.ukerTotalt)} totalt{' '}
-			oppdelt i {separerTekstArray(detaljetekster)}.
+			{props.visDetaljer ? (
+				<span>
+					starter sin permisjon: {Tekst.uker(oppsummering.ukerTotalt)} totalt{' '}
+					oppdelt i {separerTekstArray(detaljetekster)}
+				</span>
+			) : (
+				// Ta med tre uker før termin
+				'starter sin permisjon'
+			)}
 		</InnslagLayout>
 	);
 };

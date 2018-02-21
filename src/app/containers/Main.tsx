@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
+import { Element } from 'nav-frontend-typografi';
 
 import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import Skjema from './Skjema';
@@ -15,10 +16,10 @@ import UtsettelseDialog from 'app/containers/UtsettelseDialog';
 import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
 import { utsettelseVisDialog } from 'app/redux/actions';
 import { Utsettelsesperiode } from 'app/types';
-import Veileder from 'app/components/veileder/Veileder';
 import { Systemtittel } from 'nav-frontend-typografi';
 import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
 import Tekst from 'app/tekst';
+import UbetaltPermisjonDialog from 'app/containers/UbetaltPermisjonDialog';
 
 export interface StateProps {
 	form: FormState;
@@ -29,20 +30,15 @@ export interface StateProps {
 
 export type Props = StateProps & RouteComponentProps<{}> & DispatchProps;
 
-export class Uttaksplan extends React.Component<Props> {
+export class Main extends React.Component<Props> {
 	render() {
 		const { form } = this.props;
 		return (
 			<div>
 				<div className="introtekst">
-					<div className="introtekst__veileder">
-						<Veileder ansikt="glad" farge="lilla" className="veilederSvg" />
-					</div>
 					<p>
-						Hei, hver forelder har rett på 10 uker permisjon hver. I tillegg har
-						dere enten 36 eller 26 uker dere kan fordele mellom dere basert på
-						den totale permisjonslengden dere velger, som er 59 uker eller 49
-						uker.
+						Her kan du planlegge foreldrepermisjon. Du kan fordele uker mellom
+						foreldrene.
 					</p>
 				</div>
 
@@ -53,38 +49,44 @@ export class Uttaksplan extends React.Component<Props> {
 					</div>
 
 					{this.props.visTidslinjeOgUtsettelse && (
-						<div className="blokk-l no-print">
-							<UtsettelseDialog />
+						<div className="no-print blokk-l">
+							<div className="blokk-xs">
+								<Element>Ubetalt permisjon</Element>
+							</div>
+							<div className="blokk-xxs">
+								<UtsettelseDialog />
+							</div>
+							<UbetaltPermisjonDialog />
 						</div>
 					)}
 				</section>
 
 				{this.props.visTidslinjeOgUtsettelse && (
 					<section className="tidsplan">
-						<div className="blokk-s">
-							<Systemtittel>Deres tidslinje</Systemtittel>
+						<div className="blokk-m">
+							<Systemtittel>Planen deres</Systemtittel>
 						</div>
 						<div className="blokk-m">
-							<Permisjonsoppsummering
-								foreldrepengerMor={
-									form.grunnfordeling.antallUkerForelder1ForFodsel
-								}
-								modrekvote={form.grunnfordeling.antallUkerModrekvote}
-								fedrekvote={form.grunnfordeling.antallUkerFedrekvote}
-								fellesukerForelder1={form.fellesperiodeukerForelder1}
-								fellesukerForelder2={form.fellesperiodeukerForelder2}
+							<Tidslinje
+								innslag={this.props.innslag}
 								navnForelder1={form.navnForelder1 || Tekst.forelder1}
 								navnForelder2={form.navnForelder2 || Tekst.forelder2}
+								onRedigerUtsettelse={(utsettelse: Utsettelsesperiode) =>
+									this.props.dispatch(utsettelseVisDialog(utsettelse))
+								}
 							/>
 						</div>
-						<h3 className="sr-only">Tidslinjen</h3>
-						<Tidslinje
-							innslag={this.props.innslag}
+						<h3 className="sr-only">Fordeling av permisjon oppsummert</h3>
+						<Permisjonsoppsummering
+							foreldrepengerMor={
+								form.grunnfordeling.antallUkerForelder1ForFodsel
+							}
+							modrekvote={form.grunnfordeling.antallUkerModrekvote}
+							fedrekvote={form.grunnfordeling.antallUkerFedrekvote}
+							fellesukerForelder1={form.fellesperiodeukerForelder1}
+							fellesukerForelder2={form.fellesperiodeukerForelder2}
 							navnForelder1={form.navnForelder1 || Tekst.forelder1}
 							navnForelder2={form.navnForelder2 || Tekst.forelder2}
-							onRedigerUtsettelse={(utsettelse: Utsettelsesperiode) =>
-								this.props.dispatch(utsettelseVisDialog(utsettelse))
-							}
 						/>
 					</section>
 				)}
@@ -107,4 +109,4 @@ const mapStateToProps = (state: AppState): StateProps => {
 	};
 };
 
-export default connect(mapStateToProps)(withRouter(Uttaksplan));
+export default connect(mapStateToProps)(withRouter(Main));

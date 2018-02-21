@@ -7,6 +7,7 @@ import './leggTilKnapp.less';
 
 export interface Props extends React.HTMLProps<HTMLButtonElement> {
 	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+	children: React.ReactNode;
 }
 
 const LeggTilKnapp: React.StatelessComponent<Props> = (props) => (
@@ -17,7 +18,7 @@ const LeggTilKnapp: React.StatelessComponent<Props> = (props) => (
 		<span className="leggTilKnapp__pluss">
 			<PlussIkon />
 		</span>
-		<span className="leggTilKnapp__label">Legg til utsettelse</span>
+		<span className="leggTilKnapp__label">{props.children}</span>
 	</Knapp>
 );
 

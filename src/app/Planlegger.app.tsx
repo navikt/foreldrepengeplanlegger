@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Uttaksplan from './containers/Uttaksplan';
+import Main from './containers/Main';
 import './styles/planlegger.less';
 import Alertstripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
@@ -32,7 +32,7 @@ export class PlanleggerIndex extends React.Component {
 				<h1 className="m-textCenter">
 					<FormattedMessage id="applikasjonstittel" />
 				</h1>
-				<Uttaksplan />
+				<Main />
 			</div>
 		);
 	}

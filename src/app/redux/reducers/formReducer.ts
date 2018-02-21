@@ -6,7 +6,11 @@ import { getGrunnfordeling } from 'app/data/grunnfordeling';
 import { FormState } from '../types';
 import { getAntallUkerFellesperiode } from 'app/utils/periodeUtils';
 import { normaliserDato } from 'app/utils';
-import { FellesperiodeFordeling } from 'app/types';
+import {
+	FellesperiodeFordeling,
+	Dekningsgrad,
+	Grunnfordeling
+} from 'app/types';
 
 const getDefaultState = (): FormState => {
 	const grunnfordeling = getGrunnfordeling(new Date());
@@ -18,11 +22,7 @@ const getDefaultState = (): FormState => {
 		termindato: new Date(),
 		navnForelder1: undefined,
 		navnForelder2: undefined,
-		dekningsgrad: '100%',
-		// termindato: undefined,
-		// navnForelder1: undefined,
-		// navnForelder2: undefined,
-		// dekningsgrad: undefined,
+		// dekningsgrad: '100%',
 		ukerFellesperiode,
 		fellesperiodeukerForelder1: ukerForelder1,
 		fellesperiodeukerForelder2: ukerForelder2,
@@ -48,6 +48,31 @@ export const refordelFellesperiode = (
 	};
 };
 
+const getFordelingUkerForState = (
+	grunnfordeling: Grunnfordeling,
+	dekningsgrad: Dekningsgrad,
+	fellesperiodeukerForelder1: number
+) => {
+	const ukerFellesperiode = getAntallUkerFellesperiode(
+		grunnfordeling,
+		dekningsgrad
+	);
+	const nesteUkerFellesperiode = getAntallUkerFellesperiode(
+		grunnfordeling,
+		dekningsgrad
+	);
+	const { ukerForelder1, ukerForelder2 } = refordelFellesperiode(
+		ukerFellesperiode,
+		nesteUkerFellesperiode,
+		fellesperiodeukerForelder1
+	);
+	return {
+		ukerFellesperiode,
+		fellesperiodeukerForelder1: ukerForelder1,
+		fellesperiodeukerForelder2: ukerForelder2
+	};
+};
+
 const FormReducer = (
 	state = getDefaultState(),
 	action: PlanleggerActionTypes
@@ -59,34 +84,24 @@ const FormReducer = (
 			return { ...state, navnForelder2: action.navn };
 		case PlanleggerActionTypeKeys.SET_TERMINDATO:
 			const dato = normaliserDato(action.termindato);
+			const grunnfordeling = getGrunnfordeling(dato);
 			return {
-				...state,
+				...getDefaultState(),
 				termindato: dato,
-				grunnfordeling: getGrunnfordeling(dato)
+				grunnfordeling
 			};
 		case PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD:
 			if (!action.dekningsgrad) {
 				return state;
 			}
-			const ukerFellesperiode = getAntallUkerFellesperiode(
-				state.grunnfordeling,
-				state.dekningsgrad
-			);
-			const nesteUkerFellesperiode = getAntallUkerFellesperiode(
-				state.grunnfordeling,
-				action.dekningsgrad
-			);
-			const { ukerForelder1, ukerForelder2 } = refordelFellesperiode(
-				ukerFellesperiode,
-				nesteUkerFellesperiode,
-				state.fellesperiodeukerForelder1
-			);
 			return {
 				...state,
 				dekningsgrad: action.dekningsgrad,
-				ukerFellesperiode: nesteUkerFellesperiode,
-				fellesperiodeukerForelder1: ukerForelder1,
-				fellesperiodeukerForelder2: ukerForelder2
+				...getFordelingUkerForState(
+					state.grunnfordeling,
+					action.dekningsgrad,
+					state.fellesperiodeukerForelder1
+				)
 			};
 		case PlanleggerActionTypeKeys.SET_UKER_FORELDER1:
 			return {

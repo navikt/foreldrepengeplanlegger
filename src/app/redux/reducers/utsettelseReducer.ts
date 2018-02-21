@@ -54,7 +54,7 @@ export const utsettelse2: Utsettelsesperiode = {
 };
 
 // mockUtsettelser.push(utsettelseEnDag);
-mockUtsettelser.push(utsettelseTiDager);
+// mockUtsettelser.push(utsettelseTiDager);
 // mockUtsettelser.push(utsettelse2);
 
 const defaultState: UtsettelseState = {
@@ -90,6 +90,8 @@ const UtsettelseReducer = (
 	action: PlanleggerActionTypes
 ) => {
 	switch (action.type) {
+		case PlanleggerActionTypeKeys.SET_TERMINDATO:
+			return defaultState;
 		case PlanleggerActionTypeKeys.UTSETTELSE_VIS_DIALOG:
 			return {
 				...state,

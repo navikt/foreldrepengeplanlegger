@@ -14,7 +14,6 @@ import {
 import { Utsettelsesperiode, Tidsperiode } from 'app/types';
 import Periodeberegner from 'app/utils/Periodeberegner';
 import { getForsteUttaksdagEtterDato } from 'app/utils/uttaksdagerUtils';
-import { Element } from 'nav-frontend-typografi';
 import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
 
 interface StateProps {
@@ -31,10 +30,9 @@ type Props = StateProps & DispatchProps;
 const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => {
 	return (
 		<div>
-			<div className="blokk-xs">
-				<Element>Opphold i permisjonen</Element>
-			</div>
-			<LeggTilKnapp onClick={() => props.dispatch(utsettelseVisDialog())} />
+			<LeggTilKnapp onClick={() => props.dispatch(utsettelseVisDialog())}>
+				Legg til ferie eller arbeid
+			</LeggTilKnapp>
 			<Modal
 				isOpen={props.isOpen}
 				contentLabel="Utsettelse"

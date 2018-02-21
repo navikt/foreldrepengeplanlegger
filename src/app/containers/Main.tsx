@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
+import { Element } from 'nav-frontend-typografi';
 
 import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import Skjema from './Skjema';
@@ -18,6 +19,7 @@ import { Utsettelsesperiode } from 'app/types';
 import { Systemtittel } from 'nav-frontend-typografi';
 import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
 import Tekst from 'app/tekst';
+import UbetaltPermisjonDialog from 'app/containers/UbetaltPermisjonDialog';
 
 export interface StateProps {
 	form: FormState;
@@ -28,7 +30,7 @@ export interface StateProps {
 
 export type Props = StateProps & RouteComponentProps<{}> & DispatchProps;
 
-export class Uttaksplan extends React.Component<Props> {
+export class Main extends React.Component<Props> {
 	render() {
 		const { form } = this.props;
 		return (
@@ -47,8 +49,14 @@ export class Uttaksplan extends React.Component<Props> {
 					</div>
 
 					{this.props.visTidslinjeOgUtsettelse && (
-						<div className="blokk-l no-print">
-							<UtsettelseDialog />
+						<div className="no-print blokk-l">
+							<div className="blokk-xs">
+								<Element>Ubetalt permisjon</Element>
+							</div>
+							<div className="blokk-xxs">
+								<UtsettelseDialog />
+							</div>
+							<UbetaltPermisjonDialog />
 						</div>
 					)}
 				</section>
@@ -101,4 +109,4 @@ const mapStateToProps = (state: AppState): StateProps => {
 	};
 };
 
-export default connect(mapStateToProps)(withRouter(Uttaksplan));
+export default connect(mapStateToProps)(withRouter(Main));

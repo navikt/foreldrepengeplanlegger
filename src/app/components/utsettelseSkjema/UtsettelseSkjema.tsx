@@ -167,7 +167,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			<form
 				action="#"
 				onSubmit={preventDefaultEvent}
-				className="utsettelseSkjema">
+				className="utsettelseSkjema dialogContent">
 				<h1 className="typo-undertittel m-textCenter blokk-s">
 					Opphold i permisjonen
 				</h1>

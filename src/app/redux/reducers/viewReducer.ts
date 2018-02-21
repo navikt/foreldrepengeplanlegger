@@ -6,7 +6,8 @@ import { ViewState, SynligInfoMap } from 'app/redux/types';
 
 const defaultState: ViewState = {
 	synligInfo: new Map(),
-	spraak: 'nb'
+	spraak: 'nb',
+	ubetaltInformasjonDialogSynlig: false
 };
 
 const leggTilInfo = (infoMap: SynligInfoMap, id: string): SynligInfoMap => {
@@ -32,6 +33,16 @@ const ViewReducer = (state = defaultState, action: PlanleggerActionTypes) => {
 			return {
 				...state,
 				synligInfo: fjernInfo(state.synligInfo, action.id)
+			} as ViewState;
+		case PlanleggerActionTypeKeys.UBETALTPERMISJON_VIS_DIALOG:
+			return {
+				...state,
+				ubetaltInformasjonDialogSynlig: true
+			} as ViewState;
+		case PlanleggerActionTypeKeys.UBETALTPERMISJON_LUKK_DIALOG:
+			return {
+				...state,
+				ubetaltInformasjonDialogSynlig: false
 			} as ViewState;
 		default:
 			return state;

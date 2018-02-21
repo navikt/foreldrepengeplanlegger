@@ -26,6 +26,7 @@ import FordelingFellesperiodeRange from 'app/components/fordelingFellesperiodeRa
 import Infotekster from 'app/tekst/infotekster';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 import Sporsmal from 'app/elements/sporsmal/Sporsmal';
+import { addYears } from 'date-fns';
 
 export interface StateProps {
 	form: FormState;
@@ -67,6 +68,8 @@ class Skjema extends React.Component<Props> {
 				<div className="blokk-m">
 					<DateInput
 						id="input-termindato"
+						fromDate={addYears(new Date(), -1)}
+						toDate={addYears(new Date(), 2)}
 						selectedDate={form.termindato}
 						label={Tekst.skjema.labelTermindato}
 						onChange={(dato) => dispatch(setTermindato(new Date(dato)))}

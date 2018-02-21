@@ -7,6 +7,7 @@ import Modal from 'nav-frontend-modal';
 
 import PlanleggerApp from './Planlegger.app';
 import reducers from './redux/reducers';
+import IntlProvider from './intl/IntlProvider';
 
 (Modal as any).setAppElement('#app');
 
@@ -27,9 +28,11 @@ const store = configureStore();
 const root = document.getElementById('app');
 render(
 	<Provider store={store}>
-		<BrowserRouter>
-			<PlanleggerApp />
-		</BrowserRouter>
+		<IntlProvider>
+			<BrowserRouter>
+				<PlanleggerApp />
+			</BrowserRouter>
+		</IntlProvider>
 	</Provider>,
 	root
 );

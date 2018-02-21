@@ -12,7 +12,7 @@ const Tekst = {
 		labelDekningsgrad80: (uker: number) => `80% foreldrepenger i ${uker} uker`,
 		labelDekningsgrad100: (uker: number) =>
 			`100% foreldrepenger i ${uker} uker`,
-		fordelingFellespermisjon: `Hvordan vil dere fordele fellesperioden?`,
+		fordelingFellespermisjon: `Hvordan vil dere fordele permisjonsperioden?`,
 		fordelingFellespermisjonInfo: (uker: number) =>
 			`I tillegg til fellesperioden har dere ${uker} uker hver.`,
 		fordelingForelder1: (uker: number, navn?: string) =>

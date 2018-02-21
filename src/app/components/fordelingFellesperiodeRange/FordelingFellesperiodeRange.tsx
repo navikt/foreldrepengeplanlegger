@@ -10,7 +10,8 @@ export interface Props {
 	navnForelder2: string;
 	ukerForelder1: number;
 	ukerFellesperiode: number;
-	ukerHver: number;
+	ukerModrekvote: number;
+	ukerFedrekvote: number;
 	onChange: (dager: number) => void;
 }
 
@@ -19,7 +20,8 @@ const FordelingFellesperiodeRange: React.StatelessComponent<Props> = ({
 	navnForelder2,
 	ukerForelder1,
 	ukerFellesperiode,
-	ukerHver,
+	ukerModrekvote,
+	ukerFedrekvote,
 	onChange
 }) => (
 	<RangeInput
@@ -47,7 +49,8 @@ const FordelingFellesperiodeRange: React.StatelessComponent<Props> = ({
 				options={options}
 				navnForelder1={navnForelder1}
 				navnForelder2={navnForelder2}
-				ukerHver={ukerHver}
+				ukerModrekvote={ukerModrekvote}
+				ukerFedrekvote={ukerFedrekvote}
 			/>
 		)}
 	/>

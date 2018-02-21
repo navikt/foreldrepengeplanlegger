@@ -5,7 +5,8 @@ import {
 import { ViewState, SynligInfoMap } from 'app/redux/types';
 
 const defaultState: ViewState = {
-	synligInfo: new Map()
+	synligInfo: new Map(),
+	spraak: 'nb'
 };
 
 const leggTilInfo = (infoMap: SynligInfoMap, id: string): SynligInfoMap => {

@@ -61,30 +61,30 @@ export class Uttaksplan extends React.Component<Props> {
 
 				{this.props.visTidslinjeOgUtsettelse && (
 					<section className="tidsplan">
-						<div className="blokk-s">
+						<div className="blokk-m">
 							<Systemtittel>Deres tidslinje</Systemtittel>
 						</div>
 						<div className="blokk-m">
-							<Permisjonsoppsummering
-								foreldrepengerMor={
-									form.grunnfordeling.antallUkerForelder1ForFodsel
-								}
-								modrekvote={form.grunnfordeling.antallUkerModrekvote}
-								fedrekvote={form.grunnfordeling.antallUkerFedrekvote}
-								fellesukerForelder1={form.fellesperiodeukerForelder1}
-								fellesukerForelder2={form.fellesperiodeukerForelder2}
+							<Tidslinje
+								innslag={this.props.innslag}
 								navnForelder1={form.navnForelder1 || Tekst.forelder1}
 								navnForelder2={form.navnForelder2 || Tekst.forelder2}
+								onRedigerUtsettelse={(utsettelse: Utsettelsesperiode) =>
+									this.props.dispatch(utsettelseVisDialog(utsettelse))
+								}
 							/>
 						</div>
-						<h3 className="sr-only">Tidslinjen</h3>
-						<Tidslinje
-							innslag={this.props.innslag}
+						<h3 className="sr-only">Fordeling av permisjon oppsummert</h3>
+						<Permisjonsoppsummering
+							foreldrepengerMor={
+								form.grunnfordeling.antallUkerForelder1ForFodsel
+							}
+							modrekvote={form.grunnfordeling.antallUkerModrekvote}
+							fedrekvote={form.grunnfordeling.antallUkerFedrekvote}
+							fellesukerForelder1={form.fellesperiodeukerForelder1}
+							fellesukerForelder2={form.fellesperiodeukerForelder2}
 							navnForelder1={form.navnForelder1 || Tekst.forelder1}
 							navnForelder2={form.navnForelder2 || Tekst.forelder2}
-							onRedigerUtsettelse={(utsettelse: Utsettelsesperiode) =>
-								this.props.dispatch(utsettelseVisDialog(utsettelse))
-							}
 						/>
 					</section>
 				)}

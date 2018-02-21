@@ -18,10 +18,10 @@ const Fortsettelsesinfo: React.StatelessComponent<Props> = ({
 					<span className="periodefortsettelse__dato">
 						<Dato dato={sluttdato} />
 					</span>
-					{navn} avslutter sin permisjon
+					{navn} avslutter sin permisjon.
 				</div>
 			) : (
-				<div>{navn} fortsetter sin permisjon</div>
+				<div>{navn} fortsetter sin permisjon.</div>
 			)}
 		</div>
 	</InnslagLayout>

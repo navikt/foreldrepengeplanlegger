@@ -18,7 +18,6 @@ import { Utsettelsesperiode } from 'app/types';
 import Veileder from 'app/components/veileder/Veileder';
 import { Systemtittel } from 'nav-frontend-typografi';
 import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
-import { grunnfordeling } from 'app/data/grunnfordeling';
 import Tekst from 'app/tekst';
 
 export interface StateProps {
@@ -32,6 +31,7 @@ export type Props = StateProps & RouteComponentProps<{}> & DispatchProps;
 
 export class Uttaksplan extends React.Component<Props> {
 	render() {
+		const { form } = this.props;
 		return (
 			<div>
 				<div className="introtekst">
@@ -66,20 +66,22 @@ export class Uttaksplan extends React.Component<Props> {
 						</div>
 						<div className="blokk-m">
 							<Permisjonsoppsummering
-								foreldrepengerMor={grunnfordeling.antallUkerForelder1ForFodsel}
-								modrekvote={grunnfordeling.antallUkerModrekvote}
-								fedrekvote={grunnfordeling.antallUkerFedrekvote}
-								fellesukerForelder1={this.props.form.fellesperiodeukerForelder1}
-								fellesukerForelder2={this.props.form.fellesperiodeukerForelder2}
-								navnForelder1={this.props.form.navnForelder1 || Tekst.forelder1}
-								navnForelder2={this.props.form.navnForelder2 || Tekst.forelder2}
+								foreldrepengerMor={
+									form.grunnfordeling.antallUkerForelder1ForFodsel
+								}
+								modrekvote={form.grunnfordeling.antallUkerModrekvote}
+								fedrekvote={form.grunnfordeling.antallUkerFedrekvote}
+								fellesukerForelder1={form.fellesperiodeukerForelder1}
+								fellesukerForelder2={form.fellesperiodeukerForelder2}
+								navnForelder1={form.navnForelder1 || Tekst.forelder1}
+								navnForelder2={form.navnForelder2 || Tekst.forelder2}
 							/>
 						</div>
 						<h3 className="sr-only">Tidslinjen</h3>
 						<Tidslinje
 							innslag={this.props.innslag}
-							navnForelder1={this.props.form.navnForelder1 || Tekst.forelder1}
-							navnForelder2={this.props.form.navnForelder2 || Tekst.forelder2}
+							navnForelder1={form.navnForelder1 || Tekst.forelder1}
+							navnForelder2={form.navnForelder2 || Tekst.forelder2}
 							onRedigerUtsettelse={(utsettelse: Utsettelsesperiode) =>
 								this.props.dispatch(utsettelseVisDialog(utsettelse))
 							}

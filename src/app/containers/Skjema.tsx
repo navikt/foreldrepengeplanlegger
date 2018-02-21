@@ -23,7 +23,6 @@ import {
 import Tekst from 'app/tekst';
 import { Dekningsgrad } from 'app/types';
 import FordelingFellesperiodeRange from 'app/components/fordelingFellesperiodeRange/FordelingFellesperiodeRange';
-import { grunnfordeling } from 'app/data/grunnfordeling';
 import Infotekster from 'app/tekst/infotekster';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 import Sporsmal from 'app/elements/sporsmal/Sporsmal';
@@ -124,7 +123,7 @@ class Skjema extends React.Component<Props> {
 								navnForelder2={form.navnForelder2 || Tekst.forelder2}
 								ukerFellesperiode={form.ukerFellesperiode}
 								ukerForelder1={form.fellesperiodeukerForelder1}
-								ukerHver={grunnfordeling.antallUkerFedrekvote}
+								ukerHver={form.grunnfordeling.antallUkerFedrekvote}
 								onChange={(uker) => dispatch(settAntallDagerMor(uker))}
 							/>
 						</div>

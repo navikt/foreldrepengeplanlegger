@@ -13,7 +13,6 @@ import {
 } from 'app/redux/actions';
 import { Utsettelsesperiode, Tidsperiode } from 'app/types';
 import Periodeberegner from 'app/utils/Periodeberegner';
-import { grunnfordeling } from 'app/data/grunnfordeling';
 import { getForsteUttaksdagEtterDato } from 'app/utils/uttaksdagerUtils';
 import { Element } from 'nav-frontend-typografi';
 import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
@@ -69,7 +68,7 @@ const mapStateToProps = (state: AppState): StateProps => {
 		state.form.dekningsgrad || '100%',
 		state.form.fellesperiodeukerForelder1,
 		state.form.fellesperiodeukerForelder2,
-		grunnfordeling
+		state.form.grunnfordeling
 	);
 
 	return {

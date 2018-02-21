@@ -3,9 +3,9 @@ import Uttaksplan from './containers/Uttaksplan';
 import './styles/planlegger.less';
 import Alertstripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
-export class PlanleggerIndex extends React.Component<any> {
+export class PlanleggerIndex extends React.Component {
 	render() {
 		return (
 			<div className="planlegger">
@@ -38,4 +38,4 @@ export class PlanleggerIndex extends React.Component<any> {
 	}
 }
 
-export default injectIntl(PlanleggerIndex);
+export default PlanleggerIndex;

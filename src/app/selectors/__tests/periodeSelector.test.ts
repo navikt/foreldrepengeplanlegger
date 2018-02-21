@@ -1,5 +1,5 @@
 import { FormState } from 'app/redux/types';
-import { grunnfordeling } from 'app/data/grunnfordeling';
+import { getGrunnfordeling } from 'app/data/grunnfordeling';
 import { getStonadsperioder } from 'app/selectors/periodeSelector';
 import { Tidsperiode, Forelder, StonadskontoType } from 'app/types';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
@@ -7,6 +7,7 @@ import { getUttaksdagerForForelder } from 'app/utils/periodeUtils';
 
 const forstePermisjonsdag = new Date(2018, 0, 8);
 const termindato = new Date(2018, 0, 27);
+const grunnfordeling = getGrunnfordeling(termindato);
 
 const form80: FormState = {
 	grunnfordeling,
@@ -38,6 +39,17 @@ describe('periodeberegner', () => {
 	const antallDagerForelder1 = 155;
 	const antallDagerForelder2 = 140;
 
+	it('velger riktige grunnfordeling ut fra termindato', () => {
+		expect(getGrunnfordeling(new Date(2018, 6, 1)).antallUkerModrekvote).toBe(
+			14
+		);
+		expect(getGrunnfordeling(new Date(2020, 6, 1)).antallUkerModrekvote).toBe(
+			14
+		);
+		expect(getGrunnfordeling(new Date(2018, 5, 30)).antallUkerModrekvote).toBe(
+			10
+		);
+	});
 	describe('ved 80% dekningsgrad', () => {
 		const dagerModrekvoteForFodsel =
 			grunnfordeling.antallUkerForelder1ForFodsel * 5;

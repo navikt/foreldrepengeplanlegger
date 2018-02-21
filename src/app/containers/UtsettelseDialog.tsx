@@ -32,7 +32,7 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => {
 	return (
 		<div>
 			<div className="blokk-xs">
-				<Element>Utsettelse av permisjonstiden</Element>
+				<Element>Opphold i permisjonen</Element>
 			</div>
 			<LeggTilKnapp onClick={() => props.dispatch(utsettelseVisDialog())} />
 			<Modal

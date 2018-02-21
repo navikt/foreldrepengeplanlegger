@@ -4,7 +4,7 @@ import VeilederinfoKnappContainer from 'app/connectedComponents/VeilederinfoKnap
 import './sporsmal.less';
 
 export interface Props {
-	info: {
+	info?: {
 		id: string;
 		label: string;
 	};

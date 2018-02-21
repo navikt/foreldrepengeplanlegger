@@ -1,5 +1,5 @@
 import Periodeberegner from 'app/utils/Periodeberegner';
-import { grunnfordeling } from 'app/data/grunnfordeling';
+import { getGrunnfordeling } from 'app/data/grunnfordeling';
 import {
 	Utsettelsesperiode,
 	UtsettelseArsakType,
@@ -35,6 +35,8 @@ const utsettelse: Utsettelsesperiode = {
 	},
 	type: Periodetype.Utsettelse
 };
+
+const grunnfordeling = getGrunnfordeling(datoer.termin);
 
 const formState: FormState = {
 	dekningsgrad: '100%',

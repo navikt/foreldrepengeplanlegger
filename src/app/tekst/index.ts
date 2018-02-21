@@ -8,11 +8,12 @@ const Tekst = {
 		labelForelder2: 'Forelder 2',
 		labelTermindato: 'Termindato',
 		labelDekningsgrad: (harForelder2: boolean) =>
-			`Hvilken sats ønsker ${harForelder2 ? 'dere' : 'du'}?`,
-		labelDekningsgrad80: (uker: number) => `80% foreldrepenger i ${uker} uker`,
+			`Hvor lang permisjon ønsker dere?`,
+		labelDekningsgrad80: (uker: number) =>
+			`${uker} uker med 80 % foreldrepenger`,
 		labelDekningsgrad100: (uker: number) =>
-			`100% foreldrepenger i ${uker} uker`,
-		fordelingFellespermisjon: `Hvordan vil dere fordele permisjonsperioden?`,
+			`${uker} uker med 100 % foreldrepenger`,
+		fordelingFellespermisjon: `Hvordan vil dere dele permisjonen?`,
 		fordelingFellespermisjonInfo: (uker: number) =>
 			`I tillegg til fellesperioden har dere ${uker} uker hver.`,
 		fordelingForelder1: (uker: number, navn?: string) =>

@@ -15,7 +15,6 @@ import UtsettelseDialog from 'app/containers/UtsettelseDialog';
 import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
 import { utsettelseVisDialog } from 'app/redux/actions';
 import { Utsettelsesperiode } from 'app/types';
-import Veileder from 'app/components/veileder/Veileder';
 import { Systemtittel } from 'nav-frontend-typografi';
 import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
 import Tekst from 'app/tekst';
@@ -35,14 +34,9 @@ export class Uttaksplan extends React.Component<Props> {
 		return (
 			<div>
 				<div className="introtekst">
-					<div className="introtekst__veileder">
-						<Veileder ansikt="glad" farge="lilla" className="veilederSvg" />
-					</div>
 					<p>
-						Hei, hver forelder har rett på 10 uker permisjon hver. I tillegg har
-						dere enten 36 eller 26 uker dere kan fordele mellom dere basert på
-						den totale permisjonslengden dere velger, som er 59 uker eller 49
-						uker.
+						Her kan du planlegge foreldrepermisjon. Du kan fordele uker mellom
+						foreldrene.
 					</p>
 				</div>
 
@@ -62,7 +56,7 @@ export class Uttaksplan extends React.Component<Props> {
 				{this.props.visTidslinjeOgUtsettelse && (
 					<section className="tidsplan">
 						<div className="blokk-m">
-							<Systemtittel>Deres tidslinje</Systemtittel>
+							<Systemtittel>Planen deres</Systemtittel>
 						</div>
 						<div className="blokk-m">
 							<Tidslinje

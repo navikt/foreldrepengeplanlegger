@@ -35,11 +35,8 @@ const Utsettelsesinfo: React.StatelessComponent<PeriodeinnslagProps> = (
 				props.navnForelder1,
 				props.navnForelder2
 			)}{' '}
-			utsetter med {getArsakTekst(periode.arsak)} ({`${dager} ${pluralize(
-				dager,
-				'dag',
-				'dager'
-			)}`}).
+			utsetter permisjonen med {getArsakTekst(periode.arsak)} i{' '}
+			{`${dager} ${pluralize(dager, 'dag', 'dager')}`}
 		</InnslagLayout>
 	);
 };

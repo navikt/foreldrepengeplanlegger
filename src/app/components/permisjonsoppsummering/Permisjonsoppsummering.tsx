@@ -55,9 +55,9 @@ const Permisjonsoppsummering: React.StatelessComponent<Props> = ({
 			<div className="blokk-xxs">
 				<Element tag="h4">{navnForelder1}</Element>
 			</div>
-			<Kvote navn="Mødrekvote" uker={modrekvote} forelder="forelder1" />
+			<Kvote navn="Kvote" uker={modrekvote} forelder="forelder1" />
 			<Kvote
-				navn="Fellespermisjon"
+				navn="Fellesperiode"
 				uker={fellesukerForelder1}
 				forelder="forelder1"
 			/>
@@ -66,9 +66,9 @@ const Permisjonsoppsummering: React.StatelessComponent<Props> = ({
 			<div className="blokk-xxs">
 				<Element tag="h4">{navnForelder2}</Element>
 			</div>
-			<Kvote navn="Fedrekvote" uker={modrekvote} forelder="forelder2" />
+			<Kvote navn="Kvote" uker={modrekvote} forelder="forelder2" />
 			<Kvote
-				navn="Fellespermisjon"
+				navn="Fellesperiode"
 				uker={fellesukerForelder2}
 				forelder="forelder2"
 			/>

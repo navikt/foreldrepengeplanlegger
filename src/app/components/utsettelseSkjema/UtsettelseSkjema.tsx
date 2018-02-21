@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { FormEvent } from 'react';
-import Lenke from 'nav-frontend-lenker';
-import EksterneLenker from 'app/eksterneLenker';
 import {
 	UtsettelseArsakType,
 	Utsettelsesperiode,
@@ -13,7 +11,6 @@ import DateInput, { Range } from 'shared/components/dateInput/DateInput';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import Radioliste from 'shared/components/radioliste/Radioliste';
 import { Row, Column } from 'nav-frontend-grid';
-import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
 import { erGyldigDato } from 'app/utils';
 import { isBefore, isSameDay, isAfter } from 'date-fns';
 
@@ -161,20 +158,20 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				onSubmit={preventDefaultEvent}
 				className="utsettelseSkjema">
 				<h1 className="typo-undertittel m-textCenter blokk-s">
-					Opphold i foreldrepengeperioden
+					Opphold i permisjonen
 				</h1>
 				<div className="blokk-xxs">
 					<Radioliste
-						tittel="Velg type utsettelse"
+						tittel="Hva skal du gjøre?"
 						stil="ekstern"
 						kolonner="2"
 						valg={[
 							{
-								tittel: 'Ferie',
+								tittel: 'Ta ut ferie',
 								verdi: UtsettelseArsakType.Ferie
 							},
 							{
-								tittel: 'Arbeid',
+								tittel: 'Arbeide fulltid',
 								verdi: UtsettelseArsakType.Arbeid
 							}
 						]}
@@ -185,7 +182,8 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						}
 					/>
 				</div>
-				<div className="blokk-s">
+				<p>Ekstratekst dersom ferie er valgt</p>
+				{/* <div className="blokk-s">
 					<Veilederinfo
 						utvidetInfo={
 							<p>
@@ -203,11 +201,11 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						Ønsker dere å ha opphold i foreldrepengene med ulønnet permisjon må
 						den andre forelderen søke om utsettelse.
 					</Veilederinfo>
-				</div>
+				</div> */}
 				<div className="blokk-s">
 					<Radioliste
 						kolonner="2"
-						tittel="Hvem skal utsette sin permisjon?"
+						tittel="Hvem skal ta ut [TODO]ferie/arbeide?"
 						inputnavn="forelder"
 						stil="ekstern"
 						valg={[

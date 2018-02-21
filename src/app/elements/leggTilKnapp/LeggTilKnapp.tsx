@@ -17,7 +17,7 @@ const LeggTilKnapp: React.StatelessComponent<Props> = (props) => (
 		<span className="leggTilKnapp__pluss">
 			<PlussIkon />
 		</span>
-		<span className="leggTilKnapp__label">Legg til utsettelse</span>
+		<span className="leggTilKnapp__label">Legg til ferie eller arbeid</span>
 	</Knapp>
 );
 

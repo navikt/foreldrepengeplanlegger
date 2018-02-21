@@ -51,10 +51,11 @@ const Periodeinfo: React.StatelessComponent<Props> = (props) => {
 			{props.visDetaljer ? (
 				<span>
 					starter sin permisjon: {Tekst.uker(oppsummering.ukerTotalt)} totalt{' '}
-					oppdelt i {separerTekstArray(detaljetekster)}.
+					oppdelt i {separerTekstArray(detaljetekster)}
 				</span>
 			) : (
-				'starter sin permisjon.'
+				// Ta med tre uker før termin
+				'starter sin permisjon'
 			)}
 		</InnslagLayout>
 	);

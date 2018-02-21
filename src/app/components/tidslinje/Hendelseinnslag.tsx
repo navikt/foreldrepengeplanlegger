@@ -15,7 +15,7 @@ const Hendelseinnslag: React.StatelessComponent<Props> = ({ innslag }) => {
 				<Dato dato={innslag.dato} />
 			</div>
 			<div className="hendelseinnslag__hendelse">
-				{innslag.hendelse === 'termin' ? 'Termin.' : 'Siste permisjonsdag.'}
+				{innslag.hendelse === 'termin' ? 'Termin' : 'Siste permisjonsdag'}
 				{innslag.hendelse === 'termin' && (
 					<span className="hendelseinnslag__ikon">
 						<TerminIkon />

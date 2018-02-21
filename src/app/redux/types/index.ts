@@ -1,4 +1,5 @@
 import { Dekningsgrad, Grunnfordeling, Utsettelsesperiode } from 'app/types';
+import { Spraak } from 'app/intl/IntlProvider';
 
 export interface Action<T> {
 	type: string;
@@ -31,6 +32,7 @@ export interface UtsettelseState {
 }
 
 export interface ViewState {
+	spraak: Spraak;
 	synligInfo: SynligInfoMap;
 }
 

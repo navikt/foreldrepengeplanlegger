@@ -20,6 +20,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
 import Tekst from 'app/tekst';
 import UbetaltPermisjonDialog from 'app/containers/UbetaltPermisjonDialog';
+import IntlTekst from 'app/intl/IntlTekst';
 
 export interface StateProps {
 	form: FormState;
@@ -37,8 +38,7 @@ export class Main extends React.Component<Props> {
 			<div>
 				<div className="introtekst">
 					<p>
-						Her kan du planlegge foreldrepermisjon. Du kan fordele uker mellom
-						foreldrene.
+						<IntlTekst id="tittel.introtekst" />
 					</p>
 				</div>
 

@@ -30,7 +30,7 @@ const Veileder = (props: Props) => {
 				props.className
 			)}
 			{...rest}>
-			<title>veileder</title>
+			<title>NAV Veileder</title>
 			<defs>
 				<circle id="a" cx={46} cy={46} r={46} />
 				<path

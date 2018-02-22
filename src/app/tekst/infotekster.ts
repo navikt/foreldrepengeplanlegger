@@ -1,6 +1,6 @@
 enum Infotekster {
 	sats = 'SATS',
-	fordelingFellespermisjon = 'fordeling'
+	fordelingFellesperiode = 'fordeling'
 }
 
 export default Infotekster;

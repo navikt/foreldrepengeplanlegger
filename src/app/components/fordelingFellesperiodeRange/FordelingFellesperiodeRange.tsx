@@ -1,10 +1,13 @@
 import * as React from 'react';
-import RangeInput from 'app/components/rangeInput/RangeInput';
-import Tekst from 'app/tekst';
-import FordelingFellesperiodeLabelRenderer from './FordelingFellesperiodeLabelRenderer';
-import Sporsmal from 'app/elements/sporsmal/Sporsmal';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 
-export interface Props {
+import RangeInput from 'app/components/rangeInput/RangeInput';
+import Sporsmal from 'app/elements/sporsmal/Sporsmal';
+import { intlString } from 'app/intl/IntlTekst';
+
+import FordelingFellesperiodeLabelRenderer from './FordelingFellesperiodeLabelRenderer';
+
+export interface OwnProps {
 	navnForelder1: string;
 	navnForelder2: string;
 	ukerForelder1: number;
@@ -15,7 +18,9 @@ export interface Props {
 	onChange: (dager: number) => void;
 }
 
-const FordelingFellesperiodeRange: React.StatelessComponent<Props> = ({
+const FordelingFellesperiodeRange: React.StatelessComponent<
+	OwnProps & InjectedIntlProps
+> = ({
 	navnForelder1,
 	navnForelder2,
 	ukerForelder1,
@@ -23,12 +28,13 @@ const FordelingFellesperiodeRange: React.StatelessComponent<Props> = ({
 	ukerModrekvote,
 	ukerFedrekvote,
 	ukerForTermin,
-	onChange
+	onChange,
+	intl
 }) => (
 	<RangeInput
 		label={
 			<div className="blokk-xs">
-				<Sporsmal>{Tekst.skjema.fordelingFellespermisjon}</Sporsmal>
+				<Sporsmal>{intlString(intl, 'skjema.fordeling.sporsmal')}</Sporsmal>
 			</div>
 		}
 		value={ukerForelder1}
@@ -36,8 +42,12 @@ const FordelingFellesperiodeRange: React.StatelessComponent<Props> = ({
 		max={ukerFellesperiode}
 		onChange={onChange}
 		steppers={{
-			reduceLabel: `En uke mindre fellesperiode til ${navnForelder1}`,
-			increaseLabel: `En uke mindre fellesperiode til ${navnForelder2}`
+			reduceLabel: intlString(intl, 'skjema.fordeling.reduser.tooltip', {
+				navn: navnForelder1
+			}),
+			increaseLabel: intlString(intl, 'skjema.fordeling.reduser.tooltip', {
+				navn: navnForelder2
+			})
 		}}
 		valueLabelRenderer={(options) => (
 			<FordelingFellesperiodeLabelRenderer
@@ -52,4 +62,4 @@ const FordelingFellesperiodeRange: React.StatelessComponent<Props> = ({
 	/>
 );
 
-export default FordelingFellesperiodeRange;
+export default injectIntl(FordelingFellesperiodeRange);

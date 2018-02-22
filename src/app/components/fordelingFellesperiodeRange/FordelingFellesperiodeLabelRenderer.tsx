@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { RangeInputValueLabelRendererOptions } from 'app/components/rangeInput/RangeInput';
-import { pluralize } from 'app/utils';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 import Infotekster from 'app/tekst/infotekster';
+import IntlTekst from 'app/intl/IntlTekst';
 
 export interface Props {
 	options: RangeInputValueLabelRendererOptions;
@@ -27,13 +27,9 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 	return (
 		<div>
 			<VeilederinfoContainer
-				id={Infotekster.fordelingFellespermisjon}
+				id={Infotekster.fordelingFellesperiode}
 				stil="info">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis
-				lectus metus, at posuere neque. Sed pharetra nibh eget orci convallis at
-				posuere leo convallis. Sed blandit augue vitae augue scelerisque
-				bibendum. Vivamus sit amet libero turpis, non venenatis urna. In
-				blandit, odio convallis suscipit venenatis, ante ipsum cursus augue.
+				<IntlTekst id="skjema.fordeling.veiledning" />
 			</VeilederinfoContainer>
 			<div className="skjema_fordelingFellesperiode">
 				<div className="skjema_fordelingFellesperiode__forelder1">
@@ -41,19 +37,27 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 						{navnForelder1}
 					</div>
 					<div className="skjema_fordelingFellesperiode__uker">
-						{ukerForelder1} {pluralize(ukerForelder1 || 0, 'uke', 'uker')}
+						<IntlTekst
+							id="skjema.fordeling.uker"
+							values={{
+								uker: ukerForelder1
+							}}
+						/>
 					</div>
 				</div>
-				{navnForelder2 && (
-					<div className="skjema_fordelingFellesperiode__forelder2">
-						<div className="skjema_fordelingFellesperiode__forelderNavn  blokk-xxxs">
-							{navnForelder2}
-						</div>
-						<div className="skjema_fordelingFellesperiode__uker">
-							{ukerForelder2} {pluralize(ukerForelder2, 'uke', 'uker')}
-						</div>
+				<div className="skjema_fordelingFellesperiode__forelder2">
+					<div className="skjema_fordelingFellesperiode__forelderNavn  blokk-xxxs">
+						{navnForelder2}
 					</div>
-				)}
+					<div className="skjema_fordelingFellesperiode__uker">
+						<IntlTekst
+							id="skjema.fordeling.uker"
+							values={{
+								uker: ukerForelder2
+							}}
+						/>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

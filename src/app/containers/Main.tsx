@@ -14,13 +14,17 @@ import {
 import { tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import UtsettelseDialog from 'app/containers/UtsettelseDialog';
 import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
-import { utsettelseVisDialog } from 'app/redux/actions';
+import {
+	utsettelseVisDialog,
+	ubetaltPermisjonVisDialog
+} from 'app/redux/actions';
 import { Utsettelsesperiode } from 'app/types';
 import { Systemtittel } from 'nav-frontend-typografi';
 import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
 import Tekst from 'app/tekst';
 import UbetaltPermisjonDialog from 'app/containers/UbetaltPermisjonDialog';
 import IntlTekst from 'app/intl/IntlTekst';
+import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
 
 export interface StateProps {
 	form: FormState;
@@ -54,9 +58,19 @@ export class Main extends React.Component<Props> {
 								<Element>Ubetalt permisjon</Element>
 							</div>
 							<div className="blokk-xxs">
-								<UtsettelseDialog />
+								<div className="knapperekke">
+									<LeggTilKnapp
+										onClick={() => this.props.dispatch(utsettelseVisDialog())}>
+										Legg til ferie eller arbeid
+									</LeggTilKnapp>
+									<LeggTilKnapp
+										onClick={() =>
+											this.props.dispatch(ubetaltPermisjonVisDialog())
+										}>
+										Legg til ulønnet permisjon
+									</LeggTilKnapp>
+								</div>
 							</div>
-							<UbetaltPermisjonDialog />
 						</div>
 					)}
 				</section>
@@ -90,6 +104,8 @@ export class Main extends React.Component<Props> {
 						/>
 					</section>
 				)}
+				<UtsettelseDialog />
+				<UbetaltPermisjonDialog />
 			</div>
 		);
 	}

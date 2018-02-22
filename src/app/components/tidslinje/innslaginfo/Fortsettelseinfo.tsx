@@ -1,11 +1,24 @@
 import * as React from 'react';
 import InnslagLayout from 'app/components/tidslinje/elementer/InnslagLayout';
 import Dato from 'app/elements/dato/Dato';
+import IntlTekst from 'app/intl/IntlTekst';
 
 interface Props {
 	navn: string;
 	sluttdato?: Date;
 }
+
+const avslutter = (navn: string, sluttdato: Date) => (
+	<div>
+		<span className="periodefortsettelse__dato">
+			<Dato dato={sluttdato} />
+		</span>
+		<IntlTekst
+			id="tidslinje.periodeinfo.fortsettelse.avslutter"
+			values={{ navn }}
+		/>
+	</div>
+);
 
 const Fortsettelsesinfo: React.StatelessComponent<Props> = ({
 	navn,
@@ -14,14 +27,12 @@ const Fortsettelsesinfo: React.StatelessComponent<Props> = ({
 	<InnslagLayout>
 		<div className="periodefortsettelse">
 			{sluttdato ? (
-				<div>
-					<span className="periodefortsettelse__dato">
-						<Dato dato={sluttdato} />
-					</span>
-					{navn} avslutter sin permisjon
-				</div>
+				avslutter(navn, sluttdato)
 			) : (
-				<div>{navn} fortsetter sin permisjon</div>
+				<IntlTekst
+					id="tidslinje.periodeinfo.fortsettelse.fortsetter"
+					values={{ navn }}
+				/>
 			)}
 		</div>
 	</InnslagLayout>

@@ -17,7 +17,7 @@ import { isBefore, isSameDay, isAfter } from 'date-fns';
 import './utsettelseSkjema.less';
 import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
 import { Collapse } from 'react-collapse';
-import IntlTekst from 'app/intl/IntlTekst';
+import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
 
 interface OwnProps {
@@ -49,11 +49,11 @@ const getHvemTittel = (
 	arsak: UtsettelseArsakType | undefined
 ): string => {
 	if (!arsak) {
-		return intl.formatMessage({ id: 'utsettelseskjema.hvem.sporsmal' });
+		return intlString(intl, 'utsettelseskjema.hvem.sporsmal');
 	}
 	return arsak === UtsettelseArsakType.Ferie
-		? intl.formatMessage({ id: 'utsettelseskjema.hvem.sporsmal.ferie' })
-		: intl.formatMessage({ id: 'utsettelseskjema.hvem.sporsmal.arbeid' });
+		? intlString(intl, 'utsettelseskjema.hvem.sporsmal.ferie')
+		: intlString(intl, 'utsettelseskjema.hvem.sporsmal.arbeid');
 };
 
 class UtsettelseSkjema extends React.Component<Props, State> {
@@ -186,9 +186,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						kolonner="2"
 						valg={[
 							{
-								tittel: intl.formatMessage({
-									id: 'utsettelseskjema.arsak.ferie'
-								}),
+								tittel: intlString(intl, 'utsettelseskjema.arsak.ferie'),
 								verdi: UtsettelseArsakType.Ferie
 							},
 							{
@@ -222,11 +220,11 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						stil="ekstern"
 						valg={[
 							{
-								tittel: forelder1 || intl.formatMessage({ id: 'forelder1' }),
+								tittel: forelder1 || intlString(intl, 'forelder1'),
 								verdi: 'forelder1'
 							},
 							{
-								tittel: forelder2 || intl.formatMessage({ id: 'forelder2' }),
+								tittel: forelder2 || intlString(intl, 'forelder2'),
 								verdi: 'forelder2'
 							}
 						]}
@@ -258,9 +256,10 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						<Column xs="12" sm="6">
 							<div className="blokk-s">
 								<DateInput
-									label={intl.formatMessage({
-										id: 'utsettelseskjema.sluttdato.sporsmal'
-									})}
+									label={intlString(
+										intl,
+										'utsettelseskjema.sluttdato.sporsmal'
+									)}
 									id="sluttdato"
 									fromDate={tilTidsrom.startdato}
 									toDate={tilTidsrom.sluttdato}
@@ -286,7 +285,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								{utsettelse ? (
 									<IntlTekst id="utsettelseskjema.knapp.oppdater" />
 								) : (
-									'Legg til'
+									<IntlTekst id="utsettelseskjema.knapp.leggtil" />
 								)}
 							</Hovedknapp>
 						</div>
@@ -298,7 +297,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								htmlType="button"
 								onClick={() => this.props.onFjern(utsettelse)}
 								className="m-fullBredde">
-								Fjern
+								<IntlTekst id="utsettelseskjema.knapp.fjern" />
 							</Knapp>
 						</Column>
 					)}

@@ -2,6 +2,11 @@
 	"applikasjonstittel": "Foreldrepengeplanlegger",
 	"forelder1": "Forelder 1",
 	"forelder2": "Forelder 2",
+	"stonadskonto.modrekvotePakrevd": "mødrekvote",
+	"stonadskonto.modrekvote": "mødrekvote",
+	"stonadskonto.fedrekvote": "fedrekvote",
+	"stonadskonto.fellesperiode": "fellesperiode",
+	"stonadskonto.foreldrepenger": "foreldrepenger",
 	"tittel.introtekst":
 		"Her kan du planlegge foreldrepermisjon. Du kan fordele uker mellom foreldrene.",
 	"utsettelseskjema.tittel": "Opphold i permisjonen",
@@ -16,5 +21,21 @@
 	"utsettelseskjema.sluttdato.sporsmal": "Sluttdato",
 	"utsettelseskjema.knapp.leggtil": "Legg til",
 	"utsettelseskjema.knapp.oppdater": "Oppdater",
-	"utsettelseskjema.knapp.fjern": "Oppdater"
+	"utsettelseskjema.knapp.fjern": "Oppdater",
+	"skjema.fordeling.reduser.tooltip": "En uke mindre fellesperiode til {navn}",
+	"skjema.fordeling.sporsmal": "Hvordan vil dere dele permisjonen?",
+	"tidslinje.periodeinfo.konto.uker":
+		"{uker, plural, one {# uke} other {# uker}} {konto}",
+	"tidslinje.periodeinfo.starterpermisjon.enkel":
+		"{navn} starter sin permisjon",
+	"tidslinje.periodeinfo.starterpermisjon.detaljert":
+		"{navn} starter sin permisjon: {uker, plural, one {# uke} other {# uker}} totalt oppdelt i {detaljer}",
+	"tidslinje.utsettelse":
+		"{navn} utsetter permisjonen med {arsak} i {dager, plural, one {# dag} other {# dager}}",
+	"tidslinje.periodeinfo.fortsettelse.fortsetter":
+		"{navn} fortsetter sin permisjon",
+	"tidslinje.periodeinfo.fortsettelse.avslutter":
+		"{navn} avslutter sin permisjon",
+	"utsettelse.ferie": "ferie",
+	"utsettelse.arbeid": "arbeid"
 }

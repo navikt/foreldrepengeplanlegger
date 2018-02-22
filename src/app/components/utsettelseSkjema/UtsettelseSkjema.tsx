@@ -17,8 +17,10 @@ import { isBefore, isSameDay, isAfter } from 'date-fns';
 import './utsettelseSkjema.less';
 import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
 import { Collapse } from 'react-collapse';
+import IntlTekst from 'app/intl/IntlTekst';
+import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
 
-interface Props {
+interface OwnProps {
 	tidsrom: Tidsperiode;
 	utsettelse?: Utsettelsesperiode;
 	registrerteUtsettelser?: Utsettelsesperiode[];
@@ -27,6 +29,8 @@ interface Props {
 	onChange: (utsettelse: Utsettelsesperiode) => void;
 	onFjern: (utsettelse: Utsettelsesperiode) => void;
 }
+
+type Props = OwnProps & InjectedIntlProps;
 
 interface State {
 	arsak?: UtsettelseArsakType;
@@ -40,13 +44,16 @@ const preventDefaultEvent = (e: FormEvent<HTMLFormElement>) => {
 	e.preventDefault();
 };
 
-const getHvemTittel = (arsak: UtsettelseArsakType | undefined): string => {
+const getHvemTittel = (
+	intl: InjectedIntl,
+	arsak: UtsettelseArsakType | undefined
+): string => {
 	if (!arsak) {
-		return 'Hvem skal ha opphold i permisjonen?';
+		return intl.formatMessage({ id: 'utsettelseskjema.hvem.sporsmal' });
 	}
 	return arsak === UtsettelseArsakType.Ferie
-		? `Hvem skal ta ut ferie?`
-		: 'Hvem skal arbeide?';
+		? intl.formatMessage({ id: 'utsettelseskjema.hvem.sporsmal.ferie' })
+		: intl.formatMessage({ id: 'utsettelseskjema.hvem.sporsmal.arbeid' });
 };
 
 class UtsettelseSkjema extends React.Component<Props, State> {
@@ -148,7 +155,8 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			forelder1,
 			forelder2,
 			tidsrom,
-			registrerteUtsettelser
+			registrerteUtsettelser,
+			intl
 		} = this.props;
 
 		const tilTidsrom: Tidsperiode = {
@@ -169,20 +177,24 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				onSubmit={preventDefaultEvent}
 				className="utsettelseSkjema dialogContent">
 				<h1 className="typo-undertittel m-textCenter blokk-s">
-					Opphold i permisjonen
+					<IntlTekst id="utsettelseskjema.tittel" />
 				</h1>
 				<div className="blokk-xxs">
 					<Radioliste
-						tittel="Hva skal du gjøre?"
+						tittel={<IntlTekst id="utsettelseskjema.tittel" />}
 						stil="ekstern"
 						kolonner="2"
 						valg={[
 							{
-								tittel: 'Ta ut ferie',
+								tittel: intl.formatMessage({
+									id: 'utsettelseskjema.arsak.ferie'
+								}),
 								verdi: UtsettelseArsakType.Ferie
 							},
 							{
-								tittel: 'Arbeide fulltid',
+								tittel: intl.formatMessage({
+									id: 'utsettelseskjema.arsak.arbeid'
+								}),
 								verdi: UtsettelseArsakType.Arbeid
 							}
 						]}
@@ -197,18 +209,26 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					isOpened={this.state.arsak === UtsettelseArsakType.Ferie}
 					springConfig={{ stiffness: 250, damping: 30 }}>
 					<div className="blokkPad-s">
-						<Veilederinfo>Informasjon om ferie[todo]</Veilederinfo>
+						<Veilederinfo>
+							<IntlTekst id="utsettelseskjema.veiledning.ferie" />
+						</Veilederinfo>
 					</div>
 				</Collapse>
 				<div className="blokk-s">
 					<Radioliste
 						kolonner="2"
-						tittel={getHvemTittel(this.state.arsak)}
+						tittel={getHvemTittel(intl, this.state.arsak)}
 						inputnavn="forelder"
 						stil="ekstern"
 						valg={[
-							{ tittel: forelder1 || 'Forelder 1', verdi: 'forelder1' },
-							{ tittel: forelder2 || 'Forelder 2', verdi: 'forelder2' }
+							{
+								tittel: forelder1 || intl.formatMessage({ id: 'forelder1' }),
+								verdi: 'forelder1'
+							},
+							{
+								tittel: forelder2 || intl.formatMessage({ id: 'forelder2' }),
+								verdi: 'forelder2'
+							}
 						]}
 						valgtVerdi={forelder}
 						onChange={(value) => this.setState({ forelder: value as Forelder })}
@@ -219,7 +239,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						<Column xs="12" sm="6">
 							<div className="blokk-s">
 								<DateInput
-									label="Startdato"
+									label={intl.formatMessage({
+										id: 'utsettelseskjema.startdato.sporsmal'
+									})}
 									id="startdato"
 									fromDate={tidsrom.startdato}
 									toDate={tidsrom.sluttdato}
@@ -236,7 +258,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						<Column xs="12" sm="6">
 							<div className="blokk-s">
 								<DateInput
-									label="Sluttdato"
+									label={intl.formatMessage({
+										id: 'utsettelseskjema.sluttdato.sporsmal'
+									})}
 									id="sluttdato"
 									fromDate={tilTidsrom.startdato}
 									toDate={tilTidsrom.sluttdato}
@@ -259,7 +283,11 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 							<Hovedknapp
 								onClick={(evt) => this.handleSubmitClick(evt)}
 								className="m-fullBredde">
-								{utsettelse ? 'Oppdater' : 'Legg til'}
+								{utsettelse ? (
+									<IntlTekst id="utsettelseskjema.knapp.oppdater" />
+								) : (
+									'Legg til'
+								)}
 							</Hovedknapp>
 						</div>
 					</Column>
@@ -280,4 +308,4 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 	}
 }
 
-export default UtsettelseSkjema;
+export default injectIntl(UtsettelseSkjema);

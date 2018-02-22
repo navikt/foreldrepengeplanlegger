@@ -1,5 +1,20 @@
 {
 	"applikasjonstittel": "Foreldrepengeplanlegger",
+	"forelder1": "Forelder 1",
+	"forelder2": "Forelder 2",
 	"tittel.introtekst":
-		"Her kan du planlegge foreldrepermisjon. Du kan fordele uker mellom foreldrene."
+		"Her kan du planlegge foreldrepermisjon. Du kan fordele uker mellom foreldrene.",
+	"utsettelseskjema.tittel": "Opphold i permisjonen",
+	"utsettelseskjema.arsak.sporsmal": "Hva skal du gjøre?",
+	"utsettelseskjema.arsak.ferie": "Ta ut ferie",
+	"utsettelseskjema.veiledning.ferie": "Informasjon om ferie[todo]",
+	"utsettelseskjema.arsak.arbeid": "Arbeide heltid",
+	"utsettelseskjema.hvem.sporsmal": "Hvem skal ha opphold i permisjonen?",
+	"utsettelseskjema.hvem.sporsmal.ferie": "Hvem skal ta ut ferie?",
+	"utsettelseskjema.hvem.sporsmal.arbeid": "Hvem skal arbeide?",
+	"utsettelseskjema.startdato.sporsmal": "Startdato",
+	"utsettelseskjema.sluttdato.sporsmal": "Sluttdato",
+	"utsettelseskjema.knapp.leggtil": "Legg til",
+	"utsettelseskjema.knapp.oppdater": "Oppdater",
+	"utsettelseskjema.knapp.fjern": "Oppdater"
 }

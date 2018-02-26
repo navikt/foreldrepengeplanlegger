@@ -1,5 +1,5 @@
 import { FormState } from 'app/redux/types';
-import { getGrunnfordeling } from 'app/data/grunnfordeling';
+import { getPermisjonsregler } from 'app/data/permisjonsregler';
 import { getStonadsperioder } from 'app/selectors/periodeSelector';
 import { Tidsperiode, Forelder, StonadskontoType } from 'app/types';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
@@ -7,10 +7,10 @@ import { getUttaksdagerForForelder } from 'app/utils/periodeUtils';
 
 const forstePermisjonsdag = new Date(2018, 0, 8);
 const termindato = new Date(2018, 0, 27);
-const grunnfordeling = getGrunnfordeling(termindato);
+const permisjonsregler = getPermisjonsregler(termindato);
 
 const form80: FormState = {
-	grunnfordeling,
+	permisjonsregler,
 	termindato,
 	dekningsgrad: '80%',
 	navnForelder1: 'Kari',
@@ -23,45 +23,45 @@ const form80: FormState = {
 describe('periodeberegner', () => {
 	it('har gyldige grunndata', () => {
 		const totaltAntallUker =
-			form80.grunnfordeling.antallUkerForelder1ForFodsel +
-			grunnfordeling.antallUkerModrekvote +
+			form80.permisjonsregler.antallUkerForelder1ForFodsel +
+			permisjonsregler.antallUkerModrekvote +
 			form80.fellesperiodeukerForelder1 +
 			form80.fellesperiodeukerForelder2 +
-			grunnfordeling.antallUkerFedrekvote;
+			permisjonsregler.antallUkerFedrekvote;
 
-		expect(totaltAntallUker).toBe(grunnfordeling.antallUkerTotalt80);
+		expect(totaltAntallUker).toBe(permisjonsregler.antallUkerTotalt80);
 	});
 
 	const perioder80 = getStonadsperioder.resultFunc(form80);
-	const uttaksdager80 = grunnfordeling.antallUkerTotalt80 * 5;
+	const uttaksdager80 = permisjonsregler.antallUkerTotalt80 * 5;
 	const forelder1: Forelder = 'forelder1';
 	const forelder2: Forelder = 'forelder2';
 	const antallDagerForelder1 = 155;
 	const antallDagerForelder2 = 140;
 
-	it('velger riktige grunnfordeling ut fra termindato', () => {
-		expect(getGrunnfordeling(new Date(2018, 6, 1)).antallUkerModrekvote).toBe(
+	it('velger riktige permisjonsregler ut fra termindato', () => {
+		expect(getPermisjonsregler(new Date(2018, 6, 1)).antallUkerModrekvote).toBe(
 			14
 		);
-		expect(getGrunnfordeling(new Date(2020, 6, 1)).antallUkerModrekvote).toBe(
+		expect(getPermisjonsregler(new Date(2020, 6, 1)).antallUkerModrekvote).toBe(
 			14
 		);
-		expect(getGrunnfordeling(new Date(2018, 5, 30)).antallUkerModrekvote).toBe(
-			10
-		);
+		expect(
+			getPermisjonsregler(new Date(2018, 5, 30)).antallUkerModrekvote
+		).toBe(10);
 	});
 	describe('ved 80% dekningsgrad', () => {
 		const dagerModrekvoteForFodsel =
-			grunnfordeling.antallUkerForelder1ForFodsel * 5;
+			permisjonsregler.antallUkerForelder1ForFodsel * 5;
 		const dagerPakrevdModrekvoteEtterFodsel =
-			grunnfordeling.antallUkerForelder1EtterFodsel * 5;
+			permisjonsregler.antallUkerForelder1EtterFodsel * 5;
 		const dagerModrekvoteEtterFodsel =
-			(grunnfordeling.antallUkerModrekvote -
-				grunnfordeling.antallUkerForelder1EtterFodsel) *
+			(permisjonsregler.antallUkerModrekvote -
+				permisjonsregler.antallUkerForelder1EtterFodsel) *
 			5;
 		const dagerForelder1Fellesperiode = form80.fellesperiodeukerForelder1 * 5;
 		const dagerForelder2Fellesperiode = form80.fellesperiodeukerForelder2 * 5;
-		const dagerFedrekvote = grunnfordeling.antallUkerFedrekvote * 5;
+		const dagerFedrekvote = permisjonsregler.antallUkerFedrekvote * 5;
 
 		it('oppretter 6 ulike perioder ut fra termindato sortert i riktig rekkefølge', () => {
 			expect(perioder80.length).toBe(6);

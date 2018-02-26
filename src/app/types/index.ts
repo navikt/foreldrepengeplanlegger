@@ -11,7 +11,7 @@ export interface Tidsperiode {
 	sluttdato: Date;
 }
 
-export interface Grunnfordeling {
+export interface Permisjonsregler {
 	/** Totalt antall uker ved 80% */
 	antallUkerTotalt80: number;
 	/** Totalt antall uker ved 100% */

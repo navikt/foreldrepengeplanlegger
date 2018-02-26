@@ -1,7 +1,7 @@
-import { Grunnfordeling } from 'app/types';
+import { Permisjonsregler } from 'app/types';
 import { isBefore } from 'date-fns';
 
-const grunnfordelingTomJuni: Grunnfordeling = {
+const reglerTomJuni: Permisjonsregler = {
 	antallUkerTotalt100: 49,
 	antallUkerFellesperiode100: 26,
 	antallUkerTotalt80: 59,
@@ -15,7 +15,7 @@ const grunnfordelingTomJuni: Grunnfordeling = {
 	maksFeriedagerMedOverforing: 50
 };
 
-const grunnfordelingFomJuli2018: Grunnfordeling = {
+const reglerFomJuli2018: Permisjonsregler = {
 	antallUkerTotalt100: 49,
 	antallUkerFellesperiode100: 18,
 	antallUkerTotalt80: 59,
@@ -29,7 +29,7 @@ const grunnfordelingFomJuli2018: Grunnfordeling = {
 	maksFeriedagerMedOverforing: 50
 };
 
-export const getGrunnfordeling = (termindato: Date): Grunnfordeling =>
+export const getPermisjonsregler = (termindato: Date): Permisjonsregler =>
 	isBefore(termindato, new Date(2018, 6, 1))
-		? grunnfordelingTomJuni
-		: grunnfordelingFomJuli2018;
+		? reglerTomJuni
+		: reglerFomJuli2018;

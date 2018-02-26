@@ -1,4 +1,4 @@
-import { Dekningsgrad, Grunnfordeling, Utsettelsesperiode } from 'app/types';
+import { Dekningsgrad, Permisjonsregler, Utsettelsesperiode } from 'app/types';
 import { Spraak } from 'app/intl/IntlProvider';
 
 export interface Action<T> {
@@ -22,7 +22,7 @@ export interface FormState {
 	fellesperiodeukerForelder1: number;
 	fellesperiodeukerForelder2: number;
 	ukerFellesperiode: number;
-	grunnfordeling: Grunnfordeling;
+	permisjonsregler: Permisjonsregler;
 }
 
 export interface UtsettelseState {

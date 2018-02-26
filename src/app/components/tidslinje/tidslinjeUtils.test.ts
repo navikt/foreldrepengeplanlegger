@@ -1,5 +1,5 @@
 import Periodeberegner from 'app/utils/Periodeberegner';
-import { getGrunnfordeling } from 'app/data/grunnfordeling';
+import { getPermisjonsregler } from 'app/data/permisjonsregler';
 import {
 	Utsettelsesperiode,
 	UtsettelseArsakType,
@@ -36,7 +36,7 @@ const utsettelse: Utsettelsesperiode = {
 	type: Periodetype.Utsettelse
 };
 
-const grunnfordeling = getGrunnfordeling(datoer.termin);
+const permisjonsregler = getPermisjonsregler(datoer.termin);
 
 const formState: FormState = {
 	dekningsgrad: '100%',
@@ -46,7 +46,7 @@ const formState: FormState = {
 	ukerFellesperiode: 26,
 	fellesperiodeukerForelder1: 13,
 	fellesperiodeukerForelder2: 13,
-	grunnfordeling
+	permisjonsregler
 };
 
 describe('tidslinjeUtils', () => {
@@ -55,7 +55,7 @@ describe('tidslinjeUtils', () => {
 		'100%',
 		13,
 		13,
-		grunnfordeling
+		permisjonsregler
 	);
 	const stonadsperioder = periodeberegner.opprettStonadsperioder();
 	const innslagUtenUtsettelse = tidslinjeFraPerioder.resultFunc(

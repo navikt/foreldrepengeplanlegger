@@ -26,7 +26,7 @@ export const getStonadsperioder = createSelector(
 			form.dekningsgrad,
 			form.fellesperiodeukerForelder1 || 0,
 			form.fellesperiodeukerForelder2 || 0,
-			form.grunnfordeling
+			form.permisjonsregler
 		).opprettStonadsperioder();
 	}
 );

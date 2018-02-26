@@ -1,6 +1,6 @@
 import { addDays, isWithinRange, isSameDay } from 'date-fns';
 import {
-	Grunnfordeling,
+	Permisjonsregler,
 	Dekningsgrad,
 	Periode,
 	Stonadsperiode,
@@ -82,22 +82,22 @@ const hentPerioderForOgEtterPeriode = (
 
 /**
  * Finner antall uker for fellesperiode ut fra dekningsgrad
- * @param grunnfordeling
+ * @param permisjonsregler
  * @param dekningsgrad
  */
 export const getAntallUkerFellesperiode = (
-	grunnfordeling: Grunnfordeling,
+	permisjonsregler: Permisjonsregler,
 	dekningsgrad?: Dekningsgrad
 ) => {
 	const totaltAntallUker =
 		dekningsgrad === '80%'
-			? grunnfordeling.antallUkerTotalt80
-			: grunnfordeling.antallUkerTotalt100;
+			? permisjonsregler.antallUkerTotalt80
+			: permisjonsregler.antallUkerTotalt100;
 	return (
 		totaltAntallUker -
-		grunnfordeling.antallUkerModrekvote -
-		grunnfordeling.antallUkerFedrekvote -
-		grunnfordeling.antallUkerForelder1ForFodsel
+		permisjonsregler.antallUkerModrekvote -
+		permisjonsregler.antallUkerFedrekvote -
+		permisjonsregler.antallUkerForelder1ForFodsel
 	);
 };
 
@@ -312,14 +312,14 @@ export const flyttTidsperiode = (
 export const getTidsromForutsettelse = (
 	termindato: Date,
 	dekningsgrad: Dekningsgrad,
-	grunnfordeling: Grunnfordeling
+	permisjonsregler: Permisjonsregler
 ): Tidsperiode => {
 	const periodeberegner = Periodeberegner(
 		termindato,
 		dekningsgrad,
 		0,
 		0,
-		grunnfordeling
+		permisjonsregler
 	);
 
 	return {

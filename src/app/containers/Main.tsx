@@ -47,7 +47,7 @@ export class Main extends React.Component<Props> {
 				? getTidsromForutsettelse(
 						form.termindato,
 						form.dekningsgrad,
-						form.grunnfordeling
+						form.permisjonsregler
 					)
 				: undefined;
 
@@ -114,10 +114,10 @@ export class Main extends React.Component<Props> {
 						</h3>
 						<Permisjonsoppsummering
 							foreldrepengerMor={
-								form.grunnfordeling.antallUkerForelder1ForFodsel
+								form.permisjonsregler.antallUkerForelder1ForFodsel
 							}
-							modrekvote={form.grunnfordeling.antallUkerModrekvote}
-							fedrekvote={form.grunnfordeling.antallUkerFedrekvote}
+							modrekvote={form.permisjonsregler.antallUkerModrekvote}
+							fedrekvote={form.permisjonsregler.antallUkerFedrekvote}
 							fellesukerForelder1={form.fellesperiodeukerForelder1}
 							fellesukerForelder2={form.fellesperiodeukerForelder2}
 							navnForelder1={navnForelder1}
@@ -133,7 +133,7 @@ export class Main extends React.Component<Props> {
 						utsettelser={utsettelse.utsettelser}
 						utsettelse={utsettelse.valgtUtsettelse}
 						tidsrom={tidsromForUtsettelse}
-						grunnfordeling={form.grunnfordeling}
+						permisjonsregler={form.permisjonsregler}
 					/>
 				)}
 

@@ -1,6 +1,6 @@
 import { addYears } from 'date-fns';
 import {
-	Grunnfordeling,
+	Permisjonsregler,
 	Tidsperiode,
 	Dekningsgrad,
 	Stonadsperiode,
@@ -20,7 +20,7 @@ const Periodeberegner = (
 	dekningsgrad: Dekningsgrad,
 	fellesukerForelder1: number,
 	fellesukerForelder2: number,
-	grunnfordeling: Grunnfordeling
+	permisjonsregler: Permisjonsregler
 ) => {
 	termindato = normaliserDato(termindato);
 
@@ -30,7 +30,7 @@ const Periodeberegner = (
 			startdato,
 			sluttdato: getPeriodeSluttdato(
 				startdato,
-				grunnfordeling.antallUkerForelder1ForFodsel
+				permisjonsregler.antallUkerForelder1ForFodsel
 			)
 		};
 	};
@@ -40,7 +40,7 @@ const Periodeberegner = (
 			startdato: termindato,
 			sluttdato: getPeriodeSluttdato(
 				termindato,
-				grunnfordeling.antallUkerForelder1EtterFodsel
+				permisjonsregler.antallUkerForelder1EtterFodsel
 			)
 		};
 	};
@@ -53,8 +53,8 @@ const Periodeberegner = (
 			startdato,
 			sluttdato: getPeriodeSluttdato(
 				startdato,
-				grunnfordeling.antallUkerModrekvote -
-					grunnfordeling.antallUkerForelder1EtterFodsel
+				permisjonsregler.antallUkerModrekvote -
+					permisjonsregler.antallUkerForelder1EtterFodsel
 			)
 		};
 	};
@@ -91,7 +91,7 @@ const Periodeberegner = (
 			startdato,
 			sluttdato: getPeriodeSluttdato(
 				startdato,
-				grunnfordeling.antallUkerFedrekvote
+				permisjonsregler.antallUkerFedrekvote
 			)
 		};
 	};
@@ -99,13 +99,13 @@ const Periodeberegner = (
 	const getStartdato = (): Date => {
 		return trekkUttaksdagerFraDato(
 			termindato, // Siste uttaksdag i denne perioden er dagen før termin
-			-1 * (grunnfordeling.antallUkerForelder1ForFodsel * 5)
+			-1 * (permisjonsregler.antallUkerForelder1ForFodsel * 5)
 		);
 	};
 
 	const getSistePermisjonsdag = (): Date => {
 		return getForsteUttaksdagPaEllerEtterDato(
-			addYears(termindato, grunnfordeling.maksPermisjonslengdeIAr)
+			addYears(termindato, permisjonsregler.maksPermisjonslengdeIAr)
 		);
 	};
 

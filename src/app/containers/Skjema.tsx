@@ -103,13 +103,13 @@ class Skjema extends React.Component<Props> {
 						valg={[
 							{
 								tittel: intlString(intl, 'skjema.label.sats80', {
-									uker: form.grunnfordeling.antallUkerTotalt80
+									uker: form.permisjonsregler.antallUkerTotalt80
 								}),
 								verdi: '80%'
 							},
 							{
 								tittel: intlString(intl, 'skjema.label.sats100', {
-									uker: form.grunnfordeling.antallUkerTotalt100
+									uker: form.permisjonsregler.antallUkerTotalt100
 								}),
 								verdi: '100%'
 							}
@@ -130,9 +130,11 @@ class Skjema extends React.Component<Props> {
 								}
 								ukerFellesperiode={form.ukerFellesperiode}
 								ukerForelder1={form.fellesperiodeukerForelder1}
-								ukerModrekvote={form.grunnfordeling.antallUkerModrekvote}
-								ukerFedrekvote={form.grunnfordeling.antallUkerFedrekvote}
-								ukerForTermin={form.grunnfordeling.antallUkerForelder1ForFodsel}
+								ukerModrekvote={form.permisjonsregler.antallUkerModrekvote}
+								ukerFedrekvote={form.permisjonsregler.antallUkerFedrekvote}
+								ukerForTermin={
+									form.permisjonsregler.antallUkerForelder1ForFodsel
+								}
 								onChange={(uker) => dispatch(settAntallDagerMor(uker))}
 							/>
 						</div>

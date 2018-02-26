@@ -1,23 +1,23 @@
 import * as React from 'react';
-import { Grunnfordeling } from 'app/types';
+import { Permisjonsregler } from 'app/types';
 import Alertstripe from 'nav-frontend-alertstriper';
 import IntlTekst from 'app/intl/IntlTekst';
 
 export interface Props {
 	forelderNavn: string;
 	feriedager: number;
-	grunnfordeling: Grunnfordeling;
+	permisjonsregler: Permisjonsregler;
 }
 
 const Ferieinfo: React.StatelessComponent<Props> = ({
 	feriedager,
-	grunnfordeling,
+	permisjonsregler,
 	forelderNavn
 }) => {
-	if (feriedager <= grunnfordeling.maksFeriedagerEttAr) {
+	if (feriedager <= permisjonsregler.maksFeriedagerEttAr) {
 		return null;
 	}
-	if (feriedager > grunnfordeling.maksFeriedagerMedOverforing) {
+	if (feriedager > permisjonsregler.maksFeriedagerMedOverforing) {
 		return (
 			<div className="blokkPad-m">
 				<Alertstripe type="advarsel">
@@ -28,7 +28,7 @@ const Ferieinfo: React.StatelessComponent<Props> = ({
 				</Alertstripe>
 			</div>
 		);
-	} else if (feriedager > grunnfordeling.maksFeriedagerEttAr) {
+	} else if (feriedager > permisjonsregler.maksFeriedagerEttAr) {
 		return (
 			<div className="blokkPad-m">
 				<Alertstripe type="info">

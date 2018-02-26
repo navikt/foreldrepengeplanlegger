@@ -13,7 +13,7 @@ import {
 	getAntallUkerFellesperiode,
 	getPeriodeSluttdato
 } from 'app/utils/periodeUtils';
-import { getGrunnfordeling } from 'app/data/grunnfordeling';
+import { getPermisjonsregler } from 'app/data/permisjonsregler';
 import Periodeberegner from 'app/utils/Periodeberegner';
 import { leggUttaksdagerTilDato } from 'app/utils/uttaksdagerUtils';
 
@@ -32,7 +32,7 @@ const datoer = {
 	mandagNesteAr: new Date(2019, 0, 1)
 };
 
-const grunnfordeling = getGrunnfordeling(datoer.termin);
+const permisjonsregler = getPermisjonsregler(datoer.termin);
 
 const periode: Stonadsperiode = {
 	type: Periodetype.Stonadsperiode,
@@ -72,7 +72,7 @@ describe('periodeUtils', () => {
 			'100%',
 			13,
 			13,
-			grunnfordeling
+			permisjonsregler
 		);
 
 		const stonadsperioder = periodeberegner.opprettStonadsperioder();
@@ -108,11 +108,11 @@ describe('periodeUtils', () => {
 	});
 
 	it('finner riktig antall uker for fellesperioden 80%', () => {
-		expect(getAntallUkerFellesperiode(grunnfordeling, '80%')).toBe(36);
+		expect(getAntallUkerFellesperiode(permisjonsregler, '80%')).toBe(36);
 	});
 
 	it('finner riktig antall uker for fellesperioden 100%', () => {
-		expect(getAntallUkerFellesperiode(grunnfordeling, '100%')).toBe(26);
+		expect(getAntallUkerFellesperiode(permisjonsregler, '100%')).toBe(26);
 	});
 
 	it('finner riktig periodesluttdato', () => {

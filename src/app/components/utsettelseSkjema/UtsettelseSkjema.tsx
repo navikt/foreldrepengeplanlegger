@@ -6,7 +6,7 @@ import {
 	Forelder,
 	Periodetype,
 	Tidsperiode,
-	Grunnfordeling
+	Permisjonsregler
 } from 'app/types';
 import DateInput, { Range } from 'shared/components/dateInput/DateInput';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
@@ -20,9 +20,9 @@ import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
 import { Collapse } from 'react-collapse';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
-import { getAntallFeriedagerForForelder } from 'app/utils/periodeUtils';
 import Ferieinfo from 'app/components/utsettelseSkjema/Ferieinfo';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
+import { getAntallFeriedagerForForelder } from 'app/utils/permisjonUtils';
 
 interface OwnProps {
 	tidsrom: Tidsperiode;
@@ -30,7 +30,7 @@ interface OwnProps {
 	registrerteUtsettelser: Utsettelsesperiode[];
 	navnForelder1: string;
 	navnForelder2: string;
-	grunnfordeling: Grunnfordeling;
+	permisjonsregler: Permisjonsregler;
 	onChange: (utsettelse: Utsettelsesperiode) => void;
 	onFjern: (utsettelse: Utsettelsesperiode) => void;
 }
@@ -134,7 +134,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			if (
 				this.state.arsak === UtsettelseArsakType.Ferie &&
 				this.getAntallFeriedager() >
-					this.props.grunnfordeling.maksFeriedagerMedOverforing
+					this.props.permisjonsregler.maksFeriedagerMedOverføring
 			) {
 				return undefined;
 			}
@@ -212,7 +212,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 
 		const visFerieinfo =
 			forelder &&
-			antallFeriedager > this.props.grunnfordeling.maksFeriedagerEttAr;
+			antallFeriedager > this.props.permisjonsregler.maksFeriedagerEttÅr;
 
 		return (
 			<form
@@ -321,7 +321,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				{visFerieinfo && (
 					<Ferieinfo
 						feriedager={antallFeriedager}
-						grunnfordeling={this.props.grunnfordeling}
+						permisjonsregler={this.props.permisjonsregler}
 						forelderNavn={navnForelder1}
 					/>
 				)}

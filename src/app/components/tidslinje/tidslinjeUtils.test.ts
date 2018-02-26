@@ -1,5 +1,4 @@
-import Periodeberegner from 'app/utils/Periodeberegner';
-import { getGrunnfordeling } from 'app/data/grunnfordeling';
+import { getPermisjonsregler } from 'app/data/permisjonsregler';
 import {
 	Utsettelsesperiode,
 	UtsettelseArsakType,
@@ -10,6 +9,7 @@ import { tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import { FormState } from 'app/redux/types';
 import { oppsummerPerioder } from 'app/components/tidslinje/tidslinjeUtils';
 import { InnslagPeriodetype } from 'app/components/tidslinje/types';
+import { opprettStønadsperioder } from 'app/utils/permisjonUtils';
 
 const datoer = {
 	termin: new Date(2018, 1, 14),
@@ -36,7 +36,7 @@ const utsettelse: Utsettelsesperiode = {
 	type: Periodetype.Utsettelse
 };
 
-const grunnfordeling = getGrunnfordeling(datoer.termin);
+const permisjonsregler = getPermisjonsregler(datoer.termin);
 
 const formState: FormState = {
 	dekningsgrad: '100%',
@@ -46,18 +46,17 @@ const formState: FormState = {
 	ukerFellesperiode: 26,
 	fellesperiodeukerForelder1: 13,
 	fellesperiodeukerForelder2: 13,
-	grunnfordeling
+	permisjonsregler
 };
 
 describe('tidslinjeUtils', () => {
-	const periodeberegner = Periodeberegner(
+	const stonadsperioder = opprettStønadsperioder(
 		datoer.termin,
 		'100%',
 		13,
 		13,
-		grunnfordeling
+		permisjonsregler
 	);
-	const stonadsperioder = periodeberegner.opprettStonadsperioder();
 	const innslagUtenUtsettelse = tidslinjeFraPerioder.resultFunc(
 		stonadsperioder,
 		formState

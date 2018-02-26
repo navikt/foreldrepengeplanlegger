@@ -30,7 +30,6 @@ interface PeriodeBase {
 	id?: string;
 	type: Periodetype;
 	tidsperiode: Tidsperiode;
-	fastPeriode?: boolean;
 }
 
 export type Stonadskontoer =

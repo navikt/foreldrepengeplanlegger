@@ -25,7 +25,7 @@ import UlonnetPermisjonDialog from 'app/containers/UlonnetPermisjonDialog';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import { getTidsromForutsettelse } from 'app/utils/periodeUtils';
+import { getGyldigTidsromForUtsettelse } from 'app/utils/permisjonUtils';
 
 export interface StateProps {
 	form: FormState;
@@ -44,10 +44,10 @@ export class Main extends React.Component<Props> {
 		const { form, utsettelse, dispatch, intl } = this.props;
 		const tidsromForUtsettelse: Tidsperiode | undefined =
 			form.termindato && form.dekningsgrad
-				? getTidsromForutsettelse(
+				? getGyldigTidsromForUtsettelse(
 						form.termindato,
 						form.dekningsgrad,
-						form.grunnfordeling
+						form.permisjonsregler
 					)
 				: undefined;
 
@@ -114,10 +114,10 @@ export class Main extends React.Component<Props> {
 						</h3>
 						<Permisjonsoppsummering
 							foreldrepengerMor={
-								form.grunnfordeling.antallUkerForelder1ForFodsel
+								form.permisjonsregler.antallUkerForelder1FørFødsel
 							}
-							modrekvote={form.grunnfordeling.antallUkerModrekvote}
-							fedrekvote={form.grunnfordeling.antallUkerFedrekvote}
+							modrekvote={form.permisjonsregler.antallUkerMødrekvote}
+							fedrekvote={form.permisjonsregler.antallUkerFedrekvote}
 							fellesukerForelder1={form.fellesperiodeukerForelder1}
 							fellesukerForelder2={form.fellesperiodeukerForelder2}
 							navnForelder1={navnForelder1}
@@ -133,7 +133,7 @@ export class Main extends React.Component<Props> {
 						utsettelser={utsettelse.utsettelser}
 						utsettelse={utsettelse.valgtUtsettelse}
 						tidsrom={tidsromForUtsettelse}
-						grunnfordeling={form.grunnfordeling}
+						permisjonsregler={form.permisjonsregler}
 					/>
 				)}
 

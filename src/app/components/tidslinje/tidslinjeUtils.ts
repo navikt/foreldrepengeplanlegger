@@ -6,11 +6,11 @@ import {
 	StonadskontoType,
 	UtsettelseArsakType
 } from 'app/types';
+import { getStonadsperioder } from 'app/utils/periodeUtils';
 import {
-	getAntallUttaksdagerIPerioder,
-	getStonadsperioder
-} from 'app/utils/periodeUtils';
-import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
+	getAntallUttaksdagerITidsperiode,
+	getAntallUttaksdagerIPerioder
+} from 'app/utils/uttaksdagerUtils';
 import { CalloutBorderColor } from 'app/elements/callout/Callout';
 
 /**

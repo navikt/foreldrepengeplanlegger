@@ -1,19 +1,14 @@
 import { createSelector } from 'reselect';
 import { AppState, FormState } from 'app/redux/types';
-import {
-	Utsettelsesperiode,
-	Periode,
-	Stonadsperiode,
-	UtsettelseArsakType
-} from 'app/types';
+import { Utsettelsesperiode, Periode, Stonadsperiode } from 'app/types';
 import { leggUtsettelserTilPerioder } from 'app/utils/periodeUtils';
-import Periodeberegner from 'app/utils/Periodeberegner';
+import { opprettStønadsperioder } from 'app/utils/permisjonUtils';
 
 const formSelector = (state: AppState) => state.form;
 const utsettelseSelector = (state: AppState) => state.utsettelse.utsettelser;
 
 /**
- * Henter ut sortert liste med alle stønadsperioder basert på formState
+ * Henter ut sortert liste med alle stønadsperioder fra state
  */
 export const getStonadsperioder = createSelector(
 	formSelector,
@@ -21,20 +16,20 @@ export const getStonadsperioder = createSelector(
 		if (!form.termindato || !form.dekningsgrad) {
 			return [];
 		}
-		return Periodeberegner(
+		return opprettStønadsperioder(
 			form.termindato,
 			form.dekningsgrad,
 			form.fellesperiodeukerForelder1 || 0,
 			form.fellesperiodeukerForelder2 || 0,
-			form.grunnfordeling
-		).opprettStonadsperioder();
+			form.permisjonsregler
+		);
 	}
 );
 
 /**
- * Henter ut alle perioder gitt formState og utsettelser
+ * Henter ut perioder og utsettelser fra state
  */
-export const getPerioderMedUtsettelser = createSelector(
+export const getStonadsperioderOgUtsettelser = createSelector(
 	getStonadsperioder,
 	utsettelseSelector,
 	(
@@ -42,27 +37,5 @@ export const getPerioderMedUtsettelser = createSelector(
 		utsettelser: Utsettelsesperiode[]
 	): Periode[] => {
 		return leggUtsettelserTilPerioder(stonadsperioder, utsettelser);
-	}
-);
-
-/**
- * Returnerer liste hvor påfølgende perioder med samme forelder er slått sammen til en periode
- * Perioder før termin vil ikke blir slått sammen
- */
-export const getPerioderForTidslinje = createSelector(
-	getStonadsperioder,
-	utsettelseSelector,
-	(
-		perioder: Stonadsperiode[],
-		utsettelser: Utsettelsesperiode[]
-	): Periode[] => {
-		return leggUtsettelserTilPerioder(perioder, utsettelser);
-	}
-);
-
-export const getFerieutsettelser = createSelector(
-	utsettelseSelector,
-	(utsettelser: Utsettelsesperiode[]): Utsettelsesperiode[] => {
-		return utsettelser.filter((u) => u.arsak === UtsettelseArsakType.Ferie);
 	}
 );

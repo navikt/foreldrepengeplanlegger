@@ -2,16 +2,16 @@ import {
 	PlanleggerActionTypes,
 	PlanleggerActionTypeKeys
 } from 'app/redux/actions/actionTypes';
-import { getGrunnfordeling } from 'app/data/grunnfordeling';
+import { getPermisjonsregler } from 'app/data/permisjonsregler';
 import { FormState } from '../types';
-import { getAntallUkerFellesperiode } from 'app/utils/periodeUtils';
 import { normaliserDato } from 'app/utils';
 import { FellesperiodeFordeling, Dekningsgrad } from 'app/types';
+import { getAntallUkerFellesperiode } from 'app/utils/permisjonUtils';
 
 const getDefaultState = (dato: Date, dekningsgrad: Dekningsgrad): FormState => {
-	const grunnfordeling = getGrunnfordeling(dato);
+	const permisjonsregler = getPermisjonsregler(dato);
 	const ukerFellesperiode = getAntallUkerFellesperiode(
-		grunnfordeling,
+		permisjonsregler,
 		dekningsgrad
 	);
 	const ukerForelder1 = Math.round(ukerFellesperiode / 2);
@@ -25,7 +25,7 @@ const getDefaultState = (dato: Date, dekningsgrad: Dekningsgrad): FormState => {
 		ukerFellesperiode,
 		fellesperiodeukerForelder1: ukerForelder1,
 		fellesperiodeukerForelder2: ukerForelder2,
-		grunnfordeling
+		permisjonsregler
 	};
 };
 
@@ -58,11 +58,11 @@ const FormReducer = (
 			return { ...state, navnForelder2: action.navn };
 		case PlanleggerActionTypeKeys.SET_TERMINDATO:
 			const dato = normaliserDato(action.termindato);
-			const grunnfordeling = getGrunnfordeling(dato);
+			const permisjonsregler = getPermisjonsregler(dato);
 			return {
 				...getDefaultState(dato, state.dekningsgrad || '100%'),
 				termindato: dato,
-				grunnfordeling
+				permisjonsregler
 			};
 		case PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD:
 			if (!action.dekningsgrad) {
@@ -71,7 +71,7 @@ const FormReducer = (
 			const pstForelder1 =
 				100 / state.ukerFellesperiode * state.fellesperiodeukerForelder1;
 			const ukerFellesperiode = getAntallUkerFellesperiode(
-				state.grunnfordeling,
+				state.permisjonsregler,
 				action.dekningsgrad
 			);
 			const fellesperiodeukerForelder1 = Math.round(

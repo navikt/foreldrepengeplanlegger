@@ -10,7 +10,9 @@ const grunnfordelingTomJuni: Grunnfordeling = {
 	antallUkerForelder1EtterFodsel: 6,
 	antallUkerFedrekvote: 10,
 	antallUkerModrekvote: 10,
-	maksPermisjonslengdeIAr: 3
+	maksPermisjonslengdeIAr: 3,
+	maksFeriedagerEttAr: 20,
+	maksFeriedagerMedOverforing: 50
 };
 
 const grunnfordelingFomJuli2018: Grunnfordeling = {
@@ -22,7 +24,9 @@ const grunnfordelingFomJuli2018: Grunnfordeling = {
 	antallUkerForelder1EtterFodsel: 6,
 	antallUkerFedrekvote: 14,
 	antallUkerModrekvote: 14,
-	maksPermisjonslengdeIAr: 3
+	maksPermisjonslengdeIAr: 3,
+	maksFeriedagerEttAr: 20,
+	maksFeriedagerMedOverforing: 50
 };
 
 export const getGrunnfordeling = (termindato: Date): Grunnfordeling =>

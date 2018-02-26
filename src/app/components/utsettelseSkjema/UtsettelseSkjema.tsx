@@ -5,7 +5,8 @@ import {
 	Utsettelsesperiode,
 	Forelder,
 	Periodetype,
-	Tidsperiode
+	Tidsperiode,
+	Grunnfordeling
 } from 'app/types';
 import DateInput, { Range } from 'shared/components/dateInput/DateInput';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
@@ -19,13 +20,17 @@ import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
 import { Collapse } from 'react-collapse';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
+import { getAntallFeriedagerForForelder } from 'app/utils/periodeUtils';
+import Ferieinfo from 'app/components/utsettelseSkjema/Ferieinfo';
+import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 
 interface OwnProps {
 	tidsrom: Tidsperiode;
 	utsettelse?: Utsettelsesperiode;
-	registrerteUtsettelser?: Utsettelsesperiode[];
-	navnForelder1?: string;
-	navnForelder2?: string;
+	registrerteUtsettelser: Utsettelsesperiode[];
+	navnForelder1: string;
+	navnForelder2: string;
+	grunnfordeling: Grunnfordeling;
 	onChange: (utsettelse: Utsettelsesperiode) => void;
 	onFjern: (utsettelse: Utsettelsesperiode) => void;
 }
@@ -63,6 +68,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		this.hentGyldigSkjemadata = this.hentGyldigSkjemadata.bind(this);
 		this.setStartdato = this.setStartdato.bind(this);
 		this.setSluttdato = this.setSluttdato.bind(this);
+		this.getAntallFeriedager = this.getAntallFeriedager.bind(this);
 		const state: State = utsettelse
 			? {
 					arsak: utsettelse.arsak,
@@ -125,6 +131,13 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			this.state.forelder !== undefined
 		) {
 			const { arsak, startdato, sluttdato, forelder } = this.state;
+			if (
+				this.state.arsak === UtsettelseArsakType.Ferie &&
+				this.getAntallFeriedager() >
+					this.props.grunnfordeling.maksFeriedagerMedOverforing
+			) {
+				return undefined;
+			}
 			return {
 				id: this.props.utsettelse ? this.props.utsettelse.id : undefined,
 				type: Periodetype.Utsettelse,
@@ -146,6 +159,27 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		if (skjemadata) {
 			this.props.onChange(skjemadata);
 		}
+	}
+
+	getAntallFeriedager() {
+		let registrerteFeriedager = 0;
+		let nyeFeriedager = 0;
+
+		if (this.state.forelder && this.state.arsak === UtsettelseArsakType.Ferie) {
+			registrerteFeriedager = getAntallFeriedagerForForelder(
+				this.props.registrerteUtsettelser,
+				this.state.forelder
+			);
+		}
+
+		if (this.state.startdato && this.state.sluttdato) {
+			nyeFeriedager = getAntallUttaksdagerITidsperiode({
+				startdato: this.state.startdato,
+				sluttdato: this.state.sluttdato
+			});
+		}
+
+		return registrerteFeriedager + nyeFeriedager;
 	}
 
 	render() {
@@ -170,6 +204,15 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				from: u.tidsperiode.startdato,
 				to: u.tidsperiode.sluttdato
 			}));
+
+		const antallFeriedager =
+			this.state.arsak === UtsettelseArsakType.Ferie
+				? this.getAntallFeriedager()
+				: 0;
+
+		const visFerieinfo =
+			forelder &&
+			antallFeriedager > this.props.grunnfordeling.maksFeriedagerEttAr;
 
 		return (
 			<form
@@ -232,7 +275,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						onChange={(value) => this.setState({ forelder: value as Forelder })}
 					/>
 				</div>
-				<div className="blokk-m">
+				<div className="blokk-s">
 					<Row>
 						<Column xs="12" sm="6">
 							<div className="blokk-s">
@@ -275,7 +318,13 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						</Column>
 					</Row>
 				</div>
-
+				{visFerieinfo && (
+					<Ferieinfo
+						feriedager={antallFeriedager}
+						grunnfordeling={this.props.grunnfordeling}
+						forelderNavn={navnForelder1}
+					/>
+				)}
 				<Row>
 					<Column xs="12" sm={utsettelse ? '6' : '12'}>
 						<div className="blokk-xxs">

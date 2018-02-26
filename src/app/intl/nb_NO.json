@@ -22,7 +22,11 @@
 	"utsettelseskjema.sluttdato.sporsmal": "Sluttdato",
 	"utsettelseskjema.knapp.leggtil": "Legg til",
 	"utsettelseskjema.knapp.oppdater": "Oppdater",
-	"utsettelseskjema.knapp.fjern": "Oppdater",
+	"utsettelseskjema.knapp.fjern": "Fjern opphold",
+	"utsettelseskjema.ferievarsel.ulovlig":
+		"[Tekst må lages]: {feriedager} feriedager er registrert for {forelderNavn}. Det er ikke lov å ha mer enn 10 uker opphold i permisjonen på grunn av ferie.",
+	"utsettelseskjema.ferievarsel.kreveroverforing":
+		"[Tekst må lages]: {feriedager} feriedager er registrert for {forelderNavn}. Det er lov med opp til 4 uker ferie som opphold i permisjonen, ferie utover dette vil kreve ...",
 	"skjema.fordeling.reduser.tooltip": "En uke mindre fellesperiode til {navn}",
 	"skjema.fordeling.sporsmal": "Hvordan vil dere dele permisjonen?",
 	"skjema.label.forelder1": "Forelder 1",

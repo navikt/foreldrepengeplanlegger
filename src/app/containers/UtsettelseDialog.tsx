@@ -10,15 +10,16 @@ import {
 	opprettEllerOppdaterUtsettelse,
 	slettUtsettelse
 } from 'app/redux/actions';
-import { Utsettelsesperiode, Tidsperiode } from 'app/types';
+import { Utsettelsesperiode, Tidsperiode, Grunnfordeling } from 'app/types';
 
 interface OwnProps {
 	isOpen: boolean;
 	utsettelser: Utsettelsesperiode[];
 	tidsrom: Tidsperiode;
+	grunnfordeling: Grunnfordeling;
 	utsettelse?: Utsettelsesperiode;
-	navnForelder1?: string;
-	navnForelder2?: string;
+	navnForelder1: string;
+	navnForelder2: string;
 }
 
 type Props = OwnProps & DispatchProps;
@@ -37,6 +38,7 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => {
 						utsettelse={props.utsettelse}
 						navnForelder1={props.navnForelder1}
 						navnForelder2={props.navnForelder2}
+						grunnfordeling={props.grunnfordeling}
 						tidsrom={props.tidsrom}
 						onChange={(utsettelse) =>
 							props.dispatch(opprettEllerOppdaterUtsettelse(utsettelse))

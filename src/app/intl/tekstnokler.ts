@@ -22,7 +22,9 @@ export type UtsettelsesskjemaTekst =
 	| 'utsettelseskjema.sluttdato.sporsmal'
 	| 'utsettelseskjema.knapp.leggtil'
 	| 'utsettelseskjema.knapp.oppdater'
-	| 'utsettelseskjema.knapp.fjern';
+	| 'utsettelseskjema.knapp.fjern'
+	| 'utsettelseskjema.ferievarsel.ulovlig'
+	| 'utsettelseskjema.ferievarsel.kreveroverforing';
 
 export type SkjemaTekst =
 	| 'skjema.label.forelder1'

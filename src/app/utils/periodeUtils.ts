@@ -8,7 +8,8 @@ import {
 	Periodesplitt,
 	Tidsperiode,
 	Forelder,
-	Periodetype
+	Periodetype,
+	UtsettelseArsakType
 } from 'app/types';
 import {
 	getForsteUttaksdagPaEllerForDato,
@@ -383,4 +384,22 @@ export const getSammenhengendePerioder = (
 		idx === -1 ? stonadsperioder.length : periodeIndex + idx;
 
 	return stonadsperioder.slice(forstePeriodeIndex, sistePeriodeIndex);
+};
+
+export const getAntallFeriedagerForForelder = (
+	utsettelser: Utsettelsesperiode[],
+	forelder: Forelder
+): number => {
+	const ferier = utsettelser.filter(
+		(utsettelse) =>
+			utsettelse.arsak === UtsettelseArsakType.Ferie &&
+			utsettelse.forelder === forelder
+	);
+	return ferier.length === 0
+		? 0
+		: ferier.reduce(
+				(dager: number, periode: Utsettelsesperiode) =>
+					dager + getAntallUttaksdagerITidsperiode(periode.tidsperiode),
+				0
+			);
 };

@@ -50,6 +50,10 @@ export class Main extends React.Component<Props> {
 						form.grunnfordeling
 					)
 				: undefined;
+
+		const navnForelder1 = form.navnForelder1 || intlString(intl, 'forelder1');
+		const navnForelder2 = form.navnForelder1 || intlString(intl, 'forelder2');
+
 		return (
 			<div>
 				<div className="introtekst">
@@ -98,12 +102,8 @@ export class Main extends React.Component<Props> {
 						<div className="blokk-m">
 							<Tidslinje
 								innslag={this.props.innslag}
-								navnForelder1={
-									form.navnForelder1 || intlString(intl, 'forelder1')
-								}
-								navnForelder2={
-									form.navnForelder2 || intlString(intl, 'forelder2')
-								}
+								navnForelder1={navnForelder1}
+								navnForelder2={navnForelder1}
 								onRedigerUtsettelse={(u: Utsettelsesperiode) =>
 									dispatch(utsettelseVisDialog(u))
 								}
@@ -120,23 +120,20 @@ export class Main extends React.Component<Props> {
 							fedrekvote={form.grunnfordeling.antallUkerFedrekvote}
 							fellesukerForelder1={form.fellesperiodeukerForelder1}
 							fellesukerForelder2={form.fellesperiodeukerForelder2}
-							navnForelder1={
-								form.navnForelder1 || intlString(intl, 'forelder1')
-							}
-							navnForelder2={
-								form.navnForelder2 || intlString(intl, 'forelder2')
-							}
+							navnForelder1={navnForelder1}
+							navnForelder2={navnForelder1}
 						/>
 					</section>
 				)}
 				{tidsromForUtsettelse && (
 					<UtsettelseDialog
 						isOpen={utsettelse.dialogErApen}
-						navnForelder1={form.navnForelder1}
-						navnForelder2={form.navnForelder2}
+						navnForelder1={navnForelder1}
+						navnForelder2={navnForelder2}
 						utsettelser={utsettelse.utsettelser}
 						utsettelse={utsettelse.valgtUtsettelse}
 						tidsrom={tidsromForUtsettelse}
+						grunnfordeling={form.grunnfordeling}
 					/>
 				)}
 

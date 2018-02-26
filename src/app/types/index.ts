@@ -30,6 +30,10 @@ export interface Grunnfordeling {
 	antallUkerFellesperiode100: number;
 	/** Frist for når en må ta ut siste permisjonsdag */
 	maksPermisjonslengdeIAr: number;
+	/** Maks feriedager i ett år */
+	maksFeriedagerEttAr: number;
+	/** Maks feriedager med overføring fra foregående år og forskudd fra nest år */
+	maksFeriedagerMedOverforing: number;
 }
 
 export interface Periodesplitt {

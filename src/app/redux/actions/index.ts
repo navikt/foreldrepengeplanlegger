@@ -62,15 +62,15 @@ export function utsettelseLukkDialog(): PlanleggerActionTypes {
 		type: PlanleggerActionTypeKeys.UTSETTELSE_LUKK_DIALOG
 	};
 }
-export function ubetaltPermisjonVisDialog(): PlanleggerActionTypes {
+export function ulonnetPermisjonVisDialog(): PlanleggerActionTypes {
 	return {
-		type: PlanleggerActionTypeKeys.UBETALTPERMISJON_VIS_DIALOG
+		type: PlanleggerActionTypeKeys.ULONNETPERMISJON_VIS_DIALOG
 	};
 }
 
-export function ubetaltPermisjonLukkDialog(): PlanleggerActionTypes {
+export function ulonnetPermisjonLukkDialog(): PlanleggerActionTypes {
 	return {
-		type: PlanleggerActionTypeKeys.UBETALTPERMISJON_LUKK_DIALOG
+		type: PlanleggerActionTypeKeys.ULONNETPERMISJON_LUKK_DIALOG
 	};
 }
 

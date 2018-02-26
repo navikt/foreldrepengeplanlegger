@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { addYears } from 'date-fns';
 
 import { Row, Column } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
 
 import DateInput from 'shared/components/dateInput/DateInput';
 import Radioliste from 'shared/components/radioliste/Radioliste';
-
 import {
 	DispatchProps,
 	AppState,
@@ -20,24 +21,23 @@ import {
 	setDekningsgrad,
 	settAntallDagerMor
 } from 'app/redux/actions';
-import Tekst from 'app/tekst';
 import { Dekningsgrad } from 'app/types';
 import FordelingFellesperiodeRange from 'app/components/fordelingFellesperiodeRange/FordelingFellesperiodeRange';
 import Infotekster from 'app/tekst/infotekster';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 import Sporsmal from 'app/elements/sporsmal/Sporsmal';
-import { addYears } from 'date-fns';
+import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 
 export interface StateProps {
 	form: FormState;
 	utsettelse: UtsettelseState;
 }
 
-type Props = StateProps & DispatchProps;
+type Props = StateProps & DispatchProps & InjectedIntlProps;
 
 class Skjema extends React.Component<Props> {
 	render() {
-		const { dispatch, form } = this.props;
+		const { dispatch, intl, form } = this.props;
 
 		return (
 			<div className="planlegger-skjema">
@@ -46,7 +46,7 @@ class Skjema extends React.Component<Props> {
 						<Column xs="6">
 							<Input
 								name="navnforelder1"
-								label={Tekst.skjema.labelForelder1}
+								label={intlString(intl, 'skjema.label.forelder1')}
 								value={form.navnForelder1 || ''}
 								onChange={(e: any) =>
 									dispatch(setNavnForelder1(e.target.value))
@@ -56,7 +56,7 @@ class Skjema extends React.Component<Props> {
 						<Column xs="6">
 							<Input
 								name="navnforelder2"
-								label={Tekst.skjema.labelForelder2}
+								label={intlString(intl, 'skjema.label.forelder1')}
 								value={form.navnForelder2 || ''}
 								onChange={(e: any) =>
 									dispatch(setNavnForelder2(e.target.value))
@@ -71,7 +71,7 @@ class Skjema extends React.Component<Props> {
 						fromDate={addYears(new Date(), -1)}
 						toDate={addYears(new Date(), 2)}
 						selectedDate={form.termindato}
-						label={Tekst.skjema.labelTermindato}
+						label={intlString(intl, 'skjema.label.termindato')}
 						onChange={(dato) => dispatch(setTermindato(new Date(dato)))}
 						disableWeekends={true}
 					/>
@@ -82,16 +82,16 @@ class Skjema extends React.Component<Props> {
 						inputnavn="dekningsgrad"
 						tittel={
 							<Sporsmal
-								info={{ id: Infotekster.sats, label: 'Les mer om sats' }}>
-								{Tekst.skjema.labelDekningsgrad(
-									form.navnForelder2 ? form.navnForelder2 !== '' : false
-								)}
+								info={{
+									id: Infotekster.sats,
+									label: intlString(intl, 'infotekst.sats.alttekst')
+								}}>
+								<IntlTekst id="skjema.label.sats" />
 							</Sporsmal>
 						}
 						beskrivelse={
 							<VeilederinfoContainer id={Infotekster.sats} stil="info">
-								Valget av antall uker gjelder dere begge. Den totale
-								utbetalingen blir høyere ved å velge 100 prosent.
+								<IntlTekst id="skjema.veiledning.sats" />
 							</VeilederinfoContainer>
 						}
 						valgtVerdi={form.dekningsgrad}
@@ -102,15 +102,15 @@ class Skjema extends React.Component<Props> {
 						kolonner="2"
 						valg={[
 							{
-								tittel: Tekst.skjema.labelDekningsgrad80(
-									form.grunnfordeling.antallUkerTotalt80
-								),
+								tittel: intlString(intl, 'skjema.label.sats80', {
+									uker: form.grunnfordeling.antallUkerTotalt80
+								}),
 								verdi: '80%'
 							},
 							{
-								tittel: Tekst.skjema.labelDekningsgrad100(
-									form.grunnfordeling.antallUkerTotalt100
-								),
+								tittel: intlString(intl, 'skjema.label.sats100', {
+									uker: form.grunnfordeling.antallUkerTotalt100
+								}),
 								verdi: '100%'
 							}
 						]}
@@ -122,8 +122,12 @@ class Skjema extends React.Component<Props> {
 					form.termindato && (
 						<div className="blokk-s">
 							<FordelingFellesperiodeRange
-								navnForelder1={form.navnForelder1 || Tekst.forelder1}
-								navnForelder2={form.navnForelder2 || Tekst.forelder2}
+								navnForelder1={
+									form.navnForelder1 || intlString(intl, 'forelder1')
+								}
+								navnForelder2={
+									form.navnForelder2 || intlString(intl, 'forelder2')
+								}
 								ukerFellesperiode={form.ukerFellesperiode}
 								ukerForelder1={form.fellesperiodeukerForelder1}
 								ukerModrekvote={form.grunnfordeling.antallUkerModrekvote}
@@ -145,4 +149,4 @@ const mapStateToProps = (state: AppState): StateProps => {
 	};
 };
 
-export default connect<StateProps, {}>(mapStateToProps)(Skjema);
+export default connect<StateProps, {}>(mapStateToProps)(injectIntl(Skjema));

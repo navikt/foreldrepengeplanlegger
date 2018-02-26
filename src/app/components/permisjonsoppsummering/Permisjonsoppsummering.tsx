@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 import { Element } from 'nav-frontend-typografi';
-import { pluralize } from 'app/utils';
 import { Forelder } from 'app/types';
 
 import './permisjonsoppsummering.less';
+import IntlTekst from 'app/intl/IntlTekst';
 
 export interface Props {
 	navnForelder1: string;
@@ -34,7 +34,7 @@ const Kvote: React.StatelessComponent<KvoteProps> = ({
 			)}>
 			<div className="permisjonsoppsummering__kvote__navn">{navn}</div>
 			<div className="permisjonsoppsummering__kvote__uker">
-				{uker} {pluralize(uker, 'uke', 'uker')}
+				<IntlTekst id="uker" values={{ uker }} />
 			</div>
 		</div>
 	);

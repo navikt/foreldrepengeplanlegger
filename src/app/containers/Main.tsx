@@ -18,13 +18,14 @@ import {
 	utsettelseVisDialog,
 	ulonnetPermisjonVisDialog
 } from 'app/redux/actions';
-import { Utsettelsesperiode } from 'app/types';
+import { Utsettelsesperiode, Tidsperiode } from 'app/types';
 import { Systemtittel } from 'nav-frontend-typografi';
 import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
 import UlonnetPermisjonDialog from 'app/containers/UlonnetPermisjonDialog';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { getTidsromForutsettelse } from 'app/utils/periodeUtils';
 
 export interface StateProps {
 	form: FormState;
@@ -40,7 +41,15 @@ export type Props = StateProps &
 
 export class Main extends React.Component<Props> {
 	render() {
-		const { form } = this.props;
+		const { form, utsettelse, dispatch, intl } = this.props;
+		const tidsromForUtsettelse: Tidsperiode | undefined =
+			form.termindato && form.dekningsgrad
+				? getTidsromForutsettelse(
+						form.termindato,
+						form.dekningsgrad,
+						form.grunnfordeling
+					)
+				: undefined;
 		return (
 			<div>
 				<div className="introtekst">
@@ -66,14 +75,11 @@ export class Main extends React.Component<Props> {
 							</div>
 							<div className="blokk-xxs">
 								<div className="knapperekke">
-									<LeggTilKnapp
-										onClick={() => this.props.dispatch(utsettelseVisDialog())}>
+									<LeggTilKnapp onClick={() => dispatch(utsettelseVisDialog())}>
 										<IntlTekst id="opphold.knapp.leggtil" />
 									</LeggTilKnapp>
 									<LeggTilKnapp
-										onClick={() =>
-											this.props.dispatch(ulonnetPermisjonVisDialog())
-										}>
+										onClick={() => dispatch(ulonnetPermisjonVisDialog())}>
 										<IntlTekst id="opphold.knapp.ulonnetpermisjon" />
 									</LeggTilKnapp>
 								</div>
@@ -93,13 +99,13 @@ export class Main extends React.Component<Props> {
 							<Tidslinje
 								innslag={this.props.innslag}
 								navnForelder1={
-									form.navnForelder1 || intlString(this.props.intl, 'forelder1')
+									form.navnForelder1 || intlString(intl, 'forelder1')
 								}
 								navnForelder2={
-									form.navnForelder2 || intlString(this.props.intl, 'forelder2')
+									form.navnForelder2 || intlString(intl, 'forelder2')
 								}
-								onRedigerUtsettelse={(utsettelse: Utsettelsesperiode) =>
-									this.props.dispatch(utsettelseVisDialog(utsettelse))
+								onRedigerUtsettelse={(u: Utsettelsesperiode) =>
+									dispatch(utsettelseVisDialog(u))
 								}
 							/>
 						</div>
@@ -115,15 +121,25 @@ export class Main extends React.Component<Props> {
 							fellesukerForelder1={form.fellesperiodeukerForelder1}
 							fellesukerForelder2={form.fellesperiodeukerForelder2}
 							navnForelder1={
-								form.navnForelder1 || intlString(this.props.intl, 'forelder1')
+								form.navnForelder1 || intlString(intl, 'forelder1')
 							}
 							navnForelder2={
-								form.navnForelder2 || intlString(this.props.intl, 'forelder2')
+								form.navnForelder2 || intlString(intl, 'forelder2')
 							}
 						/>
 					</section>
 				)}
-				<UtsettelseDialog />
+				{tidsromForUtsettelse && (
+					<UtsettelseDialog
+						isOpen={utsettelse.dialogErApen}
+						navnForelder1={form.navnForelder1}
+						navnForelder2={form.navnForelder2}
+						utsettelser={utsettelse.utsettelser}
+						utsettelse={utsettelse.valgtUtsettelse}
+						tidsrom={tidsromForUtsettelse}
+					/>
+				)}
+
 				<UlonnetPermisjonDialog />
 			</div>
 		);

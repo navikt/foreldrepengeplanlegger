@@ -4,26 +4,24 @@ import { connect } from 'react-redux';
 import Modal from 'nav-frontend-modal';
 
 import UtsettelseSkjema from '../components/utsettelseSkjema/UtsettelseSkjema';
-import { DispatchProps, AppState } from 'app/redux/types';
+import { DispatchProps } from 'app/redux/types';
 import {
 	utsettelseLukkDialog,
 	opprettEllerOppdaterUtsettelse,
 	slettUtsettelse
 } from 'app/redux/actions';
 import { Utsettelsesperiode, Tidsperiode } from 'app/types';
-import Periodeberegner from 'app/utils/Periodeberegner';
-import { getForsteUttaksdagEtterDato } from 'app/utils/uttaksdagerUtils';
 
-interface StateProps {
+interface OwnProps {
 	isOpen: boolean;
 	utsettelser: Utsettelsesperiode[];
 	tidsrom: Tidsperiode;
 	utsettelse?: Utsettelsesperiode;
-	forelder1?: string;
-	forelder2?: string;
+	navnForelder1?: string;
+	navnForelder2?: string;
 }
 
-type Props = StateProps & DispatchProps;
+type Props = OwnProps & DispatchProps;
 
 const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => {
 	return (
@@ -37,8 +35,8 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => {
 					<UtsettelseSkjema
 						registrerteUtsettelser={props.utsettelser}
 						utsettelse={props.utsettelse}
-						forelder1={props.forelder1}
-						forelder2={props.forelder2}
+						navnForelder1={props.navnForelder1}
+						navnForelder2={props.navnForelder2}
 						tidsrom={props.tidsrom}
 						onChange={(utsettelse) =>
 							props.dispatch(opprettEllerOppdaterUtsettelse(utsettelse))
@@ -53,28 +51,4 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => {
 	);
 };
 
-const mapStateToProps = (state: AppState): StateProps => {
-	const periodeberegner = Periodeberegner(
-		state.form.termindato || new Date(),
-		state.form.dekningsgrad || '100%',
-		state.form.fellesperiodeukerForelder1,
-		state.form.fellesperiodeukerForelder2,
-		state.form.grunnfordeling
-	);
-
-	return {
-		utsettelser: state.utsettelse.utsettelser,
-		utsettelse: state.utsettelse.valgtUtsettelse,
-		forelder1: state.form.navnForelder1,
-		forelder2: state.form.navnForelder2,
-		isOpen: state.utsettelse.dialogErApen,
-		tidsrom: {
-			startdato: getForsteUttaksdagEtterDato(
-				periodeberegner.getModrekvotePostTermin().sluttdato
-			),
-			sluttdato: periodeberegner.getSistePermisjonsdag()
-		}
-	};
-};
-
-export default connect(mapStateToProps)(UtsettelseDialog);
+export default connect()(UtsettelseDialog);

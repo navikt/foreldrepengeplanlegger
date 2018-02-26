@@ -19,6 +19,7 @@ import {
 	getAntallUttaksdagerITidsperiode,
 	utsettDatoUttaksdager
 } from './uttaksdagerUtils';
+import Periodeberegner from 'app/utils/Periodeberegner';
 
 /**
  * Sorterer perioder ut fra startdato - asc
@@ -264,6 +265,7 @@ export const leggUtsettelseInnIPeriode = (
 	};
 	return [forste, midt, siste];
 };
+
 /**
  * Forskyver alle perioder ut fra ny startdato
  * @param perioder
@@ -300,6 +302,30 @@ export const flyttTidsperiode = (
 	return {
 		startdato,
 		sluttdato: leggUttaksdagerTilDato(startdato, uttaksdager - 1)
+	};
+};
+
+/**
+ * Henter ut gyldig tidsrom å legge inn en utsettelse
+ */
+export const getTidsromForutsettelse = (
+	termindato: Date,
+	dekningsgrad: Dekningsgrad,
+	grunnfordeling: Grunnfordeling
+): Tidsperiode => {
+	const periodeberegner = Periodeberegner(
+		termindato,
+		dekningsgrad,
+		0,
+		0,
+		grunnfordeling
+	);
+
+	return {
+		startdato: getForsteUttaksdagEtterDato(
+			periodeberegner.getPakrevdModrekvotePostTermin().sluttdato
+		),
+		sluttdato: periodeberegner.getSistePermisjonsdag()
 	};
 };
 

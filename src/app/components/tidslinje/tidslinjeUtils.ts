@@ -122,8 +122,8 @@ export const getStondskontoTekstKey = (konto: StonadskontoType) => {
 export const getArsakTekstKey = (arsak: UtsettelseArsakType) => {
 	switch (arsak) {
 		case UtsettelseArsakType.Arbeid:
-			return 'utsettelse.arbeid';
+			return 'opphold.arsak.arbeid';
 		default:
-			return 'utsettelse.ferie';
+			return 'opphold.arsak.ferie';
 	}
 };

@@ -16,15 +16,15 @@ import UtsettelseDialog from 'app/containers/UtsettelseDialog';
 import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
 import {
 	utsettelseVisDialog,
-	ubetaltPermisjonVisDialog
+	ulonnetPermisjonVisDialog
 } from 'app/redux/actions';
 import { Utsettelsesperiode } from 'app/types';
 import { Systemtittel } from 'nav-frontend-typografi';
 import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
-import Tekst from 'app/tekst';
-import UbetaltPermisjonDialog from 'app/containers/UbetaltPermisjonDialog';
-import IntlTekst from 'app/intl/IntlTekst';
+import UlonnetPermisjonDialog from 'app/containers/UlonnetPermisjonDialog';
+import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 export interface StateProps {
 	form: FormState;
@@ -33,7 +33,10 @@ export interface StateProps {
 	visTidslinjeOgUtsettelse: boolean;
 }
 
-export type Props = StateProps & RouteComponentProps<{}> & DispatchProps;
+export type Props = StateProps &
+	RouteComponentProps<{}> &
+	DispatchProps &
+	InjectedIntlProps;
 
 export class Main extends React.Component<Props> {
 	render() {
@@ -47,7 +50,9 @@ export class Main extends React.Component<Props> {
 				</div>
 
 				<section>
-					<h2 className="sr-only">Fyll ut skjema og se din permisjonsplan</h2>
+					<h2 className="sr-only">
+						<IntlTekst id="skjermleser.skjema.tittel" />
+					</h2>
 					<div className="blokk-m no-print">
 						<Skjema />
 					</div>
@@ -55,19 +60,21 @@ export class Main extends React.Component<Props> {
 					{this.props.visTidslinjeOgUtsettelse && (
 						<div className="no-print blokk-l">
 							<div className="blokk-xs">
-								<Element>Ubetalt permisjon</Element>
+								<Element>
+									<IntlTekst id="opphold.tittel" />
+								</Element>
 							</div>
 							<div className="blokk-xxs">
 								<div className="knapperekke">
 									<LeggTilKnapp
 										onClick={() => this.props.dispatch(utsettelseVisDialog())}>
-										Legg til ferie eller arbeid
+										<IntlTekst id="opphold.knapp.leggtil" />
 									</LeggTilKnapp>
 									<LeggTilKnapp
 										onClick={() =>
-											this.props.dispatch(ubetaltPermisjonVisDialog())
+											this.props.dispatch(ulonnetPermisjonVisDialog())
 										}>
-										Legg til ulønnet permisjon
+										<IntlTekst id="opphold.knapp.ulonnetpermisjon" />
 									</LeggTilKnapp>
 								</div>
 							</div>
@@ -78,19 +85,27 @@ export class Main extends React.Component<Props> {
 				{this.props.visTidslinjeOgUtsettelse && (
 					<section className="tidsplan">
 						<div className="blokk-m">
-							<Systemtittel>Planen deres</Systemtittel>
+							<Systemtittel>
+								<IntlTekst id="tidslinje.tittel" />
+							</Systemtittel>
 						</div>
 						<div className="blokk-m">
 							<Tidslinje
 								innslag={this.props.innslag}
-								navnForelder1={form.navnForelder1 || Tekst.forelder1}
-								navnForelder2={form.navnForelder2 || Tekst.forelder2}
+								navnForelder1={
+									form.navnForelder1 || intlString(this.props.intl, 'forelder1')
+								}
+								navnForelder2={
+									form.navnForelder2 || intlString(this.props.intl, 'forelder2')
+								}
 								onRedigerUtsettelse={(utsettelse: Utsettelsesperiode) =>
 									this.props.dispatch(utsettelseVisDialog(utsettelse))
 								}
 							/>
 						</div>
-						<h3 className="sr-only">Fordeling av permisjon oppsummert</h3>
+						<h3 className="sr-only">
+							<IntlTekst id="skjermleser.tidslinje.oppsummering.tittel" />
+						</h3>
 						<Permisjonsoppsummering
 							foreldrepengerMor={
 								form.grunnfordeling.antallUkerForelder1ForFodsel
@@ -99,13 +114,17 @@ export class Main extends React.Component<Props> {
 							fedrekvote={form.grunnfordeling.antallUkerFedrekvote}
 							fellesukerForelder1={form.fellesperiodeukerForelder1}
 							fellesukerForelder2={form.fellesperiodeukerForelder2}
-							navnForelder1={form.navnForelder1 || Tekst.forelder1}
-							navnForelder2={form.navnForelder2 || Tekst.forelder2}
+							navnForelder1={
+								form.navnForelder1 || intlString(this.props.intl, 'forelder1')
+							}
+							navnForelder2={
+								form.navnForelder2 || intlString(this.props.intl, 'forelder2')
+							}
 						/>
 					</section>
 				)}
 				<UtsettelseDialog />
-				<UbetaltPermisjonDialog />
+				<UlonnetPermisjonDialog />
 			</div>
 		);
 	}
@@ -125,4 +144,4 @@ const mapStateToProps = (state: AppState): StateProps => {
 	};
 };
 
-export default connect(mapStateToProps)(withRouter(Main));
+export default connect(mapStateToProps)(withRouter(injectIntl(Main)));

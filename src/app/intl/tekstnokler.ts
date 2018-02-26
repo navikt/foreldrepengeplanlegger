@@ -24,10 +24,20 @@ export type UtsettelsesskjemaTekst =
 	| 'utsettelseskjema.knapp.fjern';
 
 export type SkjemaTekst =
+	| 'skjema.label.forelder1'
+	| 'skjema.label.forelder2'
+	| 'skjema.label.termindato'
+	| 'skjema.label.sats'
+	| 'skjema.label.sats80'
+	| 'skjema.label.sats100'
+	| 'skjema.veiledning.sats'
+	| 'skjema.label.sats80'
+	| 'skjema.label.sats100'
 	| 'skjema.fordeling.sporsmal'
 	| 'skjema.fordeling.reduser.tooltip';
 
 export type Tidslinje =
+	| 'tidslinje.tittel'
 	| 'tidslinje.periodeinfo.konto.uker'
 	| 'tidslinje.periodeinfo.starterpermisjon.enkel'
 	| 'tidslinje.periodeinfo.starterpermisjon.detaljert'
@@ -44,7 +54,25 @@ export type Stonadkontotyper =
 	| 'stonadskonto.fellesperiode'
 	| 'stonadskonto.foreldrepenger';
 
-export type Utsettelsearsaker = 'utsettelse.ferie' | 'utsettelse.arbeid';
+export type OppholdTekst =
+	| 'opphold.arsak.ferie'
+	| 'opphold.arsak.arbeid'
+	| 'opphold.tittel'
+	| 'opphold.knapp.leggtil'
+	| 'opphold.knapp.ulonnetpermisjon';
+
+export type SkjulteTekster =
+	| 'skjermleser.skjema.tittel'
+	| 'skjermleser.tidslinje.oppsummering.tittel';
+
+export type Infotekster = 'infotekst.sats.alttekst';
+
+export type UlonnetPermisjonDialog =
+	| 'dialog.ulonnetpermisjon.tittel'
+	| 'dialog.ulonnetpermisjon.innhold1'
+	| 'dialog.ulonnetpermisjon.innhold2'
+	| 'dialog.ulonnetpermisjon.navlenke.tekst'
+	| 'dialog.ulonnetpermisjon.navlenke.alttekst';
 
 export type AppTekster =
 	| UtsettelsesskjemaTekst
@@ -53,4 +81,7 @@ export type AppTekster =
 	| Tidslinje
 	| StonadskontoType
 	| Stonadkontotyper
-	| Utsettelsearsaker;
+	| OppholdTekst
+	| SkjulteTekster
+	| Infotekster
+	| UlonnetPermisjonDialog;

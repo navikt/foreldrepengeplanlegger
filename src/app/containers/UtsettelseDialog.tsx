@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import Modal from 'nav-frontend-modal';
 
-import UtsettelseSkjema from '../components/utsettelseSkjema/UtsettelseSkjema';
 import { DispatchProps } from 'app/redux/types';
 import {
 	utsettelseLukkDialog,
@@ -11,6 +10,7 @@ import {
 	slettUtsettelse
 } from 'app/redux/actions';
 import { Utsettelsesperiode, Tidsperiode, Permisjonsregler } from 'app/types';
+import UtsettelseSkjema from 'app/components/utsettelseSkjema/UtsettelseSkjema';
 
 interface OwnProps {
 	isOpen: boolean;

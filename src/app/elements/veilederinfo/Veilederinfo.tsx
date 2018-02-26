@@ -1,10 +1,9 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 
-import UtvidetInformasjon from 'app/components/utvidetInformasjon/UtvidetInformasjon';
-import Veileder from 'app/components/veileder/Veileder';
-
 import './veilederinfo.less';
+import Veileder from 'app/elements/veileder/Veileder';
+import UtvidetInformasjon from 'app/elements/utvidetInformasjon/UtvidetInformasjon';
 
 export interface VeilederInfoProps {
 	utvidetInfo?: React.ReactNode;

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Permisjonsregler } from 'app/types';
 import Alertstripe from 'nav-frontend-alertstriper';
+
+import { Permisjonsregler } from 'app/types';
 import IntlTekst from 'app/intl/IntlTekst';
 
 export interface Props {

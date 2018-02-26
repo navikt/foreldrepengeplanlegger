@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 import Modal from 'nav-frontend-modal';
 import Lenke from 'nav-frontend-lenker';
@@ -7,7 +8,6 @@ import Lenke from 'nav-frontend-lenker';
 import { DispatchProps, AppState } from 'app/redux/types';
 import { ulonnetPermisjonLukkDialog } from 'app/redux/actions';
 import EksterneLenker from 'app/eksterneLenker';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 
 interface StateProps {

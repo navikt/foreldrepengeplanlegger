@@ -4,7 +4,7 @@ import { Collapse } from 'react-collapse';
 import { AppState } from 'app/redux/types';
 import Veilederinfo, {
 	VeilederInfoProps
-} from 'app/components/veilederinfo/Veilederinfo';
+} from 'app/elements/veilederinfo/Veilederinfo';
 
 export interface StateProps {
 	isOpen: boolean;

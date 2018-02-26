@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-
-import RangeInput from 'app/components/rangeInput/RangeInput';
 import Sporsmal from 'app/elements/sporsmal/Sporsmal';
 import { intlString } from 'app/intl/IntlTekst';
-
-import FordelingFellesperiodeLabelRenderer from './FordelingFellesperiodeLabelRenderer';
+import RangeInput from 'app/elements/rangeInput/RangeInput';
+import FordelingFellesperiodeLabelRenderer from 'app/components/skjema/FordelingFellesperiodeLabelRenderer';
 
 export interface OwnProps {
 	navnForelder1: string;
@@ -18,7 +16,7 @@ export interface OwnProps {
 	onChange: (dager: number) => void;
 }
 
-const FordelingFellesperiodeRange: React.StatelessComponent<
+const FordelingFellesperiode: React.StatelessComponent<
 	OwnProps & InjectedIntlProps
 > = ({
 	navnForelder1,
@@ -62,4 +60,4 @@ const FordelingFellesperiodeRange: React.StatelessComponent<
 	/>
 );
 
-export default injectIntl(FordelingFellesperiodeRange);
+export default injectIntl(FordelingFellesperiode);

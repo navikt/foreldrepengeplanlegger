@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { RangeInputValueLabelRendererOptions } from 'app/components/rangeInput/RangeInput';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 import Infotekster from 'app/tekst/infotekster';
 import IntlTekst from 'app/intl/IntlTekst';
+import { RangeInputValueLabelRendererOptions } from 'app/elements/rangeInput/RangeInput';
 
 export interface Props {
 	options: RangeInputValueLabelRendererOptions;

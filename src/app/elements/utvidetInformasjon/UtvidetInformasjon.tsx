@@ -3,10 +3,11 @@ import * as classnames from 'classnames';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { Collapse } from 'react-collapse';
 import { guid } from 'nav-frontend-js-utils';
-import InfoToggler from 'app/components/utvidetInformasjon/InfoToggler';
+
+import { intlString } from 'app/intl/IntlTekst';
+import InfoToggler from 'app/elements/utvidetInformasjon/InfoToggler';
 
 import './utvidetInformasjon.less';
-import { intlString } from 'app/intl/IntlTekst';
 
 interface OwnProps {
 	children: React.ReactNode;

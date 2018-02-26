@@ -1,10 +1,11 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 import { Element } from 'nav-frontend-typografi';
+
 import { Forelder } from 'app/types';
+import IntlTekst from 'app/intl/IntlTekst';
 
 import './permisjonsoppsummering.less';
-import IntlTekst from 'app/intl/IntlTekst';
 
 export interface Props {
 	navnForelder1: string;

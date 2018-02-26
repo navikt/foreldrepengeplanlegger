@@ -7,7 +7,6 @@ import { Row, Column } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
 
 import DateInput from 'shared/components/dateInput/DateInput';
-import Radioliste from 'shared/components/radioliste/Radioliste';
 import {
 	DispatchProps,
 	AppState,
@@ -21,12 +20,9 @@ import {
 	setDekningsgrad,
 	settAntallDagerMor
 } from 'app/redux/actions';
-import { Dekningsgrad } from 'app/types';
-import FordelingFellesperiodeRange from 'app/components/fordelingFellesperiodeRange/FordelingFellesperiodeRange';
-import Infotekster from 'app/tekst/infotekster';
-import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
-import Sporsmal from 'app/elements/sporsmal/Sporsmal';
-import IntlTekst, { intlString } from 'app/intl/IntlTekst';
+import { intlString } from 'app/intl/IntlTekst';
+import SkjemaDekningsgrad from 'app/components/skjema//SkjemaDekningsgrad';
+import SkjemaFordelingFellesperiode from 'app/components/skjema/SkjemaFordelingFellesperiode';
 
 export interface StateProps {
 	form: FormState;
@@ -56,7 +52,7 @@ class Skjema extends React.Component<Props> {
 						<Column xs="6">
 							<Input
 								name="navnforelder2"
-								label={intlString(intl, 'skjema.label.forelder1')}
+								label={intlString(intl, 'skjema.label.forelder2')}
 								value={form.navnForelder2 || ''}
 								onChange={(e: any) =>
 									dispatch(setNavnForelder2(e.target.value))
@@ -78,42 +74,11 @@ class Skjema extends React.Component<Props> {
 				</div>
 
 				<div className="blokk-m">
-					<Radioliste
-						inputnavn="dekningsgrad"
-						tittel={
-							<Sporsmal
-								info={{
-									id: Infotekster.sats,
-									label: intlString(intl, 'skjema.veiledning.sats.alttekst')
-								}}>
-								<IntlTekst id="skjema.label.sats" />
-							</Sporsmal>
-						}
-						beskrivelse={
-							<VeilederinfoContainer id={Infotekster.sats} stil="info">
-								<IntlTekst id="skjema.veiledning.sats" />
-							</VeilederinfoContainer>
-						}
-						valgtVerdi={form.dekningsgrad}
-						onChange={(value) =>
-							dispatch(setDekningsgrad(value as Dekningsgrad))
-						}
-						stil="ekstern"
-						kolonner="2"
-						valg={[
-							{
-								tittel: intlString(intl, 'skjema.label.sats80', {
-									uker: form.permisjonsregler.antallUkerTotalt80
-								}),
-								verdi: '80%'
-							},
-							{
-								tittel: intlString(intl, 'skjema.label.sats100', {
-									uker: form.permisjonsregler.antallUkerTotalt100
-								}),
-								verdi: '100%'
-							}
-						]}
+					<SkjemaDekningsgrad
+						dekningsgrad={form.dekningsgrad}
+						antallUkerTotalt80={form.permisjonsregler.antallUkerTotalt100}
+						antallUkerTotalt100={form.permisjonsregler.antallUkerTotalt100}
+						onChange={(dekningsgrad) => dispatch(setDekningsgrad(dekningsgrad))}
 					/>
 				</div>
 
@@ -121,7 +86,7 @@ class Skjema extends React.Component<Props> {
 					form.dekningsgrad &&
 					form.termindato && (
 						<div className="blokk-s">
-							<FordelingFellesperiodeRange
+							<SkjemaFordelingFellesperiode
 								navnForelder1={
 									form.navnForelder1 || intlString(intl, 'forelder1')
 								}

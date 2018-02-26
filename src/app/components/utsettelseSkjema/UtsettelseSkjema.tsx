@@ -1,5 +1,9 @@
 import * as React from 'react';
 import { FormEvent } from 'react';
+import { Collapse } from 'react-collapse';
+import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Row, Column } from 'nav-frontend-grid';
 import {
 	UtsettelseArsakType,
 	Utsettelsesperiode,
@@ -9,20 +13,16 @@ import {
 	Permisjonsregler
 } from 'app/types';
 import DateInput, { Range } from 'shared/components/dateInput/DateInput';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import Radioliste from 'shared/components/radioliste/Radioliste';
-import { Row, Column } from 'nav-frontend-grid';
 import { erGyldigDato } from 'app/utils';
 import { isBefore, isSameDay, isAfter } from 'date-fns';
-
-import './utsettelseSkjema.less';
-import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
-import { Collapse } from 'react-collapse';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
-import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
 import Ferieinfo from 'app/components/utsettelseSkjema/Ferieinfo';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 import { getAntallFeriedagerForForelder } from 'app/utils/permisjonUtils';
+import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
+
+import './utsettelseSkjema.less';
 
 interface OwnProps {
 	tidsrom: Tidsperiode;

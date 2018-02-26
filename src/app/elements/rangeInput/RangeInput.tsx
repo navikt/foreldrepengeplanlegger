@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 import { guid } from 'nav-frontend-js-utils';
-import RangeStepper from 'app/components/rangeInput/RangeStepper';
-import SkjemaInputElement from 'app/components/skjemaInputElement/SkjemaInputElement';
 
 import './rangeInput.less';
+import SkjemaInputElement from 'app/elements/skjemaInputElement/SkjemaInputElement';
+import RangeStepper from 'app/elements/rangeInput/RangeStepper';
 
 export interface RangeInputValueLabelRendererOptions {
 	value: number;

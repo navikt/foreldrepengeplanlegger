@@ -36,6 +36,8 @@
 		"{navn} fortsetter sin permisjon",
 	"tidslinje.periodeinfo.fortsettelse.avslutter":
 		"{navn} avslutter sin permisjon",
+	"tidslinje.hendelse.termin": "Termin",
+	"tidslinje.hendelse.sistepermisjonsdag": "Siste permisjonsdag",
 	"utsettelse.ferie": "ferie",
 	"utsettelse.arbeid": "arbeid"
 }

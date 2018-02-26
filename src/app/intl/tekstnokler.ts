@@ -4,7 +4,9 @@ export type GenerellTekst =
 	| 'applikasjonstittel'
 	| 'forelder1'
 	| 'forelder2'
-	| 'tittel.introtekst';
+	| 'tittel.introtekst'
+	| 'utvidetinfo.lukk'
+	| 'utvidetinfo.lesmer';
 
 export type UtsettelsesskjemaTekst =
 	| 'utsettelseskjema.tittel'
@@ -31,7 +33,9 @@ export type Tidslinje =
 	| 'tidslinje.periodeinfo.starterpermisjon.detaljert'
 	| 'tidslinje.utsettelse'
 	| 'tidslinje.periodeinfo.fortsettelse.fortsetter'
-	| 'tidslinje.periodeinfo.fortsettelse.avslutter';
+	| 'tidslinje.periodeinfo.fortsettelse.avslutter'
+	| 'tidslinje.hendelse.termin'
+	| 'tidslinje.hendelse.sistepermisjonsdag';
 
 export type Stonadkontotyper =
 	| 'stonadskonto.modrekvote'

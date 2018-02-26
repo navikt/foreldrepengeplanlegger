@@ -4,7 +4,7 @@ import {
 	Tidslinjeinnslag,
 	TidslinjeinnslagType
 } from 'app/components/tidslinje/types';
-import { getPerioderForTidslinje } from './periodeSelector';
+import { getStonadsperioderOgUtsettelser } from './periodeSelector';
 import { isSameDay } from 'date-fns';
 import { Periode, Periodetype } from 'app/types';
 import { getSammenhengendePerioder } from 'app/utils/periodeUtils';
@@ -12,7 +12,7 @@ import { getSammenhengendePerioder } from 'app/utils/periodeUtils';
 const formSelector = (state: AppState) => state.form;
 
 export const tidslinjeFraPerioder = createSelector(
-	getPerioderForTidslinje,
+	getStonadsperioderOgUtsettelser,
 	formSelector,
 	(perioder, form): Tidslinjeinnslag[] => {
 		const { dekningsgrad, termindato } = form;

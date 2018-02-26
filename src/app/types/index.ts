@@ -17,11 +17,11 @@ export interface Permisjonsregler {
 	/** Totalt antall uker ved 100% */
 	antallUkerTotalt100: number;
 	/** Antall uker som er forbeholdt mor før fødsel */
-	antallUkerForelder1ForFodsel: number;
+	antallUkerForelder1FørFødsel: number;
 	/** Antall uker som er forbeholdt mor etter fødsel */
-	antallUkerForelder1EtterFodsel: number;
+	antallUkerForelder1EtterFødsel: number;
 	/** Mødrekvote */
-	antallUkerModrekvote: number;
+	antallUkerMødrekvote: number;
 	/** Fedrekvote */
 	antallUkerFedrekvote: number;
 	/** Antall uker som kan fordeles ved 80% */
@@ -29,11 +29,11 @@ export interface Permisjonsregler {
 	/** Antall uker som kan fordeles ved 100% */
 	antallUkerFellesperiode100: number;
 	/** Frist for når en må ta ut siste permisjonsdag */
-	maksPermisjonslengdeIAr: number;
+	maksPermisjonslengdeIÅr: number;
 	/** Maks feriedager i ett år */
-	maksFeriedagerEttAr: number;
+	maksFeriedagerEttÅr: number;
 	/** Maks feriedager med overføring fra foregående år og forskudd fra nest år */
-	maksFeriedagerMedOverforing: number;
+	maksFeriedagerMedOverføring: number;
 }
 
 export interface Periodesplitt {

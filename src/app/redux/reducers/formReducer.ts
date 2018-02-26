@@ -4,9 +4,9 @@ import {
 } from 'app/redux/actions/actionTypes';
 import { getPermisjonsregler } from 'app/data/permisjonsregler';
 import { FormState } from '../types';
-import { getAntallUkerFellesperiode } from 'app/utils/periodeUtils';
 import { normaliserDato } from 'app/utils';
 import { FellesperiodeFordeling, Dekningsgrad } from 'app/types';
+import { getAntallUkerFellesperiode } from 'app/utils/permisjonUtils';
 
 const getDefaultState = (dato: Date, dekningsgrad: Dekningsgrad): FormState => {
 	const permisjonsregler = getPermisjonsregler(dato);

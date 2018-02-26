@@ -14,10 +14,10 @@ const Ferieinfo: React.StatelessComponent<Props> = ({
 	permisjonsregler,
 	forelderNavn
 }) => {
-	if (feriedager <= permisjonsregler.maksFeriedagerEttAr) {
+	if (feriedager <= permisjonsregler.maksFeriedagerEttÅr) {
 		return null;
 	}
-	if (feriedager > permisjonsregler.maksFeriedagerMedOverforing) {
+	if (feriedager > permisjonsregler.maksFeriedagerMedOverføring) {
 		return (
 			<div className="blokkPad-m">
 				<Alertstripe type="advarsel">
@@ -28,7 +28,7 @@ const Ferieinfo: React.StatelessComponent<Props> = ({
 				</Alertstripe>
 			</div>
 		);
-	} else if (feriedager > permisjonsregler.maksFeriedagerEttAr) {
+	} else if (feriedager > permisjonsregler.maksFeriedagerEttÅr) {
 		return (
 			<div className="blokkPad-m">
 				<Alertstripe type="info">

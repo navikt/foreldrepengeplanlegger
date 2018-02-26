@@ -1,5 +1,5 @@
 import { addDays, getISODay } from 'date-fns';
-import { Tidsperiode } from 'app/types';
+import { Tidsperiode, Periodetype, Periode } from 'app/types';
 
 export const getUkedag = (dato: Date) => getISODay(dato);
 
@@ -52,7 +52,20 @@ export const getForsteUttaksdagPaEllerEtterDato = (dato: Date): Date => {
 };
 
 /**
- * Finner antall dager i tidsperioden som er uttaksdager
+ * Summerer antall uttaksdager som er i periodene
+ * @param perioder
+ */
+export const getAntallUttaksdagerIPerioder = (perioder: Periode[]): number => {
+	return perioder.reduce((dager: number, periode: Periode) => {
+		if (periode.type !== Periodetype.Utsettelse) {
+			return dager + getAntallUttaksdagerITidsperiode(periode.tidsperiode);
+		}
+		return dager;
+	}, 0);
+};
+
+/**
+ * Summerer antall uttaksdager i angitt tidsperiode
  */
 export const getAntallUttaksdagerITidsperiode = (
 	tidsperiode: Tidsperiode

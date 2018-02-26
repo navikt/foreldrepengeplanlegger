@@ -6,13 +6,13 @@ const reglerTomJuni: Permisjonsregler = {
 	antallUkerFellesperiode100: 26,
 	antallUkerTotalt80: 59,
 	antallUkerFellesperiode80: 36,
-	antallUkerForelder1ForFodsel: 3,
-	antallUkerForelder1EtterFodsel: 6,
+	antallUkerForelder1FørFødsel: 3,
+	antallUkerForelder1EtterFødsel: 6,
 	antallUkerFedrekvote: 10,
-	antallUkerModrekvote: 10,
-	maksPermisjonslengdeIAr: 3,
-	maksFeriedagerEttAr: 20,
-	maksFeriedagerMedOverforing: 50
+	antallUkerMødrekvote: 10,
+	maksPermisjonslengdeIÅr: 3,
+	maksFeriedagerEttÅr: 20,
+	maksFeriedagerMedOverføring: 50
 };
 
 const reglerFomJuli2018: Permisjonsregler = {
@@ -20,13 +20,13 @@ const reglerFomJuli2018: Permisjonsregler = {
 	antallUkerFellesperiode100: 18,
 	antallUkerTotalt80: 59,
 	antallUkerFellesperiode80: 28,
-	antallUkerForelder1ForFodsel: 3,
-	antallUkerForelder1EtterFodsel: 6,
+	antallUkerForelder1FørFødsel: 3,
+	antallUkerForelder1EtterFødsel: 6,
 	antallUkerFedrekvote: 14,
-	antallUkerModrekvote: 14,
-	maksPermisjonslengdeIAr: 3,
-	maksFeriedagerEttAr: 20,
-	maksFeriedagerMedOverforing: 50
+	antallUkerMødrekvote: 14,
+	maksPermisjonslengdeIÅr: 3,
+	maksFeriedagerEttÅr: 20,
+	maksFeriedagerMedOverføring: 50
 };
 
 export const getPermisjonsregler = (termindato: Date): Permisjonsregler =>

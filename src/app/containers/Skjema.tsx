@@ -130,10 +130,10 @@ class Skjema extends React.Component<Props> {
 								}
 								ukerFellesperiode={form.ukerFellesperiode}
 								ukerForelder1={form.fellesperiodeukerForelder1}
-								ukerModrekvote={form.permisjonsregler.antallUkerModrekvote}
+								ukerModrekvote={form.permisjonsregler.antallUkerMødrekvote}
 								ukerFedrekvote={form.permisjonsregler.antallUkerFedrekvote}
 								ukerForTermin={
-									form.permisjonsregler.antallUkerForelder1ForFodsel
+									form.permisjonsregler.antallUkerForelder1FørFødsel
 								}
 								onChange={(uker) => dispatch(settAntallDagerMor(uker))}
 							/>

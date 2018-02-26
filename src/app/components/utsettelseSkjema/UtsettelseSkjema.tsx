@@ -20,9 +20,9 @@ import Veilederinfo from 'app/components/veilederinfo/Veilederinfo';
 import { Collapse } from 'react-collapse';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
-import { getAntallFeriedagerForForelder } from 'app/utils/periodeUtils';
 import Ferieinfo from 'app/components/utsettelseSkjema/Ferieinfo';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
+import { getAntallFeriedagerForForelder } from 'app/utils/permisjonUtils';
 
 interface OwnProps {
 	tidsrom: Tidsperiode;
@@ -134,7 +134,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			if (
 				this.state.arsak === UtsettelseArsakType.Ferie &&
 				this.getAntallFeriedager() >
-					this.props.permisjonsregler.maksFeriedagerMedOverforing
+					this.props.permisjonsregler.maksFeriedagerMedOverføring
 			) {
 				return undefined;
 			}
@@ -212,7 +212,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 
 		const visFerieinfo =
 			forelder &&
-			antallFeriedager > this.props.permisjonsregler.maksFeriedagerEttAr;
+			antallFeriedager > this.props.permisjonsregler.maksFeriedagerEttÅr;
 
 		return (
 			<form

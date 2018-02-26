@@ -1,4 +1,3 @@
-import Periodeberegner from 'app/utils/Periodeberegner';
 import { getPermisjonsregler } from 'app/data/permisjonsregler';
 import {
 	Utsettelsesperiode,
@@ -10,6 +9,7 @@ import { tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import { FormState } from 'app/redux/types';
 import { oppsummerPerioder } from 'app/components/tidslinje/tidslinjeUtils';
 import { InnslagPeriodetype } from 'app/components/tidslinje/types';
+import { opprettStønadsperioder } from 'app/utils/permisjonUtils';
 
 const datoer = {
 	termin: new Date(2018, 1, 14),
@@ -50,14 +50,13 @@ const formState: FormState = {
 };
 
 describe('tidslinjeUtils', () => {
-	const periodeberegner = Periodeberegner(
+	const stonadsperioder = opprettStønadsperioder(
 		datoer.termin,
 		'100%',
 		13,
 		13,
 		permisjonsregler
 	);
-	const stonadsperioder = periodeberegner.opprettStonadsperioder();
 	const innslagUtenUtsettelse = tidslinjeFraPerioder.resultFunc(
 		stonadsperioder,
 		formState

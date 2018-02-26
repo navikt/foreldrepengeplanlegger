@@ -1,15 +1,11 @@
 import { addDays, isWithinRange, isSameDay } from 'date-fns';
 import {
-	Permisjonsregler,
-	Dekningsgrad,
 	Periode,
 	Stonadsperiode,
 	Utsettelsesperiode,
 	Periodesplitt,
 	Tidsperiode,
-	Forelder,
-	Periodetype,
-	UtsettelseArsakType
+	Periodetype
 } from 'app/types';
 import {
 	getForsteUttaksdagPaEllerForDato,
@@ -20,38 +16,35 @@ import {
 	getAntallUttaksdagerITidsperiode,
 	utsettDatoUttaksdager
 } from './uttaksdagerUtils';
-import Periodeberegner from 'app/utils/Periodeberegner';
 
 /**
  * Sorterer perioder ut fra startdato - asc
  * @param p1
  * @param p2
  */
-export const sorterPerioder = (p1: Periode, p2: Periode) => {
+export function sorterPerioder(p1: Periode, p2: Periode) {
 	return p1.tidsperiode.startdato >= p2.tidsperiode.startdato ? 1 : -1;
-};
-
-export const getUtsettelsesperioder = (
-	perioder: Periode[]
-): Utsettelsesperiode[] =>
-	perioder.filter(
-		(periode) => periode.type === Periodetype.Utsettelse
-	) as Utsettelsesperiode[];
-
-export const getStonadsperioder = (perioder: Periode[]): Stonadsperiode[] =>
-	perioder.filter(
-		(periode) => periode.type === Periodetype.Stonadsperiode
-	) as Stonadsperiode[];
+}
 
 /**
- * Finner periode som inneholder dato
+ * Returnerer perioder som er stønadperioder
  * @param perioder
- * @param dato
  */
-export const finnPeriode = (
+export function getStonadsperioder(perioder: Periode[]): Stonadsperiode[] {
+	return perioder.filter(
+		(periode) => periode.type === Periodetype.Stonadsperiode
+	) as Stonadsperiode[];
+}
+
+/**
+ * Finner periode som inneholder angitt dato
+ * @param perioder
+ * @param dato dato som periode skal inneholde
+ */
+export function finnPeriodeMedDato(
 	perioder: Periode[],
 	dato: Date
-): Periode | undefined => {
+): Periode | undefined {
 	return perioder.find((periode) => {
 		return isWithinRange(
 			dato,
@@ -59,76 +52,58 @@ export const finnPeriode = (
 			periode.tidsperiode.sluttdato
 		);
 	});
-};
+}
 
 /**
- * Returnerer perioder før og etter en gitt periode
- * @param perioder
- * @param periode
+ * Henter tidsperioden hvor en forelder har sammenhengende permisjon, uavhengig av utsettelser,
+ * med start i en periode som er i periodelisten
  */
-const hentPerioderForOgEtterPeriode = (
-	perioder: Periode[],
-	periode: Periode
-): Periodesplitt => {
-	const arr: Periode[] = [...perioder];
-	const index = arr.findIndex((p) => p === periode);
-	const perioderEtter = arr.splice(index + 1);
-	const perioderFor: Periode[] = [...arr.slice(0, index)];
-	return {
-		perioderFor,
-		perioderEtter
-	};
-};
-
-/**
- * Finner antall uker for fellesperiode ut fra dekningsgrad
- * @param permisjonsregler
- * @param dekningsgrad
- */
-export const getAntallUkerFellesperiode = (
-	permisjonsregler: Permisjonsregler,
-	dekningsgrad?: Dekningsgrad
-) => {
-	const totaltAntallUker =
-		dekningsgrad === '80%'
-			? permisjonsregler.antallUkerTotalt80
-			: permisjonsregler.antallUkerTotalt100;
-	return (
-		totaltAntallUker -
-		permisjonsregler.antallUkerModrekvote -
-		permisjonsregler.antallUkerFedrekvote -
-		permisjonsregler.antallUkerForelder1ForFodsel
-	);
-};
-
-export const getAntallUttaksdagerIPerioder = (perioder: Periode[]): number => {
-	return perioder.reduce((dager: number, periode: Periode) => {
-		if (periode.type !== Periodetype.Utsettelse) {
-			return dager + getAntallUttaksdagerITidsperiode(periode.tidsperiode);
+export function getSammenhengendePerioder(
+	periode: Periode,
+	perioder: Periode[]
+): Periode[] {
+	const stonadsperioder = getStonadsperioder(perioder);
+	const periodeIndex = stonadsperioder.findIndex((p) => p === periode);
+	let forstePeriodeIndex = periodeIndex; // Finn startperioden med samme forelder før periode
+	if (periodeIndex > 0) {
+		let sammeForelder = true;
+		while (forstePeriodeIndex > 0 && sammeForelder) {
+			sammeForelder =
+				stonadsperioder[forstePeriodeIndex - 1].forelder === periode.forelder;
+			if (sammeForelder) {
+				forstePeriodeIndex--;
+			}
 		}
-		return dager;
-	}, 0);
-};
+	}
+	const idx = stonadsperioder // Finn sluttperioden med samme forelder etter periode
+		.slice(periodeIndex)
+		.findIndex((p) => p.forelder !== periode.forelder);
+
+	const sistePeriodeIndex =
+		idx === -1 ? stonadsperioder.length : periodeIndex + idx;
+
+	return stonadsperioder.slice(forstePeriodeIndex, sistePeriodeIndex); // Returnerer de sammenhengende periodene
+}
 
 /**
  * Finner gyldig sluttdato for en periode ut fra startdato og varighet i antall uker
  * @param startdato
  * @param uker
  */
-export const getPeriodeSluttdato = (startdato: Date, uker: number): Date => {
+export function getPeriodeSluttdato(startdato: Date, uker: number): Date {
 	let sluttdato = leggUttaksdagerTilDato(startdato, uker * 5 - 1);
 	return getForsteUttaksdagPaEllerForDato(sluttdato);
-};
+}
 
 /**
  * Legger utsettelser inn i periodene og flytter perioder som er etter utsettelsene
  * @param stonadsperioder
  * @param utsettelser
  */
-export const leggUtsettelserTilPerioder = (
+export function leggUtsettelserTilPerioder(
 	stonadsperioder: Stonadsperiode[],
 	utsettelser: Utsettelsesperiode[]
-): Periode[] => {
+): Periode[] {
 	if (utsettelser.length === 0) {
 		return stonadsperioder;
 	}
@@ -137,7 +112,7 @@ export const leggUtsettelserTilPerioder = (
 		perioder = leggTilUtsettelse(perioder, utsettelse);
 	});
 	return perioder;
-};
+}
 
 /**
  * Finner periode som er berørt av utsettelse, splitter den i to og
@@ -145,15 +120,17 @@ export const leggUtsettelserTilPerioder = (
  * @param perioder
  * @param utsettelse
  */
-export const leggTilUtsettelse = (
+export function leggTilUtsettelse(
 	perioder: Periode[],
 	utsettelse: Utsettelsesperiode
-): Periode[] => {
-	const periode = finnPeriode(perioder, utsettelse.tidsperiode.startdato);
+): Periode[] {
+	const periode = finnPeriodeMedDato(
+		perioder,
+		utsettelse.tidsperiode.startdato
+	);
 	if (!periode) {
 		throw 'Ingen periode funnet som passer til utsettelse';
 	}
-
 	if (
 		isSameDay(periode.tidsperiode.startdato, utsettelse.tidsperiode.startdato)
 	) {
@@ -161,7 +138,23 @@ export const leggTilUtsettelse = (
 	} else {
 		return leggTilUtsettelseIPeriode(perioder, periode, utsettelse);
 	}
-};
+}
+
+/**
+ * Flytter en tidsperiode til ny startdato
+ * @param tidsperiode
+ * @param startdato
+ */
+export function flyttTidsperiode(
+	tidsperiode: Tidsperiode,
+	startdato: Date
+): Tidsperiode {
+	const uttaksdager = getAntallUttaksdagerITidsperiode(tidsperiode);
+	return {
+		startdato,
+		sluttdato: leggUttaksdagerTilDato(startdato, uttaksdager - 1)
+	};
+}
 
 /**
  * Legger inn en utsettelse etter en periode, og forskyver påfølgende perioder
@@ -169,7 +162,7 @@ export const leggTilUtsettelse = (
  * @param periode
  * @param utsettelse
  */
-export const leggTilUtsettelseEtterPeriode = (
+const leggTilUtsettelseEtterPeriode = (
 	perioder: Periode[],
 	periode: Periode,
 	utsettelse: Utsettelsesperiode
@@ -194,7 +187,7 @@ export const leggTilUtsettelseEtterPeriode = (
  * @param periode
  * @param utsettelse
  */
-export const leggTilUtsettelseIPeriode = (
+const leggTilUtsettelseIPeriode = (
 	perioder: Periode[],
 	periode: Periode,
 	utsettelse: Utsettelsesperiode
@@ -226,7 +219,7 @@ export const leggTilUtsettelseIPeriode = (
  * @param periode
  * @param utsettelse
  */
-export const leggUtsettelseInnIPeriode = (
+const leggUtsettelseInnIPeriode = (
 	periode: Periode,
 	utsettelse: Utsettelsesperiode
 ): Periode[] => {
@@ -272,10 +265,7 @@ export const leggUtsettelseInnIPeriode = (
  * @param perioder
  * @param startdato
  */
-export const forskyvPerioder = (
-	perioder: Periode[],
-	startdato: Date
-): Periode[] => {
+const forskyvPerioder = (perioder: Periode[], startdato: Date): Periode[] => {
 	let forrigeDato = startdato;
 	return perioder.map((periode) => {
 		const tidsperiode = flyttTidsperiode(
@@ -291,115 +281,20 @@ export const forskyvPerioder = (
 };
 
 /**
- * Flytter en tidsperiode til ny startdato
- * @param tidsperiode
- * @param startdato
+ * Returnerer perioder før og etter en gitt periode
+ * @param perioder
+ * @param periode
  */
-export const flyttTidsperiode = (
-	tidsperiode: Tidsperiode,
-	startdato: Date
-): Tidsperiode => {
-	const uttaksdager = getAntallUttaksdagerITidsperiode(tidsperiode);
+const hentPerioderForOgEtterPeriode = (
+	perioder: Periode[],
+	periode: Periode
+): Periodesplitt => {
+	const arr: Periode[] = [...perioder];
+	const index = arr.findIndex((p) => p === periode);
+	const perioderEtter = arr.splice(index + 1);
+	const perioderFor: Periode[] = [...arr.slice(0, index)];
 	return {
-		startdato,
-		sluttdato: leggUttaksdagerTilDato(startdato, uttaksdager - 1)
+		perioderFor,
+		perioderEtter
 	};
-};
-
-/**
- * Henter ut gyldig tidsrom å legge inn en utsettelse
- */
-export const getTidsromForutsettelse = (
-	termindato: Date,
-	dekningsgrad: Dekningsgrad,
-	permisjonsregler: Permisjonsregler
-): Tidsperiode => {
-	const periodeberegner = Periodeberegner(
-		termindato,
-		dekningsgrad,
-		0,
-		0,
-		permisjonsregler
-	);
-
-	return {
-		startdato: getForsteUttaksdagEtterDato(
-			periodeberegner.getPakrevdModrekvotePostTermin().sluttdato
-		),
-		sluttdato: periodeberegner.getSistePermisjonsdag()
-	};
-};
-
-/**
- * Henter ut antall uttaksdager for en forelder fra perioder[]. Tar ikke
- * høyde for overlappende perioder
- */
-export const getUttaksdagerForForelder = (
-	forelder: Forelder,
-	perioder: Periode[]
-): number => {
-	return perioder.reduce(
-		(dager: number, periode: Periode) =>
-			periode.forelder === forelder
-				? dager + getAntallUttaksdagerITidsperiode(periode.tidsperiode)
-				: dager,
-		0
-	);
-};
-
-/** Henter siste uttaksdag i periode */
-export const getSisteUttaksdagIPeriode = (periode: Periode): Date =>
-	periode.tidsperiode.sluttdato;
-
-/** Henter tidsperioden hvor en forelder har sammenhengende permisjon, uavhengig av utsettelser,
- * med start i en periode som er i periodelisten
- */
-export const getSammenhengendePerioder = (
-	periode: Periode,
-	perioder: Periode[]
-): Periode[] => {
-	// Filtrer bort utsettelser
-	const stonadsperioder = getStonadsperioder(perioder);
-	const periodeIndex = stonadsperioder.findIndex((p) => p === periode);
-
-	// Finn startperioden med samme forelder før periode
-	let forstePeriodeIndex = periodeIndex;
-	if (periodeIndex > 0) {
-		let sammeForelder = true;
-		while (forstePeriodeIndex > 0 && sammeForelder) {
-			sammeForelder =
-				stonadsperioder[forstePeriodeIndex - 1].forelder === periode.forelder;
-			if (sammeForelder) {
-				forstePeriodeIndex--;
-			}
-		}
-	}
-
-	// Finn sluttperioden med samme forelder etter periode
-	const idx = stonadsperioder
-		.slice(periodeIndex)
-		.findIndex((p) => p.forelder !== periode.forelder);
-
-	const sistePeriodeIndex =
-		idx === -1 ? stonadsperioder.length : periodeIndex + idx;
-
-	return stonadsperioder.slice(forstePeriodeIndex, sistePeriodeIndex);
-};
-
-export const getAntallFeriedagerForForelder = (
-	utsettelser: Utsettelsesperiode[],
-	forelder: Forelder
-): number => {
-	const ferier = utsettelser.filter(
-		(utsettelse) =>
-			utsettelse.arsak === UtsettelseArsakType.Ferie &&
-			utsettelse.forelder === forelder
-	);
-	return ferier.length === 0
-		? 0
-		: ferier.reduce(
-				(dager: number, periode: Utsettelsesperiode) =>
-					dager + getAntallUttaksdagerITidsperiode(periode.tidsperiode),
-				0
-			);
 };

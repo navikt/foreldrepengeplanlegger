@@ -31,6 +31,7 @@
 	"skjema.label.sats": "Hvor lang permisjon ønsker dere?",
 	"skjema.label.sats80": "{uker} uker med 80 % foreldrepenger",
 	"skjema.label.sats100": "{uker} uker med 100 % foreldrepenger",
+	"skjema.veiledning.sats.alttekst": "Les mer om sats",
 	"skjema.veiledning.sats":
 		"Valget av antall uker gjelder dere begge. Den totale utbetalingen blir høyere ved å velge 100 prosent.",
 	"skjema.fordeling.veiledning": "Lorem ipsum dolor sit amet,",

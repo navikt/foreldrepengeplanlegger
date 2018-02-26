@@ -165,6 +165,7 @@ const Periodeberegner = (
 
 	return {
 		getModrekvotePreTermin,
+		getPakrevdModrekvotePostTermin,
 		getModrekvotePostTermin,
 		getFellesperiodeForelder1,
 		getFellesperiodeForelder2,

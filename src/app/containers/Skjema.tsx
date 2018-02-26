@@ -84,7 +84,7 @@ class Skjema extends React.Component<Props> {
 							<Sporsmal
 								info={{
 									id: Infotekster.sats,
-									label: intlString(intl, 'infotekst.sats.alttekst')
+									label: intlString(intl, 'skjema.veiledning.sats.alttekst')
 								}}>
 								<IntlTekst id="skjema.label.sats" />
 							</Sporsmal>

@@ -24,8 +24,8 @@ interface OwnProps {
 	tidsrom: Tidsperiode;
 	utsettelse?: Utsettelsesperiode;
 	registrerteUtsettelser?: Utsettelsesperiode[];
-	forelder1?: string;
-	forelder2?: string;
+	navnForelder1?: string;
+	navnForelder2?: string;
 	onChange: (utsettelse: Utsettelsesperiode) => void;
 	onFjern: (utsettelse: Utsettelsesperiode) => void;
 }
@@ -152,8 +152,8 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		const { arsak, startdato, sluttdato, forelder } = this.state;
 		const {
 			utsettelse,
-			forelder1,
-			forelder2,
+			navnForelder1,
+			navnForelder2,
 			tidsrom,
 			registrerteUtsettelser,
 			intl
@@ -220,11 +220,11 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						stil="ekstern"
 						valg={[
 							{
-								tittel: forelder1 || intlString(intl, 'forelder1'),
+								tittel: navnForelder1 || intlString(intl, 'forelder1'),
 								verdi: 'forelder1'
 							},
 							{
-								tittel: forelder2 || intlString(intl, 'forelder2'),
+								tittel: navnForelder2 || intlString(intl, 'forelder2'),
 								verdi: 'forelder2'
 							}
 						]}

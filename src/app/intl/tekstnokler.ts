@@ -31,6 +31,7 @@ export type SkjemaTekst =
 	| 'skjema.label.sats'
 	| 'skjema.label.sats80'
 	| 'skjema.label.sats100'
+	| 'skjema.veiledning.sats.alttekst'
 	| 'skjema.veiledning.sats'
 	| 'skjema.label.sats80'
 	| 'skjema.label.sats100'
@@ -68,8 +69,6 @@ export type SkjulteTekster =
 	| 'skjermleser.skjema.tittel'
 	| 'skjermleser.tidslinje.oppsummering.tittel';
 
-export type Infotekster = 'infotekst.sats.alttekst';
-
 export type UlonnetPermisjonDialog =
 	| 'dialog.ulonnetpermisjon.tittel'
 	| 'dialog.ulonnetpermisjon.innhold1'
@@ -86,5 +85,4 @@ export type AppTekster =
 	| Stonadkontotyper
 	| OppholdTekst
 	| SkjulteTekster
-	| Infotekster
 	| UlonnetPermisjonDialog;

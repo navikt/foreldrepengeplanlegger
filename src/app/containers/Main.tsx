@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { Element } from 'nav-frontend-typografi';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
+
+import { Element, Systemtittel } from 'nav-frontend-typografi';
 
 import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import Skjema from './Skjema';
@@ -19,12 +21,10 @@ import {
 	ulonnetPermisjonVisDialog
 } from 'app/redux/actions';
 import { Utsettelsesperiode, Tidsperiode } from 'app/types';
-import { Systemtittel } from 'nav-frontend-typografi';
 import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
 import UlonnetPermisjonDialog from 'app/containers/UlonnetPermisjonDialog';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { getGyldigTidsromForUtsettelse } from 'app/utils/permisjonUtils';
 
 export interface StateProps {

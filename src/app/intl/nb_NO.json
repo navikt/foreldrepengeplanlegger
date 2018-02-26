@@ -1,3 +1,66 @@
 {
-	"applikasjonstittel": "Foreldrepengeplanlegger"
+	"applikasjonstittel": "Foreldrepengeplanlegger",
+	"forelder1": "Forelder 1",
+	"forelder2": "Forelder 2",
+	"stonadskonto.modrekvotePakrevd": "mødrekvote",
+	"stonadskonto.modrekvote": "mødrekvote",
+	"stonadskonto.fedrekvote": "fedrekvote",
+	"stonadskonto.fellesperiode": "fellesperiode",
+	"stonadskonto.foreldrepenger": "foreldrepenger",
+	"tittel.introtekst":
+		"Her kan du planlegge foreldrepermisjon. Du kan fordele uker mellom foreldrene.",
+	"utsettelseskjema.tittel": "Opphold i permisjonen",
+	"utsettelseskjema.arsak.sporsmal": "Hva skal du gjøre?",
+	"utsettelseskjema.arsak.ferie": "Ta ut ferie",
+	"utsettelseskjema.veiledning.ferie": "Informasjon om ferie[todo]",
+	"utsettelseskjema.arsak.arbeid": "Arbeide heltid",
+	"utsettelseskjema.hvem.sporsmal": "Hvem skal ha opphold i permisjonen?",
+	"utsettelseskjema.hvem.sporsmal.ferie": "Hvem skal ta ut ferie?",
+	"utsettelseskjema.hvem.sporsmal.arbeid": "Hvem skal arbeide?",
+	"utsettelseskjema.startdato.sporsmal": "Startdato",
+	"utsettelseskjema.sluttdato.sporsmal": "Sluttdato",
+	"utsettelseskjema.knapp.leggtil": "Legg til",
+	"utsettelseskjema.knapp.oppdater": "Oppdater",
+	"utsettelseskjema.knapp.fjern": "Oppdater",
+	"skjema.fordeling.reduser.tooltip": "En uke mindre fellesperiode til {navn}",
+	"skjema.fordeling.sporsmal": "Hvordan vil dere dele permisjonen?",
+	"skjema.label.forelder1": "Forelder 1",
+	"skjema.label.forelder2": "Forelder 2",
+	"skjema.label.termindato": "Termindato",
+	"skjema.label.sats": "Hvor lang permisjon ønsker dere?",
+	"skjema.label.sats80": "{uker} uker med 80 % foreldrepenger",
+	"skjema.label.sats100": "{uker} uker med 100 % foreldrepenger",
+	"skjema.veiledning.sats":
+		"Valget av antall uker gjelder dere begge. Den totale utbetalingen blir høyere ved å velge 100 prosent.",
+	"tidslinje.tittel": "Planen deres",
+	"tidslinje.periodeinfo.konto.uker":
+		"{uker, plural, one {# uke} other {# uker}} {konto}",
+	"tidslinje.periodeinfo.starterpermisjon.enkel":
+		"{navn} starter sin permisjon",
+	"tidslinje.periodeinfo.starterpermisjon.detaljert":
+		"{navn} starter sin permisjon: {uker, plural, one {# uke} other {# uker}} totalt oppdelt i {detaljer}",
+	"tidslinje.utsettelse":
+		"{navn} utsetter permisjonen med {arsak} i {dager, plural, one {# dag} other {# dager}}",
+	"tidslinje.periodeinfo.fortsettelse.fortsetter":
+		"{navn} fortsetter sin permisjon",
+	"tidslinje.periodeinfo.fortsettelse.avslutter":
+		"{navn} avslutter sin permisjon",
+	"tidslinje.hendelse.termin": "Termin",
+	"tidslinje.hendelse.sistepermisjonsdag": "Siste permisjonsdag",
+	"opphold.arsak.ferie": "ferie",
+	"opphold.arsak.arbeid": "arbeid",
+	"opphold.tittel": "Ubetalt permisjon",
+	"opphold.knapp.leggtil": "Legg til ferie eller arbeid",
+	"opphold.knapp.ulonnetpermisjon": "Legg til ulønnet permisjon",
+	"skjermleser.skjema.tittel": "Fyll ut skjema og se din permisjonsplan",
+	"skjermleser.tidslinje.oppsummering.tittel":
+		"Fordeling av permisjon oppsummert",
+	"dialog.ulonnetpermisjon.tittel": "Ulønnet permisjon",
+	"dialog.ulonnetpermisjon.innhold1":
+		"Du må avtale ulønnet permisjon med din arbeidsgiver. Ulønnet permisjon i mer enn 14 dager kan påvirke din rett til blant annet sykepenger og pleiepenger. Les mer på ",
+	"dialog.ulonnetpermisjon.innhold2":
+		"Ønsker dere å ha opphold i foreldrepengene med ulønnet permisjon må den andre forelderen søke om utsettelse.",
+	"dialog.ulonnetpermisjon.navlenke.tekst": "nav.no",
+	"dialog.ulonnetpermisjon.navlenke.alttekst":
+		"Les mer om ulønnet permisjon på nav.no"
 }

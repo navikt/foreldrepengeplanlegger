@@ -7,14 +7,12 @@ import UtsettelseSkjema from '../components/utsettelseSkjema/UtsettelseSkjema';
 import { DispatchProps, AppState } from 'app/redux/types';
 import {
 	utsettelseLukkDialog,
-	utsettelseVisDialog,
 	opprettEllerOppdaterUtsettelse,
 	slettUtsettelse
 } from 'app/redux/actions';
 import { Utsettelsesperiode, Tidsperiode } from 'app/types';
 import Periodeberegner from 'app/utils/Periodeberegner';
 import { getForsteUttaksdagEtterDato } from 'app/utils/uttaksdagerUtils';
-import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
 
 interface StateProps {
 	isOpen: boolean;
@@ -29,34 +27,29 @@ type Props = StateProps & DispatchProps;
 
 const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => {
 	return (
-		<div>
-			<LeggTilKnapp onClick={() => props.dispatch(utsettelseVisDialog())}>
-				Legg til ferie eller arbeid
-			</LeggTilKnapp>
-			<Modal
-				isOpen={props.isOpen}
-				contentLabel="Utsettelse"
-				onRequestClose={() => props.dispatch(utsettelseLukkDialog())}
-				className="utsettelseSkjemaDialog"
-				children={
-					props.isOpen && (
-						<UtsettelseSkjema
-							registrerteUtsettelser={props.utsettelser}
-							utsettelse={props.utsettelse}
-							forelder1={props.forelder1}
-							forelder2={props.forelder2}
-							tidsrom={props.tidsrom}
-							onChange={(utsettelse) =>
-								props.dispatch(opprettEllerOppdaterUtsettelse(utsettelse))
-							}
-							onFjern={(utsettelse) =>
-								props.dispatch(slettUtsettelse(utsettelse))
-							}
-						/>
-					)
-				}
-			/>
-		</div>
+		<Modal
+			isOpen={props.isOpen}
+			contentLabel="Utsettelse"
+			onRequestClose={() => props.dispatch(utsettelseLukkDialog())}
+			className="utsettelseSkjemaDialog"
+			children={
+				props.isOpen && (
+					<UtsettelseSkjema
+						registrerteUtsettelser={props.utsettelser}
+						utsettelse={props.utsettelse}
+						forelder1={props.forelder1}
+						forelder2={props.forelder2}
+						tidsrom={props.tidsrom}
+						onChange={(utsettelse) =>
+							props.dispatch(opprettEllerOppdaterUtsettelse(utsettelse))
+						}
+						onFjern={(utsettelse) =>
+							props.dispatch(slettUtsettelse(utsettelse))
+						}
+					/>
+				)
+			}
+		/>
 	);
 };
 

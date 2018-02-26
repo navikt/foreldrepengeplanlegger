@@ -1,31 +1,14 @@
 import * as React from 'react';
-import { StonadskontoType } from 'app/types';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import {
 	getForelderNavn,
-	oppsummerPerioder
+	oppsummerPerioder,
+	getStondskontoTekstKey
 } from 'app/components/tidslinje/tidslinjeUtils';
 import InnslagLayout from 'app/components/tidslinje/elementer/InnslagLayout';
-import Tekst from 'app/tekst';
-
-import { PeriodeinnslagProps } from '../Periodeinnslag';
 import { separerTekstArray } from 'app/utils';
-
-export const getStondskontoNavn = (konto: StonadskontoType) => {
-	switch (konto) {
-		case StonadskontoType.Fellesperiode:
-			return 'fellespermisjon';
-		case StonadskontoType.Fedrekvote:
-			return 'fedrekvote';
-		case StonadskontoType.Modrekvote:
-			return 'mødrekvote';
-		case StonadskontoType.ModrekvotePakrevd:
-			return 'mødrekvotePåkrevd';
-		case StonadskontoType.ForeldrepengerForFodsel:
-			return 'foreldrepenger';
-		default:
-			return '';
-	}
-};
+import { intlString } from 'app/intl/IntlTekst';
+import { PeriodeinnslagProps } from '../Periodeinnslag';
 
 interface OwnProps {
 	/** Default false. Om en skal vise fordeling av kvoter */
@@ -34,31 +17,48 @@ interface OwnProps {
 
 type Props = OwnProps & PeriodeinnslagProps;
 
-const Periodeinfo: React.StatelessComponent<Props> = (props) => {
+const Periodeinfo: React.StatelessComponent<Props & InjectedIntlProps> = (
+	props
+) => {
 	const oppsummering = oppsummerPerioder(props.innslag);
-	const detaljetekster: string[] = [];
-	oppsummering.perioder.forEach((uker, key) => {
-		detaljetekster.push(`${Tekst.uker(uker)} ${getStondskontoNavn(key)}`);
-	});
+	const navn = getForelderNavn(
+		props.innslag.periode.forelder,
+		props.navnForelder1,
+		props.navnForelder2
+	);
+
+	if (props.visDetaljer) {
+		const detaljetekster: string[] = [];
+		oppsummering.perioder.forEach((uker, key) => {
+			detaljetekster.push(
+				intlString(props.intl, 'tidslinje.periodeinfo.konto.uker', {
+					uker,
+					konto: intlString(props.intl, getStondskontoTekstKey(key))
+				})
+			);
+		});
+		return (
+			<InnslagLayout tidsperiode={oppsummering.tidsperiode}>
+				{intlString(
+					props.intl,
+					'tidslinje.periodeinfo.starterpermisjon.detaljert',
+					{
+						navn,
+						uker: oppsummering.ukerTotalt,
+						detaljer: separerTekstArray(detaljetekster)
+					}
+				)}
+			</InnslagLayout>
+		);
+	}
 
 	return (
 		<InnslagLayout tidsperiode={oppsummering.tidsperiode}>
-			{getForelderNavn(
-				props.innslag.periode.forelder,
-				props.navnForelder1,
-				props.navnForelder2
-			)}{' '}
-			{props.visDetaljer ? (
-				<span>
-					starter sin permisjon: {Tekst.uker(oppsummering.ukerTotalt)} totalt{' '}
-					oppdelt i {separerTekstArray(detaljetekster)}
-				</span>
-			) : (
-				// Ta med tre uker før termin
-				'starter sin permisjon'
-			)}
+			{intlString(props.intl, 'tidslinje.periodeinfo.starterpermisjon.enkel', {
+				navn
+			})}
 		</InnslagLayout>
 	);
 };
 
-export default Periodeinfo;
+export default injectIntl(Periodeinfo);

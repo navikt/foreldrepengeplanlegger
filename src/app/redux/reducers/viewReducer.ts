@@ -34,12 +34,12 @@ const ViewReducer = (state = defaultState, action: PlanleggerActionTypes) => {
 				...state,
 				synligInfo: fjernInfo(state.synligInfo, action.id)
 			} as ViewState;
-		case PlanleggerActionTypeKeys.UBETALTPERMISJON_VIS_DIALOG:
+		case PlanleggerActionTypeKeys.ULONNETPERMISJON_VIS_DIALOG:
 			return {
 				...state,
 				ubetaltInformasjonDialogSynlig: true
 			} as ViewState;
-		case PlanleggerActionTypeKeys.UBETALTPERMISJON_LUKK_DIALOG:
+		case PlanleggerActionTypeKeys.ULONNETPERMISJON_LUKK_DIALOG:
 			return {
 				...state,
 				ubetaltInformasjonDialogSynlig: false

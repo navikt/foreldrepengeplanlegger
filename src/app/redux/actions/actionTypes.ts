@@ -9,8 +9,8 @@ export enum PlanleggerActionTypeKeys {
 	'SETT_DEKNINGSGRAD' = 'setDekningsgrad',
 	'UTSETTELSE_VIS_DIALOG' = 'utsettelseVisDialog',
 	'UTSETTELSE_LUKK_DIALOG' = 'utsettelseLukkDialog',
-	'UBETALTPERMISJON_VIS_DIALOG' = 'ubetaltPermisjonVisDialog',
-	'UBETALTPERMISJON_LUKK_DIALOG' = 'ubetaltPermisjonSkjulDialog',
+	'ULONNETPERMISJON_VIS_DIALOG' = 'ulonnetPermisjonVisDialog',
+	'ULONNETPERMISJON_LUKK_DIALOG' = 'ulonnetPermisjonSkjulDialog',
 	'UTSETTELSE_OPPRETT_ELLER_OPPDATER' = 'utsettelseOpprettEllerOppdater',
 	'UTSETTELSE_SLETT' = 'utsettelseSlett',
 	'INFO_VIS' = 'infoVis',
@@ -26,8 +26,8 @@ export type PlanleggerActionTypes =
 	| SetDekningsgrad
 	| UtsettelseVisDialog
 	| UtsettelseLukkDialog
-	| UbetaltPermisjonLukkDialog
-	| UbetaltPermisjonVisDialog
+	| UlonnetPermisjonLukkDialog
+	| UlonnetPermisjonVisDialog
 	| OpprettEllerOppdaterUtsettelse
 	| SlettUtsettelse
 	| SkjulInfo
@@ -72,12 +72,12 @@ export interface UtsettelseLukkDialog {
 	type: PlanleggerActionTypeKeys.UTSETTELSE_LUKK_DIALOG;
 }
 
-export interface UbetaltPermisjonVisDialog {
-	type: PlanleggerActionTypeKeys.UBETALTPERMISJON_VIS_DIALOG;
+export interface UlonnetPermisjonVisDialog {
+	type: PlanleggerActionTypeKeys.ULONNETPERMISJON_VIS_DIALOG;
 }
 
-export interface UbetaltPermisjonLukkDialog {
-	type: PlanleggerActionTypeKeys.UBETALTPERMISJON_LUKK_DIALOG;
+export interface UlonnetPermisjonLukkDialog {
+	type: PlanleggerActionTypeKeys.ULONNETPERMISJON_LUKK_DIALOG;
 }
 
 export interface OpprettEllerOppdaterUtsettelse {

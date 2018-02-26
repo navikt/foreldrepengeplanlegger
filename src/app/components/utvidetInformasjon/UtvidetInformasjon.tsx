@@ -1,12 +1,14 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { Collapse } from 'react-collapse';
 import { guid } from 'nav-frontend-js-utils';
 import InfoToggler from 'app/components/utvidetInformasjon/InfoToggler';
 
 import './utvidetInformasjon.less';
+import { intlString } from 'app/intl/IntlTekst';
 
-interface Props {
+interface OwnProps {
 	children: React.ReactNode;
 	apneLabel?: string;
 	lukkLabel?: string;
@@ -15,6 +17,8 @@ interface Props {
 interface State {
 	apen: boolean;
 }
+
+type Props = OwnProps & InjectedIntlProps;
 
 class UtvidetInformasjon extends React.Component<Props, State> {
 	innholdId: string;
@@ -30,7 +34,11 @@ class UtvidetInformasjon extends React.Component<Props, State> {
 		const cls = classnames('utvidetInformasjon', {
 			'utvidetInformasjon--apen': this.state.apen
 		});
-		const { apneLabel = 'Les mer', lukkLabel = 'Lukk' } = this.props;
+
+		const {
+			apneLabel = intlString(this.props.intl, 'utvidetinfo.lesmer'),
+			lukkLabel = intlString(this.props.intl, 'utvidetinfo.lukk')
+		} = this.props;
 		return (
 			<div className={cls}>
 				<div className="utvidetInformasjon__toggler">
@@ -53,4 +61,4 @@ class UtvidetInformasjon extends React.Component<Props, State> {
 	}
 }
 
-export default UtvidetInformasjon;
+export default injectIntl(UtvidetInformasjon);

@@ -3,7 +3,8 @@ import {
 	Tidsperiode,
 	Periodetype,
 	Forelder,
-	StonadskontoType
+	StonadskontoType,
+	UtsettelseArsakType
 } from 'app/types';
 import {
 	getAntallUttaksdagerIPerioder,
@@ -102,3 +103,27 @@ export const getForelderNavn = (
 	navnForelder1: string,
 	navnForelder2: string
 ): string => (forelder === 'forelder1' ? navnForelder1 : navnForelder2);
+
+export const getStondskontoTekstKey = (konto: StonadskontoType) => {
+	switch (konto) {
+		case StonadskontoType.Fellesperiode:
+			return 'stonadskonto.fellesperiode';
+		case StonadskontoType.Fedrekvote:
+			return 'stonadskonto.fedrekvote';
+		case StonadskontoType.Modrekvote:
+			return 'stonadskonto.modrekvote';
+		case StonadskontoType.ModrekvotePakrevd:
+			return 'stonadskonto.modrekvotePakrevd';
+		default:
+			return 'stonadskonto.foreldrepenger';
+	}
+};
+
+export const getArsakTekstKey = (arsak: UtsettelseArsakType) => {
+	switch (arsak) {
+		case UtsettelseArsakType.Arbeid:
+			return 'opphold.arsak.arbeid';
+		default:
+			return 'opphold.arsak.ferie';
+	}
+};

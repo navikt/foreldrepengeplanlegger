@@ -1,6 +1,11 @@
 import { createSelector } from 'reselect';
 import { AppState, FormState } from 'app/redux/types';
-import { Utsettelsesperiode, Periode, Stonadsperiode } from 'app/types';
+import {
+	Utsettelsesperiode,
+	Periode,
+	Stonadsperiode,
+	UtsettelseArsakType
+} from 'app/types';
 import { leggUtsettelserTilPerioder } from 'app/utils/periodeUtils';
 import Periodeberegner from 'app/utils/Periodeberegner';
 
@@ -52,5 +57,12 @@ export const getPerioderForTidslinje = createSelector(
 		utsettelser: Utsettelsesperiode[]
 	): Periode[] => {
 		return leggUtsettelserTilPerioder(perioder, utsettelser);
+	}
+);
+
+export const getFerieutsettelser = createSelector(
+	utsettelseSelector,
+	(utsettelser: Utsettelsesperiode[]): Utsettelsesperiode[] => {
+		return utsettelser.filter((u) => u.arsak === UtsettelseArsakType.Ferie);
 	}
 );

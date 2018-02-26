@@ -11,19 +11,6 @@ import { getSammenhengendePerioder } from 'app/utils/periodeUtils';
 
 const formSelector = (state: AppState) => state.form;
 
-const mapPeriodeTilTidslinjeinnslag = (
-	periode: Periode,
-	index: number,
-	perioder: Periode[],
-	antallPerioder: number
-): Tidslinjeinnslag => {
-	return {
-		type: TidslinjeinnslagType.periode,
-		periode,
-		perioderekke: getSammenhengendePerioder(periode, perioder)
-	};
-};
-
 export const tidslinjeFraPerioder = createSelector(
 	getPerioderForTidslinje,
 	formSelector,
@@ -54,6 +41,19 @@ export const tidslinjeFraPerioder = createSelector(
 			.filter(skjulForstePeriodeEtterTermin);
 	}
 );
+
+const mapPeriodeTilTidslinjeinnslag = (
+	periode: Periode,
+	index: number,
+	perioder: Periode[],
+	antallPerioder: number
+): Tidslinjeinnslag => {
+	return {
+		type: TidslinjeinnslagType.periode,
+		periode,
+		perioderekke: getSammenhengendePerioder(periode, perioder)
+	};
+};
 
 const filtrerOmInnslagSkalVises = (
 	innslag: Tidslinjeinnslag,

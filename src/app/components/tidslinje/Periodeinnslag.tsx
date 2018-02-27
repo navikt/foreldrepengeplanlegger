@@ -44,6 +44,7 @@ const Periodeinnslag: React.StatelessComponent<PeriodeinnslagProps> = (
 			const avsluttendePeriode =
 				nesteInnslag &&
 				nesteInnslag.type === TidslinjeinnslagType.periode &&
+				nesteInnslag.periode.type === Periodetype.Stonadsperiode &&
 				nesteInnslag.periode.forelder !== innslag.periode.forelder;
 			return (
 				<Fortsettelsesinfo

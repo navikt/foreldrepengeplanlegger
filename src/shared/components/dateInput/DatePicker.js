@@ -29,6 +29,7 @@ export const NavBar = ({
 				className={`${className} DayPicker-NavButton--prev`}
 				disabled={!showPreviousButton}
 				type="button"
+				title="Vis forrige måned"
 				onClick={(e) => {
 					e.preventDefault();
 					onPreviousClick();
@@ -40,6 +41,7 @@ export const NavBar = ({
 				className={`${className} DayPicker-NavButton--next`}
 				disabled={!showNextButton}
 				type="button"
+				title="Vis neste måned"
 				onClick={(e) => {
 					e.preventDefault();
 					onNextClick();

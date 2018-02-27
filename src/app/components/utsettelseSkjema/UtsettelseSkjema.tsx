@@ -79,7 +79,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					sluttdato: utsettelse.tidsperiode
 						? utsettelse.tidsperiode.sluttdato
 						: undefined
-				}
+			  }
 			: {};
 
 		this.state = {

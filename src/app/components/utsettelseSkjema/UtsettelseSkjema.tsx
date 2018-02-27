@@ -207,10 +207,14 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 
 		const ugyldigeTidsrom: Range[] | undefined =
 			registrerteUtsettelser &&
-			registrerteUtsettelser.map((u) => ({
-				from: u.tidsperiode.startdato,
-				to: u.tidsperiode.sluttdato
-			}));
+			registrerteUtsettelser
+				.filter(
+					(u) => !this.props.utsettelse || this.props.utsettelse.id !== u.id
+				)
+				.map((u) => ({
+					from: u.tidsperiode.startdato,
+					to: u.tidsperiode.sluttdato
+				}));
 
 		const antallFeriedager =
 			this.state.arsak === UtsettelseArsakType.Ferie

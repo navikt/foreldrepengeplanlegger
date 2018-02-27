@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as classnames from 'classnames';
 
 import './veileder.less';
+import { guid } from 'nav-frontend-js-utils';
 
 interface Props {
 	ansikt: 'glad' | 'undrende' | 'skeptisk';
@@ -18,6 +19,14 @@ const Veileder = (props: Props) => {
 		stil = 'normal',
 		...rest
 	} = props;
+	const maskBId = guid();
+	const maskBUrl = `url(#${maskBId})`;
+
+	const maskDId = guid();
+	const maskDUrl = `url(#${maskDId})`;
+
+	const maskFId = guid();
+	const maskFUrl = `url(#${maskFId})`;
 	return (
 		<svg
 			viewBox="0 0 92 92"
@@ -44,22 +53,22 @@ const Veileder = (props: Props) => {
 			</defs>
 			<g id="VeilederSVG" fill="none" fillRule="evenodd">
 				<g id="ansikt">
-					<mask id="b" fill="#fff">
+					<mask id={maskBId} fill="#fff">
 						<use xlinkHref="#a" />
 					</mask>
 					<use id="bakgrunn" fill="#9BD0B0" xlinkHref="#a" />
-					<g id="kvinne/-forfra/-B" mask="url(#b)">
+					<g id="kvinne/-forfra/-B" mask={maskBUrl}>
 						<g id="person" className="veileder-person">
 							<g transform="translate(13.417 6.708)">
 								<g id="b/damme/-hår/-halvlangt">
 									<g id="hårfarge/-brunn">
-										<mask id="d" fill="#fff">
+										<mask id={maskDId} fill="#fff">
 											<use xlinkHref="#c" />
 										</mask>
 										<use id="Mask" fill="#E57F68" xlinkHref="#c" />
 										<g
 											id="g/hårfarge/-rød"
-											mask="url(#d)"
+											mask={maskDUrl}
 											fill="#D2654C"
 											className="hair">
 											<path
@@ -79,16 +88,16 @@ const Veileder = (props: Props) => {
 									<g
 										id="b/kropp/sideprofil/-nav-ansatt"
 										transform="translate(0 32.583)">
-										<mask id="f" fill="#fff">
+										<mask id={maskFId} fill="#fff">
 											<use xlinkHref="#e" />
 										</mask>
 										<use fill="#D8A25D" xlinkHref="#e" />
-										<g id="+20/-Lilla" mask="url(#f)">
+										<g id="+20/-Lilla" mask={maskFUrl}>
 											<g transform="translate(-31.778 -19.297)">
 												<path id="Fill-58" fill="#5C4378" d="M0 89h121V0H0z" />
 											</g>
 										</g>
-										<g id="nav-id/-kort" mask="url(#f)">
+										<g id="nav-id/-kort" mask={maskFUrl}>
 											<g transform="translate(29.852 16.3)" id="NAV-Copy-2">
 												<g id="Group-11">
 													<g transform="translate(0 .688)" id="Navansatt-dame">
@@ -174,7 +183,7 @@ const Veileder = (props: Props) => {
 									/>
 								</g>
 							</g>
-							<g id="ansikt--undrende" mask="url(#b)">
+							<g id="ansikt--undrende" mask={maskBUrl}>
 								<g transform="translate(37.473 33.542)">
 									<path
 										d="M1.95 3.886C.544 3.96.151 2.51.573 1.561c.08-.18.545-.998 1.368-.998.823 0 1.186.448 1.236.525.605.923.308 2.717-1.229 2.798"
@@ -204,7 +213,7 @@ const Veileder = (props: Props) => {
 									/>
 								</g>
 							</g>
-							<g id="ansikt--glad" mask="url(#b)">
+							<g id="ansikt--glad" mask={maskBUrl}>
 								<g transform="translate(36.502 33.542)">
 									<path
 										d="M2.257 5.493C.853 5.597.46 3.571.883 2.247c.08-.25.544-1.392 1.368-1.392.822 0 1.185.624 1.235.731.605 1.29.308 3.793-1.229 3.907"
@@ -234,7 +243,7 @@ const Veileder = (props: Props) => {
 									/>
 								</g>
 							</g>
-							<g id="ansikt--skeptisk" mask="url(#b)">
+							<g id="ansikt--skeptisk" mask={maskBUrl}>
 								<g transform="translate(36.502 33.542)">
 									<path
 										d="M14.657 15.687c-.117-.207-.343-.49-.698-.769-.654-.512-1.499-.792-2.531-.72l-1.99.138a.478.478 0 0 0-.45.508.482.482 0 0 0 .519.44l1.99-.14c.78-.053 1.386.148 1.855.516.245.192.395.38.455.486a.49.49 0 0 0 .66.187.47.47 0 0 0 .19-.646z"

@@ -35,6 +35,7 @@ const FordelingFellesperiode: React.StatelessComponent<
 				<Sporsmal>{intlString(intl, 'skjema.fordeling.sporsmal')}</Sporsmal>
 			</div>
 		}
+		ariaDescription={`Hvor mange uker av fellesperioden skal ${navnForelder1} ha av totalt ${ukerFellesperiode} uker?`}
 		value={ukerForelder1}
 		min={0}
 		max={ukerFellesperiode}

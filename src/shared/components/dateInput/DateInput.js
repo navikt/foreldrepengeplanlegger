@@ -133,7 +133,7 @@ class DateInput extends Component {
 				</label>
 				<div // eslint-disable-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
 					className="datovelger__inner"
-					tabIndex=""
+					tabIndex="-1"
 					onClick={stopEvent}>
 					<div className="datovelger__inputContainer">
 						<MaskedInput

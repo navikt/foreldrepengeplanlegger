@@ -44,6 +44,7 @@ class Skjema extends React.Component<Props> {
 								name="navnforelder1"
 								label={intlString(intl, 'skjema.label.forelder1')}
 								value={form.navnForelder1 || ''}
+								placeholder="Navn"
 								onChange={(e: any) =>
 									dispatch(setNavnForelder1(e.target.value))
 								}
@@ -54,6 +55,7 @@ class Skjema extends React.Component<Props> {
 								name="navnforelder2"
 								label={intlString(intl, 'skjema.label.forelder2')}
 								value={form.navnForelder2 || ''}
+								placeholder="Navn"
 								onChange={(e: any) =>
 									dispatch(setNavnForelder2(e.target.value))
 								}
@@ -76,7 +78,7 @@ class Skjema extends React.Component<Props> {
 				<div className="blokk-m">
 					<SkjemaDekningsgrad
 						dekningsgrad={form.dekningsgrad}
-						antallUkerTotalt80={form.permisjonsregler.antallUkerTotalt100}
+						antallUkerTotalt80={form.permisjonsregler.antallUkerTotalt80}
 						antallUkerTotalt100={form.permisjonsregler.antallUkerTotalt100}
 						onChange={(dekningsgrad) => dispatch(setDekningsgrad(dekningsgrad))}
 					/>

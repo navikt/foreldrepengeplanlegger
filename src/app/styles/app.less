@@ -1,9 +1,14 @@
+@appMaxWidth: 750px;
+
 .bredBakgrunn(@borderRadius: 4px) {
 	margin-left: -2rem;
 	margin-right: -2rem;
 	border-radius: @borderRadius;
 	padding-left: 2rem;
 	padding-right: 2rem;
+	@media screen and (max-width: @appMaxWidth) {
+		border-radius: 0;
+	}
 }
 
 .applikasjonstittel {
@@ -18,9 +23,9 @@ p {
 }
 
 .planlegger {
-	max-width: 750px;
+	max-width: @appMaxWidth;
 	margin: 0 auto;
-	padding: 0 1rem 2rem 1rem;
+	padding: 0 2rem 2rem 2rem;
 	font-family: 'Source Sans Pro', Arial, sans-serif;
 }
 

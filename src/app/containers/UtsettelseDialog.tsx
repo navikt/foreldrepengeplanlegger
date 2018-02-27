@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 import Modal from 'nav-frontend-modal';
 
@@ -11,6 +12,7 @@ import {
 } from 'app/redux/actions';
 import { Utsettelsesperiode, Tidsperiode, Permisjonsregler } from 'app/types';
 import UtsettelseSkjema from 'app/components/utsettelseSkjema/UtsettelseSkjema';
+import { intlString } from 'app/intl/IntlTekst';
 
 interface OwnProps {
 	isOpen: boolean;
@@ -22,13 +24,13 @@ interface OwnProps {
 	navnForelder2: string;
 }
 
-type Props = OwnProps & DispatchProps;
+type Props = OwnProps & DispatchProps & InjectedIntlProps;
 
 const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => {
 	return (
 		<Modal
 			isOpen={props.isOpen}
-			contentLabel="Utsettelse"
+			contentLabel={intlString(props.intl, 'utsettelseskjema.tittel')}
 			onRequestClose={() => props.dispatch(utsettelseLukkDialog())}
 			className="utsettelseSkjemaDialog"
 			children={
@@ -53,4 +55,4 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => {
 	);
 };
 
-export default connect()(UtsettelseDialog);
+export default connect()(injectIntl(UtsettelseDialog));

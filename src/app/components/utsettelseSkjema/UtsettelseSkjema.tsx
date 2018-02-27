@@ -14,7 +14,7 @@ import {
 } from 'app/types';
 import DateInput, { Range } from 'shared/components/dateInput/DateInput';
 import Radioliste from 'shared/components/radioliste/Radioliste';
-import { erGyldigDato } from 'app/utils';
+import { erGyldigDato, normaliserDato } from 'app/utils';
 import { isBefore, isSameDay, isAfter } from 'date-fns';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import Ferieinfo from 'app/components/utsettelseSkjema/Ferieinfo';
@@ -92,7 +92,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		tidsrom: Tidsperiode,
 		ugyldigeTidsrom: Range[] = []
 	) {
-		const startdato = new Date(dato);
+		const startdato = normaliserDato(new Date(dato));
 		const sluttdato = this.state.sluttdato;
 		if (erGyldigDato(startdato, tidsrom, ugyldigeTidsrom)) {
 			this.setState({
@@ -111,7 +111,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		tilTidsrom: Tidsperiode,
 		ugyldigeTidsrom: Range[] = []
 	) {
-		const sluttdato = new Date(dato);
+		const sluttdato = normaliserDato(new Date(dato));
 		const startdato = this.state.startdato;
 		if (
 			erGyldigDato(sluttdato, tilTidsrom, ugyldigeTidsrom) &&

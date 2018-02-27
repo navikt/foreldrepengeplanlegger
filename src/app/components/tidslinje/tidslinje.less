@@ -16,6 +16,12 @@
 	@sirkelOffsetBottom: -1 * @sirkelOffsetTop;
 	@sirkelBorderWidth: 3px;
 
+	.periodedato() {
+		font-weight: bold;
+		display: block;
+		margin-bottom: 0.5rem;
+	}
+
 	/** Mixins */
 
 	.gradering(@col1, @col2:transparent) {
@@ -159,9 +165,7 @@
 		&__dato {
 			flex-grow: 2;
 			flex-basis: 100%;
-			font-weight: bold;
-			display: block;
-			margin-bottom: 0.5rem;
+			.periodedato();
 		}
 		&__rediger {
 			flex-basis: 1;
@@ -172,10 +176,7 @@
 	}
 	.periodefortsettelse {
 		&__dato {
-			font-weight: bold;
-			display: inline-block;
-			margin-right: 0.5rem;
-			margin-bottom: 0.2rem; // justerer vertical alignment av tekst
+			.periodedato();
 		}
 	}
 

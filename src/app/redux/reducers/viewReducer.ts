@@ -4,6 +4,11 @@ import {
 } from 'app/redux/actions/actionTypes';
 import { ViewState, SynligInfoMap } from 'app/redux/types';
 
+export enum Infotekster {
+	sats = 'SATS',
+	fordelingFellesperiode = 'fordeling'
+}
+
 const defaultState: ViewState = {
 	synligInfo: new Map(),
 	spraak: 'nb',

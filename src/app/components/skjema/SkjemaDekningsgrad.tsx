@@ -4,9 +4,9 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import Radioliste from 'shared/components/radioliste/Radioliste';
 import Sporsmal from 'app/elements/sporsmal/Sporsmal';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
-import Infotekster from 'app/tekst/infotekster';
 import { Dekningsgrad } from 'app/types';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
+import { Infotekster } from 'app/redux/reducers/viewReducer';
 
 export interface OwnProps {
 	dekningsgrad?: Dekningsgrad;

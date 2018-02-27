@@ -1,3 +1,18 @@
+.bredBakgrunn(@borderRadius: 4px) {
+	margin-left: -2rem;
+	margin-right: -2rem;
+	border-radius: @borderRadius;
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+.applikasjonstittel {
+	background-color: @c-purple;
+	.bredBakgrunn();
+	color: white;
+	padding: 1rem 1rem;
+}
+
 p {
 	margin-top: 0;
 }
@@ -89,9 +104,8 @@ p {
 }
 
 .tidsplan {
+	.bredBakgrunn(8px);
 	background-color: #f1f1f1;
-	margin-left: -2rem;
-	margin-right: -2rem;
-	border-radius: 8px;
-	padding: 2rem;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
 }

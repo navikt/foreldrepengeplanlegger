@@ -3,7 +3,6 @@ import Main from './containers/Main';
 import './styles/planlegger.less';
 import Alertstripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
-import { FormattedMessage } from 'react-intl';
 
 export class PlanleggerIndex extends React.Component {
 	render() {
@@ -29,9 +28,6 @@ export class PlanleggerIndex extends React.Component {
 						</p>
 					</Alertstripe>
 				</div>
-				<h1 className="m-textCenter">
-					<FormattedMessage id="applikasjonstittel" />
-				</h1>
 				<Main />
 			</div>
 		);

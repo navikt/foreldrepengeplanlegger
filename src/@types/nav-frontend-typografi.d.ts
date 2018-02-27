@@ -14,4 +14,5 @@ declare module 'nav-frontend-typografi' {
 	export class EtikettLiten extends React.Component<Props, {}> {}
 	export class Element extends React.Component<Props, {}> {}
 	export class UndertekstBold extends React.Component<Props, {}> {}
+	export class Ingress extends React.Component<Props, {}> {}
 }

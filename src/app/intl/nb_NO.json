@@ -3,17 +3,20 @@
 	"forelder1": "Forelder 1",
 	"forelder2": "Forelder 2",
 	"uker": "{uker, plural, one {# uke} other {# uker}}",
+	"utvidetinfo.lesmer": "Les mer",
+	"utvidetinfo.lukk": "Lukk",
 	"stonadskonto.modrekvotePakrevd": "mødrekvote",
 	"stonadskonto.modrekvote": "mødrekvote",
 	"stonadskonto.fedrekvote": "fedrekvote",
 	"stonadskonto.fellesperiode": "fellesperiode",
 	"stonadskonto.foreldrepenger": "foreldrepenger",
 	"tittel.introtekst":
-		"Her kan du planlegge foreldrepermisjon. Du kan fordele uker mellom foreldrene.",
+		"Lorem ipsum dolor sit amet lorem ipsum sit amet dolor lorem ipsum sit amet dolor. Amet sit ipsum dolro.",
 	"utsettelseskjema.tittel": "Opphold i permisjonen",
 	"utsettelseskjema.arsak.sporsmal": "Hva skal du gjøre?",
 	"utsettelseskjema.arsak.ferie": "Ta ut ferie",
-	"utsettelseskjema.veiledning.ferie": "Informasjon om ferie[todo]",
+	"utsettelseskjema.veiledning.ferie":
+		"Du kan utsette permisjonen din med inntil 21 feriedager for hvert kalenderår. Du kan også utsette permisjonen med feriedager fra i fjor, eller ta ut 10 feriedager fra neste år på forskudd. Ferien må avtales med din arbeidsgiver,",
 	"utsettelseskjema.arsak.arbeid": "Arbeide heltid",
 	"utsettelseskjema.hvem.sporsmal": "Hvem skal ha opphold i permisjonen?",
 	"utsettelseskjema.hvem.sporsmal.ferie": "Hvem skal ta ut ferie?",
@@ -70,5 +73,14 @@
 		"Ønsker dere å ha opphold i foreldrepengene med ulønnet permisjon må den andre forelderen søke om utsettelse.",
 	"dialog.ulonnetpermisjon.navlenke.tekst": "nav.no",
 	"dialog.ulonnetpermisjon.navlenke.alttekst":
-		"Les mer om ulønnet permisjon på nav.no"
+		"Les mer om ulønnet permisjon på nav.no",
+	"veileder.ulonnetpermisjon.tittel": "Ulønnet permisjon?",
+	"veileder.ulonnetpermisjon.intro":
+		"Da må den andre foreldren utsette sin foreldrepengeperiode.",
+	"veileder.ulonnetpermisjon.utvidetinfo":
+		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus metus, at posuere neque. Sed pharetra nibh eget orci convallis at posuere leo convallis. Sed blandit augue vitae augue scelerisque bibendum. Vivamus sit amet libero turpis, non venenatis urna.",
+	"veileder.forbehold.intro":
+		"Informasjon om begrensninger og forbehold. Lorem ipsum dolor sit amet, dolor ipsum lorem.",
+	"veileder.forbehold.utvidetinfo":
+		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus metus, at posuere neque. Sed pharetra nibh eget orci convallis at posuere leo convallis. Sed blandit augue vitae augue scelerisque bibendum. Vivamus sit amet libero turpis, non venenatis urna."
 }

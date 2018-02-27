@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 
-import { Element, Systemtittel } from 'nav-frontend-typografi';
+import { Element, Ingress, Systemtittel } from 'nav-frontend-typografi';
 
 import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import Skjema from './Skjema';
@@ -16,16 +16,14 @@ import {
 import { tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import UtsettelseDialog from 'app/containers/UtsettelseDialog';
 import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
-import {
-	utsettelseVisDialog,
-	ulonnetPermisjonVisDialog
-} from 'app/redux/actions';
+import { utsettelseVisDialog } from 'app/redux/actions';
 import { Utsettelsesperiode, Tidsperiode } from 'app/types';
 import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
-import UlonnetPermisjonDialog from 'app/containers/UlonnetPermisjonDialog';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
 import { getGyldigTidsromForUtsettelse } from 'app/utils/permisjonUtils';
+import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
+import UtvidetInformasjon from 'app/elements/utvidetInformasjon/UtvidetInformasjon';
 
 export interface StateProps {
 	form: FormState;
@@ -57,9 +55,24 @@ export class Main extends React.Component<Props> {
 		return (
 			<div>
 				<div className="introtekst">
-					<p>
+					<h1 className="m-textCenter applikasjonstittel blokk-m">
+						<IntlTekst id="applikasjonstittel" />
+					</h1>
+					<Ingress className="blokk-m m-textCenter">
 						<IntlTekst id="tittel.introtekst" />
-					</p>
+					</Ingress>
+					<div className="blokk-s">
+						<Veilederinfo>
+							<p>
+								<IntlTekst id="veileder.forbehold.intro" />
+							</p>
+							<UtvidetInformasjon>
+								<div className="blokkPad-s">
+									<IntlTekst id="veileder.forbehold.utvidetinfo" />
+								</div>
+							</UtvidetInformasjon>
+						</Veilederinfo>
+					</div>
 				</div>
 
 				<section>
@@ -77,16 +90,25 @@ export class Main extends React.Component<Props> {
 									<IntlTekst id="opphold.tittel" />
 								</Element>
 							</div>
-							<div className="blokk-xxs">
-								<div className="knapperekke">
-									<LeggTilKnapp onClick={() => dispatch(utsettelseVisDialog())}>
-										<IntlTekst id="opphold.knapp.leggtil" />
-									</LeggTilKnapp>
-									<LeggTilKnapp
-										onClick={() => dispatch(ulonnetPermisjonVisDialog())}>
-										<IntlTekst id="opphold.knapp.ulonnetpermisjon" />
-									</LeggTilKnapp>
-								</div>
+							<div className="blokk-s">
+								<LeggTilKnapp onClick={() => dispatch(utsettelseVisDialog())}>
+									<IntlTekst id="opphold.knapp.leggtil" />
+								</LeggTilKnapp>
+							</div>
+							<div className="blokk-s">
+								<Veilederinfo>
+									<Element className="blokk-xxxs">
+										<IntlTekst id="veileder.ulonnetpermisjon.tittel" />
+									</Element>
+									<p>
+										<IntlTekst id="veileder.ulonnetpermisjon.intro" />
+									</p>
+									<UtvidetInformasjon>
+										<div className="blokkPad-s">
+											<IntlTekst id="veileder.ulonnetpermisjon.utvidetinfo" />
+										</div>
+									</UtvidetInformasjon>
+								</Veilederinfo>
 							</div>
 						</div>
 					)}
@@ -136,8 +158,6 @@ export class Main extends React.Component<Props> {
 						permisjonsregler={form.permisjonsregler}
 					/>
 				)}
-
-				<UlonnetPermisjonDialog />
 			</div>
 		);
 	}

@@ -61,6 +61,8 @@ const FormReducer = (
 			const permisjonsregler = getPermisjonsregler(dato);
 			return {
 				...getDefaultState(dato, state.dekningsgrad || '100%'),
+				navnForelder1: state.navnForelder1,
+				navnForelder2: state.navnForelder2,
 				termindato: dato,
 				permisjonsregler
 			};

@@ -62,17 +62,6 @@ export function utsettelseLukkDialog(): PlanleggerActionTypes {
 		type: PlanleggerActionTypeKeys.UTSETTELSE_LUKK_DIALOG
 	};
 }
-export function ulonnetPermisjonVisDialog(): PlanleggerActionTypes {
-	return {
-		type: PlanleggerActionTypeKeys.ULONNETPERMISJON_VIS_DIALOG
-	};
-}
-
-export function ulonnetPermisjonLukkDialog(): PlanleggerActionTypes {
-	return {
-		type: PlanleggerActionTypeKeys.ULONNETPERMISJON_LUKK_DIALOG
-	};
-}
 
 export function opprettEllerOppdaterUtsettelse(
 	utsettelse: Utsettelsesperiode

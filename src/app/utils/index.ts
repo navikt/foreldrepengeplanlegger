@@ -1,6 +1,7 @@
 import { Tidsperiode } from 'app/types';
 import { Range } from 'shared/components/dateInput/DateInput';
 import { isWithinRange } from 'date-fns';
+import { erUttaksdag } from 'app/utils/uttaksdagerUtils';
 
 /**
  * Fjerner klokkeslett på dato
@@ -27,7 +28,8 @@ export const erGyldigDato = (
 			normaliserDato(dato),
 			normaliserDato(tidsrom.startdato),
 			normaliserDato(tidsrom.sluttdato)
-		)
+		) ||
+		!erUttaksdag(dato)
 	) {
 		return false;
 	}

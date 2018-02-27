@@ -15,18 +15,20 @@ const InnslagLayout: React.StatelessComponent<Props> = ({
 	children
 }) => (
 	<div className="m-padding-s">
-		<div className="periodeinnslag__topp">
-			{tidsperiode && (
-				<div className="periodeinnslag__dato">
-					<TidsperiodeTekst tidsperiode={tidsperiode} />
-				</div>
-			)}
-			{onRediger && (
-				<div className="periodeinnslag__rediger">
-					<RedigerInnslagKnapp onClick={() => onRediger()} />
-				</div>
-			)}
-		</div>
+		{(tidsperiode || onRediger) && (
+			<div className="periodeinnslag__topp">
+				{tidsperiode && (
+					<div className="periodeinnslag__dato">
+						<TidsperiodeTekst tidsperiode={tidsperiode} />
+					</div>
+				)}
+				{onRediger && (
+					<div className="periodeinnslag__rediger">
+						<RedigerInnslagKnapp onClick={() => onRediger()} />
+					</div>
+				)}
+			</div>
+		)}
 		<div className="periodeinnslag__beskrivelse">{children}</div>
 	</div>
 );

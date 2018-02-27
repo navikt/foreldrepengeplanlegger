@@ -164,6 +164,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 	getAntallFeriedager() {
 		let registrerteFeriedager = 0;
 		let nyeFeriedager = 0;
+		let feriedagerDenneUtsettelsen = 0;
 
 		if (this.state.forelder && this.state.arsak === UtsettelseArsakType.Ferie) {
 			registrerteFeriedager = getAntallFeriedagerForForelder(
@@ -179,7 +180,13 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			});
 		}
 
-		return registrerteFeriedager + nyeFeriedager;
+		if (this.props.utsettelse) {
+			feriedagerDenneUtsettelsen = getAntallUttaksdagerITidsperiode(
+				this.props.utsettelse.tidsperiode
+			);
+		}
+
+		return registrerteFeriedager + nyeFeriedager - feriedagerDenneUtsettelsen;
 	}
 
 	render() {
@@ -200,10 +207,14 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 
 		const ugyldigeTidsrom: Range[] | undefined =
 			registrerteUtsettelser &&
-			registrerteUtsettelser.map((u) => ({
-				from: u.tidsperiode.startdato,
-				to: u.tidsperiode.sluttdato
-			}));
+			registrerteUtsettelser
+				.filter(
+					(u) => !this.props.utsettelse || this.props.utsettelse.id !== u.id
+				)
+				.map((u) => ({
+					from: u.tidsperiode.startdato,
+					to: u.tidsperiode.sluttdato
+				}));
 
 		const antallFeriedager =
 			this.state.arsak === UtsettelseArsakType.Ferie

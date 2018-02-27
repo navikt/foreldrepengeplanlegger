@@ -12,7 +12,7 @@ const reglerTomJuni: Permisjonsregler = {
 	antallUkerMødrekvote: 10,
 	maksPermisjonslengdeIÅr: 3,
 	maksFeriedagerEttÅr: 20,
-	maksFeriedagerMedOverføring: 50
+	maksFeriedagerMedOverføring: 52
 };
 
 const reglerFomJuli2018: Permisjonsregler = {
@@ -26,7 +26,7 @@ const reglerFomJuli2018: Permisjonsregler = {
 	antallUkerMødrekvote: 14,
 	maksPermisjonslengdeIÅr: 3,
 	maksFeriedagerEttÅr: 20,
-	maksFeriedagerMedOverføring: 50
+	maksFeriedagerMedOverføring: 52
 };
 
 export const getPermisjonsregler = (termindato: Date): Permisjonsregler =>

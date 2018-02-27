@@ -78,6 +78,13 @@ export type UlonnetPermisjonDialog =
 	| 'dialog.ulonnetpermisjon.navlenke.tekst'
 	| 'dialog.ulonnetpermisjon.navlenke.alttekst';
 
+export type Veiledningstekster =
+	| 'veileder.forbehold.intro'
+	| 'veileder.forbehold.utvidetinfo'
+	| 'veileder.ulonnetpermisjon.tittel'
+	| 'veileder.ulonnetpermisjon.intro'
+	| 'veileder.ulonnetpermisjon.utvidetinfo';
+
 export type AppTekster =
 	| UtsettelsesskjemaTekst
 	| GenerellTekst
@@ -87,4 +94,5 @@ export type AppTekster =
 	| Stonadkontotyper
 	| OppholdTekst
 	| SkjulteTekster
-	| UlonnetPermisjonDialog;
+	| UlonnetPermisjonDialog
+	| Veiledningstekster;

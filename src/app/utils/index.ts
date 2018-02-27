@@ -8,6 +8,9 @@ import { isWithinRange } from 'date-fns';
 export const normaliserDato = (dato: Date): Date =>
 	new Date(dato.getFullYear(), dato.getMonth(), dato.getDate());
 
+export const nyDato = (datostring?: string): Date =>
+	normaliserDato(datostring ? new Date(datostring) : new Date());
+
 export const separerTekstArray = (tekster: string[]): string => {
 	const arr = [...tekster];
 	const siste = arr.pop();
@@ -19,7 +22,13 @@ export const erGyldigDato = (
 	tidsrom: Tidsperiode,
 	ugyldigePerioder: Range[] = []
 ): boolean => {
-	if (!isWithinRange(dato, tidsrom.startdato, tidsrom.sluttdato)) {
+	if (
+		!isWithinRange(
+			normaliserDato(dato),
+			normaliserDato(tidsrom.startdato),
+			normaliserDato(tidsrom.sluttdato)
+		)
+	) {
 		return false;
 	}
 	let gyldig = true;

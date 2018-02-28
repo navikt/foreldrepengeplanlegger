@@ -129,7 +129,7 @@ export class Main extends React.Component<Props> {
 							<Tidslinje
 								innslag={this.props.innslag}
 								navnForelder1={navnForelder1}
-								navnForelder2={navnForelder1}
+								navnForelder2={navnForelder2}
 								onRedigerUtsettelse={(u: Utsettelsesperiode) =>
 									dispatch(utsettelseVisDialog(u))
 								}
@@ -147,7 +147,7 @@ export class Main extends React.Component<Props> {
 							fellesukerForelder1={form.fellesperiodeukerForelder1}
 							fellesukerForelder2={form.fellesperiodeukerForelder2}
 							navnForelder1={navnForelder1}
-							navnForelder2={navnForelder1}
+							navnForelder2={navnForelder2}
 						/>
 					</section>
 				</EkspanderbartInnhold>

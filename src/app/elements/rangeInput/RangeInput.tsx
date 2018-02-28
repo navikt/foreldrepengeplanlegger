@@ -26,6 +26,7 @@ interface Props {
 	step?: number;
 	inputId?: string;
 	valueLabelRenderer?: RangeInputValueLabelRenderer;
+	ariaValueChangedMessage?: (value: number) => string;
 	steppers?: {
 		increaseLabel: string;
 		reduceLabel: string;
@@ -49,6 +50,7 @@ const RangeInput: React.StatelessComponent<Props> = (props) => {
 		valueLabelRenderer,
 		steppers,
 		ariaDescription,
+		ariaValueChangedMessage,
 		...rest
 	} = props;
 	const id = inputId || guid();
@@ -61,9 +63,7 @@ const RangeInput: React.StatelessComponent<Props> = (props) => {
 					'rangeInput--withSteppers': steppers !== undefined
 				})}>
 				{steppers && (
-					<div
-						className="rangeInput__stepper rangeInput__stepper--previous"
-						role="presentation">
+					<div className="rangeInput__stepper rangeInput__stepper--previous">
 						<RangeStepper
 							direction="previous"
 							onClick={() =>
@@ -83,11 +83,14 @@ const RangeInput: React.StatelessComponent<Props> = (props) => {
 						type="range"
 						onChange={(e) => props.onChange(parseInt(e.target.value, 10))}
 					/>
+					<div role="alert" aria-live="assertive" className="sr-only">
+						{ariaValueChangedMessage
+							? ariaValueChangedMessage(props.value)
+							: undefined}
+					</div>
 				</div>
 				{steppers && (
-					<div
-						className="rangeInput__stepper rangeInput__stepper--next"
-						role="presentation">
+					<div className="rangeInput__stepper rangeInput__stepper--next">
 						<RangeStepper
 							direction="next"
 							onClick={() =>

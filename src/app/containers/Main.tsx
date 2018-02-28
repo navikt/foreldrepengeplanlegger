@@ -51,7 +51,7 @@ export class Main extends React.Component<Props> {
 				: undefined;
 
 		const navnForelder1 = form.navnForelder1 || intlString(intl, 'forelder1');
-		const navnForelder2 = form.navnForelder1 || intlString(intl, 'forelder2');
+		const navnForelder2 = form.navnForelder2 || intlString(intl, 'forelder2');
 
 		return (
 			<div>

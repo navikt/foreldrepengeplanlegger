@@ -30,6 +30,7 @@ export type SkjemaTekst =
 	| 'skjema.label.forelder1'
 	| 'skjema.label.forelder2'
 	| 'skjema.label.termindato'
+	| 'skjema.feilmelding.ugyldig_termindato'
 	| 'skjema.label.sats'
 	| 'skjema.label.sats80'
 	| 'skjema.label.sats100'

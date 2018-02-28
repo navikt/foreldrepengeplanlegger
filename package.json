@@ -66,8 +66,10 @@
 	"scripts": {
 		"build": "node src/build/scripts/production-build.js",
 		"clean-build": "rimraf ./dist",
-		"docker-build": "npm run clean-build && npm run build && docker build . -t p2-selvbetjening-frontend",
-		"docker-start": "docker run --name p2-selvbetjening-frontend -p 8080:8080 -d p2-selvbetjening-frontend",
+		"docker-build":
+			"npm run clean-build && npm run build && docker build . -t p2-selvbetjening-frontend",
+		"docker-start":
+			"docker run --name p2-selvbetjening-frontend -p 8080:8080 -d p2-selvbetjening-frontend",
 		"docker-kill": "npm run docker-stop && npm run docker-rm",
 		"docker-rm": "docker rm p2-selvbetjening-frontend",
 		"docker-stop": "docker stop p2-selvbetjening-frontend",
@@ -110,8 +112,8 @@
 		"nav-frontend-modal": "^0.2.16",
 		"nav-frontend-modal-style": "^0.3.8",
 		"nav-frontend-paneler-style": "^0.3.7",
-		"nav-frontend-skjema": "^0.1.21",
-		"nav-frontend-skjema-style": "^0.3.11",
+		"nav-frontend-skjema": "^0.1.27",
+		"nav-frontend-skjema-style": "^0.3.13",
 		"nav-frontend-stegindikator-style": "^0.3.22",
 		"nav-frontend-typografi": "^1.0.12",
 		"nav-frontend-typografi-style": "^1.0.7",
@@ -141,12 +143,8 @@
 	},
 	"postCSS": {},
 	"jest": {
-		"collectCoverageFrom": [
-			"src/**/*.{js,jsx,ts,tsx}"
-		],
-		"setupFiles": [
-			"<rootDir>/config/polyfills.js"
-		],
+		"collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}"],
+		"setupFiles": ["<rootDir>/config/polyfills.js"],
 		"testMatch": [
 			"<rootDir>/src/**/__tests__/**/*.ts?(x)",
 			"<rootDir>/src/**/?(*.)(spec|test).ts?(x)"
@@ -156,7 +154,8 @@
 		"transform": {
 			"^.+\\.tsx?$": "<rootDir>/config/jest/typescriptTransform.js",
 			"^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-			"^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+			"^(?!.*\\.(js|jsx|mjs|css|json)$)":
+				"<rootDir>/config/jest/fileTransform.js"
 		},
 		"transformIgnorePatterns": [
 			"[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$"

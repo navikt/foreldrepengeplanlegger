@@ -307,7 +307,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				</h1>
 				<div className="blokk-xxs">
 					<Radioliste
-						tittel={<IntlTekst id="utsettelseskjema.tittel" />}
+						tittel={<IntlTekst id="utsettelseskjema.arsak.sporsmal" />}
 						stil="ekstern"
 						feil={this.getFeil('arsak')}
 						kolonner="2"
@@ -333,7 +333,8 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				</div>
 				<VeilederinfoContainer
 					id={Infotekster.ferie}
-					apen={this.state.arsak === UtsettelseArsakType.Ferie}>
+					apen={this.state.arsak === UtsettelseArsakType.Ferie}
+					ariaLive="polite">
 					<IntlTekst id="utsettelseskjema.veiledning.ferie" />
 				</VeilederinfoContainer>
 				<div className="blokk-s">

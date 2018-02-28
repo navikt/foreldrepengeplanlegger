@@ -82,9 +82,10 @@ export type UlonnetPermisjonDialog =
 
 export type Veiledningstekster =
 	| 'veileder.forbehold.intro'
-	| 'veileder.forbehold.utvidetinfo'
+	| 'veileder.forbehold.utvidetinfo.tittel'
+	| 'veileder.forbehold.utvidetinfo.html'
 	| 'veileder.ulonnetpermisjon.tittel'
-	| 'veileder.ulonnetpermisjon.intro'
+	| 'veileder.ulonnetpermisjon.intro.html'
 	| 'veileder.ulonnetpermisjon.utvidetinfo';
 
 export type AppTekster =

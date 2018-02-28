@@ -46,7 +46,7 @@ export class Main extends React.Component<Props> {
 						form.termindato,
 						form.dekningsgrad,
 						form.permisjonsregler
-					)
+				  )
 				: undefined;
 
 		const navnForelder1 = form.navnForelder1 || intlString(intl, 'forelder1');
@@ -68,7 +68,10 @@ export class Main extends React.Component<Props> {
 							</p>
 							<UtvidetInformasjon>
 								<div className="blokkPad-s">
-									<IntlTekst id="veileder.forbehold.utvidetinfo" />
+									<Element tag="h2">
+										<IntlTekst id="veileder.forbehold.utvidetinfo.tittel" />
+									</Element>
+									<IntlTekst id="veileder.forbehold.utvidetinfo.html" />
 								</div>
 							</UtvidetInformasjon>
 						</Veilederinfo>
@@ -101,7 +104,7 @@ export class Main extends React.Component<Props> {
 										<IntlTekst id="veileder.ulonnetpermisjon.tittel" />
 									</Element>
 									<p>
-										<IntlTekst id="veileder.ulonnetpermisjon.intro" />
+										<IntlTekst id="veileder.ulonnetpermisjon.intro.html" />
 									</p>
 									<UtvidetInformasjon>
 										<div className="blokkPad-s">

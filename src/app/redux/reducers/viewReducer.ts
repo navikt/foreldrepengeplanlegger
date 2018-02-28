@@ -11,8 +11,7 @@ export enum Infotekster {
 
 const defaultState: ViewState = {
 	synligInfo: new Map(),
-	spraak: 'nb',
-	ubetaltInformasjonDialogSynlig: false
+	spraak: 'nb'
 };
 
 const leggTilInfo = (infoMap: SynligInfoMap, id: string): SynligInfoMap => {

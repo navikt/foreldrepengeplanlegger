@@ -1,14 +1,14 @@
 import * as React from 'react';
 import Main from './containers/Main';
 import './styles/planlegger.less';
-import Alertstripe from 'nav-frontend-alertstriper';
-import Lenke from 'nav-frontend-lenker';
+// import Alertstripe from 'nav-frontend-alertstriper';
+// import Lenke from 'nav-frontend-lenker';
 
 export class PlanleggerIndex extends React.Component {
 	render() {
 		return (
 			<div className="planlegger">
-				<br />
+				{/* <br />
 				<div className="blokk-m">
 					<Alertstripe type="info">
 						<p>
@@ -27,7 +27,7 @@ export class PlanleggerIndex extends React.Component {
 							for mer informasjon om foreldrepenger.
 						</p>
 					</Alertstripe>
-				</div>
+				</div> */}
 				<Main />
 			</div>
 		);

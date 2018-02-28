@@ -24,6 +24,7 @@ import { getAntallFeriedagerForForelder } from 'app/utils/permisjonUtils';
 import './utsettelseSkjema.less';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 import { Infotekster } from 'app/redux/reducers/viewReducer';
+import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
 
 interface OwnProps {
 	tidsrom: Tidsperiode;
@@ -305,7 +306,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				<h1 className="typo-undertittel m-textCenter blokk-s">
 					<IntlTekst id="utsettelseskjema.tittel" />
 				</h1>
-				<div className="blokk-xxs">
+				<div className="blokkPad-xxs">
 					<Radioliste
 						tittel={<IntlTekst id="utsettelseskjema.arsak.sporsmal" />}
 						stil="ekstern"
@@ -337,85 +338,89 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					ariaLive="polite">
 					<IntlTekst id="utsettelseskjema.veiledning.ferie" />
 				</VeilederinfoContainer>
-				<div className="blokk-s">
-					<Radioliste
-						kolonner="2"
-						tittel={getHvemTittel(intl, this.state.arsak)}
-						inputnavn="forelder"
-						stil="ekstern"
-						feil={this.getFeil('forelder')}
-						valg={[
-							{
-								tittel: navnForelder1 || intlString(intl, 'forelder1'),
-								verdi: 'forelder1'
-							},
-							{
-								tittel: navnForelder2 || intlString(intl, 'forelder2'),
-								verdi: 'forelder2'
-							}
-						]}
-						valgtVerdi={forelder}
-						onChange={(value) => {
-							this.setState({ forelder: value as Forelder });
-							this.revaliderSkjema();
-						}}
-					/>
-				</div>
-				<div className="blokk-s">
-					<Row>
-						<Column xs="12" sm="6">
-							<div className="blokk-s">
-								<DateInput
-									label={intl.formatMessage({
-										id: 'utsettelseskjema.startdato.sporsmal'
-									})}
-									id="startdato"
-									errorMessage={
-										startdatoFeil ? startdatoFeil.feilmelding : undefined
-									}
-									fromDate={tidsrom.startdato}
-									toDate={tidsrom.sluttdato}
-									onChange={(date) =>
-										this.setStartdato(date, tidsrom, ugyldigeTidsrom)
-									}
-									onInputBlur={(date) => {
-										this.setStartdato(date, tidsrom, ugyldigeTidsrom);
-									}}
-									selectedDate={startdato}
-									disabledRanges={ugyldigeTidsrom}
-									disableWeekends={true}
-									fullscreen={true}
-								/>
-							</div>
-						</Column>
-						<Column xs="12" sm="6">
-							<div className="blokk-s">
-								<DateInput
-									label={intlString(
-										intl,
-										'utsettelseskjema.sluttdato.sporsmal'
-									)}
-									id="sluttdato"
-									errorMessage={
-										sluttdatoFeil ? sluttdatoFeil.feilmelding : undefined
-									}
-									fromDate={tilTidsrom.startdato}
-									toDate={tilTidsrom.sluttdato}
-									onChange={(date) =>
-										this.setSluttdato(date, tilTidsrom, ugyldigeTidsrom)
-									}
-									onInputBlur={(date) =>
-										this.setSluttdato(date, tilTidsrom, ugyldigeTidsrom)
-									}
-									selectedDate={sluttdato}
-									disabledRanges={ugyldigeTidsrom}
-									disableWeekends={true}
-									fullscreen={true}
-								/>
-							</div>
-						</Column>
-					</Row>
-				</div>
+				<EkspanderbartInnhold erApen={this.state.arsak !== undefined}>
+					<div className="blokkPad-s">
+						<Radioliste
+							kolonner="2"
+							tittel={getHvemTittel(intl, this.state.arsak)}
+							inputnavn="forelder"
+							stil="ekstern"
+							feil={this.getFeil('forelder')}
+							valg={[
+								{
+									tittel: navnForelder1 || intlString(intl, 'forelder1'),
+									verdi: 'forelder1'
+								},
+								{
+									tittel: navnForelder2 || intlString(intl, 'forelder2'),
+									verdi: 'forelder2'
+								}
+							]}
+							valgtVerdi={forelder}
+							onChange={(value) => {
+								this.setState({ forelder: value as Forelder });
+								this.revaliderSkjema();
+							}}
+						/>
+					</div>
+				</EkspanderbartInnhold>
+				<EkspanderbartInnhold erApen={this.state.forelder !== undefined}>
+					<div className="blokkPad-s">
+						<Row>
+							<Column xs="12" sm="6">
+								<div className="blokkPad-s">
+									<DateInput
+										label={intl.formatMessage({
+											id: 'utsettelseskjema.startdato.sporsmal'
+										})}
+										id="startdato"
+										errorMessage={
+											startdatoFeil ? startdatoFeil.feilmelding : undefined
+										}
+										fromDate={tidsrom.startdato}
+										toDate={tidsrom.sluttdato}
+										onChange={(date) =>
+											this.setStartdato(date, tidsrom, ugyldigeTidsrom)
+										}
+										onInputBlur={(date) => {
+											this.setStartdato(date, tidsrom, ugyldigeTidsrom);
+										}}
+										selectedDate={startdato}
+										disabledRanges={ugyldigeTidsrom}
+										disableWeekends={true}
+										fullscreen={true}
+									/>
+								</div>
+							</Column>
+							<Column xs="12" sm="6">
+								<div className="blokkPad-s">
+									<DateInput
+										label={intlString(
+											intl,
+											'utsettelseskjema.sluttdato.sporsmal'
+										)}
+										id="sluttdato"
+										errorMessage={
+											sluttdatoFeil ? sluttdatoFeil.feilmelding : undefined
+										}
+										fromDate={tilTidsrom.startdato}
+										toDate={tilTidsrom.sluttdato}
+										onChange={(date) =>
+											this.setSluttdato(date, tilTidsrom, ugyldigeTidsrom)
+										}
+										onInputBlur={(date) =>
+											this.setSluttdato(date, tilTidsrom, ugyldigeTidsrom)
+										}
+										selectedDate={sluttdato}
+										disabledRanges={ugyldigeTidsrom}
+										disableWeekends={true}
+										fullscreen={true}
+									/>
+								</div>
+							</Column>
+						</Row>
+					</div>
+				</EkspanderbartInnhold>
 				{visFerieinfo && (
 					<Ferieinfo
 						feriedager={antallFeriedager}
@@ -425,7 +430,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				)}
 				<Row>
 					<Column xs="12" sm={utsettelse ? '6' : '12'}>
-						<div className="blokk-xxs">
+						<div className="blokkPad-xxs">
 							<Hovedknapp
 								onClick={(evt) => this.handleSubmitClick(evt)}
 								className="m-fullBredde">

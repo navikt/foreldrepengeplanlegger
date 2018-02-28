@@ -23,6 +23,7 @@ import {
 import { intlString } from 'app/intl/IntlTekst';
 import SkjemaDekningsgrad from 'app/components/skjema//SkjemaDekningsgrad';
 import SkjemaFordelingFellesperiode from 'app/components/skjema/SkjemaFordelingFellesperiode';
+import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
 
 export interface StateProps {
 	form: FormState;
@@ -72,6 +73,7 @@ class Skjema extends React.Component<Props> {
 						label={intlString(intl, 'skjema.label.termindato')}
 						onChange={(dato) => dispatch(setTermindato(new Date(dato)))}
 						disableWeekends={true}
+						initialMonth={new Date()}
 						errorMessage={
 							form.termindatoErUgyldig
 								? intlString(intl, 'skjema.feilmelding.ugyldig_termindato')
@@ -79,38 +81,38 @@ class Skjema extends React.Component<Props> {
 						}
 					/>
 				</div>
+				<EkspanderbartInnhold erApen={form.termindato !== undefined}>
+					<div className="blokk-m">
+						<SkjemaDekningsgrad
+							dekningsgrad={form.dekningsgrad}
+							antallUkerTotalt80={form.permisjonsregler.antallUkerTotalt80}
+							antallUkerTotalt100={form.permisjonsregler.antallUkerTotalt100}
+							onChange={(dekningsgrad) =>
+								dispatch(setDekningsgrad(dekningsgrad))
+							}
+						/>
+					</div>
+				</EkspanderbartInnhold>
 
-				<div className="blokk-m">
-					<SkjemaDekningsgrad
-						dekningsgrad={form.dekningsgrad}
-						antallUkerTotalt80={form.permisjonsregler.antallUkerTotalt80}
-						antallUkerTotalt100={form.permisjonsregler.antallUkerTotalt100}
-						onChange={(dekningsgrad) => dispatch(setDekningsgrad(dekningsgrad))}
-					/>
-				</div>
-
-				{form.ukerFellesperiode &&
-					form.dekningsgrad &&
-					form.termindato && (
-						<div className="blokk-s">
-							<SkjemaFordelingFellesperiode
-								navnForelder1={
-									form.navnForelder1 || intlString(intl, 'forelder1')
-								}
-								navnForelder2={
-									form.navnForelder2 || intlString(intl, 'forelder2')
-								}
-								ukerFellesperiode={form.ukerFellesperiode}
-								ukerForelder1={form.fellesperiodeukerForelder1}
-								ukerModrekvote={form.permisjonsregler.antallUkerMødrekvote}
-								ukerFedrekvote={form.permisjonsregler.antallUkerFedrekvote}
-								ukerForTermin={
-									form.permisjonsregler.antallUkerForelder1FørFødsel
-								}
-								onChange={(uker) => dispatch(settAntallDagerMor(uker))}
-							/>
-						</div>
-					)}
+				<EkspanderbartInnhold
+					erApen={form.dekningsgrad && form.termindato !== undefined}>
+					<div className="blokk-s">
+						<SkjemaFordelingFellesperiode
+							navnForelder1={
+								form.navnForelder1 || intlString(intl, 'forelder1')
+							}
+							navnForelder2={
+								form.navnForelder2 || intlString(intl, 'forelder2')
+							}
+							ukerFellesperiode={form.ukerFellesperiode}
+							ukerForelder1={form.fellesperiodeukerForelder1}
+							ukerModrekvote={form.permisjonsregler.antallUkerMødrekvote}
+							ukerFedrekvote={form.permisjonsregler.antallUkerFedrekvote}
+							ukerForTermin={form.permisjonsregler.antallUkerForelder1FørFødsel}
+							onChange={(uker) => dispatch(settAntallDagerMor(uker))}
+						/>
+					</div>
+				</EkspanderbartInnhold>
 			</div>
 		);
 	}

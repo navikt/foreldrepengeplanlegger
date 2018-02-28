@@ -18,6 +18,7 @@ export interface FormState {
 	navnForelder1: string | undefined;
 	navnForelder2: string | undefined;
 	termindato?: Date;
+	termindatoErUgyldig?: boolean;
 	dekningsgrad?: Dekningsgrad;
 	fellesperiodeukerForelder1: number;
 	fellesperiodeukerForelder2: number;

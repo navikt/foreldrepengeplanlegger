@@ -7,6 +7,7 @@ import { FormState } from '../types';
 import { normaliserDato } from 'app/utils';
 import { FellesperiodeFordeling, Dekningsgrad } from 'app/types';
 import { getAntallUkerFellesperiode } from 'app/utils/permisjonUtils';
+import { addYears, isWithinRange } from 'date-fns';
 
 const getDefaultState = (dato: Date, dekningsgrad: Dekningsgrad): FormState => {
 	const permisjonsregler = getPermisjonsregler(dato);
@@ -47,6 +48,13 @@ export const refordelFellesperiode = (
 	};
 };
 
+const validerTermindato = (termindato: Date) => {
+	return (
+		termindato &&
+		isWithinRange(termindato, addYears(new Date(), -1), addYears(new Date(), 2))
+	);
+};
+
 const FormReducer = (
 	state = getDefaultState(new Date(), '100%'),
 	action: PlanleggerActionTypes
@@ -59,13 +67,21 @@ const FormReducer = (
 		case PlanleggerActionTypeKeys.SET_TERMINDATO:
 			const dato = normaliserDato(action.termindato);
 			const permisjonsregler = getPermisjonsregler(dato);
-			return {
-				...getDefaultState(dato, state.dekningsgrad || '100%'),
-				navnForelder1: state.navnForelder1,
-				navnForelder2: state.navnForelder2,
-				termindato: dato,
-				permisjonsregler
-			};
+			const erGyldigTermindato = validerTermindato(dato);
+			if (erGyldigTermindato) {
+				return {
+					...getDefaultState(dato, state.dekningsgrad || '100%'),
+					navnForelder1: state.navnForelder1,
+					navnForelder2: state.navnForelder2,
+					termindato: dato,
+					permisjonsregler
+				};
+			} else {
+				return {
+					...state,
+					termindatoErUgyldig: true
+				};
+			}
 		case PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD:
 			if (!action.dekningsgrad) {
 				return state;

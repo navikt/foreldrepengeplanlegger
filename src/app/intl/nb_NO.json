@@ -35,6 +35,7 @@
 	"skjema.label.forelder1": "Forelder 1",
 	"skjema.label.forelder2": "Forelder 2",
 	"skjema.label.termindato": "Termindato",
+	"skjema.feilmelding.ugyldig_termindato": "Ugyldig termindato",
 	"skjema.label.sats": "Hvor lang permisjon ønsker dere?",
 	"skjema.label.sats80": "{uker} uker med 80 % foreldrepenger",
 	"skjema.label.sats100": "{uker} uker med 100 % foreldrepenger",

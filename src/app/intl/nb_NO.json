@@ -12,7 +12,8 @@
 	"stonadskonto.foreldrepenger": "foreldrepenger",
 	"tittel.introtekst":
 		"Velkommen til planleggingskalenderen. Her kan dere planlegge hvordan dere vil ta ut foreldrepermisjonen deres når dere venter barn.",
-	"utsettelseskjema.tittel": "Opphold i permisjonen",
+	"utsettelseskjema.tittel": "Legg til opphold i permisjonen",
+	"utsettelseskjema.tittel.endre": "Opphold i permisjonen",
 	"utsettelseskjema.arsak.sporsmal": "Hva skal du gjøre?",
 	"utsettelseskjema.arsak.ferie": "Ta ut ferie",
 	"utsettelseskjema.veiledning.ferie":
@@ -27,14 +28,15 @@
 	"utsettelseskjema.knapp.oppdater": "Oppdater",
 	"utsettelseskjema.knapp.fjern": "Fjern opphold",
 	"utsettelseskjema.ferievarsel.ulovlig":
-		"[Tekst må lages]: {feriedager} feriedager er registrert for {forelderNavn}. Det er ikke lov å ha mer enn 10 uker og 2 dager med opphold i permisjonen på grunn av ferie.",
+		"{feriedager} feriedager er registrert for {forelderNavn}. Det er ikke lov å ha mer enn 10 uker og 2 dager med opphold i permisjonen på grunn av ferie.",
 	"utsettelseskjema.ferievarsel.kreveroverforing":
-		"[Tekst må lages]: {feriedager} feriedager er registrert for {forelderNavn}. Det er lov med opp til 4 uker og 1 dag med ferie som opphold i permisjonen, du kan også ha opphold på grunn av overført ferie fra i fjor eller ta ut ferie fra neste år.",
+		"{feriedager} feriedager er registrert for {forelderNavn}. Det er lov med opp til 4 uker og 1 dag med ferie som opphold i permisjonen, du kan også ha opphold på grunn av overført ferie fra i fjor eller ta ut ferie fra neste år.",
 	"skjema.fordeling.reduser.tooltip": "En uke mindre fellesperiode til {navn}",
 	"skjema.fordeling.sporsmal": "Hvordan vil dere dele permisjonen?",
 	"skjema.label.forelder1": "Forelder 1",
 	"skjema.label.forelder2": "Forelder 2",
 	"skjema.label.termindato": "Termindato",
+	"skjema.feilmelding.ugyldig_termindato": "Termindato er ikke gyldig",
 	"skjema.label.sats": "Hvor lang permisjon ønsker dere?",
 	"skjema.label.sats80": "{uker} uker med 80 % foreldrepenger",
 	"skjema.label.sats100": "{uker} uker med 100 % foreldrepenger",
@@ -61,7 +63,7 @@
 	"tidslinje.hendelse.sistepermisjonsdag": "Siste permisjonsdag",
 	"opphold.arsak.ferie": "ferie",
 	"opphold.arsak.arbeid": "arbeid",
-	"opphold.tittel": "Opphold i permisjonen?",
+	"opphold.tittel": "Ønsker dere opphold i permisjonen?",
 	"opphold.knapp.leggtil": "Legg til ferie eller arbeid",
 	"opphold.knapp.ulonnetpermisjon": "Legg til ulønnet permisjon",
 	"skjermleser.skjema.tittel": "Fyll ut skjema og se din permisjonsplan",

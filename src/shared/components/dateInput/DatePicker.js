@@ -86,7 +86,7 @@ class DayPickerComponent extends Component {
 	}
 
 	getInitialMonth() {
-		return this.getDateFromValue() || new Date();
+		return this.props.initialMonth || this.getDateFromValue() || new Date();
 	}
 
 	selectedDays(day) {
@@ -158,6 +158,7 @@ DayPickerComponent.propTypes = {
 			to: PT.instanceOf(Date).isRequired
 		})
 	),
+	initialMonth: PT.instanceOf(Date),
 	fullscreen: PT.bool
 };
 
@@ -167,7 +168,8 @@ DayPickerComponent.defaultProps = {
 	selectedDate: undefined,
 	disableWeekends: false,
 	disabledRanges: [],
-	fullscreen: false
+	fullscreen: false,
+	initialMonth: undefined
 };
 
 export default DayPickerComponent;

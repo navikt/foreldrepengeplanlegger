@@ -30,6 +30,27 @@ const getDefaultState = (dato: Date, dekningsgrad: Dekningsgrad): FormState => {
 	};
 };
 
+const getInitialState = (): FormState => {
+	const permisjonsregler = getPermisjonsregler(new Date());
+	const ukerFellesperiode = getAntallUkerFellesperiode(
+		permisjonsregler,
+		'100%'
+	);
+	const ukerForelder1 = Math.round(ukerFellesperiode / 2);
+	const ukerForelder2 = ukerFellesperiode - ukerForelder1;
+
+	return {
+		termindato: undefined,
+		navnForelder1: undefined,
+		navnForelder2: undefined,
+		dekningsgrad: undefined,
+		ukerFellesperiode,
+		fellesperiodeukerForelder1: ukerForelder1,
+		fellesperiodeukerForelder2: ukerForelder2,
+		permisjonsregler
+	};
+};
+
 const beregnUkerForelder2 = (
 	ukerFellesperiode: number | undefined,
 	ukerForelder1: number | undefined
@@ -56,7 +77,7 @@ const validerTermindato = (termindato: Date) => {
 };
 
 const FormReducer = (
-	state = getDefaultState(new Date(), '100%'),
+	state = getInitialState(),
 	action: PlanleggerActionTypes
 ): FormState => {
 	switch (action.type) {
@@ -68,6 +89,7 @@ const FormReducer = (
 			const dato = normaliserDato(action.termindato);
 			const permisjonsregler = getPermisjonsregler(dato);
 			const erGyldigTermindato = validerTermindato(dato);
+			console.log(erGyldigTermindato);
 			if (erGyldigTermindato) {
 				return {
 					...getDefaultState(dato, state.dekningsgrad || '100%'),

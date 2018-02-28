@@ -174,6 +174,7 @@ class DateInput extends Component {
 					{this.state.isOpen && (
 						<DatePicker
 							{...this.props}
+							initialMonth={selectedDate || new Date()}
 							ariaControls={`toggle-${id}`}
 							fromDate={fromDate}
 							toDate={toDate}

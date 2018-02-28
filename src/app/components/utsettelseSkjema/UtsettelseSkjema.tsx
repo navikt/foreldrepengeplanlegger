@@ -306,7 +306,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				<h1 className="typo-undertittel m-textCenter blokk-s">
 					<IntlTekst id="utsettelseskjema.tittel" />
 				</h1>
-				<div className="blokk-xxs">
+				<div className="blokkPad-xxs">
 					<Radioliste
 						tittel={<IntlTekst id="utsettelseskjema.arsak.sporsmal" />}
 						stil="ekstern"
@@ -339,7 +339,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					<IntlTekst id="utsettelseskjema.veiledning.ferie" />
 				</VeilederinfoContainer>
 				<EkspanderbartInnhold erApen={this.state.arsak !== undefined}>
-					<div className="blokk-s">
+					<div className="blokkPad-s">
 						<Radioliste
 							kolonner="2"
 							tittel={getHvemTittel(intl, this.state.arsak)}
@@ -365,10 +365,10 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					</div>
 				</EkspanderbartInnhold>
 				<EkspanderbartInnhold erApen={this.state.forelder !== undefined}>
-					<div className="blokk-s">
+					<div className="blokkPad-s">
 						<Row>
 							<Column xs="12" sm="6">
-								<div className="blokk-s">
+								<div className="blokkPad-s">
 									<DateInput
 										label={intl.formatMessage({
 											id: 'utsettelseskjema.startdato.sporsmal'
@@ -393,7 +393,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								</div>
 							</Column>
 							<Column xs="12" sm="6">
-								<div className="blokk-s">
+								<div className="blokkPad-s">
 									<DateInput
 										label={intlString(
 											intl,
@@ -430,7 +430,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				)}
 				<Row>
 					<Column xs="12" sm={utsettelse ? '6' : '12'}>
-						<div className="blokk-xxs">
+						<div className="blokkPad-xxs">
 							<Hovedknapp
 								onClick={(evt) => this.handleSubmitClick(evt)}
 								className="m-fullBredde">

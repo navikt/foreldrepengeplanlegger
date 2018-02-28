@@ -48,6 +48,14 @@ const FordelingFellesperiode: React.StatelessComponent<
 				navn: navnForelder2
 			})
 		}}
+		ariaValueChangedMessage={(value) =>
+			intlString(intl, 'skjermleser.fordeling_av_fellesperiode', {
+				ukerForelder1: value,
+				ukerForelder2: ukerFellesperiode - value,
+				navnForelder1,
+				navnForelder2
+			})
+		}
 		valueLabelRenderer={(options) => (
 			<FordelingFellesperiodeLabelRenderer
 				options={options}

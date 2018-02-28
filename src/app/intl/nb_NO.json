@@ -67,6 +67,8 @@
 	"skjermleser.skjema.tittel": "Fyll ut skjema og se din permisjonsplan",
 	"skjermleser.tidslinje.oppsummering.tittel":
 		"Fordeling av permisjon oppsummert",
+	"skjermleser.fordeling_av_fellesperiode":
+		"{ukerForelder1, plural, one {# uke} other {# uker}} til {navnForelder1}, {ukerForelder2, plural, one {# uke} other {# uker}} til {navnForelder2}",
 	"dialog.ulonnetpermisjon.tittel": "Ulønnet permisjon",
 	"dialog.ulonnetpermisjon.innhold1":
 		"Du må avtale ulønnet permisjon med din arbeidsgiver. Ulønnet permisjon i mer enn 14 dager kan påvirke din rett til blant annet sykepenger og pleiepenger. Les mer på ",

@@ -70,6 +70,7 @@ export type OppholdTekst =
 
 export type SkjulteTekster =
 	| 'skjermleser.skjema.tittel'
+	| 'skjermleser.fordeling_av_fellesperiode'
 	| 'skjermleser.tidslinje.oppsummering.tittel';
 
 export type UlonnetPermisjonDialog =

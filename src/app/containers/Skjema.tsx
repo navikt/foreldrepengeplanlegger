@@ -73,6 +73,7 @@ class Skjema extends React.Component<Props> {
 						label={intlString(intl, 'skjema.label.termindato')}
 						onChange={(dato) => dispatch(setTermindato(new Date(dato)))}
 						disableWeekends={true}
+						initialMonth={new Date()}
 						errorMessage={
 							form.termindatoErUgyldig
 								? intlString(intl, 'skjema.feilmelding.ugyldig_termindato')

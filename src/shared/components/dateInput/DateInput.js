@@ -174,7 +174,7 @@ class DateInput extends Component {
 					{this.state.isOpen && (
 						<DatePicker
 							{...this.props}
-							initialMonth={selectedDate || new Date()}
+							initialMonth={selectedDate || this.props.initialMonth}
 							ariaControls={`toggle-${id}`}
 							fromDate={fromDate}
 							toDate={toDate}
@@ -215,6 +215,7 @@ DateInput.propTypes = {
 	),
 	errorMessage: PT.oneOfType([PT.arrayOf(PT.node), PT.node]),
 	fullscreen: PT.bool,
+	initialMonth: PT.instanceOf(Date),
 	onInputBlur: PT.func,
 	onChange: PT.func.isRequired
 };
@@ -229,6 +230,7 @@ DateInput.defaultProps = {
 	disableWeekends: false,
 	disabledRanges: undefined,
 	fullscreen: false,
-	onInputBlur: undefined
+	onInputBlur: undefined,
+	initialMonth: undefined
 };
 export default DateInput;

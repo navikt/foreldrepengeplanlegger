@@ -1,5 +1,8 @@
 import * as React from 'react';
+import * as classnames from 'classnames';
 import { Collapse } from 'react-collapse';
+
+import './ekspanderbartInnhold.less';
 
 export interface OwnProps {
 	/** Innholdet som skal vises */
@@ -15,7 +18,12 @@ const EkspanderbartInnhold: React.StatelessComponent<OwnProps> = ({
 	erApen = false,
 	ariaLive = 'off'
 }) => (
-	<Collapse isOpened={erApen} springConfig={{ stiffness: 250, damping: 30 }}>
+	<Collapse
+		isOpened={erApen}
+		springConfig={{ stiffness: 250, damping: 30 }}
+		className={classnames('ekspanderbartInnhold', {
+			'ekspanderbartInnhold--apen': erApen
+		})}>
 		<div aria-live={ariaLive}>{erApen ? <div>{children}</div> : <div />}</div>
 	</Collapse>
 );

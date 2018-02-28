@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import { Collapse } from 'react-collapse';
 import { guid } from 'nav-frontend-js-utils';
 
 import { intlString } from 'app/intl/IntlTekst';
 import InfoToggler from 'app/elements/utvidetInformasjon/InfoToggler';
 
 import './utvidetInformasjon.less';
+import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
 
 interface OwnProps {
 	children: React.ReactNode;
@@ -50,12 +50,10 @@ class UtvidetInformasjon extends React.Component<Props, State> {
 					</InfoToggler>
 				</div>
 				<div className="utvidetInformasjon__innhold" id={this.innholdId}>
-					<Collapse
-						isOpened={this.state.apen}
-						springConfig={{ stiffness: 250, damping: 30 }}>
+					<EkspanderbartInnhold erApen={this.state.apen}>
 						{' '}
 						{this.props.children}
-					</Collapse>
+					</EkspanderbartInnhold>
 				</div>
 			</div>
 		);

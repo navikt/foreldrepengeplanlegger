@@ -24,6 +24,7 @@ import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
 import { getGyldigTidsromForUtsettelse } from 'app/utils/permisjonUtils';
 import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
 import UtvidetInformasjon from 'app/elements/utvidetInformasjon/UtvidetInformasjon';
+import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
 
 export interface StateProps {
 	form: FormState;
@@ -86,8 +87,8 @@ export class Main extends React.Component<Props> {
 						<Skjema />
 					</div>
 
-					{this.props.visTidslinjeOgUtsettelse && (
-						<div className="no-print blokk-l">
+					<EkspanderbartInnhold erApen={this.props.visTidslinjeOgUtsettelse}>
+						<div className="no-print blokkPad-l">
 							<div className="blokk-xs">
 								<Element>
 									<IntlTekst id="opphold.tittel" />
@@ -114,10 +115,10 @@ export class Main extends React.Component<Props> {
 								</Veilederinfo>
 							</div>
 						</div>
-					)}
+					</EkspanderbartInnhold>
 				</section>
 
-				{this.props.visTidslinjeOgUtsettelse && (
+				<EkspanderbartInnhold erApen={this.props.visTidslinjeOgUtsettelse}>
 					<section className="tidsplan">
 						<div className="blokk-m">
 							<Systemtittel>
@@ -149,7 +150,7 @@ export class Main extends React.Component<Props> {
 							navnForelder2={navnForelder1}
 						/>
 					</section>
-				)}
+				</EkspanderbartInnhold>
 				{tidsromForUtsettelse && (
 					<UtsettelseDialog
 						isOpen={utsettelse.dialogErApen}

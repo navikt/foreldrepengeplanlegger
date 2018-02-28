@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Collapse } from 'react-collapse';
 import { AppState } from 'app/redux/types';
 import Veilederinfo, {
 	VeilederInfoProps
 } from 'app/elements/veilederinfo/Veilederinfo';
 import { Infotekster } from 'app/redux/reducers/viewReducer';
+import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
 
 export interface StateProps {
 	isOpen: boolean;
@@ -37,9 +37,9 @@ const SkjemaVeileder: React.StatelessComponent<Props> = ({
 		<div />
 	);
 	return (
-		<Collapse isOpened={erApen} springConfig={{ stiffness: 250, damping: 30 }}>
-			<div aria-live={ariaLive}>{content}</div>
-		</Collapse>
+		<EkspanderbartInnhold erApen={erApen} ariaLive={ariaLive}>
+			{content}
+		</EkspanderbartInnhold>
 	);
 };
 

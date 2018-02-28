@@ -24,7 +24,7 @@ import { getAntallFeriedagerForForelder } from 'app/utils/permisjonUtils';
 import './utsettelseSkjema.less';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 import { Infotekster } from 'app/redux/reducers/viewReducer';
-import { Collapse } from 'react-collapse';
+import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
 
 interface OwnProps {
 	tidsrom: Tidsperiode;
@@ -338,7 +338,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					ariaLive="polite">
 					<IntlTekst id="utsettelseskjema.veiledning.ferie" />
 				</VeilederinfoContainer>
-				<Collapse isOpened={this.state.arsak !== undefined}>
+				<EkspanderbartInnhold erApen={this.state.arsak !== undefined}>
 					<div className="blokk-s">
 						<Radioliste
 							kolonner="2"
@@ -363,8 +363,8 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 							}}
 						/>
 					</div>
-				</Collapse>
-				<Collapse isOpened={this.state.forelder !== undefined}>
+				</EkspanderbartInnhold>
+				<EkspanderbartInnhold erApen={this.state.forelder !== undefined}>
 					<div className="blokk-s">
 						<Row>
 							<Column xs="12" sm="6">
@@ -420,7 +420,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 							</Column>
 						</Row>
 					</div>
-				</Collapse>
+				</EkspanderbartInnhold>
 				{visFerieinfo && (
 					<Ferieinfo
 						feriedager={antallFeriedager}

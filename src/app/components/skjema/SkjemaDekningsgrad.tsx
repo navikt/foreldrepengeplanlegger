@@ -36,7 +36,7 @@ const SkjemaDekningsgrad: React.StatelessComponent<Props> = ({
 			</Sporsmal>
 		}
 		beskrivelse={
-			<VeilederinfoContainer id={Infotekster.sats} stil="info">
+			<VeilederinfoContainer id={Infotekster.sats} type="info">
 				<IntlTekst id="skjema.veiledning.sats" />
 			</VeilederinfoContainer>
 		}

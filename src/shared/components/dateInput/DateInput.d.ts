@@ -17,6 +17,7 @@ export interface DateInputProps {
 	disabledRanges?: Range[];
 	disableWeekends?: boolean;
 	fullscreen?: boolean;
+	onInputBlur?: (date: string) => void;
 	onChange: (date: string) => void;
 }
 

@@ -7,23 +7,35 @@ import UtvidetInformasjon from 'app/elements/utvidetInformasjon/UtvidetInformasj
 
 export interface VeilederInfoProps {
 	utvidetInfo?: React.ReactNode;
-	stil?: 'kompakt' | 'normal' | 'info';
+	visVeileder?: boolean;
+	stil?: 'kompakt' | 'normal' | 'kunTekst';
+	type?: 'info' | 'advarsel' | 'feil';
 }
 
 const Veilederinfo: React.StatelessComponent<VeilederInfoProps> = ({
 	utvidetInfo,
+	visVeileder = true,
 	stil = 'normal',
+	type = 'info',
 	children
 }) => {
-	const visVeileder = stil !== 'info';
 	return (
-		<div className={classnames('veilederinfo', `veilederinfo--${stil}`)}>
+		<div
+			className={classnames(
+				'veilederinfo',
+				`veilederinfo--${stil}`,
+				`veilederinfo--${type}`
+			)}>
 			{visVeileder && (
 				<span className="veilederinfo__veileder">
 					<Veileder farge="lilla" ansikt="glad" stil="kompakt" />
 				</span>
 			)}
-			<div className="veilederinfo__innhold">
+			<div
+				className={classnames(
+					'veilederinfo__innhold',
+					`veilederinfo__innhold--${type}`
+				)}>
 				{children}
 				{utvidetInfo && (
 					<div className="veilederinfo__utvidetInfo">

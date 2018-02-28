@@ -75,6 +75,11 @@ class DateInput extends Component {
 			this.props.onChange(isoDate);
 		}
 	}
+	onMaskedInputBlur(e) {
+		if (this.props.onInputBlur) {
+			this.props.onInputBlur(e.target.value);
+		}
+	}
 
 	toggle(e) {
 		e.preventDefault();
@@ -146,6 +151,7 @@ class DateInput extends Component {
 							className="skjemaelement__input input--m datovelger__input"
 							{...maskedInputProps}
 							onChange={(e) => this.onMaskedInputChange(e)}
+							onBlur={(e) => this.onMaskedInputBlur(e)}
 						/>
 						<button
 							className="js-toggle datovelger__toggleDayPicker"
@@ -208,6 +214,7 @@ DateInput.propTypes = {
 	),
 	errorMessage: PT.oneOfType([PT.arrayOf(PT.node), PT.node]),
 	fullscreen: PT.bool,
+	onInputBlur: PT.func,
 	onChange: PT.func.isRequired
 };
 
@@ -220,6 +227,7 @@ DateInput.defaultProps = {
 	inputProps: undefined,
 	disableWeekends: false,
 	disabledRanges: undefined,
-	fullscreen: false
+	fullscreen: false,
+	onInputBlur: undefined
 };
 export default DateInput;

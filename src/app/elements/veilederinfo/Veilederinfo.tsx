@@ -34,7 +34,8 @@ const Veilederinfo: React.StatelessComponent<VeilederInfoProps> = ({
 			<div
 				className={classnames(
 					'veilederinfo__innhold',
-					`veilederinfo__innhold--${type}`
+					`veilederinfo__innhold--${type}`,
+					'typo-normal'
 				)}>
 				{children}
 				{utvidetInfo && (

@@ -13,7 +13,10 @@ export interface StateProps {
 
 export interface OwnProps extends VeilederInfoProps {
 	id: Infotekster;
+	/** Overstyre state for om den skal vises eller ikke */
 	apen?: boolean;
+	/** Default off */
+	ariaLive?: 'assertive' | 'polite' | 'off';
 }
 
 type Props = StateProps & OwnProps;
@@ -21,6 +24,7 @@ type Props = StateProps & OwnProps;
 const SkjemaVeileder: React.StatelessComponent<Props> = ({
 	id,
 	isOpen,
+	ariaLive,
 	apen = false,
 	...rest
 }) => {
@@ -34,7 +38,7 @@ const SkjemaVeileder: React.StatelessComponent<Props> = ({
 	);
 	return (
 		<Collapse isOpened={erApen} springConfig={{ stiffness: 250, damping: 30 }}>
-			{content}
+			<div aria-live={ariaLive}>{content}</div>
 		</Collapse>
 	);
 };

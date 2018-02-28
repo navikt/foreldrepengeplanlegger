@@ -11,7 +11,7 @@
 	"stonadskonto.fellesperiode": "fellesperiode",
 	"stonadskonto.foreldrepenger": "foreldrepenger",
 	"tittel.introtekst":
-		"Lorem ipsum dolor sit amet lorem ipsum sit amet dolor lorem ipsum sit amet dolor. Amet sit ipsum dolro.",
+		"Velkommen til planleggingskalenderen. Her kan dere planlegge hvordan dere vil ta ut foreldrepermisjonen deres når dere venter barn.",
 	"utsettelseskjema.tittel": "Opphold i permisjonen",
 	"utsettelseskjema.arsak.sporsmal": "Hva skal du gjøre?",
 	"utsettelseskjema.arsak.ferie": "Ta ut ferie",
@@ -27,19 +27,19 @@
 	"utsettelseskjema.knapp.oppdater": "Oppdater",
 	"utsettelseskjema.knapp.fjern": "Fjern opphold",
 	"utsettelseskjema.ferievarsel.ulovlig":
-		"[Tekst må lages]: {feriedager} feriedager er registrert for {forelderNavn}. Det er ikke lov å ha mer enn 10 uker opphold i permisjonen på grunn av ferie.",
+		"[Tekst må lages]: {feriedager} feriedager er registrert for {forelderNavn}. Det er ikke lov å ha mer enn 10 uker og 2 dager med opphold i permisjonen på grunn av ferie.",
 	"utsettelseskjema.ferievarsel.kreveroverforing":
-		"[Tekst må lages]: {feriedager} feriedager er registrert for {forelderNavn}. Det er lov med opp til 4 uker ferie som opphold i permisjonen, ferie utover dette vil kreve ...",
+		"[Tekst må lages]: {feriedager} feriedager er registrert for {forelderNavn}. Det er lov med opp til 4 uker og 1 dag med ferie som opphold i permisjonen, du kan også ha opphold på grunn av overført ferie fra i fjor eller ta ut ferie fra neste år.",
 	"skjema.fordeling.reduser.tooltip": "En uke mindre fellesperiode til {navn}",
 	"skjema.fordeling.sporsmal": "Hvordan vil dere dele permisjonen?",
 	"skjema.label.forelder1": "Forelder 1",
 	"skjema.label.forelder2": "Forelder 2",
 	"skjema.label.termindato": "Termindato",
-	"skjema.feilmelding.ugyldig_termindato": "Ugyldig termindato",
 	"skjema.label.sats": "Hvor lang permisjon ønsker dere?",
 	"skjema.label.sats80": "{uker} uker med 80 % foreldrepenger",
 	"skjema.label.sats100": "{uker} uker med 100 % foreldrepenger",
-	"skjema.veiledning.sats.alttekst": "Les mer om sats",
+	"skjema.veiledning.sats.alttekst":
+		"Les mer om valget av lengden på permisjonen",
 	"skjema.veiledning.sats":
 		"Valget av antall uker gjelder dere begge. Den totale utbetalingen blir høyere ved å velge 100 prosent.",
 	"skjema.fordeling.veiledning": "Lorem ipsum dolor sit amet,",
@@ -61,7 +61,7 @@
 	"tidslinje.hendelse.sistepermisjonsdag": "Siste permisjonsdag",
 	"opphold.arsak.ferie": "ferie",
 	"opphold.arsak.arbeid": "arbeid",
-	"opphold.tittel": "Ubetalt permisjon",
+	"opphold.tittel": "Opphold i permisjonen?",
 	"opphold.knapp.leggtil": "Legg til ferie eller arbeid",
 	"opphold.knapp.ulonnetpermisjon": "Legg til ulønnet permisjon",
 	"skjermleser.skjema.tittel": "Fyll ut skjema og se din permisjonsplan",
@@ -78,12 +78,13 @@
 	"dialog.ulonnetpermisjon.navlenke.alttekst":
 		"Les mer om ulønnet permisjon på nav.no",
 	"veileder.ulonnetpermisjon.tittel": "Ulønnet permisjon?",
-	"veileder.ulonnetpermisjon.intro":
-		"Da må den andre foreldren utsette sin foreldrepengeperiode.",
+	"veileder.ulonnetpermisjon.intro.html":
+		"Da må den andre forelderen utsette sin foreldrepenge&shy;periode.",
 	"veileder.ulonnetpermisjon.utvidetinfo":
-		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus metus, at posuere neque. Sed pharetra nibh eget orci convallis at posuere leo convallis. Sed blandit augue vitae augue scelerisque bibendum. Vivamus sit amet libero turpis, non venenatis urna.",
+		"Du må avtale ulønnet permisjon med din arbeidsgiver. Ulønnet permisjon i mer enn 14 dager kan påvirke din rett til blant annet sykepenger og pleiepenger. Les mer på nav.no. Ønsker dere å ha opphold i foreldrepengene med ulønnet permisjon må den andre forelderen søke om utsettelse.",
 	"veileder.forbehold.intro":
-		"Informasjon om begrensninger og forbehold. Lorem ipsum dolor sit amet, dolor ipsum lorem.",
-	"veileder.forbehold.utvidetinfo":
-		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus metus, at posuere neque. Sed pharetra nibh eget orci convallis at posuere leo convallis. Sed blandit augue vitae augue scelerisque bibendum. Vivamus sit amet libero turpis, non venenatis urna."
+		"Planleggingskalenderen viser hvor mange uker dere kan få med foreldrepenger, og hvordan dere kan utsette foreldrepermisjonen hvis dere skal ha ferie eller jobbe heltid. Den viser ikke hvor mye dere kan få utbetalt.",
+	"veileder.forbehold.utvidetinfo.tittel": "Begrensninger i kalenderen",
+	"veileder.forbehold.utvidetinfo.html":
+		"Planleggingskalenderen er under utvikling. Inntil videre kan du ikke bruke den for å planlegge: <ul><li>kombinasjon av delvis arbeid og foreldrepenger</li><li>opphold i permisjonen på grunn av sykdom</li><li>ekstrauker ved flerbarnsfødsel</li><li>foreldrepermisjon ved adopsjon</li><li>oppstart av permisjon tidligere enn 3 uker før termindato</li></ul>"
 }

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {
-	injectIntl,
 	InjectedIntl,
-	InjectedIntlProps,
-	MessageValue
+	MessageValue,
+	FormattedHTMLMessage,
+	FormattedMessage
 } from 'react-intl';
 import { AppTekster } from 'app/intl/tekstnokler';
 
@@ -12,7 +12,7 @@ export interface OwnProps {
 	values?: { [key: string]: MessageValue };
 }
 
-type Props = OwnProps & InjectedIntlProps;
+type Props = OwnProps;
 
 export const intlString = (
 	intl: InjectedIntl,
@@ -22,10 +22,11 @@ export const intlString = (
 	return intl.formatMessage({ id }, values);
 };
 
-const IntlTekst: React.StatelessComponent<Props> = (props) => (
-	<span className="intlTekst" data-key={props.id}>
-		{props.intl.formatMessage({ id: props.id }, props.values)}
-	</span>
-);
+const IntlTekst: React.StatelessComponent<Props> = ({ id, values }) => {
+	if (id.substr(id.length - 5) === '.html') {
+		return <FormattedHTMLMessage id={id} values={values} data-key={id} />;
+	}
+	return <FormattedMessage id={id} values={values} data-key={id} />;
+};
 
-export default injectIntl(IntlTekst);
+export default IntlTekst;

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { FormEvent } from 'react';
-import { Collapse } from 'react-collapse';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Row, Column } from 'nav-frontend-grid';
@@ -21,9 +20,10 @@ import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import Ferieinfo from 'app/components/utsettelseSkjema/Ferieinfo';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 import { getAntallFeriedagerForForelder } from 'app/utils/permisjonUtils';
-import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
 
 import './utsettelseSkjema.less';
+import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
+import { Infotekster } from 'app/redux/reducers/viewReducer';
 
 interface OwnProps {
 	tidsrom: Tidsperiode;
@@ -331,15 +331,11 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						}}
 					/>
 				</div>
-				<Collapse
-					isOpened={this.state.arsak === UtsettelseArsakType.Ferie}
-					springConfig={{ stiffness: 250, damping: 30 }}>
-					<div className="blokkPad-s">
-						<Veilederinfo>
-							<IntlTekst id="utsettelseskjema.veiledning.ferie" />
-						</Veilederinfo>
-					</div>
-				</Collapse>
+				<VeilederinfoContainer
+					id={Infotekster.ferie}
+					apen={this.state.arsak === UtsettelseArsakType.Ferie}>
+					<IntlTekst id="utsettelseskjema.veiledning.ferie" />
+				</VeilederinfoContainer>
 				<div className="blokk-s">
 					<Radioliste
 						kolonner="2"

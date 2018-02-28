@@ -1,6 +1,6 @@
 @import '../../styles/variabler.less';
 
-@initVeilederSize: 4.5rem;
+@initVeilederSize: 4rem;
 
 .setVeilederSize(@veilederSize, @spacing: 1rem) {
 	.veilederinfo__innhold {
@@ -11,6 +11,7 @@
 		width: @veilederSize;
 		position: relative;
 		svg {
+			margin: 50% 0;
 			width: @veilederSize;
 			height: @veilederSize;
 		}
@@ -21,6 +22,7 @@
 	position: relative;
 	display: flex;
 	align-items: center;
+	min-width: 3rem;
 	.setVeilederSize(@initVeilederSize);
 
 	&__innhold {
@@ -33,6 +35,10 @@
 	}
 
 	&__veileder {
+		display: flex;
+		align-items: center;
+		max-height: 6rem;
+		align-self: flex-start;
 		z-index: 2;
 	}
 

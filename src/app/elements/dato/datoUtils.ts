@@ -13,8 +13,16 @@ export function måned(dato: Date): string {
 	return format(dato, 'MMMM', { locale });
 }
 
+export function mnd(dato: Date): string {
+	return format(dato, 'MMM', { locale });
+}
+
 export function ukedag(dato: Date): string {
 	return format(dato, 'dddd', { locale });
+}
+
+export function ukedagKort(dato: Date): string {
+	return format(dato, 'ddd', { locale });
 }
 
 export function dagIMåned(dato: Date): string {

@@ -1,6 +1,6 @@
 @import '../../styles/variabler.less';
 
-@initVeilederSize: 4.5rem;
+@initVeilederSize: 4rem;
 
 .setVeilederSize(@veilederSize, @spacing: 1rem) {
 	.veilederinfo__innhold {
@@ -11,6 +11,7 @@
 		width: @veilederSize;
 		position: relative;
 		svg {
+			margin: 50% 0;
 			width: @veilederSize;
 			height: @veilederSize;
 		}
@@ -21,6 +22,7 @@
 	position: relative;
 	display: flex;
 	align-items: center;
+	min-width: 3rem;
 	.setVeilederSize(@initVeilederSize);
 
 	&__innhold {
@@ -30,9 +32,19 @@
 		border: 2px solid @c-infoBlue;
 		border-radius: 0.5rem;
 		padding: 1.5rem 1.5rem 1.5rem @initVeilederSize + 0.5rem;
+		&--advarsel {
+			border-color: #ff9100;
+		}
+		&--feil {
+			border-color: #ba3a26;
+		}
 	}
 
 	&__veileder {
+		display: flex;
+		align-items: center;
+		max-height: 7rem;
+		align-self: flex-start;
 		z-index: 2;
 	}
 
@@ -45,7 +57,7 @@
 		.setVeilederSize(3rem, 0.5rem);
 	}
 
-	&--info {
+	&--kunTekst {
 		.veilederinfo__innhold {
 			border: none;
 			background-color: #e0f5fb; //d4e1f2

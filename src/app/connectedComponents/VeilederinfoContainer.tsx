@@ -5,24 +5,36 @@ import { AppState } from 'app/redux/types';
 import Veilederinfo, {
 	VeilederInfoProps
 } from 'app/elements/veilederinfo/Veilederinfo';
+import { Infotekster } from 'app/redux/reducers/viewReducer';
 
 export interface StateProps {
 	isOpen: boolean;
 }
 
 export interface OwnProps extends VeilederInfoProps {
-	id: string;
+	id: Infotekster;
+	apen?: boolean;
 }
 
 type Props = StateProps & OwnProps;
 
-const SkjemaVeileder: React.StatelessComponent<Props> = (props) => {
-	const { id, ...rest } = props;
-	return (
-		<Collapse
-			isOpened={props.isOpen}
-			springConfig={{ stiffness: 250, damping: 30 }}>
+const SkjemaVeileder: React.StatelessComponent<Props> = ({
+	id,
+	isOpen,
+	apen = false,
+	...rest
+}) => {
+	const erApen: boolean = isOpen || apen;
+	const content = erApen ? (
+		<div className="blokkPad-s">
 			<Veilederinfo {...rest} />
+		</div>
+	) : (
+		<div />
+	);
+	return (
+		<Collapse isOpened={erApen} springConfig={{ stiffness: 250, damping: 30 }}>
+			{content}
 		</Collapse>
 	);
 };

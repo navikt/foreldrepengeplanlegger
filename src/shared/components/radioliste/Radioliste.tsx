@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 
-import { Radio, RadioProps, Feil } from 'nav-frontend-skjema';
+import { Radio, RadioProps, Feil, SkjemaGruppe } from 'nav-frontend-skjema';
 
 type RadiolisteValgVerdi = string | number | undefined;
 
@@ -71,26 +71,28 @@ const Radioliste: React.StatelessComponent<Props> = ({
 		'radioliste--toKolonner': kolonner === '2'
 	});
 	return (
-		<fieldset className={cls}>
-			<legend>{tittel}</legend>
-			{beskrivelse && (
-				<div className="radioliste__beskrivelse">{beskrivelse}</div>
-			)}
-			<div className="radioliste__radioer">
-				{valg.map((option) => (
-					<div
-						className="radioliste__radio"
-						key={`${inputnavn}${option.verdi}`}>
-						<RadiolisteRadio
-							{...option}
-							navn={inputnavn}
-							valgt={valgtVerdi === option.verdi}
-							onChange={() => onChange(option.verdi)}
-						/>
-					</div>
-				))}
-			</div>
-		</fieldset>
+		<SkjemaGruppe feil={feil}>
+			<fieldset className={cls}>
+				<legend>{tittel}</legend>
+				{beskrivelse && (
+					<div className="radioliste__beskrivelse">{beskrivelse}</div>
+				)}
+				<div className="radioliste__radioer">
+					{valg.map((option) => (
+						<div
+							className="radioliste__radio"
+							key={`${inputnavn}${option.verdi}`}>
+							<RadiolisteRadio
+								{...option}
+								navn={inputnavn}
+								valgt={valgtVerdi === option.verdi}
+								onChange={() => onChange(option.verdi)}
+							/>
+						</div>
+					))}
+				</div>
+			</fieldset>
+		</SkjemaGruppe>
 	);
 };
 

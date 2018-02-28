@@ -28,7 +28,7 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 		<div>
 			<VeilederinfoContainer
 				id={Infotekster.fordelingFellesperiode}
-				stil="info">
+				type="info">
 				<IntlTekst id="skjema.fordeling.veiledning" />
 			</VeilederinfoContainer>
 			<div className="skjema_fordelingFellesperiode">

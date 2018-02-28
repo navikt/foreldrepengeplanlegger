@@ -5,14 +5,14 @@ import {
 import { ViewState, SynligInfoMap } from 'app/redux/types';
 
 export enum Infotekster {
-	sats = 'SATS',
-	fordelingFellesperiode = 'fordeling'
+	sats = 'sats',
+	fordelingFellesperiode = 'fordeling',
+	ferie = 'ferie'
 }
 
 const defaultState: ViewState = {
 	synligInfo: new Map(),
-	spraak: 'nb',
-	ubetaltInformasjonDialogSynlig: false
+	spraak: 'nb'
 };
 
 const leggTilInfo = (infoMap: SynligInfoMap, id: string): SynligInfoMap => {

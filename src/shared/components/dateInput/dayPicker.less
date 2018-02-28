@@ -150,14 +150,11 @@
 	}
 
 	&__outer {
-		padding-left: 8px;
-		padding-right: 8px;
-		padding-bottom: 8px;
-		margin-left: -8px;
-		margin-right: -8px;
+		padding: 8px;
+		margin: -8px;
 
 		&--withError {
-			background-color: #f1d8d4;
+			background-color: #f3e3e3;
 			padding-top: 8px;
 
 			.skjemaelement__label {
@@ -183,7 +180,7 @@
 		display: none;
 		&--fullscreen {
 			display: flex !important;
-			position: absolute !important;
+			position: fixed !important;
 			align-items: center;
 			top: 0;
 			left: 0;
@@ -191,6 +188,7 @@
 			right: 0;
 			background-color: rgba(255, 255, 255, 0.8) !important;
 			.DayPicker {
+				min-height: 24rem; // Forhindre at kalender hopper opp og ned på grunn av at høyden endrer seg på måneder med få dager
 				margin: 0 auto;
 				&-wrapper {
 					border-radius: @border-radius-small;

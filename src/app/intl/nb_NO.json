@@ -80,8 +80,8 @@
 	"dialog.ulonnetpermisjon.navlenke.alttekst":
 		"Les mer om ulønnet permisjon på nav.no",
 	"veileder.ulonnetpermisjon.tittel": "Ulønnet permisjon?",
-	"veileder.ulonnetpermisjon.intro":
-		"Da må den andre forelderen utsette sin foreldrepengeperiode.",
+	"veileder.ulonnetpermisjon.intro.html":
+		"Da må den andre forelderen utsette sin foreldrepenge&shy;periode.",
 	"veileder.ulonnetpermisjon.utvidetinfo":
 		"Du må avtale ulønnet permisjon med arbeidsgiveren. Ulønnet permisjon i mer enn 14 dager kan påvirke retten din til blant annet sykepenger og pleiepenger. Les mer på nav.no",
 	"veileder.forbehold.intro":

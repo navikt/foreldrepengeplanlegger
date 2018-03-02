@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
+import Lenke from 'nav-frontend-lenker';
 
 import { Element, Ingress, Systemtittel } from 'nav-frontend-typografi';
 
@@ -25,6 +26,7 @@ import { getGyldigTidsromForUtsettelse } from 'app/utils/permisjonUtils';
 import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
 import UtvidetInformasjon from 'app/elements/utvidetInformasjon/UtvidetInformasjon';
 import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
+import EksterneLenker from 'app/eksterneLenker';
 
 export interface StateProps {
 	form: FormState;
@@ -110,6 +112,12 @@ export class Main extends React.Component<Props> {
 									<UtvidetInformasjon>
 										<div className="blokkPad-s">
 											<IntlTekst id="veileder.ulonnetpermisjon.utvidetinfo" />
+											<Lenke
+												href={EksterneLenker.nav_ulonnetPermisjon}
+												target="_blank">
+												{' '}
+												<IntlTekst id="veileder.ulonnetpermisjon.utvidetinfo.navlenketekst" />
+											</Lenke>
 										</div>
 									</UtvidetInformasjon>
 								</Veilederinfo>

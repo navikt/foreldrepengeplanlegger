@@ -73,20 +73,14 @@ export type SkjulteTekster =
 	| 'skjermleser.fordeling_av_fellesperiode'
 	| 'skjermleser.tidslinje.oppsummering.tittel';
 
-export type UlonnetPermisjonDialog =
-	| 'dialog.ulonnetpermisjon.tittel'
-	| 'dialog.ulonnetpermisjon.innhold1'
-	| 'dialog.ulonnetpermisjon.innhold2'
-	| 'dialog.ulonnetpermisjon.navlenke.tekst'
-	| 'dialog.ulonnetpermisjon.navlenke.alttekst';
-
 export type Veiledningstekster =
 	| 'veileder.forbehold.intro'
 	| 'veileder.forbehold.utvidetinfo.tittel'
 	| 'veileder.forbehold.utvidetinfo.html'
 	| 'veileder.ulonnetpermisjon.tittel'
 	| 'veileder.ulonnetpermisjon.intro.html'
-	| 'veileder.ulonnetpermisjon.utvidetinfo';
+	| 'veileder.ulonnetpermisjon.utvidetinfo'
+	| 'veileder.ulonnetpermisjon.utvidetinfo.navlenketekst';
 
 export type AppTekster =
 	| UtsettelsesskjemaTekst
@@ -97,5 +91,4 @@ export type AppTekster =
 	| Stonadkontotyper
 	| OppholdTekst
 	| SkjulteTekster
-	| UlonnetPermisjonDialog
 	| Veiledningstekster;

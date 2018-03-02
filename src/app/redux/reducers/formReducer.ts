@@ -89,7 +89,6 @@ const FormReducer = (
 			const dato = normaliserDato(action.termindato);
 			const permisjonsregler = getPermisjonsregler(dato);
 			const erGyldigTermindato = validerTermindato(dato);
-			console.log(erGyldigTermindato);
 			if (erGyldigTermindato) {
 				return {
 					...getDefaultState(dato, state.dekningsgrad || '100%'),

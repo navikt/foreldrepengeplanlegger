@@ -335,7 +335,6 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 							}
 							stil="ekstern"
 							feil={this.getFeil('arsak')}
-							kolonner="2"
 							valg={[
 								{
 									tittel: intlString(intl, 'utsettelseskjema.arsak.ferie'),

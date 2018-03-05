@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FormEvent } from 'react';
-import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Row, Column } from 'nav-frontend-grid';
 import { Feil } from 'nav-frontend-skjema';
@@ -22,9 +22,9 @@ import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 import { getAntallFeriedagerForForelder } from 'app/utils/permisjonUtils';
 
 import './utsettelseSkjema.less';
-import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
-import { Infotekster } from 'app/redux/reducers/viewReducer';
 import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
+import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
+import UlonnetPermisjon from 'app/components/utsettelseSkjema/UlonnetPermisjon';
 
 interface OwnProps {
 	tidsrom: Tidsperiode;
@@ -62,17 +62,17 @@ const preventDefaultEvent = (e: FormEvent<HTMLFormElement>) => {
 	e.preventDefault();
 };
 
-const getHvemTittel = (
-	intl: InjectedIntl,
-	arsak: UtsettelseArsakType | undefined
-): string => {
-	if (!arsak) {
-		return intlString(intl, 'utsettelseskjema.hvem.sporsmal');
-	}
-	return arsak === UtsettelseArsakType.Ferie
-		? intlString(intl, 'utsettelseskjema.hvem.sporsmal.ferie')
-		: intlString(intl, 'utsettelseskjema.hvem.sporsmal.arbeid');
-};
+// const getHvemTittel = (
+// 	intl: InjectedIntl,
+// 	arsak: UtsettelseArsakType | undefined
+// ): string => {
+// 	if (!arsak) {
+// 		return intlString(intl, 'utsettelseskjema.hvem.sporsmal');
+// 	}
+// 	return arsak === UtsettelseArsakType.Ferie
+// 		? intlString(intl, 'utsettelseskjema.hvem.sporsmal.ferie')
+// 		: intlString(intl, 'utsettelseskjema.hvem.sporsmal.arbeid');
+// };
 
 class UtsettelseSkjema extends React.Component<Props, State> {
 	constructor(props: Props) {
@@ -306,65 +306,102 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				<h1 className="typo-undertittel m-textCenter blokk-s">
 					<IntlTekst id="utsettelseskjema.tittel" />
 				</h1>
-				<div className="blokkPad-xxs">
+				<div className="blokkPad-s">
 					<Radioliste
-						tittel={<IntlTekst id="utsettelseskjema.arsak.sporsmal" />}
-						stil="ekstern"
-						feil={this.getFeil('arsak')}
 						kolonner="2"
+						tittel={intlString(intl, 'utsettelseskjema.hvem.sporsmal')}
+						inputnavn="forelder"
+						stil="ekstern"
+						feil={this.getFeil('forelder')}
 						valg={[
 							{
-								tittel: intlString(intl, 'utsettelseskjema.arsak.ferie'),
-								verdi: UtsettelseArsakType.Ferie
+								tittel: navnForelder1 || intlString(intl, 'forelder1'),
+								verdi: 'forelder1'
 							},
 							{
-								tittel: intl.formatMessage({
-									id: 'utsettelseskjema.arsak.arbeid'
-								}),
-								verdi: UtsettelseArsakType.Arbeid
+								tittel: navnForelder2 || intlString(intl, 'forelder2'),
+								verdi: 'forelder2'
 							}
 						]}
-						inputnavn="utsettelse"
-						valgtVerdi={arsak}
+						valgtVerdi={forelder}
 						onChange={(value) => {
-							this.setState({ arsak: value as UtsettelseArsakType });
+							this.setState({ forelder: value as Forelder });
 							this.revaliderSkjema();
 						}}
 					/>
 				</div>
-				<VeilederinfoContainer
-					id={Infotekster.ferie}
-					apen={this.state.arsak === UtsettelseArsakType.Ferie}
-					ariaLive="polite">
-					<IntlTekst id="utsettelseskjema.veiledning.ferie" />
-				</VeilederinfoContainer>
-				<EkspanderbartInnhold erApen={this.state.arsak !== undefined}>
-					<div className="blokkPad-s">
+
+				<EkspanderbartInnhold
+					erApen={forelder !== undefined}
+					harEkspanderbartInnhold={true}>
+					<div className="blokkPad-xxs">
 						<Radioliste
-							kolonner="2"
-							tittel={getHvemTittel(intl, this.state.arsak)}
-							inputnavn="forelder"
+							tittel={
+								<IntlTekst
+									id="utsettelseskjema.arsak.sporsmal"
+									values={{
+										navn:
+											forelder === 'forelder1' ? navnForelder1 : navnForelder2
+									}}
+								/>
+							}
 							stil="ekstern"
-							feil={this.getFeil('forelder')}
+							feil={this.getFeil('arsak')}
+							kolonner="2"
 							valg={[
 								{
-									tittel: navnForelder1 || intlString(intl, 'forelder1'),
-									verdi: 'forelder1'
+									tittel: intlString(intl, 'utsettelseskjema.arsak.ferie'),
+									verdi: UtsettelseArsakType.Ferie
 								},
 								{
-									tittel: navnForelder2 || intlString(intl, 'forelder2'),
-									verdi: 'forelder2'
+									tittel: intl.formatMessage({
+										id: 'utsettelseskjema.arsak.arbeid'
+									}),
+									verdi: UtsettelseArsakType.Arbeid
+								},
+								{
+									tittel: 'Ha ulønnet permisjon',
+									verdi: UtsettelseArsakType.UlønnetPermisjon
 								}
 							]}
-							valgtVerdi={forelder}
+							inputnavn="utsettelse"
+							valgtVerdi={arsak}
 							onChange={(value) => {
-								this.setState({ forelder: value as Forelder });
+								this.setState({ arsak: value as UtsettelseArsakType });
 								this.revaliderSkjema();
 							}}
 						/>
 					</div>
+					<div aria-live="polite">
+						<EkspanderbartInnhold
+							erApen={
+								this.state.arsak === UtsettelseArsakType.UlønnetPermisjon
+							}>
+							<Veilederinfo>
+								<UlonnetPermisjon
+									navn1={
+										forelder === 'forelder1' ? navnForelder1 : navnForelder2
+									}
+									navn2={
+										forelder === 'forelder1' ? navnForelder2 : navnForelder1
+									}
+								/>
+							</Veilederinfo>
+						</EkspanderbartInnhold>
+						<EkspanderbartInnhold
+							erApen={this.state.arsak === UtsettelseArsakType.Ferie}>
+							<Veilederinfo>
+								<IntlTekst id="utsettelseskjema.veiledning.ferie" />
+							</Veilederinfo>
+						</EkspanderbartInnhold>
+					</div>
 				</EkspanderbartInnhold>
-				<EkspanderbartInnhold erApen={this.state.forelder !== undefined}>
+
+				<EkspanderbartInnhold
+					erApen={
+						this.state.arsak !== undefined &&
+						this.state.arsak !== UtsettelseArsakType.UlønnetPermisjon
+					}>
 					<div className="blokkPad-s">
 						<Row>
 							<Column xs="12" sm="6">
@@ -428,32 +465,35 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						forelderNavn={navnForelder1}
 					/>
 				)}
-				<Row>
-					<Column xs="12" sm={utsettelse ? '6' : '12'}>
-						<div className="blokkPad-xxs">
-							<Hovedknapp
-								onClick={(evt) => this.handleSubmitClick(evt)}
-								className="m-fullBredde">
-								{utsettelse ? (
-									<IntlTekst id="utsettelseskjema.knapp.oppdater" />
-								) : (
-									<IntlTekst id="utsettelseskjema.knapp.leggtil" />
-								)}
-							</Hovedknapp>
-						</div>
-					</Column>
-					{utsettelse && (
-						<Column xs="12" sm="6">
-							<Knapp
-								type="standard"
-								htmlType="button"
-								onClick={() => this.props.onFjern(utsettelse)}
-								className="m-fullBredde">
-								<IntlTekst id="utsettelseskjema.knapp.fjern" />
-							</Knapp>
-						</Column>
+				{this.state.arsak !== undefined &&
+					this.state.arsak !== UtsettelseArsakType.UlønnetPermisjon && (
+						<Row>
+							<Column xs="12" sm={utsettelse ? '6' : '12'}>
+								<div className="blokkPad-xxs">
+									<Hovedknapp
+										onClick={(evt) => this.handleSubmitClick(evt)}
+										className="m-fullBredde">
+										{utsettelse ? (
+											<IntlTekst id="utsettelseskjema.knapp.oppdater" />
+										) : (
+											<IntlTekst id="utsettelseskjema.knapp.leggtil" />
+										)}
+									</Hovedknapp>
+								</div>
+							</Column>
+							{utsettelse && (
+								<Column xs="12" sm="6">
+									<Knapp
+										type="standard"
+										htmlType="button"
+										onClick={() => this.props.onFjern(utsettelse)}
+										className="m-fullBredde">
+										<IntlTekst id="utsettelseskjema.knapp.fjern" />
+									</Knapp>
+								</Column>
+							)}
+						</Row>
 					)}
-				</Row>
 			</form>
 		);
 	}

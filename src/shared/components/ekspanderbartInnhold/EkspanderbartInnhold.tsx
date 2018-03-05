@@ -11,10 +11,13 @@ export interface OwnProps {
 	erApen?: boolean;
 	/** Default off */
 	ariaLive?: 'assertive' | 'polite' | 'off';
+	/** Om noe av innholdet er ekspandertbart */
+	harEkspanderbartInnhold?: boolean;
 }
 
 const EkspanderbartInnhold: React.StatelessComponent<OwnProps> = ({
 	children,
+	harEkspanderbartInnhold = false,
 	erApen = false,
 	ariaLive = 'off'
 }) => (
@@ -23,7 +26,8 @@ const EkspanderbartInnhold: React.StatelessComponent<OwnProps> = ({
 		springConfig={{ stiffness: 250, damping: 30 }}
 		className={classnames('ekspanderbartInnhold', {
 			'ekspanderbartInnhold--apen': erApen
-		})}>
+		})}
+		hasNestedCollapse={harEkspanderbartInnhold}>
 		<div aria-live={ariaLive}>{erApen ? <div>{children}</div> : <div />}</div>
 	</Collapse>
 );

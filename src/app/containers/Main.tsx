@@ -88,15 +88,17 @@ export class Main extends React.Component<Props> {
 					<div className="blokk-m no-print">
 						<Skjema />
 					</div>
-					{!this.props.visPermisjonsplan && (
-						<div className="blokk-m no-print m-textCenter">
-							<Knapp
-								type="standard"
-								onClick={() => dispatch(visTidslinje(true))}>
-								Se deres plan
-							</Knapp>
-						</div>
-					)}
+					{!this.props.visPermisjonsplan &&
+						this.props.form.dekningsgrad &&
+						this.props.form.termindato && (
+							<div className="blokk-m no-print m-textCenter">
+								<Knapp
+									type="standard"
+									onClick={() => dispatch(visTidslinje(true))}>
+									<IntlTekst id="knapp.vispermisjonsplan" />
+								</Knapp>
+							</div>
+						)}
 
 					{/* <EkspanderbartInnhold erApen={this.props.visTidslinjeOgUtsettelse}>
 						<div className="no-print blokkPad-l">
@@ -151,15 +153,17 @@ export class Main extends React.Component<Props> {
 				)}
 
 				{tidsromForUtsettelse && (
-					<UtsettelseDialog
-						isOpen={utsettelse.dialogErApen}
-						navnForelder1={navnForelder1}
-						navnForelder2={navnForelder2}
-						utsettelser={utsettelse.utsettelser}
-						utsettelse={utsettelse.valgtUtsettelse}
-						tidsrom={tidsromForUtsettelse}
-						permisjonsregler={form.permisjonsregler}
-					/>
+					<div>
+						<UtsettelseDialog
+							isOpen={utsettelse.dialogErApen}
+							navnForelder1={navnForelder1}
+							navnForelder2={navnForelder2}
+							utsettelser={utsettelse.utsettelser}
+							utsettelse={utsettelse.valgtUtsettelse}
+							tidsrom={tidsromForUtsettelse}
+							permisjonsregler={form.permisjonsregler}
+						/>
+					</div>
 				)}
 			</div>
 		);

@@ -140,9 +140,12 @@
 				margin-bottom: 0;
 			}
 		}
+		&__varighet {
+			white-space: nowrap;
+		}
 	}
 	.hendelseinnslag {
-		padding: 1.5rem 1rem;
+		padding: 1rem;
 		&__dato {
 			font-weight: bold;
 			display: inline-block;
@@ -161,11 +164,15 @@
 	.periodeinnslag {
 		&__topp {
 			display: flex;
-		}
-		&__dato {
-			flex-grow: 2;
-			flex-basis: 100%;
-			.periodedato();
+			font-weight: bold;
+			margin-bottom: 0.3rem;
+			&__venstre {
+				flex-basis: 100%;
+			}
+			&__hoyre {
+				display: flex;
+				flex-grow: 0;
+			}
 		}
 		&__rediger {
 			padding-left: 0.5rem;

@@ -23,7 +23,7 @@ type Props = OwnProps;
 
 class Permisjonsplan extends React.Component<Props, {}> {
 	componentDidMount() {
-		scrollToElement('permisjonsplan');
+		scrollToElement('permisjonsplan', { offset: -40 });
 	}
 	render() {
 		const {
@@ -63,11 +63,30 @@ class Permisjonsplan extends React.Component<Props, {}> {
 						onRedigerUtsettelse={onRedigerUtsettelse}
 					/>
 				</div>
-				<div className="m-textCenter">
+				<div className="m-textCenter blokk-m">
 					<LeggTilKnapp onClick={() => onLeggTilUtsettelse()}>
 						<IntlTekst id="opphold.knapp.leggtil" />
 					</LeggTilKnapp>
 				</div>
+				{/* <Element className="blokk-xxxs">
+					<IntlTekst id="veileder.ulonnetpermisjon.tittel" />
+				</Element>
+				<p>
+					<IntlTekst id="veileder.ulonnetpermisjon.intro.html" />
+				</p>
+				<UtvidetInformasjon
+					apneLabel={intlString(
+						this.props.intl,
+						'veileder.ulonnetpermisjon.lesmer'
+					)}>
+					<div className="blokkPad-s">
+						<IntlTekst id="veileder.ulonnetpermisjon.utvidetinfo" />
+						<Lenke href={EksterneLenker.nav_ulonnetPermisjon} target="_blank">
+							{' '}
+							<IntlTekst id="veileder.ulonnetpermisjon.utvidetinfo.navlenketekst" />
+						</Lenke>
+					</div>
+				</UtvidetInformasjon> */}
 			</section>
 		);
 	}

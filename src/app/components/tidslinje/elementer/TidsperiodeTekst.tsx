@@ -1,11 +1,6 @@
 import * as React from 'react';
 import Dato from 'app/elements/dato/Dato';
 import { Tidsperiode } from 'app/types';
-import {
-	getAntallUttaksdagerITidsperiode,
-	getUkerOgDagerFromDager
-} from 'app/utils/uttaksdagerUtils';
-import IntlTekst from 'app/intl/IntlTekst';
 
 import './tidsperiodeTekst.less';
 
@@ -20,9 +15,6 @@ const TidsperiodeTekst: React.StatelessComponent<Props> = ({
 	visVarighet,
 	visSluttdato
 }) => {
-	const ukerOgDager = getUkerOgDagerFromDager(
-		getAntallUttaksdagerITidsperiode(tidsperiode)
-	);
 	return (
 		<div className="tidsperiodeTekst">
 			<span className="tidsperiodeTekst__periode">
@@ -34,15 +26,6 @@ const TidsperiodeTekst: React.StatelessComponent<Props> = ({
 					</span>
 				)}
 			</span>
-			{visVarighet && (
-				<span className="tidsperiodeTekst__varighet">
-					{ukerOgDager.uker > 0 ? (
-						<IntlTekst id="ukerogdager" values={{ ...ukerOgDager }} />
-					) : (
-						<IntlTekst id="dager" values={{ ...ukerOgDager }} />
-					)}
-				</span>
-			)}
 		</div>
 	);
 };

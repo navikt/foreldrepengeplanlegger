@@ -28,17 +28,17 @@ export const tidslinjeFraPerioder = createSelector(
 				type: TidslinjeinnslagType.hendelse,
 				hendelse: 'termin',
 				dato: termindato
-			},
-			{
-				type: TidslinjeinnslagType.hendelse,
-				hendelse: 'permisjonsslutt',
-				dato: perioder[antallPerioder - 1].tidsperiode.sluttdato
+				// },
+				// {
+				// 	type: TidslinjeinnslagType.hendelse,
+				// 	hendelse: 'permisjonsslutt',
+				// 	dato: perioder[antallPerioder - 1].tidsperiode.sluttdato
 			}
 		];
 		return alleInnslag
 			.sort(sorterTidslinjeinnslagEtterStartdato)
-			.filter(filtrerOmInnslagSkalVises)
-			.filter(skjulForstePeriodeEtterTermin);
+			.filter(filtrerOmInnslagSkalVises);
+		// .filter(skjulForstePeriodeEtterTermin);
 	}
 );
 
@@ -83,32 +83,32 @@ const filtrerOmInnslagSkalVises = (
 	return false;
 };
 
-const skjulForstePeriodeEtterTermin = (
-	innslag: Tidslinjeinnslag,
-	index: number,
-	alleInnslag: Tidslinjeinnslag[]
-) => {
-	const { forrige, neste } = getForrigeNeste<Tidslinjeinnslag>(
-		index,
-		alleInnslag
-	);
-	// Se om forrige var termin
-	if (
-		forrige &&
-		forrige.type === TidslinjeinnslagType.hendelse &&
-		forrige.hendelse === 'termin'
-	) {
-		// Se om neste er ikke utsettelse
-		if (
-			neste &&
-			neste.type === TidslinjeinnslagType.periode &&
-			neste.periode.type === Periodetype.Utsettelse
-		) {
-			return false;
-		}
-	}
-	return true;
-};
+// const skjulForstePeriodeEtterTermin = (
+// 	innslag: Tidslinjeinnslag,
+// 	index: number,
+// 	alleInnslag: Tidslinjeinnslag[]
+// ) => {
+// 	const { forrige, neste } = getForrigeNeste<Tidslinjeinnslag>(
+// 		index,
+// 		alleInnslag
+// 	);
+// 	// Se om forrige var termin
+// 	if (
+// 		forrige &&
+// 		forrige.type === TidslinjeinnslagType.hendelse &&
+// 		forrige.hendelse === 'termin'
+// 	) {
+// 		// Se om neste er ikke utsettelse
+// 		if (
+// 			neste &&
+// 			neste.type === TidslinjeinnslagType.periode &&
+// 			neste.periode.type === Periodetype.Utsettelse
+// 		) {
+// 			return false;
+// 		}
+// 	}
+// 	return true;
+// };
 
 const sorterTidslinjeinnslagEtterStartdato = (
 	innslag1: Tidslinjeinnslag,

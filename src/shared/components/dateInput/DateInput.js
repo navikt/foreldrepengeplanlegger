@@ -48,7 +48,7 @@ class DateInput extends Component {
 
 	onFocusOut(e) {
 		const { relatedTarget } = e;
-		if (relatedTarget) {
+		if (relatedTarget && this.container) {
 			const targetIsChildNode = this.container.contains(relatedTarget);
 			if (!targetIsChildNode) {
 				this.close(false);

@@ -4,8 +4,8 @@
 
 .setVeilederSize(@veilederSize, @spacing: 1rem) {
 	.veilederinfo__innhold {
-		padding-left: @veilederSize/2 + @spacing;
-		margin-left: -1 * @veilederSize/2;
+		padding-left: @veilederSize / 2 + @spacing;
+		margin-left: -1 * @veilederSize / 2;
 	}
 	.veilederinfo__veileder {
 		width: @veilederSize;
@@ -24,6 +24,11 @@
 	align-items: center;
 	min-width: 3rem;
 	.setVeilederSize(@initVeilederSize);
+
+	ul,
+	ol {
+		padding-left: 1.2rem;
+	}
 
 	&__innhold {
 		width: 100%;

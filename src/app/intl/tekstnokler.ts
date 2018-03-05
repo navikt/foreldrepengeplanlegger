@@ -9,7 +9,8 @@ export type GenerellTekst =
 	| 'utvidetinfo.lesmer'
 	| 'uker'
 	| 'dager'
-	| 'ukerogdager';
+	| 'ukerogdager'
+	| 'knapp.vispermisjonsplan';
 
 export type UtsettelsesskjemaTekst =
 	| 'utsettelseskjema.tittel'
@@ -80,6 +81,7 @@ export type Veiledningstekster =
 	| 'veileder.forbehold.utvidetinfo.tittel'
 	| 'veileder.forbehold.utvidetinfo.html'
 	| 'veileder.ulonnetpermisjon.tittel'
+	| 'veileder.ulonnetpermisjon.lesmer'
 	| 'veileder.ulonnetpermisjon.intro.html'
 	| 'veileder.ulonnetpermisjon.utvidetinfo'
 	| 'veileder.ulonnetpermisjon.utvidetinfo.navlenketekst';

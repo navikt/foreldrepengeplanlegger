@@ -76,7 +76,7 @@
 		"{ukerForelder1, plural, one {# uke} other {# uker}} til {navnForelder1}, {ukerForelder2, plural, one {# uke} other {# uker}} til {navnForelder2}",
 	"veileder.ulonnetpermisjon.lesmer": "Les mer",
 	"veileder.ulonnetpermisjon.intro.html":
-		"Ulønnet permisjon for {navn1} krever at {navn2} utsetter sin foreldrepenge&shy;periode. Velg {navn2} for den som skal ha oppholdet, og deretter ferie eller arbeid heltid.",
+		"Ulønnet permisjon for {navn1} krever at {navn2} utsetter sin foreldrepenge&shy;periode. Velg {navn2} som den som skal ha opphold, og deretter ferie eller arbeid heltid.",
 	"veileder.ulonnetpermisjon.utvidetinfo":
 		"Ulønnet permisjon med avtales med arbeidsgiveren. Ulønnet permisjon i mer enn 14 dager kan påvirke retten til blant annet sykepenger og pleiepenger.",
 	"veileder.ulonnetpermisjon.utvidetinfo.navlenketekst": "Les mer på nav.no",

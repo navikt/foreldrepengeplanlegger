@@ -78,11 +78,15 @@ declare module 'nav-frontend-skjema' {
 		selectRef?: () => React.ReactElement<any>;
 	}
 
+	export type RadioPanelChangeEvent = (
+		event: React.SyntheticEvent<EventTarget>
+	) => void;
+
 	export interface RadioPanelProps extends RadioProps {
 		checked: boolean;
 		name: string;
-		onChange: (event: React.SyntheticEvent<EventTarget>) => void;
-		inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+		onChange: RadioPanelChangeEvent;
+		inputProps?: React.InputHTMLAttributes<HTMLInputElement> | any;
 	}
 
 	export interface RadioPanelGruppeProps {

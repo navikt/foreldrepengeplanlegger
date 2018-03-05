@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 
-import { Radio, RadioProps, Feil, SkjemaGruppe } from 'nav-frontend-skjema';
+import { RadioProps, Feil, SkjemaGruppe } from 'nav-frontend-skjema';
 import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
+import { RadioPanel } from 'nav-frontend-skjema';
 
 type RadiolisteValgVerdi = string | number | undefined;
 
@@ -50,14 +51,13 @@ const RadiolisteRadio: React.StatelessComponent<RadiolisteRadioProps> = ({
 	radioProps
 }) => (
 	<div>
-		<Radio
-			{...radioProps}
-			name={navn}
+		<RadioPanel
 			value={verdi}
+			name={navn}
 			label={tittel}
 			checked={valgt}
-			onChange={onChange}
-			data-ref={`${navn}_${verdi}`}
+			onChange={() => onChange()}
+			inputProps={{ 'data-ref': `${navn}_${verdi}` }}
 		/>
 		{detailsRenderer && (
 			<div aria-live="polite">

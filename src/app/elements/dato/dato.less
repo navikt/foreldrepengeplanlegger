@@ -1,5 +1,11 @@
+@import '../../styles/variabler.less';
+
 .formatert-dato {
 	&__ukedag {
 		text-transform: capitalize;
+		display: none;
+		@media screen and (min-width: @screen-sm) {
+			display: inline;
+		}
 	}
 }

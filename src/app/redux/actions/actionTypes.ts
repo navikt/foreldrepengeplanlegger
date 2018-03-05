@@ -12,7 +12,8 @@ export enum PlanleggerActionTypeKeys {
 	'UTSETTELSE_OPPRETT_ELLER_OPPDATER' = 'utsettelseOpprettEllerOppdater',
 	'UTSETTELSE_SLETT' = 'utsettelseSlett',
 	'INFO_VIS' = 'infoVis',
-	'INFO_SKJUL' = 'infoSkjul'
+	'INFO_SKJUL' = 'infoSkjul',
+	'VIS_TIDSLINJE' = 'visTidslinje'
 }
 
 export type PlanleggerActionTypes =
@@ -27,7 +28,8 @@ export type PlanleggerActionTypes =
 	| OpprettEllerOppdaterUtsettelse
 	| SlettUtsettelse
 	| SkjulInfo
-	| VisInfo;
+	| VisInfo
+	| VisTidslinje;
 
 export interface SetNavnForelder1 {
 	type: PlanleggerActionTypeKeys.SET_NAVN_FORELDER1;
@@ -85,4 +87,8 @@ export interface SkjulInfo {
 export interface VisInfo {
 	type: PlanleggerActionTypeKeys.INFO_VIS;
 	id: string;
+}
+export interface VisTidslinje {
+	type: PlanleggerActionTypeKeys.VIS_TIDSLINJE;
+	synlig: boolean;
 }

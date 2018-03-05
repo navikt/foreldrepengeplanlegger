@@ -1,0 +1,33 @@
+.fordeling {
+	&__header {
+		display: flex;
+		margin-bottom: 0.2rem;
+		&__forelder {
+			flex-basis: 50%;
+			&--forelder2 {
+				text-align: right;
+			}
+		}
+	}
+	&__graf {
+		position: relative;
+		width: 100%;
+		display: flex;
+		&__bar {
+			background-color: #e0dae7;
+			padding: 0.5rem 0 0.6rem 1rem;
+			align-items: center;
+			vertical-align: middle;
+			margin-right: 1px;
+			border-radius: 4px;
+			&--forelder2 {
+				margin-left: 1px;
+				border-right: none;
+				background-color: #ccdee6;
+				text-align: right;
+				padding-right: 1rem;
+				padding-left: 0;
+			}
+		}
+	}
+}

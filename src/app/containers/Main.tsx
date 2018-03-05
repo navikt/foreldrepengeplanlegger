@@ -2,11 +2,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-// import Lenke from 'nav-frontend-lenker';
+import { Knapp } from 'nav-frontend-knapper';
 
-import { Element, Systemtittel } from 'nav-frontend-typografi';
+import { Element } from 'nav-frontend-typografi';
 
-import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import Skjema from './Skjema';
 import {
 	AppState,
@@ -17,22 +16,19 @@ import {
 import { tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import UtsettelseDialog from 'app/containers/UtsettelseDialog';
 import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
-import { utsettelseVisDialog } from 'app/redux/actions';
+import { utsettelseVisDialog, visTidslinje } from 'app/redux/actions';
 import { Utsettelsesperiode, Tidsperiode } from 'app/types';
-// import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
-import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
 import { getGyldigTidsromForUtsettelse } from 'app/utils/permisjonUtils';
 import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
 import UtvidetInformasjon from 'app/elements/utvidetInformasjon/UtvidetInformasjon';
-// import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
-// import EksterneLenker from 'app/eksterneLenker';
+import Permisjonsplan from 'app/containers/Permisjonsplan';
 
 export interface StateProps {
 	form: FormState;
 	innslag: Tidslinjeinnslag[];
 	utsettelse: UtsettelseState;
-	visTidslinjeOgUtsettelse: boolean;
+	visPermisjonsplan: boolean;
 }
 
 export type Props = StateProps &
@@ -42,7 +38,14 @@ export type Props = StateProps &
 
 export class Main extends React.Component<Props> {
 	render() {
-		const { form, utsettelse, dispatch, intl } = this.props;
+		const {
+			form,
+			utsettelse,
+			innslag,
+			visPermisjonsplan,
+			dispatch,
+			intl
+		} = this.props;
 		const tidsromForUtsettelse: Tidsperiode | undefined =
 			form.termindato && form.dekningsgrad
 				? getGyldigTidsromForUtsettelse(
@@ -85,6 +88,15 @@ export class Main extends React.Component<Props> {
 					<div className="blokk-m no-print">
 						<Skjema />
 					</div>
+					{!this.props.visPermisjonsplan && (
+						<div className="blokk-m no-print m-textCenter">
+							<Knapp
+								type="standard"
+								onClick={() => dispatch(visTidslinje(true))}>
+								Se deres plan
+							</Knapp>
+						</div>
+					)}
 
 					{/* <EkspanderbartInnhold erApen={this.props.visTidslinjeOgUtsettelse}>
 						<div className="no-print blokkPad-l">
@@ -123,43 +135,21 @@ export class Main extends React.Component<Props> {
 					</EkspanderbartInnhold> */}
 				</section>
 
-				<section className="tidsplan">
-					<div className="blokk-m">
-						<Systemtittel className="tidslinje__tittel">
-							<IntlTekst id="tidslinje.tittel" />
-						</Systemtittel>
-					</div>
-					<div className="blokk-2">
-						<Tidslinje
-							innslag={this.props.innslag}
-							navnForelder1={navnForelder1}
-							navnForelder2={navnForelder2}
-							onRedigerUtsettelse={(u: Utsettelsesperiode) =>
-								dispatch(utsettelseVisDialog(u))
-							}
-						/>
-					</div>
-					<div className="m-textCenter">
-						<LeggTilKnapp onClick={() => dispatch(utsettelseVisDialog())}>
-							<IntlTekst id="opphold.knapp.leggtil" />
-						</LeggTilKnapp>
-					</div>
+				{visPermisjonsplan && (
+					<Permisjonsplan
+						navnForelder1={navnForelder1}
+						navnForelder2={navnForelder2}
+						permisjonsregler={form.permisjonsregler}
+						fellesperiodeukerForelder1={form.fellesperiodeukerForelder1}
+						fellesperiodeukerForelder2={form.fellesperiodeukerForelder2}
+						innslag={innslag}
+						onRedigerUtsettelse={(u: Utsettelsesperiode) =>
+							dispatch(utsettelseVisDialog(u))
+						}
+						onLeggTilUtsettelse={() => dispatch(utsettelseVisDialog())}
+					/>
+				)}
 
-					{/* <h3 className="sr-only">
-							<IntlTekst id="skjermleser.tidslinje.oppsummering.tittel" />
-						</h3>
-						<Permisjonsoppsummering
-							foreldrepengerMor={
-								form.permisjonsregler.antallUkerForelder1FørFødsel
-							}
-							modrekvote={form.permisjonsregler.antallUkerMødrekvote}
-							fedrekvote={form.permisjonsregler.antallUkerFedrekvote}
-							fellesukerForelder1={form.fellesperiodeukerForelder1}
-							fellesukerForelder2={form.fellesperiodeukerForelder2}
-							navnForelder1={navnForelder1}
-							navnForelder2={navnForelder2}
-						/> */}
-				</section>
 				{tidsromForUtsettelse && (
 					<UtsettelseDialog
 						isOpen={utsettelse.dialogErApen}
@@ -182,11 +172,12 @@ const mapStateToProps = (state: AppState): StateProps => {
 		innslag,
 		form: state.form,
 		utsettelse: state.utsettelse,
-		visTidslinjeOgUtsettelse:
+		visPermisjonsplan:
 			innslag &&
 			innslag.length > 0 &&
 			state.form.dekningsgrad !== undefined &&
-			state.form.termindato !== undefined
+			state.form.termindato !== undefined &&
+			state.view.visTidslinje === true
 	};
 };
 

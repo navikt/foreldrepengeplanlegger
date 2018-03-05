@@ -12,7 +12,8 @@ export enum Infotekster {
 
 const defaultState: ViewState = {
 	synligInfo: new Map(),
-	spraak: 'nb'
+	spraak: 'nb',
+	visTidslinje: false
 };
 
 const leggTilInfo = (infoMap: SynligInfoMap, id: string): SynligInfoMap => {
@@ -38,6 +39,11 @@ const ViewReducer = (state = defaultState, action: PlanleggerActionTypes) => {
 			return {
 				...state,
 				synligInfo: fjernInfo(state.synligInfo, action.id)
+			} as ViewState;
+		case PlanleggerActionTypeKeys.VIS_TIDSLINJE:
+			return {
+				...state,
+				visTidslinje: action.synlig
 			} as ViewState;
 		default:
 			return state;

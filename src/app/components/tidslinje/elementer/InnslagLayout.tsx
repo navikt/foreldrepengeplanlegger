@@ -19,7 +19,11 @@ const InnslagLayout: React.StatelessComponent<Props> = ({
 			<div className="periodeinnslag__topp">
 				{tidsperiode && (
 					<div className="periodeinnslag__dato">
-						<TidsperiodeTekst tidsperiode={tidsperiode} />
+						<TidsperiodeTekst
+							tidsperiode={tidsperiode}
+							visSluttdato={true}
+							visVarighet={true}
+						/>
 					</div>
 				)}
 				{onRediger && (

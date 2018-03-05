@@ -2,7 +2,10 @@
 	"applikasjonstittel": "Foreldrepengeplanlegger",
 	"forelder1": "Forelder 1",
 	"forelder2": "Forelder 2",
+	"dager": "{dager, plural, one {# dag} other {# dager}}",
 	"uker": "{uker, plural, one {# uke} other {# uker}}",
+	"ukerogdager":
+		"{uker, plural, zero {} one {# uke} other {# uker}} {dager, plural, =0 {} one {og # dag} other {og # dager}}",
 	"utvidetinfo.lesmer": "Les mer",
 	"utvidetinfo.lukk": "Lukk",
 	"stonadskonto.modrekvotePakrevd": "mødrekvote",
@@ -64,7 +67,7 @@
 	"opphold.arsak.ferie": "ferie",
 	"opphold.arsak.arbeid": "arbeid",
 	"opphold.tittel": "Opphold i perioden med foreldrepenger?",
-	"opphold.knapp.leggtil": "Legg til ferie eller arbeid",
+	"opphold.knapp.leggtil": "Legg til opphold",
 	"opphold.knapp.ulonnetpermisjon": "Legg til ulønnet permisjon",
 	"skjermleser.skjema.tittel": "Fyll ut skjema og se din permisjonsplan",
 	"skjermleser.tidslinje.oppsummering.tittel":

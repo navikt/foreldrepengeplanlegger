@@ -2,9 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import Lenke from 'nav-frontend-lenker';
+// import Lenke from 'nav-frontend-lenker';
 
-import { Element, Ingress, Systemtittel } from 'nav-frontend-typografi';
+import { Element, Systemtittel } from 'nav-frontend-typografi';
 
 import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import Skjema from './Skjema';
@@ -19,14 +19,14 @@ import UtsettelseDialog from 'app/containers/UtsettelseDialog';
 import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
 import { utsettelseVisDialog } from 'app/redux/actions';
 import { Utsettelsesperiode, Tidsperiode } from 'app/types';
-import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
+// import Permisjonsoppsummering from 'app/components/permisjonsoppsummering/Permisjonsoppsummering';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
 import { getGyldigTidsromForUtsettelse } from 'app/utils/permisjonUtils';
 import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
 import UtvidetInformasjon from 'app/elements/utvidetInformasjon/UtvidetInformasjon';
-import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
-import EksterneLenker from 'app/eksterneLenker';
+// import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
+// import EksterneLenker from 'app/eksterneLenker';
 
 export interface StateProps {
 	form: FormState;
@@ -61,9 +61,6 @@ export class Main extends React.Component<Props> {
 					<h1 className="m-textCenter applikasjonstittel blokk-m">
 						<IntlTekst id="applikasjonstittel" />
 					</h1>
-					<Ingress className="blokk-m m-textCenter">
-						<IntlTekst id="tittel.introtekst" />
-					</Ingress>
 					<div className="blokk-s">
 						<Veilederinfo>
 							<p>
@@ -89,7 +86,7 @@ export class Main extends React.Component<Props> {
 						<Skjema />
 					</div>
 
-					<EkspanderbartInnhold erApen={this.props.visTidslinjeOgUtsettelse}>
+					{/* <EkspanderbartInnhold erApen={this.props.visTidslinjeOgUtsettelse}>
 						<div className="no-print blokkPad-l">
 							<div className="blokk-xs">
 								<Element>
@@ -123,27 +120,32 @@ export class Main extends React.Component<Props> {
 								</Veilederinfo>
 							</div>
 						</div>
-					</EkspanderbartInnhold>
+					</EkspanderbartInnhold> */}
 				</section>
 
-				<EkspanderbartInnhold erApen={this.props.visTidslinjeOgUtsettelse}>
-					<section className="tidsplan">
-						<div className="blokk-m">
-							<Systemtittel>
-								<IntlTekst id="tidslinje.tittel" />
-							</Systemtittel>
-						</div>
-						<div className="blokk-m">
-							<Tidslinje
-								innslag={this.props.innslag}
-								navnForelder1={navnForelder1}
-								navnForelder2={navnForelder2}
-								onRedigerUtsettelse={(u: Utsettelsesperiode) =>
-									dispatch(utsettelseVisDialog(u))
-								}
-							/>
-						</div>
-						<h3 className="sr-only">
+				<section className="tidsplan">
+					<div className="blokk-m">
+						<Systemtittel className="tidslinje__tittel">
+							<IntlTekst id="tidslinje.tittel" />
+						</Systemtittel>
+					</div>
+					<div className="blokk-2">
+						<Tidslinje
+							innslag={this.props.innslag}
+							navnForelder1={navnForelder1}
+							navnForelder2={navnForelder2}
+							onRedigerUtsettelse={(u: Utsettelsesperiode) =>
+								dispatch(utsettelseVisDialog(u))
+							}
+						/>
+					</div>
+					<div className="m-textCenter">
+						<LeggTilKnapp onClick={() => dispatch(utsettelseVisDialog())}>
+							<IntlTekst id="opphold.knapp.leggtil" />
+						</LeggTilKnapp>
+					</div>
+
+					{/* <h3 className="sr-only">
 							<IntlTekst id="skjermleser.tidslinje.oppsummering.tittel" />
 						</h3>
 						<Permisjonsoppsummering
@@ -156,9 +158,8 @@ export class Main extends React.Component<Props> {
 							fellesukerForelder2={form.fellesperiodeukerForelder2}
 							navnForelder1={navnForelder1}
 							navnForelder2={navnForelder2}
-						/>
-					</section>
-				</EkspanderbartInnhold>
+						/> */}
+				</section>
 				{tidsromForUtsettelse && (
 					<UtsettelseDialog
 						isOpen={utsettelse.dialogErApen}

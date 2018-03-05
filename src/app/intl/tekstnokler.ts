@@ -4,10 +4,12 @@ export type GenerellTekst =
 	| 'applikasjonstittel'
 	| 'forelder1'
 	| 'forelder2'
-	| 'uker'
 	| 'tittel.introtekst'
 	| 'utvidetinfo.lukk'
-	| 'utvidetinfo.lesmer';
+	| 'utvidetinfo.lesmer'
+	| 'uker'
+	| 'dager'
+	| 'ukerogdager';
 
 export type UtsettelsesskjemaTekst =
 	| 'utsettelseskjema.tittel'

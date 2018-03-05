@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as classnames from 'classnames';
 
 import { Radio, RadioProps, Feil, SkjemaGruppe } from 'nav-frontend-skjema';
+import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
 
 type RadiolisteValgVerdi = string | number | undefined;
 
@@ -13,6 +14,7 @@ export interface RadiolisteValg {
 	tittel: string;
 	verdi: string;
 	radioProps?: RadioProps;
+	detailsRenderer?: () => React.ReactNode;
 }
 
 export interface Props {
@@ -34,6 +36,8 @@ interface RadiolisteRadioProps extends RadiolisteValg {
 	valgt: boolean;
 	/** Kall når en radio velges */
 	onChange: () => void;
+	/** Ekstrainfo som vises når den er valt */
+	detailsRenderer?: () => React.ReactNode;
 }
 
 const RadiolisteRadio: React.StatelessComponent<RadiolisteRadioProps> = ({
@@ -42,17 +46,31 @@ const RadiolisteRadio: React.StatelessComponent<RadiolisteRadioProps> = ({
 	verdi,
 	valgt,
 	onChange,
+	detailsRenderer,
 	radioProps
 }) => (
-	<Radio
-		{...radioProps}
-		name={navn}
-		value={verdi}
-		label={tittel}
-		checked={valgt}
-		onChange={onChange}
-		data-ref={`${navn}_${verdi}`}
-	/>
+	<div>
+		<Radio
+			{...radioProps}
+			name={navn}
+			value={verdi}
+			label={tittel}
+			checked={valgt}
+			onChange={onChange}
+			data-ref={`${navn}_${verdi}`}
+		/>
+		{detailsRenderer && (
+			<div aria-live="polite">
+				<EkspanderbartInnhold erApen={valgt}>
+					{valgt && (
+						<div className="radioliste__radio__details">
+							{detailsRenderer()}
+						</div>
+					)}
+				</EkspanderbartInnhold>
+			</div>
+		)}
+	</div>
 );
 
 const Radioliste: React.StatelessComponent<Props> = ({

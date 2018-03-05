@@ -62,18 +62,6 @@ const preventDefaultEvent = (e: FormEvent<HTMLFormElement>) => {
 	e.preventDefault();
 };
 
-// const getHvemTittel = (
-// 	intl: InjectedIntl,
-// 	arsak: UtsettelseArsakType | undefined
-// ): string => {
-// 	if (!arsak) {
-// 		return intlString(intl, 'utsettelseskjema.hvem.sporsmal');
-// 	}
-// 	return arsak === UtsettelseArsakType.Ferie
-// 		? intlString(intl, 'utsettelseskjema.hvem.sporsmal.ferie')
-// 		: intlString(intl, 'utsettelseskjema.hvem.sporsmal.arbeid');
-// };
-
 class UtsettelseSkjema extends React.Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
@@ -351,7 +339,12 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 							valg={[
 								{
 									tittel: intlString(intl, 'utsettelseskjema.arsak.ferie'),
-									verdi: UtsettelseArsakType.Ferie
+									verdi: UtsettelseArsakType.Ferie,
+									detailsRenderer: () => (
+										<Veilederinfo>
+											<IntlTekst id="utsettelseskjema.veiledning.ferie" />
+										</Veilederinfo>
+									)
 								},
 								{
 									tittel: intl.formatMessage({
@@ -361,7 +354,23 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								},
 								{
 									tittel: 'Ha ulønnet permisjon',
-									verdi: UtsettelseArsakType.UlønnetPermisjon
+									verdi: UtsettelseArsakType.UlønnetPermisjon,
+									detailsRenderer: () => (
+										<Veilederinfo>
+											<UlonnetPermisjon
+												navn1={
+													forelder === 'forelder1'
+														? navnForelder1
+														: navnForelder2
+												}
+												navn2={
+													forelder === 'forelder1'
+														? navnForelder2
+														: navnForelder1
+												}
+											/>
+										</Veilederinfo>
+									)
 								}
 							]}
 							inputnavn="utsettelse"
@@ -371,29 +380,6 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								this.revaliderSkjema();
 							}}
 						/>
-					</div>
-					<div aria-live="polite">
-						<EkspanderbartInnhold
-							erApen={
-								this.state.arsak === UtsettelseArsakType.UlønnetPermisjon
-							}>
-							<Veilederinfo>
-								<UlonnetPermisjon
-									navn1={
-										forelder === 'forelder1' ? navnForelder1 : navnForelder2
-									}
-									navn2={
-										forelder === 'forelder1' ? navnForelder2 : navnForelder1
-									}
-								/>
-							</Veilederinfo>
-						</EkspanderbartInnhold>
-						<EkspanderbartInnhold
-							erApen={this.state.arsak === UtsettelseArsakType.Ferie}>
-							<Veilederinfo>
-								<IntlTekst id="utsettelseskjema.veiledning.ferie" />
-							</Veilederinfo>
-						</EkspanderbartInnhold>
 					</div>
 				</EkspanderbartInnhold>
 

@@ -1,9 +1,5 @@
 import * as React from 'react';
-// import * as classnames from 'classnames';
 import { Element } from 'nav-frontend-typografi';
-
-// import { Forelder } from 'app/types';
-// import IntlTekst from 'app/intl/IntlTekst';
 
 import './fordeling.less';
 import IntlTekst from 'app/intl/IntlTekst';
@@ -17,30 +13,6 @@ export interface Props {
 	fellesukerForelder1: number;
 	fellesukerForelder2: number;
 }
-
-// interface KvoteProps {
-// 	navn: string;
-// 	uker: number;
-// 	forelder: Forelder;
-// }
-// const Kvote: React.StatelessComponent<KvoteProps> = ({
-// 	navn,
-// 	uker,
-// 	forelder
-// }) => {
-// 	return (
-// 		<div
-// 			className={classnames(
-// 				'permisjonsoppsummering__kvote',
-// 				`permisjonsoppsummering__kvote--${forelder}`
-// 			)}>
-// 			<div className="permisjonsoppsummering__kvote__navn">{navn}</div>
-// 			<div className="permisjonsoppsummering__kvote__uker">
-// 				<IntlTekst id="uker" values={{ uker }} />
-// 			</div>
-// 		</div>
-// 	);
-// };
 
 const Fordeling: React.StatelessComponent<Props> = ({
 	navnForelder1,
@@ -92,28 +64,6 @@ const Fordeling: React.StatelessComponent<Props> = ({
 					<IntlTekst id="uker" values={{ uker: ukerF2 }} />
 				</span>
 			</div>
-			{/* <div className="permisjonsoppsummering__forelder">
-			<div className="blokk-xxs">
-				<Element tag="h4">{navnForelder1}</Element>
-			</div>
-			<Kvote navn="Kvote" uker={modrekvote} forelder="forelder1" />
-			<Kvote
-				navn="Fellesperiode"
-				uker={fellesukerForelder1}
-				forelder="forelder1"
-			/>
-		</div>
-		<div className="permisjonsoppsummering__forelder">
-			<div className="blokk-xxs">
-				<Element tag="h4">{navnForelder2}</Element>
-			</div>
-			<Kvote navn="Kvote" uker={modrekvote} forelder="forelder2" />
-			<Kvote
-				navn="Fellesperiode"
-				uker={fellesukerForelder2}
-				forelder="forelder2"
-			/>
-		</div> */}
 		</div>
 	);
 };

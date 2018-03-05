@@ -3,17 +3,14 @@ import * as React from 'react';
 import Callout from 'app/elements/callout/Callout';
 import {
 	InnslagPeriodetype,
-	Tidslinjeinnslag,
-	TidslinjeinnslagType
+	Tidslinjeinnslag
 } from 'app/components/tidslinje/types';
 import { Periodetype, Utsettelsesperiode } from 'app/types';
 
 import {
 	getInnslagfarge,
-	innslagErFortsettelse,
-	getForelderNavn
+	innslagErFortsettelse
 } from 'app/components/tidslinje/tidslinjeUtils';
-import Fortsettelsesinfo from 'app/components/tidslinje/innslaginfo/Fortsettelseinfo';
 import Utsettelsesinfo from 'app/components/tidslinje/innslaginfo/Utsettelsesinfo';
 import Periodeinfo from 'app/components/tidslinje/innslaginfo/Periodeinfo';
 
@@ -28,40 +25,9 @@ export interface PeriodeinnslagProps {
 const Periodeinnslag: React.StatelessComponent<PeriodeinnslagProps> = (
 	props
 ) => {
-	const {
-		innslag,
-		nesteInnslag,
-		navnForelder1,
-		navnForelder2,
-		onRedigerUtsettelse
-	} = props;
+	const { innslag, onRedigerUtsettelse } = props;
 
 	const getInnslaginfo = (): React.ReactNode => {
-		if (
-			innslagErFortsettelse(innslag) &&
-			innslag.periode.type !== Periodetype.Utsettelse
-		) {
-			const avsluttendePeriode =
-				nesteInnslag &&
-				nesteInnslag.type === TidslinjeinnslagType.periode &&
-				nesteInnslag.periode.type === Periodetype.Stonadsperiode &&
-				nesteInnslag.periode.forelder !== innslag.periode.forelder;
-			return (
-				<Fortsettelsesinfo
-					navn={getForelderNavn(
-						innslag.periode.forelder,
-						navnForelder1,
-						navnForelder2
-					)}
-					sluttdato={
-						avsluttendePeriode
-							? innslag.perioderekke[innslag.perioderekke.length - 1]
-									.tidsperiode.sluttdato
-							: undefined
-					}
-				/>
-			);
-		}
 		return innslag.periode.type === Periodetype.Utsettelse ? (
 			<Utsettelsesinfo
 				{...props}

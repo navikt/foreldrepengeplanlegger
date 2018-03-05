@@ -28,17 +28,11 @@ export const tidslinjeFraPerioder = createSelector(
 				type: TidslinjeinnslagType.hendelse,
 				hendelse: 'termin',
 				dato: termindato
-			},
-			{
-				type: TidslinjeinnslagType.hendelse,
-				hendelse: 'permisjonsslutt',
-				dato: perioder[antallPerioder - 1].tidsperiode.sluttdato
 			}
 		];
 		return alleInnslag
 			.sort(sorterTidslinjeinnslagEtterStartdato)
-			.filter(filtrerOmInnslagSkalVises)
-			.filter(skjulForstePeriodeEtterTermin);
+			.filter(filtrerOmInnslagSkalVises);
 	}
 );
 
@@ -83,7 +77,7 @@ const filtrerOmInnslagSkalVises = (
 	return false;
 };
 
-const skjulForstePeriodeEtterTermin = (
+export const skjulForstePeriodeEtterTermin = (
 	innslag: Tidslinjeinnslag,
 	index: number,
 	alleInnslag: Tidslinjeinnslag[]

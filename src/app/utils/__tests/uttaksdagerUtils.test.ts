@@ -6,7 +6,8 @@ import {
 	getForsteUttaksdagEtterDato,
 	getAntallUttaksdagerITidsperiode,
 	leggUttaksdagerTilDato,
-	trekkUttaksdagerFraDato
+	trekkUttaksdagerFraDato,
+	getUkerOgDagerFromDager
 } from 'app/utils/uttaksdagerUtils';
 
 describe('uttaksdagerUtils', () => {
@@ -157,6 +158,29 @@ describe('uttaksdagerUtils', () => {
 		});
 		it('legger til fem uttaksdag på en dato riktig', () => {
 			expect(leggUttaksdagerTilDato(fredag, 1)).toEqual(nesteMandag);
+		});
+	});
+
+	describe('konvertere dager til uker', () => {
+		it('beregner 1 dag til 0 uker og 1 dag', () => {
+			const result = getUkerOgDagerFromDager(1);
+			expect(result.dager).toBe(1);
+			expect(result.uker).toBe(0);
+		});
+		it('beregner 4 dager til 0 uker og 4 dager', () => {
+			const result = getUkerOgDagerFromDager(4);
+			expect(result.dager).toBe(4);
+			expect(result.uker).toBe(0);
+		});
+		it('beregner 5 dager til 1 uke', () => {
+			const result = getUkerOgDagerFromDager(5);
+			expect(result.dager).toBe(0);
+			expect(result.uker).toBe(1);
+		});
+		it('beregner 12 dager til 2 uke og 2 dager', () => {
+			const result = getUkerOgDagerFromDager(12);
+			expect(result.dager).toBe(2);
+			expect(result.uker).toBe(2);
 		});
 	});
 });

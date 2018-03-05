@@ -1,15 +1,23 @@
 declare module 'nav-frontend-skjema' {
 	import * as React from 'react';
 
-	export type InputBredde = 'fullbredde' | 'XXLl' | 'XL' | 'L' | 'M' | 'S' | 'XS' | 'XXS';
+	export type InputBredde =
+		| 'fullbredde'
+		| 'XXLl'
+		| 'XL'
+		| 'L'
+		| 'M'
+		| 'S'
+		| 'XS'
+		| 'XXS';
 
 	type SelectBredde = 'fullbredde' | 'xxl' | 'xl' | 'l' | 'm' | 's' | 'xs';
 
 	interface RadioProps extends React.HTMLProps<Radio> {
-		className?: string;
-		id?: string;
 		label: React.ReactNode | any;
 		name: string;
+		className?: string;
+		id?: string;
 		checked?: boolean;
 		radioRef?: Function;
 		defaultChecked?: boolean;
@@ -70,10 +78,39 @@ declare module 'nav-frontend-skjema' {
 		selectRef?: () => React.ReactElement<any>;
 	}
 
+	export type RadioPanelChangeEvent = (
+		event: React.SyntheticEvent<EventTarget>
+	) => void;
+
+	export interface RadioPanelProps extends RadioProps {
+		checked: boolean;
+		name: string;
+		onChange: RadioPanelChangeEvent;
+		inputProps?: React.InputHTMLAttributes<HTMLInputElement> | any;
+	}
+
+	export interface RadioPanelGruppeProps {
+		radios: RadioProps[];
+		name: string;
+		legend: string;
+		onChange: (event: React.SyntheticEvent<EventTarget>, value: string) => void;
+		checked?: string;
+		feil?: FeilProps;
+	}
+
+	export interface FeilProps {
+		feilmelding: React.ReactNode | React.ReactChild | React.ReactChildren;
+	}
+
 	export class Radio extends React.Component<RadioProps, {}> {}
 	export class Checkbox extends React.Component<CheckboxProps, {}> {}
 	export class Input extends React.Component<InputProps, {}> {}
 	export class SkjemaGruppe extends React.Component<SkjemagruppeProps, {}> {}
 	export class Textarea extends React.Component<TextareaProps, {}> {}
 	export class Select extends React.Component<SelectProps, {}> {}
+	export class RadioPanelGruppe extends React.Component<
+		RadioPanelGruppeProps,
+		{}
+	> {}
+	export class RadioPanel extends React.Component<RadioPanelProps, {}> {}
 }

@@ -2,9 +2,13 @@
 	"applikasjonstittel": "Foreldrepengeplanlegger",
 	"forelder1": "Forelder 1",
 	"forelder2": "Forelder 2",
+	"dager": "{dager, plural, one {# dag} other {# dager}}",
 	"uker": "{uker, plural, one {# uke} other {# uker}}",
+	"ukerogdager":
+		"{uker, plural, zero {} one {# uke} other {# uker}} {dager, plural, =0 {} one {og # dag} other {og # dager}}",
 	"utvidetinfo.lesmer": "Les mer",
 	"utvidetinfo.lukk": "Lukk",
+	"knapp.vispermisjonsplan": "Vis planen",
 	"stonadskonto.modrekvotePakrevd": "mødrekvote",
 	"stonadskonto.modrekvote": "mødrekvote",
 	"stonadskonto.fedrekvote": "fedrekvote",
@@ -12,9 +16,9 @@
 	"stonadskonto.foreldrepenger": "foreldrepenger",
 	"tittel.introtekst":
 		"Velkommen til foreldrepengenplanleggeren. Her kan dere planlegge hvordan dere vil ta ut perioden med foreldrepenger når dere venter barn.",
-	"utsettelseskjema.tittel": "Legg til opphold i foreldrepengene",
+	"utsettelseskjema.tittel": "Legg til opphold",
 	"utsettelseskjema.tittel.endre": "Opphold i foreldrepengene",
-	"utsettelseskjema.arsak.sporsmal": "Hva skal du gjøre?",
+	"utsettelseskjema.arsak.sporsmal": "Hva skal {navn} gjøre?",
 	"utsettelseskjema.arsak.ferie": "Ta ut ferie",
 	"utsettelseskjema.veiledning.ferie":
 		"Du kan utsette permisjonen din med 21 feriedager for hvert kalenderår, i tillegg til overført ferie fra i fjor og 10 feriedager fra neste år.",
@@ -46,15 +50,14 @@
 		"Av perioden med foreldrepenger må mor ta ut 13 uker, og den andre forelderen 10 uker. Resten av ukene med foreldrepenger kan dere dele. Valget av antall uker gjelder dere begge. Den totale utbetalingen blir høyere ved å velge 100 prosent.",
 	"skjema.fordeling.veiledning": "Lorem ipsum dolor sit amet,",
 	"skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
-	"tidslinje.tittel": "Planen deres",
+	"tidslinje.tittel": "Planen",
 	"tidslinje.periodeinfo.konto.uker":
 		"{uker, plural, one {# uke} other {# uker}} {konto}",
 	"tidslinje.periodeinfo.starterpermisjon.enkel":
 		"{navn} starter sin periode med foreldrepenger",
 	"tidslinje.periodeinfo.starterpermisjon.detaljert":
 		"{navn} starter sin periode med foreldrepenger: {uker, plural, one {# uke} other {# uker}} totalt oppdelt i {detaljer}",
-	"tidslinje.utsettelse":
-		"{navn} utsetter foreldrepengene med {arsak} i {dager, plural, one {# dag} other {# dager}}",
+	"tidslinje.utsettelse": "{navn}  {arsak}",
 	"tidslinje.periodeinfo.fortsettelse.fortsetter":
 		"{navn} fortsetter sin foreldrepenger",
 	"tidslinje.periodeinfo.fortsettelse.avslutter":
@@ -64,26 +67,19 @@
 	"opphold.arsak.ferie": "ferie",
 	"opphold.arsak.arbeid": "arbeid",
 	"opphold.tittel": "Opphold i perioden med foreldrepenger?",
-	"opphold.knapp.leggtil": "Legg til ferie eller arbeid",
+	"opphold.knapp.leggtil": "Legg til opphold",
 	"opphold.knapp.ulonnetpermisjon": "Legg til ulønnet permisjon",
 	"skjermleser.skjema.tittel": "Fyll ut skjema og se din permisjonsplan",
 	"skjermleser.tidslinje.oppsummering.tittel":
 		"Fordeling av foreldrepenger oppsummert",
 	"skjermleser.fordeling_av_fellesperiode":
 		"{ukerForelder1, plural, one {# uke} other {# uker}} til {navnForelder1}, {ukerForelder2, plural, one {# uke} other {# uker}} til {navnForelder2}",
-	"dialog.ulonnetpermisjon.tittel": "Ulønnet permisjon",
-	"dialog.ulonnetpermisjon.innhold1":
-		"Du må avtale ulønnet permisjon med arbeidsgiveren din. Ulønnet permisjon i mer enn 14 dager kan påvirke retten din til blant annet sykepenger og pleiepenger. Les mer på ",
-	"dialog.ulonnetpermisjon.innhold2":
-		"Ønsker dere å ha opphold i foreldrepengene med ulønnet permisjon må den andre forelderen søke om utsettelse.",
-	"dialog.ulonnetpermisjon.navlenke.tekst": "nav.no",
-	"dialog.ulonnetpermisjon.navlenke.alttekst":
-		"Les mer om ulønnet permisjon på nav.no",
-	"veileder.ulonnetpermisjon.tittel": "Ulønnet permisjon?",
-	"veileder.ulonnetpermisjon.intro":
-		"Da må den andre forelderen utsette sin foreldrepengeperiode.",
+	"veileder.ulonnetpermisjon.lesmer": "Les mer",
+	"veileder.ulonnetpermisjon.intro.html":
+		"Ulønnet permisjon for {navn1} krever at {navn2} utsetter sin foreldrepenge&shy;periode. Velg {navn2} som den som skal ha opphold, og deretter ferie eller arbeid heltid.",
 	"veileder.ulonnetpermisjon.utvidetinfo":
-		"Du må avtale ulønnet permisjon med arbeidsgiveren. Ulønnet permisjon i mer enn 14 dager kan påvirke retten din til blant annet sykepenger og pleiepenger. Les mer på nav.no",
+		"Ulønnet permisjon med avtales med arbeidsgiveren. Ulønnet permisjon i mer enn 14 dager kan påvirke retten til blant annet sykepenger og pleiepenger.",
+	"veileder.ulonnetpermisjon.utvidetinfo.navlenketekst": "Les mer på nav.no",
 	"veileder.forbehold.intro":
 		"Planleggingskalenderen viser hvor mange uker dere kan få med foreldrepenger, og hvordan dere kan utsette perioden med foreldrepenger hvis dere skal ha ferie eller jobbe heltid. Den viser ikke hvor mye dere kan få utbetalt.",
 	"veileder.forbehold.utvidetinfo.tittel": "Begrensninger i kalenderen",

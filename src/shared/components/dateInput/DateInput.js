@@ -32,6 +32,7 @@ class DateInput extends Component {
 		this.onKeyUp = this.onKeyUp.bind(this);
 		this.onDayClick = this.onDayClick.bind(this);
 		this.onMaskedInputChange = this.onMaskedInputChange.bind(this);
+		this.onMaskedInputBlur = this.onMaskedInputBlur.bind(this);
 		this.toggle = this.toggle.bind(this);
 		this.open = this.open.bind(this);
 		this.close = this.close.bind(this);
@@ -47,7 +48,7 @@ class DateInput extends Component {
 
 	onFocusOut(e) {
 		const { relatedTarget } = e;
-		if (relatedTarget) {
+		if (relatedTarget && this.container) {
 			const targetIsChildNode = this.container.contains(relatedTarget);
 			if (!targetIsChildNode) {
 				this.close(false);
@@ -77,7 +78,11 @@ class DateInput extends Component {
 	}
 	onMaskedInputBlur(e) {
 		if (this.props.onInputBlur) {
-			this.props.onInputBlur(e.target.value);
+			const inputDate = e.target.value;
+			const isoDate = datePickerToISODate(inputDate);
+			if (isValidISODate(isoDate)) {
+				this.props.onChange(isoDate);
+			}
 		}
 	}
 

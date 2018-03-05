@@ -54,7 +54,7 @@
 		border: @sirkelBorderWidth solid @borderColor;
 		background-color: @bkgColor;
 		margin-top: -1 * @sirkelOffsetTop;
-		margin-left: -1 * (@sirkelSize/2 - @sirkelBorderWidth) + 1;
+		margin-left: -1 * (@sirkelSize / 2 - @sirkelBorderWidth) + 1;
 	}
 
 	.strekavrunding() {
@@ -140,9 +140,12 @@
 				margin-bottom: 0;
 			}
 		}
+		&__varighet {
+			white-space: nowrap;
+		}
 	}
 	.hendelseinnslag {
-		padding: 1.5rem 1rem;
+		padding: 1rem;
 		&__dato {
 			font-weight: bold;
 			display: inline-block;
@@ -161,14 +164,18 @@
 	.periodeinnslag {
 		&__topp {
 			display: flex;
-		}
-		&__dato {
-			flex-grow: 2;
-			flex-basis: 100%;
-			.periodedato();
+			font-weight: bold;
+			margin-bottom: 0.3rem;
+			&__venstre {
+				flex-basis: 100%;
+			}
+			&__hoyre {
+				display: flex;
+				flex-grow: 0;
+			}
 		}
 		&__rediger {
-			flex-basis: 1;
+			padding-left: 0.5rem;
 			flex-grow: 0;
 			white-space: nowrap;
 			text-align: right;

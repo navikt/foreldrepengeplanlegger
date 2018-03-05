@@ -11,8 +11,9 @@ interface Props {
 
 const Dato: React.StatelessComponent<Props> = ({ dato }) => (
 	<span className="formatert-dato">
-		<span className="formatert-dato__ukedag">{ukedag(dato).substr(0, 3)}</span>
-		{'. '}
+		<span className="formatert-dato__ukedag">
+			{ukedag(dato).substr(0, 3)}.{' '}
+		</span>
 		<span className="formatert-dato__dag">{dagIMåned(dato)}</span>{' '}
 		<span className="formatert-dato__måned">{mnd(dato)}</span>{' '}
 		<span className="formatert-dato__år">{år(dato)}</span>

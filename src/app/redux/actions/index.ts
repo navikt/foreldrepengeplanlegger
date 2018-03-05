@@ -87,9 +87,17 @@ export function visInfo(id: string): PlanleggerActionTypes {
 		id
 	};
 }
+
 export function skjulInfo(id: string): PlanleggerActionTypes {
 	return {
 		type: PlanleggerActionTypeKeys.INFO_SKJUL,
 		id
+	};
+}
+
+export function visTidslinje(synlig: boolean): PlanleggerActionTypes {
+	return {
+		type: PlanleggerActionTypeKeys.VIS_TIDSLINJE,
+		synlig
 	};
 }

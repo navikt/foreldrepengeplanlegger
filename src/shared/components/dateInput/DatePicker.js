@@ -128,6 +128,7 @@ class DayPickerComponent extends Component {
 				onKeyUp={(e) => {
 					onKeyUp(e);
 				}}>
+				<h1 className="sr-only">Datovelger</h1>
 				<DayPicker
 					locale="no"
 					initialMonth={this.getInitialMonth()}

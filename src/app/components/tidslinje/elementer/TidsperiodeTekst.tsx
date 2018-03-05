@@ -1,31 +1,33 @@
 import * as React from 'react';
 import Dato from 'app/elements/dato/Dato';
 import { Tidsperiode } from 'app/types';
-import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
+
+import './tidsperiodeTekst.less';
 
 export interface Props {
 	tidsperiode: Tidsperiode;
-	visDager?: boolean;
+	visVarighet?: boolean;
 	visSluttdato?: boolean;
 }
 
 const TidsperiodeTekst: React.StatelessComponent<Props> = ({
 	tidsperiode,
-	visDager,
+	visVarighet,
 	visSluttdato
-}) => (
-	<div>
-		<Dato dato={tidsperiode.startdato} />
-		{visSluttdato && (
-			<span>
-				{' '}
-				- <Dato dato={tidsperiode.sluttdato} />
+}) => {
+	return (
+		<div className="tidsperiodeTekst">
+			<span className="tidsperiodeTekst__periode">
+				<Dato dato={tidsperiode.startdato} />
+				{visSluttdato && (
+					<span>
+						{' '}
+						- <Dato dato={tidsperiode.sluttdato} />
+					</span>
+				)}
 			</span>
-		)}
-		{visDager && (
-			<span> ({getAntallUttaksdagerITidsperiode(tidsperiode)} dager)</span>
-		)}
-	</div>
-);
+		</div>
+	);
+};
 
 export default TidsperiodeTekst;

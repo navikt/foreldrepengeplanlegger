@@ -35,6 +35,7 @@ export interface UtsettelseState {
 export interface ViewState {
 	spraak: Spraak;
 	synligInfo: SynligInfoMap;
+	visTidslinje: boolean;
 }
 
 export interface AppState {

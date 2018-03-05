@@ -6,6 +6,7 @@
 	border-radius: @borderRadius;
 	padding-left: 2rem;
 	padding-right: 2rem;
+	margin-bottom: 2rem;
 	@media screen and (max-width: @appMaxWidth) {
 		border-radius: 0;
 		margin-left: -1rem;
@@ -16,10 +17,7 @@
 }
 
 .applikasjonstittel {
-	background-color: @c-purple;
 	.bredBakgrunn();
-	color: white;
-	padding: 1rem 1rem;
 }
 
 p {
@@ -99,7 +97,10 @@ p {
 	max-width: 35em;
 }
 .dialogContent {
-	padding-top: 2rem;
+	padding: 2rem 1rem 1rem 1rem;
+	@media screen and (max-width: @appMaxWidth) {
+		padding: 2rem 0 0 0;
+	}
 }
 
 .redigerUtsettelseKnapp {

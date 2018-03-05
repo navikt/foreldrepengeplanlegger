@@ -15,10 +15,12 @@ const LeggTilKnapp: React.StatelessComponent<Props> = (props) => (
 		type="standard"
 		onClick={(e) => props.onClick(e)}
 		className="leggTilKnapp">
-		<span className="leggTilKnapp__pluss">
-			<PlussIkon />
+		<span className="leggTilKnapp__content">
+			<span className="leggTilKnapp__pluss">
+				<PlussIkon />
+			</span>
+			<span className="leggTilKnapp__label">{props.children}</span>
 		</span>
-		<span className="leggTilKnapp__label">{props.children}</span>
 	</Knapp>
 );
 

@@ -3,7 +3,6 @@ import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import UtvidetInformasjon from 'app/elements/utvidetInformasjon/UtvidetInformasjon';
 import { Element } from 'nav-frontend-typografi';
-import UlonnetPermisjonInfo from 'app/components/content/UlonnetPermisjonInfo';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 export interface Props {}
@@ -24,9 +23,6 @@ const PlanleggerInfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
 						<IntlTekst id="veileder.forbehold.utvidetinfo.tittel" />
 					</Element>
 					<IntlTekst id="veileder.forbehold.utvidetinfo.html" />
-				</div>
-				<div className="blokkPad-s">
-					<UlonnetPermisjonInfo />
 				</div>
 			</UtvidetInformasjon>
 		</Veilederinfo>

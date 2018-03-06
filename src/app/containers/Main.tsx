@@ -15,9 +15,18 @@ import {
 } from 'app/redux/types';
 import { tidslinjeFraPerioder } from 'app/selectors/tidslinjeSelector';
 import UtsettelseDialog from 'app/containers/UtsettelseDialog';
-import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
+import {
+	Tidslinjeinnslag,
+	TidslinjeinnslagType,
+	InnslagPeriodetype
+} from 'app/components/tidslinje/types';
 import { utsettelseVisDialog, visTidslinje } from 'app/redux/actions';
-import { Utsettelsesperiode, Tidsperiode } from 'app/types';
+import {
+	Utsettelsesperiode,
+	Tidsperiode,
+	Periodetype,
+	StonadskontoType
+} from 'app/types';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import { getGyldigTidsromForUtsettelse } from 'app/utils/permisjonUtils';
 import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
@@ -47,6 +56,21 @@ export class Main extends React.Component<Props> {
 			dispatch,
 			intl
 		} = this.props;
+
+		if (form.fellesperiodeukerForelder2 > 0) {
+			const forsteForelder2Periode = innslag.find(
+				(i) =>
+					i.type === TidslinjeinnslagType.periode &&
+					i.periode.type === Periodetype.Stonadsperiode &&
+					i.periode.forelder === 'forelder2' &&
+					i.periode.konto === StonadskontoType.Fellesperiode
+			);
+			if (forsteForelder2Periode) {
+				(forsteForelder2Periode as InnslagPeriodetype).ekstrainfo = {
+					tekst: intlString(intl, 'tidslinje.aktivitetskrav')
+				};
+			}
+		}
 		const tidsromForUtsettelse: Tidsperiode | undefined =
 			form.termindato && form.dekningsgrad
 				? getGyldigTidsromForUtsettelse(
@@ -140,6 +164,7 @@ export class Main extends React.Component<Props> {
 
 const mapStateToProps = (state: AppState): StateProps => {
 	const innslag = tidslinjeFraPerioder(state);
+
 	return {
 		innslag,
 		form: state.form,

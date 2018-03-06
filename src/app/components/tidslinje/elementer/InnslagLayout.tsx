@@ -4,16 +4,23 @@ import TidsperiodeTekst from 'app/components/tidslinje/elementer/TidsperiodeTeks
 import RedigerInnslagKnapp from 'app/components/tidslinje/elementer/RedigerInnslagKnapp';
 import Varighet from 'app/components/tidslinje/elementer/Varighet';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
+import { InnslagEkstrainfo } from 'app/components/tidslinje/types';
+import UtvidetInformasjon from 'app/elements/utvidetInformasjon/UtvidetInformasjon';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { intlString } from 'app/intl/IntlTekst';
 
 export interface Props {
 	children: React.ReactNode;
 	tidsperiode?: Tidsperiode;
+	ekstrainfo?: InnslagEkstrainfo;
 	onRediger?: () => void;
 }
 
-const InnslagLayout: React.StatelessComponent<Props> = ({
+const InnslagLayout: React.StatelessComponent<Props & InjectedIntlProps> = ({
 	tidsperiode,
+	ekstrainfo,
 	onRediger,
+	intl,
 	children
 }) => (
 	<div className="m-padding-s">
@@ -41,7 +48,16 @@ const InnslagLayout: React.StatelessComponent<Props> = ({
 				/>
 			</div>
 		)}
+		{ekstrainfo && (
+			<div className="periodeinnslag__ekstrainfo">
+				<UtvidetInformasjon
+					apneLabel={intlString(intl, 'tidslinje.visdetaljer')}
+					lukkLabel={intlString(intl, 'tidslinje.skjuldetaljer')}>
+					<div className="blokkPad-xxs">{ekstrainfo.tekst}</div>
+				</UtvidetInformasjon>
+			</div>
+		)}
 	</div>
 );
 
-export default InnslagLayout;
+export default injectIntl(InnslagLayout);

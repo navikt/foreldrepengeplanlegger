@@ -81,7 +81,9 @@ class Skjema extends React.Component<Props> {
 						}
 					/>
 				</div>
-				<EkspanderbartInnhold erApen={form.termindato !== undefined}>
+				<EkspanderbartInnhold
+					erApen={form.termindato !== undefined}
+					animert={false}>
 					<div className="blokk-m">
 						<SkjemaDekningsgrad
 							dekningsgrad={form.dekningsgrad}
@@ -96,6 +98,7 @@ class Skjema extends React.Component<Props> {
 				</EkspanderbartInnhold>
 
 				<EkspanderbartInnhold
+					animert={false}
 					erApen={form.dekningsgrad && form.termindato !== undefined}>
 					<div className="blokk-s">
 						<SkjemaFordelingFellesperiode

@@ -68,25 +68,6 @@ class Permisjonsplan extends React.Component<Props, {}> {
 						<IntlTekst id="opphold.knapp.leggtil" />
 					</LeggTilKnapp>
 				</div>
-				{/* <Element className="blokk-xxxs">
-					<IntlTekst id="veileder.ulonnetpermisjon.tittel" />
-				</Element>
-				<p>
-					<IntlTekst id="veileder.ulonnetpermisjon.intro.html" />
-				</p>
-				<UtvidetInformasjon
-					apneLabel={intlString(
-						this.props.intl,
-						'veileder.ulonnetpermisjon.lesmer'
-					)}>
-					<div className="blokkPad-s">
-						<IntlTekst id="veileder.ulonnetpermisjon.utvidetinfo" />
-						<Lenke href={EksterneLenker.nav_ulonnetPermisjon} target="_blank">
-							{' '}
-							<IntlTekst id="veileder.ulonnetpermisjon.utvidetinfo.navlenketekst" />
-						</Lenke>
-					</div>
-				</UtvidetInformasjon> */}
 			</section>
 		);
 	}

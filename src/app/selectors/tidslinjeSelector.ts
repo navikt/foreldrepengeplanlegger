@@ -30,6 +30,7 @@ export const tidslinjeFraPerioder = createSelector(
 				dato: termindato
 			}
 		];
+
 		return alleInnslag
 			.sort(sorterTidslinjeinnslagEtterStartdato)
 			.filter(filtrerOmInnslagSkalVises);

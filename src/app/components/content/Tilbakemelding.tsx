@@ -19,7 +19,7 @@ const Tilbakemelding: React.StatelessComponent<Props> = (props) => (
 		<Lenke
 			href="https://www.survey-xact.no/LinkCollector?key=P11NWVYZC535"
 			target="_blank">
-			Gå til tilbakemeldingsskjema
+			Gi din tilbakemelding her
 		</Lenke>.
 	</div>
 );

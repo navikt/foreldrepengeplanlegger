@@ -27,7 +27,13 @@ export type UtsettelsesskjemaTekst =
 	| 'utsettelseskjema.knapp.oppdater'
 	| 'utsettelseskjema.knapp.fjern'
 	| 'utsettelseskjema.ferievarsel.ulovlig'
-	| 'utsettelseskjema.ferievarsel.kreveroverforing';
+	| 'utsettelseskjema.ferievarsel.kreveroverforing'
+	| 'utsettelseskjema.feil.ugyldigStartdato'
+	| 'utsettelseskjema.feil.ugyldigSluttdato'
+	| 'utsettelseskjema.feil.startdatoMangler'
+	| 'utsettelseskjema.feil.sluttdatoMangler'
+	| 'utsettelseskjema.feil.sluttdatoEtterStartdato'
+	| 'utsettelseskjema.feil.ugyldigAntallFeriedager';
 
 export type SkjemaTekst =
 	| 'skjema.label.forelder1'

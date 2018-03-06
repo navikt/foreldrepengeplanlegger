@@ -90,10 +90,9 @@ export type Veiledningstekster =
 	| 'veileder.forbehold.utvidetinfo.tittel'
 	| 'veileder.forbehold.utvidetinfo.html'
 	| 'veileder.ulonnetpermisjon.tittel'
-	| 'veileder.ulonnetpermisjon.lesmer'
-	| 'veileder.ulonnetpermisjon.intro.html'
-	| 'veileder.ulonnetpermisjon.utvidetinfo'
-	| 'veileder.ulonnetpermisjon.utvidetinfo.navlenketekst';
+	| 'veileder.ulonnetpermisjon.tekst1'
+	| 'veileder.ulonnetpermisjon.tekst2'
+	| 'veileder.ulonnetpermisjon.navlenketekst';
 
 export type AppTekster =
 	| UtsettelsesskjemaTekst

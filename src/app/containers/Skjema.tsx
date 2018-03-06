@@ -87,6 +87,7 @@ class Skjema extends React.Component<Props> {
 							dekningsgrad={form.dekningsgrad}
 							antallUkerTotalt80={form.permisjonsregler.antallUkerTotalt80}
 							antallUkerTotalt100={form.permisjonsregler.antallUkerTotalt100}
+							permisjonsregler={form.permisjonsregler}
 							onChange={(dekningsgrad) =>
 								dispatch(setDekningsgrad(dekningsgrad))
 							}
@@ -106,9 +107,6 @@ class Skjema extends React.Component<Props> {
 							}
 							ukerFellesperiode={form.ukerFellesperiode}
 							ukerForelder1={form.fellesperiodeukerForelder1}
-							ukerModrekvote={form.permisjonsregler.antallUkerMødrekvote}
-							ukerFedrekvote={form.permisjonsregler.antallUkerFedrekvote}
-							ukerForTermin={form.permisjonsregler.antallUkerForelder1FørFødsel}
 							onChange={(uker) => dispatch(settAntallDagerMor(uker))}
 						/>
 					</div>

@@ -4,11 +4,12 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import Radioliste from 'shared/components/radioliste/Radioliste';
 import Sporsmal from 'app/elements/sporsmal/Sporsmal';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
-import { Dekningsgrad } from 'app/types';
+import { Dekningsgrad, Permisjonsregler } from 'app/types';
 import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 import { Infotekster } from 'app/redux/reducers/viewReducer';
 
 export interface OwnProps {
+	permisjonsregler: Permisjonsregler;
 	dekningsgrad?: Dekningsgrad;
 	antallUkerTotalt80: number;
 	antallUkerTotalt100: number;
@@ -22,6 +23,7 @@ const SkjemaDekningsgrad: React.StatelessComponent<Props> = ({
 	onChange,
 	antallUkerTotalt80,
 	antallUkerTotalt100,
+	permisjonsregler,
 	dekningsgrad
 }) => (
 	<Radioliste
@@ -37,7 +39,15 @@ const SkjemaDekningsgrad: React.StatelessComponent<Props> = ({
 		}
 		beskrivelse={
 			<VeilederinfoContainer id={Infotekster.sats} type="info">
-				<IntlTekst id="skjema.veiledning.sats" />
+				<IntlTekst
+					id="skjema.veiledning.sats"
+					values={{
+						pakrevdForelder1:
+							permisjonsregler.antallUkerForelder1FørFødsel +
+							permisjonsregler.antallUkerMødrekvote,
+						pakrevdForelder2: permisjonsregler.antallUkerFedrekvote
+					}}
+				/>
 			</VeilederinfoContainer>
 		}
 		valgtVerdi={dekningsgrad}

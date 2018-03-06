@@ -1,42 +1,32 @@
 import * as React from 'react';
-// import { Element } from 'nav-frontend-typografi';
-import IntlTekst, { intlString } from 'app/intl/IntlTekst';
-import UtvidetInformasjon from 'app/elements/utvidetInformasjon/UtvidetInformasjon';
+import IntlTekst from 'app/intl/IntlTekst';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import EksterneLenker from 'app/eksterneLenker';
 import Lenke from 'nav-frontend-lenker';
+import { Element } from 'nav-frontend-typografi';
 
-export interface Props {
-	navn1: string;
-	navn2: string;
-}
+export interface Props {}
 
 const UlonnetPermisjon: React.StatelessComponent<Props & InjectedIntlProps> = ({
-	intl,
-	navn1,
-	navn2
+	intl
 }) => {
 	return (
 		<div>
-			{/* <Element className="blokk-xxxs">
+			<Element tag="h2">
 				<IntlTekst id="veileder.ulonnetpermisjon.tittel" />
-			</Element> */}
-			<p>
-				<IntlTekst
-					id="veileder.ulonnetpermisjon.intro.html"
-					values={{ navn1, navn2 }}
-				/>
-			</p>
-			<UtvidetInformasjon
-				apneLabel={intlString(intl, 'veileder.ulonnetpermisjon.lesmer')}>
-				<div className="blokkPad-s">
-					<IntlTekst id="veileder.ulonnetpermisjon.utvidetinfo" />
-					<Lenke href={EksterneLenker.nav_ulonnetPermisjon} target="_blank">
-						{' '}
-						<IntlTekst id="veileder.ulonnetpermisjon.utvidetinfo.navlenketekst" />
-					</Lenke>
-				</div>
-			</UtvidetInformasjon>
+			</Element>
+			<div className="blokkPad-s">
+				<p>
+					<IntlTekst id="veileder.ulonnetpermisjon.tekst1" />
+				</p>
+				<p>
+					<IntlTekst id="veileder.ulonnetpermisjon.tekst2" />
+				</p>
+				<Lenke href={EksterneLenker.nav_ulonnetPermisjon} target="_blank">
+					{' '}
+					<IntlTekst id="veileder.ulonnetpermisjon.navlenketekst" />
+				</Lenke>
+			</div>
 		</div>
 	);
 };

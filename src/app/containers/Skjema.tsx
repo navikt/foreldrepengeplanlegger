@@ -5,7 +5,6 @@ import { addYears } from 'date-fns';
 
 import { Row, Column } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
-
 import DateInput from 'shared/components/dateInput/DateInput';
 import {
 	DispatchProps,
@@ -24,6 +23,7 @@ import { intlString } from 'app/intl/IntlTekst';
 import SkjemaDekningsgrad from 'app/components/skjema//SkjemaDekningsgrad';
 import SkjemaFordelingFellesperiode from 'app/components/skjema/SkjemaFordelingFellesperiode';
 import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
+import AktivitetskravInfo from 'app/components/content/AktivitetskravInfo';
 
 export interface StateProps {
 	form: FormState;
@@ -111,6 +111,9 @@ class Skjema extends React.Component<Props> {
 							ukerFellesperiode={form.ukerFellesperiode}
 							ukerForelder1={form.fellesperiodeukerForelder1}
 							onChange={(uker) => dispatch(settAntallDagerMor(uker))}
+							introRenderer={() => (
+								<AktivitetskravInfo permisjonsregler={form.permisjonsregler} />
+							)}
 						/>
 					</div>
 				</EkspanderbartInnhold>

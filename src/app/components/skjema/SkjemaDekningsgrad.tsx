@@ -5,8 +5,8 @@ import Radioliste from 'shared/components/radioliste/Radioliste';
 import Sporsmal from 'app/elements/sporsmal/Sporsmal';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import { Dekningsgrad, Permisjonsregler } from 'app/types';
-import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 import { Infotekster } from 'app/redux/reducers/viewReducer';
+import DekningsgradInfo from 'app/components/content/DekningsgradInfo';
 
 export interface OwnProps {
 	permisjonsregler: Permisjonsregler;
@@ -37,19 +37,7 @@ const SkjemaDekningsgrad: React.StatelessComponent<Props> = ({
 				<IntlTekst id="skjema.label.sats" />
 			</Sporsmal>
 		}
-		beskrivelse={
-			<VeilederinfoContainer id={Infotekster.sats} type="info">
-				<IntlTekst
-					id="skjema.veiledning.sats"
-					values={{
-						pakrevdForelder1:
-							permisjonsregler.antallUkerForelder1FørFødsel +
-							permisjonsregler.antallUkerMødrekvote,
-						pakrevdForelder2: permisjonsregler.antallUkerFedrekvote
-					}}
-				/>
-			</VeilederinfoContainer>
-		}
+		beskrivelse={<DekningsgradInfo />}
 		valgtVerdi={dekningsgrad}
 		onChange={(value) => onChange(value as Dekningsgrad)}
 		stil="ekstern"

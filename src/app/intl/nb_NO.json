@@ -8,6 +8,7 @@
 		"{uker, plural, zero {} one {# uke} other {# uker}} {dager, plural, =0 {} one {og # dag} other {og # dager}}",
 	"utvidetinfo.lesmer": "Les mer",
 	"utvidetinfo.lukk": "Lukk",
+	"planleggerinfo.lukk": "Lukk informasjon",
 	"knapp.vispermisjonsplan": "Vis planen",
 	"stonadskonto.modrekvotePakrevd": "mødrekvote",
 	"stonadskonto.modrekvote": "mødrekvote",
@@ -55,11 +56,13 @@
 	"skjema.veiledning.sats.alttekst":
 		"Les mer om valget av lengden med foreldrepenger",
 	"skjema.veiledning.sats":
-		"Av perioden med foreldrepenger må mor ta ut {pakrevdForelder1} uker, og den andre forelderen {pakrevdForelder2} uker. Resten av ukene med foreldrepenger kan dere dele. Valget av antall uker gjelder dere begge. Den totale utbetalingen blir høyere ved å velge 100 prosent.",
+		"Valget av antall uker gjelder dere begge. Den totale utbetalingen blir høyere ved å velge 100 prosent.",
 	"skjema.fordeling.veiledning":
-		"Husk aktivitetskravet til den andre forelderen når du har fellesperiode.",
+		"Av perioden med foreldrepenger må mor ta ut {pakrevdForelder1} uker, og den andre forelderen {pakrevdForelder2} uker. Resten av ukene med foreldrepenger kan dere dele. Husk aktivitetskravet til den andre forelderen når du har fellesperiode.",
 	"skjema.fordeling.veiledning.lenketekst": "Les mer om aktivitetskravet her.",
 	"skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
+	"skjema.fordeling.sporsmal.ikonlabel":
+		"Les mer om fordeling av fellesperioden",
 	"tidslinje.tittel": "Planen",
 	"tidslinje.periodeinfo.konto.uker":
 		"{uker, plural, one {# uke} other {# uker}} {konto}",
@@ -95,7 +98,8 @@
 		"Ulønnet permisjon krever at den andre forelderen tar permisjon eller registrerer opphold med ferie eller arbeid heltid.",
 	"veileder.ulonnetpermisjon.tekst2":
 		"Ulønnet permisjon med avtales med arbeidsgiveren. Ulønnet permisjon i mer enn 14 dager kan påvirke retten til blant annet sykepenger og pleiepenger.",
-	"veileder.ulonnetpermisjon.navlenketekst": "Les mer på nav.no",
+	"veileder.ulonnetpermisjon.navlenketekst":
+		"Les mer om foreldrepenger på nav.no",
 	"veileder.forbehold.intro":
 		"Planleggingskalenderen viser hvor mange uker dere kan få med foreldrepenger, og hvordan dere kan utsette perioden med foreldrepenger hvis dere skal ha ferie eller jobbe heltid. Den viser ikke hvor mye dere kan få utbetalt.",
 	"veileder.forbehold.utvidetinfo.tittel": "Begrensninger i kalenderen",

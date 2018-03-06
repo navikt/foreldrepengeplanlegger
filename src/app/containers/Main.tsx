@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { Knapp } from 'nav-frontend-knapper';
-
-import { Element } from 'nav-frontend-typografi';
-
 import Skjema from './Skjema';
 import {
 	AppState,
@@ -29,10 +26,8 @@ import {
 } from 'app/types';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import { getGyldigTidsromForUtsettelse } from 'app/utils/permisjonUtils';
-import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
-import UtvidetInformasjon from 'app/elements/utvidetInformasjon/UtvidetInformasjon';
 import Permisjonsplan from 'app/containers/Permisjonsplan';
-import UlonnetPermisjon from 'app/components/utsettelseSkjema/UlonnetPermisjon';
+import PlanleggerInfo from 'app/components/content/PlanleggerInfo';
 
 export interface StateProps {
 	form: FormState;
@@ -90,22 +85,7 @@ export class Main extends React.Component<Props> {
 						<IntlTekst id="applikasjonstittel" />
 					</h1>
 					<div className="blokk-s">
-						<Veilederinfo>
-							<p>
-								<IntlTekst id="veileder.forbehold.intro" />
-							</p>
-							<UtvidetInformasjon erApen={true}>
-								<div className="blokkPad-s">
-									<Element tag="h2">
-										<IntlTekst id="veileder.forbehold.utvidetinfo.tittel" />
-									</Element>
-									<IntlTekst id="veileder.forbehold.utvidetinfo.html" />
-								</div>
-								<div className="blokkPad-s">
-									<UlonnetPermisjon />
-								</div>
-							</UtvidetInformasjon>
-						</Veilederinfo>
+						<PlanleggerInfo />
 					</div>
 				</div>
 

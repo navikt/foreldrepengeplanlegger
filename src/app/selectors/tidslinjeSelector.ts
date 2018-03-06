@@ -20,6 +20,7 @@ export const tidslinjeFraPerioder = createSelector(
 			return [];
 		}
 		const antallPerioder = perioder.length;
+		const sluttperiode = perioder[antallPerioder - 1];
 		const alleInnslag: Tidslinjeinnslag[] = [
 			...perioder.map((periode: Periode, index: number) =>
 				mapPeriodeTilTidslinjeinnslag(periode, index, perioder, antallPerioder)
@@ -28,6 +29,11 @@ export const tidslinjeFraPerioder = createSelector(
 				type: TidslinjeinnslagType.hendelse,
 				hendelse: 'termin',
 				dato: termindato
+			},
+			{
+				type: TidslinjeinnslagType.hendelse,
+				hendelse: 'permisjonsslutt',
+				dato: sluttperiode.tidsperiode.sluttdato
 			}
 		];
 

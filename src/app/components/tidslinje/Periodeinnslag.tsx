@@ -19,6 +19,7 @@ export interface PeriodeinnslagProps {
 	nesteInnslag?: Tidslinjeinnslag;
 	navnForelder1: string;
 	navnForelder2: string;
+	erSisteInnslag?: boolean;
 	onRedigerUtsettelse?: (utsettelse: Utsettelsesperiode) => void;
 }
 

@@ -13,7 +13,7 @@ export enum Infotekster {
 const defaultState: ViewState = {
 	synligInfo: new Map(),
 	spraak: 'nb',
-	visTidslinje: false
+	visTidslinje: true
 };
 
 const leggTilInfo = (infoMap: SynligInfoMap, id: string): SynligInfoMap => {

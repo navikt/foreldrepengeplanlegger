@@ -23,8 +23,7 @@ export enum StonadskontoType {
 export enum UtsettelseArsakType {
 	'Ferie' = 'ferie',
 	'Arbeid' = 'arbeid',
-	'Sykdom' = 'sykdom',
-	'UlønnetPermisjon' = 'ulonnetpermisjon'
+	'Sykdom' = 'sykdom'
 }
 
 interface PeriodeBase {

@@ -61,7 +61,8 @@ export type Tidslinje =
 	| 'tidslinje.periodeinfo.fortsettelse.fortsetter'
 	| 'tidslinje.periodeinfo.fortsettelse.avslutter'
 	| 'tidslinje.hendelse.termin'
-	| 'tidslinje.hendelse.sistepermisjonsdag';
+	| 'tidslinje.hendelse.sistepermisjonsdag'
+	| 'tidslinje.innslag.foreldrepenger';
 
 export type Stonadkontotyper =
 	| 'stonadskonto.modrekvote'
@@ -73,6 +74,8 @@ export type Stonadkontotyper =
 export type OppholdTekst =
 	| 'opphold.arsak.ferie'
 	| 'opphold.arsak.arbeid'
+	| 'opphold.arsak.Ferie'
+	| 'opphold.arsak.Arbeid'
 	| 'opphold.tittel'
 	| 'opphold.knapp.leggtil'
 	| 'opphold.knapp.ulonnetpermisjon';

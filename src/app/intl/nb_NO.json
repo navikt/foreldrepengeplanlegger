@@ -65,15 +65,18 @@
 		"{navn} starter sin periode med foreldrepenger",
 	"tidslinje.periodeinfo.starterpermisjon.detaljert":
 		"{navn} starter sin periode med foreldrepenger: {uker, plural, one {# uke} other {# uker}} totalt oppdelt i {detaljer}",
-	"tidslinje.utsettelse": "{navn}  {arsak}",
+	"tidslinje.utsettelse": "{arsak} {navn}",
 	"tidslinje.periodeinfo.fortsettelse.fortsetter":
 		"{navn} fortsetter sin foreldrepenger",
 	"tidslinje.periodeinfo.fortsettelse.avslutter":
 		"{navn} avslutter sin foreldrepenger",
 	"tidslinje.hendelse.termin": "Termin",
 	"tidslinje.hendelse.sistepermisjonsdag": "Siste dag med foreldrepenger",
+	"tidslinje.innslag.foreldrepenger": "Foreldrepenger {navn}",
 	"opphold.arsak.ferie": "ferie",
 	"opphold.arsak.arbeid": "arbeid",
+	"opphold.arsak.Ferie": "Ferie",
+	"opphold.arsak.Arbeid": "Arbeid",
 	"opphold.tittel": "Opphold i perioden med foreldrepenger?",
 	"opphold.knapp.leggtil": "Legg til opphold",
 	"opphold.knapp.ulonnetpermisjon": "Legg til ulønnet permisjon",

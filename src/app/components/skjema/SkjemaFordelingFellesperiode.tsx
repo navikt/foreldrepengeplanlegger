@@ -31,7 +31,7 @@ const FordelingFellesperiode: React.StatelessComponent<
 			<Sporsmal
 				info={{
 					id: Infotekster.fordelingFellesperiode,
-					label: intlString(intl, 'skjema.fordeling.veiledning')
+					label: intlString(intl, 'skjema.fordeling.sporsmal.ikonlabel')
 				}}>
 				<IntlTekst id="skjema.fordeling.sporsmal" />
 			</Sporsmal>

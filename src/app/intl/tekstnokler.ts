@@ -10,7 +10,8 @@ export type GenerellTekst =
 	| 'uker'
 	| 'dager'
 	| 'ukerogdager'
-	| 'knapp.vispermisjonsplan';
+	| 'knapp.vispermisjonsplan'
+	| 'planleggerinfo.lukk';
 
 export type UtsettelsesskjemaTekst =
 	| 'utsettelseskjema.tittel'
@@ -48,6 +49,7 @@ export type SkjemaTekst =
 	| 'skjema.label.sats80'
 	| 'skjema.label.sats100'
 	| 'skjema.fordeling.sporsmal'
+	| 'skjema.fordeling.sporsmal.ikonlabel'
 	| 'skjema.fordeling.veiledning'
 	| 'skjema.fordeling.veiledning.lenketekst'
 	| 'skjema.fordeling.uker'

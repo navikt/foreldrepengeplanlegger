@@ -15,18 +15,15 @@ const UlonnetPermisjonInfo: React.StatelessComponent<
 			<Element tag="h2">
 				<IntlTekst id="veileder.ulonnetpermisjon.tittel" />
 			</Element>
-			<div className="blokkPad-s">
-				<p>
-					<IntlTekst id="veileder.ulonnetpermisjon.tekst1" />
-				</p>
-				<p>
-					<IntlTekst id="veileder.ulonnetpermisjon.tekst2" />
-				</p>
+			<p>
+				<IntlTekst id="veileder.ulonnetpermisjon.tekst1" />
+			</p>
+			<p>
+				<IntlTekst id="veileder.ulonnetpermisjon.tekst2" />{' '}
 				<Lenke href={EksterneLenker.nav_foreldrepenger} target="_blank">
-					{' '}
 					<IntlTekst id="veileder.ulonnetpermisjon.navlenketekst" />
 				</Lenke>
-			</div>
+			</p>
 		</div>
 	);
 };

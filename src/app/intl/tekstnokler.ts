@@ -11,6 +11,7 @@ export type GenerellTekst =
 	| 'dager'
 	| 'ukerogdager'
 	| 'knapp.vispermisjonsplan'
+	| 'planleggerinfo.apne'
 	| 'planleggerinfo.lukk';
 
 export type UtsettelsesskjemaTekst =

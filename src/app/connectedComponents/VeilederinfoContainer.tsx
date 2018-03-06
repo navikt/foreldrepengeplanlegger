@@ -29,13 +29,7 @@ const SkjemaVeileder: React.StatelessComponent<Props> = ({
 	...rest
 }) => {
 	const erApen: boolean = isOpen || apen;
-	const content = erApen ? (
-		<div className="blokkPad-s">
-			<Veilederinfo {...rest} />
-		</div>
-	) : (
-		<div />
-	);
+	const content = erApen ? <Veilederinfo {...rest} /> : <div />;
 	return (
 		<EkspanderbartInnhold erApen={erApen} ariaLive={ariaLive}>
 			{content}

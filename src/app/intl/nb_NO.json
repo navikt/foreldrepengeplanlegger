@@ -9,6 +9,8 @@
 	"utvidetinfo.lesmer": "Les mer",
 	"utvidetinfo.lukk": "Lukk",
 	"planleggerinfo.lukk": "Lukk informasjon",
+	"planleggerinfo.apne":
+		"Les om begrensninger i planleggeren og ulønnet permisjon",
 	"knapp.vispermisjonsplan": "Vis planen",
 	"stonadskonto.modrekvotePakrevd": "mødrekvote",
 	"stonadskonto.modrekvote": "mødrekvote",
@@ -102,7 +104,7 @@
 		"Les mer om foreldrepenger på nav.no",
 	"veileder.forbehold.intro":
 		"Planleggingskalenderen viser hvor mange uker dere kan få med foreldrepenger, og hvordan dere kan utsette perioden med foreldrepenger hvis dere skal ha ferie eller jobbe heltid. Den viser ikke hvor mye dere kan få utbetalt.",
-	"veileder.forbehold.utvidetinfo.tittel": "Begrensninger i kalenderen",
+	"veileder.forbehold.utvidetinfo.tittel": "Begrensninger i planleggeren",
 	"veileder.forbehold.utvidetinfo.html":
 		"Planleggingskalenderen er under utvikling. Inntil videre kan du ikke bruke den for å planlegge: <ul><li>kombinasjon av delvis arbeid og foreldrepenger</li><li>opphold i foreldrepengene på grunn av sykdom</li><li>ekstrauker ved flerbarnsfødsel</li><li>foreldrepermisjon ved adopsjon</li><li>oppstart av foreldrepengene tidligere enn 3 uker før termindato</li></ul>"
 }

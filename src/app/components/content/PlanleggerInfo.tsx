@@ -17,7 +17,7 @@ const PlanleggerInfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
 				<IntlTekst id="veileder.forbehold.intro" />
 			</p>
 			<UtvidetInformasjon
-				erApen={true}
+				apneLabel={intlString(intl, 'planleggerinfo.apne')}
 				lukkLabel={intlString(intl, 'planleggerinfo.lukk')}>
 				<div className="blokkPad-s">
 					<Element tag="h2">

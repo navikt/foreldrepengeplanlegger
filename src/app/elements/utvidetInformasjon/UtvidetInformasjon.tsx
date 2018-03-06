@@ -11,6 +11,7 @@ import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/Ekspand
 
 interface OwnProps {
 	children: React.ReactNode;
+	erApen?: boolean;
 	apneLabel?: string;
 	lukkLabel?: string;
 }
@@ -28,7 +29,7 @@ class UtvidetInformasjon extends React.Component<Props, State> {
 		super(props);
 		this.innholdId = guid();
 		this.state = {
-			apen: false
+			apen: props.erApen || false
 		};
 	}
 	render() {

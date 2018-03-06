@@ -9,21 +9,15 @@ export interface Props {
 	options: RangeInputValueLabelRendererOptions;
 	navnForelder1: string;
 	navnForelder2: string;
-	ukerFedrekvote: number;
-	ukerModrekvote: number;
-	ukerForTermin: number;
 }
 
 const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 	options,
 	navnForelder1,
-	navnForelder2,
-	ukerModrekvote,
-	ukerFedrekvote,
-	ukerForTermin
+	navnForelder2
 }) => {
-	const ukerForelder1 = (options.value || 0) + ukerModrekvote + ukerForTermin;
-	const ukerForelder2 = options.max - (options.value || 0) + ukerFedrekvote;
+	const ukerForelder1 = options.value || 0;
+	const ukerForelder2 = options.max - (options.value || 0);
 	return (
 		<div>
 			<VeilederinfoContainer

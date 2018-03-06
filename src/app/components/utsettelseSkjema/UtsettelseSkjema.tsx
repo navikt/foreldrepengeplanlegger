@@ -24,7 +24,6 @@ import { getAntallFeriedagerForForelder } from 'app/utils/permisjonUtils';
 import './utsettelseSkjema.less';
 import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
 import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
-import UlonnetPermisjon from 'app/components/utsettelseSkjema/UlonnetPermisjon';
 
 interface OwnProps {
 	tidsrom: Tidsperiode;
@@ -374,26 +373,6 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 										id: 'utsettelseskjema.arsak.arbeid'
 									}),
 									verdi: UtsettelseArsakType.Arbeid
-								},
-								{
-									tittel: 'Ha ulønnet permisjon',
-									verdi: UtsettelseArsakType.UlønnetPermisjon,
-									detailsRenderer: () => (
-										<Veilederinfo>
-											<UlonnetPermisjon
-												navn1={
-													forelder === 'forelder1'
-														? navnForelder1
-														: navnForelder2
-												}
-												navn2={
-													forelder === 'forelder1'
-														? navnForelder2
-														: navnForelder1
-												}
-											/>
-										</Veilederinfo>
-									)
 								}
 							]}
 							inputnavn="utsettelse"
@@ -407,10 +386,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				</EkspanderbartInnhold>
 
 				<EkspanderbartInnhold
-					erApen={
-						this.state.arsak !== undefined &&
-						this.state.arsak !== UtsettelseArsakType.UlønnetPermisjon
-					}
+					erApen={this.state.arsak !== undefined}
 					harEkspanderbartInnhold={true}>
 					<div className="blokkPad-s">
 						<Row>
@@ -473,35 +449,34 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						forelderNavn={navnForelder1}
 					/>
 				)}
-				{this.state.arsak !== undefined &&
-					this.state.arsak !== UtsettelseArsakType.UlønnetPermisjon && (
-						<Row>
-							<Column xs="12" sm={utsettelse ? '6' : '12'}>
-								<div className="blokkPad-xxs">
-									<Hovedknapp
-										onClick={(evt) => this.handleSubmitClick(evt)}
-										className="m-fullBredde">
-										{utsettelse ? (
-											<IntlTekst id="utsettelseskjema.knapp.oppdater" />
-										) : (
-											<IntlTekst id="utsettelseskjema.knapp.leggtil" />
-										)}
-									</Hovedknapp>
-								</div>
+				{this.state.arsak !== undefined && (
+					<Row>
+						<Column xs="12" sm={utsettelse ? '6' : '12'}>
+							<div className="blokkPad-xxs">
+								<Hovedknapp
+									onClick={(evt) => this.handleSubmitClick(evt)}
+									className="m-fullBredde">
+									{utsettelse ? (
+										<IntlTekst id="utsettelseskjema.knapp.oppdater" />
+									) : (
+										<IntlTekst id="utsettelseskjema.knapp.leggtil" />
+									)}
+								</Hovedknapp>
+							</div>
+						</Column>
+						{utsettelse && (
+							<Column xs="12" sm="6">
+								<Knapp
+									type="standard"
+									htmlType="button"
+									onClick={() => this.props.onFjern(utsettelse)}
+									className="m-fullBredde">
+									<IntlTekst id="utsettelseskjema.knapp.fjern" />
+								</Knapp>
 							</Column>
-							{utsettelse && (
-								<Column xs="12" sm="6">
-									<Knapp
-										type="standard"
-										htmlType="button"
-										onClick={() => this.props.onFjern(utsettelse)}
-										className="m-fullBredde">
-										<IntlTekst id="utsettelseskjema.knapp.fjern" />
-									</Knapp>
-								</Column>
-							)}
-						</Row>
-					)}
+						)}
+					</Row>
+				)}
 			</form>
 		);
 	}

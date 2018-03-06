@@ -10,9 +10,9 @@ export interface OwnProps {
 	navnForelder2: string;
 	ukerForelder1: number;
 	ukerFellesperiode: number;
-	ukerForTermin: number;
-	ukerModrekvote: number;
-	ukerFedrekvote: number;
+	// ukerForTermin: number;
+	// ukerModrekvote: number;
+	// ukerFedrekvote: number;
 	onChange: (dager: number) => void;
 }
 
@@ -23,9 +23,9 @@ const FordelingFellesperiode: React.StatelessComponent<
 	navnForelder2,
 	ukerForelder1,
 	ukerFellesperiode,
-	ukerModrekvote,
-	ukerFedrekvote,
-	ukerForTermin,
+	// ukerModrekvote,
+	// ukerFedrekvote,
+	// ukerForTermin,
 	onChange,
 	intl
 }) => (
@@ -59,11 +59,8 @@ const FordelingFellesperiode: React.StatelessComponent<
 		valueLabelRenderer={(options) => (
 			<FordelingFellesperiodeLabelRenderer
 				options={options}
-				ukerForTermin={ukerForTermin}
 				navnForelder1={navnForelder1}
 				navnForelder2={navnForelder2}
-				ukerModrekvote={ukerModrekvote}
-				ukerFedrekvote={ukerFedrekvote}
 			/>
 		)}
 	/>

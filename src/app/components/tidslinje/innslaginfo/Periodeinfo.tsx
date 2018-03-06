@@ -5,6 +5,7 @@ import InnslagLayout from 'app/components/tidslinje/elementer/InnslagLayout';
 import { PeriodeinnslagProps } from '../Periodeinnslag';
 import { TidslinjeinnslagType } from 'app/components/tidslinje/types';
 import { getForsteUttaksdagForDato } from 'app/utils/uttaksdagerUtils';
+import { intlString } from 'app/intl/IntlTekst';
 
 interface OwnProps {
 	/** Default false. Om en skal vise fordeling av kvoter */
@@ -17,7 +18,8 @@ const Periodeinfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
 	innslag,
 	nesteInnslag,
 	navnForelder1,
-	navnForelder2
+	navnForelder2,
+	intl
 }) => {
 	const navn = getForelderNavn(
 		innslag.periode.forelder,
@@ -34,7 +36,9 @@ const Periodeinfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
 	}
 
 	return (
-		<InnslagLayout tidsperiode={tidsperiode}>{navn} permisjon</InnslagLayout>
+		<InnslagLayout tidsperiode={tidsperiode}>
+			{intlString(intl, 'tidslinje.innslag.foreldrepenger', { navn })}
+		</InnslagLayout>
 	);
 };
 

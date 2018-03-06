@@ -23,6 +23,7 @@ import { getGyldigTidsromForUtsettelse } from 'app/utils/permisjonUtils';
 import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
 import UtvidetInformasjon from 'app/elements/utvidetInformasjon/UtvidetInformasjon';
 import Permisjonsplan from 'app/containers/Permisjonsplan';
+import UlonnetPermisjon from 'app/components/utsettelseSkjema/UlonnetPermisjon';
 
 export interface StateProps {
 	form: FormState;
@@ -69,12 +70,15 @@ export class Main extends React.Component<Props> {
 							<p>
 								<IntlTekst id="veileder.forbehold.intro" />
 							</p>
-							<UtvidetInformasjon>
+							<UtvidetInformasjon erApen={true}>
 								<div className="blokkPad-s">
 									<Element tag="h2">
 										<IntlTekst id="veileder.forbehold.utvidetinfo.tittel" />
 									</Element>
 									<IntlTekst id="veileder.forbehold.utvidetinfo.html" />
+								</div>
+								<div className="blokkPad-s">
+									<UlonnetPermisjon />
 								</div>
 							</UtvidetInformasjon>
 						</Veilederinfo>
@@ -99,42 +103,6 @@ export class Main extends React.Component<Props> {
 								</Knapp>
 							</div>
 						)}
-
-					{/* <EkspanderbartInnhold erApen={this.props.visTidslinjeOgUtsettelse}>
-						<div className="no-print blokkPad-l">
-							<div className="blokk-xs">
-								<Element>
-									<IntlTekst id="opphold.tittel" />
-								</Element>
-							</div>
-							<div className="blokk-s">
-								<LeggTilKnapp onClick={() => dispatch(utsettelseVisDialog())}>
-									<IntlTekst id="opphold.knapp.leggtil" />
-								</LeggTilKnapp>
-							</div>
-							<div className="blokk-s">
-								<Veilederinfo>
-									<Element className="blokk-xxxs">
-										<IntlTekst id="veileder.ulonnetpermisjon.tittel" />
-									</Element>
-									<p>
-										<IntlTekst id="veileder.ulonnetpermisjon.intro.html" />
-									</p>
-									<UtvidetInformasjon>
-										<div className="blokkPad-s">
-											<IntlTekst id="veileder.ulonnetpermisjon.utvidetinfo" />
-											<Lenke
-												href={EksterneLenker.nav_ulonnetPermisjon}
-												target="_blank">
-												{' '}
-												<IntlTekst id="veileder.ulonnetpermisjon.utvidetinfo.navlenketekst" />
-											</Lenke>
-										</div>
-									</UtvidetInformasjon>
-								</Veilederinfo>
-							</div>
-						</div>
-					</EkspanderbartInnhold> */}
 				</section>
 
 				{visPermisjonsplan && (

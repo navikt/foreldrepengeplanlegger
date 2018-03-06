@@ -1,36 +1,25 @@
 import * as React from 'react';
-
-import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer';
 import IntlTekst from 'app/intl/IntlTekst';
 import { RangeInputValueLabelRendererOptions } from 'app/elements/rangeInput/RangeInput';
-import { Infotekster } from 'app/redux/reducers/viewReducer';
-import EksterneLenker from 'app/eksterneLenker';
-import Lenke from 'nav-frontend-lenker';
 
 export interface Props {
 	options: RangeInputValueLabelRendererOptions;
 	navnForelder1: string;
 	navnForelder2: string;
+	introRenderer: () => React.ReactNode;
 }
 
 const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 	options,
 	navnForelder1,
-	navnForelder2
+	navnForelder2,
+	introRenderer
 }) => {
 	const ukerForelder1 = options.value || 0;
 	const ukerForelder2 = options.max - (options.value || 0);
 	return (
 		<div>
-			<VeilederinfoContainer
-				id={Infotekster.fordelingFellesperiode}
-				type="info">
-				<IntlTekst id="skjema.fordeling.veiledning" />
-				<br />
-				<Lenke href={EksterneLenker.nav_aktivitetskrav} target="_blank">
-					<IntlTekst id="skjema.fordeling.veiledning.lenketekst" />
-				</Lenke>
-			</VeilederinfoContainer>
+			{introRenderer && introRenderer()}
 			<div className="skjema_fordelingFellesperiode">
 				<div className="skjema_fordelingFellesperiode__forelder1">
 					<div className="skjema_fordelingFellesperiode__forelderNavn blokk-xxxs">

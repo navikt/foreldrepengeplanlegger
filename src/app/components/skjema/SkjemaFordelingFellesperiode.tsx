@@ -11,6 +11,7 @@ export interface OwnProps {
 	navnForelder2: string;
 	ukerForelder1: number;
 	ukerFellesperiode: number;
+	introRenderer: () => React.ReactNode;
 	onChange: (dager: number) => void;
 }
 
@@ -21,6 +22,7 @@ const FordelingFellesperiode: React.StatelessComponent<
 	navnForelder2,
 	ukerForelder1,
 	ukerFellesperiode,
+	introRenderer,
 	onChange,
 	intl
 }) => (
@@ -60,6 +62,7 @@ const FordelingFellesperiode: React.StatelessComponent<
 				options={options}
 				navnForelder1={navnForelder1}
 				navnForelder2={navnForelder2}
+				introRenderer={introRenderer}
 			/>
 		)}
 	/>

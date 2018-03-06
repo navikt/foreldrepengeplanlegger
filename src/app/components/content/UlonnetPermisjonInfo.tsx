@@ -7,9 +7,9 @@ import { Element } from 'nav-frontend-typografi';
 
 export interface Props {}
 
-const UlonnetPermisjon: React.StatelessComponent<Props & InjectedIntlProps> = ({
-	intl
-}) => {
+const UlonnetPermisjonInfo: React.StatelessComponent<
+	Props & InjectedIntlProps
+> = ({ intl }) => {
 	return (
 		<div>
 			<Element tag="h2">
@@ -22,7 +22,7 @@ const UlonnetPermisjon: React.StatelessComponent<Props & InjectedIntlProps> = ({
 				<p>
 					<IntlTekst id="veileder.ulonnetpermisjon.tekst2" />
 				</p>
-				<Lenke href={EksterneLenker.nav_ulonnetPermisjon} target="_blank">
+				<Lenke href={EksterneLenker.nav_foreldrepenger} target="_blank">
 					{' '}
 					<IntlTekst id="veileder.ulonnetpermisjon.navlenketekst" />
 				</Lenke>
@@ -31,4 +31,4 @@ const UlonnetPermisjon: React.StatelessComponent<Props & InjectedIntlProps> = ({
 	);
 };
 
-export default injectIntl(UlonnetPermisjon);
+export default injectIntl(UlonnetPermisjonInfo);

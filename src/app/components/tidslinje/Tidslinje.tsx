@@ -45,7 +45,7 @@ const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({
 	onRedigerUtsettelse
 }) => {
 	return (
-		<div>
+		<div className="tidslinje">
 			{innslag.map((i, idx) => {
 				const className = classnames(
 					'tidslinje__innslag',

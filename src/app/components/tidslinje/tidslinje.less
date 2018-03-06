@@ -227,3 +227,26 @@
 
 /** Generer css  */
 .tidslinje();
+@media print {
+	.tidslinje {
+		&__innslag {
+			padding-left: 0;
+		}
+		.callout {
+			border: none;
+			&__arrow {
+				display: none;
+			}
+			&__content {
+				padding: 0;
+			}
+		}
+	}
+	.tidslinjestrek {
+		display: none;
+	}
+}
+
+.innslagLayout {
+	padding: 1rem;
+}

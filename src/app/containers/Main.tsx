@@ -86,14 +86,14 @@ export class Main extends React.Component<Props> {
 
 		return (
 			<div>
-				<div className="introtekst">
+				<section className="introtekst">
 					<h1 className="m-textCenter applikasjonstittel blokk-m">
 						<IntlTekst id="applikasjonstittel" />
 					</h1>
 					<div className="blokk-s">
 						<PlanleggerInfo />
 					</div>
-				</div>
+				</section>
 
 				<section>
 					<h2 className="sr-only">

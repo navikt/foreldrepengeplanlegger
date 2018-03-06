@@ -47,6 +47,12 @@ const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({
 	return (
 		<div>
 			{innslag.map((i, idx) => {
+				if (
+					i.type === TidslinjeinnslagType.hendelse &&
+					i.hendelse === 'permisjonsslutt'
+				) {
+					return null;
+				}
 				const className = classnames(
 					'tidslinje__innslag',
 					`tidslinje__innslag--${i.type}`
@@ -67,6 +73,7 @@ const Tidslinje: React.StatelessComponent<TidslinjeProps> = ({
 							<Periodeinnslag
 								innslag={i}
 								nesteInnslag={nesteInnslag}
+								erSisteInnslag={idx === innslag.length - 1}
 								navnForelder1={navnForelder1}
 								navnForelder2={navnForelder2}
 								onRedigerUtsettelse={onRedigerUtsettelse}

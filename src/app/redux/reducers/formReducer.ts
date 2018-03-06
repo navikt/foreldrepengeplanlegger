@@ -40,10 +40,10 @@ const getInitialState = (): FormState => {
 	const ukerForelder2 = ukerFellesperiode - ukerForelder1;
 
 	return {
-		termindato: new Date(),
-		navnForelder1: 'Kari',
-		navnForelder2: 'Ola',
-		dekningsgrad: '100%',
+		termindato: undefined,
+		navnForelder1: undefined,
+		navnForelder2: undefined,
+		dekningsgrad: undefined,
 		ukerFellesperiode,
 		fellesperiodeukerForelder1: ukerForelder1,
 		fellesperiodeukerForelder2: ukerForelder2,

@@ -56,7 +56,9 @@
 		"Les mer om valget av lengden med foreldrepenger",
 	"skjema.veiledning.sats":
 		"Av perioden med foreldrepenger må mor ta ut {pakrevdForelder1} uker, og den andre forelderen {pakrevdForelder2} uker. Resten av ukene med foreldrepenger kan dere dele. Valget av antall uker gjelder dere begge. Den totale utbetalingen blir høyere ved å velge 100 prosent.",
-	"skjema.fordeling.veiledning": "Lorem ipsum dolor sit amet,",
+	"skjema.fordeling.veiledning":
+		"Husk aktivitetskravet til den andre forelderen når du har fellesperiode.",
+	"skjema.fordeling.veiledning.lenketekst": "Les mer om aktivitetskravet her.",
 	"skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
 	"tidslinje.tittel": "Planen",
 	"tidslinje.periodeinfo.konto.uker":

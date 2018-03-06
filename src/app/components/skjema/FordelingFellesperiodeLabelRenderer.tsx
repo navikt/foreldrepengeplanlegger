@@ -4,6 +4,8 @@ import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer
 import IntlTekst from 'app/intl/IntlTekst';
 import { RangeInputValueLabelRendererOptions } from 'app/elements/rangeInput/RangeInput';
 import { Infotekster } from 'app/redux/reducers/viewReducer';
+import EksterneLenker from 'app/eksterneLenker';
+import Lenke from 'nav-frontend-lenker';
 
 export interface Props {
 	options: RangeInputValueLabelRendererOptions;
@@ -24,6 +26,10 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
 				id={Infotekster.fordelingFellesperiode}
 				type="info">
 				<IntlTekst id="skjema.fordeling.veiledning" />
+				<br />
+				<Lenke href={EksterneLenker.nav_aktivitetskrav} target="_blank">
+					<IntlTekst id="skjema.fordeling.veiledning.lenketekst" />
+				</Lenke>
 			</VeilederinfoContainer>
 			<div className="skjema_fordelingFellesperiode">
 				<div className="skjema_fordelingFellesperiode__forelder1">

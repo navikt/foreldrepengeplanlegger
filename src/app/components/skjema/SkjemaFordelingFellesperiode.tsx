@@ -1,18 +1,16 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import Sporsmal from 'app/elements/sporsmal/Sporsmal';
-import { intlString } from 'app/intl/IntlTekst';
+import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import RangeInput from 'app/elements/rangeInput/RangeInput';
 import FordelingFellesperiodeLabelRenderer from 'app/components/skjema/FordelingFellesperiodeLabelRenderer';
+import { Infotekster } from 'app/redux/reducers/viewReducer';
 
 export interface OwnProps {
 	navnForelder1: string;
 	navnForelder2: string;
 	ukerForelder1: number;
 	ukerFellesperiode: number;
-	// ukerForTermin: number;
-	// ukerModrekvote: number;
-	// ukerFedrekvote: number;
 	onChange: (dager: number) => void;
 }
 
@@ -23,17 +21,18 @@ const FordelingFellesperiode: React.StatelessComponent<
 	navnForelder2,
 	ukerForelder1,
 	ukerFellesperiode,
-	// ukerModrekvote,
-	// ukerFedrekvote,
-	// ukerForTermin,
 	onChange,
 	intl
 }) => (
 	<RangeInput
 		label={
-			<div className="blokk-xs">
-				<Sporsmal>{intlString(intl, 'skjema.fordeling.sporsmal')}</Sporsmal>
-			</div>
+			<Sporsmal
+				info={{
+					id: Infotekster.fordelingFellesperiode,
+					label: intlString(intl, 'skjema.fordeling.veiledning')
+				}}>
+				<IntlTekst id="skjema.fordeling.sporsmal" />
+			</Sporsmal>
 		}
 		ariaDescription={`Hvor mange uker av fellesperioden skal ${navnForelder1} ha av totalt ${ukerFellesperiode} uker?`}
 		value={ukerForelder1}

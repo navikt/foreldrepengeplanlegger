@@ -63,7 +63,10 @@ export type Tidslinje =
 	| 'tidslinje.periodeinfo.fortsettelse.avslutter'
 	| 'tidslinje.hendelse.termin'
 	| 'tidslinje.hendelse.sistepermisjonsdag'
-	| 'tidslinje.innslag.foreldrepenger';
+	| 'tidslinje.innslag.foreldrepenger'
+	| 'tidslinje.aktivitetskrav'
+	| 'tidslinje.skjuldetaljer'
+	| 'tidslinje.visdetaljer';
 
 export type Stonadkontotyper =
 	| 'stonadskonto.modrekvote'

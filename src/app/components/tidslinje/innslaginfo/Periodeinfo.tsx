@@ -36,7 +36,7 @@ const Periodeinfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
 	}
 
 	return (
-		<InnslagLayout tidsperiode={tidsperiode}>
+		<InnslagLayout tidsperiode={tidsperiode} ekstrainfo={innslag.ekstrainfo}>
 			{intlString(intl, 'tidslinje.innslag.foreldrepenger', { navn })}
 		</InnslagLayout>
 	);

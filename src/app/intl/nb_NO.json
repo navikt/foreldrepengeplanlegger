@@ -75,6 +75,10 @@
 	"tidslinje.hendelse.termin": "Termin",
 	"tidslinje.hendelse.sistepermisjonsdag": "Siste dag med foreldrepenger",
 	"tidslinje.innslag.foreldrepenger": "Foreldrepenger {navn}",
+	"tidslinje.aktivitetskrav":
+		"Husk aktivitetskravet til den andre forelderen når du har fellesperiode",
+	"tidslinje.visdetaljer": "Flere detaljer",
+	"tidslinje.skjuldetaljer": "Skjul detaljer",
 	"opphold.arsak.ferie": "ferie",
 	"opphold.arsak.arbeid": "arbeid",
 	"opphold.arsak.Ferie": "Ferie",

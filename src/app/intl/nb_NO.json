@@ -31,6 +31,14 @@
 	"utsettelseskjema.knapp.leggtil": "Legg til",
 	"utsettelseskjema.knapp.oppdater": "Oppdater",
 	"utsettelseskjema.knapp.fjern": "Fjern opphold",
+	"utsettelseskjema.feil.ugyldigStartdato": "Startdato er ikke en gyldig dato",
+	"utsettelseskjema.feil.ugyldigSluttdato": "Sluttdato er ikke en gyldig dato",
+	"utsettelseskjema.feil.startdatoMangler": "Startdato må fylles ut",
+	"utsettelseskjema.feil.sluttdatoMangler": "Sluttdato må fylles ut",
+	"utsettelseskjema.feil.sluttdatoEtterStartdato":
+		"Sluttdato kan ikke være før startdato",
+	"utsettelseskjema.feil.ugyldigAntallFeriedager":
+		"For mange feriedager er registrert",
 	"utsettelseskjema.ferievarsel.ulovlig":
 		"{feriedager} feriedager er registrert for {forelderNavn}. Du kan ikke legge til mer enn 10 uker og 2 dager med opphold i permisjonen på grunn av ferie.",
 	"utsettelseskjema.ferievarsel.kreveroverforing":

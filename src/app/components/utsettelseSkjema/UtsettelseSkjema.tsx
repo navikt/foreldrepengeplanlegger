@@ -15,7 +15,7 @@ import {
 import DateInput, { Range } from 'shared/components/dateInput/DateInput';
 import Radioliste from 'shared/components/radioliste/Radioliste';
 import { erGyldigDato, normaliserDato } from 'app/utils';
-import { isBefore, isSameDay, isAfter } from 'date-fns';
+import { isBefore, isSameDay } from 'date-fns';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import Ferieinfo from 'app/components/utsettelseSkjema/Ferieinfo';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
@@ -46,7 +46,7 @@ type Skjemaelement =
 	| 'sluttdato'
 	| 'feriedager';
 
-type Valideringsfeil = Map<Skjemaelement, boolean>;
+type Valideringsfeil = Map<Skjemaelement, Feil>;
 
 interface State {
 	arsak?: UtsettelseArsakType;
@@ -75,6 +75,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		this.getFeil = this.getFeil.bind(this);
 		this.validerSkjema = this.validerSkjema.bind(this);
 		this.revaliderSkjema = this.revaliderSkjema.bind(this);
+		this.getUgyldigeTidsrom = this.getUgyldigeTidsrom.bind(this);
 		const state: State = utsettelse
 			? {
 					valideringsfeil: new Map(),
@@ -96,9 +97,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		};
 	}
 
-	setValideringsfeil(skjemaelement: Skjemaelement) {
+	setValideringsfeil(skjemaelement: Skjemaelement, feil: Feil) {
 		const valideringsfeil = new Map(this.state.valideringsfeil);
-		valideringsfeil.set(skjemaelement, true);
+		valideringsfeil.set(skjemaelement, feil);
 		this.setState({
 			valideringsfeil
 		});
@@ -113,55 +114,25 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 	}
 
 	getFeil(skjemaelement: Skjemaelement): Feil | undefined {
-		if (
-			this.state.visValideringsfeil &&
-			this.state.valideringsfeil.has(skjemaelement)
-		) {
-			return {
-				feilmelding: 'Feltet er ikke utfylt'
-			};
-		}
-		return undefined;
+		return this.state.valideringsfeil.get(skjemaelement);
 	}
-	setStartdato(
-		dato: string,
-		tidsrom: Tidsperiode,
-		ugyldigeTidsrom: Range[] = []
-	) {
+	setStartdato(dato: string) {
 		const startdato = normaliserDato(new Date(dato));
 		const sluttdato = this.state.sluttdato;
-		if (erGyldigDato(startdato, tidsrom, ugyldigeTidsrom)) {
-			this.setState({
-				startdato,
-				sluttdato: sluttdato
-					? isBefore(startdato, sluttdato) || isSameDay(startdato, sluttdato)
-						? sluttdato
-						: undefined
+		this.setState({
+			startdato,
+			sluttdato: sluttdato
+				? isBefore(startdato, sluttdato) || isSameDay(startdato, sluttdato)
+					? sluttdato
 					: undefined
-			});
-		} else {
-			this.setState({
-				startdato: undefined
-			});
-		}
+				: undefined
+		});
 		this.revaliderSkjema();
 	}
 
-	setSluttdato(
-		dato: string,
-		tilTidsrom: Tidsperiode,
-		ugyldigeTidsrom: Range[] = []
-	) {
+	setSluttdato(dato: string) {
 		const sluttdato = normaliserDato(new Date(dato));
-		const startdato = this.state.startdato;
-		if (
-			erGyldigDato(sluttdato, tilTidsrom, ugyldigeTidsrom) &&
-			((startdato &&
-				(isAfter(sluttdato, startdato) || isSameDay(sluttdato, startdato))) ||
-				!startdato)
-		) {
-			this.setState({ sluttdato });
-		}
+		this.setState({ sluttdato });
 		this.revaliderSkjema();
 	}
 
@@ -171,24 +142,66 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 
 	validerSkjema(): Valideringsfeil {
 		const valideringsfeil: Valideringsfeil = new Map();
-		if (!this.state.arsak) {
-			valideringsfeil.set('arsak', true);
-		}
-		if (!this.state.forelder) {
-			valideringsfeil.set('forelder', true);
-		}
+		const ugyldigeTidsrom = this.getUgyldigeTidsrom();
 		if (!this.state.startdato) {
-			valideringsfeil.set('startdato', true);
+			valideringsfeil.set('startdato', {
+				feilmelding: intlString(
+					this.props.intl,
+					'utsettelseskjema.feil.startdatoMangler'
+				)
+			});
+		} else {
+			if (
+				!erGyldigDato(this.state.startdato, this.props.tidsrom, ugyldigeTidsrom)
+			) {
+				valideringsfeil.set('startdato', {
+					feilmelding: intlString(
+						this.props.intl,
+						'utsettelseskjema.feil.ugyldigStartdato'
+					)
+				});
+			}
 		}
 		if (!this.state.sluttdato) {
-			valideringsfeil.set('sluttdato', true);
+			valideringsfeil.set('sluttdato', {
+				feilmelding: intlString(
+					this.props.intl,
+					'utsettelseskjema.feil.sluttdatoMangler'
+				)
+			});
+		} else {
+			if (
+				!erGyldigDato(this.state.sluttdato, this.props.tidsrom, ugyldigeTidsrom)
+			) {
+				valideringsfeil.set('sluttdato', {
+					feilmelding: intlString(
+						this.props.intl,
+						'utsettelseskjema.feil.ugyldigSluttdato'
+					)
+				});
+			} else if (
+				this.state.startdato &&
+				isBefore(this.state.sluttdato, this.state.startdato)
+			) {
+				valideringsfeil.set('sluttdato', {
+					feilmelding: intlString(
+						this.props.intl,
+						'utsettelseskjema.feil.sluttdatoEtterStartdato'
+					)
+				});
+			}
 		}
 		if (
 			this.state.arsak === UtsettelseArsakType.Ferie &&
 			this.getAntallFeriedager() >
 				this.props.permisjonsregler.maksFeriedagerMedOverføring
 		) {
-			valideringsfeil.set('feriedager', true);
+			valideringsfeil.set('feriedager', {
+				feilmelding: intlString(
+					this.props.intl,
+					'utsettelseskjema.feil.ugyldigAntallFeriedager'
+				)
+			});
 		}
 		this.setState({ valideringsfeil });
 		return valideringsfeil;
@@ -247,6 +260,20 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		return registrerteFeriedager + nyeFeriedager - feriedagerDenneUtsettelsen;
 	}
 
+	getUgyldigeTidsrom(): Range[] | undefined {
+		const ugyldigeTidsrom =
+			this.props.registrerteUtsettelser &&
+			this.props.registrerteUtsettelser
+				.filter(
+					(u) => !this.props.utsettelse || this.props.utsettelse.id !== u.id
+				)
+				.map((u) => ({
+					from: u.tidsperiode.startdato,
+					to: u.tidsperiode.sluttdato
+				}));
+		return ugyldigeTidsrom;
+	}
+
 	render() {
 		const { arsak, startdato, sluttdato, forelder } = this.state;
 		const {
@@ -254,7 +281,6 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			navnForelder1,
 			navnForelder2,
 			tidsrom,
-			registrerteUtsettelser,
 			intl
 		} = this.props;
 
@@ -263,16 +289,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			sluttdato: tidsrom.sluttdato
 		};
 
-		const ugyldigeTidsrom: Range[] | undefined =
-			registrerteUtsettelser &&
-			registrerteUtsettelser
-				.filter(
-					(u) => !this.props.utsettelse || this.props.utsettelse.id !== u.id
-				)
-				.map((u) => ({
-					from: u.tidsperiode.startdato,
-					to: u.tidsperiode.sluttdato
-				}));
+		const ugyldigeTidsrom = this.getUgyldigeTidsrom();
 
 		const antallFeriedager =
 			this.state.arsak === UtsettelseArsakType.Ferie
@@ -285,6 +302,13 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 
 		const startdatoFeil = this.getFeil('startdato');
 		const sluttdatoFeil = this.getFeil('sluttdato');
+
+		const visStartdatofeil =
+			startdatoFeil &&
+			(this.state.visValideringsfeil || this.state.startdato !== undefined);
+		const visSluttdatofeil =
+			sluttdatoFeil &&
+			(this.state.visValideringsfeil || this.state.sluttdato !== undefined);
 
 		return (
 			<form
@@ -386,7 +410,8 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					erApen={
 						this.state.arsak !== undefined &&
 						this.state.arsak !== UtsettelseArsakType.UlønnetPermisjon
-					}>
+					}
+					harEkspanderbartInnhold={true}>
 					<div className="blokkPad-s">
 						<Row>
 							<Column xs="12" sm="6">
@@ -397,15 +422,15 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 										})}
 										id="startdato"
 										errorMessage={
-											startdatoFeil ? startdatoFeil.feilmelding : undefined
+											visStartdatofeil && startdatoFeil
+												? startdatoFeil.feilmelding
+												: undefined
 										}
 										fromDate={tidsrom.startdato}
 										toDate={tidsrom.sluttdato}
-										onChange={(date) =>
-											this.setStartdato(date, tidsrom, ugyldigeTidsrom)
-										}
+										onChange={(date) => this.setStartdato(date)}
 										onInputBlur={(date) => {
-											this.setStartdato(date, tidsrom, ugyldigeTidsrom);
+											this.setStartdato(date);
 										}}
 										selectedDate={startdato}
 										disabledRanges={ugyldigeTidsrom}
@@ -423,16 +448,14 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 										)}
 										id="sluttdato"
 										errorMessage={
-											sluttdatoFeil ? sluttdatoFeil.feilmelding : undefined
+											visSluttdatofeil && sluttdatoFeil
+												? sluttdatoFeil.feilmelding
+												: undefined
 										}
 										fromDate={tilTidsrom.startdato}
 										toDate={tilTidsrom.sluttdato}
-										onChange={(date) =>
-											this.setSluttdato(date, tilTidsrom, ugyldigeTidsrom)
-										}
-										onInputBlur={(date) =>
-											this.setSluttdato(date, tilTidsrom, ugyldigeTidsrom)
-										}
+										onChange={(date) => this.setSluttdato(date)}
+										onInputBlur={(date) => this.setSluttdato(date)}
 										selectedDate={sluttdato}
 										disabledRanges={ugyldigeTidsrom}
 										disableWeekends={true}

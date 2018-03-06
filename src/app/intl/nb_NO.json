@@ -22,7 +22,7 @@
 	"utsettelseskjema.arsak.sporsmal": "Hva skal {navn} gjøre?",
 	"utsettelseskjema.arsak.ferie": "Ta ut ferie",
 	"utsettelseskjema.veiledning.ferie":
-		"Du kan utsette permisjonen din med 21 feriedager for hvert kalenderår, i tillegg til overført ferie fra i fjor og 10 feriedager fra neste år.",
+		"Du kan utsette foreldrepengene din med 21 feriedager for hvert kalenderår, i tillegg til overført ferie fra i fjor og 10 feriedager fra neste år.",
 	"utsettelseskjema.arsak.arbeid": "Arbeide heltid",
 	"utsettelseskjema.hvem.sporsmal": "Hvem skal ha opphold i foreldrepengene?",
 	"utsettelseskjema.hvem.sporsmal.ferie": "Hvem skal ta ut ferie?",
@@ -41,9 +41,9 @@
 	"utsettelseskjema.feil.ugyldigAntallFeriedager":
 		"For mange feriedager er registrert",
 	"utsettelseskjema.ferievarsel.ulovlig":
-		"{feriedager} feriedager er registrert for {forelderNavn}. Du kan ikke legge til mer enn 10 uker og 2 dager med opphold i permisjonen på grunn av ferie.",
+		"{feriedager} feriedager er registrert for {forelderNavn}. Du kan ikke legge til mer enn 10 uker og 2 dager med opphold i foreldrepengene på grunn av ferie.",
 	"utsettelseskjema.ferievarsel.kreveroverforing":
-		"{feriedager} feriedager er registrert for {forelderNavn}. Det er lov med opp til 4 uker og 1 dag med ferie som opphold i permisjonen, du kan også ha opphold på grunn av overført ferie fra i fjor eller ta ut ferie fra neste år.",
+		"{feriedager} feriedager er registrert for {forelderNavn}. Det er lov med opp til 4 uker og 1 dag med ferie som opphold i foreldrepengene, du kan også ha opphold på grunn av overført ferie fra i fjor eller ta ut ferie fra neste år.",
 	"skjema.fordeling.reduser.tooltip": "En uke mindre fellesperiode til {navn}",
 	"skjema.fordeling.sporsmal": "Hvordan vil dere dele fellesperioden?",
 	"skjema.label.forelder1": "Forelder 1",
@@ -58,7 +58,7 @@
 	"skjema.veiledning.sats":
 		"Valget av antall uker gjelder dere begge. Den totale utbetalingen blir høyere ved å velge 100 prosent.",
 	"skjema.fordeling.veiledning":
-		"Av perioden med foreldrepenger må mor ta ut {pakrevdForelder1} uker, og den andre forelderen {pakrevdForelder2} uker. Resten av ukene med foreldrepenger kan dere dele. Husk aktivitetskravet til den andre forelderen når du har fellesperiode.",
+		"Av perioden med foreldrepenger må {navnForelder1} ta ut {pakrevdForelder1} uker, og {navnForelder2} {pakrevdForelder2} uker. Resten av ukene med foreldrepenger kan dere dele. Husk aktivitetskravet til den andre forelderen når du har fellesperiode.",
 	"skjema.fordeling.veiledning.lenketekst": "Les mer om aktivitetskravet her.",
 	"skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
 	"skjema.fordeling.sporsmal.ikonlabel":
@@ -79,7 +79,7 @@
 	"tidslinje.hendelse.sistepermisjonsdag": "Siste dag med foreldrepenger",
 	"tidslinje.innslag.foreldrepenger": "Foreldrepenger {navn}",
 	"tidslinje.aktivitetskrav":
-		"Husk aktivitetskravet til den andre forelderen når du har fellesperiode",
+		"Når {navnForelder2} tar ut foreldrepenger i fellesperioden, stilles det krav til {navnForelder1}s aktivitet.",
 	"tidslinje.visdetaljer": "Flere detaljer",
 	"tidslinje.skjuldetaljer": "Skjul detaljer",
 	"opphold.arsak.ferie": "ferie",
@@ -88,16 +88,16 @@
 	"opphold.arsak.Arbeid": "Arbeid",
 	"opphold.tittel": "Opphold i perioden med foreldrepenger?",
 	"opphold.knapp.leggtil": "Legg til opphold",
-	"skjermleser.skjema.tittel": "Fyll ut skjema og se din permisjonsplan",
+	"skjermleser.skjema.tittel": "Fyll ut skjema og se deres foreldrepengeplan",
 	"skjermleser.tidslinje.oppsummering.tittel":
 		"Fordeling av foreldrepenger oppsummert",
 	"skjermleser.fordeling_av_fellesperiode":
 		"{ukerForelder1, plural, one {# uke} other {# uker}} til {navnForelder1}, {ukerForelder2, plural, one {# uke} other {# uker}} til {navnForelder2}",
 	"veileder.ulonnetpermisjon.tittel": "Ønsker du ulønnet permisjon?",
 	"veileder.ulonnetpermisjon.tekst1":
-		"Ulønnet permisjon krever at den andre forelderen tar permisjon eller registrerer opphold med ferie eller arbeid heltid.",
+		"Ulønnet permisjon krever at den andre forelderen tar ut foreldrepenger eller registrerer opphold.",
 	"veileder.ulonnetpermisjon.tekst2":
-		"Ulønnet permisjon med avtales med arbeidsgiveren. Ulønnet permisjon i mer enn 14 dager kan påvirke retten til blant annet sykepenger og pleiepenger.",
+		"Ulønnet permisjon må avtales med arbeidsgiveren. Ulønnet permisjon i mer enn 14 dager kan påvirke retten til blant annet sykepenger og pleiepenger.",
 	"veileder.ulonnetpermisjon.navlenketekst":
 		"Les mer om foreldrepenger på nav.no",
 	"veileder.forbehold.intro":

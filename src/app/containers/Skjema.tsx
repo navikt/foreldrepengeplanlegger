@@ -36,6 +36,9 @@ class Skjema extends React.Component<Props> {
 	render() {
 		const { dispatch, intl, form } = this.props;
 
+		const navnForelder1 = form.navnForelder1 || intlString(intl, 'forelder1');
+		const navnForelder2 = form.navnForelder2 || intlString(intl, 'forelder2');
+
 		return (
 			<div className="planlegger-skjema">
 				<div className="blokk-s">
@@ -102,17 +105,17 @@ class Skjema extends React.Component<Props> {
 					erApen={form.dekningsgrad && form.termindato !== undefined}>
 					<div className="blokk-s">
 						<SkjemaFordelingFellesperiode
-							navnForelder1={
-								form.navnForelder1 || intlString(intl, 'forelder1')
-							}
-							navnForelder2={
-								form.navnForelder2 || intlString(intl, 'forelder2')
-							}
+							navnForelder1={navnForelder1}
+							navnForelder2={navnForelder2}
 							ukerFellesperiode={form.ukerFellesperiode}
 							ukerForelder1={form.fellesperiodeukerForelder1}
 							onChange={(uker) => dispatch(settAntallDagerMor(uker))}
 							introRenderer={() => (
-								<AktivitetskravInfo permisjonsregler={form.permisjonsregler} />
+								<AktivitetskravInfo
+									permisjonsregler={form.permisjonsregler}
+									navnForelder1={navnForelder1}
+									navnForelder2={navnForelder2}
+								/>
 							)}
 						/>
 					</div>

@@ -8,10 +8,14 @@ import { Permisjonsregler } from 'app/types';
 
 export interface Props {
 	permisjonsregler: Permisjonsregler;
+	navnForelder1: string;
+	navnForelder2: string;
 }
 
 const AktivitetskravInfo: React.StatelessComponent<Props> = ({
-	permisjonsregler
+	permisjonsregler,
+	navnForelder1,
+	navnForelder2
 }) => (
 	<VeilederinfoContainer
 		id={Infotekster.fordelingFellesperiode}
@@ -24,7 +28,9 @@ const AktivitetskravInfo: React.StatelessComponent<Props> = ({
 				pakrevdForelder1:
 					permisjonsregler.antallUkerForelder1FørFødsel +
 					permisjonsregler.antallUkerMødrekvote,
-				pakrevdForelder2: permisjonsregler.antallUkerFedrekvote
+				pakrevdForelder2: permisjonsregler.antallUkerFedrekvote,
+				navnForelder1,
+				navnForelder2
 			}}
 		/>
 		<br />

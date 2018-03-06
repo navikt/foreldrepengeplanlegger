@@ -28,6 +28,7 @@ import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import { getGyldigTidsromForUtsettelse } from 'app/utils/permisjonUtils';
 import Permisjonsplan from 'app/containers/Permisjonsplan';
 import PlanleggerInfo from 'app/components/content/PlanleggerInfo';
+import TidslinjeAktivitetskravInfo from 'app/components/content/TidslinjeAktivitetskravInfo';
 
 export interface StateProps {
 	form: FormState;
@@ -52,6 +53,9 @@ export class Main extends React.Component<Props> {
 			intl
 		} = this.props;
 
+		const navnForelder1 = form.navnForelder1 || intlString(intl, 'forelder1');
+		const navnForelder2 = form.navnForelder2 || intlString(intl, 'forelder2');
+
 		if (form.fellesperiodeukerForelder2 > 0) {
 			const forsteForelder2Periode = innslag.find(
 				(i) =>
@@ -62,7 +66,12 @@ export class Main extends React.Component<Props> {
 			);
 			if (forsteForelder2Periode) {
 				(forsteForelder2Periode as InnslagPeriodetype).ekstrainfo = {
-					tekst: intlString(intl, 'tidslinje.aktivitetskrav')
+					tekst: (
+						<TidslinjeAktivitetskravInfo
+							navnForelder1={navnForelder1}
+							navnForelder2={navnForelder2}
+						/>
+					)
 				};
 			}
 		}
@@ -74,9 +83,6 @@ export class Main extends React.Component<Props> {
 						form.permisjonsregler
 				  )
 				: undefined;
-
-		const navnForelder1 = form.navnForelder1 || intlString(intl, 'forelder1');
-		const navnForelder2 = form.navnForelder2 || intlString(intl, 'forelder2');
 
 		return (
 			<div>

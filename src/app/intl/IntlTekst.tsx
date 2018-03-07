@@ -24,9 +24,17 @@ export const intlString = (
 
 const IntlTekst: React.StatelessComponent<Props> = ({ id, values }) => {
 	if (id.substr(id.length - 5) === '.html') {
-		return <FormattedHTMLMessage id={id} values={values} data-key={id} />;
+		return (
+			<span className="intlTekst" data-key={id}>
+				<FormattedHTMLMessage id={id} values={values} />
+			</span>
+		);
 	}
-	return <FormattedMessage id={id} values={values} data-key={id} />;
+	return (
+		<span className="intlTekst" data-key={id}>
+			<FormattedMessage id={id} values={values} />
+		</span>
+	);
 };
 
 export default IntlTekst;

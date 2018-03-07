@@ -1,7 +1,8 @@
 .intlCallout() {
-	&:before {
+	&:after {
 		content: attr(data-key);
 		position: absolute;
+		z-index: 2001;
 		bottom: -1.3rem;
 		left: 0;
 		background: @c-purple;
@@ -11,11 +12,11 @@
 		border-radius: 2px;
 		font-size: 0.9rem;
 		font-weight: 200;
-		opacity: 0.7;
+		opacity: 0.9;
 		transition: all 0.2s ease;
 	}
 	&:hover {
-		&:before {
+		&:after {
 			opacity: 1;
 			font-size: 1rem;
 			padding: 0.4rem 0.8rem;
@@ -27,7 +28,6 @@
 
 body.visIntlKoder .intlTekst {
 	position: relative;
-	z-index: 2000;
 	outline: 1px dotted @c-purple;
 	.intlCallout();
 }

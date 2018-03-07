@@ -47,7 +47,7 @@
 		"{feriedager} feriedager er registrert for {forelderNavn}. Det er lov med opp til 4 uker og 1 dag med ferie som opphold i perioden med foreldrepengene, du kan også ha opphold på grunn av overført ferie fra i fjor eller ta ut ferie fra neste år.",
 	"skjema.fordeling.reduser.tooltip": "En uke mindre fellesperiode til {navn}",
 	"skjema.fordeling.sporsmal": "Hvordan vil dere dele fellesperioden?",
-	"skjema.label.forelder1": "Forelder 1",
+	"skjema.label.forelder1": "Forelder 1 (mor)",
 	"skjema.label.forelder2": "Forelder 2",
 	"skjema.label.termindato": "Termindato",
 	"skjema.feilmelding.ugyldig_termindato": "Termindato er ikke gyldig",

@@ -15,10 +15,13 @@ import {
 import DateInput, { Range } from 'shared/components/dateInput/DateInput';
 import Radioliste from 'shared/components/radioliste/Radioliste';
 import { validerDato, normaliserDato } from 'app/utils';
-import { isBefore, isSameDay } from 'date-fns';
+import { isBefore, isSameDay, isAfter } from 'date-fns';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import Ferieinfo from 'app/components/utsettelseSkjema/Ferieinfo';
-import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
+import {
+	getAntallUttaksdagerITidsperiode,
+	getForsteUttaksdagForDato
+} from 'app/utils/uttaksdagerUtils';
 import {
 	getAntallFeriedagerForForelder,
 	getSisteMuligePermisjonsdag
@@ -80,6 +83,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		this.validerSkjema = this.validerSkjema.bind(this);
 		this.revaliderSkjema = this.revaliderSkjema.bind(this);
 		this.getUgyldigeTidsrom = this.getUgyldigeTidsrom.bind(this);
+		this.getTilTidsromSluttdato = this.getTilTidsromSluttdato.bind(this);
 		const state: State = utsettelse
 			? {
 					valideringsfeil: new Map(),
@@ -292,6 +296,24 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		return ugyldigeTidsrom;
 	}
 
+	getTilTidsromSluttdato(tilTidsromStartdato: Date) {
+		const { registrerteUtsettelser } = this.props;
+		if (registrerteUtsettelser.length > 0) {
+			const pafolgendeUtsettelser = registrerteUtsettelser.filter((u) =>
+				isAfter(u.tidsperiode.startdato, tilTidsromStartdato)
+			);
+			if (pafolgendeUtsettelser.length > 0) {
+				return getForsteUttaksdagForDato(
+					pafolgendeUtsettelser[0].tidsperiode.startdato
+				);
+			}
+		}
+		return getSisteMuligePermisjonsdag(
+			this.props.termindato,
+			this.props.permisjonsregler
+		);
+	}
+
 	render() {
 		const { arsak, startdato, sluttdato, forelder } = this.state;
 		const {
@@ -299,14 +321,13 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			navnForelder1,
 			navnForelder2,
 			tidsrom,
-			termindato,
-			permisjonsregler,
 			intl
 		} = this.props;
 
+		const tilTidsromStartdato = startdato ? startdato : tidsrom.startdato;
 		const tilTidsrom: Tidsperiode = {
-			startdato: startdato ? startdato : tidsrom.startdato,
-			sluttdato: getSisteMuligePermisjonsdag(termindato, permisjonsregler)
+			startdato: tilTidsromStartdato,
+			sluttdato: this.getTilTidsromSluttdato(tilTidsromStartdato)
 		};
 
 		const ugyldigeTidsrom = this.getUgyldigeTidsrom();

@@ -124,6 +124,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 	getFeil(skjemaelement: Skjemaelement): Feil | undefined {
 		return this.state.valideringsfeil.get(skjemaelement);
 	}
+
 	setStartdato(dato: string) {
 		const startdato = normaliserDato(new Date(dato));
 		const sluttdato = this.state.sluttdato;
@@ -189,10 +190,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				sluttdato,
 				{
 					...this.props.tidsrom,
-					sluttdato: getSisteMuligePermisjonsdag(
-						this.props.termindato,
-						this.props.permisjonsregler
-					)
+					sluttdato: this.getTilTidsromSluttdato(this.props.tidsrom.startdato)
 				},
 				ugyldigeTidsrom
 			);

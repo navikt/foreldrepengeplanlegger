@@ -2,15 +2,28 @@ import * as React from 'react';
 import * as classnames from 'classnames';
 
 import './veilederinfo.less';
-import Veileder from 'app/elements/veileder/Veileder';
+import Veileder, { Ansiktstype } from 'app/elements/veileder/Veileder';
 import UtvidetInformasjon from 'app/elements/utvidetInformasjon/UtvidetInformasjon';
+
+type Infotype = 'info' | 'advarsel' | 'feil';
 
 export interface VeilederInfoProps {
 	utvidetInfo?: React.ReactNode;
 	visVeileder?: boolean;
 	stil?: 'kompakt' | 'normal' | 'kunTekst';
-	type?: 'info' | 'advarsel' | 'feil';
+	type?: Infotype;
 }
+
+const getAnsiktFromType = (type: Infotype): Ansiktstype => {
+	switch (type) {
+		case 'advarsel':
+			return 'undrende';
+		case 'feil':
+			return 'skeptisk';
+		default:
+			return 'glad';
+	}
+};
 
 const Veilederinfo: React.StatelessComponent<VeilederInfoProps> = ({
 	utvidetInfo,
@@ -28,7 +41,11 @@ const Veilederinfo: React.StatelessComponent<VeilederInfoProps> = ({
 			)}>
 			{visVeileder && (
 				<span className="veilederinfo__veileder">
-					<Veileder farge="lilla" ansikt="glad" stil="kompakt" />
+					<Veileder
+						farge="lilla"
+						ansikt={getAnsiktFromType(type)}
+						stil="kompakt"
+					/>
 				</span>
 			)}
 			<div

@@ -23,7 +23,7 @@ const InnslagLayout: React.StatelessComponent<Props & InjectedIntlProps> = ({
 	intl,
 	children
 }) => (
-	<div className="m-padding-s">
+	<div className="innslagLayout">
 		<div className="periodeinnslag__topp">
 			<div className="periodeinnslag__topp__venstre">{children}</div>
 			<div className="periodeinnslag__topp__hoyre">

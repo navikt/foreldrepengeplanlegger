@@ -227,3 +227,37 @@
 
 /** Generer css  */
 .tidslinje();
+@media print {
+	.tidslinje {
+		&__innslag {
+			padding-left: 0;
+			margin: 0 0 2rem 0 !important;
+			padding-bottom: 2rem;
+			border-bottom: 1px solid #b7b1a9;
+			&:first-child {
+				padding-top: 2rem;
+				border-top: 1px solid #b7b1a9;
+			}
+		}
+		.callout {
+			border: none;
+			&__arrow {
+				display: none;
+			}
+			&__content {
+				padding: 0;
+			}
+		}
+		.innslagLayout,
+		.hendelseinnslag {
+			padding: 0;
+		}
+	}
+	.tidslinjestrek {
+		display: none;
+	}
+}
+
+.innslagLayout {
+	padding: 1rem;
+}

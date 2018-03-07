@@ -7,7 +7,7 @@ import './tilbakemelding.less';
 export interface Props {}
 
 const Tilbakemelding: React.StatelessComponent<Props> = (props) => (
-	<div className="tilbakemelding">
+	<div className="tilbakemelding no-print">
 		<Undertittel className="blokk-xxs">
 			Hjelp oss å gjøre foreldrepengeplanleggeren bedre
 		</Undertittel>

@@ -64,7 +64,7 @@ class Permisjonsplan extends React.Component<Props, {}> {
 						onRedigerUtsettelse={onRedigerUtsettelse}
 					/>
 				</div>
-				<div className="m-textCenter blokk-m">
+				<div className="m-textCenter blokk-m no-print">
 					<LeggTilKnapp onClick={() => onLeggTilUtsettelse()}>
 						<IntlTekst id="opphold.knapp.leggtil" />
 					</LeggTilKnapp>

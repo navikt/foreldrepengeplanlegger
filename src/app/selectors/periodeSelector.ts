@@ -39,3 +39,12 @@ export const getStonadsperioderOgUtsettelser = createSelector(
 		return leggUtsettelserTilPerioder(stonadsperioder, utsettelser);
 	}
 );
+
+export const getSisteRegistrertePermisjonsdag = createSelector(
+	getStonadsperioderOgUtsettelser,
+	(periode: Periode[]): Date | undefined => {
+		return periode.length > 0
+			? periode[periode.length - 1].tidsperiode.sluttdato
+			: undefined;
+	}
+);

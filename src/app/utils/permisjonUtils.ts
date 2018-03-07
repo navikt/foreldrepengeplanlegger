@@ -111,7 +111,7 @@ export function getFellesperiodeForelder2(
 					termindato,
 					permisjonsregler,
 					fellesukerForelder1
-				).sluttdato
+			  ).sluttdato
 	);
 	return {
 		startdato,
@@ -131,13 +131,13 @@ export function getFedrekvote(
 					termindato,
 					permisjonsregler,
 					fellesukerForelder1
-				).sluttdato
+			  ).sluttdato
 			: getFellesperiodeForelder2(
 					termindato,
 					permisjonsregler,
 					fellesukerForelder1,
 					fellesukerForelder2
-				).sluttdato
+			  ).sluttdato
 	);
 	return {
 		startdato,
@@ -157,13 +157,14 @@ export function getFedrekvote(
 export function getGyldigTidsromForUtsettelse(
 	termindato: Date,
 	dekningsgrad: Dekningsgrad,
-	permisjonsregler: Permisjonsregler
+	permisjonsregler: Permisjonsregler,
+	sisteRegistrertePermisjonsdag: Date
 ): Tidsperiode {
 	return {
 		startdato: getForsteUttaksdagEtterDato(
 			getPakrevdModrekvoteEtterTermin(termindato, permisjonsregler).sluttdato
 		),
-		sluttdato: getSisteMuligePermisjonsdag(termindato, permisjonsregler)
+		sluttdato: sisteRegistrertePermisjonsdag
 	};
 }
 
@@ -226,7 +227,7 @@ export const getAntallFeriedagerForForelder = (
 				(dager: number, periode: Utsettelsesperiode) =>
 					dager + getAntallUttaksdagerITidsperiode(periode.tidsperiode),
 				0
-			);
+		  );
 };
 
 /** Oppretter default stønadsperioder ut fra termindato ++ */

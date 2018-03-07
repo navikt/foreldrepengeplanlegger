@@ -8,6 +8,15 @@
 		"{uker, plural, zero {} one {# uke} other {# uker}} {dager, plural, =0 {} one {og # dag} other {og # dager}}",
 	"utvidetinfo.lesmer": "Les mer",
 	"utvidetinfo.lukk": "Lukk",
+	"startdato": "Startdato",
+	"sluttdato": "Sluttdato",
+	"datovalidering.ikkeUttaksdag":
+		"{datonavn} kan ikke være lørdag eller søndag",
+	"datovalidering.utenforPerioder":
+		"{datonavn} er ikke innenfor gyldig tidsrom",
+	"datovalidering.ugyldigDato": "{datonavn} er ikke gyldig",
+	"datovalidering.innenforUlovligPeriode'":
+		"{datonavn} er innenfor en annen periode",
 	"planleggerinfo.lukk": "Lukk informasjon",
 	"planleggerinfo.apne": "Les om begrensninger i planleggeren",
 	"knapp.vispermisjonsplan": "Vis planen",
@@ -47,7 +56,7 @@
 		"{feriedager} feriedager er registrert for {forelderNavn}. Det er lov med opp til 4 uker og 1 dag med ferie som opphold i perioden med foreldrepengene, du kan også ha opphold på grunn av overført ferie fra i fjor eller ta ut ferie fra neste år.",
 	"skjema.fordeling.reduser.tooltip": "En uke mindre fellesperiode til {navn}",
 	"skjema.fordeling.sporsmal": "Hvordan vil dere dele fellesperioden?",
-	"skjema.label.forelder1": "Forelder 1 (mor)",
+	"skjema.label.forelder1": "Forelder 1",
 	"skjema.label.forelder2": "Forelder 2",
 	"skjema.label.termindato": "Termindato",
 	"skjema.feilmelding.ugyldig_termindato": "Termindato er ikke gyldig",

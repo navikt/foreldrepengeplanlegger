@@ -14,18 +14,26 @@ import {
 } from 'app/types';
 import DateInput, { Range } from 'shared/components/dateInput/DateInput';
 import Radioliste from 'shared/components/radioliste/Radioliste';
-import { erGyldigDato, normaliserDato } from 'app/utils';
-import { isBefore, isSameDay } from 'date-fns';
+import { validerDato, normaliserDato } from 'app/utils';
+import { isBefore, isSameDay, isAfter } from 'date-fns';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import Ferieinfo from 'app/components/utsettelseSkjema/Ferieinfo';
-import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
-import { getAntallFeriedagerForForelder } from 'app/utils/permisjonUtils';
+import {
+	getAntallUttaksdagerITidsperiode,
+	getForsteUttaksdagForDato
+} from 'app/utils/uttaksdagerUtils';
+import {
+	getAntallFeriedagerForForelder,
+	getSisteMuligePermisjonsdag
+} from 'app/utils/permisjonUtils';
 
 import './utsettelseSkjema.less';
 import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
 import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
+import { AppTekster } from 'app/intl/tekstnokler';
 
 interface OwnProps {
+	termindato: Date;
 	tidsrom: Tidsperiode;
 	utsettelse?: Utsettelsesperiode;
 	registrerteUtsettelser: Utsettelsesperiode[];
@@ -75,6 +83,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		this.validerSkjema = this.validerSkjema.bind(this);
 		this.revaliderSkjema = this.revaliderSkjema.bind(this);
 		this.getUgyldigeTidsrom = this.getUgyldigeTidsrom.bind(this);
+		this.getTilTidsromSluttdato = this.getTilTidsromSluttdato.bind(this);
 		const state: State = utsettelse
 			? {
 					valideringsfeil: new Map(),
@@ -142,7 +151,10 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 	validerSkjema(): Valideringsfeil {
 		const valideringsfeil: Valideringsfeil = new Map();
 		const ugyldigeTidsrom = this.getUgyldigeTidsrom();
-		if (!this.state.startdato) {
+		const startdato = this.state.startdato;
+		const sluttdato = this.state.sluttdato;
+
+		if (!startdato) {
 			valideringsfeil.set('startdato', {
 				feilmelding: intlString(
 					this.props.intl,
@@ -150,18 +162,22 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				)
 			});
 		} else {
-			if (
-				!erGyldigDato(this.state.startdato, this.props.tidsrom, ugyldigeTidsrom)
-			) {
+			const datoValideringsfeil = validerDato(
+				startdato,
+				this.props.tidsrom,
+				ugyldigeTidsrom
+			);
+			if (datoValideringsfeil) {
 				valideringsfeil.set('startdato', {
 					feilmelding: intlString(
 						this.props.intl,
-						'utsettelseskjema.feil.ugyldigStartdato'
+						`datovalidering.${datoValideringsfeil}` as AppTekster,
+						{ datonavn: intlString(this.props.intl, 'startdato') }
 					)
 				});
 			}
 		}
-		if (!this.state.sluttdato) {
+		if (!sluttdato) {
 			valideringsfeil.set('sluttdato', {
 				feilmelding: intlString(
 					this.props.intl,
@@ -169,19 +185,26 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				)
 			});
 		} else {
-			if (
-				!erGyldigDato(this.state.sluttdato, this.props.tidsrom, ugyldigeTidsrom)
-			) {
+			const datoValideringsfeil = validerDato(
+				sluttdato,
+				{
+					...this.props.tidsrom,
+					sluttdato: getSisteMuligePermisjonsdag(
+						this.props.termindato,
+						this.props.permisjonsregler
+					)
+				},
+				ugyldigeTidsrom
+			);
+			if (datoValideringsfeil) {
 				valideringsfeil.set('sluttdato', {
 					feilmelding: intlString(
 						this.props.intl,
-						'utsettelseskjema.feil.ugyldigSluttdato'
+						`datovalidering.${datoValideringsfeil}` as AppTekster,
+						{ datonavn: intlString(this.props.intl, 'sluttdato') }
 					)
 				});
-			} else if (
-				this.state.startdato &&
-				isBefore(this.state.sluttdato, this.state.startdato)
-			) {
+			} else if (startdato && isBefore(sluttdato, startdato)) {
 				valideringsfeil.set('sluttdato', {
 					feilmelding: intlString(
 						this.props.intl,
@@ -273,6 +296,24 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		return ugyldigeTidsrom;
 	}
 
+	getTilTidsromSluttdato(tilTidsromStartdato: Date) {
+		const { registrerteUtsettelser } = this.props;
+		if (registrerteUtsettelser.length > 0) {
+			const pafolgendeUtsettelser = registrerteUtsettelser.filter((u) =>
+				isAfter(u.tidsperiode.startdato, tilTidsromStartdato)
+			);
+			if (pafolgendeUtsettelser.length > 0) {
+				return getForsteUttaksdagForDato(
+					pafolgendeUtsettelser[0].tidsperiode.startdato
+				);
+			}
+		}
+		return getSisteMuligePermisjonsdag(
+			this.props.termindato,
+			this.props.permisjonsregler
+		);
+	}
+
 	render() {
 		const { arsak, startdato, sluttdato, forelder } = this.state;
 		const {
@@ -283,9 +324,10 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			intl
 		} = this.props;
 
+		const tilTidsromStartdato = startdato ? startdato : tidsrom.startdato;
 		const tilTidsrom: Tidsperiode = {
-			startdato: startdato ? startdato : tidsrom.startdato,
-			sluttdato: tidsrom.sluttdato
+			startdato: tilTidsromStartdato,
+			sluttdato: this.getTilTidsromSluttdato(tilTidsromStartdato)
 		};
 
 		const ugyldigeTidsrom = this.getUgyldigeTidsrom();

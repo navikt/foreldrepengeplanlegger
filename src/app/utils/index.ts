@@ -3,6 +3,13 @@ import { Range } from 'shared/components/dateInput/DateInput';
 import { isWithinRange } from 'date-fns';
 import { erUttaksdag } from 'app/utils/uttaksdagerUtils';
 
+export type DatoValideringsfeil =
+	| 'ikkeUttaksdag'
+	| 'utenforPerioder'
+	| 'ugyldigDato'
+	| 'innenforUlovligPeriode'
+	| undefined;
+
 /**
  * Fjerner klokkeslett på dato
  */
@@ -18,25 +25,30 @@ export const separerTekstArray = (tekster: string[]): string => {
 	return `${arr.join(', ')} og ${siste}`;
 };
 
-export const erGyldigDato = (
+export const validerDato = (
 	dato: Date,
 	tidsrom: Tidsperiode,
 	ugyldigePerioder: Range[] = []
-): boolean => {
+): DatoValideringsfeil => {
+	if (!dato) {
+		return 'ugyldigDato';
+	}
+	if (!erUttaksdag(dato)) {
+		return 'ikkeUttaksdag';
+	}
 	if (
 		!isWithinRange(
 			normaliserDato(dato),
 			normaliserDato(tidsrom.startdato),
 			normaliserDato(tidsrom.sluttdato)
-		) ||
-		!erUttaksdag(dato)
+		)
 	) {
-		return false;
+		return 'utenforPerioder';
 	}
-	let gyldig = true;
+	let gyldig: DatoValideringsfeil = undefined;
 	ugyldigePerioder.forEach((p) => {
 		if (gyldig && isWithinRange(dato, p.from, p.to)) {
-			gyldig = false;
+			gyldig = 'innenforUlovligPeriode';
 		}
 	});
 	return gyldig;

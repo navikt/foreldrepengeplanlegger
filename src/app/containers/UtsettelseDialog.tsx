@@ -22,6 +22,7 @@ interface OwnProps {
 	utsettelse?: Utsettelsesperiode;
 	navnForelder1: string;
 	navnForelder2: string;
+	termindato: Date;
 }
 
 type Props = OwnProps & DispatchProps & InjectedIntlProps;
@@ -48,6 +49,7 @@ const UtsettelseDialog: React.StatelessComponent<Props> = (props: Props) => {
 						onFjern={(utsettelse) =>
 							props.dispatch(slettUtsettelse(utsettelse))
 						}
+						termindato={props.termindato}
 					/>
 				)
 			}

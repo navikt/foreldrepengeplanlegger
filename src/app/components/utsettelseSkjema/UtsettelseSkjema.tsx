@@ -486,7 +486,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					<Ferieinfo
 						feriedager={antallFeriedager}
 						permisjonsregler={this.props.permisjonsregler}
-						forelderNavn={navnForelder1}
+						forelderNavn={
+							forelder === 'forelder1' ? navnForelder1 : navnForelder2
+						}
 					/>
 				)}
 				{this.state.arsak !== undefined && (

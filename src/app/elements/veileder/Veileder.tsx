@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as classnames from 'classnames';
 
 import './veileder.less';
-// import { guid } from 'nav-frontend-js-utils';
 
 export type Ansiktstype = 'glad' | 'undrende' | 'skeptisk';
 

@@ -268,6 +268,9 @@ const leggUtsettelseInnIPeriode = (
 const forskyvPerioder = (perioder: Periode[], startdato: Date): Periode[] => {
 	let forrigeDato = startdato;
 	return perioder.map((periode) => {
+		if (periode.type === Periodetype.Utsettelse) {
+			return periode;
+		}
 		const tidsperiode = flyttTidsperiode(
 			periode.tidsperiode,
 			getForsteUttaksdagPaEllerEtterDato(addDays(forrigeDato, 1))

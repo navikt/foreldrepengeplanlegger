@@ -28,11 +28,18 @@ const Periodeinfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
 	);
 	let tidsperiode = { ...innslag.periode.tidsperiode };
 	if (nesteInnslag) {
-		tidsperiode.sluttdato = getForsteUttaksdagForDato(
-			nesteInnslag.type === TidslinjeinnslagType.hendelse
-				? nesteInnslag.dato
-				: nesteInnslag.periode.tidsperiode.startdato
-		);
+		if (
+			nesteInnslag.type === TidslinjeinnslagType.hendelse &&
+			nesteInnslag.hendelse === 'permisjonsslutt'
+		) {
+			tidsperiode.sluttdato = nesteInnslag.dato;
+		} else {
+			tidsperiode.sluttdato = getForsteUttaksdagForDato(
+				nesteInnslag.type === TidslinjeinnslagType.hendelse
+					? nesteInnslag.dato
+					: nesteInnslag.periode.tidsperiode.startdato
+			);
+		}
 	}
 
 	return (

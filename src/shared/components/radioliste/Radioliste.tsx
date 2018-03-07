@@ -98,14 +98,16 @@ const Radioliste: React.StatelessComponent<Props> = ({
 				<div className="radioliste__radioer">
 					{valg.map((option) => (
 						<div
-							className="radioliste__radio"
+							className="radioliste__radiowrapper"
 							key={`${inputnavn}${option.verdi}`}>
-							<RadiolisteRadio
-								{...option}
-								navn={inputnavn}
-								valgt={valgtVerdi === option.verdi}
-								onChange={() => onChange(option.verdi)}
-							/>
+							<div className="radioliste__radio">
+								<RadiolisteRadio
+									{...option}
+									navn={inputnavn}
+									valgt={valgtVerdi === option.verdi}
+									onChange={() => onChange(option.verdi)}
+								/>
+							</div>
 						</div>
 					))}
 				</div>

@@ -29,12 +29,14 @@ import { getGyldigTidsromForUtsettelse } from 'app/utils/permisjonUtils';
 import Permisjonsplan from 'app/containers/Permisjonsplan';
 import PlanleggerInfo from 'app/components/content/PlanleggerInfo';
 import TidslinjeAktivitetskravInfo from 'app/components/content/TidslinjeAktivitetskravInfo';
+import { getSisteRegistrertePermisjonsdag } from 'app/selectors/periodeSelector';
 
 export interface StateProps {
 	form: FormState;
 	innslag: Tidslinjeinnslag[];
 	utsettelse: UtsettelseState;
 	visPermisjonsplan: boolean;
+	sisteRegistrertePermisjonsdag?: Date;
 }
 
 export type Props = StateProps &
@@ -50,6 +52,7 @@ export class Main extends React.Component<Props> {
 			innslag,
 			visPermisjonsplan,
 			dispatch,
+			sisteRegistrertePermisjonsdag,
 			intl
 		} = this.props;
 
@@ -76,11 +79,12 @@ export class Main extends React.Component<Props> {
 			}
 		}
 		const tidsromForUtsettelse: Tidsperiode | undefined =
-			form.termindato && form.dekningsgrad
+			form.termindato && form.dekningsgrad && sisteRegistrertePermisjonsdag
 				? getGyldigTidsromForUtsettelse(
 						form.termindato,
 						form.dekningsgrad,
-						form.permisjonsregler
+						form.permisjonsregler,
+						sisteRegistrertePermisjonsdag
 				  )
 				: undefined;
 
@@ -149,12 +153,14 @@ export class Main extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: AppState): StateProps => {
-	const innslag = tidslinjeFraPerioder(state);
+	let innslag: Tidslinjeinnslag[] = [];
+	innslag = tidslinjeFraPerioder(state);
 
 	return {
 		innslag,
 		form: state.form,
 		utsettelse: state.utsettelse,
+		sisteRegistrertePermisjonsdag: getSisteRegistrertePermisjonsdag(state),
 		visPermisjonsplan:
 			innslag &&
 			innslag.length > 0 &&

@@ -7,6 +7,7 @@ import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
 import { Permisjonsregler, Utsettelsesperiode } from 'app/types';
 import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
 import { scrollToElement } from 'app/utils/animationUtils';
+import Tilbakemelding from 'app/components/content/Tilbakemelding';
 
 export interface OwnProps {
 	navnForelder1: string;
@@ -68,6 +69,7 @@ class Permisjonsplan extends React.Component<Props, {}> {
 						<IntlTekst id="opphold.knapp.leggtil" />
 					</LeggTilKnapp>
 				</div>
+				<Tilbakemelding />
 			</section>
 		);
 	}

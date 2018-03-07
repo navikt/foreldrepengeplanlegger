@@ -19,14 +19,14 @@ const opprettEllerOppdaterUtsettelse = (
 		? state.utsettelser.map(
 				(u, idx) =>
 					u.id === utsettelse.id ? utsettelse : state.utsettelser[idx]
-			)
+		  )
 		: [
 				...state.utsettelser,
 				{
 					...utsettelse,
 					id: guid()
 				}
-			];
+		  ];
 	return {
 		...state,
 		utsettelser,

@@ -8,6 +8,15 @@
 		"{uker, plural, zero {} one {# uke} other {# uker}} {dager, plural, =0 {} one {og # dag} other {og # dager}}",
 	"utvidetinfo.lesmer": "Les mer",
 	"utvidetinfo.lukk": "Lukk",
+	"startdato": "Startdato",
+	"sluttdato": "Sluttdato",
+	"datovalidering.ikkeUttaksdag":
+		"{datonavn} kan ikke være lørdag eller søndag",
+	"datovalidering.utenforPerioder":
+		"{datonavn} er ikke innenfor gyldig tidsrom",
+	"datovalidering.ugyldigDato": "{datonavn} er ikke gyldig",
+	"datovalidering.innenforUlovligPeriode'":
+		"{datonavn} er innenfor en annen periode",
 	"planleggerinfo.lukk": "Lukk informasjon",
 	"planleggerinfo.apne": "Les om begrensninger i planleggeren",
 	"knapp.vispermisjonsplan": "Vis planen",

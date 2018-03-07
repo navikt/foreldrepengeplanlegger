@@ -134,19 +134,21 @@ export class Main extends React.Component<Props> {
 					/>
 				)}
 
-				{tidsromForUtsettelse && (
-					<div>
-						<UtsettelseDialog
-							isOpen={utsettelse.dialogErApen}
-							navnForelder1={navnForelder1}
-							navnForelder2={navnForelder2}
-							utsettelser={utsettelse.utsettelser}
-							utsettelse={utsettelse.valgtUtsettelse}
-							tidsrom={tidsromForUtsettelse}
-							permisjonsregler={form.permisjonsregler}
-						/>
-					</div>
-				)}
+				{tidsromForUtsettelse &&
+					form.termindato && (
+						<div>
+							<UtsettelseDialog
+								isOpen={utsettelse.dialogErApen}
+								navnForelder1={navnForelder1}
+								navnForelder2={navnForelder2}
+								utsettelser={utsettelse.utsettelser}
+								utsettelse={utsettelse.valgtUtsettelse}
+								tidsrom={tidsromForUtsettelse}
+								permisjonsregler={form.permisjonsregler}
+								termindato={form.termindato}
+							/>
+						</div>
+					)}
 			</div>
 		);
 	}

@@ -10,6 +10,8 @@ export type GenerellTekst =
 	| 'uker'
 	| 'dager'
 	| 'ukerogdager'
+	| 'startdato'
+	| 'sluttdato'
 	| 'knapp.vispermisjonsplan'
 	| 'planleggerinfo.apne'
 	| 'planleggerinfo.lukk';
@@ -35,7 +37,11 @@ export type UtsettelsesskjemaTekst =
 	| 'utsettelseskjema.feil.startdatoMangler'
 	| 'utsettelseskjema.feil.sluttdatoMangler'
 	| 'utsettelseskjema.feil.sluttdatoEtterStartdato'
-	| 'utsettelseskjema.feil.ugyldigAntallFeriedager';
+	| 'utsettelseskjema.feil.ugyldigAntallFeriedager'
+	| 'datovalidering.ikkeUttaksdag'
+	| 'datovalidering.utenforPerioder'
+	| 'datovalidering.ugyldigDato'
+	| 'datovalidering.innenforUlovligPeriode';
 
 export type SkjemaTekst =
 	| 'skjema.label.forelder1'

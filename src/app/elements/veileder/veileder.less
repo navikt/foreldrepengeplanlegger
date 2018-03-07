@@ -1,4 +1,4 @@
-@blinkDuration: 5s;
+@blinkDuration: 6s;
 @hairstrandNBaseTransform: rotate(-24deg) translateX(30px) translateY(23px);
 @blowHairDuration: 60s;
 @blowHairDelay: 20s;
@@ -21,18 +21,19 @@
 		animation-timing-function: ease;
 	}
 	.eye {
+		transform-origin: 0 0;
 		animation: eyeBlink @blinkDuration infinite;
 		animation-timing-function: ease;
 	}
-	#ansikt--glad {
+	#Mouth-happy {
 		opacity: 0;
 		transition: all 0.3s ease;
 	}
-	#ansikt--skeptisk {
+	#Mouth-unsure {
 		opacity: 0;
 		transition: all 0.3s ease;
 	}
-	#ansikt--undrende {
+	#Mouth-hesitant {
 		opacity: 0;
 		transition: all 0.3s ease;
 		.mouth,
@@ -40,15 +41,15 @@
 			stroke-width: 2;
 		}
 	}
-	&--glad #ansikt--glad {
+	&--glad #Mouth-happy {
 		opacity: 1;
 	}
 
-	&--skeptisk #ansikt--skeptisk {
+	&--skeptisk #Mouth-unsure {
 		opacity: 1;
 	}
 
-	&--undrende #ansikt--undrende {
+	&--undrende #Mouth-hesitant {
 		opacity: 1;
 	}
 
@@ -66,6 +67,10 @@
 	}
 }
 
+.m-relative {
+	position: relative;
+}
+
 @keyframes eyeBlink {
 	0% {
 		transform: scaleY(1);
@@ -74,7 +79,7 @@
 		transform: scaleY(1);
 	}
 	80% {
-		transform: translate(0, 3px) scaleY(0.1);
+		transform: translateY(3px) scaleY(0.1);
 	}
 	81.5% {
 		transform: scaleY(1);

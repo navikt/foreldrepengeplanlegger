@@ -34,6 +34,10 @@ interface Props {
 	onChange: (value: number) => void;
 }
 
+interface State {
+	active: boolean;
+}
+
 const defaultValueLabelRenderer: RangeInputValueLabelRenderer = (
 	options: RangeInputValueLabelRendererOptions
 ) => (
@@ -43,66 +47,104 @@ const defaultValueLabelRenderer: RangeInputValueLabelRenderer = (
 	</div>
 );
 
-const RangeInput: React.StatelessComponent<Props> = (props) => {
-	const {
-		label,
-		inputId,
-		valueLabelRenderer,
-		steppers,
-		ariaDescription,
-		ariaValueChangedMessage,
-		...rest
-	} = props;
-	const id = inputId || guid();
-	const labelRenderer = valueLabelRenderer || defaultValueLabelRenderer;
-	return (
-		<SkjemaInputElement label={label} id={id}>
-			{labelRenderer({ value: props.value, min: props.min, max: props.max })}
-			<div
-				className={classnames('rangeInput', {
-					'rangeInput--withSteppers': steppers !== undefined
-				})}>
-				{steppers && (
-					<div className="rangeInput__stepper rangeInput__stepper--previous">
-						<RangeStepper
-							direction="previous"
-							onClick={() =>
-								props.value > props.min ? props.onChange(props.value - 1) : null
-							}
-							label={steppers ? steppers.reduceLabel : 'Mindre'}
+class RangeInput extends React.Component<Props, State> {
+	container: HTMLDivElement | null;
+
+	constructor(props: Props) {
+		super(props);
+		this.handleBlur = this.handleBlur.bind(this);
+		this.handleFocus = this.handleFocus.bind(this);
+		this.deactivateIfOutside = this.deactivateIfOutside.bind(this);
+		this.state = {
+			active: false
+		};
+	}
+	handleBlur(e: React.FocusEvent<HTMLDivElement>) {
+		if (!this.container) {
+			return;
+		}
+		setTimeout(() => this.deactivateIfOutside(), 0);
+	}
+	handleFocus(e: React.FocusEvent<HTMLDivElement>) {
+		this.setState({
+			active: true
+		});
+	}
+	deactivateIfOutside() {
+		if (
+			this.container &&
+			window.document.activeElement &&
+			!this.container.contains(window.document.activeElement)
+		) {
+			this.setState({
+				active: false
+			});
+		}
+	}
+	render() {
+		const {
+			label,
+			inputId,
+			valueLabelRenderer,
+			steppers,
+			ariaDescription,
+			ariaValueChangedMessage,
+			...rest
+		} = this.props;
+
+		const { value, min, max, onChange } = this.props;
+		const id = inputId || guid();
+		const labelRenderer = valueLabelRenderer || defaultValueLabelRenderer;
+		return (
+			<SkjemaInputElement label={label} id={id}>
+				{labelRenderer({ value: value, min: min, max: max })}
+				<div
+					className={classnames('rangeInput', {
+						'rangeInput--withSteppers': steppers !== undefined
+					})}
+					ref={(c) => (this.container = c)}
+					onBlur={this.handleBlur}
+					onFocus={this.handleFocus}>
+					{steppers && (
+						<div className="rangeInput__stepper rangeInput__stepper--previous">
+							<RangeStepper
+								direction="previous"
+								onClick={() => (value > min ? onChange(value - 1) : null)}
+								label={steppers ? steppers.reduceLabel : 'Mindre'}
+							/>
+						</div>
+					)}
+					<div className="rangeInput__range">
+						{ariaDescription && (
+							<AriaText id="aria">{ariaDescription}</AriaText>
+						)}
+						<input
+							{...rest}
+							id={id}
+							aria-describedby="aria"
+							className="nav-frontend-range-input"
+							type="range"
+							onChange={(e) => onChange(parseInt(e.target.value, 10))}
 						/>
+						<div role="alert" aria-live="assertive" className="sr-only">
+							{ariaValueChangedMessage && this.state.active
+								? ariaValueChangedMessage(value)
+								: undefined}
+						</div>
 					</div>
-				)}
-				<div className="rangeInput__range">
-					{ariaDescription && <AriaText id="aria">{ariaDescription}</AriaText>}
-					<input
-						{...rest}
-						id={id}
-						aria-describedby="aria"
-						className="nav-frontend-range-input"
-						type="range"
-						onChange={(e) => props.onChange(parseInt(e.target.value, 10))}
-					/>
-					<div role="alert" aria-live="assertive" className="sr-only">
-						{ariaValueChangedMessage
-							? ariaValueChangedMessage(props.value)
-							: undefined}
-					</div>
+					{steppers && (
+						<div className="rangeInput__stepper rangeInput__stepper--next">
+							<RangeStepper
+								direction="next"
+								onClick={() => (value < max ? onChange(value + 1) : null)}
+								label={steppers ? steppers.increaseLabel : 'Mer'}
+							/>
+						</div>
+					)}
 				</div>
-				{steppers && (
-					<div className="rangeInput__stepper rangeInput__stepper--next">
-						<RangeStepper
-							direction="next"
-							onClick={() =>
-								props.value < props.max ? props.onChange(props.value + 1) : null
-							}
-							label={steppers ? steppers.increaseLabel : 'Mer'}
-						/>
-					</div>
-				)}
-			</div>
-		</SkjemaInputElement>
-	);
-};
+			</SkjemaInputElement>
+		);
+	}
+}
 
 export default RangeInput;

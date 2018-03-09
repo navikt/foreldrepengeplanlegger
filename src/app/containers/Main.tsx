@@ -30,7 +30,6 @@ import Permisjonsplan from 'app/containers/Permisjonsplan';
 import PlanleggerInfo from 'app/components/content/PlanleggerInfo';
 import TidslinjeAktivitetskravInfo from 'app/components/content/TidslinjeAktivitetskravInfo';
 import { getSisteRegistrertePermisjonsdag } from 'app/selectors/periodeSelector';
-import Spraakvelger from 'app/components/spraavelger/Spraakvelger';
 
 export interface StateProps {
 	form: FormState;
@@ -91,7 +90,6 @@ export class Main extends React.Component<Props> {
 
 		return (
 			<div>
-				<Spraakvelger />
 				<section className="introtekst">
 					<h1 className="m-textCenter applikasjonstittel blokk-m">
 						<IntlTekst id="applikasjonstittel" />

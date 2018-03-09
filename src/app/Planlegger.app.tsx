@@ -5,6 +5,7 @@ import { AppState } from 'app/redux/types';
 import { Spraak } from 'app/types';
 
 import './styles/planlegger.less';
+import Spraakvelger from 'app/components/spraavelger/Spraakvelger';
 
 interface Props {
 	sprak: Spraak;
@@ -13,8 +14,11 @@ interface Props {
 export class PlanleggerIndex extends React.Component<Props> {
 	render() {
 		return (
-			<div className="planlegger">
-				<Main sprak={this.props.sprak} />
+			<div>
+				<Spraakvelger />
+				<div className="planlegger">
+					<Main sprak={this.props.sprak} />
+				</div>
 			</div>
 		);
 	}

@@ -14,7 +14,9 @@ export type GenerellTekst =
 	| 'sluttdato'
 	| 'knapp.vispermisjonsplan'
 	| 'planleggerinfo.apne'
-	| 'planleggerinfo.lukk';
+	| 'planleggerinfo.lukk'
+	| 'byttSprakTilNynorsk'
+	| 'byttSprakTilBokmal';
 
 export type UtsettelsesskjemaTekst =
 	| 'utsettelseskjema.tittel'

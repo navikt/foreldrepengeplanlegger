@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import Modal from 'nav-frontend-modal';
@@ -18,7 +17,7 @@ function configureStore() {
 		/* tslint:disable-next-line */
 		window['devToolsExtension']
 			? /* tslint:disable-next-line */
-				window['devToolsExtension']()
+			  window['devToolsExtension']()
 			: (f: any) => f;
 	/* tslint:enable */
 	return createStore(reducers, devtools);
@@ -32,9 +31,7 @@ const root = document.getElementById('app');
 render(
 	<Provider store={store}>
 		<IntlProvider>
-			<BrowserRouter>
-				<PlanleggerApp />
-			</BrowserRouter>
+			<PlanleggerApp />
 		</IntlProvider>
 	</Provider>,
 	root

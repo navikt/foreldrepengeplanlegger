@@ -1,4 +1,4 @@
-import { Dekningsgrad, Utsettelsesperiode } from 'app/types';
+import { Dekningsgrad, Utsettelsesperiode, Spraak } from 'app/types';
 
 import { PlanleggerActionTypes, PlanleggerActionTypeKeys } from './actionTypes';
 
@@ -43,7 +43,7 @@ export function setDekningsgrad(
 	dekningsgrad: Dekningsgrad | undefined
 ): PlanleggerActionTypes {
 	return {
-		type: PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD,
+		type: PlanleggerActionTypeKeys.SET_DEKNINGSGRAD,
 		dekningsgrad
 	};
 }
@@ -99,5 +99,12 @@ export function visTidslinje(synlig: boolean): PlanleggerActionTypes {
 	return {
 		type: PlanleggerActionTypeKeys.VIS_TIDSLINJE,
 		synlig
+	};
+}
+
+export function setSpraak(spraak: Spraak): PlanleggerActionTypes {
+	return {
+		type: PlanleggerActionTypeKeys.SET_SPRAAK,
+		spraak
 	};
 }

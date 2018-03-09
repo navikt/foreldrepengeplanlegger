@@ -1,5 +1,9 @@
-import { Dekningsgrad, Permisjonsregler, Utsettelsesperiode } from 'app/types';
-import { Spraak } from 'app/intl/IntlProvider';
+import {
+	Dekningsgrad,
+	Permisjonsregler,
+	Utsettelsesperiode,
+	Spraak
+} from 'app/types';
 
 export interface Action<T> {
 	type: string;

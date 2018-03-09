@@ -30,6 +30,11 @@ const fjernInfo = (infoMap: SynligInfoMap, id: string): SynligInfoMap => {
 
 const ViewReducer = (state = defaultState, action: PlanleggerActionTypes) => {
 	switch (action.type) {
+		case PlanleggerActionTypeKeys.SET_SPRAAK:
+			return {
+				...state,
+				spraak: action.spraak
+			} as ViewState;
 		case PlanleggerActionTypeKeys.INFO_VIS:
 			return {
 				...state,

@@ -1,3 +1,123 @@
 {
-	"applikasjonstittel": "Foreldrepengeplanlegger"
+	"applikasjonstittel": "Foreldrepengeplanleggjar",
+	"forelder1": "Forelder 1",
+	"forelder2": "Forelder 2",
+	"dager": "{dager, plural, one {# dag} other {# dagar}}",
+	"uker": "{uker, plural, one {# veke} other {# veker}}",
+	"ukerogdager":
+		"{uker, plural, zero {} one {# veke} other {# veker}} {dager, plural, =0 {} one {og # dag} other {og # dagar}}",
+	"utvidetinfo.lesmer": "Les meir",
+	"utvidetinfo.lukk": "Lukk",
+	"startdato": "Startdato",
+	"sluttdato": "Sluttdato",
+	"byttSprakTilBokmal": "Endre til bokmål",
+	"byttSprakTilNynorsk": "Endre til nynorsk",
+	"datovalidering.ikkeUttaksdag":
+		"{datonavn} kan ikkje vere laurdag eller søndag",
+	"datovalidering.utenforPerioder":
+		"{datonavn} er ikkje innanfor gyldig tidsrom",
+	"datovalidering.ugyldigDato": "{datonavn} er ikkje gyldig",
+	"datovalidering.innenforUlovligPeriode'":
+		"{datonavn} er innanfor ein annan periode",
+	"planleggerinfo.lukk": "Lukk informasjon",
+	"planleggerinfo.apne": "Les om avgrensinger i planleggjaren",
+	"knapp.vispermisjonsplan": "Vis planen",
+	"stonadskonto.modrekvotePakrevd": "mødrekvote",
+	"stonadskonto.modrekvote": "mødrekvote",
+	"stonadskonto.fedrekvote": "fedrekvote",
+	"stonadskonto.fellesperiode": "fellesperiode",
+	"stonadskonto.foreldrepenger": "foreldrepengar",
+	"tittel.introtekst":
+		"Velkommen til foreldrepengenplanleggjaren. Her kan de planleggje korleis de vil ta ut perioden med foreldrepengar når de ventar barn.",
+	"utsettelseskjema.tittel": "Legg til opphald",
+	"utsettelseskjema.tittel.endre": "Opphald i foreldrepengane",
+	"utsettelseskjema.arsak.sporsmal": "Kva skal {navn} gjere?",
+	"utsettelseskjema.arsak.ferie": "Ta ut ferie",
+	"utsettelseskjema.veiledning.ferie":
+		"Du kan utsettje foreldrepengane med ferie i inntil fire veker og éin dag for kvart kalenderår, i tillegg til overført ferie frå i fjor og ti feriedager frå neste år.",
+	"utsettelseskjema.arsak.arbeid": "Arbeide heiltid",
+	"utsettelseskjema.hvem.sporsmal": "Kven skal ha opphald i foreldrepane?",
+	"utsettelseskjema.hvem.sporsmal.ferie": "Kven skal ta ut ferie?",
+	"utsettelseskjema.hvem.sporsmal.arbeid": "Kven skal arbeide?",
+	"utsettelseskjema.startdato.sporsmal": "Startdato",
+	"utsettelseskjema.sluttdato.sporsmal": "Sluttdato",
+	"utsettelseskjema.knapp.leggtil": "Legg til",
+	"utsettelseskjema.knapp.oppdater": "Oppdater",
+	"utsettelseskjema.knapp.fjern": "Fjern opphald",
+	"utsettelseskjema.feil.ugyldigStartdato":
+		"Startdato er ikkje ein gyldig dato",
+	"utsettelseskjema.feil.ugyldigSluttdato":
+		"Sluttdato er ikkje ein gyldig dato",
+	"utsettelseskjema.feil.startdatoMangler": "Startdato må fyllast ut",
+	"utsettelseskjema.feil.sluttdatoMangler": "Sluttdato må fyllast ut",
+	"utsettelseskjema.feil.sluttdatoEtterStartdato":
+		"Sluttdato kan ikkje vere før startdato",
+	"utsettelseskjema.feil.ugyldigAntallFeriedager":
+		"For mange feriedagar er registrerte",
+	"utsettelseskjema.ferievarsel.ulovlig":
+		"{feriedager} feriedagar er registrerte for {forelderNavn}. Du kan maksimalt leggje inn ti veker og to dagar med ferie.",
+	"utsettelseskjema.ferievarsel.kreveroverforing":
+		"{feriedager} feriedager er registrert for {forelderNavn}. Du kan utsettje foreldrepengane med ferie i inntil fire veker og éin dag for kvart kalenderår, i tillegg til overført ferie frå i fjor og ti feriedager frå neste år.",
+	"skjema.fordeling.reduser.tooltip": "Ei veke mindre fellesperiode til {navn}",
+	"skjema.fordeling.sporsmal": "Korleis vil de dele fellesperioden?",
+	"skjema.label.forelder1": "Forelder 1",
+	"skjema.label.forelder2": "Forelder 2",
+	"skjema.label.termindato": "Termindato",
+	"skjema.feilmelding.ugyldig_termindato": "Termindato er ikkje gyldig",
+	"skjema.label.sats": "Kor lang periode med foreldrepengar ønskjer de?",
+	"skjema.label.sats80": "{uker} veker med 80 % foreldrepengar",
+	"skjema.label.sats100": "{uker} veker med 100 % foreldrepengar",
+	"skjema.veiledning.sats.alttekst":
+		"Les meir om valet av lengda med foreldrepengar",
+	"skjema.veiledning.sats":
+		"Valet av antall uker gjeld dykk begge. Den totale utbetalinga blir høgare ved å velje 100 prosent.",
+	"skjema.fordeling.veiledning":
+		"Av perioden med foreldrepengar må mor ta ut {pakrevdForelder1} veker, og den andre forelderen {pakrevdForelder2} veker. Resten av vekene med foreldrepengar kan de dele. Når {navnForelder2} har fellesperiode er det aktivitetskrav til {navnForelder1}.",
+	"skjema.fordeling.veiledning.lenketekst": "Les meir om aktivitetskravet her.",
+	"skjema.fordeling.uker": "{uker, plural, one {# veke} other {# veker}}",
+	"skjema.fordeling.sporsmal.ikonlabel":
+		"Les meir om fordeling av fellesperioden",
+	"tidslinje.tittel": "Planen dykkar",
+	"tidslinje.periodeinfo.konto.uker":
+		"{uker, plural, one {# veke} other {# veker}} {konto}",
+	"tidslinje.periodeinfo.starterpermisjon.enkel":
+		"{navn} startar perioden sin med foreldrepengar",
+	"tidslinje.periodeinfo.starterpermisjon.detaljert":
+		"{navn} startar perioden sin med foreldrepengar: {uker, plural, one {# veke} other {# veker}} totalt delt opp i {detaljer}",
+	"tidslinje.utsettelse": "{arsak} {navn}",
+	"tidslinje.periodeinfo.fortsettelse.fortsetter":
+		"{navn} held fram med foreldrepengane sine",
+	"tidslinje.periodeinfo.fortsettelse.avslutter":
+		"{navn} avsluttar foreldrepengane sine",
+	"tidslinje.hendelse.termin": "Termin",
+	"tidslinje.hendelse.sistepermisjonsdag": "Siste dag med foreldrepengar",
+	"tidslinje.innslag.foreldrepenger": "Foreldrepengar {navn}",
+	"tidslinje.aktivitetskrav":
+		"Når {navnForelder2} tek ut foreldrepengar i fellesperioden, blir det stilt krav til kva aktivitet {navnForelder1}s kan drive med.",
+	"tidslinje.visdetaljer": "Fleire detaljar",
+	"tidslinje.skjuldetaljer": "Skjul detaljar",
+	"opphold.arsak.ferie": "ferie",
+	"opphold.arsak.arbeid": "arbeid",
+	"opphold.arsak.Ferie": "Ferie",
+	"opphold.arsak.Arbeid": "Arbeid",
+	"opphold.tittel": "Opphald i perioden med foreldrepengar?",
+	"opphold.knapp.leggtil": "Legg til opphald",
+	"skjermleser.skjema.tittel":
+		"Fyll ut skjemaet og sjå foreldrepengeplanen dykkar",
+	"skjermleser.tidslinje.oppsummering.tittel":
+		"Fordeling av foreldrepengar summert opp",
+	"skjermleser.fordeling_av_fellesperiode":
+		"{ukerForelder1, plural, one {# veke} other {# veker}} til {navnForelder1}, {ukerForelder2, plural, one {# veke} other {# veker}} til {navnForelder2}",
+	"veileder.ulonnetpermisjon.tittel": "Ønskjer du ulønt permisjon?",
+	"veileder.ulonnetpermisjon.tekst1":
+		"Ulønt permisjon krev at den andre forelderen tek ut foreldrepengar eller registrerer opphald.",
+	"veileder.ulonnetpermisjon.tekst2":
+		"Ulønt permisjon må avtalas med arbeidsgivaren. Ulønt permisjon i meir enn 14 dager kan påverke retten til blant anna sjukepengar og pleiepengar.",
+	"veileder.ulonnetpermisjon.navlenketekst":
+		"Les meir om foreldrepengar på nav.no",
+	"veileder.forbehold.intro":
+		"Planleggingskalenderen viser kor mange veker de kan få med foreldrepengar, og korleis de kan utsetje perioden med foreldrepengar dersom de skal ha ferie eller jobbe heiltid. Han viser ikkje kor mykje de kan få utbetalt.",
+	"veileder.forbehold.utvidetinfo.tittel": "Avgrensingar i planleggjaren",
+	"veileder.forbehold.utvidetinfo.html":
+		"Foreldrepengeplanleggjaren er under utvikling. Inntil vidare kan du ikkje bruke han for å planleggje:<ul><li>kombinasjon av delvis arbeid og foreldrepengar</li><li>opphald i foreldrepengane på grunn av sjukdom</li><li>ekstraveker ved fleirbarnsfødsel</li><li>foreldrepengar ved adopsjon</li><li>oppstart av foreldrepengane tidligere enn 3 veker før termindato</li><li>ulønt permisjon</li></ul>"
 }

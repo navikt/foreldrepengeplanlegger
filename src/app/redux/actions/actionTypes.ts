@@ -1,4 +1,4 @@
-import { Dekningsgrad, Utsettelsesperiode } from 'app/types';
+import { Dekningsgrad, Utsettelsesperiode, Spraak } from 'app/types';
 
 export enum PlanleggerActionTypeKeys {
 	'SET_NAVN_FORELDER1' = 'setNavnForelder1',
@@ -6,14 +6,15 @@ export enum PlanleggerActionTypeKeys {
 	'SET_TERMINDATO' = 'setTermindato',
 	'SET_UKER_FORELDER1' = 'setUkerForelder1',
 	'SET_UKER_FORELDER2' = 'setUkerForelder2',
-	'SETT_DEKNINGSGRAD' = 'setDekningsgrad',
+	'SET_DEKNINGSGRAD' = 'setDekningsgrad',
 	'UTSETTELSE_VIS_DIALOG' = 'utsettelseVisDialog',
 	'UTSETTELSE_LUKK_DIALOG' = 'utsettelseLukkDialog',
 	'UTSETTELSE_OPPRETT_ELLER_OPPDATER' = 'utsettelseOpprettEllerOppdater',
 	'UTSETTELSE_SLETT' = 'utsettelseSlett',
 	'INFO_VIS' = 'infoVis',
 	'INFO_SKJUL' = 'infoSkjul',
-	'VIS_TIDSLINJE' = 'visTidslinje'
+	'VIS_TIDSLINJE' = 'visTidslinje',
+	'SET_SPRAAK' = 'setSpraak'
 }
 
 export type PlanleggerActionTypes =
@@ -29,7 +30,8 @@ export type PlanleggerActionTypes =
 	| SlettUtsettelse
 	| SkjulInfo
 	| VisInfo
-	| VisTidslinje;
+	| VisTidslinje
+	| SettSpraak;
 
 export interface SetNavnForelder1 {
 	type: PlanleggerActionTypeKeys.SET_NAVN_FORELDER1;
@@ -57,7 +59,7 @@ export interface SetUkerForelder2 {
 }
 
 export interface SetDekningsgrad {
-	type: PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD;
+	type: PlanleggerActionTypeKeys.SET_DEKNINGSGRAD;
 	dekningsgrad: Dekningsgrad | undefined;
 }
 
@@ -91,4 +93,8 @@ export interface VisInfo {
 export interface VisTidslinje {
 	type: PlanleggerActionTypeKeys.VIS_TIDSLINJE;
 	synlig: boolean;
+}
+export interface SettSpraak {
+	type: PlanleggerActionTypeKeys.SET_SPRAAK;
+	spraak: Spraak;
 }

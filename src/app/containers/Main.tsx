@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { Knapp } from 'nav-frontend-knapper';
 import Skjema from './Skjema';
@@ -22,7 +21,8 @@ import {
 	Utsettelsesperiode,
 	Tidsperiode,
 	Periodetype,
-	StonadskontoType
+	StonadskontoType,
+	Spraak
 } from 'app/types';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import { getGyldigTidsromForUtsettelse } from 'app/utils/permisjonUtils';
@@ -30,6 +30,7 @@ import Permisjonsplan from 'app/containers/Permisjonsplan';
 import PlanleggerInfo from 'app/components/content/PlanleggerInfo';
 import TidslinjeAktivitetskravInfo from 'app/components/content/TidslinjeAktivitetskravInfo';
 import { getSisteRegistrertePermisjonsdag } from 'app/selectors/periodeSelector';
+import Spraakvelger from 'app/components/spraavelger/Spraakvelger';
 
 export interface StateProps {
 	form: FormState;
@@ -39,10 +40,10 @@ export interface StateProps {
 	sisteRegistrertePermisjonsdag?: Date;
 }
 
-export type Props = StateProps &
-	RouteComponentProps<{}> &
-	DispatchProps &
-	InjectedIntlProps;
+interface OwnProps {
+	sprak?: Spraak;
+}
+export type Props = OwnProps & StateProps & DispatchProps & InjectedIntlProps;
 
 export class Main extends React.Component<Props> {
 	render() {
@@ -90,6 +91,7 @@ export class Main extends React.Component<Props> {
 
 		return (
 			<div>
+				<Spraakvelger />
 				<section className="introtekst">
 					<h1 className="m-textCenter applikasjonstittel blokk-m">
 						<IntlTekst id="applikasjonstittel" />
@@ -172,4 +174,4 @@ const mapStateToProps = (state: AppState): StateProps => {
 	};
 };
 
-export default connect(mapStateToProps)(withRouter(injectIntl(Main)));
+export default connect(mapStateToProps)(injectIntl(Main));

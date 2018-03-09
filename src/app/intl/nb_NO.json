@@ -53,7 +53,7 @@
 	"utsettelseskjema.ferievarsel.ulovlig":
 		"{feriedager} feriedager er registrert for {forelderNavn}. Du kan maksimalt legge inn 10 uker og 2 dager med ferie.",
 	"utsettelseskjema.ferievarsel.kreveroverforing":
-		"{feriedager} feriedager er registrert for {forelderNavn}. Du kan utsette foreldrepengene med ferie i inntil fire uker og en dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og 10 feriedager fra neste år.",
+		"{feriedager} feriedager er registrert for {forelderNavn}. Du kan utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og 10 feriedager fra neste år.",
 	"skjema.fordeling.reduser.tooltip": "En uke mindre fellesperiode til {navn}",
 	"skjema.fordeling.sporsmal": "Hvordan vil dere dele fellesperioden?",
 	"skjema.label.forelder1": "Forelder 1",

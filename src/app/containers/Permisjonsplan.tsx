@@ -56,7 +56,7 @@ class Permisjonsplan extends React.Component<Props, {}> {
 						navnForelder2={navnForelder2}
 					/>
 				</div>
-				<div className="blokk-s">
+				<div className="blokk-m">
 					<Tidslinje
 						innslag={innslag}
 						navnForelder1={navnForelder1}

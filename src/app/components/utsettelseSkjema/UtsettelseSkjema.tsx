@@ -400,6 +400,12 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 							feil={this.getFeil('arsak')}
 							valg={[
 								{
+									tittel: intl.formatMessage({
+										id: 'utsettelseskjema.arsak.arbeid'
+									}),
+									verdi: UtsettelseArsakType.Arbeid
+								},
+								{
 									tittel: intlString(intl, 'utsettelseskjema.arsak.ferie'),
 									verdi: UtsettelseArsakType.Ferie,
 									detailsRenderer: () => (
@@ -407,12 +413,6 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 											<IntlTekst id="utsettelseskjema.veiledning.ferie" />
 										</Veilederinfo>
 									)
-								},
-								{
-									tittel: intl.formatMessage({
-										id: 'utsettelseskjema.arsak.arbeid'
-									}),
-									verdi: UtsettelseArsakType.Arbeid
 								}
 							]}
 							inputnavn="utsettelse"

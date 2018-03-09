@@ -32,7 +32,7 @@
 	"utsettelseskjema.arsak.sporsmal": "Hva skal {navn} gjøre?",
 	"utsettelseskjema.arsak.ferie": "Ta ut ferie",
 	"utsettelseskjema.veiledning.ferie":
-		"Du kan ha opphold i perioden din med foreldrepenger med 21 feriedager for hvert kalenderår, i tillegg til overført ferie fra i fjor og 10 feriedager fra neste år.",
+		"Du kan utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og 10 feriedager fra neste år.",
 	"utsettelseskjema.arsak.arbeid": "Arbeide heltid",
 	"utsettelseskjema.hvem.sporsmal": "Hvem skal ha opphold i foreldrepengene?",
 	"utsettelseskjema.hvem.sporsmal.ferie": "Hvem skal ta ut ferie?",
@@ -51,9 +51,9 @@
 	"utsettelseskjema.feil.ugyldigAntallFeriedager":
 		"For mange feriedager er registrert",
 	"utsettelseskjema.ferievarsel.ulovlig":
-		"{feriedager} feriedager er registrert for {forelderNavn}. Du kan ikke legge til mer enn 10 uker og 2 dager med opphold i perioden med foreldrepenger på grunn av ferie.",
+		"{feriedager} feriedager er registrert for {forelderNavn}. Du kan maksimalt legge inn 10 uker og 2 dager med ferie.",
 	"utsettelseskjema.ferievarsel.kreveroverforing":
-		"{feriedager} feriedager er registrert for {forelderNavn}. Det er lov med opp til 4 uker og 1 dag med ferie som opphold i perioden med foreldrepengene, du kan også ha opphold på grunn av overført ferie fra i fjor eller ta ut ferie fra neste år.",
+		"{feriedager} feriedager er registrert for {forelderNavn}. Du kan utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og 10 feriedager fra neste år.",
 	"skjema.fordeling.reduser.tooltip": "En uke mindre fellesperiode til {navn}",
 	"skjema.fordeling.sporsmal": "Hvordan vil dere dele fellesperioden?",
 	"skjema.label.forelder1": "Forelder 1",

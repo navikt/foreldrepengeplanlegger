@@ -103,7 +103,7 @@ const FormReducer = (
 					termindatoErUgyldig: true
 				};
 			}
-		case PlanleggerActionTypeKeys.SETT_DEKNINGSGRAD:
+		case PlanleggerActionTypeKeys.SET_DEKNINGSGRAD:
 			if (!action.dekningsgrad) {
 				return state;
 			}

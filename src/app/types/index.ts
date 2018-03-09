@@ -6,6 +6,8 @@ export type Dekningsgrad = '80%' | '100%';
 
 export type Forelder = 'forelder1' | 'forelder2';
 
+export type Spraak = 'nb' | 'nn';
+
 export interface Tidsperiode {
 	startdato: Date;
 	sluttdato: Date;

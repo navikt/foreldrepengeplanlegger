@@ -1,15 +1,29 @@
 import * as React from 'react';
 import Main from './containers/Main';
-import './styles/planlegger.less';
+import { connect } from 'react-redux';
+import { AppState } from 'app/redux/types';
+import { Spraak } from 'app/types';
 
-export class PlanleggerIndex extends React.Component {
+import './styles/planlegger.less';
+import Spraakvelger from 'app/components/spraavelger/Spraakvelger';
+
+interface Props {
+	sprak: Spraak;
+}
+
+export class PlanleggerIndex extends React.Component<Props> {
 	render() {
 		return (
-			<div className="planlegger">
-				<Main />
+			<div>
+				<Spraakvelger />
+				<div className="planlegger">
+					<Main sprak={this.props.sprak} />
+				</div>
 			</div>
 		);
 	}
 }
 
-export default PlanleggerIndex;
+export default connect((state: AppState) => ({ sprak: state.view.spraak }))(
+	PlanleggerIndex
+);

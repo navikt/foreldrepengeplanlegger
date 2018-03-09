@@ -91,10 +91,10 @@ export class Main extends React.Component<Props> {
 		return (
 			<div>
 				<section className="introtekst">
-					<h1 className="m-textCenter applikasjonstittel blokk-m">
+					<h1 className="m-textCenter applikasjonstittel blokk-s">
 						<IntlTekst id="applikasjonstittel" />
 					</h1>
-					<div className="blokk-s">
+					<div className="blokk-m">
 						<PlanleggerInfo />
 					</div>
 				</section>

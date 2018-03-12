@@ -30,6 +30,11 @@ const reglerFomJuli2018: Permisjonsregler = {
 };
 
 export const getPermisjonsregler = (termindato: Date): Permisjonsregler =>
+	reglerTomJuni;
+
+export const getPermisjonsreglerKommende = (
+	termindato: Date
+): Permisjonsregler =>
 	isBefore(termindato, new Date(2018, 6, 1))
 		? reglerTomJuni
 		: reglerFomJuli2018;

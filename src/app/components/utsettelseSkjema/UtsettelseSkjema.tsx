@@ -69,6 +69,9 @@ const preventDefaultEvent = (e: FormEvent<HTMLFormElement>) => {
 };
 
 class UtsettelseSkjema extends React.Component<Props, State> {
+	revaliderTimeoutId: number;
+	skalValidere: boolean;
+
 	constructor(props: Props) {
 		super(props);
 		const { utsettelse } = props;
@@ -76,8 +79,8 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		this.setStartdato = this.setStartdato.bind(this);
 		this.setSluttdato = this.setSluttdato.bind(this);
 		this.getAntallFeriedager = this.getAntallFeriedager.bind(this);
-		this.setValideringsfeil = this.setValideringsfeil.bind(this);
-		this.clearValideringsfeil = this.clearValideringsfeil.bind(this);
+		// this.setValideringsfeil = this.setValideringsfeil.bind(this);
+		// this.clearValideringsfeil = this.clearValideringsfeil.bind(this);
 		this.getFeil = this.getFeil.bind(this);
 		this.validerSkjema = this.validerSkjema.bind(this);
 		this.revaliderSkjema = this.revaliderSkjema.bind(this);
@@ -104,21 +107,21 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		};
 	}
 
-	setValideringsfeil(skjemaelement: Skjemaelement, feil: Feil) {
-		const valideringsfeil = new Map(this.state.valideringsfeil);
-		valideringsfeil.set(skjemaelement, feil);
-		this.setState({
-			valideringsfeil
-		});
-	}
+	// setValideringsfeil(skjemaelement: Skjemaelement, feil: Feil) {
+	// 	const valideringsfeil = new Map(this.state.valideringsfeil);
+	// 	valideringsfeil.set(skjemaelement, feil);
+	// 	this.setState({
+	// 		valideringsfeil
+	// 	});
+	// }
 
-	clearValideringsfeil(skjemaelement: Skjemaelement) {
-		const valideringsfeil = new Map(this.state.valideringsfeil);
-		valideringsfeil.delete(skjemaelement);
-		this.setState({
-			valideringsfeil
-		});
-	}
+	// clearValideringsfeil(skjemaelement: Skjemaelement) {
+	// 	const valideringsfeil = new Map(this.state.valideringsfeil);
+	// 	valideringsfeil.delete(skjemaelement);
+	// 	this.setState({
+	// 		valideringsfeil
+	// 	});
+	// }
 
 	getFeil(skjemaelement: Skjemaelement): Feil | undefined {
 		return this.state.valideringsfeil.get(skjemaelement);
@@ -145,10 +148,15 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 	}
 
 	revaliderSkjema() {
-		setTimeout(this.validerSkjema, 0);
+		if (this.revaliderTimeoutId) {
+			window.clearTimeout(this.revaliderTimeoutId);
+		}
+		this.skalValidere = true;
+		this.revaliderTimeoutId = window.setTimeout(this.validerSkjema, 0);
 	}
 
 	validerSkjema(): Valideringsfeil {
+		this.skalValidere = false;
 		const valideringsfeil: Valideringsfeil = new Map();
 		const ugyldigeTidsrom = this.getUgyldigeTidsrom();
 		const startdato = this.state.startdato;
@@ -190,7 +198,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				sluttdato,
 				{
 					...this.props.tidsrom,
-					sluttdato: this.getTilTidsromSluttdato(this.props.tidsrom.startdato)
+					sluttdato: this.getTilTidsromSluttdato(
+						startdato || this.props.tidsrom.startdato
+					)
 				},
 				ugyldigeTidsrom
 			);
@@ -341,9 +351,11 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		const sluttdatoFeil = this.getFeil('sluttdato');
 
 		const visStartdatofeil =
+			!this.skalValidere &&
 			startdatoFeil &&
 			(this.state.visValideringsfeil || this.state.startdato !== undefined);
 		const visSluttdatofeil =
+			!this.skalValidere &&
 			sluttdatoFeil &&
 			(this.state.visValideringsfeil || this.state.sluttdato !== undefined);
 

@@ -72,6 +72,7 @@ export type SkjemaTekst =
 	| 'skjema.label.sats100'
 	| 'skjema.fordeling.sporsmal'
 	| 'skjema.fordeling.sporsmal.ikonlabel'
+	| 'skjema.fordeling.aria.fordeling'
 	| 'skjema.fordeling.veiledning'
 	| 'skjema.fordeling.veiledning.lenketekst'
 	| 'skjema.fordeling.uker'

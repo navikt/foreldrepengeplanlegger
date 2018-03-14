@@ -73,6 +73,8 @@
 		"Du har lagt inn {ukerOgDager}. For å ha opphald meir enn fire veker og éin dag, må du ha overført ferie frå i fjor eller ta ut ferie frå neste år.",
 	"skjema.fordeling.reduser.tooltip": "Ei veke mindre fellesperiode til {navn}",
 	"skjema.fordeling.sporsmal": "Korleis vil de dele fellesperioden?",
+	"skjema.fordeling.aria.fordeling":
+		"Kor mange veker av fellesperioden skal {navnForelder1} ha av totalt {ukerFellesperiode} veker?",
 	"skjema.label.forelder1": "Mor",
 	"skjema.label.forelder2": "Far eller medmor",
 	"skjema.label.termindato": "Termindato",
@@ -132,5 +134,5 @@
 		"Her finn de ut kor mange veker de kan få foreldrepengar, og korleis de kan utsetje periodar med foreldrepengar. Han viser ikkje kor mykje de kan få utbetalt.",
 	"veileder.forbehold.utvidetinfo.tittel": "Avgrensingar i planleggjaren",
 	"veileder.forbehold.utvidetinfo.html":
-		"Foreldrepengeplanleggjaren er under utvikling. De kan ikkje bruke han for å planleggje:<ul><li>kombinasjon av delvis arbeid og foreldrepengar</li><li>opphald i foreldrepengane på grunn av sjukdom</li><li>ekstraveker på grunn av fleirbarnsfødsel</li><li>foreldrepengar på grunn av adopsjon</li><li>oppstart av foreldrepengane tidligere enn tre veker før termindato</li><li>uløn permisjon</li><li>Opphald på grunn av ferie på helligdagar. Inntil videre må de trekke frå desse dagane i planen dykkar.</li></ul>"
+		"Foreldrepengeplanleggjaren er under utvikling. De kan ikkje bruke han for å planleggje:<ul><li>kombinasjon av delvis arbeid og foreldrepengar</li><li>opphald i foreldrepengane på grunn av sjukdom</li><li>ekstraveker på grunn av fleirbarnsfødsel</li><li>foreldrepengar på grunn av adopsjon</li><li>oppstart av foreldrepengane tidligere enn tre veker før termindato</li><li>ulønt permisjon</li><li>opphald på grunn av ferie på helligdagar. Inntil videre må de trekke frå desse dagane i planen dykkar.</li></ul>"
 }

@@ -72,6 +72,8 @@
 
 	"skjema.fordeling.reduser.tooltip": "En uke mindre fellesperiode til {navn}",
 	"skjema.fordeling.sporsmal": "Hvordan vil dere dele fellesperioden?",
+	"skjema.fordeling.aria.fordeling":
+		"Hvor mange uker av fellesperioden skal {navnForelder1} ha av totalt {ukerFellesperiode} uker?",
 	"skjema.label.forelder1": "Mor",
 	"skjema.label.forelder2": "Far eller medmor",
 	"skjema.label.termindato": "Termindato",

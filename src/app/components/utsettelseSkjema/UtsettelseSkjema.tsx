@@ -29,7 +29,6 @@ import {
 
 import './utsettelseSkjema.less';
 import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
-import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
 import { AppTekster } from 'app/intl/tekstnokler';
 
 interface OwnProps {
@@ -166,7 +165,8 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			const datoValideringsfeil = validerDato(
 				startdato,
 				this.props.tidsrom,
-				ugyldigeTidsrom
+				ugyldigeTidsrom,
+				this.props.termindato
 			);
 			if (datoValideringsfeil) {
 				valideringsfeil.set('startdato', {
@@ -335,9 +335,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				? this.getAntallFeriedager()
 				: 0;
 
-		const visFerieinfo =
-			forelder &&
-			antallFeriedager > this.props.permisjonsregler.maksFeriedagerEttÅr;
+		const visFerieinfo = forelder && arsak === 'ferie';
 
 		const startdatoFeil = this.getFeil('startdato');
 		const sluttdatoFeil = this.getFeil('sluttdato');
@@ -407,12 +405,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								},
 								{
 									tittel: intlString(intl, 'utsettelseskjema.arsak.ferie'),
-									verdi: UtsettelseArsakType.Ferie,
-									detailsRenderer: () => (
-										<Veilederinfo>
-											<IntlTekst id="utsettelseskjema.veiledning.ferie" />
-										</Veilederinfo>
-									)
+									verdi: UtsettelseArsakType.Ferie
 								}
 							]}
 							inputnavn="utsettelse"
@@ -480,17 +473,17 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								</div>
 							</Column>
 						</Row>
+						{visFerieinfo && (
+							<Ferieinfo
+								feriedager={antallFeriedager}
+								permisjonsregler={this.props.permisjonsregler}
+								forelderNavn={
+									forelder === 'forelder1' ? navnForelder1 : navnForelder2
+								}
+							/>
+						)}
 					</div>
 				</EkspanderbartInnhold>
-				{visFerieinfo && (
-					<Ferieinfo
-						feriedager={antallFeriedager}
-						permisjonsregler={this.props.permisjonsregler}
-						forelderNavn={
-							forelder === 'forelder1' ? navnForelder1 : navnForelder2
-						}
-					/>
-				)}
 				{this.state.arsak !== undefined && (
 					<Row>
 						<Column xs="12" sm={utsettelse ? '6' : '12'}>

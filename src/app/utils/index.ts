@@ -8,6 +8,7 @@ export type DatoValideringsfeil =
 	| 'utenforPerioder'
 	| 'ugyldigDato'
 	| 'innenforUlovligPeriode'
+	| 'innenforForsteSeksUker'
 	| undefined;
 
 /**
@@ -28,13 +29,11 @@ export const separerTekstArray = (tekster: string[]): string => {
 export const validerDato = (
 	dato: Date,
 	tidsrom: Tidsperiode,
-	ugyldigePerioder: Range[] = []
+	ugyldigePerioder: Range[] = [],
+	termindato?: Date
 ): DatoValideringsfeil => {
 	if (!dato) {
 		return 'ugyldigDato';
-	}
-	if (!erUttaksdag(dato)) {
-		return 'ikkeUttaksdag';
 	}
 	if (
 		!isWithinRange(
@@ -43,7 +42,20 @@ export const validerDato = (
 			normaliserDato(tidsrom.sluttdato)
 		)
 	) {
+		return 'innenforForsteSeksUker';
+	}
+	if (
+		termindato &&
+		!isWithinRange(
+			normaliserDato(dato),
+			normaliserDato(termindato),
+			normaliserDato(tidsrom.startdato)
+		)
+	) {
 		return 'utenforPerioder';
+	}
+	if (!erUttaksdag(dato)) {
+		return 'ikkeUttaksdag';
 	}
 	let gyldig: DatoValideringsfeil = undefined;
 	ugyldigePerioder.forEach((p) => {

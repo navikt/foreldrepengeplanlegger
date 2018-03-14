@@ -15,29 +15,29 @@ const Ferieinfo: React.StatelessComponent<Props> = ({
 	forelderNavn
 }) => {
 	if (feriedager <= permisjonsregler.maksFeriedagerEttÅr) {
-		return null;
+		return (
+			<Veilederinfo>
+				<IntlTekst id="utsettelseskjema.veiledning.ferie" />
+			</Veilederinfo>
+		);
 	}
 	if (feriedager > permisjonsregler.maksFeriedagerMedOverføring) {
 		return (
-			<div className="blokkPad-m">
-				<Veilederinfo type="feil">
-					<IntlTekst
-						id="utsettelseskjema.ferievarsel.ulovlig"
-						values={{ feriedager, forelderNavn }}
-					/>
-				</Veilederinfo>
-			</div>
+			<Veilederinfo type="feil">
+				<IntlTekst
+					id="utsettelseskjema.ferievarsel.ulovlig"
+					values={{ feriedager, forelderNavn }}
+				/>
+			</Veilederinfo>
 		);
 	} else if (feriedager > permisjonsregler.maksFeriedagerEttÅr) {
 		return (
-			<div className="blokkPad-m">
-				<Veilederinfo type="advarsel">
-					<IntlTekst
-						id="utsettelseskjema.ferievarsel.kreveroverforing"
-						values={{ feriedager, forelderNavn }}
-					/>
-				</Veilederinfo>
-			</div>
+			<Veilederinfo type="advarsel">
+				<IntlTekst
+					id="utsettelseskjema.ferievarsel.kreveroverforing"
+					values={{ feriedager, forelderNavn }}
+				/>
+			</Veilederinfo>
 		);
 	}
 	return null;

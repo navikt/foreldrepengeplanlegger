@@ -43,6 +43,7 @@ export type UtsettelsesskjemaTekst =
 	| 'datovalidering.ikkeUttaksdag'
 	| 'datovalidering.utenforPerioder'
 	| 'datovalidering.ugyldigDato'
+	| 'datovalidering.innenforForsteSeksUker'
 	| 'datovalidering.innenforUlovligPeriode';
 
 export type SkjemaTekst =

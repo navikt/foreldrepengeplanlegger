@@ -4,6 +4,8 @@ import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import UtvidetInformasjon from 'app/elements/utvidetInformasjon/UtvidetInformasjon';
 import { Element } from 'nav-frontend-typografi';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
+import Lenke from 'nav-frontend-lenker';
+import EksterneLenker from 'app/eksterneLenker';
 
 export interface Props {}
 
@@ -23,6 +25,10 @@ const PlanleggerInfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
 						<IntlTekst id="veileder.forbehold.utvidetinfo.tittel" />
 					</Element>
 					<IntlTekst id="veileder.forbehold.utvidetinfo.html" />
+					<hr />
+					<Lenke href={EksterneLenker.nav_foreldrepenger}>
+						Les om foreldrepenger
+					</Lenke>
 				</div>
 			</UtvidetInformasjon>
 		</Veilederinfo>

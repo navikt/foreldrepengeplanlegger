@@ -21,9 +21,6 @@ class IntlProvider extends React.Component<Props> {
 		addLocaleData([...nb, ...nn]);
 	}
 
-	shouldComponentUpdate() {
-		return true;
-	}
 	render() {
 		const messages = this.props.language === 'nb' ? nbMessages : nnMessages;
 		return (

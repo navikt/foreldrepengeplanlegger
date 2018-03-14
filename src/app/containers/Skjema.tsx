@@ -132,4 +132,6 @@ const mapStateToProps = (state: AppState): StateProps => {
 	};
 };
 
-export default connect<StateProps, {}>(mapStateToProps)(injectIntl(Skjema));
+export default injectIntl(
+	connect<StateProps, {}, InjectedIntlProps>(mapStateToProps)(Skjema)
+);

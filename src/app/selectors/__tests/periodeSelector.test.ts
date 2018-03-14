@@ -39,17 +39,18 @@ describe('periodeselector', () => {
 	const antallDagerForelder1 = 155;
 	const antallDagerForelder2 = 140;
 
-	it('velger riktige permisjonsregler ut fra termindato', () => {
-		expect(getPermisjonsregler(new Date(2018, 6, 1)).antallUkerMødrekvote).toBe(
-			14
-		);
-		expect(getPermisjonsregler(new Date(2020, 6, 1)).antallUkerMødrekvote).toBe(
-			14
-		);
-		expect(
-			getPermisjonsregler(new Date(2018, 5, 30)).antallUkerMødrekvote
-		).toBe(10);
-	});
+	// Ikke aktuelt enda
+	// it('velger riktige permisjonsregler ut fra termindato', () => {
+	// 	expect(getPermisjonsregler(new Date(2018, 6, 1)).antallUkerMødrekvote).toBe(
+	// 		14
+	// 	);
+	// 	expect(getPermisjonsregler(new Date(2020, 6, 1)).antallUkerMødrekvote).toBe(
+	// 		14
+	// 	);
+	// 	expect(
+	// 		getPermisjonsregler(new Date(2018, 5, 30)).antallUkerMødrekvote
+	// 	).toBe(10);
+	// });
 	describe('ved 80% dekningsgrad', () => {
 		const dagerModrekvoteForFodsel =
 			permisjonsregler.antallUkerForelder1FørFødsel * 5;

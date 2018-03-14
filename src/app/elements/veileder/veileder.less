@@ -1,12 +1,19 @@
+@import '../../styles/variabler.less';
+
 @blinkDuration: 6s;
 @hairstrandNBaseTransform: rotate(-24deg) translateX(30px) translateY(23px);
 @blowHairDuration: 60s;
 @blowHairDelay: 20s;
 
 .veileder {
+	.chromeSvgRenderFix();
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translateZ(0) scale(1, 1);
+	transform: translateZ(0);
 	width: 100%;
 	@noseColor: #d1bfa3;
 	@mouthColor: #d19e9c;
+	transform: translate3d();
 	/** Zoom inn */
 	&--kompakt {
 		.veileder-person {
@@ -16,14 +23,14 @@
 	.nose {
 		stroke: @noseColor;
 		stroke-width: 0.2;
-		// vector-effect: non-scaling-stroke;
-		// animation: noseUp @blinkDuration infinite;
-		// animation-timing-function: ease;
+		vector-effect: non-scaling-stroke;
+		animation: noseUp @blinkDuration infinite;
+		animation-timing-function: ease;
 	}
 	.eye {
-		transform-origin: 0 0;
-		// animation: eyeBlink @blinkDuration infinite;
-		// animation-timing-function: ease;
+		// transform-origin: 0 0;
+		animation: eyeBlink @blinkDuration infinite;
+		animation-timing-function: ease;
 	}
 	#Mouth-happy {
 		opacity: 0;

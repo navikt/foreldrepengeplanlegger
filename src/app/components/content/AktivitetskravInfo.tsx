@@ -22,18 +22,19 @@ const AktivitetskravInfo: React.StatelessComponent<Props> = ({
 		visVeileder={false}
 		type="info"
 		stil="kunTekst">
-		<IntlTekst
-			id="skjema.fordeling.veiledning"
-			values={{
-				pakrevdForelder1:
-					permisjonsregler.antallUkerForelder1FørFødsel +
-					permisjonsregler.antallUkerMødrekvote,
-				pakrevdForelder2: permisjonsregler.antallUkerFedrekvote,
-				navnForelder1,
-				navnForelder2
-			}}
-		/>
-		<br />
+		<div className="blokkPad-xxs">
+			<IntlTekst
+				id="skjema.fordeling.veiledning"
+				values={{
+					pakrevdForelder1:
+						permisjonsregler.antallUkerForelder1FørFødsel +
+						permisjonsregler.antallUkerMødrekvote,
+					pakrevdForelder2: permisjonsregler.antallUkerFedrekvote,
+					navnForelder1,
+					navnForelder2
+				}}
+			/>
+		</div>
 		<Lenke href={EksterneLenker.nav_aktivitetskrav} target="_blank">
 			<IntlTekst id="skjema.fordeling.veiledning.lenketekst" />
 		</Lenke>

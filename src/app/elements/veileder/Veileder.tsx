@@ -46,9 +46,6 @@ const Veileder = (props: Props) => {
 			<g id="Icons/employee/medium-animation" fill="none" fillRule="evenodd">
 				<circle id="Background" fill="#C1B5D0" cx={48} cy={48} r={48} />
 				<g id="Head" transform="translate(10 5)">
-					<mask id="mask-2" fill="#fff">
-						<use xlinkHref="#a" />
-					</mask>
 					<use id="Hair" fill="#D2654C" xlinkHref="#a" />
 					<path
 						d="M44.017 90.627c-1.971.246-3.98.373-6.017.373-1.966 0-3.904-.118-5.808-.348-5.426-8.936-7.576-28.387-8.476-29.804 0 0 13.547-9.003 28.665-.476 0 1.322-2.642 21.184-8.364 30.255z"
@@ -98,9 +95,6 @@ const Veileder = (props: Props) => {
 						strokeLinecap="round"
 					/>
 				</g>
-				<mask id="mask-4" fill="#fff">
-					<use xlinkHref="#b" />
-				</mask>
 				<use id="Body" fill="#5C4378" xlinkHref="#b" />
 				<g id="ID" transform="translate(52.457 80.5)">
 					<path

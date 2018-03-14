@@ -1,7 +1,7 @@
 {
 	"applikasjonstittel": "Foreldrepengeplanleggjar",
-	"forelder1": "Forelder 1",
-	"forelder2": "Forelder 2",
+	"forelder1": "Mor",
+	"forelder2": "Far eller medmor",
 	"dager": "{dager, plural, one {# dag} other {# dagar}}",
 	"uker": "{uker, plural, one {# veke} other {# veker}}",
 	"ukerogdager":
@@ -73,8 +73,8 @@
 		"Du har lagt inn {ukerOgDager}. For å ha opphald meir enn fire veker og éin dag, må du ha overført ferie frå i fjor eller ta ut ferie frå neste år.",
 	"skjema.fordeling.reduser.tooltip": "Ei veke mindre fellesperiode til {navn}",
 	"skjema.fordeling.sporsmal": "Korleis vil de dele fellesperioden?",
-	"skjema.label.forelder1": "Forelder 1",
-	"skjema.label.forelder2": "Forelder 2",
+	"skjema.label.forelder1": "Mor",
+	"skjema.label.forelder2": "Far eller medmor",
 	"skjema.label.termindato": "Termindato",
 	"skjema.feilmelding.ugyldig_termindato": "Termindato er ikkje gyldig",
 	"skjema.label.sats": "Kor lang periode med foreldrepengar ønskjer de?",

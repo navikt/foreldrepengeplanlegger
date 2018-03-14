@@ -1,7 +1,9 @@
 {
 	"applikasjonstittel": "Foreldrepengeplanleggjar",
-	"forelder1": "Mor",
-	"forelder2": "Far eller medmor",
+	"Forelder1": "Mor",
+	"Forelder2": "Far eller medmor",
+	"forelder1": "mor",
+	"forelder2": "far eller medmor",
 	"dager": "{dager, plural, one {# dag} other {# dagar}}",
 	"uker": "{uker, plural, one {# veke} other {# veker}}",
 	"ukerogdager":

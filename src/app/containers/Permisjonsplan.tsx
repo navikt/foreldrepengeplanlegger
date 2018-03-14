@@ -11,6 +11,8 @@ import { scrollToElement } from 'app/utils/animationUtils';
 export interface OwnProps {
 	navnForelder1: string;
 	navnForelder2: string;
+	NavnForelder1: string;
+	NavnForelder2: string;
 	fellesperiodeukerForelder1: number;
 	fellesperiodeukerForelder2: number;
 	innslag: Tidslinjeinnslag[];
@@ -32,6 +34,8 @@ class Permisjonsplan extends React.Component<Props, {}> {
 			fellesperiodeukerForelder2,
 			navnForelder1,
 			navnForelder2,
+			NavnForelder1,
+			NavnForelder2,
 			innslag,
 			onRedigerUtsettelse,
 			onLeggTilUtsettelse
@@ -51,8 +55,8 @@ class Permisjonsplan extends React.Component<Props, {}> {
 						fedrekvote={permisjonsregler.antallUkerFedrekvote}
 						fellesukerForelder1={fellesperiodeukerForelder1}
 						fellesukerForelder2={fellesperiodeukerForelder2}
-						navnForelder1={navnForelder1}
-						navnForelder2={navnForelder2}
+						navnForelder1={NavnForelder1}
+						navnForelder2={NavnForelder2}
 					/>
 				</div>
 				<div className="blokk-m">

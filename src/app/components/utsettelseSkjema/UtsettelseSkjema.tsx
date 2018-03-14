@@ -36,8 +36,8 @@ interface OwnProps {
 	tidsrom: Tidsperiode;
 	utsettelse?: Utsettelsesperiode;
 	registrerteUtsettelser: Utsettelsesperiode[];
-	navnForelder1: string;
-	navnForelder2: string;
+	navnForelder1?: string;
+	navnForelder2?: string;
 	permisjonsregler: Permisjonsregler;
 	onChange: (utsettelse: Utsettelsesperiode) => void;
 	onFjern: (utsettelse: Utsettelsesperiode) => void;
@@ -376,11 +376,11 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						feil={this.getFeil('forelder')}
 						valg={[
 							{
-								tittel: navnForelder1 || intlString(intl, 'forelder1'),
+								tittel: navnForelder1 || intlString(intl, 'Forelder1'),
 								verdi: 'forelder1'
 							},
 							{
-								tittel: navnForelder2 || intlString(intl, 'forelder2'),
+								tittel: navnForelder2 || intlString(intl, 'Forelder2'),
 								verdi: 'forelder2'
 							}
 						]}
@@ -490,7 +490,9 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								feriedager={antallFeriedager}
 								permisjonsregler={this.props.permisjonsregler}
 								forelderNavn={
-									forelder === 'forelder1' ? navnForelder1 : navnForelder2
+									forelder === 'forelder1'
+										? navnForelder1 || intlString(intl, 'forelder1')
+										: navnForelder2 || intlString(intl, 'forelder2')
 								}
 							/>
 						)}

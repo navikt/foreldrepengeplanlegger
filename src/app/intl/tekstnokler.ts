@@ -4,6 +4,8 @@ export type GenerellTekst =
 	| 'applikasjonstittel'
 	| 'forelder1'
 	| 'forelder2'
+	| 'Forelder1'
+	| 'Forelder2'
 	| 'tittel.introtekst'
 	| 'utvidetinfo.lukk'
 	| 'utvidetinfo.lesmer'

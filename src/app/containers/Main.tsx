@@ -58,6 +58,8 @@ export class Main extends React.Component<Props> {
 
 		const navnForelder1 = form.navnForelder1 || intlString(intl, 'forelder1');
 		const navnForelder2 = form.navnForelder2 || intlString(intl, 'forelder2');
+		const NavnForelder1 = form.navnForelder1 || intlString(intl, 'Forelder1');
+		const NavnForelder2 = form.navnForelder2 || intlString(intl, 'Forelder2');
 
 		if (form.fellesperiodeukerForelder2 > 0) {
 			const forsteForelder2Periode = innslag.find(
@@ -123,6 +125,8 @@ export class Main extends React.Component<Props> {
 					<Permisjonsplan
 						navnForelder1={navnForelder1}
 						navnForelder2={navnForelder2}
+						NavnForelder1={NavnForelder1}
+						NavnForelder2={NavnForelder2}
 						permisjonsregler={form.permisjonsregler}
 						fellesperiodeukerForelder1={form.fellesperiodeukerForelder1}
 						fellesperiodeukerForelder2={form.fellesperiodeukerForelder2}
@@ -139,8 +143,8 @@ export class Main extends React.Component<Props> {
 						<div>
 							<UtsettelseDialog
 								isOpen={utsettelse.dialogErApen}
-								navnForelder1={navnForelder1}
-								navnForelder2={navnForelder2}
+								navnForelder1={form.navnForelder1}
+								navnForelder2={form.navnForelder2}
 								utsettelser={utsettelse.utsettelser}
 								utsettelse={utsettelse.valgtUtsettelse}
 								tidsrom={tidsromForUtsettelse}

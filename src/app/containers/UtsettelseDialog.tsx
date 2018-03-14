@@ -20,8 +20,8 @@ interface OwnProps {
 	tidsrom: Tidsperiode;
 	permisjonsregler: Permisjonsregler;
 	utsettelse?: Utsettelsesperiode;
-	navnForelder1: string;
-	navnForelder2: string;
+	navnForelder1?: string;
+	navnForelder2?: string;
 	termindato: Date;
 }
 

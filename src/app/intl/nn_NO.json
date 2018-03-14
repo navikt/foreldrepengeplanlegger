@@ -6,6 +6,17 @@
 	"uker": "{uker, plural, one {# veke} other {# veker}}",
 	"ukerogdager":
 		"{uker, plural, zero {} one {# veke} other {# veker}} {dager, plural, =0 {} one {og # dag} other {og # dagar}}",
+	"tall-1": "éin",
+	"tall-2": "to",
+	"tall-3": "tre",
+	"tall-4": "fire",
+	"tall-5": "fem",
+	"tall-6": "seks",
+	"tall-7": "sju",
+	"tall-8": "åtte",
+	"tall-9": "ni",
+	"tall-10": "ti",
+	"og": "og",
 	"utvidetinfo.lesmer": "Les meir",
 	"utvidetinfo.lukk": "Lukk",
 	"startdato": "Startdato",
@@ -19,6 +30,8 @@
 	"datovalidering.ugyldigDato": "{datonavn} er ikkje gyldig",
 	"datovalidering.innenforUlovligPeriode'":
 		"{datonavn} er innanfor ein annan periode",
+	"datovalidering.innenforForsteSeksUker":
+		"Du kan fyrst utsetje foreldrepengane seks veker etter fødsel",
 	"planleggerinfo.lukk": "Lukk informasjon",
 	"planleggerinfo.apne": "Les om avgrensinger i planleggjaren",
 	"knapp.vispermisjonsplan": "Vis planen",
@@ -34,7 +47,7 @@
 	"utsettelseskjema.arsak.sporsmal": "Kva skal {navn} gjere?",
 	"utsettelseskjema.arsak.ferie": "Ta ut ferie",
 	"utsettelseskjema.veiledning.ferie":
-		"Du kan utsettje foreldrepengane med ferie i inntil fire veker og éin dag for kvart kalenderår, i tillegg til overført ferie frå i fjor og ti feriedager frå neste år.",
+		"Du kan utsetje foreldrepengane med ferie i inntil fire veker og éin dag for kvart kalenderår, i tillegg til overført ferie frå i fjor og ti feriedagar frå neste år. Du kan ikkje utsetje på helligdagar.",
 	"utsettelseskjema.arsak.arbeid": "Arbeide heiltid",
 	"utsettelseskjema.hvem.sporsmal": "Kven skal ha opphald i foreldrepane?",
 	"utsettelseskjema.hvem.sporsmal.ferie": "Kven skal ta ut ferie?",
@@ -55,9 +68,9 @@
 	"utsettelseskjema.feil.ugyldigAntallFeriedager":
 		"For mange feriedagar er registrerte",
 	"utsettelseskjema.ferievarsel.ulovlig":
-		"{feriedager} feriedagar er registrerte for {forelderNavn}. Du kan maksimalt leggje inn ti veker og to dagar med ferie.",
+		"Du har lagt inn {ukerOgDager}. Du kan ikkje ha opphald på grunn av ferie meir enn ti veker og to dagar.",
 	"utsettelseskjema.ferievarsel.kreveroverforing":
-		"{feriedager} feriedager er registrert for {forelderNavn}. Du kan utsettje foreldrepengane med ferie i inntil fire veker og éin dag for kvart kalenderår, i tillegg til overført ferie frå i fjor og ti feriedager frå neste år.",
+		"Du har lagt inn {ukerOgDager}. For å ha opphald meir enn fire veker og éin dag, må du ha overført ferie frå i fjor eller ta ut ferie frå neste år.",
 	"skjema.fordeling.reduser.tooltip": "Ei veke mindre fellesperiode til {navn}",
 	"skjema.fordeling.sporsmal": "Korleis vil de dele fellesperioden?",
 	"skjema.label.forelder1": "Forelder 1",
@@ -116,8 +129,8 @@
 	"veileder.ulonnetpermisjon.navlenketekst":
 		"Les meir om foreldrepengar på nav.no",
 	"veileder.forbehold.intro":
-		"Planleggingskalenderen viser kor mange veker de kan få med foreldrepengar, og korleis de kan utsetje perioden med foreldrepengar dersom de skal ha ferie eller jobbe heiltid. Han viser ikkje kor mykje de kan få utbetalt.",
+		"Her finn de ut kor mange veker de kan få foreldrepengar, og korleis de kan utsetje periodar med foreldrepengar. Han viser ikkje kor mykje de kan få utbetalt.",
 	"veileder.forbehold.utvidetinfo.tittel": "Avgrensingar i planleggjaren",
 	"veileder.forbehold.utvidetinfo.html":
-		"Foreldrepengeplanleggjaren er under utvikling. Inntil vidare kan du ikkje bruke han for å planleggje:<ul><li>kombinasjon av delvis arbeid og foreldrepengar</li><li>opphald i foreldrepengane på grunn av sjukdom</li><li>ekstraveker ved fleirbarnsfødsel</li><li>foreldrepengar ved adopsjon</li><li>oppstart av foreldrepengane tidligere enn 3 veker før termindato</li><li>ulønt permisjon</li></ul>"
+		"Foreldrepengeplanleggjaren er under utvikling. De kan ikkje bruke han for å planleggje:<ul><li>kombinasjon av delvis arbeid og foreldrepengar</li><li>opphald i foreldrepengane på grunn av sjukdom</li><li>ekstraveker på grunn av fleirbarnsfødsel</li><li>foreldrepengar på grunn av adopsjon</li><li>oppstart av foreldrepengane tidligere enn tre veker før termindato</li><li>uløn permisjon</li><li>Opphald på grunn av ferie på helligdagar. Inntil videre må de trekke frå desse dagane i planen dykkar.</li></ul>"
 }

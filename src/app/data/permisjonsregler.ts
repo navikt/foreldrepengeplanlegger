@@ -11,7 +11,7 @@ const reglerTomJuni: Permisjonsregler = {
 	antallUkerFedrekvote: 10,
 	antallUkerMødrekvote: 10,
 	maksPermisjonslengdeIÅr: 3,
-	maksFeriedagerEttÅr: 20,
+	maksFeriedagerEttÅr: 21,
 	maksFeriedagerMedOverføring: 52
 };
 
@@ -25,7 +25,7 @@ const reglerFomJuli2018: Permisjonsregler = {
 	antallUkerFedrekvote: 14,
 	antallUkerMødrekvote: 14,
 	maksPermisjonslengdeIÅr: 3,
-	maksFeriedagerEttÅr: 20,
+	maksFeriedagerEttÅr: 21,
 	maksFeriedagerMedOverføring: 52
 };
 

@@ -16,7 +16,19 @@ export type GenerellTekst =
 	| 'planleggerinfo.apne'
 	| 'planleggerinfo.lukk'
 	| 'byttSprakTilNynorsk'
-	| 'byttSprakTilBokmal';
+	| 'byttSprakTilBokmal'
+	| 'tall-0'
+	| 'tall-1'
+	| 'tall-2'
+	| 'tall-3'
+	| 'tall-4'
+	| 'tall-5'
+	| 'tall-6'
+	| 'tall-7'
+	| 'tall-8'
+	| 'tall-9'
+	| 'tall-10'
+	| 'og';
 
 export type UtsettelsesskjemaTekst =
 	| 'utsettelseskjema.tittel'

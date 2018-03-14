@@ -7,8 +7,8 @@ import FordelingFellesperiodeLabelRenderer from 'app/components/skjema/Fordeling
 import { Infotekster } from 'app/redux/reducers/viewReducer';
 
 export interface OwnProps {
-	navnForelder1: string;
-	navnForelder2: string;
+	navnForelder1?: string;
+	navnForelder2?: string;
 	ukerForelder1: number;
 	ukerFellesperiode: number;
 	introRenderer: () => React.ReactNode;
@@ -46,25 +46,25 @@ const FordelingFellesperiode: React.StatelessComponent<
 		onChange={onChange}
 		steppers={{
 			reduceLabel: intlString(intl, 'skjema.fordeling.reduser.tooltip', {
-				navn: navnForelder1
+				navn: navnForelder1 || intlString(intl, 'forelder1')
 			}),
 			increaseLabel: intlString(intl, 'skjema.fordeling.reduser.tooltip', {
-				navn: navnForelder2
+				navn: navnForelder2 || intlString(intl, 'forelder2')
 			})
 		}}
 		ariaValueChangedMessage={(value) =>
 			intlString(intl, 'skjermleser.fordeling_av_fellesperiode', {
 				ukerForelder1: value,
 				ukerForelder2: ukerFellesperiode - value,
-				navnForelder1,
-				navnForelder2
+				navnForelder1: navnForelder1 || intlString(intl, 'forelder1'),
+				navnForelder2: navnForelder2 || intlString(intl, 'forelder2')
 			})
 		}
 		valueLabelRenderer={(options) => (
 			<FordelingFellesperiodeLabelRenderer
 				options={options}
-				navnForelder1={navnForelder1}
-				navnForelder2={navnForelder2}
+				navnForelder1={navnForelder1 || intlString(intl, 'Forelder1')}
+				navnForelder2={navnForelder2 || intlString(intl, 'Forelder2')}
 				introRenderer={introRenderer}
 			/>
 		)}

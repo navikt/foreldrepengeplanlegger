@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { Systemtittel } from 'nav-frontend-typografi';
-import IntlTekst from 'app/intl/IntlTekst';
+import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import Fordeling from 'app/components/fordeling/Fordeling';
 import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
 import { Permisjonsregler, Utsettelsesperiode } from 'app/types';
 import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
 import { scrollToElement } from 'app/utils/animationUtils';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 export interface OwnProps {
-	navnForelder1: string;
-	navnForelder2: string;
-	NavnForelder1: string;
-	NavnForelder2: string;
+	navnForelder1?: string;
+	navnForelder2?: string;
 	fellesperiodeukerForelder1: number;
 	fellesperiodeukerForelder2: number;
 	innslag: Tidslinjeinnslag[];
@@ -23,7 +22,7 @@ export interface OwnProps {
 
 type Props = OwnProps;
 
-class Permisjonsplan extends React.Component<Props, {}> {
+class Permisjonsplan extends React.Component<Props & InjectedIntlProps, {}> {
 	componentDidMount() {
 		scrollToElement('permisjonsplan', { offset: -40 });
 	}
@@ -34,11 +33,10 @@ class Permisjonsplan extends React.Component<Props, {}> {
 			fellesperiodeukerForelder2,
 			navnForelder1,
 			navnForelder2,
-			NavnForelder1,
-			NavnForelder2,
 			innslag,
 			onRedigerUtsettelse,
-			onLeggTilUtsettelse
+			onLeggTilUtsettelse,
+			intl
 		} = this.props;
 
 		return (
@@ -55,15 +53,15 @@ class Permisjonsplan extends React.Component<Props, {}> {
 						fedrekvote={permisjonsregler.antallUkerFedrekvote}
 						fellesukerForelder1={fellesperiodeukerForelder1}
 						fellesukerForelder2={fellesperiodeukerForelder2}
-						navnForelder1={NavnForelder1}
-						navnForelder2={NavnForelder2}
+						navnForelder1={navnForelder1 || intlString(intl, 'Forelder1')}
+						navnForelder2={navnForelder2 || intlString(intl, 'Forelder2')}
 					/>
 				</div>
 				<div className="blokk-m">
 					<Tidslinje
 						innslag={innslag}
-						navnForelder1={navnForelder1}
-						navnForelder2={navnForelder2}
+						navnForelder1={navnForelder1 || intlString(intl, 'Forelder1')}
+						navnForelder2={navnForelder2 || intlString(intl, 'Forelder2')}
 						onRedigerUtsettelse={onRedigerUtsettelse}
 					/>
 				</div>
@@ -77,4 +75,4 @@ class Permisjonsplan extends React.Component<Props, {}> {
 	}
 }
 
-export default Permisjonsplan;
+export default injectIntl(Permisjonsplan);

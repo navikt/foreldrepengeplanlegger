@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { Knapp } from 'nav-frontend-knapper';
 import Skjema from './Skjema';
 import {
@@ -24,7 +23,7 @@ import {
 	StonadskontoType,
 	Spraak
 } from 'app/types';
-import IntlTekst, { intlString } from 'app/intl/IntlTekst';
+import IntlTekst from 'app/intl/IntlTekst';
 import { getGyldigTidsromForUtsettelse } from 'app/utils/permisjonUtils';
 import Permisjonsplan from 'app/containers/Permisjonsplan';
 import PlanleggerInfo from 'app/components/content/PlanleggerInfo';
@@ -42,7 +41,8 @@ export interface StateProps {
 interface OwnProps {
 	sprak?: Spraak;
 }
-export type Props = OwnProps & StateProps & DispatchProps & InjectedIntlProps;
+
+export type Props = OwnProps & StateProps & DispatchProps;
 
 export class Main extends React.Component<Props> {
 	render() {
@@ -52,14 +52,8 @@ export class Main extends React.Component<Props> {
 			innslag,
 			visPermisjonsplan,
 			dispatch,
-			sisteRegistrertePermisjonsdag,
-			intl
+			sisteRegistrertePermisjonsdag
 		} = this.props;
-
-		const navnForelder1 = form.navnForelder1 || intlString(intl, 'forelder1');
-		const navnForelder2 = form.navnForelder2 || intlString(intl, 'forelder2');
-		const NavnForelder1 = form.navnForelder1 || intlString(intl, 'Forelder1');
-		const NavnForelder2 = form.navnForelder2 || intlString(intl, 'Forelder2');
 
 		if (form.fellesperiodeukerForelder2 > 0) {
 			const forsteForelder2Periode = innslag.find(
@@ -73,8 +67,8 @@ export class Main extends React.Component<Props> {
 				(forsteForelder2Periode as InnslagPeriodetype).ekstrainfo = {
 					tekst: (
 						<TidslinjeAktivitetskravInfo
-							navnForelder1={navnForelder1}
-							navnForelder2={navnForelder2}
+							navnForelder1={form.navnForelder1}
+							navnForelder2={form.navnForelder2}
 						/>
 					)
 				};
@@ -123,10 +117,8 @@ export class Main extends React.Component<Props> {
 
 				{visPermisjonsplan && (
 					<Permisjonsplan
-						navnForelder1={navnForelder1}
-						navnForelder2={navnForelder2}
-						NavnForelder1={NavnForelder1}
-						NavnForelder2={NavnForelder2}
+						navnForelder1={form.navnForelder1}
+						navnForelder2={form.navnForelder2}
 						permisjonsregler={form.permisjonsregler}
 						fellesperiodeukerForelder1={form.fellesperiodeukerForelder1}
 						fellesperiodeukerForelder2={form.fellesperiodeukerForelder2}
@@ -176,4 +168,4 @@ const mapStateToProps = (state: AppState): StateProps => {
 	};
 };
 
-export default connect(mapStateToProps)(injectIntl(Main));
+export default connect(mapStateToProps)(Main);

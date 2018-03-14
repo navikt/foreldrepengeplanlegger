@@ -1,23 +1,23 @@
 import * as React from 'react';
-import IntlTekst from 'app/intl/IntlTekst';
+import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import EksterneLenker from 'app/eksterneLenker';
 import Lenke from 'nav-frontend-lenker';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 export interface Props {
-	navnForelder1: string;
-	navnForelder2: string;
+	navnForelder1?: string;
+	navnForelder2?: string;
 }
 
-const TidslinjeAktivitetskravInfo: React.StatelessComponent<Props> = ({
-	navnForelder1,
-	navnForelder2
-}) => (
+const TidslinjeAktivitetskravInfo: React.StatelessComponent<
+	Props & InjectedIntlProps
+> = ({ navnForelder1, navnForelder2, intl }) => (
 	<div className="blokkPad-xs">
 		<IntlTekst
 			id="tidslinje.aktivitetskrav"
 			values={{
-				navnForelder1,
-				navnForelder2
+				navnForelder1: navnForelder1 || intlString(intl, 'forelder1'),
+				navnForelder2: navnForelder2 || intlString(intl, 'forelder2')
 			}}
 		/>
 		<br />
@@ -27,4 +27,4 @@ const TidslinjeAktivitetskravInfo: React.StatelessComponent<Props> = ({
 	</div>
 );
 
-export default TidslinjeAktivitetskravInfo;
+export default injectIntl(TidslinjeAktivitetskravInfo);

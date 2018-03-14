@@ -36,7 +36,7 @@
 	"utsettelseskjema.arsak.sporsmal": "Hva skal {navn} gjøre?",
 	"utsettelseskjema.arsak.ferie": "Ta ut ferie",
 	"utsettelseskjema.veiledning.ferie":
-		"Du kan utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
+		"Du kan utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år. Du kan ikke utsette på helligdager.",
 	"utsettelseskjema.arsak.arbeid": "Arbeide heltid",
 	"utsettelseskjema.hvem.sporsmal": "Hvem skal ha opphold i foreldrepengene?",
 	"utsettelseskjema.hvem.sporsmal.ferie": "Hvem skal ta ut ferie?",
@@ -55,9 +55,9 @@
 	"utsettelseskjema.feil.ugyldigAntallFeriedager":
 		"For mange feriedager er registrert",
 	"utsettelseskjema.ferievarsel.ulovlig":
-		"{feriedager} feriedager er registrert for {forelderNavn}. Du kan maksimalt legge inn ti uker og to dager med ferie.",
+		"{ukerOgDager} er registrert for {forelderNavn}. Du kan maksimalt legge inn ti uker og to dager med ferie.",
 	"utsettelseskjema.ferievarsel.kreveroverforing":
-		"Du har lagt inn mer enn fire uker og én dag ({feriedager} dager). For at dette skal være lovlig, må du ha overført ferie fra i fjor eller ferie fra neste år.",
+		"Du har lagt inn {ukerOgDager}. For å ha opphold lengre enn fire uker og én dag må du ha overført ferie fra i fjor eller ta ut ferie fra neste år.",
 
 	"skjema.fordeling.reduser.tooltip": "En uke mindre fellesperiode til {navn}",
 	"skjema.fordeling.sporsmal": "Hvordan vil dere dele fellesperioden?",
@@ -119,5 +119,5 @@
 		"Her finner dere ut hvor mange uker dere kan få foreldrepenger eller hvordan dere kan utsette perioder med foreldrepenger. Den viser ikke hvor mye dere kan få utbetalt.",
 	"veileder.forbehold.utvidetinfo.tittel": "Begrensninger i planleggeren",
 	"veileder.forbehold.utvidetinfo.html":
-		"Foreldrepengeplanleggeren er under utvikling. Dere kan ikke bruke den for å planlegge:<ul><li>kombinasjon av delvis arbeid og foreldrepenger</li><li>opphold i foreldrepengene på grunn av sykdom</li><li>ekstrauker på grunn av flerbarnsfødsel</li><li>foreldrepenger på grunn av adopsjon</li><li>oppstart av foreldrepengene tidligere enn tre uker før termindato</li><li>ulønnet permisjon</li></ul>"
+		"Foreldrepengeplanleggeren er under utvikling. Dere kan ikke bruke den for å planlegge:<ul><li>kombinasjon av delvis arbeid og foreldrepenger</li><li>opphold i foreldrepengene på grunn av sykdom</li><li>ekstrauker på grunn av flerbarnsfødsel</li><li>foreldrepenger på grunn av adopsjon</li><li>oppstart av foreldrepengene tidligere enn tre uker før termindato</li><li>ulønnet permisjon</li><li>Opphold på grunn av ferie på helligdager. Inntil videre må dere trekke fra disse dagene i planen deres.</li></ul>"
 }

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Permisjonsregler } from 'app/types';
 import IntlTekst from 'app/intl/IntlTekst';
 import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { getVarighetString } from 'app/intl/intlUtils';
 
 export interface Props {
 	forelderNavn: string;
@@ -9,10 +11,11 @@ export interface Props {
 	permisjonsregler: Permisjonsregler;
 }
 
-const Ferieinfo: React.StatelessComponent<Props> = ({
+const Ferieinfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
 	feriedager,
 	permisjonsregler,
-	forelderNavn
+	forelderNavn,
+	intl
 }) => {
 	if (feriedager <= permisjonsregler.maksFeriedagerEttÅr) {
 		return (
@@ -21,12 +24,13 @@ const Ferieinfo: React.StatelessComponent<Props> = ({
 			</Veilederinfo>
 		);
 	}
+	const ukerOgDager = getVarighetString(feriedager, intl);
 	if (feriedager > permisjonsregler.maksFeriedagerMedOverføring) {
 		return (
 			<Veilederinfo type="feil">
 				<IntlTekst
 					id="utsettelseskjema.ferievarsel.ulovlig"
-					values={{ feriedager, forelderNavn }}
+					values={{ ukerOgDager, forelderNavn }}
 				/>
 			</Veilederinfo>
 		);
@@ -35,7 +39,7 @@ const Ferieinfo: React.StatelessComponent<Props> = ({
 			<Veilederinfo type="advarsel">
 				<IntlTekst
 					id="utsettelseskjema.ferievarsel.kreveroverforing"
-					values={{ feriedager, forelderNavn }}
+					values={{ ukerOgDager, forelderNavn }}
 				/>
 			</Veilederinfo>
 		);
@@ -43,4 +47,4 @@ const Ferieinfo: React.StatelessComponent<Props> = ({
 	return null;
 };
 
-export default Ferieinfo;
+export default injectIntl(Ferieinfo);

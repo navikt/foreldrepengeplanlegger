@@ -20,12 +20,11 @@ const PlanleggerInfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
 			<UtvidetInformasjon
 				apneLabel={intlString(intl, 'planleggerinfo.apne')}
 				lukkLabel={intlString(intl, 'planleggerinfo.lukk')}>
-				<div className="blokkPad-s">
+				<div className="blokkPad-m">
 					<Element tag="h2">
 						<IntlTekst id="veileder.forbehold.utvidetinfo.tittel" />
 					</Element>
 					<IntlTekst id="veileder.forbehold.utvidetinfo.html" />
-					<hr />
 					<Lenke href={EksterneLenker.nav_foreldrepenger}>
 						Les om foreldrepenger
 					</Lenke>

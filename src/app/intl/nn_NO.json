@@ -87,7 +87,7 @@
 	"skjema.veiledning.sats.alttekst":
 		"Les meir om valet av lengda med foreldrepengar",
 	"skjema.veiledning.sats":
-		"Valet av antall uker gjeld dykk begge. Den totale utbetalinga blir høgare ved å velje 100 prosent.",
+		"Valet av antall veker gjeld dykk begge. Den totale utbetalinga blir høgare ved å velje 100 prosent.",
 	"skjema.fordeling.veiledning":
 		"Av perioden med foreldrepengar må mor ta ut {pakrevdForelder1} veker, og den andre forelderen {pakrevdForelder2} veker. Resten av vekene med foreldrepengar kan de dele. Når {navnForelder2} har fellesperiode er det aktivitetskrav til {navnForelder1}.",
 	"skjema.fordeling.veiledning.lenketekst": "Les meir om aktivitetskravet her.",

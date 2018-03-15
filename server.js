@@ -5,8 +5,10 @@ const path = require('path');
 const mustacheExpress = require('mustache-express');
 const Promise = require('promise');
 const getDecorator = require('./src/build/scripts/decorator');
+const compression = require('compression');
 
 const server = express();
+server.use(compression());
 
 server.set('views', `${__dirname}/dist`);
 server.set('view engine', 'mustache');
@@ -48,8 +50,12 @@ const startServer = (html) => {
 		}
 	);
 
-	server.get('/foreldrepengeplanlegger/internal/isAlive', (req, res) => res.sendStatus(200));
-	server.get('/foreldrepengeplanlegger/internal/isReady', (req, res) => res.sendStatus(200));
+	server.get('/foreldrepengeplanlegger/internal/isAlive', (req, res) =>
+		res.sendStatus(200)
+	);
+	server.get('/foreldrepengeplanlegger/internal/isReady', (req, res) =>
+		res.sendStatus(200)
+	);
 
 	const port = process.env.PORT || 8080;
 	server.listen(port, () => {

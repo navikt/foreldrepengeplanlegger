@@ -1,7 +1,7 @@
 const webpackConfig = require('./webpack.config.global.js');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const SriPlugin = require('webpack-subresource-integrity');
+const SriPlugin = require('webpack-subresource-integrity');
 
 webpackConfig.plugins.push(
 	new HtmlWebpackPlugin({
@@ -25,11 +25,11 @@ webpackConfig.plugins.push(
 		}
 	})
 );
-// webpackConfig.plugins.push(
-// 	new SriPlugin({
-// 		hashFuncNames: ['sha256', 'sha384'],
-// 		enabled: true
-// 	})
-// );
+webpackConfig.plugins.push(
+	new SriPlugin({
+		hashFuncNames: ['sha256', 'sha384'],
+		enabled: true
+	})
+);
 
 module.exports = webpackConfig;

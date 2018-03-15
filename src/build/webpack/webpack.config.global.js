@@ -47,7 +47,14 @@ const webpackConfig = {
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
 					use: [
-						{ loader: 'css-loader' },
+						{
+							loader: 'css-loader',
+							options: {
+								importLoaders: 4,
+								minimize: true,
+								sourceMap: false
+							}
+						},
 						{ loader: 'postcss-loader' },
 						{
 							loader: 'less-loader',

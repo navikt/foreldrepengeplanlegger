@@ -33,7 +33,7 @@
 	"datovalidering.innenforUlovligPeriode'":
 		"{datonavn} er innanfor ein annan periode",
 	"datovalidering.innenforForsteSeksUker":
-		"Du kan fyrst utsetje foreldrepengane seks veker etter fødsel",
+		"Foreldrepengane kan tidlegast utsetjast seks veker etter fødselen.",
 	"planleggerinfo.lukk": "Lukk informasjon",
 	"planleggerinfo.apne": "Les om avgrensinger i planleggjaren",
 	"knapp.vispermisjonsplan": "Vis planen",
@@ -82,8 +82,8 @@
 	"skjema.label.termindato": "Termindato",
 	"skjema.feilmelding.ugyldig_termindato": "Termindato er ikkje gyldig",
 	"skjema.label.sats": "Kor lang periode med foreldrepengar ønskjer de?",
-	"skjema.label.sats80": "{uker} veker med 80 % foreldrepengar",
-	"skjema.label.sats100": "{uker} veker med 100 % foreldrepengar",
+	"skjema.label.sats80": "{uker} veker med 80 prosent foreldrepengar",
+	"skjema.label.sats100": "{uker} veker med 100 prosent foreldrepengar",
 	"skjema.veiledning.sats.alttekst":
 		"Les meir om valet av lengda med foreldrepengar",
 	"skjema.veiledning.sats":
@@ -136,5 +136,5 @@
 		"Her finn de ut kor mange veker de kan få foreldrepengar, og korleis de kan utsetje periodar med foreldrepengar. Han viser ikkje kor mykje de kan få utbetalt.",
 	"veileder.forbehold.utvidetinfo.tittel": "Avgrensingar i planleggjaren",
 	"veileder.forbehold.utvidetinfo.html":
-		"Foreldrepengeplanleggjaren er under utvikling. De kan ikkje bruke han for å planleggje:<ul><li>kombinasjon av delvis arbeid og foreldrepengar</li><li>opphald i foreldrepengane på grunn av sjukdom</li><li>ekstraveker på grunn av fleirbarnsfødsel</li><li>foreldrepengar på grunn av adopsjon</li><li>oppstart av foreldrepengane tidligere enn tre veker før termindato</li><li>ulønt permisjon</li><li>opphald på grunn av ferie på helligdagar. Inntil videre må de trekke frå desse dagane i planen dykkar.</li></ul>"
+		"Foreldrepengeplanleggjaren er under utvikling. De kan ikkje bruke han for å planleggje:<ul><li>kombinasjon av delvis arbeid og foreldrepengar</li><li>opphald i foreldrepengane på grunn av sjukdom</li><li>ekstraveker på grunn av fleirbarnsfødsel</li><li>foreldrepengar på grunn av adopsjon</li><li>oppstart av foreldrepengane tidligere enn tre veker før termindato</li><li>ulønt permisjon</li><li>opphald på grunn av ferie på heilagdagar. Inntil vidare må de trekkje frå desse dagane i planen dykkar.</li></ul>"
 }

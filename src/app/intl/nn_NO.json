@@ -23,8 +23,8 @@
 	"utvidetinfo.lukk": "Lukk",
 	"startdato": "Startdato",
 	"sluttdato": "Sluttdato",
-	"byttSprakTilBokmal": "Endre språk til bokmål",
-	"byttSprakTilNynorsk": "Endre språk til nynorsk",
+	"byttSprakTilBokmal": "Endre målform til bokmål",
+	"byttSprakTilNynorsk": "Endre målform til nynorsk",
 	"datovalidering.ikkeUttaksdag":
 		"{datonavn} kan ikkje vere laurdag eller søndag",
 	"datovalidering.utenforPerioder":

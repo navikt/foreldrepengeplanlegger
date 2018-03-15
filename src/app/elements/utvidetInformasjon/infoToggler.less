@@ -8,11 +8,13 @@
 	color: #0067c5;
 	border-bottom: 1px solid #0067c5;
 	text-align: left;
+	display: block;
 	&:focus {
 		.buttonFocus();
 	}
 	&__content {
 		border-bottom: solid 1px #b7b1a9;
+		display: flex;
 	}
 	&:hover,
 	&:focus,
@@ -23,14 +25,17 @@
 	}
 	&__label  {
 		display: inline-block;
+		flex-basis: 100%;
 	}
 	&__chevron {
 		display: inline-block;
-		margin-left: 0.4em;
+		vertical-align: middle;
+		height: 1rem;
 		position: relative;
-		> * {
-			//  Korrigere plassering av chevron
-			margin-top: -0.1em;
+
+		.nav-frontend-chevron {
+			margin-top: 0.7rem;
+			margin-left: 0.4rem;
 		}
 	}
 }

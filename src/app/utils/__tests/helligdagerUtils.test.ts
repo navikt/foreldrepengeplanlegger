@@ -1,8 +1,5 @@
 /* tslint:disable */
-import {
-	getOffentligeFridager,
-	getOffentligeFridagerIMåned
-} from '../fridagerUtils';
+import { getOffentligeFridager } from '../fridagerUtils';
 
 describe('fridagerUtils', () => {
 	it('henter ut første nyttårsdag', () => {

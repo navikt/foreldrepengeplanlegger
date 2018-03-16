@@ -24,6 +24,7 @@ import SkjemaDekningsgrad from 'app/components/skjema//SkjemaDekningsgrad';
 import SkjemaFordelingFellesperiode from 'app/components/skjema/SkjemaFordelingFellesperiode';
 import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
 import AktivitetskravInfo from 'app/components/content/AktivitetskravInfo';
+import { erFridag } from 'app/utils/fridagerUtils';
 
 export interface StateProps {
 	form: FormState;
@@ -31,6 +32,21 @@ export interface StateProps {
 }
 
 type Props = StateProps & DispatchProps & InjectedIntlProps;
+
+const renderDay = (d: Date) => {
+	const fridag = erFridag(d);
+	if (fridag) {
+		return (
+			<span
+				className="kalender-offentligFridag"
+				aria-label={fridag}
+				title={fridag}>
+				{d.getDate()}
+			</span>
+		);
+	}
+	return d.getDate();
+};
 
 class Skjema extends React.Component<Props> {
 	render() {
@@ -74,6 +90,7 @@ class Skjema extends React.Component<Props> {
 						onChange={(dato) => dispatch(setTermindato(new Date(dato)))}
 						disableWeekends={false}
 						initialMonth={new Date()}
+						renderDay={renderDay}
 						errorMessage={
 							form.termindatoErUgyldig
 								? intlString(intl, 'skjema.feilmelding.ugyldig_termindato')

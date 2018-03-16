@@ -1,5 +1,7 @@
 import { addDays, getISODay } from 'date-fns';
 import { Tidsperiode, Periodetype, Periode } from 'app/types';
+import { Holiday } from 'date-holidays';
+import { getOffentligeFridager } from 'app/utils/fridagerUtils';
 
 export const getUkedag = (dato: Date) => getISODay(dato);
 
@@ -163,4 +165,12 @@ export const trekkUttaksdagerFraDato = (
 		}
 	}
 	return nyDato;
+};
+
+export const getUttaksdagerSomErFridager = (
+	tidsperiode: Tidsperiode
+): Holiday[] => {
+	return getOffentligeFridager(tidsperiode).filter((dag) =>
+		erUttaksdag(dag.date)
+	);
 };

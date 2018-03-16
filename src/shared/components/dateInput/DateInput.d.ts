@@ -18,6 +18,7 @@ export interface DateInputProps {
 	disableWeekends?: boolean;
 	fullscreen?: boolean;
 	initialMonth?: Date;
+	renderDay?: (d: Date) => React.ReactNode;
 	onInputBlur?: (date: string) => void;
 	onChange: (date: string) => void;
 }

@@ -116,6 +116,7 @@ class DayPickerComponent extends Component {
 		}
 		return disabledDays;
 	}
+
 	render() {
 		const { onKeyUp } = this.props;
 		const disabledDays = this.getDisabledDays();
@@ -136,6 +137,7 @@ class DayPickerComponent extends Component {
 					firstDayOfWeek={1}
 					navbarElement={<NavBar />}
 					disabledDays={disabledDays}
+					renderDay={this.props.renderDay}
 					selectedDays={(day) => this.selectedDays(day)}
 					onDayClick={(event) => this.props.onDayClick(event)}
 				/>
@@ -160,6 +162,7 @@ DayPickerComponent.propTypes = {
 		})
 	),
 	initialMonth: PT.instanceOf(Date),
+	renderDay: PT.func,
 	fullscreen: PT.bool
 };
 
@@ -170,7 +173,8 @@ DayPickerComponent.defaultProps = {
 	disableWeekends: false,
 	disabledRanges: [],
 	fullscreen: false,
-	initialMonth: undefined
+	initialMonth: undefined,
+	renderDay: undefined
 };
 
 export default DayPickerComponent;

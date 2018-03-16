@@ -13,14 +13,15 @@ const TidslinjeAktivitetskravInfo: React.StatelessComponent<
 	Props & InjectedIntlProps
 > = ({ navnForelder1, navnForelder2, intl }) => (
 	<div className="blokkPad-xs">
-		<IntlTekst
-			id="tidslinje.aktivitetskrav"
-			values={{
-				navnForelder1: navnForelder1 || intlString(intl, 'forelder1'),
-				navnForelder2: navnForelder2 || intlString(intl, 'forelder2')
-			}}
-		/>
-		<br />
+		<div className="blokkPad-xxs">
+			<IntlTekst
+				id="tidslinje.aktivitetskrav"
+				values={{
+					navnForelder1: navnForelder1 || intlString(intl, 'forelder1'),
+					navnForelder2: navnForelder2 || intlString(intl, 'forelder2')
+				}}
+			/>
+		</div>
 		<Lenke href={EksterneLenker.nav_aktivitetskrav} target="_blank">
 			<IntlTekst id="skjema.fordeling.veiledning.lenketekst" />
 		</Lenke>

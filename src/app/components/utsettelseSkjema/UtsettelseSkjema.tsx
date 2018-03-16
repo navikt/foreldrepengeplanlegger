@@ -30,6 +30,7 @@ import {
 import './utsettelseSkjema.less';
 import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
 import { AppTekster } from 'app/intl/tekstnokler';
+import { renderDag } from 'app/utils/renderUtils';
 
 interface OwnProps {
 	termindato: Date;
@@ -453,6 +454,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 										onInputBlur={(date) => {
 											this.setStartdato(date);
 										}}
+										renderDay={renderDag}
 										selectedDate={startdato}
 										disabledRanges={ugyldigeTidsrom}
 										disableWeekends={true}

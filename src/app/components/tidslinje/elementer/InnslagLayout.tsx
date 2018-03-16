@@ -13,6 +13,7 @@ export interface Props {
 	children: React.ReactNode;
 	tidsperiode?: Tidsperiode;
 	ekstrainfo?: InnslagEkstrainfo;
+	trekkFraFeriedager?: boolean;
 	onRediger?: () => void;
 }
 
@@ -21,6 +22,7 @@ const InnslagLayout: React.StatelessComponent<Props & InjectedIntlProps> = ({
 	ekstrainfo,
 	onRediger,
 	intl,
+	trekkFraFeriedager,
 	children
 }) => (
 	<div className="innslagLayout">
@@ -29,7 +31,12 @@ const InnslagLayout: React.StatelessComponent<Props & InjectedIntlProps> = ({
 			<div className="periodeinnslag__topp__hoyre">
 				{tidsperiode && (
 					<span className="tidslinje__varighet">
-						<Varighet dager={getAntallUttaksdagerITidsperiode(tidsperiode)} />
+						<Varighet
+							dager={getAntallUttaksdagerITidsperiode(
+								tidsperiode,
+								trekkFraFeriedager
+							)}
+						/>
 					</span>
 				)}
 				{onRediger && (

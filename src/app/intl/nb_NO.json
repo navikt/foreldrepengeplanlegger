@@ -101,6 +101,8 @@
 	"tidslinje.periodeinfo.starterpermisjon.detaljert":
 		"{navn} starter sin periode med foreldrepenger: {uker, plural, one {# uke} other {# uker}} totalt oppdelt i {detaljer}",
 	"tidslinje.utsettelse": "{arsak} {navn}",
+	"tidslinje.ferie.fridager":
+		"{antallDager} av dagene i tidsperioden er offentlige fridager som en ikke kan ta ut som ferie",
 	"tidslinje.periodeinfo.fortsettelse.fortsetter":
 		"{navn} fortsetter sin foreldrepenger",
 	"tidslinje.periodeinfo.fortsettelse.avslutter":

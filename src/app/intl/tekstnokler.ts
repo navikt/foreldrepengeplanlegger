@@ -93,7 +93,8 @@ export type Tidslinje =
 	| 'tidslinje.innslag.foreldrepenger'
 	| 'tidslinje.aktivitetskrav'
 	| 'tidslinje.skjuldetaljer'
-	| 'tidslinje.visdetaljer';
+	| 'tidslinje.visdetaljer'
+	| 'tidslinje.ferie.fridager';
 
 export type Stonadkontotyper =
 	| 'stonadskonto.modrekvote'

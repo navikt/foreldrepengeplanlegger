@@ -20,7 +20,8 @@ import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import Ferieinfo from 'app/components/utsettelseSkjema/Ferieinfo';
 import {
 	getAntallUttaksdagerITidsperiode,
-	getForsteUttaksdagForDato
+	getForsteUttaksdagForDato,
+	getUttaksdagerSomErFridager
 } from 'app/utils/uttaksdagerUtils';
 import {
 	getAntallFeriedagerForForelder,
@@ -80,8 +81,6 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		this.setStartdato = this.setStartdato.bind(this);
 		this.setSluttdato = this.setSluttdato.bind(this);
 		this.getAntallFeriedager = this.getAntallFeriedager.bind(this);
-		// this.setValideringsfeil = this.setValideringsfeil.bind(this);
-		// this.clearValideringsfeil = this.clearValideringsfeil.bind(this);
 		this.getFeil = this.getFeil.bind(this);
 		this.validerSkjema = this.validerSkjema.bind(this);
 		this.revaliderSkjema = this.revaliderSkjema.bind(this);
@@ -275,11 +274,14 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			);
 		}
 
+		let fridager = 0;
 		if (this.state.startdato && this.state.sluttdato) {
-			nyeFeriedager = getAntallUttaksdagerITidsperiode({
+			const tidsperiode: Tidsperiode = {
 				startdato: this.state.startdato,
 				sluttdato: this.state.sluttdato
-			});
+			};
+			nyeFeriedager = getAntallUttaksdagerITidsperiode(tidsperiode);
+			fridager = getUttaksdagerSomErFridager(tidsperiode).length;
 		}
 
 		if (this.props.utsettelse) {
@@ -288,7 +290,12 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			);
 		}
 
-		return registrerteFeriedager + nyeFeriedager - feriedagerDenneUtsettelsen;
+		return (
+			registrerteFeriedager +
+			nyeFeriedager -
+			feriedagerDenneUtsettelsen -
+			fridager
+		);
 	}
 
 	getUgyldigeTidsrom(): Range[] | undefined {
@@ -359,6 +366,11 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			!this.skalValidere &&
 			sluttdatoFeil &&
 			(this.state.visValideringsfeil || this.state.sluttdato !== undefined);
+
+		// const fridagerIFerie =
+		// 	arsak && arsak === UtsettelseArsakType.Ferie && startdato && sluttdato
+		// 		? getUttaksdagerSomErFridager({ startdato, sluttdato })
+		// 		: undefined;
 
 		return (
 			<form
@@ -480,6 +492,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 										onChange={(date) => this.setSluttdato(date)}
 										onInputBlur={(date) => this.setSluttdato(date)}
 										selectedDate={sluttdato}
+										renderDay={renderDag}
 										disabledRanges={ugyldigeTidsrom}
 										disableWeekends={true}
 										fullscreen={true}

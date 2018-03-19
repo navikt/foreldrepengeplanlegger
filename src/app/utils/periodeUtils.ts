@@ -5,8 +5,7 @@ import {
 	Utsettelsesperiode,
 	Periodesplitt,
 	Tidsperiode,
-	Periodetype,
-	UtsettelseArsakType
+	Periodetype
 } from 'app/types';
 import {
 	getForsteUttaksdagPaEllerForDato,
@@ -15,8 +14,7 @@ import {
 	getForsteUttaksdagEtterDato,
 	leggUttaksdagerTilDato,
 	getAntallUttaksdagerITidsperiode,
-	utsettDatoUttaksdager,
-	getUttaksdagerSomErFridager
+	utsettDatoUttaksdager
 } from './uttaksdagerUtils';
 
 /**
@@ -130,19 +128,19 @@ export function leggTilUtsettelse(
 		perioder,
 		utsettelse.tidsperiode.startdato
 	);
-	if (utsettelse.arsak === UtsettelseArsakType.Ferie) {
-		// Dersom ferien inneholder helligdager, splitt disse opp
-		// i egne uttaksdager og ferie
-		const antallHelligdager = getUttaksdagerSomErFridager(
-			utsettelse.tidsperiode
-		);
-		if (antallHelligdager.length > 0) {
-			console.log(antallHelligdager);
-		}
-	}
 	if (!periode) {
 		throw 'Ingen periode funnet som passer til utsettelse';
 	}
+	// if (utsettelse.arsak === UtsettelseArsakType.Ferie) {
+	// 	// Dersom ferien inneholder helligdager, splitt disse opp
+	// 	// i egne uttaksdager og ferie
+	// 	const antallHelligdager = getUttaksdagerSomErFridager(
+	// 		utsettelse.tidsperiode
+	// 	);
+	// 	if (antallHelligdager.length > 0) {
+	// 		console.log(antallHelligdager);
+	// 	}
+	// }
 	if (
 		isSameDay(periode.tidsperiode.startdato, utsettelse.tidsperiode.startdato)
 	) {

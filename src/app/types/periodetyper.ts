@@ -26,6 +26,11 @@ export enum UtsettelseArsakType {
 	'Sykdom' = 'sykdom'
 }
 
+export interface Helligdag {
+	dato: Date;
+	navn: string;
+}
+
 interface PeriodeBase {
 	id?: string;
 	type: Periodetype;
@@ -49,6 +54,7 @@ export interface Utsettelsesperiode extends PeriodeBase {
 	type: Periodetype.Utsettelse;
 	arsak: UtsettelseArsakType;
 	forelder: Forelder;
+	helligdager?: Helligdag[];
 }
 
 export type Periode = Stonadsperiode | Utsettelsesperiode;

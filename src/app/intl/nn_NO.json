@@ -69,6 +69,12 @@
 		"Sluttdato kan ikkje vere før startdato",
 	"utsettelseskjema.feil.ugyldigAntallFeriedager":
 		"For mange feriedagar er registrerte",
+	"utsettelseskjema.feil.startdatoErHelligdag":
+		"Du kan ikkje utsetje med ferie på helligdagar",
+	"utsettelseskjema.feil.sluttdatoErHelligdag":
+		"Du kan ikkje utsetje med ferie på helligdagar",
+	"utsettelseskjema.feil.helligdagIPeriode":
+		"Du kan ikkje utsetje med ferie på helligdagar",
 	"utsettelseskjema.ferievarsel.ulovlig":
 		"Du har lagt inn {ukerOgDager}. Du kan ikkje ha opphald på grunn av ferie meir enn ti veker og to dagar.",
 	"utsettelseskjema.ferievarsel.kreveroverforing":

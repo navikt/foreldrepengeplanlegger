@@ -5,6 +5,7 @@ export type Skjemaelement =
 	| 'forelder'
 	| 'startdato'
 	| 'sluttdato'
-	| 'feriedager';
+	| 'feriedager'
+	| 'tidsperiode';
 
 export type Valideringsfeil = Map<Skjemaelement, Feil>;

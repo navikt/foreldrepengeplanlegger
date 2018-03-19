@@ -22,6 +22,7 @@ import { isAfter, isBefore } from 'date-fns';
 
 import { State as SkjemaState, Props as SkjemaProps } from './UtsettelseSkjema';
 import { Valideringsfeil } from 'app/components/utsettelseSkjema/types';
+import { erFridag } from 'app/utils/fridagerUtils';
 
 export function getDefaultState(utsettelse?: Utsettelsesperiode): SkjemaState {
 	return utsettelse
@@ -134,17 +135,38 @@ export function validerUtsettelseskjema(
 			)
 		});
 	}
+	let helligdagFeilErRegistrert = false;
+	if (arsak === UtsettelseArsakType.Ferie && startdato && erFridag(startdato)) {
+		helligdagFeilErRegistrert = true;
+		valideringsfeil.set('startdato', {
+			feilmelding: intlString(
+				intl,
+				'utsettelseskjema.feil.startdatoErHelligdag'
+			)
+		});
+	}
+
+	if (arsak === UtsettelseArsakType.Ferie && sluttdato && erFridag(sluttdato)) {
+		helligdagFeilErRegistrert = true;
+		valideringsfeil.set('sluttdato', {
+			feilmelding: intlString(
+				intl,
+				'utsettelseskjema.feil.sluttdatoErHelligdag'
+			)
+		});
+	}
 	if (
+		!helligdagFeilErRegistrert &&
 		arsak === UtsettelseArsakType.Ferie &&
 		startdato &&
 		sluttdato &&
 		getUttaksdagerSomErFridager({
 			startdato: startdato,
 			sluttdato: sluttdato
-		}).length > 1
+		}).length > 0
 	) {
-		valideringsfeil.set('startdato', {
-			feilmelding: 'Du kan ikke registrere ferie på helligdager'
+		valideringsfeil.set('tidsperiode', {
+			feilmelding: intlString(intl, 'utsettelseskjema.feil.helligdagIPeriode')
 		});
 	}
 	return valideringsfeil;

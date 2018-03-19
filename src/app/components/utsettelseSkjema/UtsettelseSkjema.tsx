@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { FormEvent } from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
+import * as classnames from 'classnames';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Row, Column } from 'nav-frontend-grid';
-import { Feil } from 'nav-frontend-skjema';
+import { Feil, SkjemaGruppe } from 'nav-frontend-skjema';
 import {
 	UtsettelseArsakType,
 	Utsettelsesperiode,
@@ -197,12 +198,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			!this.skalValidere &&
 			sluttdatoFeil &&
 			(this.state.visValideringsfeil || this.state.sluttdato !== undefined);
-
-		// const fridagerIFerie =
-		// 	arsak && arsak === UtsettelseArsakType.Ferie && startdato && sluttdato
-		// 		? getUttaksdagerSomErFridager({ startdato, sluttdato })
-		// 		: undefined;
-
+		const tidsperiodeFeil = this.getSkjemaelementFeil('tidsperiode');
 		return (
 			<form
 				action="#"
@@ -278,59 +274,66 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 					erApen={this.state.arsak !== undefined}
 					harEkspanderbartInnhold={true}>
 					<div className="blokkPad-s">
-						<Row>
-							<Column xs="12" sm="6">
-								<div className="blokkPad-s">
-									<DateInput
-										label={intl.formatMessage({
-											id: 'utsettelseskjema.startdato.sporsmal'
-										})}
-										id="startdato"
-										errorMessage={
-											visStartdatofeil && startdatoFeil
-												? startdatoFeil.feilmelding
-												: undefined
-										}
-										fromDate={tidsrom.startdato}
-										toDate={tidsrom.sluttdato}
-										onChange={(date) => this.setStartdato(date)}
-										onInputBlur={(date) => {
-											this.setStartdato(date);
-										}}
-										renderDay={renderDag}
-										selectedDate={startdato}
-										disabledRanges={ugyldigeTidsrom}
-										disableWeekends={true}
-										fullscreen={true}
-									/>
-								</div>
-							</Column>
-							<Column xs="12" sm="6">
-								<div className="blokkPad-s">
-									<DateInput
-										label={intlString(
-											intl,
-											'utsettelseskjema.sluttdato.sporsmal'
-										)}
-										id="sluttdato"
-										errorMessage={
-											visSluttdatofeil && sluttdatoFeil
-												? sluttdatoFeil.feilmelding
-												: undefined
-										}
-										fromDate={tilTidsrom.startdato}
-										toDate={tilTidsrom.sluttdato}
-										onChange={(date) => this.setSluttdato(date)}
-										onInputBlur={(date) => this.setSluttdato(date)}
-										selectedDate={sluttdato}
-										renderDay={renderDag}
-										disabledRanges={ugyldigeTidsrom}
-										disableWeekends={true}
-										fullscreen={true}
-									/>
-								</div>
-							</Column>
-						</Row>
+						<SkjemaGruppe
+							feil={tidsperiodeFeil}
+							className={classnames('tidsperiodeSkjemagruppe', {
+								'tidsperiodeSkjemagruppe--harFeil':
+									tidsperiodeFeil !== undefined
+							})}>
+							<Row>
+								<Column xs="12" sm="6">
+									<div className="blokkPad-s">
+										<DateInput
+											label={intl.formatMessage({
+												id: 'utsettelseskjema.startdato.sporsmal'
+											})}
+											id="startdato"
+											errorMessage={
+												visStartdatofeil && startdatoFeil
+													? startdatoFeil.feilmelding
+													: undefined
+											}
+											fromDate={tidsrom.startdato}
+											toDate={tidsrom.sluttdato}
+											onChange={(date) => this.setStartdato(date)}
+											onInputBlur={(date) => {
+												this.setStartdato(date);
+											}}
+											renderDay={renderDag}
+											selectedDate={startdato}
+											disabledRanges={ugyldigeTidsrom}
+											disableWeekends={true}
+											fullscreen={true}
+										/>
+									</div>
+								</Column>
+								<Column xs="12" sm="6">
+									<div className="blokkPad-s">
+										<DateInput
+											label={intlString(
+												intl,
+												'utsettelseskjema.sluttdato.sporsmal'
+											)}
+											id="sluttdato"
+											errorMessage={
+												visSluttdatofeil && sluttdatoFeil
+													? sluttdatoFeil.feilmelding
+													: undefined
+											}
+											fromDate={tilTidsrom.startdato}
+											toDate={tilTidsrom.sluttdato}
+											onChange={(date) => this.setSluttdato(date)}
+											onInputBlur={(date) => this.setSluttdato(date)}
+											selectedDate={sluttdato}
+											renderDay={renderDag}
+											disabledRanges={ugyldigeTidsrom}
+											disableWeekends={true}
+											fullscreen={true}
+										/>
+									</div>
+								</Column>
+							</Row>
+						</SkjemaGruppe>
 						{visFerieinfo && (
 							<Ferieinfo
 								feriedager={antallFeriedager}

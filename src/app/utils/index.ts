@@ -23,6 +23,9 @@ export const normaliserDato = (dato: Date): Date =>
 export const nyDato = (datostring?: string): Date =>
 	normaliserDato(datostring ? new Date(datostring) : new Date());
 
+export const erSammeDato = (dato1: Date, dato2: Date) =>
+	normaliserDato(dato1).getTime() === normaliserDato(dato2).getTime();
+
 export const separerTekstArray = (tekster: string[]): string => {
 	const arr = [...tekster];
 	const siste = arr.pop();

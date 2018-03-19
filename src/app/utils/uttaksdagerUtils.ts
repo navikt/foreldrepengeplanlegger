@@ -1,5 +1,7 @@
 import { addDays, getISODay } from 'date-fns';
 import { Tidsperiode, Periodetype, Periode } from 'app/types';
+import { Holiday } from 'date-holidays';
+import { getOffentligeFridager } from 'app/utils/fridagerUtils';
 
 export const getUkedag = (dato: Date) => getISODay(dato);
 
@@ -68,21 +70,26 @@ export const getAntallUttaksdagerIPerioder = (perioder: Periode[]): number => {
  * Summerer antall uttaksdager i angitt tidsperiode
  */
 export const getAntallUttaksdagerITidsperiode = (
-	tidsperiode: Tidsperiode
+	tidsperiode: Tidsperiode,
+	taBortFridager?: boolean
 ): number => {
 	if (tidsperiode.startdato > tidsperiode.sluttdato) {
 		return -1;
 	}
-	let startDato = new Date(tidsperiode.startdato.getTime());
-	let sluttDato = new Date(tidsperiode.sluttdato.getTime());
+	let startdato = new Date(tidsperiode.startdato.getTime());
+	let sluttdato = new Date(tidsperiode.sluttdato.getTime());
 	let antall = 0;
-	while (startDato <= sluttDato) {
-		if (erUttaksdag(startDato)) {
+	let fridager = 0;
+	while (startdato <= sluttdato) {
+		if (erUttaksdag(startdato)) {
 			antall++;
 		}
-		startDato.setDate(startDato.getDate() + 1);
+		startdato.setDate(startdato.getDate() + 1);
 	}
-	return antall;
+	if (taBortFridager) {
+		fridager = getUttaksdagerSomErFridager(tidsperiode).length;
+	}
+	return antall - fridager;
 };
 
 export interface UkerOgDager {
@@ -163,4 +170,12 @@ export const trekkUttaksdagerFraDato = (
 		}
 	}
 	return nyDato;
+};
+
+export const getUttaksdagerSomErFridager = (
+	tidsperiode: Tidsperiode
+): Holiday[] => {
+	return getOffentligeFridager(tidsperiode).filter((dag) =>
+		erUttaksdag(dag.date)
+	);
 };

@@ -67,6 +67,12 @@
 		"Sluttdato kan ikke være før startdato",
 	"utsettelseskjema.feil.ugyldigAntallFeriedager":
 		"For mange feriedager er registrert",
+	"utsettelseskjema.feil.startdatoErHelligdag":
+		"Ferie kan ikke registreres på helligdager",
+	"utsettelseskjema.feil.sluttdatoErHelligdag":
+		"Ferie kan ikke registreres på helligdager",
+	"utsettelseskjema.feil.helligdagIPeriode":
+		"Ferie kan ikke registreres på helligdager",
 	"utsettelseskjema.ferievarsel.ulovlig":
 		"{ukerOgDager} er registrert for {forelderNavn}. Du kan maksimalt legge inn ti uker og to dager med ferie.",
 	"utsettelseskjema.ferievarsel.kreveroverforing":
@@ -101,6 +107,8 @@
 	"tidslinje.periodeinfo.starterpermisjon.detaljert":
 		"{navn} starter sin periode med foreldrepenger: {uker, plural, one {# uke} other {# uker}} totalt oppdelt i {detaljer}",
 	"tidslinje.utsettelse": "{arsak} {navn}",
+	"tidslinje.ferie.fridager":
+		"{antallDager} av dagene i tidsperioden er offentlige fridager som en ikke kan ta ut som ferie",
 	"tidslinje.periodeinfo.fortsettelse.fortsetter":
 		"{navn} fortsetter sin foreldrepenger",
 	"tidslinje.periodeinfo.fortsettelse.avslutter":
@@ -134,5 +142,5 @@
 		"Her finner dere ut hvor mange uker dere kan få foreldrepenger eller hvordan dere kan utsette perioder med foreldrepenger. Den viser ikke hvor mye dere kan få utbetalt.",
 	"veileder.forbehold.utvidetinfo.tittel": "Begrensninger i planleggeren",
 	"veileder.forbehold.utvidetinfo.html":
-		"Foreldrepengeplanleggeren er under utvikling. Dere kan ikke bruke den for å planlegge:<ul><li>kombinasjon av delvis arbeid og foreldrepenger</li><li>opphold i foreldrepengene på grunn av sykdom</li><li>ekstrauker på grunn av flerbarnsfødsel</li><li>foreldrepenger på grunn av adopsjon</li><li>oppstart av foreldrepengene tidligere enn tre uker før termindato</li><li>ulønnet permisjon</li><li>opphold på grunn av ferie på helligdager. Inntil videre må dere trekke fra disse dagene i planen deres.</li></ul>"
+		"Foreldrepengeplanleggeren er under utvikling. Dere kan ikke bruke den for å planlegge:<ul><li>kombinasjon av delvis arbeid og foreldrepenger</li><li>opphold i foreldrepengene på grunn av sykdom</li><li>ekstrauker på grunn av flerbarnsfødsel</li><li>foreldrepenger på grunn av adopsjon</li><li>oppstart av foreldrepengene tidligere enn tre uker før termindato</li><li>ulønnet permisjon</li></ul>"
 }

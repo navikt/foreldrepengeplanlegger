@@ -54,6 +54,9 @@ export type UtsettelsesskjemaTekst =
 	| 'utsettelseskjema.feil.sluttdatoMangler'
 	| 'utsettelseskjema.feil.sluttdatoEtterStartdato'
 	| 'utsettelseskjema.feil.ugyldigAntallFeriedager'
+	| 'utsettelseskjema.feil.startdatoErHelligdag'
+	| 'utsettelseskjema.feil.sluttdatoErHelligdag'
+	| 'utsettelseskjema.feil.helligdagIPeriode'
 	| 'datovalidering.ikkeUttaksdag'
 	| 'datovalidering.utenforPerioder'
 	| 'datovalidering.ugyldigDato'
@@ -93,7 +96,8 @@ export type Tidslinje =
 	| 'tidslinje.innslag.foreldrepenger'
 	| 'tidslinje.aktivitetskrav'
 	| 'tidslinje.skjuldetaljer'
-	| 'tidslinje.visdetaljer';
+	| 'tidslinje.visdetaljer'
+	| 'tidslinje.ferie.fridager';
 
 export type Stonadkontotyper =
 	| 'stonadskonto.modrekvote'

@@ -131,6 +131,16 @@ export function leggTilUtsettelse(
 	if (!periode) {
 		throw 'Ingen periode funnet som passer til utsettelse';
 	}
+	// if (utsettelse.arsak === UtsettelseArsakType.Ferie) {
+	// 	// Dersom ferien inneholder helligdager, splitt disse opp
+	// 	// i egne uttaksdager og ferie
+	// 	const antallHelligdager = getUttaksdagerSomErFridager(
+	// 		utsettelse.tidsperiode
+	// 	);
+	// 	if (antallHelligdager.length > 0) {
+	// 		console.log(antallHelligdager);
+	// 	}
+	// }
 	if (
 		isSameDay(periode.tidsperiode.startdato, utsettelse.tidsperiode.startdato)
 	) {
@@ -138,22 +148,6 @@ export function leggTilUtsettelse(
 	} else {
 		return leggTilUtsettelseIPeriode(perioder, periode, utsettelse);
 	}
-}
-
-/**
- * Flytter en tidsperiode til ny startdato
- * @param tidsperiode
- * @param startdato
- */
-export function flyttTidsperiode(
-	tidsperiode: Tidsperiode,
-	startdato: Date
-): Tidsperiode {
-	const uttaksdager = getAntallUttaksdagerITidsperiode(tidsperiode);
-	return {
-		startdato,
-		sluttdato: leggUttaksdagerTilDato(startdato, uttaksdager - 1)
-	};
 }
 
 /**
@@ -167,7 +161,7 @@ const leggTilUtsettelseEtterPeriode = (
 	periode: Periode,
 	utsettelse: Utsettelsesperiode
 ): Periode[] => {
-	const { perioderFor, perioderEtter } = hentPerioderForOgEtterPeriode(
+	const { perioderFor, perioderEtter } = hentPerioderFørOgEtterPeriode(
 		perioder,
 		periode
 	);
@@ -192,7 +186,7 @@ const leggTilUtsettelseIPeriode = (
 	periode: Periode,
 	utsettelse: Utsettelsesperiode
 ): Periode[] => {
-	const { perioderFor, perioderEtter } = hentPerioderForOgEtterPeriode(
+	const { perioderFor, perioderEtter } = hentPerioderFørOgEtterPeriode(
 		perioder,
 		periode
 	);
@@ -261,6 +255,22 @@ const leggUtsettelseInnIPeriode = (
 };
 
 /**
+ * Flytter en tidsperiode til ny startdato
+ * @param tidsperiode
+ * @param startdato
+ */
+export function flyttTidsperiode(
+	tidsperiode: Tidsperiode,
+	startdato: Date
+): Tidsperiode {
+	const uttaksdager = getAntallUttaksdagerITidsperiode(tidsperiode);
+	return {
+		startdato,
+		sluttdato: leggUttaksdagerTilDato(startdato, uttaksdager - 1)
+	};
+}
+
+/**
  * Forskyver alle perioder ut fra ny startdato
  * @param perioder
  * @param startdato
@@ -288,7 +298,7 @@ const forskyvPerioder = (perioder: Periode[], startdato: Date): Periode[] => {
  * @param perioder
  * @param periode
  */
-const hentPerioderForOgEtterPeriode = (
+const hentPerioderFørOgEtterPeriode = (
 	perioder: Periode[],
 	periode: Periode
 ): Periodesplitt => {

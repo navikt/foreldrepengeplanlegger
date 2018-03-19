@@ -54,7 +54,7 @@ const RadiolisteRadio: React.StatelessComponent<RadiolisteRadioProps> = ({
 		<RadioPanel
 			value={verdi}
 			name={navn}
-			label={tittel}
+			label={<span className="satsValg">{tittel}</span>}
 			checked={valgt}
 			onChange={() => onChange()}
 			inputProps={{ 'data-ref': `${navn}_${verdi}` }}

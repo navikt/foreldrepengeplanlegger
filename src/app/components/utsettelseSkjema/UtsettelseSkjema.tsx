@@ -14,7 +14,7 @@ import {
 } from 'app/types';
 import DateInput, { Range } from 'shared/components/dateInput/DateInput';
 import Radioliste from 'shared/components/radioliste/Radioliste';
-import { validerDato, normaliserDato } from 'app/utils';
+import { validerDato, normaliserDato, erSammeDato } from 'app/utils';
 import { isBefore, isSameDay, isAfter } from 'date-fns';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import Ferieinfo from 'app/components/utsettelseSkjema/Ferieinfo';
@@ -32,6 +32,7 @@ import './utsettelseSkjema.less';
 import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
 import { AppTekster } from 'app/intl/tekstnokler';
 import { renderDag } from 'app/utils/renderUtils';
+import { erFridag } from 'app/utils/fridagerUtils';
 
 interface OwnProps {
 	termindato: Date;
@@ -106,22 +107,6 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			...state
 		};
 	}
-
-	// setValideringsfeil(skjemaelement: Skjemaelement, feil: Feil) {
-	// 	const valideringsfeil = new Map(this.state.valideringsfeil);
-	// 	valideringsfeil.set(skjemaelement, feil);
-	// 	this.setState({
-	// 		valideringsfeil
-	// 	});
-	// }
-
-	// clearValideringsfeil(skjemaelement: Skjemaelement) {
-	// 	const valideringsfeil = new Map(this.state.valideringsfeil);
-	// 	valideringsfeil.delete(skjemaelement);
-	// 	this.setState({
-	// 		valideringsfeil
-	// 	});
-	// }
 
 	getFeil(skjemaelement: Skjemaelement): Feil | undefined {
 		return this.state.valideringsfeil.get(skjemaelement);
@@ -233,6 +218,38 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 				)
 			});
 		}
+		if (
+			this.state.arsak === UtsettelseArsakType.Ferie &&
+			this.state.startdato !== undefined &&
+			erFridag(this.state.startdato)
+		) {
+			valideringsfeil.set('startdato', {
+				feilmelding: 'TODO Ferie kan ikke registreres på en helligdag'
+			});
+		}
+		if (
+			this.state.arsak === UtsettelseArsakType.Ferie &&
+			this.state.sluttdato !== undefined &&
+			erFridag(this.state.sluttdato)
+		) {
+			valideringsfeil.set('sluttdato', {
+				feilmelding: 'TODO Ferie kan ikke registreres på en helligdag'
+			});
+		}
+		if (
+			this.state.arsak === UtsettelseArsakType.Ferie &&
+			this.state.startdato !== undefined &&
+			this.state.sluttdato !== undefined &&
+			erSammeDato(this.state.startdato, this.state.sluttdato)
+		) {
+			const fridag = erFridag(this.state.startdato);
+			if (fridag) {
+				valideringsfeil.set('startdato', {
+					feilmelding: 'TODO Ferie kan ikke registreres på en helligdag'
+				});
+			}
+		}
+
 		this.setState({ valideringsfeil });
 		return valideringsfeil;
 	}

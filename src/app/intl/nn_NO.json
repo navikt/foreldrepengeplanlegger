@@ -70,11 +70,11 @@
 	"utsettelseskjema.feil.ugyldigAntallFeriedager":
 		"For mange feriedagar er registrerte",
 	"utsettelseskjema.feil.startdatoErHelligdag":
-		"Du kan ikkje utsetje med ferie på helligdagar",
+		"Du har lagt inn ferie på ein helligdag. Du må endre datoen.",
 	"utsettelseskjema.feil.sluttdatoErHelligdag":
-		"Du kan ikkje utsetje med ferie på helligdagar",
+		"Du har lagt inn ferie på ein helligdag. Du må endre datoen.",
 	"utsettelseskjema.feil.helligdagIPeriode":
-		"Du kan ikkje utsetje med ferie på helligdagar",
+		"Du har lagt til ein periode med helligdagar. Du må endre perioden.",
 	"utsettelseskjema.ferievarsel.ulovlig":
 		"Du har lagt inn {ukerOgDager}. Du kan ikkje ha opphald på grunn av ferie meir enn ti veker og to dagar.",
 	"utsettelseskjema.ferievarsel.kreveroverforing":

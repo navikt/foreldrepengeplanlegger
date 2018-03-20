@@ -198,7 +198,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 			!this.skalValidere &&
 			sluttdatoFeil &&
 			(this.state.visValideringsfeil || this.state.sluttdato !== undefined);
-		const tidsperiodeFeil = this.getSkjemaelementFeil('tidsperiode');
+		const tidsperiodeFeil = !visStartdatofeil && !visSluttdatofeil && this.getSkjemaelementFeil('tidsperiode');
 		return (
 			<form
 				action="#"

@@ -10,7 +10,7 @@ node {
     def app = "foreldrepengeplanlegger"
     def committer, committerEmail, changelog, pom, releaseVersion, nextVersion // metadata
     def appConfig = "nais.yaml"
-    def dockerRepo = "docker.adeo.no:5000"
+    def dockerRepo = "repo.adeo.no:5443"
     def branch = "master"
     def groupId = "nais"
     def zone = 'sbs'
@@ -45,10 +45,10 @@ node {
 
     stage("Publish artifacts") {
         sh "docker build --build-arg version=${releaseVersion} --build-arg app_name=${app} -t ${dockerRepo}/${app}:${releaseVersion} ."
-        sh "docker push ${dockerRepo}/${app}:${releaseVersion}"
 
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-            sh "curl --fail -v -u ${env.USERNAME}:${env.PASSWORD} --upload-file ${appConfig} https://repo.adeo.no/repository/raw/${groupId}/${app}/${releaseVersion}/nais.yaml"
+         sh "curl --fail -v -u ${env.USERNAME}:${env.PASSWORD} --upload-file ${appConfig} https://repo.adeo.no/repository/raw/${groupId}/${app}/${releaseVersion}/nais.yaml"
+         sh "docker login -u ${env.USERNAME} -p ${env.PASSWORD} ${dockerRepo} && docker push ${dockerRepo}/${app}:${releaseVersion}"
         }
     }
     

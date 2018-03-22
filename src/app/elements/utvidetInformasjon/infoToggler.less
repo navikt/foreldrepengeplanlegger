@@ -5,16 +5,17 @@
 	border: none !important;
 	background: transparent;
 	padding: 0;
-	color: #0067c5;
-	border-bottom: 1px solid #0067c5;
-	text-align: left;
-	display: block;
+	display: inline-block;
 	&:focus {
 		.buttonFocus();
 	}
 	&__content {
+		color: #0067c5;
+		display: inline-block;
+		text-align: left;
 		border-bottom: solid 1px #b7b1a9;
-		display: flex;
+		padding-right: 1.5rem;
+		position: relative;
 	}
 	&:hover,
 	&:focus,
@@ -25,16 +26,13 @@
 	}
 	&__label  {
 		display: inline-block;
-		flex-basis: 100%;
 	}
 	&__chevron {
-		display: inline-block;
-		vertical-align: middle;
-		height: 1rem;
-		position: relative;
-
+		position: absolute;
+		right: 0;
+		top: 0.5rem;
 		.nav-frontend-chevron {
-			margin-top: 0.7rem;
+			margin-top: 0.2rem;
 			margin-left: 0.4rem;
 		}
 	}

@@ -17,7 +17,8 @@ const webpackConfig = {
 			shared: path.resolve(__dirname, './../../shared'),
 			app: path.resolve(__dirname, './../../app')
 		},
-		extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
+		extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+		mainFields: ['browser', 'main', 'module']
 	},
 	module: {
 		rules: [

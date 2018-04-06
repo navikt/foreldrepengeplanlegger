@@ -41,6 +41,11 @@ node {
             sh "npm run test"
             sh "npm run build"
         }
+
+        slackSend([
+            color: 'good',
+            message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${repo}/${app}@master by ${committer} passed  (${changelog})"
+        ])
     }
 
     stage("Publish artifacts") {
@@ -59,31 +64,17 @@ node {
             timeout(time: 15, unit: 'MINUTES') {
                 input id: 'deploy', message: "Check status here:  https://jira.adeo.no/browse/${deploy}"
             }
+            slackSend([
+                color: 'good',
+                message: "${app} version ${releaseVersion} has been deployed to pre-prod."
+            ])
         } catch (Exception e) {
+            slackSend([
+                color: 'danger',
+                message: "Build ${releaseVersion} of ${app} could not be deployed to pre-prod"
+            ])
             throw new Exception("Deploy feilet :( \n Se https://jira.adeo.no/browse/" + deploy + " for detaljer", e)
         }
     }
 
-    stage('Deploy to Prod') {
-        timeout(time: 5, unit: 'MINUTES') {
-            input id: 'prod', message: "Deploy to prod?"
-        }
-
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-            def appPolicies = deployLib.buildAppPolicies(app)
-            sh "echo '${appPolicies}' > app-policies.xml"
-            sh "curl --fail -v -u ${env.USERNAME}:${env.PASSWORD} --upload-file app-policies.xml https://repo.adeo.no/repository/raw/${groupId}/${app}/${releaseVersion}/am/app-policies.xml"
-            sh "curl --fail -v -u ${env.USERNAME}:${env.PASSWORD} --upload-file not-enforced-urls.txt https://repo.adeo.no/repository/raw/${groupId}/${app}/${releaseVersion}/am/not-enforced-urls.txt"
-        }
-
-        callback = "${env.BUILD_URL}input/Deploy/"
-        def deploy = deployLib.deployNaisApp(app, releaseVersion, 'p', zone, namespace, callback, committer, false).key
-        try {
-            timeout(time: 15, unit: 'MINUTES') {
-                input id: 'deploy', message: "Check status here:  https://jira.adeo.no/browse/${deploy}"
-            }
-        } catch (Exception e) {
-            throw new Exception("Deploy feilet :( \n Se https://jira.adeo.no/browse/" + deploy + " for detaljer", e)
-        }
-    }
 }

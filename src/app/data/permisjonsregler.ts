@@ -29,10 +29,15 @@ const reglerFomJuli2018: Permisjonsregler = {
 	maksFeriedagerMedOverføring: 52
 };
 
-export const getPermisjonsregler = (termindato: Date): Permisjonsregler =>
-	reglerTomJuni;
+export const getPermisjonsregler = (termindato: Date): Permisjonsregler => {
+	/** ny logikk skal tre i kraft fom 12. april 2018 */
+	if (isBefore(new Date(), new Date(2018, 3, 12))) {
+		return reglerTomJuni;
+	}
+	return getPermisjonsreglerFom12April(termindato);
+};
 
-export const getPermisjonsreglerKommende = (
+export const getPermisjonsreglerFom12April = (
 	termindato: Date
 ): Permisjonsregler =>
 	isBefore(termindato, new Date(2018, 6, 1))

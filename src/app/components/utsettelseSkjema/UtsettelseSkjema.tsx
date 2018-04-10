@@ -13,7 +13,6 @@ import {
 	Tidsperiode,
 	Permisjonsregler
 } from 'app/types';
-import DateInput from 'shared/components/dateInput/DateInput';
 import Radioliste from 'shared/components/radioliste/Radioliste';
 import { normaliserDato } from 'app/utils';
 import { isBefore, isSameDay } from 'date-fns';
@@ -34,6 +33,7 @@ import {
 	Valideringsfeil,
 	Skjemaelement
 } from 'app/components/utsettelseSkjema/types';
+import { DateInput } from 'app/components/dateInput/DateInput';
 
 interface OwnProps {
 	termindato: Date;
@@ -84,8 +84,8 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		return this.state.valideringsfeil.get(skjemaelement);
 	}
 
-	setStartdato(dato: string) {
-		const startdato = normaliserDato(new Date(dato));
+	setStartdato(dato: Date) {
+		const startdato = normaliserDato(dato);
 		const sluttdato = this.state.sluttdato;
 		this.setState({
 			startdato,
@@ -98,8 +98,8 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 		this.revaliderSkjema();
 	}
 
-	setSluttdato(dato: string) {
-		const sluttdato = normaliserDato(new Date(dato));
+	setSluttdato(dato: Date) {
+		const sluttdato = normaliserDato(dato);
 		this.setState({ sluttdato });
 		this.revaliderSkjema();
 	}
@@ -287,51 +287,55 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								<Column xs="12" sm="6">
 									<div className="blokkPad-s">
 										<DateInput
+											id="startdato"
 											label={intl.formatMessage({
 												id: 'utsettelseskjema.startdato.sporsmal'
 											})}
-											id="startdato"
-											errorMessage={
+											dato={startdato}
+											feil={
 												visStartdatofeil && startdatoFeil
-													? startdatoFeil.feilmelding
+													? startdatoFeil
 													: undefined
 											}
-											fromDate={tidsrom.startdato}
-											toDate={tidsrom.sluttdato}
-											onChange={(date) => this.setStartdato(date)}
-											onInputBlur={(date) => {
-												this.setStartdato(date);
+											onChange={(dato: Date) => this.setStartdato(dato)}
+											avgrensninger={{
+												minDato: tidsrom.startdato,
+												maksDato: tidsrom.sluttdato,
+												helgedagerIkkeTillatt: true,
+												ugyldigeTidsperioder: ugyldigeTidsrom
 											}}
-											renderDay={renderDag}
-											selectedDate={startdato}
-											disabledRanges={ugyldigeTidsrom}
-											disableWeekends={true}
-											fullscreen={true}
+											kalenderplassering="fullskjerm"
+											dayPickerProps={{
+												renderDay: renderDag
+											}}
 										/>
 									</div>
 								</Column>
 								<Column xs="12" sm="6">
 									<div className="blokkPad-s">
 										<DateInput
+											id="sluttdato"
+											dato={sluttdato}
 											label={intlString(
 												intl,
 												'utsettelseskjema.sluttdato.sporsmal'
 											)}
-											id="sluttdato"
-											errorMessage={
+											feil={
 												visSluttdatofeil && sluttdatoFeil
-													? sluttdatoFeil.feilmelding
+													? sluttdatoFeil
 													: undefined
 											}
-											fromDate={tilTidsrom.startdato}
-											toDate={tilTidsrom.sluttdato}
+											avgrensninger={{
+												minDato: tilTidsrom.startdato,
+												maksDato: tilTidsrom.sluttdato,
+												ugyldigeTidsperioder: ugyldigeTidsrom,
+												helgedagerIkkeTillatt: true
+											}}
 											onChange={(date) => this.setSluttdato(date)}
-											onInputBlur={(date) => this.setSluttdato(date)}
-											selectedDate={sluttdato}
-											renderDay={renderDag}
-											disabledRanges={ugyldigeTidsrom}
-											disableWeekends={true}
-											fullscreen={true}
+											kalenderplassering="fullskjerm"
+											dayPickerProps={{
+												renderDay: renderDag
+											}}
 										/>
 									</div>
 								</Column>

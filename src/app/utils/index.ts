@@ -1,5 +1,4 @@
 import { Tidsperiode } from 'app/types';
-import { Range } from 'shared/components/dateInput/DateInput';
 import { isWithinRange } from 'date-fns';
 import {
 	erUttaksdag,
@@ -35,7 +34,7 @@ export const separerTekstArray = (tekster: string[]): string => {
 export const validerDato = (
 	dato: Date,
 	tidsrom: Tidsperiode,
-	ugyldigePerioder: Range[] = [],
+	ugyldigePerioder: Tidsperiode[] = [],
 	termindato?: Date
 ): DatoValideringsfeil => {
 	if (!dato) {
@@ -65,7 +64,7 @@ export const validerDato = (
 	}
 	let gyldig: DatoValideringsfeil = undefined;
 	ugyldigePerioder.forEach((p) => {
-		if (gyldig && isWithinRange(dato, p.from, p.to)) {
+		if (gyldig && isWithinRange(dato, p.startdato, p.sluttdato)) {
 			gyldig = 'innenforUlovligPeriode';
 		}
 	});

@@ -14,7 +14,7 @@ const SkjemaInputElement: React.StatelessComponent<Props> = (props: Props) => {
 	const { label, id, feil, children } = props;
 	const inputId = id || guid();
 	return (
-		<div>
+		<div className="skjemaelement">
 			<label className="skjemaelement__label" htmlFor={inputId}>
 				{label}
 			</label>

@@ -5,7 +5,6 @@ import { addYears } from 'date-fns';
 
 import { Row, Column } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
-import DateInput from 'shared/components/dateInput/DateInput';
 import {
 	DispatchProps,
 	AppState,
@@ -24,6 +23,7 @@ import SkjemaDekningsgrad from 'app/components/skjema//SkjemaDekningsgrad';
 import SkjemaFordelingFellesperiode from 'app/components/skjema/SkjemaFordelingFellesperiode';
 import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
 import AktivitetskravInfo from 'app/components/content/AktivitetskravInfo';
+import { DateInput } from 'app/components/dateInput/DateInput';
 import { renderDag } from 'app/utils/renderUtils';
 
 export interface StateProps {
@@ -68,19 +68,26 @@ class Skjema extends React.Component<Props> {
 				<div className="blokk-m">
 					<DateInput
 						id="input-termindato"
-						fromDate={addYears(new Date(), -1)}
-						toDate={addYears(new Date(), 2)}
-						selectedDate={form.termindato}
+						dato={form.termindato}
 						label={intlString(intl, 'skjema.label.termindato')}
-						onChange={(dato) => dispatch(setTermindato(new Date(dato)))}
-						disableWeekends={false}
-						initialMonth={new Date()}
-						renderDay={renderDag}
-						errorMessage={
+						onChange={(dato: Date) => dispatch(setTermindato(dato))}
+						avgrensninger={{
+							minDato: addYears(new Date(), -1),
+							maksDato: addYears(new Date(), 2)
+						}}
+						feil={
 							form.termindatoErUgyldig
-								? intlString(intl, 'skjema.feilmelding.ugyldig_termindato')
+								? {
+										feilmelding: intlString(
+											intl,
+											'skjema.feilmelding.ugyldig_termindato'
+										)
+								  }
 								: undefined
 						}
+						dayPickerProps={{
+							renderDay: renderDag
+						}}
 					/>
 				</div>
 				<EkspanderbartInnhold

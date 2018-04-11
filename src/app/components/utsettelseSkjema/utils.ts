@@ -5,7 +5,6 @@ import {
 	Utsettelsesperiode,
 	Permisjonsregler
 } from 'app/types';
-import { Range } from 'shared/components/dateInput/DateInput';
 import { validerDato } from 'app/utils';
 import { intlString } from 'app/intl/IntlTekst';
 import { AppTekster } from 'app/intl/tekstnokler';
@@ -181,14 +180,14 @@ export function validerUtsettelseskjema(
 export function getUgyldigeTidsrom(
 	registrerteUtsettelser: Utsettelsesperiode[],
 	utsettelse?: Utsettelsesperiode
-): Range[] | undefined {
+): Tidsperiode[] | undefined {
 	const ugyldigeTidsrom =
 		registrerteUtsettelser &&
 		registrerteUtsettelser
 			.filter((u) => !utsettelse || utsettelse.id !== u.id)
 			.map((u) => ({
-				from: u.tidsperiode.startdato,
-				to: u.tidsperiode.sluttdato
+				startdato: u.tidsperiode.startdato,
+				sluttdato: u.tidsperiode.sluttdato
 			}));
 	return ugyldigeTidsrom;
 }

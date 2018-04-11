@@ -5,7 +5,7 @@ def deployLib = new deploy()
 
 node {
     def app = "foreldrepengeplanlegger"
-    def version
+    def releaseVersion
     def zone = 'sbs'
     def namespace = 'default'
     def groupId = 'nais'
@@ -18,21 +18,21 @@ node {
             sh "curl --fail -v -u ${env.USERNAME}:${env.PASSWORD} --upload-file not-enforced-urls.txt https://repo.adeo.no/repository/raw/${groupId}/${app}/${releaseVersion}/am/not-enforced-urls.txt"
         }
 
-        version = "${env.version}"
+        releaseVersion = "${env.version}"
         callback = "${env.BUILD_URL}input/Deploy/"
-        def deploy = deployLib.deployNaisApp(app, version, 'p', zone, namespace, callback, "Jenkins").key
+        def deploy = deployLib.deployNaisApp(app, releaseVersion, 'p', zone, namespace, callback, "Jenkins").key
         try {
             timeout(time: 15, unit: 'MINUTES') {
                 input id: 'deploy', message: "Check status here:  https://jira.adeo.no/browse/${deploy}"
             }
             slackSend([
                 color: 'good',
-                message: "${app} version ${version} has been deployed to production."
+                message: "${app} version ${releaseVersion} has been deployed to production."
             ])
         } catch (Exception ex) {
             slackSend([
                 color: 'danger',
-                message: "Unable to deploy ${app} version ${version} to production. See https://jira.adeo.no/browse/${deploy} for details"
+                message: "Unable to deploy ${app} version ${releaseVersion} to production. See https://jira.adeo.no/browse/${deploy} for details"
             ])
             throw new Exception("Deploy failed :( \n See https://jira.adeo.no/browse/" + deploy + " for details", ex)
         }

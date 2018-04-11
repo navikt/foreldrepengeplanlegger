@@ -9,7 +9,7 @@
 	"devDependencies": {
 		"@types/classnames": "^2.2.3",
 		"@types/jest": "^22.1.1",
-		"@types/react": "16.3.6",
+		"@types/react": "^16.3.8",
 		"@types/react-collapse": "^4.0.1",
 		"@types/react-dom": "^16.0.3",
 		"@types/react-intl": "^2.3.5",
@@ -76,8 +76,10 @@
 		"build-prod": "node src/build/scripts/production-build.js",
 		"build": "npm-run-all norskeFridager build-prod",
 		"clean-build": "rimraf ./dist",
-		"docker-build": "npm run clean-build && npm run build && docker build . -t p2-selvbetjening-frontend",
-		"docker-start": "docker run --name p2-selvbetjening-frontend -p 8080:8080 -d p2-selvbetjening-frontend",
+		"docker-build":
+			"npm run clean-build && npm run build && docker build . -t p2-selvbetjening-frontend",
+		"docker-start":
+			"docker run --name p2-selvbetjening-frontend -p 8080:8080 -d p2-selvbetjening-frontend",
 		"docker-kill": "npm run docker-stop && npm run docker-rm",
 		"docker-rm": "docker rm p2-selvbetjening-frontend",
 		"docker-stop": "docker stop p2-selvbetjening-frontend",
@@ -103,7 +105,7 @@
 		"history": "^4.7.2",
 		"lodash.throttle": "^4.1.1",
 		"moment": "^2.20.1",
-		"nav-datovelger": "1.1.0",
+		"nav-datovelger": "1.1.1",
 		"nav-frontend-alertstriper": "1.0.1",
 		"nav-frontend-alertstriper-style": "^0.2.22",
 		"nav-frontend-chevron": "^1.0.1",
@@ -153,12 +155,8 @@
 	"pre-commit": ["precommit"],
 	"postCSS": {},
 	"jest": {
-		"collectCoverageFrom": [
-			"src/**/*.{js,jsx,ts,tsx}"
-		],
-		"setupFiles": [
-			"<rootDir>/config/polyfills.js"
-		],
+		"collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}"],
+		"setupFiles": ["<rootDir>/config/polyfills.js"],
 		"testMatch": [
 			"<rootDir>/src/**/__tests__/**/*.ts?(x)",
 			"<rootDir>/src/**/?(*.)(spec|test).ts?(x)"
@@ -168,7 +166,8 @@
 		"transform": {
 			"^.+\\.tsx?$": "<rootDir>/config/jest/typescriptTransform.js",
 			"^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-			"^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+			"^(?!.*\\.(js|jsx|mjs|css|json)$)":
+				"<rootDir>/config/jest/fileTransform.js"
 		},
 		"transformIgnorePatterns": [
 			"[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$"

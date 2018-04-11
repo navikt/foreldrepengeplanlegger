@@ -245,7 +245,11 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 									id="utsettelseskjema.arsak.sporsmal"
 									values={{
 										navn:
-											forelder === 'forelder1' ? navnForelder1 : navnForelder2
+											forelder === 'forelder1'
+												? navnForelder1 ||
+												  intlString(intl, 'forelder1').toLowerCase()
+												: navnForelder2 ||
+												  intlString(intl, 'forelder2').toLowerCase()
 									}}
 								/>
 							}

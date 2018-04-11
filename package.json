@@ -29,6 +29,7 @@
 		"compression": "^1.7.2",
 		"cross-env": "^5.1.1",
 		"css-loader": "^0.28.7",
+		"cypress": "^2.1.0",
 		"enzyme": "^3.2.0",
 		"enzyme-adapter-react-16": "^1.1.0",
 		"eslint": "^4.11.0",
@@ -91,7 +92,11 @@
 		"test:dev": "node ./src/build/scripts/test.js --env=jsdom --watch",
 		"lint": "eslint src/**",
 		"tslint-check": "tslint-config-prettier-check ./tslint.json",
-		"precommit": "pretty-quick --staged"
+		"precommit": "pretty-quick --staged",
+		"cypress":
+			"export PORT=8081 && npm run start-express & wait-on -v -t 15000 http://localhost:8081 && cypress run",
+		"cy":
+			"cypress open & npm run build && export PORT=8081 && npm run start-express"
 	},
 	"dependencies": {
 		"axios": "^0.17.1",

@@ -8,6 +8,7 @@ node {
     def version
     def zone = 'sbs'
     def namespace = 'default'
+    def groupId = 'nais'
 
     stage('Deploy to Prod') {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {

@@ -25,11 +25,11 @@ webpackConfig.plugins.push(
 		}
 	})
 );
-webpackConfig.plugins.push(
-	new SriPlugin({
-		hashFuncNames: ['sha256', 'sha384'],
-		enabled: true
-	})
-);
+// webpackConfig.plugins.push(
+// 	new SriPlugin({
+// 		hashFuncNames: ['sha256', 'sha384'],
+// 		enabled: true
+// 	})
+// );
 
 module.exports = webpackConfig;

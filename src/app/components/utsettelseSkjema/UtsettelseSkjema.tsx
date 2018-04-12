@@ -378,6 +378,7 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 								<Knapp
 									type="standard"
 									htmlType="button"
+									data-ref="fjern-knapp"
 									onClick={() => this.props.onFjern(utsettelse)}
 									className="m-fullBredde">
 									<IntlTekst id="utsettelseskjema.knapp.fjern" />

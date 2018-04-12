@@ -94,7 +94,7 @@
 		"tslint-check": "tslint-config-prettier-check ./tslint.json",
 		"precommit": "pretty-quick --staged",
 		"cypress":
-			"export PORT=8081 && npm run start-express & wait-on -v -t 15000 http://localhost:8081 && cypress run",
+			"export PORT=8081 && npm run start-express & wait-on -v -t 15000 http://localhost:8081 && echo $(npm config get prefix)/bin/cypress run",
 		"cy":
 			"cypress open & npm run build && export PORT=8081 && npm run start-express"
 	},

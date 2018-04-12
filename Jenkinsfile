@@ -35,7 +35,7 @@ node {
     }
 
     stage("Build/Test") {
-              withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088', 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=localhost,127.0.0.1', 'NODE_TLS_REJECT_UNAUTHORIZED=0', 'PORT=8081', 'CYPRESS_SKIP_BINARY_INSTALL=1']) 
+        withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088', 'HTTP_PROXY=http://webproxy-utvikler.nav.no:8088', 'NO_PROXY=localhost,127.0.0.1', 'NODE_TLS_REJECT_UNAUTHORIZED=0', 'PORT=8081', 'CYPRESS_SKIP_BINARY_INSTALL=1']) {
             sh "npm -v"
             sh "npm install"
             sh "npm run test"

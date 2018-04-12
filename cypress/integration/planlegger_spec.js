@@ -14,6 +14,8 @@ describe('Foreldrepengeplanlegger', () => {
 		cy.server();
 		cy.visit('/foreldrepengeplanlegger');
 		cy.contains('Foreldrepengeplanlegger');
+		cy.get('.utvidetInformasjon__toggler .infoToggler').click();
+		cy.get('*[data-ref="veileder.forbehold.utvidetinfo.html"]');
 	});
 
 	describe('Skjema', () => {
@@ -79,6 +81,20 @@ describe('Foreldrepengeplanlegger', () => {
 		it('legger til og finner oppholdet i tidslinjen', () => {
 			cy.get('.utsettelseSkjema button[type="submit"]').click();
 			cy.get('#permisjonsplan').contains('Arbeid Mor');
+		});
+		it('lar bruker endre opphold', () => {
+			cy.get('#permisjonsplan .redigerUtsettelseKnapp').click();
+			cy.get('input[data-ref="utsettelse_ferie"]').click();
+			cy.get('.utsettelseSkjema button[type="submit"]').click();
+			cy.get('#permisjonsplan').contains('Ferie Mor');
+		});
+		it('lar bruker slette opphold', () => {
+			cy.get('#permisjonsplan .redigerUtsettelseKnapp').click();
+			cy.get('.utsettelseSkjema button[data-ref="fjern-knapp"]').click();
+			cy
+				.get('#permisjonsplan')
+				.contains('Ferie Mor')
+				.should('not.exist');
 		});
 	});
 });

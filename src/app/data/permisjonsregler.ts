@@ -22,8 +22,8 @@ const reglerFomJuli2018: Permisjonsregler = {
 	antallUkerFellesperiode80: 28,
 	antallUkerForelder1FørFødsel: 3,
 	antallUkerForelder1EtterFødsel: 6,
-	antallUkerFedrekvote: 14,
-	antallUkerMødrekvote: 14,
+	antallUkerFedrekvote: 15,
+	antallUkerMødrekvote: 15,
 	maksPermisjonslengdeIÅr: 3,
 	maksFeriedagerEttÅr: 21,
 	maksFeriedagerMedOverføring: 52

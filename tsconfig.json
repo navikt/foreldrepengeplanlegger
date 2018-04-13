@@ -18,10 +18,19 @@
 		"noUnusedLocals": true,
 		"baseUrl": "./src",
 		"typeRoots": ["./node_modules/@types", "./src/@types"],
+		"skipLibCheck": true,
 		"paths": {
 			"shared/*": ["./shared/*"],
 			"app/*": ["./app/*"]
 		}
 	},
-	"exclude": ["node_modules", "build", "scripts", "config", "jest", "src/build", "config"]
+	"exclude": [
+		"node_modules",
+		"build",
+		"scripts",
+		"config",
+		"jest",
+		"src/build",
+		"config"
+	]
 }

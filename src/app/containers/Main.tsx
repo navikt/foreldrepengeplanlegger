@@ -106,9 +106,7 @@ export class Main extends React.Component<Props> {
 						this.props.form.dekningsgrad &&
 						this.props.form.termindato && (
 							<div className="blokk-m no-print m-textCenter">
-								<Knapp
-									type="standard"
-									onClick={() => dispatch(visTidslinje(true))}>
+								<Knapp onClick={() => dispatch(visTidslinje(true))}>
 									<IntlTekst id="knapp.vispermisjonsplan" />
 								</Knapp>
 							</div>

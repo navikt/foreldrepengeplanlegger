@@ -376,7 +376,6 @@ class UtsettelseSkjema extends React.Component<Props, State> {
 						{utsettelse && (
 							<Column xs="12" sm="6">
 								<Knapp
-									type="standard"
 									htmlType="button"
 									data-ref="fjern-knapp"
 									onClick={() => this.props.onFjern(utsettelse)}

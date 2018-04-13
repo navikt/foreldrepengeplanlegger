@@ -32,9 +32,9 @@ const reglerFomJuli2018: Permisjonsregler = {
 export const getPermisjonsregler = (termindato: Date): Permisjonsregler => {
 	/** ny logikk skal tre i kraft fom 12. april 2018 */
 	// if (isBefore(new Date(), new Date(2018, 3, 13))) {
-	return reglerTomJuni;
+	// return reglerTomJuni;
 	// }
-	// return getPermisjonsreglerFom13April(termindato);
+	return getPermisjonsreglerFom13April(termindato);
 };
 
 export const getPermisjonsreglerFom13April = (

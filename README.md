@@ -1,12 +1,28 @@
-### Permisjonsplanlegger
+# Permisjonsplanlegger
 
-1.  Run `yarn install`
-2.  Run `yarn start` for development environment with watching, runs on webpack-dev-server
-3.  ... Or run `yarn build` to build the app residing in `src/app` to the `/dist`-folder,
-    using the config in `/src/config/webpack.production.js`
+Kildekoden til upålogget frontend-app for permisjonsplanleggeren på nav.no.
 
-To run cypress tests:
+# Komme i gang
 
-1.  Run `npm install`.
-2.  Wait for `Build success` in your terminal.
-3.  Click `Run all tests` in the Cypress popup.
+For å kjøre opp app-en i dev:
+
+1.  `yarn install`
+2.  `yarn start`
+
+For å kjøre cypress-tester:
+
+1.  `npm install`.
+2.  Vent på `Build success` i terminalen.
+3.  Klikk på `Run all tests` i Cypress-popupen.
+
+# Henvendelser
+
+Spørsmål knyttet til koden eller prosjektet kan rettes mot nav.team.bris@nav.no.
+
+## For NAV-ansatte
+
+Interne henvendelser kan sendes via Slack i kanalen #bris.
+
+### Icon License
+
+This project uses [Streamline Icons](http://www.streamlineicons.com/). If you use these in your project please adhere to the [Streamline Icons license agreement](http://www.streamlineicons.com/license.html).

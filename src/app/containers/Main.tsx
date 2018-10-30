@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Knapp } from 'nav-frontend-knapper';
+import { VenstreChevron } from 'nav-frontend-chevron';
+import Lenke from 'nav-frontend-lenker';
 import Skjema from './Skjema';
 import {
 	AppState,
@@ -29,6 +31,7 @@ import Permisjonsplan from 'app/containers/Permisjonsplan';
 import PlanleggerInfo from 'app/components/content/PlanleggerInfo';
 import TidslinjeAktivitetskravInfo from 'app/components/content/TidslinjeAktivitetskravInfo';
 import { getSisteRegistrertePermisjonsdag } from 'app/selectors/periodeSelector';
+import EksterneLenker from 'app/eksterneLenker';
 
 export interface StateProps {
 	form: FormState;
@@ -87,6 +90,12 @@ export class Main extends React.Component<Props> {
 		return (
 			<div>
 				<section className="introtekst">
+					<div className="breadcrumbs">
+						<VenstreChevron />
+						<Lenke href={EksterneLenker.nav_foreldrepenger}>
+							<IntlTekst id="tilbakeknapp" />
+						</Lenke>
+					</div>
 					<h1 className="m-textCenter applikasjonstittel blokk-s">
 						<IntlTekst id="applikasjonstittel" />
 					</h1>

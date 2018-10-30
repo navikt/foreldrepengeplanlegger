@@ -25,8 +25,8 @@ const PlanleggerInfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
 						<IntlTekst id="veileder.forbehold.utvidetinfo.tittel" />
 					</Element>
 					<IntlTekst id="veileder.forbehold.utvidetinfo.html" />
-					<Lenke href={EksterneLenker.nav_foreldrepenger}>
-						Les om foreldrepenger
+					<Lenke href={EksterneLenker.nav_foreldrepenger_les_mer}>
+						<IntlTekst id="lesOmForeldrepenger" />
 					</Lenke>
 				</div>
 			</UtvidetInformasjon>

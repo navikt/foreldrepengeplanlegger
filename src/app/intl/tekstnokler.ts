@@ -1,7 +1,9 @@
 import { StonadskontoType } from 'app/types';
 
 export type GenerellTekst =
+	| 'tilbakeknapp'
 	| 'applikasjonstittel'
+	| 'lesOmForeldrepenger'
 	| 'forelder1'
 	| 'forelder2'
 	| 'Forelder1'

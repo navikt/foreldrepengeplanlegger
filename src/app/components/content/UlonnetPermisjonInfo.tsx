@@ -20,7 +20,7 @@ const UlonnetPermisjonInfo: React.StatelessComponent<
 			</p>
 			<p>
 				<IntlTekst id="veileder.ulonnetpermisjon.tekst2" />{' '}
-				<Lenke href={EksterneLenker.nav_foreldrepenger} target="_blank">
+				<Lenke href={EksterneLenker.nav_foreldrepenger_les_mer} target="_blank">
 					<IntlTekst id="veileder.ulonnetpermisjon.navlenketekst" />
 				</Lenke>
 			</p>

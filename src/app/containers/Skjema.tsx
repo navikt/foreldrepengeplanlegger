@@ -18,25 +18,34 @@ import {
 	setDekningsgrad,
 	settAntallDagerMor
 } from 'app/redux/actions';
-import { intlString } from 'app/intl/IntlTekst';
+import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import SkjemaDekningsgrad from 'app/components/skjema//SkjemaDekningsgrad';
 import SkjemaFordelingFellesperiode from 'app/components/skjema/SkjemaFordelingFellesperiode';
 import EkspanderbartInnhold from 'shared/components/ekspanderbartInnhold/EkspanderbartInnhold';
 import AktivitetskravInfo from 'app/components/content/AktivitetskravInfo';
 import { DateInput } from 'app/components/dateInput/DateInput';
 import { renderDag } from 'app/utils/renderUtils';
+import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
+import { erTerminFør2019 } from 'app/data/permisjonsregler';
 
 export interface StateProps {
 	form: FormState;
 	utsettelse: UtsettelseState;
 	visFordelingFellesperiode: boolean;
+	visInformasjonForNyeRegler: boolean;
 }
 
 type Props = StateProps & DispatchProps & InjectedIntlProps;
 
 class Skjema extends React.Component<Props> {
 	render() {
-		const { dispatch, intl, form, visFordelingFellesperiode } = this.props;
+		const {
+			dispatch,
+			intl,
+			form,
+			visFordelingFellesperiode,
+			visInformasjonForNyeRegler
+		} = this.props;
 
 		return (
 			<div className="planlegger-skjema">
@@ -105,6 +114,16 @@ class Skjema extends React.Component<Props> {
 					</div>
 				</EkspanderbartInnhold>
 
+				{visInformasjonForNyeRegler && (
+					<div className="blokk-m">
+						<Veilederinfo>
+							<p>
+								<IntlTekst id="veileder.nyeRegler" />
+							</p>
+						</Veilederinfo>
+					</div>
+				)}
+
 				{visFordelingFellesperiode && (
 					<EkspanderbartInnhold
 						animert={false}
@@ -137,7 +156,11 @@ const mapStateToProps = (state: AppState): StateProps => {
 	return {
 		form: state.form,
 		utsettelse: state.utsettelse,
-		visFordelingFellesperiode: state.form.dekningsgrad !== undefined
+		visFordelingFellesperiode: state.form.dekningsgrad !== undefined,
+		visInformasjonForNyeRegler:
+			state.form.dekningsgrad === '80%' &&
+			state.form.termindato !== undefined &&
+			!erTerminFør2019(state.form.termindato)
 	};
 };
 

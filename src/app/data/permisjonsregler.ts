@@ -67,9 +67,11 @@ const reglerFomJanuar2019: Permisjonsregler = {
 	}
 };
 
+export const erTerminFør2019 = (termindato: Date): boolean =>
+	isBefore(termindato, new Date(2019, 0, 1));
+
 export const getPermisjonsregler = (termindato: Date): Permisjonsregler => {
-	const terminErFør2019 = isBefore(termindato, new Date(2019, 0, 1));
-	return terminErFør2019
+	return erTerminFør2019(termindato)
 		? getPermisjonsreglerFom13April(termindato)
 		: reglerFomJanuar2019;
 };

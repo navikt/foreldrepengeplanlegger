@@ -29,13 +29,14 @@ import { renderDag } from 'app/utils/renderUtils';
 export interface StateProps {
 	form: FormState;
 	utsettelse: UtsettelseState;
+	visFordelingFellesperiode: boolean;
 }
 
 type Props = StateProps & DispatchProps & InjectedIntlProps;
 
 class Skjema extends React.Component<Props> {
 	render() {
-		const { dispatch, intl, form } = this.props;
+		const { dispatch, intl, form, visFordelingFellesperiode } = this.props;
 
 		return (
 			<div className="planlegger-skjema">
@@ -96,8 +97,6 @@ class Skjema extends React.Component<Props> {
 					<div className="blokk-m">
 						<SkjemaDekningsgrad
 							dekningsgrad={form.dekningsgrad}
-							antallUkerTotalt80={form.permisjonsregler.antallUkerTotalt80}
-							antallUkerTotalt100={form.permisjonsregler.antallUkerTotalt100}
 							permisjonsregler={form.permisjonsregler}
 							onChange={(dekningsgrad) =>
 								dispatch(setDekningsgrad(dekningsgrad))
@@ -106,26 +105,29 @@ class Skjema extends React.Component<Props> {
 					</div>
 				</EkspanderbartInnhold>
 
-				<EkspanderbartInnhold
-					animert={false}
-					erApen={form.dekningsgrad && form.termindato !== undefined}>
-					<div className="blokk-s">
-						<SkjemaFordelingFellesperiode
-							navnForelder1={form.navnForelder1}
-							navnForelder2={form.navnForelder2}
-							ukerFellesperiode={form.ukerFellesperiode}
-							ukerForelder1={form.fellesperiodeukerForelder1}
-							onChange={(uker) => dispatch(settAntallDagerMor(uker))}
-							introRenderer={() => (
-								<AktivitetskravInfo
-									permisjonsregler={form.permisjonsregler}
-									navnForelder1={form.navnForelder1}
-									navnForelder2={form.navnForelder2}
-								/>
-							)}
-						/>
-					</div>
-				</EkspanderbartInnhold>
+				{visFordelingFellesperiode && (
+					<EkspanderbartInnhold
+						animert={false}
+						erApen={form.dekningsgrad && form.termindato !== undefined}>
+						<div className="blokk-s">
+							<SkjemaFordelingFellesperiode
+								navnForelder1={form.navnForelder1}
+								navnForelder2={form.navnForelder2}
+								ukerFellesperiode={form.ukerFellesperiode}
+								ukerForelder1={form.fellesperiodeukerForelder1}
+								onChange={(uker) => dispatch(settAntallDagerMor(uker))}
+								introRenderer={() => (
+									<AktivitetskravInfo
+										permisjonsregler={form.permisjonsregler}
+										dekningsgrad={form.dekningsgrad!}
+										navnForelder1={form.navnForelder1}
+										navnForelder2={form.navnForelder2}
+									/>
+								)}
+							/>
+						</div>
+					</EkspanderbartInnhold>
+				)}
 			</div>
 		);
 	}
@@ -134,7 +136,8 @@ class Skjema extends React.Component<Props> {
 const mapStateToProps = (state: AppState): StateProps => {
 	return {
 		form: state.form,
-		utsettelse: state.utsettelse
+		utsettelse: state.utsettelse,
+		visFordelingFellesperiode: state.form.dekningsgrad !== undefined
 	};
 };
 

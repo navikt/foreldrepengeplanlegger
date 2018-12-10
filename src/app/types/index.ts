@@ -2,7 +2,7 @@ import { Periode } from 'app/types/periodetyper';
 
 export * from './periodetyper';
 
-export type Dekningsgrad = '80%' | '100%';
+export type Dekningsgrad = 'dekning80' | 'dekning100';
 
 export type Forelder = 'forelder1' | 'forelder2';
 
@@ -36,8 +36,8 @@ export interface Permisjonsregler {
 	/** Maks feriedager med overføring fra foregående år og forskudd fra nest år */
 	maksFeriedagerMedOverføring: number;
 
-	'80%': AntallPermisjonsuker;
-	'100%': AntallPermisjonsuker;
+	dekning80: AntallPermisjonsuker;
+	dekning100: AntallPermisjonsuker;
 }
 
 export interface Periodesplitt {

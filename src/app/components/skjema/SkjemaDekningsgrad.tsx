@@ -41,15 +41,15 @@ const SkjemaDekningsgrad: React.StatelessComponent<Props> = ({
 		valg={[
 			{
 				tittel: intlString(intl, 'skjema.label.sats100', {
-					uker: permisjonsregler['100%'].antallUkerTotalt
+					uker: permisjonsregler.dekning100.antallUkerTotalt
 				}),
-				verdi: '100%'
+				verdi: 'dekning100'
 			},
 			{
 				tittel: intlString(intl, 'skjema.label.sats80', {
-					uker: permisjonsregler['80%'].antallUkerTotalt
+					uker: permisjonsregler.dekning80.antallUkerTotalt
 				}),
-				verdi: '80%'
+				verdi: 'dekning80'
 			}
 		]}
 	/>

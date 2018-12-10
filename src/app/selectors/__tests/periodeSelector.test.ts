@@ -17,7 +17,7 @@ const permisjonsregler = getPermisjonsregler(termindato);
 const form80: FormState = {
 	permisjonsregler,
 	termindato,
-	dekningsgrad: '80%',
+	dekningsgrad: 'dekning80',
 	navnForelder1: 'Kari',
 	navnForelder2: 'Ola',
 	ukerFellesperiode: 36,

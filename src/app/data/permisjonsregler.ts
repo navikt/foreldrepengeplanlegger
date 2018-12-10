@@ -8,14 +8,14 @@ const reglerTomJuni: Permisjonsregler = {
 	maksFeriedagerEttÅr: 21,
 	maksFeriedagerMedOverføring: 52,
 
-	'80%': {
+	dekning80: {
 		antallUkerTotalt: 59,
 		antallUkerFellesperiode: 36,
 		antallUkerFedrekvote: 10,
 		antallUkerMødrekvote: 10
 	},
 
-	'100%': {
+	dekning100: {
 		antallUkerTotalt: 49,
 		antallUkerFellesperiode: 26,
 		antallUkerFedrekvote: 10,
@@ -30,14 +30,14 @@ const reglerFomJuli2018: Permisjonsregler = {
 	maksFeriedagerEttÅr: 21,
 	maksFeriedagerMedOverføring: 52,
 
-	'80%': {
+	dekning80: {
 		antallUkerTotalt: 59,
 		antallUkerFellesperiode: 28,
 		antallUkerFedrekvote: 15,
 		antallUkerMødrekvote: 15
 	},
 
-	'100%': {
+	dekning100: {
 		antallUkerTotalt: 49,
 		antallUkerFellesperiode: 18,
 		antallUkerFedrekvote: 15,
@@ -52,14 +52,14 @@ const reglerFomJanuar2019: Permisjonsregler = {
 	maksFeriedagerEttÅr: 21,
 	maksFeriedagerMedOverføring: 52,
 
-	'80%': {
+	dekning80: {
 		antallUkerTotalt: 59,
 		antallUkerFellesperiode: 18,
 		antallUkerFedrekvote: 19,
 		antallUkerMødrekvote: 19
 	},
 
-	'100%': {
+	dekning100: {
 		antallUkerTotalt: 49,
 		antallUkerFellesperiode: 18,
 		antallUkerFedrekvote: 15,

@@ -158,7 +158,7 @@ const mapStateToProps = (state: AppState): StateProps => {
 		utsettelse: state.utsettelse,
 		visFordelingFellesperiode: state.form.dekningsgrad !== undefined,
 		visInformasjonForNyeRegler:
-			state.form.dekningsgrad === '80%' &&
+			state.form.dekningsgrad === 'dekning80' &&
 			state.form.termindato !== undefined &&
 			!erTerminFør2019(state.form.termindato)
 	};

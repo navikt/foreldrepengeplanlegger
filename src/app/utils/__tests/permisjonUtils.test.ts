@@ -30,7 +30,7 @@ const ferie: Utsettelsesperiode = {
 };
 
 describe('permisjonsperioder for 80%', () => {
-	const dekningsgrad: Dekningsgrad = '80%';
+	const dekningsgrad: Dekningsgrad = 'dekning80';
 	const ukerFellesperiode = getAntallUkerFellesperiode(
 		permisjonsregler,
 		dekningsgrad

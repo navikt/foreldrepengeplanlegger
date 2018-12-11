@@ -11,8 +11,6 @@ import DekningsgradInfo from 'app/components/content/DekningsgradInfo';
 export interface OwnProps {
 	permisjonsregler: Permisjonsregler;
 	dekningsgrad?: Dekningsgrad;
-	antallUkerTotalt80: number;
-	antallUkerTotalt100: number;
 	onChange: (dekningsgrad: Dekningsgrad) => void;
 }
 
@@ -21,8 +19,6 @@ type Props = OwnProps & InjectedIntlProps;
 const SkjemaDekningsgrad: React.StatelessComponent<Props> = ({
 	intl,
 	onChange,
-	antallUkerTotalt80,
-	antallUkerTotalt100,
 	permisjonsregler,
 	dekningsgrad
 }) => (
@@ -45,15 +41,15 @@ const SkjemaDekningsgrad: React.StatelessComponent<Props> = ({
 		valg={[
 			{
 				tittel: intlString(intl, 'skjema.label.sats100', {
-					uker: antallUkerTotalt100
+					uker: permisjonsregler.dekning100.antallUkerTotalt
 				}),
-				verdi: '100%'
+				verdi: 'dekning100'
 			},
 			{
 				tittel: intlString(intl, 'skjema.label.sats80', {
-					uker: antallUkerTotalt80
+					uker: permisjonsregler.dekning80.antallUkerTotalt
 				}),
-				verdi: '80%'
+				verdi: 'dekning80'
 			}
 		]}
 	/>

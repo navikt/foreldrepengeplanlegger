@@ -76,7 +76,7 @@ describe('periodeUtils', () => {
 	describe('legger til utsettelse', () => {
 		const stonadsperioder = opprettStønadsperioder(
 			datoer.termin,
-			'100%',
+			'dekning100',
 			13,
 			13,
 			permisjonsregler
@@ -113,11 +113,11 @@ describe('periodeUtils', () => {
 	});
 
 	it('finner riktig antall uker for fellesperioden 80%', () => {
-		expect(getAntallUkerFellesperiode(permisjonsregler, '80%')).toBe(36);
+		expect(getAntallUkerFellesperiode(permisjonsregler, 'dekning80')).toBe(36);
 	});
 
 	it('finner riktig antall uker for fellesperioden 100%', () => {
-		expect(getAntallUkerFellesperiode(permisjonsregler, '100%')).toBe(26);
+		expect(getAntallUkerFellesperiode(permisjonsregler, 'dekning100')).toBe(26);
 	});
 
 	it('finner riktig periodesluttdato', () => {

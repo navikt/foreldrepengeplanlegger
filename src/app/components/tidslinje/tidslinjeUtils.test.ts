@@ -39,7 +39,7 @@ const utsettelse: Utsettelsesperiode = {
 const permisjonsregler = getPermisjonsregler(datoer.termin);
 
 const formState: FormState = {
-	dekningsgrad: '100%',
+	dekningsgrad: 'dekning100',
 	termindato: datoer.termin,
 	navnForelder1: 'a',
 	navnForelder2: 'b',
@@ -52,7 +52,7 @@ const formState: FormState = {
 describe('tidslinjeUtils', () => {
 	const stonadsperioder = opprettStønadsperioder(
 		datoer.termin,
-		'100%',
+		'dekning100',
 		13,
 		13,
 		permisjonsregler

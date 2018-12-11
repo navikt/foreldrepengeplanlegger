@@ -4,7 +4,7 @@ import IntlTekst, { intlString } from 'app/intl/IntlTekst';
 import Fordeling from 'app/components/fordeling/Fordeling';
 import Tidslinje from 'app/components/tidslinje/Tidslinje';
 import LeggTilKnapp from 'app/elements/leggTilKnapp/LeggTilKnapp';
-import { Permisjonsregler, Utsettelsesperiode } from 'app/types';
+import { Permisjonsregler, Utsettelsesperiode, Dekningsgrad } from 'app/types';
 import { Tidslinjeinnslag } from 'app/components/tidslinje/types';
 import { scrollToElement } from 'app/utils/animationUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
@@ -16,6 +16,7 @@ export interface OwnProps {
 	fellesperiodeukerForelder2: number;
 	innslag: Tidslinjeinnslag[];
 	permisjonsregler: Permisjonsregler;
+	dekningsgrad: Dekningsgrad;
 	onLeggTilUtsettelse: () => void;
 	onRedigerUtsettelse: (u: Utsettelsesperiode) => void;
 }
@@ -29,6 +30,7 @@ class Permisjonsplan extends React.Component<Props & InjectedIntlProps, {}> {
 	render() {
 		const {
 			permisjonsregler,
+			dekningsgrad,
 			fellesperiodeukerForelder1,
 			fellesperiodeukerForelder2,
 			navnForelder1,
@@ -49,8 +51,8 @@ class Permisjonsplan extends React.Component<Props & InjectedIntlProps, {}> {
 				<div className="blokk-m">
 					<Fordeling
 						foreldrepengerMor={permisjonsregler.antallUkerForelder1FørFødsel}
-						modrekvote={permisjonsregler.antallUkerMødrekvote}
-						fedrekvote={permisjonsregler.antallUkerFedrekvote}
+						modrekvote={permisjonsregler[dekningsgrad].antallUkerMødrekvote}
+						fedrekvote={permisjonsregler[dekningsgrad].antallUkerFedrekvote}
 						fellesukerForelder1={fellesperiodeukerForelder1}
 						fellesukerForelder2={fellesperiodeukerForelder2}
 						navnForelder1={navnForelder1 || intlString(intl, 'Forelder1')}

@@ -4,18 +4,25 @@ import VeilederinfoContainer from 'app/connectedComponents/VeilederinfoContainer
 import EksterneLenker from 'app/eksterneLenker';
 import { Infotekster } from 'app/redux/reducers/viewReducer';
 import IntlTekst, { intlString } from 'app/intl/IntlTekst';
-import { Permisjonsregler } from 'app/types';
+import { Permisjonsregler, Dekningsgrad } from 'app/types';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 export interface Props {
 	permisjonsregler: Permisjonsregler;
+	dekningsgrad: Dekningsgrad;
 	navnForelder1?: string;
 	navnForelder2?: string;
 }
 
 const AktivitetskravInfo: React.StatelessComponent<
 	Props & InjectedIntlProps
-> = ({ permisjonsregler, navnForelder1, navnForelder2, intl }) => (
+> = ({
+	permisjonsregler,
+	dekningsgrad,
+	navnForelder1,
+	navnForelder2,
+	intl
+}) => (
 	<VeilederinfoContainer
 		id={Infotekster.fordelingFellesperiode}
 		visVeileder={false}
@@ -27,8 +34,8 @@ const AktivitetskravInfo: React.StatelessComponent<
 				values={{
 					pakrevdForelder1:
 						permisjonsregler.antallUkerForelder1FørFødsel +
-						permisjonsregler.antallUkerMødrekvote,
-					pakrevdForelder2: permisjonsregler.antallUkerFedrekvote,
+						permisjonsregler[dekningsgrad].antallUkerMødrekvote,
+					pakrevdForelder2: permisjonsregler[dekningsgrad].antallUkerFedrekvote,
 					navnForelder1: navnForelder1 || intlString(intl, 'forelder1'),
 					navnForelder2: navnForelder2 || intlString(intl, 'forelder2')
 				}}

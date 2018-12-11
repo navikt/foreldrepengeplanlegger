@@ -68,7 +68,8 @@ export function getPakrevdModrekvoteEtterTermin(
 
 export function getFrivilligModrekvoteEtterTermin(
 	termindato: Date,
-	permisjonsregler: Permisjonsregler
+	permisjonsregler: Permisjonsregler,
+	dekningsgrad: Dekningsgrad
 ): Tidsperiode {
 	const startdato = getForsteUttaksdagEtterDato(
 		getPakrevdModrekvoteEtterTermin(termindato, permisjonsregler).sluttdato
@@ -77,7 +78,7 @@ export function getFrivilligModrekvoteEtterTermin(
 		startdato,
 		sluttdato: getPeriodeSluttdato(
 			startdato,
-			permisjonsregler.antallUkerMødrekvote -
+			permisjonsregler[dekningsgrad].antallUkerMødrekvote -
 				permisjonsregler.antallUkerForelder1EtterFødsel
 		)
 	};
@@ -86,10 +87,15 @@ export function getFrivilligModrekvoteEtterTermin(
 export function getFellesperiodeForelder1(
 	termindato: Date,
 	permisjonsregler: Permisjonsregler,
+	dekningsgrad: Dekningsgrad,
 	fellesukerForelder1: number
 ): Tidsperiode {
 	const startdato = getForsteUttaksdagEtterDato(
-		getFrivilligModrekvoteEtterTermin(termindato, permisjonsregler).sluttdato
+		getFrivilligModrekvoteEtterTermin(
+			termindato,
+			permisjonsregler,
+			dekningsgrad
+		).sluttdato
 	);
 	return {
 		startdato,
@@ -100,16 +106,21 @@ export function getFellesperiodeForelder1(
 export function getFellesperiodeForelder2(
 	termindato: Date,
 	permisjonsregler: Permisjonsregler,
+	dekningsgrad: Dekningsgrad,
 	fellesukerForelder1: number,
 	fellesukerForelder2: number
 ): Tidsperiode {
 	const startdato = getForsteUttaksdagEtterDato(
 		fellesukerForelder1 === 0
-			? getFrivilligModrekvoteEtterTermin(termindato, permisjonsregler)
-					.sluttdato
+			? getFrivilligModrekvoteEtterTermin(
+					termindato,
+					permisjonsregler,
+					dekningsgrad
+			  ).sluttdato
 			: getFellesperiodeForelder1(
 					termindato,
 					permisjonsregler,
+					dekningsgrad,
 					fellesukerForelder1
 			  ).sluttdato
 	);
@@ -122,6 +133,7 @@ export function getFellesperiodeForelder2(
 export function getFedrekvote(
 	termindato: Date,
 	permisjonsregler: Permisjonsregler,
+	dekningsgrad: Dekningsgrad,
 	fellesukerForelder1: number,
 	fellesukerForelder2: number
 ): Tidsperiode {
@@ -130,11 +142,13 @@ export function getFedrekvote(
 			? getFellesperiodeForelder1(
 					termindato,
 					permisjonsregler,
+					dekningsgrad,
 					fellesukerForelder1
 			  ).sluttdato
 			: getFellesperiodeForelder2(
 					termindato,
 					permisjonsregler,
+					dekningsgrad,
 					fellesukerForelder1,
 					fellesukerForelder2
 			  ).sluttdato
@@ -143,7 +157,7 @@ export function getFedrekvote(
 		startdato,
 		sluttdato: getPeriodeSluttdato(
 			startdato,
-			permisjonsregler.antallUkerFedrekvote
+			permisjonsregler[dekningsgrad].antallUkerFedrekvote
 		)
 	};
 }
@@ -175,16 +189,13 @@ export function getGyldigTidsromForUtsettelse(
  */
 export function getAntallUkerFellesperiode(
 	permisjonsregler: Permisjonsregler,
-	dekningsgrad?: Dekningsgrad
+	dekningsgrad: Dekningsgrad
 ) {
-	const totaltAntallUker =
-		dekningsgrad === '80%'
-			? permisjonsregler.antallUkerTotalt80
-			: permisjonsregler.antallUkerTotalt100;
+	const totaltAntallUker = permisjonsregler[dekningsgrad].antallUkerTotalt;
 	return (
 		totaltAntallUker -
-		permisjonsregler.antallUkerMødrekvote -
-		permisjonsregler.antallUkerFedrekvote -
+		permisjonsregler[dekningsgrad].antallUkerMødrekvote -
+		permisjonsregler[dekningsgrad].antallUkerFedrekvote -
 		permisjonsregler.antallUkerForelder1FørFødsel
 	);
 }
@@ -258,7 +269,8 @@ export function opprettStønadsperioder(
 			konto: StonadskontoType.Modrekvote,
 			tidsperiode: getFrivilligModrekvoteEtterTermin(
 				termindato,
-				permisjonsregler
+				permisjonsregler,
+				dekningsgrad
 			)
 		},
 		{
@@ -268,6 +280,7 @@ export function opprettStønadsperioder(
 			tidsperiode: getFedrekvote(
 				termindato,
 				permisjonsregler,
+				dekningsgrad,
 				fellesukerForelder1,
 				fellesukerForelder2
 			)
@@ -281,6 +294,7 @@ export function opprettStønadsperioder(
 			tidsperiode: getFellesperiodeForelder1(
 				termindato,
 				permisjonsregler,
+				dekningsgrad,
 				fellesukerForelder1
 			)
 		});
@@ -293,6 +307,7 @@ export function opprettStønadsperioder(
 			tidsperiode: getFellesperiodeForelder2(
 				termindato,
 				permisjonsregler,
+				dekningsgrad,
 				fellesukerForelder1,
 				fellesukerForelder2
 			)

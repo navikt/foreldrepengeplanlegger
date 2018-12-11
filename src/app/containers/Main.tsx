@@ -127,6 +127,7 @@ export class Main extends React.Component<Props> {
 						navnForelder1={form.navnForelder1}
 						navnForelder2={form.navnForelder2}
 						permisjonsregler={form.permisjonsregler}
+						dekningsgrad={form.dekningsgrad!}
 						fellesperiodeukerForelder1={form.fellesperiodeukerForelder1}
 						fellesperiodeukerForelder2={form.fellesperiodeukerForelder2}
 						innslag={innslag}

@@ -2,39 +2,78 @@ import { Permisjonsregler } from 'app/types';
 import { isBefore } from 'date-fns';
 
 const reglerTomJuni: Permisjonsregler = {
-	antallUkerTotalt100: 49,
-	antallUkerFellesperiode100: 26,
-	antallUkerTotalt80: 59,
-	antallUkerFellesperiode80: 36,
 	antallUkerForelder1FørFødsel: 3,
 	antallUkerForelder1EtterFødsel: 6,
-	antallUkerFedrekvote: 10,
-	antallUkerMødrekvote: 10,
 	maksPermisjonslengdeIÅr: 3,
 	maksFeriedagerEttÅr: 21,
-	maksFeriedagerMedOverføring: 52
+	maksFeriedagerMedOverføring: 52,
+
+	dekning80: {
+		antallUkerTotalt: 59,
+		antallUkerFellesperiode: 36,
+		antallUkerFedrekvote: 10,
+		antallUkerMødrekvote: 10
+	},
+
+	dekning100: {
+		antallUkerTotalt: 49,
+		antallUkerFellesperiode: 26,
+		antallUkerFedrekvote: 10,
+		antallUkerMødrekvote: 10
+	}
 };
 
 const reglerFomJuli2018: Permisjonsregler = {
-	antallUkerTotalt100: 49,
-	antallUkerFellesperiode100: 18,
-	antallUkerTotalt80: 59,
-	antallUkerFellesperiode80: 28,
 	antallUkerForelder1FørFødsel: 3,
 	antallUkerForelder1EtterFødsel: 6,
-	antallUkerFedrekvote: 15,
-	antallUkerMødrekvote: 15,
 	maksPermisjonslengdeIÅr: 3,
 	maksFeriedagerEttÅr: 21,
-	maksFeriedagerMedOverføring: 52
+	maksFeriedagerMedOverføring: 52,
+
+	dekning80: {
+		antallUkerTotalt: 59,
+		antallUkerFellesperiode: 28,
+		antallUkerFedrekvote: 15,
+		antallUkerMødrekvote: 15
+	},
+
+	dekning100: {
+		antallUkerTotalt: 49,
+		antallUkerFellesperiode: 18,
+		antallUkerFedrekvote: 15,
+		antallUkerMødrekvote: 15
+	}
 };
 
+const reglerFomJanuar2019: Permisjonsregler = {
+	antallUkerForelder1FørFødsel: 3,
+	antallUkerForelder1EtterFødsel: 6,
+	maksPermisjonslengdeIÅr: 3,
+	maksFeriedagerEttÅr: 21,
+	maksFeriedagerMedOverføring: 52,
+
+	dekning80: {
+		antallUkerTotalt: 59,
+		antallUkerFellesperiode: 18,
+		antallUkerFedrekvote: 19,
+		antallUkerMødrekvote: 19
+	},
+
+	dekning100: {
+		antallUkerTotalt: 49,
+		antallUkerFellesperiode: 18,
+		antallUkerFedrekvote: 15,
+		antallUkerMødrekvote: 15
+	}
+};
+
+export const erTerminFør2019 = (termindato: Date): boolean =>
+	isBefore(termindato, new Date(2019, 0, 1));
+
 export const getPermisjonsregler = (termindato: Date): Permisjonsregler => {
-	/** ny logikk skal tre i kraft fom 12. april 2018 */
-	// if (isBefore(new Date(), new Date(2018, 3, 13))) {
-	// return reglerTomJuni;
-	// }
-	return getPermisjonsreglerFom13April(termindato);
+	return erTerminFør2019(termindato)
+		? getPermisjonsreglerFom13April(termindato)
+		: reglerFomJanuar2019;
 };
 
 export const getPermisjonsreglerFom13April = (

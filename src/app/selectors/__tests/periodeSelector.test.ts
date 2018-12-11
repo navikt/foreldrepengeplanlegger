@@ -1,7 +1,12 @@
 import { FormState } from 'app/redux/types';
 import { getPermisjonsregler } from 'app/data/permisjonsregler';
 import { getStonadsperioder } from 'app/selectors/periodeSelector';
-import { Tidsperiode, Forelder, StonadskontoType } from 'app/types';
+import {
+	Tidsperiode,
+	Forelder,
+	StonadskontoType,
+	Dekningsgrad
+} from 'app/types';
 import { getAntallUttaksdagerITidsperiode } from 'app/utils/uttaksdagerUtils';
 import { getAntallStonadsdagerForForelder } from 'app/utils/permisjonUtils';
 
@@ -12,7 +17,7 @@ const permisjonsregler = getPermisjonsregler(termindato);
 const form80: FormState = {
 	permisjonsregler,
 	termindato,
-	dekningsgrad: '80%',
+	dekningsgrad: 'dekning80',
 	navnForelder1: 'Kari',
 	navnForelder2: 'Ola',
 	ukerFellesperiode: 36,
@@ -21,19 +26,23 @@ const form80: FormState = {
 };
 
 describe('periodeselector', () => {
+	const dekningsgrad = form80.dekningsgrad as Dekningsgrad;
+
 	it('har gyldige grunndata', () => {
 		const totaltAntallUker =
 			form80.permisjonsregler.antallUkerForelder1FørFødsel +
-			permisjonsregler.antallUkerMødrekvote +
+			permisjonsregler[dekningsgrad].antallUkerMødrekvote +
 			form80.fellesperiodeukerForelder1 +
 			form80.fellesperiodeukerForelder2 +
-			permisjonsregler.antallUkerFedrekvote;
+			permisjonsregler[dekningsgrad].antallUkerFedrekvote;
 
-		expect(totaltAntallUker).toBe(permisjonsregler.antallUkerTotalt80);
+		expect(totaltAntallUker).toBe(
+			permisjonsregler[dekningsgrad].antallUkerTotalt
+		);
 	});
 
 	const perioder80 = getStonadsperioder.resultFunc(form80);
-	const uttaksdager80 = permisjonsregler.antallUkerTotalt80 * 5;
+	const uttaksdager80 = permisjonsregler[dekningsgrad].antallUkerTotalt * 5;
 	const forelder1: Forelder = 'forelder1';
 	const forelder2: Forelder = 'forelder2';
 	const antallDagerForelder1 = 155;
@@ -57,12 +66,13 @@ describe('periodeselector', () => {
 		const dagerPakrevdModrekvoteEtterFodsel =
 			permisjonsregler.antallUkerForelder1EtterFødsel * 5;
 		const dagerModrekvoteEtterFodsel =
-			(permisjonsregler.antallUkerMødrekvote -
+			(permisjonsregler[dekningsgrad].antallUkerMødrekvote -
 				permisjonsregler.antallUkerForelder1EtterFødsel) *
 			5;
 		const dagerForelder1Fellesperiode = form80.fellesperiodeukerForelder1 * 5;
 		const dagerForelder2Fellesperiode = form80.fellesperiodeukerForelder2 * 5;
-		const dagerFedrekvote = permisjonsregler.antallUkerFedrekvote * 5;
+		const dagerFedrekvote =
+			permisjonsregler[dekningsgrad].antallUkerFedrekvote * 5;
 
 		it('oppretter 6 ulike perioder ut fra termindato sortert i riktig rekkefølge', () => {
 			expect(perioder80.length).toBe(6);

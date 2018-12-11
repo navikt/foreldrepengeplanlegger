@@ -129,7 +129,8 @@ export type Veiledningstekster =
 	| 'veileder.ulonnetpermisjon.tittel'
 	| 'veileder.ulonnetpermisjon.tekst1'
 	| 'veileder.ulonnetpermisjon.tekst2'
-	| 'veileder.ulonnetpermisjon.navlenketekst';
+	| 'veileder.ulonnetpermisjon.navlenketekst'
+	| 'veileder.nyeRegler';
 
 export type AppTekster =
 	| UtsettelsesskjemaTekst

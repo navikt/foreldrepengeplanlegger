@@ -34,7 +34,7 @@ const getInitialState = (): FormState => {
 	const permisjonsregler = getPermisjonsregler(new Date());
 	const ukerFellesperiode = getAntallUkerFellesperiode(
 		permisjonsregler,
-		'100%'
+		'dekning100'
 	);
 	const ukerForelder1 = Math.round(ukerFellesperiode / 2);
 	const ukerForelder2 = ukerFellesperiode - ukerForelder1;
@@ -91,7 +91,7 @@ const FormReducer = (
 			const erGyldigTermindato = validerTermindato(dato);
 			if (erGyldigTermindato) {
 				return {
-					...getDefaultState(dato, state.dekningsgrad || '100%'),
+					...getDefaultState(dato, state.dekningsgrad || 'dekning100'),
 					navnForelder1: state.navnForelder1,
 					navnForelder2: state.navnForelder2,
 					termindato: dato,

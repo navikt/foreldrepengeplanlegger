@@ -32,14 +32,14 @@ const reglerFomJuli2018: Permisjonsregler = {
 
 	dekning80: {
 		antallUkerTotalt: 59,
-		antallUkerFellesperiode: 28,
+		antallUkerFellesperiode: 26,
 		antallUkerFedrekvote: 15,
 		antallUkerMødrekvote: 15
 	},
 
 	dekning100: {
 		antallUkerTotalt: 49,
-		antallUkerFellesperiode: 18,
+		antallUkerFellesperiode: 16,
 		antallUkerFedrekvote: 15,
 		antallUkerMødrekvote: 15
 	}

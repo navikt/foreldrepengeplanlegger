@@ -26,7 +26,7 @@ import AktivitetskravInfo from 'app/components/content/AktivitetskravInfo';
 import { DateInput } from 'app/components/dateInput/DateInput';
 import { renderDag } from 'app/utils/renderUtils';
 import Veilederinfo from 'app/elements/veilederinfo/Veilederinfo';
-import { erTerminFør2019 } from 'app/data/permisjonsregler';
+import { erFørsteUttaksdagFør2019 } from 'app/data/permisjonsregler';
 
 export interface StateProps {
 	form: FormState;
@@ -160,7 +160,7 @@ const mapStateToProps = (state: AppState): StateProps => {
 		visInformasjonForNyeRegler:
 			state.form.dekningsgrad === 'dekning80' &&
 			state.form.termindato !== undefined &&
-			!erTerminFør2019(state.form.termindato)
+			!erFørsteUttaksdagFør2019(state.form.termindato)
 	};
 };
 

@@ -1,8 +1,11 @@
 import { Permisjonsregler } from 'app/types';
 import { isBefore } from 'date-fns';
+import { getPermisjonStartdato } from 'app/utils/permisjonUtils';
+
+const antallUkerForelder1FørFødsel = 3;
 
 const reglerTomJuni: Permisjonsregler = {
-	antallUkerForelder1FørFødsel: 3,
+	antallUkerForelder1FørFødsel,
 	antallUkerForelder1EtterFødsel: 6,
 	maksPermisjonslengdeIÅr: 3,
 	maksFeriedagerEttÅr: 21,
@@ -24,7 +27,7 @@ const reglerTomJuni: Permisjonsregler = {
 };
 
 const reglerFomJuli2018: Permisjonsregler = {
-	antallUkerForelder1FørFødsel: 3,
+	antallUkerForelder1FørFødsel,
 	antallUkerForelder1EtterFødsel: 6,
 	maksPermisjonslengdeIÅr: 3,
 	maksFeriedagerEttÅr: 21,
@@ -46,7 +49,7 @@ const reglerFomJuli2018: Permisjonsregler = {
 };
 
 const reglerFomJanuar2019: Permisjonsregler = {
-	antallUkerForelder1FørFødsel: 3,
+	antallUkerForelder1FørFødsel,
 	antallUkerForelder1EtterFødsel: 6,
 	maksPermisjonslengdeIÅr: 3,
 	maksFeriedagerEttÅr: 21,
@@ -67,11 +70,16 @@ const reglerFomJanuar2019: Permisjonsregler = {
 	}
 };
 
-export const erTerminFør2019 = (termindato: Date): boolean =>
-	isBefore(termindato, new Date(2019, 0, 1));
+export const erFørsteUttaksdagFør2019 = (termindato: Date): boolean => {
+	const førsteUttaksdag = getPermisjonStartdato(
+		termindato,
+		antallUkerForelder1FørFødsel
+	);
+	return isBefore(førsteUttaksdag, new Date(2019, 0, 1));
+};
 
 export const getPermisjonsregler = (termindato: Date): Permisjonsregler => {
-	return erTerminFør2019(termindato)
+	return erFørsteUttaksdagFør2019(termindato)
 		? getPermisjonsreglerFom13April(termindato)
 		: reglerFomJanuar2019;
 };

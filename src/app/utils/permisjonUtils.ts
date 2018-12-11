@@ -22,11 +22,11 @@ import { normaliserDato } from 'app/utils';
 
 export function getPermisjonStartdato(
 	termindato: Date,
-	permisjonsregler: Permisjonsregler
+	antallUkerForelder1FørFødsel: number
 ): Date {
 	return trekkUttaksdagerFraDato(
 		termindato, // Siste uttaksdag i denne perioden er dagen før termin
-		-1 * (permisjonsregler.antallUkerForelder1FørFødsel * 5)
+		-1 * (antallUkerForelder1FørFødsel * 5)
 	);
 }
 
@@ -43,7 +43,10 @@ export function getModrekvoteFørTermin(
 	termindato: Date,
 	permisjonsregler: Permisjonsregler
 ): Tidsperiode {
-	const startdato = getPermisjonStartdato(termindato, permisjonsregler);
+	const startdato = getPermisjonStartdato(
+		termindato,
+		permisjonsregler.antallUkerForelder1FørFødsel
+	);
 	return {
 		startdato,
 		sluttdato: getPeriodeSluttdato(

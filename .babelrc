@@ -1,9 +1,12 @@
 {
-	"plugins": ["transform-object-rest-spread", "transform-flow-strip-types"],
-	"presets": ["env", "react"],
-	"env": {
-		"test": {
-			"plugins": [["babel-plugin-webpack-alias", { "config": "./src/build/webpack/webpack.config.global.js" }]]
-		}
-	}
+    "plugins": ["transform-object-rest-spread"],
+    "presets": ["env", "react"],
+    "env": {
+        "test": {
+            "plugins": [
+                "transform-es2015-modules-commonjs",
+                ["babel-plugin-webpack-alias", { "config": "./src/build/webpack/webpack.config.global.js" }]
+            ]
+        }
+    }
 }

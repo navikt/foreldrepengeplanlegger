@@ -1,2 +1,0 @@
-https://${DomainName}/foreldrepengeplanlegger/*
-https://${DomainName}/foreldrepengeplanlegger

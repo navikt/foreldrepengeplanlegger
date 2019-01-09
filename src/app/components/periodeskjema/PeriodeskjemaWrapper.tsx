@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Formik, FormikProps } from 'formik';
-import { Periode, Forelder, Periodetype } from '../../types';
+import { Periode } from '../../types';
 import { guid } from 'nav-frontend-js-utils';
 import Periodeskjema, { PeriodeFormValues } from './Periodeskjema';
 
@@ -11,11 +11,13 @@ interface Props {
 
 const createPeriodeFromValues = (values: PeriodeFormValues): Periode => {
     return {
-        type: Periodetype.UTTAK,
         id: guid(),
-        fom: new Date(),
-        tom: new Date(),
-        forelder: Forelder.forelder1
+        type: values.type,
+        tidsperiode: {
+            fom: values.fom,
+            tom: values.tom
+        },
+        forelder: values.forelder
     };
 };
 
@@ -28,7 +30,7 @@ class PeriodeskjemaWrapper extends React.Component<Props, {}> {
         return (
             <Formik
                 initialValues={{}}
-                onSubmit={(values) => onSubmit(createPeriodeFromValues(values))}
+                onSubmit={(values: PeriodeFormValues) => onSubmit(createPeriodeFromValues(values))}
                 render={(props: FormikProps<PeriodeFormValues>) => <Periodeskjema onCancel={onCancel} formik={props} />}
             />
         );

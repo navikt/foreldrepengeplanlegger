@@ -1,22 +1,28 @@
 import * as React from 'react';
 import { Form, FormikProps } from 'formik';
 import Block from 'common/components/block/Block';
-import TidsperiodeValg from './TidsperiodeValg';
+import TidsperiodeValg from './parts/TidsperiodeValg';
 import { Knapp } from 'nav-frontend-knapper';
-import { Periode } from '../../types';
+import { Periodetype, Forelder } from '../../types';
 
 import './periodeskjema.less';
-import PeriodetypeValg from './PeriodetypeValg';
-import ForelderValg from './ForelderValg';
+import PeriodetypeValg from './parts/PeriodetypeValg';
+import ForelderValg from './parts/ForelderValg';
 
-export type PeriodeFormValues = Partial<Periode>;
+export interface PeriodeFormValues {
+    type: Periodetype;
+    fom: Date;
+    tom: Date;
+    forelder: Forelder;
+    gradering?: number;
+}
 
 interface OwnProps {
     onCancel: () => void;
     formik: FormikProps<PeriodeFormValues>;
 }
 
-type Props = OwnProps & PeriodeFormValues;
+type Props = OwnProps;
 
 class Periodeskjema extends React.Component<Props, {}> {
     render() {
@@ -34,7 +40,14 @@ class Periodeskjema extends React.Component<Props, {}> {
                     <ForelderValg forelder={forelder} onChange={(f) => formik.setFieldValue('forelder', f)} />
                 </Block>
                 <Block>
-                    <TidsperiodeValg fom={fom} tom={tom} onChange={(evt) => formik.setValues(evt)} />
+                    <TidsperiodeValg
+                        fom={fom}
+                        tom={tom}
+                        onChange={(tidsperiode) => {
+                            formik.setFieldValue('fom', tidsperiode.fom);
+                            formik.setFieldValue('tom', tidsperiode.tom);
+                        }}
+                    />
                 </Block>
                 <Knapp htmlType="submit">Ok</Knapp>
                 <Knapp htmlType="button" onClick={() => onCancel()}>

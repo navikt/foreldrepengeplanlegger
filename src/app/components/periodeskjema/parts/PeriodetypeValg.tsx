@@ -1,6 +1,6 @@
 import * as React from 'react';
 import RadioGroup, { RadioOption } from 'common/components/skjema/radioGroup/RadioGroup';
-import { Periodetype } from '../../types';
+import { Periodetype } from '../../../types';
 
 interface Props {
     periodetype: Periodetype | undefined;

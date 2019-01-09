@@ -2,18 +2,26 @@ import * as React from 'react';
 import { Periode } from '../../types';
 import Lukknapp from 'nav-frontend-lukknapp';
 
+import { Tidsperioden } from '../../utils/Tidsperioden';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
+
 import './periodeElement.less';
 
-export interface Props {
+interface OwnProps {
     periode: Periode;
     onDelete: (periode: Periode) => void;
 }
 
-const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete }) => (
-    <div className="periodeElement">
-        <p>{periode.id}</p>
-        <Lukknapp onClick={() => onDelete(periode)}>Slett</Lukknapp>
-    </div>
-);
+type Props = OwnProps & InjectedIntlProps;
 
-export default PeriodeElement;
+const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, intl }) => {
+    return (
+        <div className="periodeElement">
+            <p>{periode.type}</p>
+            {Tidsperioden(periode.tidsperiode).formaterString(intl)}
+            <Lukknapp onClick={() => onDelete(periode)}>Slett</Lukknapp>
+        </div>
+    );
+};
+
+export default injectIntl(PeriodeElement);

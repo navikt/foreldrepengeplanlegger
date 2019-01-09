@@ -9,6 +9,8 @@ import * as nn from 'react-intl/locale-data/nn';
 
 import nnMessages from './languageFiles/nn_NO.json';
 import nbMessages from './languageFiles/nb_NO.json';
+import nnMessagesCommon from '../../common/intl/nn_NO.json';
+import nbMessagesCommon from '../../common/intl/nb_NO.json';
 
 import { AppState } from '../redux/reducers';
 import { Språkkode } from './types';
@@ -29,10 +31,12 @@ class IntlProvider extends React.Component<StateProps> {
         const messages =
             this.props.språkkode === 'nb'
                 ? {
-                      ...nbMessages
+                      ...nbMessages,
+                      ...nbMessagesCommon
                   }
                 : {
-                      ...nnMessages
+                      ...nnMessages,
+                      ...nnMessagesCommon
                   };
 
         return (

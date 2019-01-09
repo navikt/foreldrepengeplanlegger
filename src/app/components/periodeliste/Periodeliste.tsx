@@ -6,12 +6,12 @@ import './periodeliste.less';
 
 type onDeleteEvent = (periode: Periode) => void;
 
-export interface Props {
+interface OwnProps {
     perioder: Periode[];
     onDelete: onDeleteEvent;
 }
 
-const Periodeliste: React.StatelessComponent<Props> = ({ perioder, onDelete }) => {
+const Periodeliste: React.StatelessComponent<OwnProps> = ({ perioder, onDelete }) => {
     if (perioder.length === 0) {
         return <div>Ingen perioder registrert</div>;
     }

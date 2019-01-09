@@ -17,8 +17,10 @@ export enum Utsettelsesårsak {
 export interface Periode {
     id: string;
     type: Periodetype;
-    fom: Date;
-    tom: Date;
+    tidsperiode: {
+        fom: Date;
+        tom: Date;
+    };
     forelder: Forelder;
     gradering?: number;
 }

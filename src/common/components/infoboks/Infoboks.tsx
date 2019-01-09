@@ -5,7 +5,7 @@ import LukkInfoIkon from 'common/components/ikoner/LukkInfoIkon';
 import InfoIkon from 'common/components/ikoner/InfoIkon';
 import { Collapse } from 'react-collapse';
 import classNames from 'classnames';
-import getMessage from 'common/util/i18nUtils';
+import getMessage from 'common/utils/i18nUtils';
 
 import './infoboks.less';
 

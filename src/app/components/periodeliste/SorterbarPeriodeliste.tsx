@@ -7,7 +7,7 @@ import './periodeliste.less';
 
 type onDeleteEvent = (periode: Periode) => void;
 
-export interface Props {
+interface OwnProps {
     perioder: Periode[];
     onDelete: onDeleteEvent;
 }
@@ -18,7 +18,7 @@ const SorterbarPeriode = SortableElement(({ periode, onDelete }: { periode: Peri
     </li>
 ));
 
-const SorterbarPeriodeliste = SortableContainer(({ perioder, onDelete }: Props) => {
+const SorterbarPeriodeliste = SortableContainer(({ perioder, onDelete }: OwnProps) => {
     return (
         <ol className="periodeliste">
             {perioder.map((periode: Periode, index: number) => {
@@ -28,7 +28,7 @@ const SorterbarPeriodeliste = SortableContainer(({ perioder, onDelete }: Props) 
     );
 });
 
-const Periodeliste: React.StatelessComponent<Props> = ({ perioder, onDelete }) => {
+const Periodeliste: React.StatelessComponent<OwnProps> = ({ perioder, onDelete }) => {
     if (perioder.length === 0) {
         return <div>Ingen perioder registrert</div>;
     }

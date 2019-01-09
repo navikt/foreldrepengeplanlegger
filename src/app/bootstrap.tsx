@@ -9,6 +9,7 @@ import IntlProvider from './intl/IntlProvider';
 import './styles/app.less';
 
 import { Normaltekst } from 'nav-frontend-typografi';
+import Uttaksplanlegger from './Uttaksplanlegger';
 
 Modal.setAppElement('#appContainer');
 const root = document.getElementById('app');
@@ -17,7 +18,9 @@ render(
     <Provider store={store}>
         <IntlProvider>
             <Router>
-                <Normaltekst tag="div">Whoa</Normaltekst>
+                <Normaltekst tag="div">
+                    <Uttaksplanlegger />
+                </Normaltekst>
             </Router>
         </IntlProvider>
     </Provider>,

@@ -24,53 +24,17 @@ app.use(allowCrossDomain);
 app.use(delayAllResponses(500));
 app.use(express.json());
 
-router.get(['/rest/sokerinfo'], (req, res) => {
-    res.send(MockStorage.getSokerInfo());
-});
-
-router.post('/rest/engangsstonad', (req, res) => res.sendStatus(200));
-
 router.get('/rest/storage', (req, res) => {
-    res.send(MockStorage.getSoknad());
-});
-
-router.get('/rest/innsyn/saker', (req, res) => {
-    res.send(MockStorage.getSaker());
-});
-
-router.get('/rest/konto', (req, res) => {
-    res.send(MockStorage.getStønadskontoer());
+    res.send(MockStorage.getStorage());
 });
 
 router.post('/rest/storage', (req, res) => {
-    MockStorage.updateSoknad(req.body);
+    MockStorage.updateStorage(req.body);
     return res.sendStatus(200);
 });
 
 router.delete('/rest/storage', (req, res) => {
     return res.sendStatus(200);
-});
-
-router.post('/rest/soknad', (req, res) => {
-    return res.send(MockStorage.getSoknadSendt());
-});
-
-router.post('/rest/soknad/endre', (req, res) => {
-    return res.send(MockStorage.getSoknadSendt());
-});
-
-router.delete('/rest/storage', (req, res) => {
-    res.sendStatus(204);
-});
-
-const vedleggUpload = multer({ dest: './dist/vedlegg/' });
-router.post('/rest/storage/vedlegg', vedleggUpload.single('vedlegg'), (req, res) => {
-    res.setHeader('Location', `http://localhost:8080/foreldrepengesoknad/dist/vedlegg/${req.body.id}`);
-    res.sendStatus(201);
-});
-
-router.delete('/rest/storage/vedlegg/:id', (req, res) => {
-    res.sendStatus(204);
 });
 
 app.use('', router);

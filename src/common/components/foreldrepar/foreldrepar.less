@@ -1,0 +1,26 @@
+.foreldrepar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    &__halfOpacity {
+        opacity: 0.4;
+    }
+
+    &__parentSeparator {
+        width: 0.5rem;
+    }
+
+    &__closerParents {
+        .foreldrepar__firstParent {
+            position: relative;
+            left: 3px;
+        }
+
+        .foreldrepar__secondParent {
+            position: relative;
+            right: 3px;
+        }
+    }
+}

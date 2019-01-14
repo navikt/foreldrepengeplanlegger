@@ -1,0 +1,48 @@
+@import '../../../common/styles/mixins.less';
+
+.situasjonsvalgGruppe {
+    display: flex;
+    flex-wrap: wrap;
+    > .situasjonsvalg {
+        width: 100% / 6;
+        flex: 1 1 0;
+        min-width: 7rem;
+    }
+}
+
+.situasjonsvalg {
+    display: block;
+    text-align: center;
+    padding-top: 0.5rem;
+    cursor: pointer;
+
+    &__ikonOgLabel {
+        margin: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid transparent;
+    }
+    &__input  {
+        .hidden();
+    }
+    &__ikon {
+        margin-bottom: 0.5rem;
+    }
+    &__label {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    &--medFokus {
+        .buttonFocus();
+    }
+
+    &:hover:not(.situasjonsvalg--valgt) {
+        text-decoration: underline;
+    }
+    &--valgt {
+        font-weight: bold;
+        .situasjonsvalg__ikonOgLabel {
+            border-bottom: 2px solid #005b82;
+        }
+    }
+}

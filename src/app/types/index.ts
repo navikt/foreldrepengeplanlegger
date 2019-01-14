@@ -37,3 +37,18 @@ export interface Utsettelsesperiode extends Periode {
 export interface UbetaltPermisjonPeriode extends Periode {
     type: Periodetype.UBETALT_PERMISJON;
 }
+
+export enum Søkersituasjon {
+    FØDSEL = 'fødsel',
+    ADOPSJON = 'adopsjon',
+    FORELDREANSVAR = 'omsorgsovertakelse'
+}
+
+export enum Situasjon {
+    'farOgMor' = 'farOgMor',
+    'bareFar' = 'bareFar',
+    'bareMor' = 'bareMor',
+    'aleneomsorg' = 'aleneomsorg',
+    'farOgFar' = 'farOgFar',
+    'morOgMedmor' = 'morOgMedmor'
+}

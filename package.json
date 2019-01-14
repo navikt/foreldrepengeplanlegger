@@ -20,7 +20,7 @@
         "start-express": "node ./server.js",
         "start-mock-api-server": "node ./mock-api-server.js",
         "start": "node ./src/build/scripts/start-dev.js",
-        "startClean": "node ./src/build/scripts/start-dev-nodecorator.js",
+        "start-no-decorator": "node ./src/build/scripts/start-dev-nodecorator.js",
         "precommit": "pretty-quick --staged",
         "jest": "jest --config ./jest/jest.config.js",
         "jest-watch": "jest --watch --verbose --config ./jest/jest.config.js"
@@ -93,6 +93,8 @@
         "mustache-express": "1.2.5",
         "nav-datovelger": "^3.3.0",
         "nav-frontend-core": "4.0.5",
+        "nav-frontend-grid": "^1.0.17",
+        "nav-frontend-grid-style": "^0.2.17",
         "nav-frontend-ikoner-assets": "0.2.29",
         "nav-frontend-js-utils": "1.0.6",
         "nav-frontend-knapper": "1.0.21",

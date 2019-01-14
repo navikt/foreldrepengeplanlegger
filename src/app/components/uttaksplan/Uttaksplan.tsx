@@ -37,9 +37,11 @@ class Uttaksplan extends React.Component<Props, State> {
         return (
             <div className="content">
                 <h1>Perioder</h1>
+
                 <Block animated={false}>
                     <Periodeliste perioder={perioder} onDelete={onDelete} />
                 </Block>
+
                 <Block visible={visSkjema}>
                     <PeriodeskjemaWrapper
                         onCancel={() => this.setState({ visSkjema: false })}

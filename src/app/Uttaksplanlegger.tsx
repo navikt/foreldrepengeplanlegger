@@ -20,18 +20,22 @@ class Uttaksplanlegger extends React.Component<Props, State> {
             perioder: []
         };
     }
+
     onAddPeriode(periode: Periode) {
         const nyePerioder = [...this.state.perioder, periode];
         this.setState({ perioder: nyePerioder });
     }
+
     onDeletePeriode(periode: Periode) {
         const nyePerioder = this.state.perioder.filter((p) => p.id !== periode.id);
         this.setState({ perioder: nyePerioder });
     }
+
     onUpdatePeriode(periode: Periode) {
         const nyePerioder = [...this.state.perioder, periode];
         this.setState({ perioder: nyePerioder });
     }
+
     render() {
         return (
             <div>

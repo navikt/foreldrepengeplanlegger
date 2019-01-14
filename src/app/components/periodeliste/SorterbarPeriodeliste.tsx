@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Periode } from '../../types';
 import PeriodeElement from './PeriodeElement';
 import { SortableElement, SortableContainer } from 'react-sortable-hoc';
 
 import './periodeliste.less';
+import { Periode } from '../../types/periodetyper';
 
 type onDeleteEvent = (periode: Periode) => void;
 

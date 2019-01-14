@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Periode } from '../../types';
 import Periodeliste from '../periodeliste/Periodeliste';
 import Knapp from 'nav-frontend-knapper';
 import PeriodeskjemaWrapper from '../periodeskjema/PeriodeskjemaWrapper';
 import Block from 'common/components/block/Block';
+import { Periode } from '../../types/periodetyper';
 
 interface Props {
     perioder: Periode[];

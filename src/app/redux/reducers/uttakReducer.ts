@@ -1,5 +1,5 @@
-import { Periode } from '../../types';
 import { UttakActionKeys, UttakActionTypes } from '../actions/uttak/uttakActionDefinitions';
+import { Periode } from '../../types/periodetyper';
 
 export const getDefaultUttakState = (): UttakState => ({
     perioder: []

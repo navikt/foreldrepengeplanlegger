@@ -3,12 +3,13 @@ import { Form, FormikProps } from 'formik';
 import Block from 'common/components/block/Block';
 import TidsperiodeValg from './parts/TidsperiodeValg';
 import { Knapp } from 'nav-frontend-knapper';
-import { Periodetype, Forelder } from '../../types';
 
 import './periodeskjema.less';
 import PeriodetypeValg from './parts/PeriodetypeValg';
 import ForelderValg from './parts/ForelderValg';
 import Knapperad from 'common/components/knapperad/Knapperad';
+import { Periodetype } from '../../types/periodetyper';
+import { Forelder } from '../../types';
 
 export interface PeriodeFormValues {
     type: Periodetype;

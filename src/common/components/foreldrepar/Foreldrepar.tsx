@@ -5,7 +5,7 @@ import BEMHelper from 'common/utils/bem';
 
 import './foreldrepar.less';
 
-export type Forelder = 'far1' | 'far2' | 'far3' | 'far4' | 'medmor1' | 'medmor2' | 'mor1' | 'mor2';
+export type ForeldreparForelder = 'far1' | 'far2' | 'far3' | 'far4' | 'medmor1' | 'medmor2' | 'mor1' | 'mor2';
 
 type Illustrasjonsvariant =
     | 'førsteForelderHalvtSynlig'
@@ -14,8 +14,8 @@ type Illustrasjonsvariant =
     | 'foreldreNærmere';
 
 interface Props {
-    firstParent: Forelder;
-    secondParent: Forelder;
+    firstParent: ForeldreparForelder;
+    secondParent: ForeldreparForelder;
     variant?: Illustrasjonsvariant;
 }
 

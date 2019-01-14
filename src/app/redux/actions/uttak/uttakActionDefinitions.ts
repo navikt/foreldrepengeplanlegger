@@ -1,4 +1,4 @@
-import { Periode } from '../../../types';
+import { Periode } from '../../../types/periodetyper';
 
 export enum UttakActionKeys {
     'UPDATE_PERIODE' = 'updatePeriode',

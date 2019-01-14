@@ -1,12 +1,15 @@
 import * as React from 'react';
 import Uttaksplan from './components/uttaksplan/Uttaksplan';
-import { Periode } from './types';
+import { Periode } from './types/periodetyper';
+import { UttaksplanBuilder } from './utils/Builder';
 
 interface State {
     perioder: Periode[];
 }
 
-interface Props {}
+interface Props {
+    familiehendelsesdato: Date;
+}
 
 class Uttaksplanlegger extends React.Component<Props, State> {
     constructor(props: Props) {
@@ -22,12 +25,16 @@ class Uttaksplanlegger extends React.Component<Props, State> {
     }
 
     onAddPeriode(periode: Periode) {
-        const nyePerioder = [...this.state.perioder, periode];
+        const nyePerioder = UttaksplanBuilder(this.state.perioder, this.props.familiehendelsesdato)
+            .leggTilPeriode(periode)
+            .build().perioder;
         this.setState({ perioder: nyePerioder });
     }
 
     onDeletePeriode(periode: Periode) {
-        const nyePerioder = this.state.perioder.filter((p) => p.id !== periode.id);
+        const nyePerioder = UttaksplanBuilder(this.state.perioder, this.props.familiehendelsesdato)
+            .fjernPeriode(periode)
+            .build().perioder;
         this.setState({ perioder: nyePerioder });
     }
 

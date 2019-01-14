@@ -52,3 +52,9 @@ export enum Situasjon {
     'farOgFar' = 'farOgFar',
     'morOgMedmor' = 'morOgMedmor'
 }
+
+export interface PeriodeUttaksinfo {
+    uttaksdager?: number;
+    helligdager?: number;
+    uttaksdagerBrukt: number;
+}

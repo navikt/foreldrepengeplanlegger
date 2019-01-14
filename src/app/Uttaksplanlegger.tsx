@@ -1,8 +1,6 @@
 import * as React from 'react';
 import Uttaksplan from './components/uttaksplan/Uttaksplan';
 import { Periode } from './types';
-import SituasjonSkjemaWrapper from './components/situasjonSkjema/SituasjonSkjemaWrapper';
-import Block from 'common/components/block/Block';
 
 interface State {
     perioder: Periode[];
@@ -41,9 +39,6 @@ class Uttaksplanlegger extends React.Component<Props, State> {
     render() {
         return (
             <div className="content">
-                <Block>
-                    <SituasjonSkjemaWrapper />
-                </Block>
                 <Uttaksplan
                     perioder={this.state.perioder}
                     onAdd={this.onAddPeriode}

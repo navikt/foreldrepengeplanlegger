@@ -1,1 +1,21 @@
-{}
+{
+    "antallBarn.alternativ.ettbarn": "ett barn",
+    "antallBarn.alternativ.flere": "flere barn",
+    "antallBarn.alternativ.tobarn": "to barn",
+    "antallBarn.alternativ.tvillinger": "tvillinger",
+    "antallBarn.select.tekst.adopsjon": "Hvor mange barn adopterer du?",
+    "antallBarn.select.tekst.fødsel": "Hvor mange barn fikk du?",
+    "antallBarn.select.tekst.termin": "Hvor mange barn venter du?",
+    "antallBarn.select.velg": "Velg",
+    "antallBarn.spørsmål.adoptert": "Hvor mange barn adopterte du?",
+    "antallBarn.spørsmål.fått": "Hvor mange barn har du fått?",
+    "antallBarn.spørsmål.venter": "Hvor mange barn venter du?",
+    "situasjon.farOgMor": "Far og mor",
+    "situasjon.bareFar": "Bare far har rett",
+    "situasjon.bareMor": "Bare mor har rett",
+    "situasjon.aleneomsorg": "Aleneomsorg",
+    "situasjon.morOgMedmor": "Mor og  medmor",
+    "situasjon.farOgFar": "Far og far",
+    "uttaksplan.mor": "mor",
+    "uttaksplan.far": "far"
+}

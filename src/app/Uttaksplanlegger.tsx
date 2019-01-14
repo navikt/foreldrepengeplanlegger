@@ -40,7 +40,7 @@ class Uttaksplanlegger extends React.Component<Props, State> {
 
     render() {
         return (
-            <div>
+            <div className="content">
                 <Block>
                     <SituasjonSkjemaWrapper />
                 </Block>

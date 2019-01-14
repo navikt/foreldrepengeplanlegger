@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Formik, FormikProps } from 'formik';
-import SituasjonSkjema, { IntroSkjemaVerdier } from './SituasjonSkjema';
+import SituasjonSkjema, { SituasjonSkjemaVerdier } from './SituasjonSkjema';
 
 interface Props {}
 
-const initialValues: IntroSkjemaVerdier = {
+const initialValues: SituasjonSkjemaVerdier = {
     situasjon: undefined
 };
 
@@ -16,7 +16,7 @@ class SituasjonSkjemaWrapper extends React.Component<Props, {}> {
                 onSubmit={(values) => {
                     console.log(values);
                 }}
-                render={(props: FormikProps<IntroSkjemaVerdier>) => <SituasjonSkjema formik={props} />}
+                render={(props: FormikProps<SituasjonSkjemaVerdier>) => <SituasjonSkjema formik={props} />}
             />
         );
     }

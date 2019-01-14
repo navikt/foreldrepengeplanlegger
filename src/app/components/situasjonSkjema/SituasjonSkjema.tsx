@@ -14,7 +14,7 @@ import DatoInput from 'common/components/skjema/dato-input/DatoInput';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
 import RangeInput from 'common/components/skjema/range-input/RangeInput';
 
-export interface IntroSkjemaVerdier {
+export interface SituasjonSkjemaVerdier {
     situasjon?: Situasjon;
     navnFar?: string;
     navnMor?: string;
@@ -27,7 +27,7 @@ export interface IntroSkjemaVerdier {
 }
 
 interface OwnProps {
-    formik: FormikProps<IntroSkjemaVerdier>;
+    formik: FormikProps<SituasjonSkjemaVerdier>;
 }
 
 type Props = OwnProps & InjectedIntlProps;

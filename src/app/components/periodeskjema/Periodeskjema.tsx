@@ -8,6 +8,7 @@ import { Periodetype, Forelder } from '../../types';
 import './periodeskjema.less';
 import PeriodetypeValg from './parts/PeriodetypeValg';
 import ForelderValg from './parts/ForelderValg';
+import Knapperad from 'common/components/knapperad/Knapperad';
 
 export interface PeriodeFormValues {
     type: Periodetype;
@@ -49,10 +50,12 @@ class Periodeskjema extends React.Component<Props, {}> {
                         }}
                     />
                 </Block>
-                <Knapp htmlType="submit">Ok</Knapp>
-                <Knapp htmlType="button" onClick={() => onCancel()}>
-                    Avbryt
-                </Knapp>
+                <Knapperad>
+                    <Knapp htmlType="submit">Ok</Knapp>
+                    <Knapp htmlType="button" onClick={() => onCancel()}>
+                        Avbryt
+                    </Knapp>
+                </Knapperad>
             </Form>
         );
     }

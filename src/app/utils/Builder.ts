@@ -38,11 +38,6 @@ class Builder {
         this.perioder = slettPeriode(this.perioder, periode);
         return this;
     }
-
-    // private sort() {
-    //     this.perioder = Periodene(this.perioder).sort();
-    //     return this;
-    // }
 }
 
 function resetTidsperioder(perioder: Periode[]): Periode[] {

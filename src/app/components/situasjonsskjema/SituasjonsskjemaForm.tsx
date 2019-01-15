@@ -14,7 +14,7 @@ import DatoInput from 'common/components/skjema/dato-input/DatoInput';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
 import RangeInput from 'common/components/skjema/range-input/RangeInput';
 
-export interface SituasjonSkjemaVerdier {
+export interface SituasjonsskjemaFormValues {
     situasjon?: Situasjon;
     navnFar?: string;
     navnMor?: string;
@@ -27,12 +27,12 @@ export interface SituasjonSkjemaVerdier {
 }
 
 interface OwnProps {
-    formik: FormikProps<SituasjonSkjemaVerdier>;
+    formik: FormikProps<SituasjonsskjemaFormValues>;
 }
 
 type Props = OwnProps & InjectedIntlProps;
 
-class SituasjonSkjema extends React.Component<Props, {}> {
+class SituasjonsskjemaForm extends React.Component<Props, {}> {
     render() {
         const { formik, intl } = this.props;
         const {
@@ -151,4 +151,4 @@ class SituasjonSkjema extends React.Component<Props, {}> {
         );
     }
 }
-export default injectIntl(SituasjonSkjema);
+export default injectIntl(SituasjonsskjemaForm);

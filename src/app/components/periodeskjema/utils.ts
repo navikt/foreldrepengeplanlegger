@@ -1,16 +1,8 @@
-import * as React from 'react';
-import { Formik, FormikProps } from 'formik';
+import { UtsettelsesårsakType, Periodetype, Periode } from '../../types';
 import { guid } from 'nav-frontend-js-utils';
-import Periodeskjema, { PeriodeFormValues } from './Periodeskjema';
-import { Periode, Periodetype, UtsettelsesårsakType } from '../../types/periodetyper';
+import { PeriodeskjemaFormValues } from './types';
 
-interface Props {
-    onSubmit: (periode: Periode) => void;
-    onCancel: () => void;
-}
-
-const createPeriodeFromValues = (values: PeriodeFormValues): Periode => {
-    console.log(values);
+const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
     switch (values.type) {
         case Periodetype.Utsettelse:
             return {
@@ -49,19 +41,8 @@ const createPeriodeFromValues = (values: PeriodeFormValues): Periode => {
     }
 };
 
-class PeriodeskjemaWrapper extends React.Component<Props, {}> {
-    constructor(props: Props) {
-        super(props);
-    }
-    render() {
-        const { onSubmit, onCancel } = this.props;
-        return (
-            <Formik
-                initialValues={{}}
-                onSubmit={(values: PeriodeFormValues) => onSubmit(createPeriodeFromValues(values))}
-                render={(props: FormikProps<PeriodeFormValues>) => <Periodeskjema onCancel={onCancel} formik={props} />}
-            />
-        );
-    }
-}
-export default PeriodeskjemaWrapper;
+const periodeskjemaUtils = {
+    createPeriodeFromValues
+};
+
+export default periodeskjemaUtils;

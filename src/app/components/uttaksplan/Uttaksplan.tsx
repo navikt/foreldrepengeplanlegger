@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Periodeliste from '../periodeliste/Periodeliste';
 import Knapp from 'nav-frontend-knapper';
-import PeriodeskjemaWrapper from '../periodeskjema/PeriodeskjemaWrapper';
+import Periodeskjema from '../periodeskjema/Periodeskjema';
 import Block from 'common/components/block/Block';
 import { Periode } from '../../types/periodetyper';
 
@@ -43,7 +43,7 @@ class Uttaksplan extends React.Component<Props, State> {
                 </Block>
 
                 <Block visible={visSkjema}>
-                    <PeriodeskjemaWrapper
+                    <Periodeskjema
                         onCancel={() => this.setState({ visSkjema: false })}
                         onSubmit={(periode) => this.addPeriode(periode)}
                     />

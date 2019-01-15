@@ -10,14 +10,14 @@ export interface Props {
     style?: 'normal' | 'mobile-50-50';
 }
 
-const BEM = BEMHelper('knapperad');
+const bem = BEMHelper('knapperad');
 
 const Knapperad: React.StatelessComponent<Props> = ({ children, align = 'center', style = 'normal' }) => {
-    const cls = classnames(BEM.className, `${BEM.modifier(align)}`, `${BEM.modifier(style)}`);
+    const cls = classnames(bem.block, `${bem.modifier(align)}`, `${bem.modifier(style)}`);
     return (
         <div className={cls}>
             {React.Children.map(children, (knapp, index) => (
-                <span key={index} className={BEM.element('knapp')}>
+                <span key={index} className={bem.element('knapp')}>
                     {knapp}
                 </span>
             ))}

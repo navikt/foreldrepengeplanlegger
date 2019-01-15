@@ -6,6 +6,7 @@ import periodeskjemaUtils from './utils';
 import { PeriodeskjemaFormValues } from './types';
 
 interface Props {
+    periode?: Periode;
     onSubmit: (periode: Periode) => void;
     onCancel: () => void;
 }
@@ -15,10 +16,10 @@ class Periodeskjema extends React.Component<Props, {}> {
         super(props);
     }
     render() {
-        const { onSubmit, onCancel } = this.props;
+        const { periode, onSubmit, onCancel } = this.props;
         return (
             <Formik
-                initialValues={{}}
+                initialValues={periodeskjemaUtils.getInitialFormValuesFromPeriode(periode)}
                 onSubmit={(values: PeriodeskjemaFormValues) =>
                     onSubmit(periodeskjemaUtils.createPeriodeFromValues(values))
                 }

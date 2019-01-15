@@ -101,6 +101,7 @@
         "nav-frontend-lenker": "1.0.18",
         "nav-frontend-lukknapp": "1.0.16",
         "nav-frontend-modal": "1.0.19",
+        "nav-frontend-paneler": "^1.0.10",
         "nav-frontend-skjema": "1.0.49",
         "nav-frontend-spinner": "1.0.12",
         "nav-frontend-typografi": "2.0.6",

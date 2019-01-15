@@ -41,8 +41,22 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
     }
 };
 
+const getInitialFormValuesFromPeriode = (periode: Periode | undefined): PeriodeskjemaFormValues | {} => {
+    if (!periode) {
+        return {};
+    }
+    return {
+        fom: periode.tidsperiode.fom,
+        tom: periode.tidsperiode.tom,
+        forelder: periode.forelder,
+        gradering: periode.gradering,
+        type: periode.type
+    };
+};
+
 const periodeskjemaUtils = {
-    createPeriodeFromValues
+    createPeriodeFromValues,
+    getInitialFormValuesFromPeriode
 };
 
 export default periodeskjemaUtils;

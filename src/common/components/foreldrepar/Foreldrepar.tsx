@@ -28,7 +28,7 @@ const Foreldrepar: React.StatelessComponent<Props> = ({ firstParent, secondParen
     return (
         <div
             role="presentation"
-            className={classnames(cls.className, {
+            className={classnames(cls.block, {
                 [cls.element('closerParents')]: variant && variant === 'foreldreNærmere'
             })}>
             <Forelder

@@ -7,6 +7,8 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 import './periodeElement.less';
 import { getPeriodeUttaksinfo } from '../../utils/periodeinfo';
+import Periodeskjema from '../periodeskjema/Periodeskjema';
+import BEMHelper from 'common/utils/bem';
 
 interface OwnProps {
     periode: Periode;
@@ -15,21 +17,26 @@ interface OwnProps {
 
 type Props = OwnProps & InjectedIntlProps;
 
+const bem = BEMHelper('periodeElement');
+
 const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, intl }) => {
     const periodeinfo = getPeriodeUttaksinfo(periode);
     return (
-        <div className="periodeElement">
+        <div className={bem.block}>
             <p>
                 {periode.forelder} - {periode.type}
             </p>
-            <p>{Tidsperioden(periode.tidsperiode).formaterString(intl)}</p>
+            <p>{Tidsperioden(periode.tidsperiode).formaterStringMedDag(intl)}</p>
             {periodeinfo ? (
                 <p>
                     uttaksdager: {periodeinfo.uttaksdager}, helligdager: {periodeinfo.helligdager}, dager brukt:{' '}
                     {periodeinfo.uttaksdagerBrukt}
                 </p>
             ) : null}
-            <Lukknapp onClick={() => onDelete(periode)}>Slett</Lukknapp>
+            <div className={bem.element('delete')}>
+                <Lukknapp onClick={() => onDelete(periode)}>Slett</Lukknapp>
+            </div>
+            {1 && false && <Periodeskjema periode={periode} onCancel={() => null} onSubmit={() => null} />}
         </div>
     );
 };

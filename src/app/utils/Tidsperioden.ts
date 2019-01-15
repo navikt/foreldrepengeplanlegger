@@ -4,7 +4,7 @@ import { Tidsperiode } from 'common/types';
 import { getOffentligeFridager } from 'common/utils/fridagerUtils';
 import { Uttaksdagen } from './Uttaksdagen';
 import { InjectedIntl } from 'react-intl';
-import { formaterDatoUtenDag, dateIsSameOrBefore, dateIsSameOrAfter } from 'common/utils/datoUtils';
+import { formaterDatoUtenDag, dateIsSameOrBefore, dateIsSameOrAfter, formaterDato } from 'common/utils/datoUtils';
 import getMessage from 'common/utils/i18nUtils';
 
 export const Tidsperioden = (tidsperiode: Partial<Tidsperiode>) => ({
@@ -17,6 +17,7 @@ export const Tidsperioden = (tidsperiode: Partial<Tidsperiode>) => ({
     setUttaksdager: (uttaksdager: number) =>
         tidsperiode.fom ? getTidsperiode(tidsperiode.fom, uttaksdager) : tidsperiode,
     formaterString: (intl: InjectedIntl) => tidsperiodeToString(tidsperiode, intl),
+    formaterStringMedDag: (intl: InjectedIntl) => tidsperiodeToStringMedDag(tidsperiode, intl),
     formaterStringKort: (intl: InjectedIntl) => tidsperiodeToStringKort(tidsperiode, intl),
     erFomEllerEtterDato: (dato: Date) => erTidsperiodeFomEllerEtterDato(tidsperiode, dato),
     erFørDato: (dato: Date) => erTidsperiodeFomEllerEtterDato(tidsperiode, dato) === false
@@ -133,6 +134,17 @@ function tidsperiodeToString(tidsperiode: Partial<Tidsperiode>, intl: InjectedIn
     return getMessage(intl, 'tidsperiode', {
         fom: fom ? formaterDatoUtenDag(fom) : '',
         tom: tom ? formaterDatoUtenDag(tom) : ''
+    });
+}
+
+function tidsperiodeToStringMedDag(tidsperiode: Partial<Tidsperiode>, intl: InjectedIntl) {
+    const { fom, tom } = tidsperiode;
+    if (fom && tom && moment(fom).isSame(tom, 'day')) {
+        return formaterDato(fom ? fom : tom);
+    }
+    return getMessage(intl, 'tidsperiode', {
+        fom: fom ? formaterDato(fom) : '',
+        tom: tom ? formaterDato(tom) : ''
     });
 }
 

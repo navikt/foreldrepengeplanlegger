@@ -52,7 +52,7 @@ class Situasjonsvalg extends React.Component<Props, State> {
         const { situasjon, checked, onChange } = this.props;
         return (
             <label
-                className={classnames(bem.className, {
+                className={classnames(bem.block, {
                     [bem.modifier('valgt')]: checked,
                     [bem.modifier('medFokus')]: this.state.hasFocus
                 })}>

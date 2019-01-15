@@ -4,6 +4,7 @@ import Knapp from 'nav-frontend-knapper';
 import Periodeskjema from '../periodeskjema/Periodeskjema';
 import Block from 'common/components/block/Block';
 import { Periode } from '../../types/periodetyper';
+import PeriodeDevBar from '../../dev/PeriodeDevBar';
 
 interface Props {
     perioder: Periode[];
@@ -31,7 +32,7 @@ class Uttaksplan extends React.Component<Props, State> {
     }
 
     render() {
-        const { perioder, onDelete } = this.props;
+        const { perioder, onDelete, onAdd, onUpdate } = this.props;
         const { visSkjema } = this.state;
 
         return (
@@ -49,9 +50,13 @@ class Uttaksplan extends React.Component<Props, State> {
                     />
                 </Block>
 
-                <Knapp type="standard" onClick={() => this.setState({ visSkjema: true })}>
-                    Legg til periode
-                </Knapp>
+                <Block>
+                    <Knapp type="standard" onClick={() => this.setState({ visSkjema: true })}>
+                        Legg til periode
+                    </Knapp>
+                </Block>
+
+                <PeriodeDevBar perioder={perioder} onAdd={onAdd} onDelete={onDelete} onUpdate={onUpdate} />
             </div>
         );
     }

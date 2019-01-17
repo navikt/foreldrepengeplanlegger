@@ -10,6 +10,8 @@ export const UttaksplanBuilder = (perioder: Periode[], familiehendelsesdato: Dat
     return new Builder(perioder, familiehendelsesdato);
 };
 
+const useFixedPerioder = false;
+
 class Builder {
     protected familiehendelsesdato: Date;
 
@@ -19,13 +21,17 @@ class Builder {
     }
 
     build() {
-        const fastePerioder = this.perioder.filter((p) => p.fixed === true);
-        const fleksiblePerioder = this.perioder.filter((p) => p.fixed !== true);
+        if (useFixedPerioder) {
+            const fastePerioder = this.perioder.filter((p) => p.fixed === true);
+            const fleksiblePerioder = this.perioder.filter((p) => p.fixed !== true);
 
-        this.perioder = resetTidsperioder(fleksiblePerioder);
-        this.perioder = slåSammenLikePerioder(this.perioder);
-        this.perioder = settInnPerioder(this.perioder, fastePerioder);
-        this.perioder = slåSammenLikePerioder(this.perioder);
+            this.perioder = resetTidsperioder(fleksiblePerioder);
+            this.perioder = slåSammenLikePerioder(this.perioder);
+            this.perioder = settInnPerioder(this.perioder, fastePerioder);
+            this.perioder = slåSammenLikePerioder(this.perioder);
+        } else {
+            this.perioder = resetTidsperioder(this.perioder);
+        }
 
         return this;
     }

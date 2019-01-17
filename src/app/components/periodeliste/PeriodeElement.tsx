@@ -5,15 +5,14 @@ import { Tidsperioden } from '../../utils/Tidsperioden';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import Periodeskjema from '../periodeskjema/Periodeskjema';
 import BEMHelper from 'common/utils/bem';
-import Block from 'common/components/block/Block';
 import { Perioden } from '../../utils/Perioden';
-import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVelger';
 import { CheckboksPanel } from 'nav-frontend-skjema';
 import ForelderMenu from './parts/ForelderMenu';
 import PeriodetypeMenu from './parts/PeriodetypeMenu';
 
 import './periodeElement.less';
 import { changePeriodeType } from '../../utils/typeUtils';
+import VarighetMeny from './parts/VarighetMenu';
 
 interface OwnProps {
     periode: Periode;
@@ -47,9 +46,19 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
                         })
                     }
                 />
+                {' - '}
                 <PeriodetypeMenu
                     type={periode.type}
                     onChange={(type: Periodetype) => onChange(changePeriodeType(periode, type))}
+                />
+                {' - '}
+                <VarighetMeny
+                    tidsperiode={periode.tidsperiode}
+                    uker={uker}
+                    dager={dager}
+                    onChange={(ukerOgDager) =>
+                        onChange(Perioden(periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
+                    }
                 />
             </p>
             <p>{Tidsperioden(periode.tidsperiode).formaterStringMedDag(intl)}</p>
@@ -59,16 +68,6 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
                     {uttaksinfo.uttaksdagerBrukt}
                 </p>
             ) : null}
-            <Block>
-                <UkerOgDagerVelger
-                    tittel="Hvor lenge skal perioden vare?"
-                    uker={uker}
-                    dager={dager}
-                    onChange={(ukerOgDager) =>
-                        onChange(Perioden(periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
-                    }
-                />
-            </Block>
             <CheckboksPanel
                 label="Låst periode"
                 checked={periode.fixed || false}

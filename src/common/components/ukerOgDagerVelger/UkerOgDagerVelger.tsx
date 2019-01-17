@@ -7,7 +7,7 @@ import BEMHelper from 'common/utils/bem';
 
 import './ukerOgDagerVelger.less';
 
-interface Props {
+export interface Props {
     tittel: string;
     uker: number;
     dager: number;

@@ -1,0 +1,30 @@
+@import './../../../common/styles/mixins.less';
+@import './../../../common/styles/variables.less';
+
+.dropdownButton {
+    position: relative;
+    display: inline-block;
+    ul,
+    li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    &__wrapper {
+        position: absolute;
+        z-index: @z-popup;
+        top: 100%;
+        min-width: 10rem;
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        padding: 0;
+        background-color: white;
+    }
+    &__button {
+        &:focus  {
+            margin: -0.25rem;
+            padding: 0.25rem;
+            border-radius: 2px;
+            .buttonFocus();
+        }
+    }
+}

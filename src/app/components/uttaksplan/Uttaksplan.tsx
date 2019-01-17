@@ -40,7 +40,7 @@ class Uttaksplan extends React.Component<Props, State> {
                 <h1>Perioder</h1>
 
                 <Block animated={false}>
-                    <Periodeliste perioder={perioder} onDelete={onDelete} />
+                    <Periodeliste perioder={perioder} onDelete={onDelete} onUpdate={onUpdate} />
                 </Block>
 
                 <Block visible={visSkjema}>

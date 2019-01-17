@@ -10,9 +10,9 @@ import { Dekningsgrad } from 'common/types';
 import { Normaltekst, Ingress } from 'nav-frontend-typografi';
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
 import AntallBarnBolk from './parts/AntallBarnBolk';
-import DatoInput from 'common/components/skjema/dato-input/DatoInput';
+import DatoInput from 'common/components/skjema/datoInput/DatoInput';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
-import RangeInput from 'common/components/skjema/range-input/RangeInput';
+import RangeInput from 'common/components/skjema/rangeInput/RangeInput';
 
 export interface SituasjonsskjemaFormValues {
     situasjon?: Situasjon;

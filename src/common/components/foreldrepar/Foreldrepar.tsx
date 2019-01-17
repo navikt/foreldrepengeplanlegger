@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FlexibleSvg } from '../custom-svg/CustomSVG';
+import { FlexibleSvg } from '../customSvg/CustomSVG';
 import classnames from 'classnames';
 import BEMHelper from 'common/utils/bem';
 

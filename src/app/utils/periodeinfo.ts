@@ -1,5 +1,6 @@
 import { Periode, PeriodeUttaksinfo } from '../types';
 import { isValidTidsperiode, Tidsperioden } from './Tidsperioden';
+import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
 
 export const getPeriodeUttaksinfo = (periode: Periode): PeriodeUttaksinfo | undefined => {
     const { tidsperiode } = periode;
@@ -9,6 +10,7 @@ export const getPeriodeUttaksinfo = (periode: Periode): PeriodeUttaksinfo | unde
         return {
             uttaksdager,
             helligdager,
+            ukerOgDager: getUkerOgDagerFromDager(uttaksdager),
             uttaksdagerBrukt: uttaksdager * (periode.gradering || 1)
         };
     }

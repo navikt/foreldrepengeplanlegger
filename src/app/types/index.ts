@@ -20,8 +20,14 @@ export enum Situasjon {
     'morOgMedmor' = 'morOgMedmor'
 }
 
+export interface UkerOgDager {
+    uker: number;
+    dager: number;
+}
+
 export interface PeriodeUttaksinfo {
     uttaksdager?: number;
     helligdager?: number;
+    ukerOgDager: UkerOgDager;
     uttaksdagerBrukt: number;
 }

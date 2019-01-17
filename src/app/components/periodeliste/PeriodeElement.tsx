@@ -33,6 +33,9 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
     const { uker, dager } = periodeinfo.ukerOgDager;
     return (
         <div className={bem.block}>
+            <div className={bem.element('delete')}>
+                <Lukknapp onClick={() => onDelete(periode)}>Slett</Lukknapp>
+            </div>
             <p>
                 {periode.forelder} - {periode.type}
             </p>
@@ -43,9 +46,6 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
                     {periodeinfo.uttaksdagerBrukt}
                 </p>
             ) : null}
-            <div className={bem.element('delete')}>
-                <Lukknapp onClick={() => onDelete(periode)}>Slett</Lukknapp>
-            </div>
             <Block>
                 <UkerOgDagerVelger
                     tittel="Hvor lenge skal perioden vare?"

@@ -5,6 +5,8 @@ import Periodeskjema from '../periodeskjema/Periodeskjema';
 import Block from 'common/components/block/Block';
 import { Periode } from '../../types/periodetyper';
 import PeriodeDevBar from '../../dev/PeriodeDevBar';
+import Forbruk from '../forbruk/Forbruk';
+import { getForbruk } from '../forbruk/forbrukUtils';
 
 interface Props {
     perioder: Periode[];
@@ -39,6 +41,9 @@ class Uttaksplan extends React.Component<Props, State> {
             <div className="content">
                 <h1>Perioder</h1>
 
+                <Block animated={false}>
+                    <Forbruk forbruk={getForbruk(perioder)} />
+                </Block>
                 <Block animated={false}>
                     <Periodeliste perioder={perioder} onDelete={onDelete} onUpdate={onUpdate} />
                 </Block>

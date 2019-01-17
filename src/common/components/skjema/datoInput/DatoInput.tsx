@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import SkjemaInputElement from '../skjema-input-element/SkjemaInputElement';
-import { Feil } from '../skjema-input-element/types';
+import SkjemaInputElement from '../skjemaInputElement/SkjemaInputElement';
+import { Feil } from '../skjemaInputElement/types';
 import NavDatovelger from 'nav-datovelger';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { DatovelgerCommonProps } from 'nav-datovelger/dist/datovelger/Datovelger';

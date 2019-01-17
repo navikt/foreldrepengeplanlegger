@@ -2,13 +2,11 @@ import { Forelder, Periode, Periodetype } from '../../types';
 import { ForbrukPeriode, ForelderForbruk } from './Forbruk';
 import groupby from 'lodash.groupby';
 import { Tidsperioden } from '../../utils/Tidsperioden';
-import { getPeriodeUttaksinfo } from '../../utils/periodeinfo';
 
 export const summerForbrukIPerioder = (perioder: Periode[]): number => {
     return perioder.reduce((dager, periode) => {
-        const periodeinfo = getPeriodeUttaksinfo(periode);
-        if (periodeinfo) {
-            return dager + periodeinfo.uttaksdagerBrukt;
+        if (periode.uttaksinfo) {
+            return dager + periode.uttaksinfo.uttaksdagerBrukt;
         }
         return dager;
     }, 0);

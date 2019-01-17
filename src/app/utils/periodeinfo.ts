@@ -20,7 +20,7 @@ const beregnBrukteUttaksdager = (
     }
 };
 
-export const getPeriodeUttaksinfo = (periode: Periode): PeriodeUttaksinfo | undefined => {
+export const getUttaksinfoFromPeriode = (periode: Periode): PeriodeUttaksinfo | undefined => {
     const { tidsperiode } = periode;
     if (isValidTidsperiode(tidsperiode)) {
         const uttaksdager = Tidsperioden(tidsperiode).getAntallUttaksdager();

@@ -3,7 +3,6 @@ import { Periode } from '../../types';
 import Lukknapp from 'nav-frontend-lukknapp';
 import { Tidsperioden } from '../../utils/Tidsperioden';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import { getPeriodeUttaksinfo } from '../../utils/periodeinfo';
 import Periodeskjema from '../periodeskjema/Periodeskjema';
 import BEMHelper from 'common/utils/bem';
 import Block from 'common/components/block/Block';
@@ -24,13 +23,12 @@ type Props = OwnProps & InjectedIntlProps;
 const bem = BEMHelper('periodeElement');
 
 const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, onChange, intl }) => {
-    const periodeinfo = getPeriodeUttaksinfo(periode);
-
-    if (periodeinfo === undefined) {
+    const { uttaksinfo } = periode;
+    if (uttaksinfo === undefined) {
         return <div>Ingen periodeinfo</div>;
     }
 
-    const { uker, dager } = periodeinfo.ukerOgDager;
+    const { uker, dager } = uttaksinfo.ukerOgDager;
     return (
         <div className={bem.block}>
             <div className={bem.element('delete')}>
@@ -40,10 +38,10 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
                 {periode.forelder} - {periode.type}
             </p>
             <p>{Tidsperioden(periode.tidsperiode).formaterStringMedDag(intl)}</p>
-            {periodeinfo ? (
+            {uttaksinfo ? (
                 <p>
-                    uttaksdager: {periodeinfo.uttaksdager}, helligdager: {periodeinfo.helligdager}, dager brukt:{' '}
-                    {periodeinfo.uttaksdagerBrukt}
+                    uttaksdager: {uttaksinfo.uttaksdager}, helligdager: {uttaksinfo.helligdager}, dager brukt:{' '}
+                    {uttaksinfo.uttaksdagerBrukt}
                 </p>
             ) : null}
             <Block>

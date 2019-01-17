@@ -1,17 +1,22 @@
 import * as React from 'react';
 import PeriodeElement from './PeriodeElement';
-import { SortableElement, SortableContainer } from 'react-sortable-hoc';
+import { SortableElement, SortableContainer, SortEnd } from 'react-sortable-hoc';
 
 import './periodeliste.less';
 import { Periode } from '../../types/periodetyper';
 
 type onDeleteEvent = (periode: Periode) => void;
 type onUpdateEvent = (periode: Periode) => void;
+type onMoveEvent = (periode: Periode, toIndex: number) => void;
 
-interface OwnProps {
+interface ContainerProps {
     perioder: Periode[];
     onUpdate: onUpdateEvent;
     onDelete: onDeleteEvent;
+}
+
+interface OwnProps extends ContainerProps {
+    onMove: onMoveEvent;
 }
 
 const SorterbarPeriode = SortableElement(
@@ -22,7 +27,7 @@ const SorterbarPeriode = SortableElement(
     )
 );
 
-const SorterbarPeriodeliste = SortableContainer(({ perioder, onDelete, onUpdate }: OwnProps) => {
+const SorterbarPeriodelisteContainer = SortableContainer(({ perioder, onDelete, onUpdate }: ContainerProps) => {
     return (
         <ol className="periodeliste">
             {perioder.map((periode: Periode, index: number) => {
@@ -40,11 +45,18 @@ const SorterbarPeriodeliste = SortableContainer(({ perioder, onDelete, onUpdate 
     );
 });
 
-const Periodeliste: React.StatelessComponent<OwnProps> = ({ perioder, onDelete, onUpdate }) => {
+const SorterbarPeriodeliste: React.StatelessComponent<OwnProps> = ({ perioder, onDelete, onUpdate, onMove }) => {
     if (perioder.length === 0) {
         return <div>Ingen perioder registrert</div>;
     }
-    return <SorterbarPeriodeliste perioder={perioder} onDelete={onDelete} onUpdate={onUpdate} />;
+    return (
+        <SorterbarPeriodelisteContainer
+            perioder={perioder}
+            onDelete={onDelete}
+            onUpdate={onUpdate}
+            onSortEnd={(sortEnd: SortEnd) => onMove(perioder[sortEnd.oldIndex], sortEnd.newIndex)}
+        />
+    );
 };
 
-export default Periodeliste;
+export default SorterbarPeriodeliste;

@@ -6,6 +6,7 @@ import { Perioden } from './Perioden';
 import { guid } from 'nav-frontend-js-utils';
 import { getTidsperiode, Tidsperioden } from './Tidsperioden';
 import { getUttaksinfoFromPeriode } from './periodeinfo';
+import arrayMove from 'array-move';
 
 export const UttaksplanBuilder = (perioder: Periode[], familiehendelsesdato: Date) => {
     return new Builder(perioder, familiehendelsesdato);
@@ -54,15 +55,26 @@ class Builder {
         return this;
     }
 
+    flyttPeriode(periodeSomFlyttes: Periode, toIndex: number) {
+        const fromIndex = this.perioder.indexOf(periodeSomFlyttes);
+        const startDato = this.perioder[0].tidsperiode.fom;
+        this.perioder = arrayMove(this.perioder, fromIndex, toIndex);
+        this.perioder[0] = Perioden(this.perioder[0]).setStartdato(startDato);
+        this.perioder = resetTidsperioder(this.perioder, true);
+        return this;
+    }
+
     sort() {
         this.perioder.sort(sorterPerioder);
         return this;
     }
 }
 
-function resetTidsperioder(perioder: Periode[]): Periode[] {
+function resetTidsperioder(perioder: Periode[], skipSort?: boolean): Periode[] {
     let forrigePeriode: Periode;
-    const sammenslåttePerioder = slåSammenLikePerioder(perioder.sort(sorterPerioder)) as Periode[];
+    const sammenslåttePerioder = slåSammenLikePerioder(
+        skipSort ? perioder : perioder.sort(sorterPerioder)
+    ) as Periode[];
     const resattePerioder = sammenslåttePerioder.map((periode) => {
         if (forrigePeriode === undefined) {
             forrigePeriode = periode;

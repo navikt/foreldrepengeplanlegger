@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Periodeliste from '../periodeliste/Periodeliste';
+// import Periodeliste from '../periodeliste/Periodeliste';
 import Knapp from 'nav-frontend-knapper';
 import Periodeskjema from '../periodeskjema/Periodeskjema';
 import Block from 'common/components/block/Block';
@@ -7,12 +7,14 @@ import { Periode } from '../../types/periodetyper';
 import PeriodeDevBar from '../../dev/PeriodeDevBar';
 import Forbruk from '../forbruk/Forbruk';
 import { getForbruk } from '../forbruk/forbrukUtils';
+import SorterbarPeriodeliste from '../periodeliste/SorterbarPeriodeliste';
 
 interface Props {
     perioder: Periode[];
     onAdd: (periode: Periode) => void;
     onDelete: (periode: Periode) => void;
     onUpdate: (periode: Periode) => void;
+    onMove: (periode: Periode, toIndex: number) => void;
 }
 
 interface State {
@@ -34,7 +36,7 @@ class Uttaksplan extends React.Component<Props, State> {
     }
 
     render() {
-        const { perioder, onDelete, onAdd, onUpdate } = this.props;
+        const { perioder, onDelete, onAdd, onUpdate, onMove } = this.props;
         const { visSkjema } = this.state;
 
         return (
@@ -45,7 +47,12 @@ class Uttaksplan extends React.Component<Props, State> {
                     <Forbruk forbruk={getForbruk(perioder)} />
                 </Block>
                 <Block animated={false}>
-                    <Periodeliste perioder={perioder} onDelete={onDelete} onUpdate={onUpdate} />
+                    <SorterbarPeriodeliste
+                        perioder={perioder}
+                        onDelete={onDelete}
+                        onUpdate={onUpdate}
+                        onMove={onMove}
+                    />
                 </Block>
 
                 <Block visible={visSkjema}>

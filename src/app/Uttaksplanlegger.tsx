@@ -53,6 +53,7 @@ class Uttaksplanlegger extends React.Component<Props, State> {
         this.onAddPeriode = this.onAddPeriode.bind(this);
         this.onUpdatePeriode = this.onUpdatePeriode.bind(this);
         this.onDeletePeriode = this.onDeletePeriode.bind(this);
+        this.onMove = this.onMove.bind(this);
 
         this.state = {
             perioder: mockPerioder
@@ -80,6 +81,13 @@ class Uttaksplanlegger extends React.Component<Props, State> {
         this.setState({ perioder: nyePerioder });
     }
 
+    onMove(periode: Periode, toIndex: number) {
+        const nyePerioder = UttaksplanBuilder(this.state.perioder, this.props.familiehendelsesdato)
+            .flyttPeriode(periode, toIndex)
+            .build().perioder;
+        this.setState({ perioder: nyePerioder });
+    }
+
     render() {
         return (
             <div className="content">
@@ -88,6 +96,7 @@ class Uttaksplanlegger extends React.Component<Props, State> {
                     onAdd={this.onAddPeriode}
                     onDelete={this.onDeletePeriode}
                     onUpdate={this.onUpdatePeriode}
+                    onMove={this.onMove}
                 />
             </div>
         );

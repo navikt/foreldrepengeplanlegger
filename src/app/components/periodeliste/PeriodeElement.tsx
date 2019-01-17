@@ -3,17 +3,16 @@ import { Periode, Periodetype } from '../../types';
 import Lukknapp from 'nav-frontend-lukknapp';
 import { Tidsperioden } from '../../utils/Tidsperioden';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import Periodeskjema from '../periodeskjema/Periodeskjema';
 import BEMHelper from 'common/utils/bem';
 import { Perioden } from '../../utils/Perioden';
 import ForelderMeny from './parts/ForelderMeny';
 import PeriodetypeMeny from './parts/PeriodetypeMeny';
 import { changePeriodeType } from '../../utils/typeUtils';
 import VarighetMeny from './parts/VarighetMeny';
-
-import './periodeElement.less';
 import PinKnapp from '../pinKnapp/PinKnapp';
 import Block from 'common/components/block/Block';
+
+import './periodeElement.less';
 
 interface OwnProps {
     periode: Periode;
@@ -27,6 +26,7 @@ const bem = BEMHelper('periodeElement');
 
 const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, onChange, intl }) => {
     const { uttaksinfo } = periode;
+
     if (uttaksinfo === undefined) {
         return <div>Ingen periodeinfo</div>;
     }
@@ -76,13 +76,6 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
                 {' - '}
                 {Tidsperioden(periode.tidsperiode).formaterStringMedDag(intl)}
             </Block>
-            {uttaksinfo ? (
-                <div>
-                    uttaksdager: {uttaksinfo.uttaksdager}, helligdager: {uttaksinfo.helligdager}, dager brukt:{' '}
-                    {uttaksinfo.uttaksdagerBrukt}
-                </div>
-            ) : null}
-            {1 && false && <Periodeskjema periode={periode} onCancel={() => null} onSubmit={() => null} />}
         </div>
     );
 };

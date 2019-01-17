@@ -10,9 +10,12 @@ import './styles/app.less';
 
 import { Normaltekst } from 'nav-frontend-typografi';
 import Uttaksplanlegger from './Uttaksplanlegger';
+import { registerDevUtils } from './dev/devUtils';
 
 Modal.setAppElement('#appContainer');
 const root = document.getElementById('app');
+
+registerDevUtils();
 
 render(
     <Provider store={store}>

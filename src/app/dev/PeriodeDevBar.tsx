@@ -32,16 +32,14 @@ class PeriodeDevBar extends React.Component<Props, {}> {
                 id,
                 forelder,
                 tidsperiode,
-                type: Periodetype.Uttak,
-                fixed: false
+                type: Periodetype.Uttak
             });
         } else if (periodetype === Periodetype.Ferie) {
             this.props.onAdd({
                 id,
                 forelder,
                 tidsperiode,
-                type: Periodetype.Ferie,
-                fixed: true
+                type: Periodetype.Ferie
             });
         }
     }

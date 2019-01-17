@@ -28,9 +28,9 @@ class Builder {
 
             this.perioder = resetTidsperioder(fleksiblePerioder);
             this.perioder = slåSammenLikePerioder(this.perioder);
-            this.perioder = oppdaterUttaksinfo(this.perioder);
             this.perioder = settInnPerioder(this.perioder, fastePerioder);
             this.perioder = slåSammenLikePerioder(this.perioder);
+            this.perioder = oppdaterUttaksinfo(this.perioder);
         } else {
             this.perioder = resetTidsperioder(this.perioder);
         }

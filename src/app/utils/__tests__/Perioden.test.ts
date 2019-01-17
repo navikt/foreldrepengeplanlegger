@@ -40,15 +40,7 @@ describe('Perioden', () => {
             expect(
                 Perioden(periode1).erLik({
                     ...periode1,
-                    forelder: Forelder.forelder2
-                })
-            ).toBeFalsy();
-        });
-        it('når fixed er ulik', () => {
-            expect(
-                Perioden(periode1).erLik({
-                    ...periode1,
-                    forelder: Forelder.forelder2
+                    fixed: true
                 })
             ).toBeFalsy();
         });
@@ -70,7 +62,7 @@ describe('Perioden', () => {
         });
     });
     describe('Ignorerer felter ved sammenligning', () => {
-        it('når id er ulik', () => {
+        it('ignorerer id', () => {
             expect(
                 Perioden(periode1).erLik({
                     ...periode1,
@@ -78,7 +70,7 @@ describe('Perioden', () => {
                 })
             ).toBeTruthy();
         });
-        it('når tidsperiode er ulik', () => {
+        it('ignorerer tidsperiode', () => {
             expect(
                 Perioden(periode1).erLik({
                     ...periode1,
@@ -86,7 +78,7 @@ describe('Perioden', () => {
                 })
             ).toBeTruthy();
         });
-        it('når uttaksinfo er ulik', () => {
+        it('ignorerer uttaksinfo', () => {
             expect(
                 Perioden(periode1).erLik({
                     ...periode1,

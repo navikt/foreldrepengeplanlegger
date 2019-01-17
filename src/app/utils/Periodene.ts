@@ -4,12 +4,12 @@ import { isValidTidsperiode, Tidsperioden } from './Tidsperioden';
 import { Tidsperiode } from 'common/types';
 import {
     Periode,
-    Utsettelsesperiode,
-    Periodetype,
-    isUtsettelse,
-    UtsettelsesårsakType,
     isUttak,
-    Uttaksperiode
+    Uttaksperiode,
+    Utsettelsesperiode,
+    isUtsettelse,
+    isFerie,
+    isArbeid
 } from '../types/periodetyper';
 import { Forelder } from '../types';
 import { Perioden } from './Perioden';
@@ -18,7 +18,8 @@ export const Periodene = (perioder: Periode[]) => ({
     getPeriode: (id: string) => getPeriode(perioder, id),
     getUttak: () => getUttak(perioder),
     getUtsettelser: () => getUtsettelser(perioder),
-    getFerieutsettelser: () => getFerieutsettelser(perioder),
+    getFerieperioder: () => getFerieperioder(perioder),
+    getArbeidsperioder: () => getArbeidsperioder(perioder),
     getPerioderEtterFamiliehendelsesdato: (dato: Date) => getPerioderEtterFamiliehendelsesdato(perioder, dato),
     getPerioderFørFamiliehendelsesdato: (dato: Date) => getPerioderFørFamiliehendelsesdato(perioder, dato),
     getPerioderMedUgyldigTidsperiode: () => getPeriodeMedUgyldigTidsperiode(perioder),
@@ -58,8 +59,12 @@ function getUtsettelser(perioder: Periode[]): Utsettelsesperiode[] {
     return perioder.filter(isUtsettelse);
 }
 
-function getFerieutsettelser(perioder: Periode[]): Utsettelsesperiode[] {
-    return perioder.filter(isUtsettelse).filter((p) => p.årsak === UtsettelsesårsakType.Ferie);
+function getFerieperioder(perioder: Periode[]): Utsettelsesperiode[] {
+    return perioder.filter(isFerie);
+}
+
+function getArbeidsperioder(perioder: Periode[]): Utsettelsesperiode[] {
+    return perioder.filter(isArbeid);
 }
 
 function finnOverlappendePerioder(perioder: Periode[], periode: Periode): Periode[] {
@@ -116,7 +121,7 @@ function finnPåfølgendePeriode(perioder: Periode[], periode: Periode): Periode
 
 function forskyvPerioder(perioder: Periode[], uttaksdager: number): Periode[] {
     return perioder.map((periode) => {
-        if (periode.type === Periodetype.Utsettelse) {
+        if (periode.fixed) {
             return periode;
         }
         return forskyvPeriode(periode, uttaksdager);
@@ -168,7 +173,7 @@ function getFørsteUttaksdag(perioder: Periode[]): Date | undefined {
 }
 
 function getAntallFeriedager(perioder: Periode[], forelder?: Forelder): number {
-    return getFerieutsettelser(perioder)
+    return getFerieperioder(perioder)
         .filter((p) => (isValidTidsperiode(p.tidsperiode) && forelder ? p.forelder === forelder : true))
         .map((p) => Tidsperioden(p.tidsperiode).getAntallUttaksdager())
         .reduce((tot = 0, curr) => tot + curr, 0);

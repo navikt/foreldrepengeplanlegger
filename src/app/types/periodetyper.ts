@@ -3,13 +3,9 @@ import { Forelder } from '.';
 
 export enum Periodetype {
     'Uttak' = 'uttak',
-    'Utsettelse' = 'utsettelse',
-    'UbetaltPermisjon' = 'ubetaltPermisjon'
-}
-
-export enum UtsettelsesårsakType {
     'Ferie' = 'ferie',
-    'Arbeid' = 'arbeid'
+    'Arbeid' = 'arbeid',
+    'UbetaltPermisjon' = 'ubetaltPermisjon'
 }
 
 export interface PeriodeBase {
@@ -26,9 +22,13 @@ export interface Uttaksperiode extends PeriodeBase {
     fixed: false;
 }
 
-export interface Utsettelsesperiode extends PeriodeBase {
-    type: Periodetype.Utsettelse;
-    årsak: UtsettelsesårsakType;
+export interface Ferieperiode extends PeriodeBase {
+    type: Periodetype.Ferie;
+    fixed: true;
+}
+
+export interface Arbeidsperiode extends PeriodeBase {
+    type: Periodetype.Arbeid;
     fixed: true;
 }
 
@@ -37,14 +37,24 @@ export interface UbetaltPermisjon extends PeriodeBase {
     fixed: true;
 }
 
-export type Periode = Uttaksperiode | Utsettelsesperiode | UbetaltPermisjon;
+export type Utsettelsesperiode = Ferieperiode | Arbeidsperiode;
 
-export function isUtsettelse(periode: Periode): periode is Utsettelsesperiode {
-    return periode.type === Periodetype.Utsettelse;
-}
+export type Periode = Uttaksperiode | Utsettelsesperiode | UbetaltPermisjon;
 
 export function isUttak(periode: Periode): periode is Uttaksperiode {
     return periode.type === Periodetype.Uttak;
+}
+
+export function isUtsettelse(periode: Periode): periode is Utsettelsesperiode {
+    return periode.type === Periodetype.Ferie || periode.type === Periodetype.Arbeid;
+}
+
+export function isFerie(periode: Periode): periode is Ferieperiode {
+    return periode.type === Periodetype.Ferie;
+}
+
+export function isArbeid(periode: Periode): periode is Arbeidsperiode {
+    return periode.type === Periodetype.Arbeid;
 }
 
 export function isUbetaltPermisjon(periode: Periode): periode is UbetaltPermisjon {

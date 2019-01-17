@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Panel from 'nav-frontend-paneler';
-import { Periode, Periodetype, Forelder, UtsettelsesårsakType } from '../types';
+import { Periode, Periodetype, Forelder } from '../types';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Uttaksdagen } from '../utils/Uttaksdagen';
@@ -35,14 +35,13 @@ class PeriodeDevBar extends React.Component<Props, {}> {
                 type: Periodetype.Uttak,
                 fixed: false
             });
-        } else if (periodetype === Periodetype.Utsettelse) {
+        } else if (periodetype === Periodetype.Ferie) {
             this.props.onAdd({
                 id,
                 forelder,
                 tidsperiode,
-                type: Periodetype.Utsettelse,
-                fixed: true,
-                årsak: UtsettelsesårsakType.Ferie
+                type: Periodetype.Ferie,
+                fixed: true
             });
         }
     }
@@ -56,10 +55,10 @@ class PeriodeDevBar extends React.Component<Props, {}> {
                     <Flatknapp onClick={() => this.addAfter(Forelder.forelder2, Periodetype.Uttak, 20)}>
                         Uttak F2
                     </Flatknapp>
-                    <Flatknapp onClick={() => this.addAfter(Forelder.forelder1, Periodetype.Utsettelse, 5)}>
+                    <Flatknapp onClick={() => this.addAfter(Forelder.forelder1, Periodetype.Ferie, 5)}>
                         Ferie F1
                     </Flatknapp>
-                    <Flatknapp onClick={() => this.addAfter(Forelder.forelder2, Periodetype.Utsettelse, 5)}>
+                    <Flatknapp onClick={() => this.addAfter(Forelder.forelder2, Periodetype.Ferie, 5)}>
                         Ferie F2
                     </Flatknapp>
                 </Knapperad>

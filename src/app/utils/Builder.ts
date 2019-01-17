@@ -132,9 +132,9 @@ function settInnPeriode(perioder: Periode[], nyPeriode: Periode): Periode[] {
         return leggTilPeriodeFørPeriode(perioder, perioder[0], nyPeriode);
     }
 
-    if (periodeSomMåSplittes.fixed === true) {
-        throw new Error('Kan ikke dele opp en fixed periode');
-    }
+    // if (periodeSomMåSplittes.fixed === true) {
+    //     throw new Error('Kan ikke dele opp en fixed periode');
+    // }
     if (moment(periodeSomMåSplittes.tidsperiode.fom).isSame(nyPeriode.tidsperiode.fom, 'day')) {
         return leggTilPeriodeEtterPeriode(perioder, periodeSomMåSplittes, nyPeriode);
     } else {

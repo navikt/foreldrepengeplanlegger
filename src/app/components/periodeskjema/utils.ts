@@ -1,20 +1,30 @@
-import { UtsettelsesårsakType, Periodetype, Periode } from '../../types';
+import { Periodetype, Periode } from '../../types';
 import { guid } from 'nav-frontend-js-utils';
 import { PeriodeskjemaFormValues } from './types';
 
 const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
     switch (values.type) {
-        case Periodetype.Utsettelse:
+        case Periodetype.Ferie:
             return {
-                type: Periodetype.Utsettelse,
+                type: Periodetype.Ferie,
                 id: guid(),
                 tidsperiode: {
                     fom: values.fom,
                     tom: values.tom
                 },
                 fixed: true,
-                forelder: values.forelder,
-                årsak: UtsettelsesårsakType.Ferie
+                forelder: values.forelder
+            };
+        case Periodetype.Arbeid:
+            return {
+                type: Periodetype.Arbeid,
+                id: guid(),
+                tidsperiode: {
+                    fom: values.fom,
+                    tom: values.tom
+                },
+                fixed: true,
+                forelder: values.forelder
             };
         case Periodetype.Uttak:
             return {

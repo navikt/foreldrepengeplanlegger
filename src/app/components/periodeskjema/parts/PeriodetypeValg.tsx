@@ -13,13 +13,17 @@ const periodetypeValg: RadioOption[] = [
         label: 'Uttak'
     },
     {
-        value: Periodetype.Utsettelse,
-        label: 'Utsettelse'
+        value: Periodetype.Ferie,
+        label: 'Ferie'
+    },
+    {
+        value: Periodetype.Arbeid,
+        label: 'Arbeid'
+    },
+    {
+        value: Periodetype.UbetaltPermisjon,
+        label: 'Ubetalt permisjon'
     }
-    // {
-    //     value: Periodetype.UbetaltPermisjon,
-    //     label: 'Ubetalt permisjon'
-    // }
 ];
 const PeriodetypeValg: React.StatelessComponent<Props> = ({ periodetype, onChange }) => (
     <RadioGroup

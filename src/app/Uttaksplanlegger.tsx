@@ -39,7 +39,13 @@ class Uttaksplanlegger extends React.Component<Props, State> {
     }
 
     onUpdatePeriode(periode: Periode) {
-        const nyePerioder = [...this.state.perioder, periode];
+        const nyePerioder = UttaksplanBuilder(
+            this.state.perioder.filter((p) => p.id !== periode.id),
+            this.props.familiehendelsesdato
+        )
+            .leggTilPeriode(periode)
+            .build().perioder;
+
         this.setState({ perioder: nyePerioder });
     }
 

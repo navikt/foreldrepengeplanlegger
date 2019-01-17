@@ -7,6 +7,7 @@ import AriaText from '../aria/AriaText';
 import preventDoubleTapZoom from 'common/utils/preventDoubleTapZoom';
 
 export type Stil = 'hvit' | 'bla' | 'info';
+export type SirkelknappSize = 'normal' | 'stor';
 
 export interface SirkelknappProps {
     /** Tekst som blir lest opp og satt som tittel på knappen */
@@ -24,7 +25,7 @@ export interface SirkelknappProps {
     /** Layout varianter */
     stil?: Stil;
     /** Størrelse - default normal */
-    size?: 'normal' | 'stor';
+    size?: SirkelknappSize;
 }
 
 const Sirkelknapp: React.StatelessComponent<SirkelknappProps> = ({
@@ -44,6 +45,7 @@ const Sirkelknapp: React.StatelessComponent<SirkelknappProps> = ({
             onTouchStart={preventDoubleTapZoom}
             aria-labelledby={labelId}
             className={classnames(`sirkelknapp`, `sirkelknapp--${stil}`, `sirkelknapp--${size}`, {
+                'sirkelknapp--toggle': toggle,
                 'sirkelknapp--pressed': toggle && toggle.pressed,
                 'sirkelknapp--disabled': disabled
             })}

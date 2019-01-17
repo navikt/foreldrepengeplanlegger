@@ -20,7 +20,7 @@ const DropdownButton: React.StatelessComponent<Props> = ({ label, children, onCl
             <Button className={bem.element('button')} id={id} role="popupbutton">
                 {label}
             </Button>
-            <Menu role="dialog" aria-controlledby={id} className={bem.element('wrapper')}>
+            <Menu role="dialog" className={bem.element('wrapper')}>
                 {children}
             </Menu>
         </Wrapper>

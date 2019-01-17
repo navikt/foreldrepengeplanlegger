@@ -7,7 +7,7 @@ import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVe
 import { Tidsperioden } from '../../../utils/Tidsperioden';
 import { Tidsperiode } from 'nav-datovelger';
 
-import './varighetMenu.less';
+import './varighetMeny.less';
 import BEMHelper from 'common/utils/bem';
 
 interface OwnProps {

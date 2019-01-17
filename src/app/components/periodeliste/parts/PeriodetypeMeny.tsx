@@ -14,8 +14,8 @@ const options: MenuButtonOption[] = [
     { value: Periodetype.UbetaltPermisjon, label: 'Ubetalt permisjon' }
 ];
 
-const PeriodetypeMenu: React.StatelessComponent<Props> = ({ onChange, type }) => (
+const PeriodetypeMeny: React.StatelessComponent<Props> = ({ onChange, type }) => (
     <MenuButton onChange={onChange} options={options} selectedValue={type} />
 );
 
-export default PeriodetypeMenu;
+export default PeriodetypeMeny;

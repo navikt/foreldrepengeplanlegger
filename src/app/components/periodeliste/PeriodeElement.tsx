@@ -6,13 +6,14 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import Periodeskjema from '../periodeskjema/Periodeskjema';
 import BEMHelper from 'common/utils/bem';
 import { Perioden } from '../../utils/Perioden';
-import { CheckboksPanel } from 'nav-frontend-skjema';
-import ForelderMenu from './parts/ForelderMenu';
-import PeriodetypeMenu from './parts/PeriodetypeMenu';
+import ForelderMeny from './parts/ForelderMeny';
+import PeriodetypeMeny from './parts/PeriodetypeMeny';
+import { changePeriodeType } from '../../utils/typeUtils';
+import VarighetMeny from './parts/VarighetMeny';
 
 import './periodeElement.less';
-import { changePeriodeType } from '../../utils/typeUtils';
-import VarighetMeny from './parts/VarighetMenu';
+import PinKnapp from '../pinKnapp/PinKnapp';
+import Block from 'common/components/block/Block';
 
 interface OwnProps {
     periode: Periode;
@@ -33,11 +34,15 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
     const { uker, dager } = uttaksinfo.ukerOgDager;
     return (
         <div className={bem.block}>
-            <div className={bem.element('delete')}>
-                <Lukknapp onClick={() => onDelete(periode)}>Slett</Lukknapp>
+            <div className={bem.element('tools')}>
+                <div className={bem.element('tool')}>
+                    <Lukknapp onClick={() => onDelete(periode)} ariaLabel="Slett periode">
+                        Slett periode
+                    </Lukknapp>
+                </div>
             </div>
-            <p>
-                <ForelderMenu
+            <Block margin="xxs">
+                <ForelderMeny
                     forelder={periode.forelder}
                     onChange={(forelder) =>
                         onChange({
@@ -47,7 +52,7 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
                     }
                 />
                 {' - '}
-                <PeriodetypeMenu
+                <PeriodetypeMeny
                     type={periode.type}
                     onChange={(type: Periodetype) => onChange(changePeriodeType(periode, type))}
                 />
@@ -60,20 +65,23 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
                         onChange(Perioden(periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
                     }
                 />
-            </p>
-            <p>{Tidsperioden(periode.tidsperiode).formaterStringMedDag(intl)}</p>
+            </Block>
+            <Block margin="xxs">
+                <PinKnapp
+                    size="normal"
+                    label="Lås tidsperiode"
+                    pressed={periode.fixed === true}
+                    onClick={(pressed) => onChange({ ...periode, fixed: pressed })}
+                />
+                {' - '}
+                {Tidsperioden(periode.tidsperiode).formaterStringMedDag(intl)}
+            </Block>
             {uttaksinfo ? (
-                <p>
+                <div>
                     uttaksdager: {uttaksinfo.uttaksdager}, helligdager: {uttaksinfo.helligdager}, dager brukt:{' '}
                     {uttaksinfo.uttaksdagerBrukt}
-                </p>
+                </div>
             ) : null}
-            <CheckboksPanel
-                label="Låst periode"
-                checked={periode.fixed || false}
-                onChange={(evt) => onChange({ ...periode, fixed: (evt.target as any).checked })}
-            />
-
             {1 && false && <Periodeskjema periode={periode} onCancel={() => null} onSubmit={() => null} />}
         </div>
     );

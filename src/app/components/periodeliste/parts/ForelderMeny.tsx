@@ -12,8 +12,8 @@ const forelderOptions: MenuButtonOption[] = [
     { value: Forelder.forelder2, label: 'Forelder 2' }
 ];
 
-const ForelderMenu: React.StatelessComponent<Props> = ({ onChange, forelder }) => (
+const ForelderMeny: React.StatelessComponent<Props> = ({ onChange, forelder }) => (
     <MenuButton onChange={onChange} options={forelderOptions} selectedValue={forelder} />
 );
 
-export default ForelderMenu;
+export default ForelderMeny;

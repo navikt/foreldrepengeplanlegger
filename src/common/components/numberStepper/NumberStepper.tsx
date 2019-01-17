@@ -1,10 +1,10 @@
 import * as React from 'react';
 import StepperKnapp from 'common/components/stepperKnapp/StepperKnapp';
-
-import './numberStepper.less';
 import BEMHelper from 'common/utils/bem';
 
-interface Props {
+import './numberStepper.less';
+
+export interface Props {
     value: number;
     stepSize?: number;
     max?: number;

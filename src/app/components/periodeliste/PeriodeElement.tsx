@@ -6,9 +6,9 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { getPeriodeUttaksinfo } from '../../utils/periodeinfo';
 import Periodeskjema from '../periodeskjema/Periodeskjema';
 import BEMHelper from 'common/utils/bem';
-import NumberStepper from '../numberStepper/NumberStepper';
 import Block from 'common/components/block/Block';
 import { Perioden } from '../../utils/Perioden';
+import SkjemaNumberStepper from 'common/components/skjema/skjemaNumberStepper/SkjemaNumberStepper';
 
 import './periodeElement.less';
 
@@ -47,16 +47,17 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
             </div>
             <div>
                 <Block margin="s">
-                    Uker:
-                    <NumberStepper
+                    <SkjemaNumberStepper
+                        legend="Uker"
                         min={0}
                         value={uker}
                         onChange={(u) => onChange(Perioden(periode).setUkerOgDager(u, dager))}
                     />
                 </Block>
                 <Block margin="s">
-                    Dager:
-                    <NumberStepper
+                    <SkjemaNumberStepper
+                        feil={{ feilmelding: 'Dette var da veldig mye?' }}
+                        legend="Dager"
                         min={uker > 0 ? -1 : 1}
                         value={dager}
                         onChange={(d) => onChange(Perioden(periode).setUkerOgDager(uker, d))}

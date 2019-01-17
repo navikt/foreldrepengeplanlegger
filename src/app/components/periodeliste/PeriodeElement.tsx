@@ -28,6 +28,8 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
     if (periodeinfo === undefined) {
         return <div>Ingen periodeinfo</div>;
     }
+
+    const { uker, dager } = periodeinfo.ukerOgDager;
     return (
         <div className={bem.block}>
             <p>
@@ -47,19 +49,17 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
                 <Block margin="s">
                     Uker:
                     <NumberStepper
-                        value={periodeinfo.ukerOgDager.uker}
-                        onChange={(uker) =>
-                            onChange(Perioden(periode).setUkerOgDager(uker, periodeinfo.ukerOgDager.dager))
-                        }
+                        min={0}
+                        value={uker}
+                        onChange={(u) => onChange(Perioden(periode).setUkerOgDager(u, dager))}
                     />
                 </Block>
                 <Block margin="s">
                     Dager:
                     <NumberStepper
-                        value={periodeinfo.ukerOgDager.dager}
-                        onChange={(dager) =>
-                            onChange(Perioden(periode).setUkerOgDager(periodeinfo.ukerOgDager.uker, dager))
-                        }
+                        min={uker > 0 ? -1 : 1}
+                        value={dager}
+                        onChange={(d) => onChange(Perioden(periode).setUkerOgDager(uker, d))}
                     />
                 </Block>
             </div>

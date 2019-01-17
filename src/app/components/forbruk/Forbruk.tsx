@@ -9,12 +9,14 @@ export type PeriodeForbruk = ForelderForbruk[];
 
 export interface ForelderForbruk {
     forelder: Forelder;
+    brukteUttaksdager: number;
     periodeForbruk: ForbrukPeriode[];
 }
 
 export interface ForbrukPeriode {
     periodetype: Periodetype;
-    dager: number;
+    uttaksdagerIPeriodene: number;
+    helligdagerIPeriodene: number;
 }
 
 interface Props {
@@ -31,13 +33,26 @@ const Forbruk: React.StatelessComponent<Props> = ({ forbruk }) => {
                     <Ingress tag="h1" className={bem.element('navn')}>
                         {forelderForbruk.forelder}
                     </Ingress>
+                    <div className={bem.element('periode')}>
+                        <Element tag="h2" className={bem.element('periodetype')}>
+                            Totalt brukte dager:
+                        </Element>
+                        <span className={bem.element('dager')}>{forelderForbruk.brukteUttaksdager}</span>
+                    </div>
+
                     {forelderForbruk.periodeForbruk.map((pf) => {
                         return (
                             <div key={pf.periodetype} className={bem.element('periode')}>
                                 <Element tag="h2" className={bem.element('periodetype')}>
                                     {pf.periodetype}:
                                 </Element>
-                                <span className={bem.element('dager')}>{pf.dager}</span>
+                                <span className={bem.element('dager')}>{pf.uttaksdagerIPeriodene}</span>
+                                {pf.periodetype === Periodetype.Ferie &&
+                                    pf.helligdagerIPeriodene > 0 && (
+                                        <span className={bem.element('helligdager')}>
+                                            ({pf.helligdagerIPeriodene} helligdager)
+                                        </span>
+                                    )}
                             </div>
                         );
                     })}

@@ -2,20 +2,41 @@ import { Forelder, Periode, Periodetype } from '../../types';
 import { ForbrukPeriode, ForelderForbruk } from './Forbruk';
 import groupby from 'lodash.groupby';
 import { Tidsperioden } from '../../utils/Tidsperioden';
+import { getPeriodeUttaksinfo } from '../../utils/periodeinfo';
 
-export const getUttaksdagerIPerioder = (perioder: Periode[]): number => {
-    return perioder.reduce((dager, periode) => dager + Tidsperioden(periode.tidsperiode).getAntallUttaksdager(), 0);
+export const summerForbrukIPerioder = (perioder: Periode[]): number => {
+    return perioder.reduce((dager, periode) => {
+        const periodeinfo = getPeriodeUttaksinfo(periode);
+        if (periodeinfo) {
+            return dager + periodeinfo.uttaksdagerBrukt;
+        }
+        return dager;
+    }, 0);
 };
 
-export const getPeriodeforbrukForForelder = (forelder: Forelder, perioder: Periode[]): ForbrukPeriode[] => {
+export const getUttaksdagerIPerioder = (perioder: Periode[]): number => {
+    return perioder.reduce((dager, periode) => {
+        return dager + Tidsperioden(periode.tidsperiode).getAntallUttaksdager();
+    }, 0);
+};
+
+export const getHelligdagerIPerioder = (perioder: Periode[]): number => {
+    return perioder.reduce((dager, periode) => {
+        return dager + Tidsperioden(periode.tidsperiode).getAntallHelligdager();
+    }, 0);
+};
+
+export const getEnForeldersForbruk = (forelder: Forelder, perioder: Periode[]): ForbrukPeriode[] => {
     const fPerioder = perioder.filter((p) => p.forelder === forelder);
     const perioderGruppertPåType = groupby(fPerioder, (periode) => periode.type);
 
     const brukteDager: ForbrukPeriode[] = [];
     Object.keys(perioderGruppertPåType).forEach((key) => {
+        const periodetype = key as Periodetype;
         brukteDager.push({
-            periodetype: key as Periodetype,
-            dager: getUttaksdagerIPerioder(perioderGruppertPåType[key])
+            periodetype,
+            uttaksdagerIPeriodene: getUttaksdagerIPerioder(perioderGruppertPåType[key]),
+            helligdagerIPeriodene: getHelligdagerIPerioder(perioderGruppertPåType[key])
         });
     });
     return brukteDager;
@@ -27,7 +48,8 @@ export const getForbruk = (perioder: Periode[]): ForelderForbruk[] => {
     Object.keys(fPerioder).forEach((key) => {
         data.push({
             forelder: key as Forelder,
-            periodeForbruk: getPeriodeforbrukForForelder(key as Forelder, fPerioder[key])
+            periodeForbruk: getEnForeldersForbruk(key as Forelder, fPerioder[key]),
+            brukteUttaksdager: summerForbrukIPerioder(fPerioder[key])
         });
     });
     return data;

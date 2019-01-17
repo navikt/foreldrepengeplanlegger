@@ -12,7 +12,7 @@ export const Tidsperioden = (tidsperiode: Partial<Tidsperiode>) => ({
     erOmsluttetAv: (tidsperiode2: Tidsperiode) => erTidsperiodeOmsluttetAvTidsperiode(tidsperiode, tidsperiode2),
     erUtenfor: (tidsperiode2: Tidsperiode) => erTidsperiodeUtenforTidsperiode(tidsperiode, tidsperiode2),
     getAntallUttaksdager: (taBortFridager?: boolean) => getAntallUttaksdagerITidsperiode(tidsperiode, taBortFridager),
-    getAntallFridager: () => getUttaksdagerSomErFridager(tidsperiode).length,
+    getAntallHelligdager: () => getUttaksdagerSomErHelligdager(tidsperiode).length,
     setStartdato: (fom: Date) => (isValidTidsperiode(tidsperiode) ? flyttTidsperiode(tidsperiode, fom) : tidsperiode),
     setUttaksdager: (uttaksdager: number) =>
         tidsperiode.fom ? getTidsperiode(tidsperiode.fom, uttaksdager) : tidsperiode,
@@ -79,12 +79,12 @@ function getAntallUttaksdagerITidsperiode(tidsperiode: Partial<Tidsperiode>, taB
         fom.add(24, 'hours');
     }
     if (taBortFridager) {
-        fridager = getUttaksdagerSomErFridager(tidsperiode).length;
+        fridager = getUttaksdagerSomErHelligdager(tidsperiode).length;
     }
     return antall - fridager;
 }
 
-function getUttaksdagerSomErFridager(tidsperiode: Partial<Tidsperiode>): Holiday[] {
+function getUttaksdagerSomErHelligdager(tidsperiode: Partial<Tidsperiode>): Holiday[] {
     if (isValidTidsperiode(tidsperiode) === false) {
         return [];
     }

@@ -8,10 +8,9 @@ import Periodeskjema from '../periodeskjema/Periodeskjema';
 import BEMHelper from 'common/utils/bem';
 import Block from 'common/components/block/Block';
 import { Perioden } from '../../utils/Perioden';
-import SkjemaNumberStepper from 'common/components/skjema/skjemaNumberStepper/SkjemaNumberStepper';
+import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVelger';
 
 import './periodeElement.less';
-import { Row, Column } from 'nav-frontend-grid';
 
 interface OwnProps {
     periode: Periode;
@@ -47,24 +46,14 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
                 <Lukknapp onClick={() => onDelete(periode)}>Slett</Lukknapp>
             </div>
             <Block>
-                <Row>
-                    <Column xs="12" sm="4">
-                        <SkjemaNumberStepper
-                            legend="Uker"
-                            min={0}
-                            value={uker}
-                            onChange={(u) => onChange(Perioden(periode).setUkerOgDager(u, dager))}
-                        />
-                    </Column>
-                    <Column xs="12" sm="4">
-                        <SkjemaNumberStepper
-                            legend="Dager"
-                            min={uker > 0 ? -1 : 1}
-                            value={dager}
-                            onChange={(d) => onChange(Perioden(periode).setUkerOgDager(uker, d))}
-                        />
-                    </Column>
-                </Row>
+                <UkerOgDagerVelger
+                    tittel="Hvor lenge skal perioden vare?"
+                    uker={uker}
+                    dager={dager}
+                    onChange={(ukerOgDager) =>
+                        onChange(Perioden(periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
+                    }
+                />
             </Block>
 
             {1 && false && <Periodeskjema periode={periode} onCancel={() => null} onSubmit={() => null} />}

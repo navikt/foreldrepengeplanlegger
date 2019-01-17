@@ -11,6 +11,7 @@ import { Perioden } from '../../utils/Perioden';
 import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVelger';
 
 import './periodeElement.less';
+import { CheckboksPanel } from 'nav-frontend-skjema';
 
 interface OwnProps {
     periode: Periode;
@@ -55,6 +56,11 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
                     }
                 />
             </Block>
+            <CheckboksPanel
+                label="Låst periode"
+                checked={periode.fixed || false}
+                onChange={(evt) => onChange({ ...periode, fixed: (evt.target as any).checked })}
+            />
 
             {1 && false && <Periodeskjema periode={periode} onCancel={() => null} onSubmit={() => null} />}
         </div>

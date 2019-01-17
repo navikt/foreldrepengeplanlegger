@@ -12,7 +12,6 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
                     fom: values.fom,
                     tom: values.tom
                 },
-                fixed: true,
                 forelder: values.forelder
             };
         case Periodetype.Arbeid:
@@ -23,7 +22,6 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
                     fom: values.fom,
                     tom: values.tom
                 },
-                fixed: true,
                 forelder: values.forelder
             };
         case Periodetype.Uttak:
@@ -34,7 +32,6 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
                     fom: values.fom,
                     tom: values.tom
                 },
-                fixed: false,
                 forelder: values.forelder
             };
         case Periodetype.UbetaltPermisjon:
@@ -45,7 +42,6 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
                     fom: values.fom,
                     tom: values.tom
                 },
-                fixed: true,
                 forelder: values.forelder
             };
     }

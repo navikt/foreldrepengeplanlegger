@@ -19,22 +19,18 @@ export interface PeriodeBase {
 
 export interface Uttaksperiode extends PeriodeBase {
     type: Periodetype.Uttak;
-    fixed: false;
 }
 
 export interface Ferieperiode extends PeriodeBase {
     type: Periodetype.Ferie;
-    fixed: true;
 }
 
 export interface Arbeidsperiode extends PeriodeBase {
     type: Periodetype.Arbeid;
-    fixed: true;
 }
 
 export interface UbetaltPermisjon extends PeriodeBase {
     type: Periodetype.UbetaltPermisjon;
-    fixed: true;
 }
 
 export type Utsettelsesperiode = Ferieperiode | Arbeidsperiode;

@@ -6,7 +6,6 @@ import { Forelder } from './types';
 
 const mockPerioder: Periode[] = [
     {
-        fixed: false,
         forelder: Forelder.forelder1,
         id: '89658209-22972-6250-27502-00358020458507',
         tidsperiode: {
@@ -16,7 +15,6 @@ const mockPerioder: Periode[] = [
         type: Periodetype.Uttak
     },
     {
-        fixed: true,
         forelder: Forelder.forelder1,
         id: '77701867-4877-12517-0900-7334518603539',
         tidsperiode: {
@@ -25,9 +23,7 @@ const mockPerioder: Periode[] = [
         },
         type: Periodetype.Ferie
     },
-
     {
-        fixed: false,
         forelder: Forelder.forelder2,
         id: '56204685-2952-7449-7913-90900854017945',
         tidsperiode: {

@@ -10,7 +10,7 @@ export const UttaksplanBuilder = (perioder: Periode[], familiehendelsesdato: Dat
     return new Builder(perioder, familiehendelsesdato);
 };
 
-const useFixedPerioder = false;
+const useFixedPerioder = true;
 
 class Builder {
     protected familiehendelsesdato: Date;

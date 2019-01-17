@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FormikProps, Form } from 'formik';
 import { Situasjon } from '../../types';
-import VelgSituasjon from '../velg-situasjon/velg-situasjon';
+import VelgSituasjon from '../VelgSituasjon/VelgSituasjon';
 import { Input } from 'nav-frontend-skjema';
 import { Row, Column } from 'nav-frontend-grid';
 import Block from 'common/components/block/Block';

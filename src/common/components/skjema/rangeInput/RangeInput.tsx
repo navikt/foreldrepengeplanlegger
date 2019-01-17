@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 import { guid } from 'nav-frontend-js-utils';
-import RangeStepper from './RangeStepper';
 import { Fieldset } from 'nav-frontend-skjema';
 import Infoboks from 'common/components/infoboks/Infoboks';
 
 import './rangeInput.less';
 import AriaText from 'common/components/aria/AriaText';
 import BEMHelper from 'common/utils/bem';
+import StepperKnapp from 'common/components/stepperKnapp/StepperKnapp';
 
 export interface RangeInputElementRendererOptions {
     value: number;
@@ -134,7 +134,7 @@ class RangeInput extends React.Component<Props, State> {
                         onFocus={this.handleFocus}>
                         {steppers && (
                             <div className={`${bemStepper.block} ${bemStepper.modifier('previous')}`}>
-                                <RangeStepper
+                                <StepperKnapp
                                     direction="previous"
                                     onClick={() => (value > min ? onChange(value - 1) : null)}
                                     label={steppers ? steppers.reduceLabel : 'Mindre'}
@@ -159,7 +159,7 @@ class RangeInput extends React.Component<Props, State> {
                         </div>
                         {steppers && (
                             <div className={`${bemStepper.block} ${bemStepper.modifier('next')}`}>
-                                <RangeStepper
+                                <StepperKnapp
                                     direction="next"
                                     onClick={() => (value < max ? onChange(value + 1) : null)}
                                     label={steppers ? steppers.increaseLabel : 'Mer'}

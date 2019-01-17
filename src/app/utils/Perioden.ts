@@ -22,7 +22,7 @@ function erPerioderLike(p1: Periode, p2: Periode): boolean {
 }
 
 function getPeriodeFootprint(periode: Periode) {
-    const { tidsperiode, id, ...rest } = periode;
+    const { tidsperiode, id, uttaksinfo, ...rest } = periode;
     const sortedPeriode = {};
     Object.keys(rest)
         .sort()

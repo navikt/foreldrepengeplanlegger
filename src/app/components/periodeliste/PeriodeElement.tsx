@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Periode } from '../../types';
+import { Periode, Periodetype } from '../../types';
 import Lukknapp from 'nav-frontend-lukknapp';
 import { Tidsperioden } from '../../utils/Tidsperioden';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
@@ -8,9 +8,12 @@ import BEMHelper from 'common/utils/bem';
 import Block from 'common/components/block/Block';
 import { Perioden } from '../../utils/Perioden';
 import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVelger';
+import { CheckboksPanel } from 'nav-frontend-skjema';
+import ForelderMenu from './parts/ForelderMenu';
+import PeriodetypeMenu from './parts/PeriodetypeMenu';
 
 import './periodeElement.less';
-import { CheckboksPanel } from 'nav-frontend-skjema';
+import { changePeriodeType } from '../../utils/typeUtils';
 
 interface OwnProps {
     periode: Periode;
@@ -35,7 +38,19 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
                 <Lukknapp onClick={() => onDelete(periode)}>Slett</Lukknapp>
             </div>
             <p>
-                {periode.forelder} - {periode.type}
+                <ForelderMenu
+                    forelder={periode.forelder}
+                    onChange={(forelder) =>
+                        onChange({
+                            ...periode,
+                            forelder
+                        })
+                    }
+                />
+                <PeriodetypeMenu
+                    type={periode.type}
+                    onChange={(type: Periodetype) => onChange(changePeriodeType(periode, type))}
+                />
             </p>
             <p>{Tidsperioden(periode.tidsperiode).formaterStringMedDag(intl)}</p>
             {uttaksinfo ? (

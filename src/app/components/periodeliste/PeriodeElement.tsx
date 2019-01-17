@@ -11,6 +11,7 @@ import { Perioden } from '../../utils/Perioden';
 import SkjemaNumberStepper from 'common/components/skjema/skjemaNumberStepper/SkjemaNumberStepper';
 
 import './periodeElement.less';
+import { Row, Column } from 'nav-frontend-grid';
 
 interface OwnProps {
     periode: Periode;
@@ -45,25 +46,27 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
             <div className={bem.element('delete')}>
                 <Lukknapp onClick={() => onDelete(periode)}>Slett</Lukknapp>
             </div>
-            <div>
-                <Block margin="s">
-                    <SkjemaNumberStepper
-                        legend="Uker"
-                        min={0}
-                        value={uker}
-                        onChange={(u) => onChange(Perioden(periode).setUkerOgDager(u, dager))}
-                    />
-                </Block>
-                <Block margin="s">
-                    <SkjemaNumberStepper
-                        feil={{ feilmelding: 'Dette var da veldig mye?' }}
-                        legend="Dager"
-                        min={uker > 0 ? -1 : 1}
-                        value={dager}
-                        onChange={(d) => onChange(Perioden(periode).setUkerOgDager(uker, d))}
-                    />
-                </Block>
-            </div>
+            <Block>
+                <Row>
+                    <Column xs="12" sm="4">
+                        <SkjemaNumberStepper
+                            legend="Uker"
+                            min={0}
+                            value={uker}
+                            onChange={(u) => onChange(Perioden(periode).setUkerOgDager(u, dager))}
+                        />
+                    </Column>
+                    <Column xs="12" sm="4">
+                        <SkjemaNumberStepper
+                            legend="Dager"
+                            min={uker > 0 ? -1 : 1}
+                            value={dager}
+                            onChange={(d) => onChange(Perioden(periode).setUkerOgDager(uker, d))}
+                        />
+                    </Column>
+                </Row>
+            </Block>
+
             {1 && false && <Periodeskjema periode={periode} onCancel={() => null} onSubmit={() => null} />}
         </div>
     );

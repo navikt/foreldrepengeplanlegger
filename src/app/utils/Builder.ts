@@ -23,6 +23,7 @@ class Builder {
         const fleksiblePerioder = this.perioder.filter((p) => p.fixed !== true);
 
         this.perioder = resetTidsperioder(fleksiblePerioder);
+        this.perioder = slåSammenLikePerioder(this.perioder);
         this.perioder = settInnPerioder(this.perioder, fastePerioder);
         this.perioder = slåSammenLikePerioder(this.perioder);
 
@@ -30,12 +31,22 @@ class Builder {
     }
 
     leggTilPeriode(periode: Periode) {
-        this.perioder = settInnPeriode(this.perioder, periode);
+        this.perioder = settInnPeriode(this.perioder, periode).sort();
         return this;
     }
 
     fjernPeriode(periode: Periode) {
-        this.perioder = slettPeriode(this.perioder, periode);
+        this.perioder = slettPeriode(this.perioder, periode).sort();
+        return this;
+    }
+
+    oppdaterPeriode(periode: Periode) {
+        this.perioder = this.perioder.map((p) => (p.id === periode.id ? periode : p));
+        return this;
+    }
+
+    sort() {
+        this.perioder.sort(sorterPerioder);
         return this;
     }
 }

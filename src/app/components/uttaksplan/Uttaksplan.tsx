@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import Periodeliste from '../periodeliste/Periodeliste';
 import Knapp from 'nav-frontend-knapper';
 import Periodeskjema from '../periodeskjema/Periodeskjema';
 import Block from 'common/components/block/Block';
@@ -8,21 +7,14 @@ import PeriodeDevBar from '../../dev/PeriodeDevBar';
 import Forbruk from '../forbruk/Forbruk';
 import { getForbruk } from '../forbruk/forbrukUtils';
 import SorterbarPeriodeliste from '../periodeliste/SorterbarPeriodeliste';
-
-interface Props {
-    perioder: Periode[];
-    onAdd: (periode: Periode) => void;
-    onDelete: (periode: Periode) => void;
-    onUpdate: (periode: Periode) => void;
-    onMove: (periode: Periode, toIndex: number) => void;
-}
+import { PeriodelisteProps } from '../periodeliste/types';
 
 interface State {
     visSkjema: boolean;
 }
 
-class Uttaksplan extends React.Component<Props, State> {
-    constructor(props: Props) {
+class Uttaksplan extends React.Component<PeriodelisteProps, State> {
+    constructor(props: PeriodelisteProps) {
         super(props);
         this.addPeriode = this.addPeriode.bind(this);
         this.state = {
@@ -36,7 +28,7 @@ class Uttaksplan extends React.Component<Props, State> {
     }
 
     render() {
-        const { perioder, onDelete, onAdd, onUpdate, onMove } = this.props;
+        const { perioder, onDelete, onAdd, onChange } = this.props;
         const { visSkjema } = this.state;
 
         return (
@@ -47,12 +39,7 @@ class Uttaksplan extends React.Component<Props, State> {
                     <Forbruk forbruk={getForbruk(perioder)} />
                 </Block>
                 <Block animated={false}>
-                    <SorterbarPeriodeliste
-                        perioder={perioder}
-                        onDelete={onDelete}
-                        onUpdate={onUpdate}
-                        onMove={onMove}
-                    />
+                    <SorterbarPeriodeliste {...this.props} />
                 </Block>
 
                 <Block visible={visSkjema}>
@@ -68,7 +55,7 @@ class Uttaksplan extends React.Component<Props, State> {
                     </Knapp>
                 </Block>
 
-                <PeriodeDevBar perioder={perioder} onAdd={onAdd} onDelete={onDelete} onUpdate={onUpdate} />
+                <PeriodeDevBar perioder={perioder} onAdd={onAdd} onDelete={onDelete} onChange={onChange} />
             </div>
         );
     }

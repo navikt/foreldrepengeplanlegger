@@ -11,7 +11,7 @@ interface Props {
     perioder: Periode[];
     onAdd: (periode: Periode) => void;
     onDelete: (periode: Periode) => void;
-    onUpdate: (periode: Periode) => void;
+    onChange: (periode: Periode) => void;
 }
 
 const defaultDag = new Date(2019, 0, 14);

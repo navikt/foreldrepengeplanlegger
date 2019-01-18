@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Periode, Periodetype } from '../../types';
+import { Periodetype } from '../../types';
 import Lukknapp from 'nav-frontend-lukknapp';
 import { Tidsperioden } from '../../utils/Tidsperioden';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
@@ -14,16 +14,9 @@ import Block from 'common/components/block/Block';
 
 import './periodeElement.less';
 import { SortableHandle } from 'react-sortable-hoc';
+import { PeriodelisteElementProps } from './types';
 
-interface OwnProps {
-    periode: Periode;
-    sortable?: boolean;
-    lockable?: boolean;
-    onChange: (periode: Periode) => void;
-    onDelete: (periode: Periode) => void;
-}
-
-type Props = OwnProps & InjectedIntlProps;
+type Props = PeriodelisteElementProps & InjectedIntlProps;
 
 const bem = BEMHelper('periodeElement');
 

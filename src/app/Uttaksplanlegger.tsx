@@ -128,7 +128,7 @@ class Uttaksplanlegger extends React.Component<MyProps, State> {
                             perioder={this.state.perioder}
                             onAdd={this.onAddPeriode}
                             onDelete={this.onDeletePeriode}
-                            onUpdate={this.onUpdatePeriode}
+                            onChange={this.onUpdatePeriode}
                             onMove={this.onMove}
                         />
                     </div>

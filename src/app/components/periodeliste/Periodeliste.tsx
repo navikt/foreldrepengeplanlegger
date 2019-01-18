@@ -25,7 +25,6 @@ const Periodeliste: React.StatelessComponent<OwnProps> = ({
     if (perioder.length === 0) {
         return <div>Ingen perioder registrert</div>;
     }
-
     return (
         <ol className="periodeliste">
             {perioder.map((periode: Periode, index: number) => {

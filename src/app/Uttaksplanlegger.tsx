@@ -7,8 +7,6 @@ import { getUttaksinfoFromPeriode } from './utils/periodeinfo';
 import 'common/styles/index.less';
 import BEMHelper from 'common/utils/bem';
 import Sidebanner from './components/sidebanner/Sidebanner';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
-import getMessage from 'common/utils/i18nUtils';
 import Brødsmula from './components/BrødStmula/Brødsmula';
 import { connect } from 'react-redux';
 import { DispatchProps } from './redux/types';
@@ -57,7 +55,7 @@ interface Props {
     familiehendelsesdato: Date;
 }
 
-type MyProps = InjectedIntlProps & Props & DispatchProps;
+type MyProps = Props & DispatchProps;
 
 class Uttaksplanlegger extends React.Component<MyProps, State> {
     constructor(props: MyProps) {
@@ -120,7 +118,7 @@ class Uttaksplanlegger extends React.Component<MyProps, State> {
     render() {
         return (
             <div className={cls.block}>
-                <Sidebanner text={getMessage(this.props.intl, 'common.sidebanner')} />
+                <Sidebanner text="common.sidebanner" />
                 <div className={cls.element('container')}>
                     <div className={cls.element('wrapper')}>
                         <Brødsmula sti={'/foreldrepengeplanlegger'} />
@@ -139,4 +137,4 @@ class Uttaksplanlegger extends React.Component<MyProps, State> {
     }
 }
 
-export default connect()(injectIntl(Uttaksplanlegger));
+export default connect()(Uttaksplanlegger);

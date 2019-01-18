@@ -13,6 +13,7 @@ import PinKnapp from '../pinKnapp/PinKnapp';
 import Block from 'common/components/block/Block';
 
 import './periodeElement.less';
+import { SortableHandle } from 'react-sortable-hoc';
 
 interface OwnProps {
     periode: Periode;
@@ -23,6 +24,12 @@ interface OwnProps {
 type Props = OwnProps & InjectedIntlProps;
 
 const bem = BEMHelper('periodeElement');
+
+const DragHandle = SortableHandle(() => (
+    <span className="dragHandle">
+        <span className="dragHandle__content">::</span>
+    </span>
+));
 
 const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, onChange, intl }) => {
     const { uttaksinfo } = periode;
@@ -35,6 +42,9 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
     return (
         <div className={bem.block}>
             <div className={bem.element('tools')}>
+                <div className={bem.element('tool')}>
+                    <DragHandle />
+                </div>
                 <div className={bem.element('tool')}>
                     <Lukknapp onClick={() => onDelete(periode)} ariaLabel="Slett periode">
                         Slett periode

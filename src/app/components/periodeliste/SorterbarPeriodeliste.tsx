@@ -51,6 +51,7 @@ const SorterbarPeriodeliste: React.StatelessComponent<OwnProps> = ({ perioder, o
     }
     return (
         <SorterbarPeriodelisteContainer
+            useDragHandle={true}
             perioder={perioder}
             onDelete={onDelete}
             onUpdate={onUpdate}

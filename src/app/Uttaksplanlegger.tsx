@@ -10,6 +10,9 @@ import Sidebanner from './components/sidebanner/Sidebanner';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import getMessage from 'common/utils/i18nUtils';
 import Brødsmula from './components/BrødStmula/Brødsmula';
+import { connect } from 'react-redux';
+import { DispatchProps } from './redux/types';
+import { getStønadskontoer } from './redux/actions/api/apiActionCreators';
 
 const periode1: Periode = {
     forelder: Forelder.forelder1,
@@ -54,7 +57,7 @@ interface Props {
     familiehendelsesdato: Date;
 }
 
-type MyProps = InjectedIntlProps & Props;
+type MyProps = InjectedIntlProps & Props & DispatchProps;
 
 class Uttaksplanlegger extends React.Component<MyProps, State> {
     constructor(props: MyProps) {
@@ -68,6 +71,22 @@ class Uttaksplanlegger extends React.Component<MyProps, State> {
         this.state = {
             perioder: mockPerioder
         };
+    }
+
+    componentWillMount() {
+        this.props.dispatch(
+            getStønadskontoer({
+                antallBarn: 1,
+                dekningsgrad: '80',
+                morHarAleneomsorg: false,
+                morHarRett: true,
+                erFødsel: true,
+                familiehendelsesdato: new Date(),
+                farHarAleneomsorg: false,
+                farHarRett: true,
+                startdatoUttak: new Date()
+            })
+        );
     }
 
     onAddPeriode(periode: Periode) {
@@ -104,18 +123,20 @@ class Uttaksplanlegger extends React.Component<MyProps, State> {
                 <Sidebanner text={getMessage(this.props.intl, 'common.sidebanner')} />
                 <div className={cls.element('container')}>
                     <div className={cls.element('wrapper')}>
-                        <Brødsmula sti={"/foreldrepengeplanlegger"} />
-                            <Uttaksplan
-                                perioder={this.state.perioder}
-                                onAdd={this.onAddPeriode}
-                                onDelete={this.onDeletePeriode}
-                                onUpdate={this.onUpdatePeriode}
-                                onMove={this.onMove}
-                            />
+                        <Brødsmula sti={'/foreldrepengeplanlegger'} />
+                        <Uttaksplan
+                            sortable={true}
+                            perioder={this.state.perioder}
+                            onAdd={this.onAddPeriode}
+                            onDelete={this.onDeletePeriode}
+                            onChange={this.onUpdatePeriode}
+                            onMove={this.onMove}
+                        />
                     </div>
                 </div>
             </div>
         );
     }
 }
-export default injectIntl(Uttaksplanlegger);
+
+export default connect()(injectIntl(Uttaksplanlegger));

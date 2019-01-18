@@ -14,6 +14,7 @@ const allowCrossDomain = function(req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 };
+
 const delayAllResponses = function(millis) {
     return function(req, res, next) {
         setTimeout(next, millis);
@@ -35,6 +36,10 @@ router.post('/rest/storage', (req, res) => {
 
 router.delete('/rest/storage', (req, res) => {
     return res.sendStatus(200);
+});
+
+router.get('/rest/konto', (req, res) => {
+    res.send(MockStorage.getStønadskontoer());
 });
 
 app.use('', router);

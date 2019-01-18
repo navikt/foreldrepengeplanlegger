@@ -11,9 +11,10 @@ interface OwnProps {
     perioder: Periode[];
     onUpdate: onChangeEvent;
     onDelete: onDeleteEvent;
+    sortable?: boolean;
 }
 
-const Periodeliste: React.StatelessComponent<OwnProps> = ({ perioder, onDelete, onUpdate }) => {
+const Periodeliste: React.StatelessComponent<OwnProps> = ({ perioder, sortable = false, onDelete, onUpdate }) => {
     if (perioder.length === 0) {
         return <div>Ingen perioder registrert</div>;
     }
@@ -23,7 +24,7 @@ const Periodeliste: React.StatelessComponent<OwnProps> = ({ perioder, onDelete, 
             {perioder.map((periode: Periode, index: number) => {
                 return (
                     <li className="periodeliste__periode" key={periode.id}>
-                        <PeriodeElement periode={periode} onDelete={onDelete} onChange={onUpdate} />
+                        <PeriodeElement periode={periode} onDelete={onDelete} onChange={onUpdate} sortable={sortable} />
                     </li>
                 );
             })}

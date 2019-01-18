@@ -17,6 +17,7 @@ import { SortableHandle } from 'react-sortable-hoc';
 
 interface OwnProps {
     periode: Periode;
+    sortable?: boolean;
     onChange: (periode: Periode) => void;
     onDelete: (periode: Periode) => void;
 }
@@ -31,7 +32,7 @@ const DragHandle = SortableHandle(() => (
     </span>
 ));
 
-const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, onChange, intl }) => {
+const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, onDelete, onChange, intl }) => {
     const { uttaksinfo } = periode;
 
     if (uttaksinfo === undefined) {
@@ -42,9 +43,11 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, onDelete, on
     return (
         <div className={bem.block}>
             <div className={bem.element('tools')}>
-                <div className={bem.element('tool')}>
-                    <DragHandle />
-                </div>
+                {sortable && (
+                    <div className={bem.element('tool')}>
+                        <DragHandle />
+                    </div>
+                )}
                 <div className={bem.element('tool')}>
                     <Lukknapp onClick={() => onDelete(periode)} ariaLabel="Slett periode">
                         Slett periode

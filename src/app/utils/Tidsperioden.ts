@@ -4,7 +4,7 @@ import { Tidsperiode } from 'common/types';
 import { getOffentligeFridager } from 'common/utils/fridagerUtils';
 import { Uttaksdagen } from './Uttaksdagen';
 import { InjectedIntl } from 'react-intl';
-import { formaterDatoUtenDag, dateIsSameOrBefore, dateIsSameOrAfter } from 'common/utils/datoUtils';
+import { formaterDatoUtenDag, dateIsSameOrBefore, dateIsSameOrAfter, formaterDato } from 'common/utils/datoUtils';
 import getMessage from 'common/utils/i18nUtils';
 
 export const Tidsperioden = (tidsperiode: Partial<Tidsperiode>) => ({
@@ -12,11 +12,12 @@ export const Tidsperioden = (tidsperiode: Partial<Tidsperiode>) => ({
     erOmsluttetAv: (tidsperiode2: Tidsperiode) => erTidsperiodeOmsluttetAvTidsperiode(tidsperiode, tidsperiode2),
     erUtenfor: (tidsperiode2: Tidsperiode) => erTidsperiodeUtenforTidsperiode(tidsperiode, tidsperiode2),
     getAntallUttaksdager: (taBortFridager?: boolean) => getAntallUttaksdagerITidsperiode(tidsperiode, taBortFridager),
-    getAntallFridager: () => getUttaksdagerSomErFridager(tidsperiode).length,
+    getAntallHelligdager: () => getUttaksdagerSomErHelligdager(tidsperiode).length,
     setStartdato: (fom: Date) => (isValidTidsperiode(tidsperiode) ? flyttTidsperiode(tidsperiode, fom) : tidsperiode),
     setUttaksdager: (uttaksdager: number) =>
         tidsperiode.fom ? getTidsperiode(tidsperiode.fom, uttaksdager) : tidsperiode,
     formaterString: (intl: InjectedIntl) => tidsperiodeToString(tidsperiode, intl),
+    formaterStringMedDag: (intl: InjectedIntl) => tidsperiodeToStringMedDag(tidsperiode, intl),
     formaterStringKort: (intl: InjectedIntl) => tidsperiodeToStringKort(tidsperiode, intl),
     erFomEllerEtterDato: (dato: Date) => erTidsperiodeFomEllerEtterDato(tidsperiode, dato),
     erFørDato: (dato: Date) => erTidsperiodeFomEllerEtterDato(tidsperiode, dato) === false
@@ -78,12 +79,12 @@ function getAntallUttaksdagerITidsperiode(tidsperiode: Partial<Tidsperiode>, taB
         fom.add(24, 'hours');
     }
     if (taBortFridager) {
-        fridager = getUttaksdagerSomErFridager(tidsperiode).length;
+        fridager = getUttaksdagerSomErHelligdager(tidsperiode).length;
     }
     return antall - fridager;
 }
 
-function getUttaksdagerSomErFridager(tidsperiode: Partial<Tidsperiode>): Holiday[] {
+function getUttaksdagerSomErHelligdager(tidsperiode: Partial<Tidsperiode>): Holiday[] {
     if (isValidTidsperiode(tidsperiode) === false) {
         return [];
     }
@@ -133,6 +134,17 @@ function tidsperiodeToString(tidsperiode: Partial<Tidsperiode>, intl: InjectedIn
     return getMessage(intl, 'tidsperiode', {
         fom: fom ? formaterDatoUtenDag(fom) : '',
         tom: tom ? formaterDatoUtenDag(tom) : ''
+    });
+}
+
+function tidsperiodeToStringMedDag(tidsperiode: Partial<Tidsperiode>, intl: InjectedIntl) {
+    const { fom, tom } = tidsperiode;
+    if (fom && tom && moment(fom).isSame(tom, 'day')) {
+        return formaterDato(fom ? fom : tom);
+    }
+    return getMessage(intl, 'tidsperiode', {
+        fom: fom ? formaterDato(fom) : '',
+        tom: tom ? formaterDato(tom) : ''
     });
 }
 

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { FlexibleSvg } from '../custom-svg/CustomSVG';
+import { FlexibleSvg } from '../customSvg/CustomSVG';
 import classnames from 'classnames';
 import BEMHelper from 'common/utils/bem';
 
 import './foreldrepar.less';
 
-export type Forelder = 'far1' | 'far2' | 'far3' | 'far4' | 'medmor1' | 'medmor2' | 'mor1' | 'mor2';
+export type ForeldreparForelder = 'far1' | 'far2' | 'far3' | 'far4' | 'medmor1' | 'medmor2' | 'mor1' | 'mor2';
 
 type Illustrasjonsvariant =
     | 'førsteForelderHalvtSynlig'
@@ -14,8 +14,8 @@ type Illustrasjonsvariant =
     | 'foreldreNærmere';
 
 interface Props {
-    firstParent: Forelder;
-    secondParent: Forelder;
+    firstParent: ForeldreparForelder;
+    secondParent: ForeldreparForelder;
     variant?: Illustrasjonsvariant;
 }
 
@@ -28,7 +28,7 @@ const Foreldrepar: React.StatelessComponent<Props> = ({ firstParent, secondParen
     return (
         <div
             role="presentation"
-            className={classnames(cls.className, {
+            className={classnames(cls.block, {
                 [cls.element('closerParents')]: variant && variant === 'foreldreNærmere'
             })}>
             <Forelder

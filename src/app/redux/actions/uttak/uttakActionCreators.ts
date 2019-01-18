@@ -1,5 +1,5 @@
-import { Periode } from '../../../types';
 import { UttakActionTypes, UttakActionKeys } from './uttakActionDefinitions';
+import { Periode } from '../../../types/periodetyper';
 
 export function updatePeriode(periode: Periode): UttakActionTypes {
     return {

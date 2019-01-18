@@ -2,9 +2,10 @@
 @import '../../../node_modules/nav-datovelger/dist/datovelger/styles/datovelger.css';
 
 @import './variables.less';
+@import '../dev/dev.less';
 
 #app {
-    background-color: white;
+    background-color: #efefef;
     min-width: 320px;
     .clearfix();
     .bolk {
@@ -15,10 +16,23 @@
     }
     .content {
         margin: 0 auto;
-        max-width: @app-max-width;
+        padding: 2rem 5rem;
+        background-color: white;
+        border-radius: 4px;
         &--withoutMargin {
             max-width: none;
             padding: 0;
         }
     }
+}
+
+body {
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.375rem;
+    font-weight: 400;
+}
+
+p  {
+    margin: 0 0 1rem 0;
 }

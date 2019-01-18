@@ -1,6 +1,6 @@
 import * as React from 'react';
 import RadioGroup, { RadioOption } from 'common/components/skjema/radioGroup/RadioGroup';
-import { Periodetype } from '../../../types';
+import { Periodetype } from '../../../types/periodetyper';
 
 interface Props {
     periodetype: Periodetype | undefined;
@@ -9,15 +9,19 @@ interface Props {
 
 const periodetypeValg: RadioOption[] = [
     {
-        value: Periodetype.UTTAK,
+        value: Periodetype.Uttak,
         label: 'Uttak'
     },
     {
-        value: Periodetype.UTSETTELSE,
-        label: 'Utsettelse'
+        value: Periodetype.Ferie,
+        label: 'Ferie'
     },
     {
-        value: Periodetype.UBETALT_PERMISJON,
+        value: Periodetype.Arbeid,
+        label: 'Arbeid'
+    },
+    {
+        value: Periodetype.UbetaltPermisjon,
         label: 'Ubetalt permisjon'
     }
 ];

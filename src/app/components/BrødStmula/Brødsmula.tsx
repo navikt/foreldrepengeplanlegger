@@ -103,7 +103,7 @@ class Brødsmula extends React.Component<BrødsmulaProps & InjectedIntlProps> {
             });
         }
         return (
-            <nav aria-label="Du er her" className={cls.className}>
+            <nav aria-label="Du er her" className={cls.block}>
                 {brødsmulaTilPlanlegger}
             </nav>
         );

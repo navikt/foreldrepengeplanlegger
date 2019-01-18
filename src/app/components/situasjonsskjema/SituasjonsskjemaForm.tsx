@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FormikProps, Form } from 'formik';
 import { Situasjon } from '../../types';
-import VelgSituasjon from '../velg-situasjon/velg-situasjon';
+import VelgSituasjon from '../VelgSituasjon/VelgSituasjon';
 import { Input } from 'nav-frontend-skjema';
 import { Row, Column } from 'nav-frontend-grid';
 import Block from 'common/components/block/Block';
@@ -10,11 +10,11 @@ import { Dekningsgrad } from 'common/types';
 import { Normaltekst, Ingress } from 'nav-frontend-typografi';
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
 import AntallBarnBolk from './parts/AntallBarnBolk';
-import DatoInput from 'common/components/skjema/dato-input/DatoInput';
+import DatoInput from 'common/components/skjema/datoInput/DatoInput';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
-import RangeInput from 'common/components/skjema/range-input/RangeInput';
+import RangeInput from 'common/components/skjema/rangeInput/RangeInput';
 
-export interface IntroSkjemaVerdier {
+export interface SituasjonsskjemaFormValues {
     situasjon?: Situasjon;
     navnFar?: string;
     navnMor?: string;
@@ -27,12 +27,12 @@ export interface IntroSkjemaVerdier {
 }
 
 interface OwnProps {
-    formik: FormikProps<IntroSkjemaVerdier>;
+    formik: FormikProps<SituasjonsskjemaFormValues>;
 }
 
 type Props = OwnProps & InjectedIntlProps;
 
-class SituasjonSkjema extends React.Component<Props, {}> {
+class SituasjonsskjemaForm extends React.Component<Props, {}> {
     render() {
         const { formik, intl } = this.props;
         const {
@@ -151,4 +151,4 @@ class SituasjonSkjema extends React.Component<Props, {}> {
         );
     }
 }
-export default injectIntl(SituasjonSkjema);
+export default injectIntl(SituasjonsskjemaForm);

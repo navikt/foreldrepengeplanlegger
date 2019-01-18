@@ -1,59 +1,32 @@
 import * as React from 'react';
-import { Form, FormikProps } from 'formik';
-import Block from 'common/components/block/Block';
-import TidsperiodeValg from './parts/TidsperiodeValg';
-import { Knapp } from 'nav-frontend-knapper';
-import { Periodetype, Forelder } from '../../types';
+import { Formik, FormikProps } from 'formik';
+import PeriodeskjemaForm from './PeriodeskjemaForm';
+import { Periode } from '../../types/periodetyper';
+import periodeskjemaUtils from './utils';
+import { PeriodeskjemaFormValues } from './types';
 
-import './periodeskjema.less';
-import PeriodetypeValg from './parts/PeriodetypeValg';
-import ForelderValg from './parts/ForelderValg';
-
-export interface PeriodeFormValues {
-    type: Periodetype;
-    fom: Date;
-    tom: Date;
-    forelder: Forelder;
-    gradering?: number;
-}
-
-interface OwnProps {
+interface Props {
+    periode?: Periode;
+    onSubmit: (periode: Periode) => void;
     onCancel: () => void;
-    formik: FormikProps<PeriodeFormValues>;
 }
-
-type Props = OwnProps;
 
 class Periodeskjema extends React.Component<Props, {}> {
+    constructor(props: Props) {
+        super(props);
+    }
     render() {
-        const { formik, onCancel } = this.props;
-        const { fom, tom, type, forelder } = formik.values;
+        const { periode, onSubmit, onCancel } = this.props;
         return (
-            <Form className="periodeskjema">
-                <Block>
-                    <PeriodetypeValg
-                        periodetype={type}
-                        onChange={(periodetype) => formik.setFieldValue('type', periodetype)}
-                    />
-                </Block>
-                <Block>
-                    <ForelderValg forelder={forelder} onChange={(f) => formik.setFieldValue('forelder', f)} />
-                </Block>
-                <Block>
-                    <TidsperiodeValg
-                        fom={fom}
-                        tom={tom}
-                        onChange={(tidsperiode) => {
-                            formik.setFieldValue('fom', tidsperiode.fom);
-                            formik.setFieldValue('tom', tidsperiode.tom);
-                        }}
-                    />
-                </Block>
-                <Knapp htmlType="submit">Ok</Knapp>
-                <Knapp htmlType="button" onClick={() => onCancel()}>
-                    Avbryt
-                </Knapp>
-            </Form>
+            <Formik
+                initialValues={periodeskjemaUtils.getInitialFormValuesFromPeriode(periode)}
+                onSubmit={(values: PeriodeskjemaFormValues) =>
+                    onSubmit(periodeskjemaUtils.createPeriodeFromValues(values))
+                }
+                render={(props: FormikProps<PeriodeskjemaFormValues>) => (
+                    <PeriodeskjemaForm onCancel={onCancel} formik={props} />
+                )}
+            />
         );
     }
 }

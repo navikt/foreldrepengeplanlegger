@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import './rangeStepper.less';
-import RangeIcon from 'common/components/ikoner/RangeIcon';
+import PlussMinusIkon from 'common/components/ikoner/PlussMinusIkon';
 import Sirkelknapp from 'common/components/sirkelknapp/Sirkelknapp';
 
 export type Direction = 'next' | 'previous';
@@ -13,14 +12,14 @@ export interface Props {
     disabled?: boolean;
 }
 
-const RangeStepper: React.StatelessComponent<Props> = ({ direction, onClick, label, disabled }) => (
+const StepperKnapp: React.StatelessComponent<Props> = ({ direction, onClick, label, disabled }) => (
     <Sirkelknapp
         stil="hvit"
         onClick={() => onClick()}
         ariaLabel={label}
         disabled={disabled}
-        ikon={direction === 'previous' ? <RangeIcon type="minus" /> : <RangeIcon type="plus" />}
+        ikon={direction === 'previous' ? <PlussMinusIkon type="minus" /> : <PlussMinusIkon type="plus" />}
     />
 );
 
-export default RangeStepper;
+export default StepperKnapp;

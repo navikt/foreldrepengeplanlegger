@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 import { guid } from 'nav-frontend-js-utils';
-import RangeStepper from './RangeStepper';
 import { Fieldset } from 'nav-frontend-skjema';
 import Infoboks from 'common/components/infoboks/Infoboks';
 
 import './rangeInput.less';
 import AriaText from 'common/components/aria/AriaText';
 import BEMHelper from 'common/utils/bem';
+import StepperKnapp from 'common/components/stepperKnapp/StepperKnapp';
 
 export interface RangeInputElementRendererOptions {
     value: number;
@@ -115,7 +115,7 @@ class RangeInput extends React.Component<Props, State> {
         const bemStepper = BEMHelper('rangeInput__stepper');
 
         return (
-            <div className={bemWrapper.className}>
+            <div className={bemWrapper.block}>
                 <Fieldset legend={label}>
                     {hjelpetekst && (
                         <div className={bemWrapper.element('help')}>
@@ -126,15 +126,15 @@ class RangeInput extends React.Component<Props, State> {
                         {valueLabelPlacement === 'above' && labelRenderer({ value, min, max })}
                     </div>
                     <div
-                        className={classnames(bemRangeInput.className, {
+                        className={classnames(bemRangeInput.block, {
                             [bemRangeInput.modifier('withSteppers')]: steppers !== undefined
                         })}
                         ref={(c) => (this.container = c)}
                         onBlur={this.handleBlur}
                         onFocus={this.handleFocus}>
                         {steppers && (
-                            <div className={`${bemStepper.className} ${bemStepper.modifier('previous')}`}>
-                                <RangeStepper
+                            <div className={`${bemStepper.block} ${bemStepper.modifier('previous')}`}>
+                                <StepperKnapp
                                     direction="previous"
                                     onClick={() => (value > min ? onChange(value - 1) : null)}
                                     label={steppers ? steppers.reduceLabel : 'Mindre'}
@@ -158,8 +158,8 @@ class RangeInput extends React.Component<Props, State> {
                             </div>
                         </div>
                         {steppers && (
-                            <div className={`${bemStepper.className} ${bemStepper.modifier('next')}`}>
-                                <RangeStepper
+                            <div className={`${bemStepper.block} ${bemStepper.modifier('next')}`}>
+                                <StepperKnapp
                                     direction="next"
                                     onClick={() => (value < max ? onChange(value + 1) : null)}
                                     label={steppers ? steppers.increaseLabel : 'Mer'}

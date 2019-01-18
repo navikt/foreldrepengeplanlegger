@@ -9,7 +9,7 @@ const cls = BEMHelper('sidebanner');
 
 const Sidebanner = ({text, intl}: {text: string, intl: InjectedIntl}) => {
     return(
-        <header className={cls.className}>
+        <header className={cls.block}>
             <TypografiBase type="sidetittel">{getMessage(intl, text)} </TypografiBase>
         </header>
     )

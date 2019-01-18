@@ -1,51 +1,33 @@
-import { Periode } from 'app/types/periodetyper';
-
 export * from './periodetyper';
 
-export type Dekningsgrad = 'dekning80' | 'dekning100';
-
-export type Forelder = 'forelder1' | 'forelder2';
-
-export type Spraak = 'nb' | 'nn';
-
-export interface Tidsperiode {
-	startdato: Date;
-	sluttdato: Date;
+export enum Forelder {
+    'forelder1' = 'forelder1',
+    'forelder2' = 'forelder2'
 }
 
-interface AntallPermisjonsuker {
-	/** Totalt antall uker */
-	antallUkerTotalt: number;
-	/** Mødrekvote */
-	antallUkerMødrekvote: number;
-	/** Fedrekvote */
-	antallUkerFedrekvote: number;
-	/** Antall uker som kan fordeles */
-	antallUkerFellesperiode: number;
+export enum Søkersituasjon {
+    FØDSEL = 'fødsel',
+    ADOPSJON = 'adopsjon',
+    FORELDREANSVAR = 'omsorgsovertakelse'
 }
 
-export interface Permisjonsregler {
-	/** Antall uker som er forbeholdt mor før fødsel */
-	antallUkerForelder1FørFødsel: number;
-	/** Antall uker som er forbeholdt mor etter fødsel */
-	antallUkerForelder1EtterFødsel: number;
-	/** Frist for når en må ta ut siste permisjonsdag */
-	maksPermisjonslengdeIÅr: number;
-	/** Maks feriedager i ett år */
-	maksFeriedagerEttÅr: number;
-	/** Maks feriedager med overføring fra foregående år og forskudd fra nest år */
-	maksFeriedagerMedOverføring: number;
-
-	dekning80: AntallPermisjonsuker;
-	dekning100: AntallPermisjonsuker;
+export enum Situasjon {
+    'farOgMor' = 'farOgMor',
+    'bareFar' = 'bareFar',
+    'bareMor' = 'bareMor',
+    'aleneomsorg' = 'aleneomsorg',
+    'farOgFar' = 'farOgFar',
+    'morOgMedmor' = 'morOgMedmor'
 }
 
-export interface Periodesplitt {
-	perioderFor: Periode[];
-	perioderEtter: Periode[];
+export interface UkerOgDager {
+    uker: number;
+    dager: number;
 }
 
-export interface FellesperiodeFordeling {
-	ukerForelder1: number;
-	ukerForelder2: number;
+export interface PeriodeUttaksinfo {
+    uttaksdager?: number;
+    helligdager?: number;
+    ukerOgDager: UkerOgDager;
+    uttaksdagerBrukt: number;
 }

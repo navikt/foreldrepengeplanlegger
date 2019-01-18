@@ -2,37 +2,53 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { addLocaleData, IntlProvider as Provider } from 'react-intl';
 
+import moment from 'moment';
+
 import * as nb from 'react-intl/locale-data/nb';
 import * as nn from 'react-intl/locale-data/nn';
 
-import * as nnMessages from './nn_NO.json';
-import * as nbMessages from './nb_NO.json';
+import nnMessages from './languageFiles/nn_NO.json';
+import nbMessages from './languageFiles/nb_NO.json';
+import nnMessagesCommon from '../../common/intl/nn_NO.json';
+import nbMessagesCommon from '../../common/intl/nb_NO.json';
 
-import { AppState } from 'app/redux/types';
-import { Spraak } from 'app/types';
+import { AppState } from '../redux/reducers';
+import { Språkkode } from './types';
 
-interface Props {
-	language: Spraak;
+interface StateProps {
+    språkkode: Språkkode;
 }
 
-class IntlProvider extends React.Component<Props> {
-	constructor(props: Props) {
-		super(props);
-		addLocaleData([...nb, ...nn]);
-	}
+moment.locale('nb');
 
-	render() {
-		const messages = this.props.language === 'nb' ? nbMessages : nnMessages;
-		return (
-			<Provider locale={this.props.language} messages={messages || {}}>
-				{this.props.children}
-			</Provider>
-		);
-	}
+class IntlProvider extends React.Component<StateProps> {
+    constructor(props: StateProps) {
+        super(props);
+        addLocaleData([...nb, ...nn]);
+    }
+
+    render() {
+        const messages =
+            this.props.språkkode === 'nb'
+                ? {
+                      ...nbMessages,
+                      ...nbMessagesCommon
+                  }
+                : {
+                      ...nnMessages,
+                      ...nnMessagesCommon
+                  };
+
+        return (
+            <Provider key={this.props.språkkode} locale={this.props.språkkode} messages={messages || {}}>
+                {this.props.children}
+            </Provider>
+        );
+    }
 }
 
-const mapStateToProps = (state: AppState) => ({
-	language: state.view.spraak
+const mapStateToProps = (state: AppState): StateProps => ({
+    språkkode: state.common.språkkode
 });
 
 export default connect(mapStateToProps)(IntlProvider);

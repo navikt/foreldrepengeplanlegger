@@ -1,13 +1,11 @@
-import { combineReducers } from 'redux';
+import common, { CommonState } from './commonReducer';
+import uttak, { UttakState } from './uttakReducer';
 
-import formReducer from './formReducer';
-import utsettelseReducer from './utsettelseReducer';
-import viewReducer from './viewReducer';
+interface MainState {
+    common: CommonState;
+    uttak: UttakState;
+}
 
-const PlanleggerAppReducer = combineReducers({
-	form: formReducer,
-	utsettelse: utsettelseReducer,
-	view: viewReducer
-});
+export type AppState = MainState;
 
-export default PlanleggerAppReducer;
+export default { common, uttak };

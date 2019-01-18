@@ -1,60 +1,59 @@
-import { Tidsperiode, Forelder } from 'app/types';
+import { Tidsperiode } from 'common/types';
+import { Forelder, PeriodeUttaksinfo } from '.';
 
 export enum Periodetype {
-	'Stonadsperiode' = 'Stønadsperiode',
-	'Utsettelse' = 'Utsettelse'
+    'Uttak' = 'uttak',
+    'Ferie' = 'ferie',
+    'Arbeid' = 'arbeid',
+    'UbetaltPermisjon' = 'ubetaltPermisjon'
 }
 
-export enum StonadskontoType {
-	/** Kvote forbeholdt mor */
-	'ModrekvotePakrevd' = 'ModrekvotePakrevd',
-	/** Kvote forbeholdt mor */
-	'Modrekvote' = 'Modrekvote',
-	/** Kvote forbehold medforelder */
-	'Fedrekvote' = 'Fedrekvote',
-	/** Felleskvote som kan fordeles mellom mor og medforelder */
-	'Fellesperiode' = 'Fellesperiode',
-	/** Når det kun er en forsørger/forelder */
-	'Foreldrepenger' = 'Foreldrepenger',
-	/** Mors permisjon før fødsel */
-	'ForeldrepengerForFodsel' = 'ForeldrepengerForFodsel'
+export interface PeriodeBase {
+    id: string;
+    type: Periodetype;
+    tidsperiode: Tidsperiode;
+    forelder: Forelder;
+    gradering?: number;
+    fixed?: boolean;
+    uttaksinfo?: PeriodeUttaksinfo;
 }
 
-export enum UtsettelseArsakType {
-	'Ferie' = 'ferie',
-	'Arbeid' = 'arbeid',
-	'Sykdom' = 'sykdom'
+export interface Uttaksperiode extends PeriodeBase {
+    type: Periodetype.Uttak;
 }
 
-export interface Helligdag {
-	dato: Date;
-	navn: string;
+export interface Ferieperiode extends PeriodeBase {
+    type: Periodetype.Ferie;
 }
 
-interface PeriodeBase {
-	id?: string;
-	type: Periodetype;
-	tidsperiode: Tidsperiode;
+export interface Arbeidsperiode extends PeriodeBase {
+    type: Periodetype.Arbeid;
 }
 
-export type Stonadskontoer =
-	| StonadskontoType.Fedrekvote
-	| StonadskontoType.Modrekvote
-	| StonadskontoType.ModrekvotePakrevd
-	| StonadskontoType.Fellesperiode
-	| StonadskontoType.ForeldrepengerForFodsel;
-
-export interface Stonadsperiode extends PeriodeBase {
-	type: Periodetype.Stonadsperiode;
-	konto: Stonadskontoer;
-	forelder: Forelder;
+export interface UbetaltPermisjon extends PeriodeBase {
+    type: Periodetype.UbetaltPermisjon;
 }
 
-export interface Utsettelsesperiode extends PeriodeBase {
-	type: Periodetype.Utsettelse;
-	arsak: UtsettelseArsakType;
-	forelder: Forelder;
-	helligdager?: Helligdag[];
+export type Utsettelsesperiode = Ferieperiode | Arbeidsperiode;
+
+export type Periode = Uttaksperiode | Utsettelsesperiode | UbetaltPermisjon;
+
+export function isUttak(periode: Periode): periode is Uttaksperiode {
+    return periode.type === Periodetype.Uttak;
 }
 
-export type Periode = Stonadsperiode | Utsettelsesperiode;
+export function isUtsettelse(periode: Periode): periode is Utsettelsesperiode {
+    return periode.type === Periodetype.Ferie || periode.type === Periodetype.Arbeid;
+}
+
+export function isFerie(periode: Periode): periode is Ferieperiode {
+    return periode.type === Periodetype.Ferie;
+}
+
+export function isArbeid(periode: Periode): periode is Arbeidsperiode {
+    return periode.type === Periodetype.Arbeid;
+}
+
+export function isUbetaltPermisjon(periode: Periode): periode is UbetaltPermisjon {
+    return periode.type === Periodetype.UbetaltPermisjon;
+}

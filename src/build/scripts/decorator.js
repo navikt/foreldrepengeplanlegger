@@ -1,39 +1,35 @@
-require('dotenv').config();
 const jsdom = require('jsdom');
-const axios = require('axios');
+const request = require('request');
 
 const { JSDOM } = jsdom;
 
-const requestDecorator = () =>
-	axios({
-		method: 'get',
-		url: `${
-			process.env.APPRES_CMS_URL
-		}/common-html/v4/navno?header=true&styles=true&scripts=true&footer=true`,
-		validateStatus: (status) => status >= 200 || status === 302
-	});
+const requestDecorator = (callback) =>
+    request(
+        `${process.env.APPRES_CMS_URL}/common-html/v4/navno?header=true&styles=true&scripts=true&footer=true`,
+        callback
+    );
 
-const getDecorator = (noDecorator) =>
-	requestDecorator(noDecorator).then(
-		(decoratorResponse) => {
-			const html = decoratorResponse.data;
-			const { document } = new JSDOM(html).window;
-			return {
-				NAV_SCRIPTS: document.getElementById('scripts').innerHTML,
-				NAV_STYLES: document.getElementById('styles').innerHTML,
-				NAV_HEADING: document.getElementById('header').innerHTML,
-				NAV_FOOTER: document.getElementById('footer').innerHTML
-			};
-		},
-		() => {
-			console.warn('Decorator failed, running clean mode');
-			return {
-				NAV_SCRIPTS: '',
-				NAV_STYLES: '',
-				NAV_HEADING: '',
-				NAV_FOOTER: ''
-			};
-		}
-	);
+const getDecorator = () =>
+    new Promise((resolve, reject) => {
+        const callback = (error, response, body) => {
+            if (!error && response.statusCode >= 200 && response.statusCode < 400) {
+                const { document } = new JSDOM(body).window;
+                const prop = 'innerHTML';
+
+                const data = {
+                    NAV_SCRIPTS: document.getElementById('scripts')[prop],
+                    NAV_STYLES: document.getElementById('styles')[prop],
+                    NAV_HEADING: document.getElementById('header')[prop],
+                    NAV_FOOTER: document.getElementById('footer')[prop]
+                };
+                resolve(data);
+            } else {
+                console.log(error);
+                reject(new Error(error));
+            }
+        };
+
+        requestDecorator(callback);
+    });
 
 module.exports = getDecorator;

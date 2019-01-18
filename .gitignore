@@ -1,9 +1,10 @@
 .idea
+.vscode
+.awcache
+dist
 node_modules
 yarn.lock
-dist
 yarn-error.log
-.vscode
-*DS_Store
-cypress/videos
-cypress/screenshots
+.DS_Store
+mock_data/soknad.json
+*.iml

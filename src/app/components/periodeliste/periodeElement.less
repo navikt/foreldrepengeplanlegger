@@ -1,0 +1,31 @@
+.periodeElement {
+    position: relative;
+    padding: 1rem 2rem 1rem 1rem;
+    margin: 0;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    &__tools {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: inline-block;
+    }
+    &__tool  {
+        margin-bottom: 0.5rem;
+    }
+}
+
+.dragHandle {
+    display: flex;
+    font-size: 1.2rem;
+    align-content: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background-color: #dfdfdf;
+    border-radius: 0.25rem;
+    &__content {
+        display: block;
+        line-height: 28px;
+    }
+    cursor: move;
+}

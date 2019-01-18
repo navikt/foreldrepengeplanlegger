@@ -1,38 +1,31 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Modal from 'nav-frontend-modal';
-
-import PlanleggerApp from './Planlegger.app';
-import reducers from './redux/reducers';
+import store from './redux';
 import IntlProvider from './intl/IntlProvider';
-import { registerDevUtils } from 'app/utils/devUtils';
 
-(Modal as any).setAppElement('#app');
+import './styles/app.less';
 
-function configureStore() {
-	/* tslint:disable */
-	const devtools: any =
-		/* tslint:disable-next-line */
-		window['devToolsExtension']
-			? /* tslint:disable-next-line */
-			  window['devToolsExtension']()
-			: (f: any) => f;
-	/* tslint:enable */
-	return createStore(reducers, devtools);
-}
+import { Normaltekst } from 'nav-frontend-typografi';
+import Uttaksplanlegger from './Uttaksplanlegger';
+import { registerDevUtils } from './dev/devUtils';
 
-const store = configureStore();
+Modal.setAppElement('#appContainer');
+const root = document.getElementById('app');
 
 registerDevUtils();
 
-const root = document.getElementById('app');
 render(
-	<Provider store={store}>
-		<IntlProvider>
-			<PlanleggerApp />
-		</IntlProvider>
-	</Provider>,
-	root
+    <Provider store={store}>
+        <IntlProvider>
+            <Router>
+                <Normaltekst tag="div">
+                    <Uttaksplanlegger familiehendelsesdato={new Date(2019, 0, 10)} />
+                </Normaltekst>
+            </Router>
+        </IntlProvider>
+    </Provider>,
+    root
 );

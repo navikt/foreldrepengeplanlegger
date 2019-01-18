@@ -1,4 +1,9 @@
 {
+    "route.": "Foreldrepenger, engangsstønad og svangerskapspenger",
+    "route.tilbake": "tilbake",
+    "route.foreldrepengeplanlegger": "foreldrepengeplanlegger",
+
+    "common.sidebanner": "Uttaksplanlegger",
     "common.varighet.dager": "{dager, plural, one {# dag} other {# dagar}}",
     "common.varighet.uker": "{uker, plural, one {# veke} other {# veker}}",
     "common.varighet.ukerogdager":

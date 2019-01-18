@@ -1,0 +1,35 @@
+@import '../../../node_modules/nav-frontend-core/less/_variabler';
+@import '../../app/styles/variables';
+
+@import 'decorator-override';
+
+@app-max-width: 800px;
+@modal-max-width: 500px;
+
+@mobile-breakpoint: 576px;
+@tablet-breakpoint: 800px;
+
+.purpleBottomBorder() {
+  border-bottom: 4px solid @navLillaLighten20;
+}
+
+.planlegger {
+    margin-bottom: 4rem;
+
+    &__container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin: 0;
+    }
+
+    &__wrapper {
+        width: 100%;
+        max-width: @app-max-width;
+        flex-shrink: 0;
+
+        section:not(:nth-last-child(1)) {
+            margin-bottom: 3rem;
+        }
+    }
+}

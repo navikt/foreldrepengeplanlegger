@@ -4,6 +4,12 @@ import { Periode, Periodetype } from './types/periodetyper';
 import { UttaksplanBuilder } from './utils/Builder';
 import { Forelder } from './types';
 import { getUttaksinfoFromPeriode } from './utils/periodeinfo';
+import 'common/styles/index.less';
+import BEMHelper from 'common/utils/bem';
+import Sidebanner from './components/sidebanner/Sidebanner';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
+import getMessage from 'common/utils/i18nUtils';
+import Brødsmula from './components/BrødStmula/Brødsmula';
 
 const periode1: Periode = {
     forelder: Forelder.forelder1,
@@ -38,6 +44,8 @@ const mockPerioder: Periode[] = [periode1, periode2, periode3].map((periode: Per
     uttaksinfo: getUttaksinfoFromPeriode(periode)
 }));
 
+const cls = BEMHelper('planlegger');
+
 interface State {
     perioder: Periode[];
 }
@@ -46,8 +54,10 @@ interface Props {
     familiehendelsesdato: Date;
 }
 
-class Uttaksplanlegger extends React.Component<Props, State> {
-    constructor(props: Props) {
+type MyProps = InjectedIntlProps & Props;
+
+class Uttaksplanlegger extends React.Component<MyProps, State> {
+    constructor(props: MyProps) {
         super(props);
 
         this.onAddPeriode = this.onAddPeriode.bind(this);
@@ -90,16 +100,22 @@ class Uttaksplanlegger extends React.Component<Props, State> {
 
     render() {
         return (
-            <div className="content">
-                <Uttaksplan
-                    perioder={this.state.perioder}
-                    onAdd={this.onAddPeriode}
-                    onDelete={this.onDeletePeriode}
-                    onUpdate={this.onUpdatePeriode}
-                    onMove={this.onMove}
-                />
+            <div className={cls.block}>
+                <Sidebanner text={getMessage(this.props.intl, 'common.sidebanner')} />
+                <div className={cls.element('container')}>
+                    <div className={cls.element('wrapper')}>
+                        <Brødsmula sti={"/foreldrepengeplanlegger"} />
+                            <Uttaksplan
+                                perioder={this.state.perioder}
+                                onAdd={this.onAddPeriode}
+                                onDelete={this.onDeletePeriode}
+                                onUpdate={this.onUpdatePeriode}
+                                onMove={this.onMove}
+                            />
+                    </div>
+                </div>
             </div>
         );
     }
 }
-export default Uttaksplanlegger;
+export default injectIntl(Uttaksplanlegger);

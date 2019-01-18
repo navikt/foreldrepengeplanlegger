@@ -20,12 +20,17 @@ server.set('views', `${__dirname}/dist`);
 server.set('view engine', 'mustache');
 server.engine('html', mustacheExpress());
 
+createEnvSettingsFile(path.resolve(`${__dirname}/dist/js/settings.js`));
+
+server.use((req, res, next) => {
+	res.removeHeader('X-Powered-By');
+	next();
+});
+
+
 const renderApp = (decoratorFragments) =>
 	new Promise((resolve, reject) => {
-		server.render(
-			'index.html',
-			Object.assign({}, decoratorFragments),
-			(err, html) => {
+		server.render('index.html', decoratorFragments, (err, html) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -64,6 +69,10 @@ const startServer = (html) => {
 	server.get('/foreldrepengeplanlegger/internal/isReady', (req, res) =>
 		res.sendStatus(200)
 	);
+
+	server.get(/^\/(?!.*dist).*$/, (req, res) => {
+		res.send(html);
+	});
 
 	const port = process.env.PORT || 8080;
 	server.listen(port, () => {

@@ -1,0 +1,53 @@
+@import '../../../common/styles/index.less';
+
+.brodsmula {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 2rem 0 2rem;
+    margin-left: 1rem;
+    align-self: flex-start;
+
+    a {
+        font-weight: lighter;
+        text-decoration: none;
+        color: @navBla;
+        border-bottom: 1px solid lightgray;
+
+        &:hover {
+            border-bottom-color: @navBla;
+        }
+
+        &:focus {
+            outline: none;
+            background-color: @orangeFocus;
+        }
+    }
+
+    .chevron--hoyre {
+        color: @navGra60;
+        transform: scale(0.8) rotate(-90deg);
+    }
+
+    &__item {
+        max-width: 210px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-right: 0.5rem;
+        color: lightGray;
+
+        &:not(:first-child) {
+            margin-left: 0.5rem;
+        }
+    }
+
+    &__current {
+        color: black;
+        font-weight: bold;
+    }
+
+    @media (min-width: @tablet-breakpoint) {
+        margin-left: 0rem;
+    }
+}

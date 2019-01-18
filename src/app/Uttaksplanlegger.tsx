@@ -1,8 +1,16 @@
 import * as React from 'react';
-import Uttaksplan from './components/uttaksplan/Uttaksplan';
+// import Uttaksplan from './components/uttaksplan/Uttaksplan';
 import { Periode } from './types';
-import SituasjonSkjemaWrapper from './components/situasjonSkjema/SituasjonSkjemaWrapper';
+// import SituasjonSkjemaWrapper from './components/situasjonSkjema/SituasjonSkjemaWrapper';
 import Block from 'common/components/block/Block';
+import 'common/styles/index.less';
+import BEMHelper from 'common/utils/bem';
+import Sidebanner from './components/sidebanner/Sidebanner';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
+import getMessage from 'common/utils/i18nUtils';
+import Brødsmula from './components/BrødStmula/Brødsmula';
+
+const cls = BEMHelper('planlegger');
 
 interface State {
     perioder: Periode[];
@@ -10,8 +18,10 @@ interface State {
 
 interface Props {}
 
-class Uttaksplanlegger extends React.Component<Props, State> {
-    constructor(props: Props) {
+type MyProps = InjectedIntlProps & Props;
+
+class Uttaksplanlegger extends React.Component<MyProps, State> {
+    constructor(props: MyProps) {
         super(props);
 
         this.onAddPeriode = this.onAddPeriode.bind(this);
@@ -38,20 +48,22 @@ class Uttaksplanlegger extends React.Component<Props, State> {
         this.setState({ perioder: nyePerioder });
     }
 
+
     render() {
         return (
-            <div>
-                <Block>
-                    <SituasjonSkjemaWrapper />
-                </Block>
-                <Uttaksplan
-                    perioder={this.state.perioder}
-                    onAdd={this.onAddPeriode}
-                    onDelete={this.onDeletePeriode}
-                    onUpdate={this.onUpdatePeriode}
-                />
+            <div className={cls.className}>
+                <Sidebanner text={getMessage(this.props.intl, 'common.sidebanner')} />
+                <div className={cls.element('container')}>
+                    <div className={cls.element('wrapper')}>
+                        <Brødsmula sti={"/foreldrepengeplanlegger"} />
+                        <Block>
+                            {/*  <SituasjonSkjemaWrapper /> */ }
+                        </Block>
+                        <div>INSERT CONTENT HERE</div>
+                    </div>
+                </div>
             </div>
         );
     }
 }
-export default Uttaksplanlegger;
+export default injectIntl(Uttaksplanlegger);

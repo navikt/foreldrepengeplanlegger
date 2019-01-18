@@ -1,0 +1,162 @@
+// Justering for javbar på desktop
+
+.siteheader {
+    @media (min-width: 48.0625em) {
+        .topnavsection .topnav {
+            padding-top: 0px;
+        }
+        .topnavsection-wrapper {
+            a {
+                color: black;
+            }
+        }
+    }
+
+    // Justeringer for navbar på mobil
+    @media (max-width: 48.0625em) {
+        .hodefot a {
+            color: white;
+        }
+
+        .hodefot .typo-etikett-stor {
+            color: white;
+        }
+    }
+}
+
+// Override fra DigiSys
+@appresRoot: 'https://appres.nav.no/_public/appressurser/built-appres-v4/';
+
+.siteheader {
+    input[type='search'] {
+        font-size: 14/16rem;
+        padding: 1px;
+        line-height: normal;
+        &:hover {
+            border: none;
+        }
+    }
+
+    .maincontent {
+        padding-top: 0;
+    }
+}
+
+.hodefot {
+    a {
+        border-bottom: 0;
+    }
+
+    .tilbaketilgruppe .tilbaketittel {
+        bottom: 18px;
+    }
+}
+
+.siteheader .varsler-display {
+    z-index: 2;
+}
+
+.varsler-display .varsel-liste .varsel-container {
+    border-bottom: 1px solid #7f756c;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+}
+.nav-varsler .hide-text {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.nav-varsler .varsel {
+    display: flex;
+    padding: 4px;
+}
+.nav-varsler .varsel .varsel-ikon {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+}
+.nav-varsler .varsel .varsel-ikon {
+    background: #ffe4c2 url('@{appresRoot}img/varsel/alarm.svg') no-repeat center;
+}
+.nav-varsler .varsel .varsel-ikon.alarm {
+    background: #ffe4c2 url('@{appresRoot}img/varsel/alarm.svg') no-repeat center;
+}
+.nav-varsler .varsel .varsel-ikon.klokke {
+    background: #ffe4c2 url('@{appresRoot}img/varsel/alarm-clock.svg') no-repeat center;
+}
+.nav-varsler .varsel .varsel-ikon.boble {
+    background: #f1d8d4 url('@{appresRoot}img/varsel/bubblechat-2.svg') no-repeat center;
+}
+.nav-varsler .varsel .varsel-ikon.kalender {
+    background: #ecefcc url('@{appresRoot}img/varsel/calendar-3.svg') no-repeat center;
+}
+.nav-varsler .varsel .varsel-ikon.dokument {
+    background: #e0dae7 url('@{appresRoot}img/varsel/dokument_normal.svg') no-repeat center;
+}
+.nav-varsler .varsel .varsel-ikon.digisyfo {
+    background: #e0f5fb url('@{appresRoot}img/varsel/first-aid-plaster.svg') no-repeat center;
+}
+.nav-varsler .varsel .varsel-ikon.okonomi {
+    background: #dff0e6 url('@{appresRoot}img/varsel/coinreceive.svg') no-repeat center;
+}
+.nav-varsler .varsel .varsel-ikon.oppgave {
+    background: #cce1f3 url('@{appresRoot}img/varsel/checklist.svg') no-repeat center;
+}
+.nav-varsler .varsel .varsel-innhold {
+    overflow-wrap: break-word;
+    color: #3e3832;
+}
+.nav-varsler .varsel .varsel-innhold .varsel-dato {
+    color: #7f756c;
+}
+.nav-varsler .varsel .varsel-innhold p {
+    margin-bottom: 4px;
+}
+
+@media (max-width: 768px) { /* 768 mega-menu breakpoint. Set mobile second styling. HotFix for mobile version  */
+    .accessible-megamenu-panel .tilbaketilgruppe .home-link:before {
+        display: inline-block;
+        height: 30px;
+        background: transparent url('@{appresRoot}img/navno/gfx/mainmenu/hjem_hvit.png') no-repeat;
+        background-position: 66% 100%;
+        background-size: 43%;
+        margin-left: 1rem;
+    }
+
+    .accessible-megamenu-panel .tilbaketilgruppe .home-link:hover:before {
+        display: inline-block;
+        height: 30px;
+        background: transparent url('@{appresRoot}img/navno/gfx/mainmenu/hjem_hvit.png') no-repeat;
+        background-position: 66% 100%;
+        background-size: 43%;
+        margin-left: 1rem;
+    }
+
+    .hodefot a {
+        color: #ffff;
+    }
+    .topnavsection-wrapper {
+        z-index: 99;
+    }
+    .accessible-megamenu.m-open {
+        z-index: 99;
+    }
+
+    .hodefot a:focus {
+        background-color: #333;
+        color: #0ca9e1;
+    }
+
+    .hodefot a:active {
+        color: #0ca9e1;
+    }
+
+    .hodefot p {
+        margin-bottom: 0.5rem;
+    }
+
+    .hodefot a:focus {
+        color: #0ca9e1;
+    }
+}

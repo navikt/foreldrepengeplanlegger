@@ -125,6 +125,7 @@ class Uttaksplanlegger extends React.Component<MyProps, State> {
                     <div className={cls.element('wrapper')}>
                         <Brødsmula sti={'/foreldrepengeplanlegger'} />
                         <Uttaksplan
+                            sortable={true}
                             perioder={this.state.perioder}
                             onAdd={this.onAddPeriode}
                             onDelete={this.onDeletePeriode}

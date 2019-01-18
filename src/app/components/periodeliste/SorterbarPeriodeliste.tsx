@@ -31,7 +31,7 @@ const SorterbarPeriodeliste: React.StatelessComponent<PeriodelisteProps> = (prop
     return (
         <ListContainer
             {...props}
-            useDragHandle={props.sortable}
+            useDragHandle={true}
             onSortEnd={onMove ? (sortEnd: SortEnd) => onMove(perioder[sortEnd.oldIndex], sortEnd.newIndex) : undefined}
         />
     );

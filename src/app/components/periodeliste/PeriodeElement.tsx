@@ -18,6 +18,7 @@ import { SortableHandle } from 'react-sortable-hoc';
 interface OwnProps {
     periode: Periode;
     sortable?: boolean;
+    lockable?: boolean;
     onChange: (periode: Periode) => void;
     onDelete: (periode: Periode) => void;
 }
@@ -32,7 +33,7 @@ const DragHandle = SortableHandle(() => (
     </span>
 ));
 
-const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, onDelete, onChange, intl }) => {
+const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lockable, onDelete, onChange, intl }) => {
     const { uttaksinfo } = periode;
 
     if (uttaksinfo === undefined) {
@@ -80,13 +81,17 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, on
                 />
             </Block>
             <Block margin="xxs">
-                <PinKnapp
-                    size="normal"
-                    label="Lås tidsperiode"
-                    pressed={periode.fixed === true}
-                    onClick={(pressed) => onChange({ ...periode, fixed: pressed })}
-                />
-                {' - '}
+                {lockable && (
+                    <>
+                        <PinKnapp
+                            size="normal"
+                            label="Lås tidsperiode"
+                            pressed={periode.fixed === true}
+                            onClick={(pressed) => onChange({ ...periode, fixed: pressed })}
+                        />
+                        {' - '}
+                    </>
+                )}
                 {Tidsperioden(periode.tidsperiode).formaterStringMedDag(intl)}
             </Block>
         </div>

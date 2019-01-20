@@ -15,6 +15,7 @@ import Block from 'common/components/block/Block';
 import './periodeElement.less';
 import { SortableHandle } from 'react-sortable-hoc';
 import { PeriodelisteElementProps } from './types';
+import GraderingMeny from './parts/GraderingMeny';
 
 type Props = PeriodelisteElementProps & InjectedIntlProps;
 
@@ -71,6 +72,11 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lo
                     onChange={(ukerOgDager) =>
                         onChange(Perioden(periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
                     }
+                />
+                {' - '}
+                <GraderingMeny
+                    gradering={periode.gradering}
+                    onChange={(gradering) => onChange({ ...periode, gradering })}
                 />
             </Block>
             <Block margin="xxs">

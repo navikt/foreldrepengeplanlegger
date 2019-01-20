@@ -10,7 +10,10 @@ const beregnBrukteUttaksdager = (
 ): number => {
     switch (type) {
         case Periodetype.Uttak:
-            return uttaksdager * (gradering || 1);
+            if (gradering === undefined || isNaN(gradering)) {
+                return uttaksdager;
+            }
+            return Math.floor(uttaksdager * (gradering / 100));
         case Periodetype.Ferie:
             return helligdager;
         case Periodetype.UbetaltPermisjon:

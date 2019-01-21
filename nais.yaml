@@ -24,3 +24,7 @@ resources:
     memory: 256Mi
 ingress:
   enabled: true 
+fasitResources:
+  used:
+    - alias: loadbalancer:foreldrepengeplanlegger
+      resourceType: loadbalancerconfig

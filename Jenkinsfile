@@ -32,29 +32,37 @@ node {
     }
 
     stage("Build & publish") {
-        withEnv(['HTTPS_PROXY=http://webproxy-internett.nav.no:8088',
-                 'NO_PROXY=localhost,127.0.0.1,.local,.adeo.no,.nav.no,.aetat.no,.devillo.no,.oera.no',
-                 'no_proxy=localhost,127.0.0.1,.local,.adeo.no,.nav.no,.aetat.no,.devillo.no,.oera.no',
-                 'NODE_TLS_REJECT_UNAUTHORIZED=0'
-        ]) {
-            System.setProperty("java.net.useSystemProxies", "true")
-            System.setProperty("http.nonProxyHosts", "*.adeo.no")
-            sh "npm install"
-            sh "npm run jest"
-            sh "npm run build"
+        try {
+            withEnv(['HTTPS_PROXY=http://webproxy-internett.nav.no:8088',
+                     'NO_PROXY=localhost,127.0.0.1,.local,.adeo.no,.nav.no,.aetat.no,.devillo.no,.oera.no',
+                     'no_proxy=localhost,127.0.0.1,.local,.adeo.no,.nav.no,.aetat.no,.devillo.no,.oera.no',
+                     'NODE_TLS_REJECT_UNAUTHORIZED=0'
+            ]) {
+                System.setProperty("java.net.useSystemProxies", "true")
+                System.setProperty("http.nonProxyHosts", "*.adeo.no")
+                sh "npm install"
+                sh "npm run jest"
+                sh "npm run build"
+            }
+
+            sh "docker build --build-arg version=${releaseVersion} --build-arg app_name=${app} -t ${dockerRepo}/${app}:${releaseVersion} ."
+
+            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                sh "docker login -u ${env.USERNAME} -p ${env.PASSWORD} ${dockerRepo} && docker push ${dockerRepo}/${app}:${releaseVersion}"
+                sh "curl --fail -v -u ${env.USERNAME}:${env.PASSWORD} --upload-file ${appConfig} https://repo.adeo.no/repository/raw/${groupId}/${app}/${releaseVersion}/nais.yaml"
+            }
+
+            slackSend([
+                    color  : 'good',
+                    message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${app}@master by ${committer} passed"
+            ])
+        } catch (Exception ex) {
+            slackSend([
+                    color: 'danger',
+                    message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${app}@master by ${committer} failed"
+            ])
+            throw new Exception("Bygget har feilet", e)
         }
-
-        sh "docker build --build-arg version=${releaseVersion} --build-arg app_name=${app} -t ${dockerRepo}/${app}:${releaseVersion} ."
-
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-            sh "docker login -u ${env.USERNAME} -p ${env.PASSWORD} ${dockerRepo} && docker push ${dockerRepo}/${app}:${releaseVersion}"
-            sh "curl --fail -v -u ${env.USERNAME}:${env.PASSWORD} --upload-file ${appConfig} https://repo.adeo.no/repository/raw/${groupId}/${app}/${releaseVersion}/nais.yaml"
-        }
-
-        slackSend([
-            color: 'good',
-            message: "Build <${env.BUILD_URL}|#${env.BUILD_NUMBER}> (<${commitUrl}|${commitHashShort}>) of ${project}/${app}@master by ${committer} passed"
-         ])
     }
 
     stage("Deploy to preprod") {

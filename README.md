@@ -1,6 +1,6 @@
-# Permisjonsplanlegger
+# Foreldrepengeplanlegger
 
-Kildekoden til upålogget frontend-app for permisjonsplanleggeren på nav.no.
+Kildekoden til upålogget frontend-app for foreldrepengeplanleggeren på nav.no.
 
 # Komme i gang
 

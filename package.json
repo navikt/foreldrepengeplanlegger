@@ -1,11 +1,11 @@
 {
-    "name": "permisjonsplanlegger",
+    "name": "foreldrepengeplanlegger",
     "version": "0.0.1",
     "description": "Applikasjon for planlegging av fødselspermisjon",
     "main": "./src/app/index.js",
     "author": "NAV",
     "license": "MIT",
-    "repository": "https://github.com/navikt/permisjonsplanlegger",
+    "repository": "https://github.com/navikt/foreldrepengeplanlegger",
     "keywords": [],
     "scripts": {
         "build": "node src/build/scripts/production-build.js",

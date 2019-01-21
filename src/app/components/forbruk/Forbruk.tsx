@@ -25,10 +25,13 @@ interface Props {
 
 const bem = BEMHelper('forbrukOppsummering');
 
+const sorterForelder = (f1: ForelderForbruk, f2: ForelderForbruk): number =>
+    f1.forelder === Forelder.forelder1 ? -1 : 1;
+
 const Forbruk: React.StatelessComponent<Props> = ({ forbruk }) => {
     return (
         <div className={bem.block}>
-            {forbruk.map((forelderForbruk) => (
+            {forbruk.sort(sorterForelder).map((forelderForbruk) => (
                 <div key={forelderForbruk.forelder} className={bem.element('forelder')}>
                     <Ingress tag="h1" className={bem.element('navn')}>
                         {forelderForbruk.forelder}

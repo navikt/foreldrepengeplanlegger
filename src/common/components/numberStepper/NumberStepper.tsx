@@ -70,6 +70,7 @@ const NumberStepper: React.StatelessComponent<Props> = ({ value, min, max, stepS
                     aria-label="Verdi"
                     type="number"
                     value={value || ''}
+                    placeholder="0"
                     onChange={(evt) =>
                         evt.target.value !== '' ? onChange(getChangeValue(evt.target.value, min, max)) : undefined
                     }

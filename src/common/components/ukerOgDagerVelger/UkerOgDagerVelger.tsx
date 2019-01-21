@@ -27,15 +27,15 @@ const UkerOgDagerVelger: React.StatelessComponent<Props> = ({ uker, dager, feil,
                             tittel="Uker"
                             min={0}
                             value={uker}
-                            onChange={(u) => onChange({ uker: u, dager })}
+                            onChange={(u) => onChange({ uker: u === undefined ? 0 : u, dager })}
                         />
                     </div>
                     <div className={bem.element('dager')}>
                         <SkjemaNumberStepper
                             tittel="Dager"
-                            min={uker > 0 ? -1 : 1}
+                            min={uker !== undefined && uker > 0 ? -1 : 1}
                             value={dager}
-                            onChange={(d) => onChange({ uker, dager: d })}
+                            onChange={(d) => onChange({ uker, dager: d === undefined ? 0 : d })}
                         />
                     </div>
                 </div>

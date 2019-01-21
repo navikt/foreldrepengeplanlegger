@@ -15,7 +15,7 @@ type Props = OwnProps & InjectedIntlProps;
 
 const bem = BEMHelper('varighetDropdown');
 const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, onChange, intl }) => {
-    const label = gradering === 100 ? 'Fulltid' : gradering !== undefined ? `Gradert ${gradering}%` : 'Velg gradering';
+    const label = gradering === 100 || gradering === undefined ? '100%' : `Gradert ${gradering}%`;
     return (
         <DropdownButton label={label} onClose={() => null}>
             <div className={bem.block}>

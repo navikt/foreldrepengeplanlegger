@@ -36,10 +36,13 @@ class Uttaksplan extends React.Component<PeriodelisteProps, State> {
                 <h1>Perioder</h1>
 
                 <Block animated={false}>
-                    <Forbruk forbruk={getForbruk(perioder)} />
+                    <div className="periodelisteWrapper">
+                        <SorterbarPeriodeliste {...this.props} />
+                    </div>
                 </Block>
+
                 <Block animated={false}>
-                    <SorterbarPeriodeliste {...this.props} />
+                    <Forbruk forbruk={getForbruk(perioder)} />
                 </Block>
 
                 <Block visible={visSkjema}>

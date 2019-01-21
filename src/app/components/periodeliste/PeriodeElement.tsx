@@ -16,6 +16,7 @@ import './periodeElement.less';
 import { SortableHandle } from 'react-sortable-hoc';
 import { PeriodelisteElementProps } from './types';
 import GraderingMeny from './parts/GraderingMeny';
+import PeriodeFargestrek from './parts/periodeFargestrek/periodeFargestrek';
 
 type Props = PeriodelisteElementProps & InjectedIntlProps;
 
@@ -37,6 +38,7 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lo
     const { uker, dager } = uttaksinfo.ukerOgDager;
     return (
         <div className={bem.block}>
+            <PeriodeFargestrek farge="blue" />
             <div className={bem.element('tools')}>
                 {sortable && (
                     <div className={bem.element('tool')}>

@@ -10,8 +10,8 @@ export interface PeriodelisteElementBaseProps {
 
 export interface PeriodelisteActions {
     onAdd: (periode: Periode) => void;
-    onChange: (periode: Periode) => void;
-    onDelete: (periode: Periode) => void;
+    onUpdate: (periode: Periode) => void;
+    onRemove: (periode: Periode) => void;
     onMove?: (periode: Periode, toIndex: number) => void;
 }
 

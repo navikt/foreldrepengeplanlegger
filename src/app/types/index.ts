@@ -1,3 +1,5 @@
+import { GetTilgjengeligeStønadskontoerParams } from '../api/types';
+
 export * from './periodetyper';
 
 export enum Forelder {
@@ -31,5 +33,7 @@ export interface PeriodeUttaksinfo {
     ukerOgDager: UkerOgDager;
     uttaksdagerBrukt: number;
 }
+
+export type Søknadsinfo = GetTilgjengeligeStønadskontoerParams;
 
 export type UttaksplanColor = 'purple' | 'blue' | 'green' | 'purpleBlue' | 'yellow' | '';

@@ -22,7 +22,7 @@ render(
         <IntlProvider>
             <Router>
                 <Normaltekst tag="div">
-                    <Uttaksplanlegger familiehendelsesdato={new Date(2019, 0, 10)} />
+                    <Uttaksplanlegger />
                 </Normaltekst>
             </Router>
         </IntlProvider>

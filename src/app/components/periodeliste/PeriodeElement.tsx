@@ -29,7 +29,7 @@ const DragHandle = SortableHandle(() => (
     </span>
 ));
 
-const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lockable, onDelete, onChange, intl }) => {
+const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lockable, onRemove, onUpdate, intl }) => {
     const { uttaksinfo } = periode;
 
     if (uttaksinfo === undefined) {
@@ -47,7 +47,7 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lo
                     </div>
                 )}
                 <div className={bem.element('tool')}>
-                    <Lukknapp onClick={() => onDelete(periode)} ariaLabel="Slett periode">
+                    <Lukknapp onClick={() => onRemove(periode)} ariaLabel="Slett periode">
                         Slett periode
                     </Lukknapp>
                 </div>
@@ -56,7 +56,7 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lo
                 <ForelderMeny
                     forelder={periode.forelder}
                     onChange={(forelder) =>
-                        onChange({
+                        onUpdate({
                             ...periode,
                             forelder
                         })
@@ -65,7 +65,7 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lo
                 {' - '}
                 <PeriodetypeMeny
                     type={periode.type}
-                    onChange={(type: Periodetype) => onChange(changePeriodeType(periode, type))}
+                    onChange={(type: Periodetype) => onUpdate(changePeriodeType(periode, type))}
                 />
                 {' - '}
                 <VarighetMeny
@@ -73,13 +73,13 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lo
                     uker={uker}
                     dager={dager}
                     onChange={(ukerOgDager) =>
-                        onChange(Perioden(periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
+                        onUpdate(Perioden(periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
                     }
                 />
                 {' - '}
                 <GraderingMeny
                     gradering={periode.gradering}
-                    onChange={(gradering) => onChange({ ...periode, gradering })}
+                    onChange={(gradering) => onUpdate({ ...periode, gradering })}
                 />
             </Block>
             <Block margin="xxs">
@@ -89,7 +89,7 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lo
                             size="normal"
                             label="Lås tidsperiode"
                             pressed={periode.fixed === true}
-                            onClick={(pressed) => onChange({ ...periode, fixed: pressed })}
+                            onClick={(pressed) => onUpdate({ ...periode, fixed: pressed })}
                         />
                         {' - '}
                     </>

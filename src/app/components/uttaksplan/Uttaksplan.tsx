@@ -13,8 +13,14 @@ interface State {
     visSkjema: boolean;
 }
 
-class Uttaksplan extends React.Component<PeriodelisteProps, State> {
-    constructor(props: PeriodelisteProps) {
+interface OwnProps {
+    perioder: Periode[];
+}
+
+type Props = OwnProps & PeriodelisteProps;
+
+class Uttaksplan extends React.Component<Props, State> {
+    constructor(props: Props) {
         super(props);
         this.addPeriode = this.addPeriode.bind(this);
         this.state = {
@@ -28,7 +34,7 @@ class Uttaksplan extends React.Component<PeriodelisteProps, State> {
     }
 
     render() {
-        const { perioder, onDelete, onAdd, onChange } = this.props;
+        const { perioder, onRemove, onAdd, onUpdate } = this.props;
         const { visSkjema } = this.state;
 
         return (
@@ -58,9 +64,10 @@ class Uttaksplan extends React.Component<PeriodelisteProps, State> {
                     </Knapp>
                 </Block>
 
-                <PeriodeDevBar perioder={perioder} onAdd={onAdd} onDelete={onDelete} onChange={onChange} />
+                <PeriodeDevBar perioder={perioder} onAdd={onAdd} onDelete={onRemove} onChange={onUpdate} />
             </>
         );
     }
 }
+
 export default Uttaksplan;

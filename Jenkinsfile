@@ -6,7 +6,7 @@ def deployLib = new deploy()
 node {
     def commitHash, commitHashShort, commitUrl
     def project = "navikt"
-    def app = "foreldrepengesoknad"
+    def app = "foreldrepengeplanlegger"
     def committer, committerEmail, releaseVersion
     def appConfig = "nais.yaml"
     def dockerRepo = "repo.adeo.no:5443"

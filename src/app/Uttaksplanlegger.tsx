@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { DispatchProps } from './redux/types';
 import { getStønadskontoer } from './redux/actions/api/apiActionCreators';
 import Breadcrumbs from './components/breadcrumbs/Breadcrumbs';
+import Situasjonsskjema from './components/situasjonsskjema/Situasjonsskjema';
 
 const periode1: Periode = {
     forelder: Forelder.forelder1,
@@ -122,15 +123,18 @@ class Uttaksplanlegger extends React.Component<MyProps, State> {
                 <div className={cls.element('container')}>
                     <div className={cls.element('wrapper')}>
                         <Breadcrumbs sti={'/foreldrepengeplanlegger'} />
-                        <Uttaksplan
-                            sortable={true}
-                            lockable={true}
-                            perioder={this.state.perioder}
-                            onAdd={this.onAddPeriode}
-                            onDelete={this.onDeletePeriode}
-                            onChange={this.onUpdatePeriode}
-                            onMove={this.onMove}
-                        />
+                        <div className="content">
+                            <Situasjonsskjema />
+                            <Uttaksplan
+                                sortable={true}
+                                lockable={true}
+                                perioder={this.state.perioder}
+                                onAdd={this.onAddPeriode}
+                                onDelete={this.onDeletePeriode}
+                                onChange={this.onUpdatePeriode}
+                                onMove={this.onMove}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

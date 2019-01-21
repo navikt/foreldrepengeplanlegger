@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { FormikProps, Form } from 'formik';
 import { Situasjon } from '../../types';
 import VelgSituasjon from '../velgSituasjon/VelgSituasjon';
@@ -7,12 +6,10 @@ import { Input } from 'nav-frontend-skjema';
 import { Row, Column } from 'nav-frontend-grid';
 import Block from 'common/components/block/Block';
 import { Dekningsgrad } from 'common/types';
-import { Normaltekst, Ingress } from 'nav-frontend-typografi';
-import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 import AntallBarnBolk from './parts/AntallBarnBolk';
 import DatoInput from 'common/components/skjema/datoInput/DatoInput';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
-import RangeInput from 'common/components/skjema/rangeInput/RangeInput';
 
 export interface SituasjonsskjemaFormValues {
     situasjon?: Situasjon;
@@ -23,7 +20,6 @@ export interface SituasjonsskjemaFormValues {
     antallBarn?: number;
     termindato?: Date;
     dekningsgrad?: Dekningsgrad;
-    fellesperiodeukerMor?: number;
 }
 
 interface OwnProps {
@@ -34,16 +30,8 @@ type Props = OwnProps & InjectedIntlProps;
 
 class SituasjonsskjemaForm extends React.Component<Props, {}> {
     render() {
-        const { formik, intl } = this.props;
-        const {
-            situasjon,
-            antallBarn,
-            dekningsgrad,
-            termindato,
-            fellesperiodeukerMor,
-            navnFar,
-            navnMor
-        } = formik.values;
+        const { formik } = this.props;
+        const { situasjon, antallBarn, dekningsgrad, termindato, navnFar } = formik.values;
         return (
             <Form>
                 <Block title="Velg din eller deres situasjon">
@@ -94,56 +82,6 @@ class SituasjonsskjemaForm extends React.Component<Props, {}> {
                         checked={dekningsgrad}
                         twoColumns={true}
                     />
-                </Block>
-                <Block visible={dekningsgrad !== undefined}>
-                    <RangeInput
-                        label="Hvordan ønsker dere å fordele fellesperioden"
-                        ariaLabelText="Hvordan ønsker dere å fordele fellesperioden"
-                        value={fellesperiodeukerMor || 10}
-                        min={0}
-                        max={49}
-                        onChange={(uker) => formik.setFieldValue('fellesperiodeukerMor', uker)}
-                        steppers={{
-                            reduceLabel: intl.formatMessage({
-                                id: 'uttaksplan.skjema.fordeling.reduser.tooltip'
-                            }),
-                            increaseLabel: intl.formatMessage({ id: 'uttaksplan.skjema.fordeling.øk.tooltip' })
-                        }}
-                        ariaValueChangedMessage={(value) =>
-                            intl.formatMessage(
-                                { id: 'uttaksplan.skjema.fordeling.valgtVerdi' },
-                                {
-                                    ukerForelder: value,
-                                    ukerTotalt: 49,
-                                    navnForelder: navnMor || intl.formatMessage({ id: 'uttaksplan.mor' })
-                                }
-                            )
-                        }
-                        valueLabelRenderer={(options) => (
-                            <Ingress tag="p" className="m-text-center fordelingFellesperiode--valgtVerdi">
-                                <FormattedMessage
-                                    id="uttaksplan.skjema.fordeling.valgtVerdi"
-                                    values={{
-                                        ukerForelder: options.value,
-                                        ukerTotalt: options.max,
-                                        navnForelder: navnMor || intl.formatMessage({ id: 'uttaksplan.mor' })
-                                    }}
-                                />
-                            </Ingress>
-                        )}
-                        valueLabelPlacement="above"
-                        bottomContentRenderer={(options) => (
-                            <Normaltekst className="m-text-center fordelingFellesperiode--bottomContent">
-                                <FormattedMessage
-                                    id="uttaksplan.skjema.fordeling.annenForeldersFellesperiode"
-                                    values={{
-                                        annenForeldersNavn: navnFar,
-                                        antallUker: options.max - options.value
-                                    }}
-                                />
-                            </Normaltekst>
-                        )}
-                    />{' '}
                 </Block>
 
                 <button type="submit">Ok</button>

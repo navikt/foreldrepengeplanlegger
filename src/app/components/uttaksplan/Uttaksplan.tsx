@@ -32,7 +32,7 @@ class Uttaksplan extends React.Component<PeriodelisteProps, State> {
         const { visSkjema } = this.state;
 
         return (
-            <div className="content">
+            <>
                 <h1>Perioder</h1>
 
                 <Block animated={false}>
@@ -59,7 +59,7 @@ class Uttaksplan extends React.Component<PeriodelisteProps, State> {
                 </Block>
 
                 <PeriodeDevBar perioder={perioder} onAdd={onAdd} onDelete={onDelete} onChange={onChange} />
-            </div>
+            </>
         );
     }
 }

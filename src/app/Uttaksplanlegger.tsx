@@ -124,6 +124,7 @@ class Uttaksplanlegger extends React.Component<MyProps, State> {
                         <Breadcrumbs sti={'/foreldrepengeplanlegger'} />
                         <Uttaksplan
                             sortable={true}
+                            lockable={true}
                             perioder={this.state.perioder}
                             onAdd={this.onAddPeriode}
                             onDelete={this.onDeletePeriode}

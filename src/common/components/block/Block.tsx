@@ -20,9 +20,11 @@ export interface BlockProps {
     hasChildBlocks?: boolean;
     /** content */
     children: React.ReactNode;
+    /** content */
+    align?: undefined | 'left' | 'center' | 'right';
 }
 
-const cls = BEMHelper('block');
+const bem = BEMHelper('block');
 
 const Block: React.StatelessComponent<BlockProps> = ({
     visible,
@@ -30,17 +32,20 @@ const Block: React.StatelessComponent<BlockProps> = ({
     title,
     animated = false,
     children,
-    hasChildBlocks
+    hasChildBlocks,
+    align
 }) => {
     if (children === undefined || (animated !== true && visible === false)) {
         return null;
     }
-    const contentClass = classNames(cls.block, !hasChildBlocks ? cls.modifier(margin) : cls.modifier('none'));
+    const contentClass = classNames(bem.block, !hasChildBlocks ? bem.modifier(margin) : bem.modifier('none'), {
+        [bem.modifier(`align-${align}`)]: align
+    });
     const content =
         title !== undefined ? (
             <section className={contentClass}>
                 <div className="heading">
-                    <h1 className={`typo-element ${cls.element('title')}`}>{title}</h1>
+                    <h1 className={`typo-element ${bem.element('title')}`}>{title}</h1>
                 </div>
                 {children}
             </section>

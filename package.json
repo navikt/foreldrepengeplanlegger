@@ -26,16 +26,24 @@
         "jest-watch": "jest --watch --verbose --config ./jest/jest.config.js"
     },
     "devDependencies": {
+        "@types/array-move": "1.0.0",
+        "@types/axios": "^0.14.0",
         "@types/classnames": "2.2.7",
         "@types/enzyme": "3.1.15",
         "@types/enzyme-adapter-react-16": "1.0.3",
         "@types/jest": "22.2.3",
+        "@types/lodash.groupby": "4.6.4",
+        "@types/lodash.uniq": "4.5.4",
+        "@types/lodash.uniqby": "4.7.4",
         "@types/react": "16.7.18",
+        "@types/react-aria-menubutton": "6.1.0",
+        "@types/react-collapse": "4.0.2",
         "@types/react-dom": "16.0.11",
         "@types/react-intl": "2.3.15",
         "@types/react-redux": "6.0.12",
         "@types/react-router-dom": "4.3.1",
         "@types/react-scroll": "1.5.4",
+        "@types/yup": "^0.26.5",
         "awesome-typescript-loader": "5.0.0",
         "babel-jest": "22.4.3",
         "babel-loader": "7.1.4",
@@ -83,13 +91,6 @@
         "webpack-dev-server": "3.1.14"
     },
     "dependencies": {
-        "@types/array-move": "1.0.0",
-        "@types/axios": "^0.14.0",
-        "@types/lodash.groupby": "4.6.4",
-        "@types/lodash.uniq": "4.5.4",
-        "@types/lodash.uniqby": "4.7.4",
-        "@types/react-aria-menubutton": "6.1.0",
-        "@types/react-collapse": "4.0.2",
         "array-move": "1.0.0",
         "axios": "^0.18.0",
         "babel-plugin-webpack-alias": "2.1.2",
@@ -135,6 +136,7 @@
         "react-sortable-hoc": "1.2.0",
         "redux": "4.0.0",
         "redux-saga": "^0.16.0",
-        "reselect": "3.0.1"
+        "reselect": "3.0.1",
+        "yup": "^0.26.7"
     }
 }

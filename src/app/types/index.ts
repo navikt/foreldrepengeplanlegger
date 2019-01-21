@@ -37,3 +37,13 @@ export interface PeriodeUttaksinfo {
 export type Søknadsinfo = GetTilgjengeligeStønadskontoerParams;
 
 export type UttaksplanColor = 'purple' | 'blue' | 'green' | 'purpleBlue' | 'yellow' | '';
+
+export interface SituasjonSkjemadata {
+    situasjon?: Situasjon;
+    navnFar?: string;
+    navnMor?: string;
+    navnMedfar?: string;
+    navnMedmor?: string;
+    antallBarn?: number;
+    familiehendelsesdato?: Date;
+}

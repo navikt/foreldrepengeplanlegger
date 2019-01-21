@@ -1,11 +1,26 @@
 import { CommonActionKeys, CommonActionTypes } from './commonActionDefinitions';
 import { Språkkode } from '../../../intl/types';
-import { Periode } from '../../../types';
+import { Periode, SituasjonSkjemadata } from '../../../types';
+import { Dekningsgrad } from 'common/types';
 
 export function setSpråk(språkkode: Språkkode): CommonActionTypes {
     return {
         type: CommonActionKeys.SET_SPRÅK,
         språkkode
+    };
+}
+
+export function setSkjemadata(data: SituasjonSkjemadata): CommonActionTypes {
+    return {
+        type: CommonActionKeys.SET_SKJEMADATA,
+        data
+    };
+}
+
+export function setDekningsgrad(dekningsgrad: Dekningsgrad): CommonActionTypes {
+    return {
+        type: CommonActionKeys.SET_DEKNINGSGRAD,
+        dekningsgrad
     };
 }
 

@@ -1,9 +1,10 @@
 import { CommonActionKeys, CommonActionTypes } from '../actions/common/commonActionDefinitions';
 import { Språkkode } from '../../intl/types';
-import { Periode, Søknadsinfo } from '../../types';
+import { Periode, SituasjonSkjemadata } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
-import { SituasjonsskjemaFormValues } from '../../components/situasjonsskjema/SituasjonsskjemaForm';
 import { mockPerioder } from '../../mock/perioder_mock';
+import { TilgjengeligStønadskonto } from '../../types/st\u00F8nadskontoer';
+import { Dekningsgrad } from 'common/types';
 
 export const getDefaultCommonState = (): CommonState => ({
     språkkode: 'nb',
@@ -14,9 +15,11 @@ export const getDefaultCommonState = (): CommonState => ({
 export interface CommonState {
     språkkode: Språkkode;
     perioder: Periode[];
-    skjemadata?: SituasjonsskjemaFormValues;
-    søknadsinfo?: Søknadsinfo;
+    skjemadata?: SituasjonSkjemadata;
+    // søknadsinfo?: Søknadsinfo;
     familiehendelsesdato: Date;
+    dekningsgrad?: Dekningsgrad;
+    tilgjengeligeStønadskontoer?: TilgjengeligStønadskonto[];
 }
 
 const commonReducer = (state = getDefaultCommonState(), action: CommonActionTypes): CommonState => {

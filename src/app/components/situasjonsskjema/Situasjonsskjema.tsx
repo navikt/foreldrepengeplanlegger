@@ -1,19 +1,35 @@
 import * as React from 'react';
 import { Formik, FormikProps } from 'formik';
-import SituasjonsskjemaForm, { SituasjonsskjemaFormValues } from './SituasjonsskjemaForm';
+import SituasjonsskjemaForm from './SituasjonsskjemaForm';
+import { SituasjonSkjemadata } from '../../types';
+import * as yup from 'yup';
 
-const initialValues: SituasjonsskjemaFormValues = {
-    situasjon: undefined
-};
+interface Props {
+    skjemadata?: SituasjonSkjemadata;
+    onSubmit: (data: SituasjonSkjemadata) => void;
+}
 
-class Situasjonsskjema extends React.Component<{}, {}> {
+const situasjonValidationSkjema = yup.object().shape({
+    situasjon: yup.string().required('Du må velge situasjon'),
+    navnFar: yup.string(),
+    navnMor: yup.string(),
+    navnMedfar: yup.string(),
+    navnMedmor: yup.string(),
+    antallBarn: yup.number().required('Antall barn er påkrevd!'),
+    familiehendelsesdato: yup.date().required('familiehendelsesdato er påkrevd!')
+});
+
+class Situasjonsskjema extends React.Component<Props> {
     render() {
+        const { onSubmit, skjemadata } = this.props;
+        const initialValues: SituasjonSkjemadata = skjemadata || {};
         return (
             <>
                 <Formik
                     initialValues={initialValues}
-                    onSubmit={() => null}
-                    render={(props: FormikProps<SituasjonsskjemaFormValues>) => <SituasjonsskjemaForm formik={props} />}
+                    onSubmit={onSubmit}
+                    render={(props: FormikProps<SituasjonSkjemadata>) => <SituasjonsskjemaForm formik={props} />}
+                    validationSchema={situasjonValidationSkjema}
                 />
             </>
         );

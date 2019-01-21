@@ -1,8 +1,11 @@
 import { Språkkode } from '../../../intl/types';
-import { Periode } from '../../../types';
+import { Periode, SituasjonSkjemadata } from '../../../types';
+import { Dekningsgrad } from 'common/types';
 
 export enum CommonActionKeys {
     'SET_SPRÅK' = 'setSpråk',
+    'SET_DEKNINGSGRAD' = 'setDekningsgrad',
+    'SET_SKJEMADATA' = 'setSkjemadata',
     'SET_PERIODER' = 'setPerioder',
     'ADD_PERIODE' = 'addPeriode',
     'UPDATE_PERIODE' = 'updatePeriode',
@@ -13,6 +16,16 @@ export enum CommonActionKeys {
 interface SetSpråk {
     type: CommonActionKeys.SET_SPRÅK;
     språkkode: Språkkode;
+}
+
+interface SetSkjemadata {
+    type: CommonActionKeys.SET_SKJEMADATA;
+    data: SituasjonSkjemadata;
+}
+
+interface SetDekningsgrad {
+    type: CommonActionKeys.SET_DEKNINGSGRAD;
+    dekningsgrad: Dekningsgrad;
 }
 
 interface SetPerioder {
@@ -41,4 +54,12 @@ interface MovePeriode {
     toIndex: number;
 }
 
-export type CommonActionTypes = SetSpråk | SetPerioder | AddPeriode | UpdatePeriode | RemovePeriode | MovePeriode;
+export type CommonActionTypes =
+    | SetSpråk
+    | SetPerioder
+    | SetDekningsgrad
+    | AddPeriode
+    | UpdatePeriode
+    | RemovePeriode
+    | MovePeriode
+    | SetSkjemadata;

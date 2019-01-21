@@ -1,29 +1,17 @@
 import * as React from 'react';
 import { FormikProps, Form } from 'formik';
-import { Situasjon } from '../../types';
 import VelgSituasjon from '../velgSituasjon/VelgSituasjon';
 import { Input } from 'nav-frontend-skjema';
 import { Row, Column } from 'nav-frontend-grid';
 import Block from 'common/components/block/Block';
-import { Dekningsgrad } from 'common/types';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import AntallBarnBolk from './parts/AntallBarnBolk';
 import DatoInput from 'common/components/skjema/datoInput/DatoInput';
-import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
-
-export interface SituasjonsskjemaFormValues {
-    situasjon?: Situasjon;
-    navnFar?: string;
-    navnMor?: string;
-    navnMedfar?: string;
-    navnMedmor?: string;
-    antallBarn?: number;
-    termindato?: Date;
-    dekningsgrad?: Dekningsgrad;
-}
+import { SituasjonSkjemadata } from '../../types';
+import { Hovedknapp } from 'nav-frontend-knapper';
 
 interface OwnProps {
-    formik: FormikProps<SituasjonsskjemaFormValues>;
+    formik: FormikProps<SituasjonSkjemadata>;
 }
 
 type Props = OwnProps & InjectedIntlProps;
@@ -31,7 +19,7 @@ type Props = OwnProps & InjectedIntlProps;
 class SituasjonsskjemaForm extends React.Component<Props, {}> {
     render() {
         const { formik } = this.props;
-        const { situasjon, antallBarn, dekningsgrad, termindato, navnFar } = formik.values;
+        const { situasjon, antallBarn, familiehendelsesdato, navnFar } = formik.values;
         return (
             <Form>
                 <Block title="Velg din eller deres situasjon">
@@ -57,34 +45,16 @@ class SituasjonsskjemaForm extends React.Component<Props, {}> {
                 </Block>
                 <Block visible={antallBarn !== undefined} title="Når er barnet forventet?">
                     <DatoInput
-                        id="termindato"
-                        name="termindato"
-                        label="Termindato"
-                        onChange={(dato: Date) => formik.setFieldValue('termindato', dato)}
-                        dato={termindato}
+                        id="familiehendelsesdato"
+                        name="familiehendelsesdato"
+                        label="familiehendelsesdato"
+                        onChange={(dato: Date) => formik.setFieldValue('familiehendelsesdato', dato)}
+                        dato={familiehendelsesdato}
                     />
                 </Block>
-                <Block visible={termindato !== undefined}>
-                    <RadioGroup
-                        name="dekningsgrad"
-                        legend="Hvor lang periode med foreldrepenger ønsker du/dere?"
-                        options={[
-                            {
-                                label: '49 uker med 100 prosent foreldrepenger',
-                                value: '100'
-                            },
-                            {
-                                label: '59 uker med 80 prosent foreldrepenger',
-                                value: '80'
-                            }
-                        ]}
-                        onChange={(dg) => formik.setFieldValue('dekningsgrad', dg)}
-                        checked={dekningsgrad}
-                        twoColumns={true}
-                    />
+                <Block align="center" visible={formik.isValid}>
+                    <Hovedknapp htmlType="submit">Gå videre</Hovedknapp>
                 </Block>
-
-                <button type="submit">Ok</button>
             </Form>
         );
     }

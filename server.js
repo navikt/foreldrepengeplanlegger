@@ -6,12 +6,6 @@ const mustacheExpress = require('mustache-express');
 const Promise = require('promise');
 const getDecorator = require('./src/build/scripts/decorator');
 const compression = require('compression');
-const promBundle = require("express-prom-bundle");
-
-const metrics = promBundle({
-	includeMethod: true,
-	includePath: true
-});
 
 const server = express();
 server.use(compression());
@@ -49,8 +43,6 @@ const startServer = (html) => {
 		'/foreldrepengeplanlegger/dist/css',
 		express.static(path.resolve(__dirname, 'dist/css'))
 	);
-
-	server.use(metrics);
 
 	server.get(
 		[

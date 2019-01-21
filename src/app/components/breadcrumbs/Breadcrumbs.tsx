@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import getMessage from 'common/utils/i18nUtils';
 import BEMHelper from 'common/utils/bem';
-import './brodsmula.less';
+import './breadcrumbs.less';
 
-const cls = BEMHelper('brodsmula');
+const cls = BEMHelper('breadcrumbs');
 
-interface BrødsmulaProps {
+interface BreadcrumbsProps {
     sti: string;
     url?: string;
 }
@@ -32,22 +32,22 @@ const parsePath = (sti: string, intl: InjectedIntl) => {
     });
 };
 
-class Brødsmula extends React.Component<BrødsmulaProps & InjectedIntlProps> {
+class Breadcrumbs extends React.Component<BreadcrumbsProps & InjectedIntlProps> {
     state: {
         windowWidth?: number;
     } = {
         windowWidth: undefined
     };
 
-    componentWillMount () {
+    componentWillMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
-    };
+    }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
         this.updateWindowDimensions();
         window.removeEventListener('resize', this.updateWindowDimensions);
-    };
+    }
 
     updateWindowDimensions = () => {
         this.setState({
@@ -56,20 +56,20 @@ class Brødsmula extends React.Component<BrødsmulaProps & InjectedIntlProps> {
     };
 
     render() {
-        const brødsmulaTilPlanlegger: React.ReactNodeArray = [];
+        const breadcrumbsTilPlanlegger: React.ReactNodeArray = [];
         const parsedPath = parsePath(this.props.sti, this.props.intl);
 
         if (this.state.windowWidth && this.state.windowWidth < 576) {
             const routelen = parsedPath.length;
             const lastUrl = parsedPath[routelen - 2].url;
 
-            brødsmulaTilPlanlegger.push(
+            breadcrumbsTilPlanlegger.push(
                 <div key="chvron" aria-hidden={true}>
                     <NavFrontendChevron type="venstre" />
                 </div>
             );
 
-            brødsmulaTilPlanlegger.push(
+            breadcrumbsTilPlanlegger.push(
                 <TypografiBase
                     aria-label="Gå til forrige side"
                     key="tilbake"
@@ -81,14 +81,14 @@ class Brødsmula extends React.Component<BrødsmulaProps & InjectedIntlProps> {
         } else {
             parsedPath.forEach((path, index) => {
                 if (index !== 0) {
-                    brødsmulaTilPlanlegger.push(
+                    breadcrumbsTilPlanlegger.push(
                         <div key={`chevron${index}`} aria-hidden={true}>
                             <NavFrontendChevron type="høyre" />
                         </div>
                     );
                 }
                 const current = index === parsedPath.length - 1;
-                brødsmulaTilPlanlegger.push(
+                breadcrumbsTilPlanlegger.push(
                     <TypografiBase
                         aria-label={current ? 'Denne siden' : 'Tidligere side'}
                         aria-current={current ? 'page' : ''}
@@ -104,10 +104,10 @@ class Brødsmula extends React.Component<BrødsmulaProps & InjectedIntlProps> {
         }
         return (
             <nav aria-label="Du er her" className={cls.block}>
-                {brødsmulaTilPlanlegger}
+                {breadcrumbsTilPlanlegger}
             </nav>
         );
     }
 }
 
-export default injectIntl(Brødsmula);
+export default injectIntl(Breadcrumbs);

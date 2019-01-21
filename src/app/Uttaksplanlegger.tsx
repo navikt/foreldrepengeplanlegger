@@ -7,10 +7,10 @@ import { getUttaksinfoFromPeriode } from './utils/periodeinfo';
 import 'common/styles/index.less';
 import BEMHelper from 'common/utils/bem';
 import Sidebanner from './components/sidebanner/Sidebanner';
-import Brødsmula from './components/BrødStmula/Brødsmula';
 import { connect } from 'react-redux';
 import { DispatchProps } from './redux/types';
 import { getStønadskontoer } from './redux/actions/api/apiActionCreators';
+import Breadcrumbs from './components/breadcrumbs/Breadcrumbs';
 
 const periode1: Periode = {
     forelder: Forelder.forelder1,
@@ -121,7 +121,7 @@ class Uttaksplanlegger extends React.Component<MyProps, State> {
                 <Sidebanner text="common.sidebanner" />
                 <div className={cls.element('container')}>
                     <div className={cls.element('wrapper')}>
-                        <Brødsmula sti={'/foreldrepengeplanlegger'} />
+                        <Breadcrumbs sti={'/foreldrepengeplanlegger'} />
                         <Uttaksplan
                             sortable={true}
                             perioder={this.state.perioder}

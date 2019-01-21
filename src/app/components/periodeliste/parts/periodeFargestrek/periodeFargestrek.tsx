@@ -2,9 +2,8 @@ import * as React from 'react';
 import classnames from 'classnames';
 import BEMHelper from 'common/utils/bem';
 
-export type UttaksplanColor = 'purple' | 'blue' | 'green' | 'purpleBlue' | 'yellow' | '';
-
 import './periodeFargestrek.less';
+import { UttaksplanColor } from '../../../../types';
 
 export interface Props {
     farge: UttaksplanColor | undefined;

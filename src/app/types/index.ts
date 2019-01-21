@@ -31,3 +31,5 @@ export interface PeriodeUttaksinfo {
     ukerOgDager: UkerOgDager;
     uttaksdagerBrukt: number;
 }
+
+export type UttaksplanColor = 'purple' | 'blue' | 'green' | 'purpleBlue' | 'yellow' | '';

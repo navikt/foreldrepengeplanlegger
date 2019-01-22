@@ -5,27 +5,27 @@ import IntlProvider from './intl/IntlProvider';
 import { Normaltekst } from 'nav-frontend-typografi';
 import Uttaksplanlegger from './Uttaksplanlegger';
 import { registerDevUtils } from './dev/devUtils';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import configureStore from './redux/configureStore';
 
 import './styles/app.less';
+import { BrowserRouter } from 'react-router-dom';
+import configureStore from './redux/configureStore';
+import { Provider } from 'react-redux';
 
 const root = document.getElementById('app');
-
 Modal.setAppElement('#appContainer');
 registerDevUtils();
+
 const store = configureStore();
 
 render(
-    <BrowserRouter>
-        <Provider store={store}>
-            <IntlProvider>
+    <Provider store={store}>
+        <IntlProvider>
+            <BrowserRouter>
                 <Normaltekst tag="div">
                     <Uttaksplanlegger />
                 </Normaltekst>
-            </IntlProvider>
-        </Provider>
-    </BrowserRouter>,
+            </BrowserRouter>
+        </IntlProvider>
+    </Provider>,
     root
 );

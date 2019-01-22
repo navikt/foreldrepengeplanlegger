@@ -6,14 +6,8 @@ Kildekoden til upålogget frontend-app for foreldrepengeplanleggeren på nav.no.
 
 For å kjøre opp app-en i dev:
 
-1.  `yarn install`
-2.  `yarn start`
-
-For å kjøre cypress-tester:
-
-1.  `npm install`.
-2.  Vent på `Build success` i terminalen.
-3.  Klikk på `Run all tests` i Cypress-popupen.
+1.  `npm install`
+2.  `npm start`
 
 # Henvendelser
 

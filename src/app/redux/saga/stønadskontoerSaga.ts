@@ -31,6 +31,8 @@ function* getStønadskontoerSaga(action: SubmitSkjemadataAction) {
     try {
         const appState: AppState = yield select(stateSelector);
         const { familiehendelsesdato } = appState.common;
+        console.log(action.history);
+        action.history.push('/plan');
 
         const params: GetTilgjengeligeStønadskontoerParams = getStønadskontoerRequestParams(
             familiehendelsesdato,

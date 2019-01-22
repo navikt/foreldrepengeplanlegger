@@ -2,6 +2,7 @@ import { CommonActionKeys, CommonActionTypes } from './commonActionDefinitions';
 import { Språkkode } from '../../../intl/types';
 import { Periode, SituasjonSkjemadata } from '../../../types';
 import { Dekningsgrad } from 'common/types';
+import { History } from 'history';
 
 export function setSpråk(språkkode: Språkkode): CommonActionTypes {
     return {
@@ -10,10 +11,11 @@ export function setSpråk(språkkode: Språkkode): CommonActionTypes {
     };
 }
 
-export function submitSkjemadata(data: SituasjonSkjemadata): CommonActionTypes {
+export function submitSkjemadata(data: SituasjonSkjemadata, history: History): CommonActionTypes {
     return {
         type: CommonActionKeys.SUBMIT_SKJEMADATA,
-        data
+        data,
+        history
     };
 }
 

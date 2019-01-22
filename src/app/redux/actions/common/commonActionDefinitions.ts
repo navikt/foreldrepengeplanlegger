@@ -1,6 +1,7 @@
 import { Språkkode } from '../../../intl/types';
 import { Periode, SituasjonSkjemadata } from '../../../types';
 import { Dekningsgrad } from 'common/types';
+import { History } from 'history';
 
 export enum CommonActionKeys {
     'SET_SPRÅK' = 'setSpråk',
@@ -21,6 +22,7 @@ interface SetSpråk {
 export interface SubmitSkjemadataAction {
     type: CommonActionKeys.SUBMIT_SKJEMADATA;
     data: SituasjonSkjemadata;
+    history: History;
 }
 
 interface SetDekningsgrad {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import Situasjonsskjema from '../components/situasjonsskjema/Situasjonsskjema';
 import { AppState } from '../redux/reducers/rootReducer';
 import { connect } from 'react-redux';
@@ -11,14 +11,14 @@ interface StateProps {
     skjemadata?: SituasjonSkjemadata;
 }
 
-type Props = StateProps & DispatchProps;
+type Props = StateProps & DispatchProps & RouteComponentProps<any>;
 
 class Skjemaside extends React.Component<Props, {}> {
     render() {
         const { dispatch } = this.props;
         return (
             <>
-                <Situasjonsskjema onSubmit={(data) => dispatch(submitSkjemadata(data))} />
+                <Situasjonsskjema onSubmit={(data) => dispatch(submitSkjemadata(data, this.props.history))} />
                 <Link to="/plan">Gå til plan</Link>
             </>
         );
@@ -31,4 +31,4 @@ const mapStateToProps = (state: AppState): StateProps => {
     };
 };
 
-export default connect(mapStateToProps)(Skjemaside);
+export default connect(mapStateToProps)(withRouter(Skjemaside));

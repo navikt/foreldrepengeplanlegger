@@ -6,7 +6,8 @@ import { History } from 'history';
 export enum CommonActionKeys {
     'SET_SPRÅK' = 'setSpråk',
     'SET_DEKNINGSGRAD' = 'setDekningsgrad',
-    'SUBMIT_SKJEMADATA' = 'setSkjemadata',
+    'SUBMIT_SKJEMADATA' = 'submitSkjemadata',
+    'GET_STØNADSKONTOER' = 'getStonadskontoer',
     'SET_PERIODER' = 'setPerioder',
     'ADD_PERIODE' = 'addPeriode',
     'UPDATE_PERIODE' = 'updatePeriode',
@@ -22,6 +23,11 @@ interface SetSpråk {
 export interface SubmitSkjemadataAction {
     type: CommonActionKeys.SUBMIT_SKJEMADATA;
     data: SituasjonSkjemadata;
+    history: History;
+}
+
+export interface GetStønadskontoerAction {
+    type: CommonActionKeys.GET_STØNADSKONTOER;
     history: History;
 }
 

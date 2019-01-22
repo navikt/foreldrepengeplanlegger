@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Uttaksplan from '../components/uttaksplan/Uttaksplan';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { DispatchProps } from '../redux/types';
 import { Periode } from '../types';
 import {
@@ -15,19 +15,28 @@ import { connect } from 'react-redux';
 import Block from 'common/components/block/Block';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
 import { Dekningsgrad } from 'common/types';
+import { TilgjengeligStønadskonto } from '../types/st\u00F8nadskontoer';
+import TilgjengeligeDager from '../components/tilgjengeligeDager/TilgjengeligeDager';
+import { getStønadskontoer } from '../redux/actions/api/apiActionCreators';
 
 interface StateProps {
     perioder: Periode[];
     dekningsgrad: Dekningsgrad;
     familiehendelsesdato: Date;
-    henterStønadskontoer?: boolean;
+    tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[];
+    stønadskontoerLastet: boolean;
 }
 
-type Props = StateProps & DispatchProps;
+type Props = StateProps & DispatchProps & RouteComponentProps;
 
 class UttaksplanSide extends React.Component<Props, {}> {
+    componentWillMount() {
+        if (this.props.stønadskontoerLastet === false) {
+            this.props.dispatch(getStønadskontoer(this.props.history));
+        }
+    }
     render() {
-        const { perioder, dekningsgrad, dispatch } = this.props;
+        const { perioder, dekningsgrad, tilgjengeligeStønadskontoer, dispatch } = this.props;
         return (
             <>
                 <Link to="/">Tilbake</Link>
@@ -51,6 +60,8 @@ class UttaksplanSide extends React.Component<Props, {}> {
                     />
                 </Block>
 
+                <TilgjengeligeDager tilgjengeligeStønadskontoer={tilgjengeligeStønadskontoer} />
+
                 <Uttaksplan
                     perioder={perioder}
                     sortable={true}
@@ -66,11 +77,14 @@ class UttaksplanSide extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState): StateProps => {
+    const { stønadskontoer } = state.api;
     return {
         perioder: state.common.perioder,
         dekningsgrad: state.common.dekningsgrad || '100',
-        familiehendelsesdato: state.common.familiehendelsesdato
+        familiehendelsesdato: state.common.familiehendelsesdato,
+        tilgjengeligeStønadskontoer: state.common.tilgjengeligeStønadskontoer,
+        stønadskontoerLastet: stønadskontoer.loaded === true
     };
 };
 
-export default connect(mapStateToProps)(UttaksplanSide);
+export default connect(mapStateToProps)(withRouter(UttaksplanSide));

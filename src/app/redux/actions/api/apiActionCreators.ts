@@ -1,6 +1,6 @@
 import { ApiActionTypes, ApiActionKeys } from './apiActionDefinitions';
 import { ApiState } from '../../reducers/apiReducer';
-import { GetTilgjengeligeStønadskontoerParams } from '../../../api/types';
+import { History } from 'history';
 
 export function updateApi(state: Partial<ApiState>): ApiActionTypes {
     return {
@@ -9,9 +9,9 @@ export function updateApi(state: Partial<ApiState>): ApiActionTypes {
     };
 }
 
-export function getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams): ApiActionTypes {
+export function getStønadskontoer(history: History): ApiActionTypes {
     return {
         type: ApiActionKeys.GET_STONADSKONTOER,
-        params
+        history
     };
 }

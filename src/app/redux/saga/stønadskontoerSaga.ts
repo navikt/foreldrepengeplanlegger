@@ -4,7 +4,11 @@ import { StønadskontoerDTO, GetTilgjengeligeStønadskontoerParams } from '../..
 import { TilgjengeligStønadskonto, StønadskontoType } from '../../types/st\u00F8nadskontoer';
 import { getStønadskontoSortOrder } from '../../utils/st\u00F8nadskontoer';
 import { updateApi } from '../actions/api/apiActionCreators';
-import { CommonActionKeys, SubmitSkjemadataAction } from '../actions/common/commonActionDefinitions';
+import {
+    CommonActionKeys,
+    SubmitSkjemadataAction,
+    GetStønadskontoerAction
+} from '../actions/common/commonActionDefinitions';
 import { SituasjonSkjemadata } from '../../types';
 import { AppState } from '../reducers/rootReducer';
 import situasjonsregler from '../../utils/situasjonsregler';
@@ -27,15 +31,8 @@ const getStønadskontoerRequestParams = (
 
 const stateSelector = (state: AppState) => state;
 
-function* getStønadskontoerSaga(action: SubmitSkjemadataAction) {
+function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
     try {
-        const appState: AppState = yield select(stateSelector);
-        const { familiehendelsesdato } = appState.common;
-
-        const params: GetTilgjengeligeStønadskontoerParams = getStønadskontoerRequestParams(
-            familiehendelsesdato,
-            action.data
-        );
         yield put(updateApi({ stønadskontoer: { pending: true, error: undefined, result: undefined } }));
         const response = yield call(api.getUttakskontoer, params);
         const stønadskontoer: StønadskontoerDTO = response.data;
@@ -49,6 +46,7 @@ function* getStønadskontoerSaga(action: SubmitSkjemadataAction) {
         yield put(
             updateApi({
                 stønadskontoer: {
+                    loaded: true,
                     pending: false,
                     result: tilgjengeligeStønadskontoer.sort(
                         (a: TilgjengeligStønadskonto, b: TilgjengeligStønadskonto) =>
@@ -57,18 +55,40 @@ function* getStønadskontoerSaga(action: SubmitSkjemadataAction) {
                 }
             })
         );
-        action.history.push('/plan');
     } catch (error) {
         yield put(
             updateApi({
-                stønadskontoer: { pending: false, result: undefined, error }
+                stønadskontoer: { pending: false, result: undefined, error, loaded: false }
             })
         );
     }
 }
 
+function* getStønadskontoerSaga(action: SubmitSkjemadataAction | GetStønadskontoerAction) {
+    const appState: AppState = yield select(stateSelector);
+    const { skjemadata, familiehendelsesdato } = appState.common;
+
+    if (skjemadata) {
+        const params: GetTilgjengeligeStønadskontoerParams = getStønadskontoerRequestParams(
+            familiehendelsesdato,
+            skjemadata
+        );
+        try {
+            yield call(getStønadskontoer, params);
+            action.history.push('/plan');
+        } catch (error) {
+            action.history.replace('/');
+        }
+    } else {
+        action.history.replace('/');
+    }
+}
+
 function* stønadskontoerSaga() {
-    yield all([takeEvery(CommonActionKeys.SUBMIT_SKJEMADATA, getStønadskontoerSaga)]);
+    yield all([
+        takeEvery(CommonActionKeys.GET_STØNADSKONTOER, getStønadskontoerSaga),
+        takeEvery(CommonActionKeys.SUBMIT_SKJEMADATA, getStønadskontoerSaga)
+    ]);
 }
 
 export default stønadskontoerSaga;

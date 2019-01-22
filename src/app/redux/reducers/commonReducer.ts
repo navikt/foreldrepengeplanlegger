@@ -9,7 +9,8 @@ import { Dekningsgrad } from 'common/types';
 export const getDefaultCommonState = (): CommonState => ({
     språkkode: 'nb',
     perioder: [...mockPerioder],
-    familiehendelsesdato: new Date()
+    familiehendelsesdato: new Date(),
+    tilgjengeligeStønadskontoer: []
 });
 
 export interface CommonState {
@@ -18,7 +19,7 @@ export interface CommonState {
     skjemadata?: SituasjonSkjemadata;
     familiehendelsesdato: Date;
     dekningsgrad?: Dekningsgrad;
-    tilgjengeligeStønadskontoer?: TilgjengeligStønadskonto[];
+    tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[];
 }
 
 const commonReducer = (state = getDefaultCommonState(), action: CommonActionTypes): CommonState => {

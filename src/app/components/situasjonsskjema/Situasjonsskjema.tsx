@@ -22,7 +22,7 @@ const situasjonValidationSkjema = yup.object().shape({
 class Situasjonsskjema extends React.Component<Props> {
     render() {
         const { onSubmit, skjemadata } = this.props;
-        const initialValues: SituasjonSkjemadata = skjemadata || {};
+        const initialValues: Partial<SituasjonSkjemadata> = skjemadata || {};
         return (
             <>
                 <Formik

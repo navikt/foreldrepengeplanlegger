@@ -18,7 +18,7 @@ interface SetSpråk {
     språkkode: Språkkode;
 }
 
-interface SubmitSkjemadata {
+export interface SubmitSkjemadataAction {
     type: CommonActionKeys.SUBMIT_SKJEMADATA;
     data: SituasjonSkjemadata;
 }
@@ -62,4 +62,4 @@ export type CommonActionTypes =
     | UpdatePeriode
     | RemovePeriode
     | MovePeriode
-    | SubmitSkjemadata;
+    | SubmitSkjemadataAction;

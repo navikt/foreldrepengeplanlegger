@@ -16,7 +16,6 @@ export interface CommonState {
     språkkode: Språkkode;
     perioder: Periode[];
     skjemadata?: SituasjonSkjemadata;
-    // søknadsinfo?: Søknadsinfo;
     familiehendelsesdato: Date;
     dekningsgrad?: Dekningsgrad;
     tilgjengeligeStønadskontoer?: TilgjengeligStønadskonto[];
@@ -29,6 +28,8 @@ const commonReducer = (state = getDefaultCommonState(), action: CommonActionType
             return { ...state, språkkode: action.språkkode };
         case CommonActionKeys.SUBMIT_SKJEMADATA:
             return { ...state, skjemadata: action.data };
+        case CommonActionKeys.SET_DEKNINGSGRAD:
+            return { ...state, dekningsgrad: action.dekningsgrad };
         case CommonActionKeys.ADD_PERIODE:
             return {
                 ...state,

@@ -17,5 +17,6 @@ export enum StønadskontoType {
 
 export interface TilgjengeligStønadskonto {
     konto: StønadskontoType;
-    dager: number;
+    dager80: number;
+    dager100: number;
 }

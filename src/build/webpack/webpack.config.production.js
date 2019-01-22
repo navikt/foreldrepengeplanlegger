@@ -18,12 +18,10 @@ webpackConfig.plugins.push(
         sourceMap: true,
         uglifyOptions: {
             mangle: {
-                keep_classnames: true,
                 keep_fnames: true
             },
             compress: {
-                keep_fnames: true,
-                keep_classnames: true
+                keep_fnames: true
             }
         }
     })

@@ -13,7 +13,7 @@ export const getDefaultApiState = (): ApiState => ({
 });
 
 export interface ApiState {
-    stønadskontoer?: ApiRequest<TilgjengeligStønadskonto[]>;
+    stønadskontoer: ApiRequest<TilgjengeligStønadskonto[]>;
 }
 
 const apiReducer = (state = getDefaultApiState(), action: ApiActionTypes): ApiState => {

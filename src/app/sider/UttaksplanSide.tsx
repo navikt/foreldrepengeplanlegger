@@ -20,6 +20,7 @@ interface StateProps {
     perioder: Periode[];
     dekningsgrad: Dekningsgrad;
     familiehendelsesdato: Date;
+    henterStønadskontoer?: boolean;
 }
 
 type Props = StateProps & DispatchProps;

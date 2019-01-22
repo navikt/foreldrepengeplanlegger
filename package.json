@@ -123,7 +123,7 @@
         "nav-frontend-modal": "1.0.21",
         "nav-frontend-paneler": "1.0.10",
         "nav-frontend-skjema": "1.0.54",
-        "nav-frontend-spinner": "1.0.12",
+        "nav-frontend-spinner": "^1.0.12",
         "nav-frontend-typografi": "2.0.6",
         "pre-commit": "1.2.2",
         "promise": "8.0.2",

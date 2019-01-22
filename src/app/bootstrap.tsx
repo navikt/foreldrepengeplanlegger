@@ -1,31 +1,31 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
 import Modal from 'nav-frontend-modal';
-import store from './redux';
 import IntlProvider from './intl/IntlProvider';
-
-import './styles/app.less';
-
 import { Normaltekst } from 'nav-frontend-typografi';
 import Uttaksplanlegger from './Uttaksplanlegger';
 import { registerDevUtils } from './dev/devUtils';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import configureStore from './redux/configureStore';
 
-Modal.setAppElement('#appContainer');
+import './styles/app.less';
+
 const root = document.getElementById('app');
 
+Modal.setAppElement('#appContainer');
 registerDevUtils();
+const store = configureStore();
 
 render(
-    <Provider store={store}>
-        <IntlProvider>
-            <Router>
+    <BrowserRouter>
+        <Provider store={store}>
+            <IntlProvider>
                 <Normaltekst tag="div">
                     <Uttaksplanlegger />
                 </Normaltekst>
-            </Router>
-        </IntlProvider>
-    </Provider>,
+            </IntlProvider>
+        </Provider>
+    </BrowserRouter>,
     root
 );

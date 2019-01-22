@@ -19,7 +19,7 @@ type Props = OwnProps & InjectedIntlProps;
 class SituasjonsskjemaForm extends React.Component<Props, {}> {
     render() {
         const { formik } = this.props;
-        const { situasjon, antallBarn, familiehendelsesdato, navnForelder1 } = formik.values;
+        const { situasjon, antallBarn, familiehendelsesdato, navnForelder1, navnForelder2 } = formik.values;
         return (
             <Form>
                 <Block title="Velg din eller deres situasjon">
@@ -28,10 +28,20 @@ class SituasjonsskjemaForm extends React.Component<Props, {}> {
                 <Block visible={situasjon !== undefined}>
                     <Row>
                         <Column xs="6">
-                            <Input label="Far" name="navnForelder1" onChange={formik.handleChange} />
+                            <Input
+                                label="Far"
+                                value={navnForelder1}
+                                name="navnForelder1"
+                                onChange={formik.handleChange}
+                            />
                         </Column>
                         <Column xs="6">
-                            <Input label="Mor" name="navnForelder2" onChange={formik.handleChange} />
+                            <Input
+                                label="Mor"
+                                value={navnForelder2}
+                                name="navnForelder2"
+                                onChange={formik.handleChange}
+                            />
                         </Column>
                     </Row>
                 </Block>

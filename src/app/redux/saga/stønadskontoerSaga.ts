@@ -66,8 +66,8 @@ function* getStønadskontoerSaga(action: SubmitSkjemadataAction) {
     }
 }
 
-function* uttakSaga() {
+function* stønadskontoerSaga() {
     yield all([takeEvery(CommonActionKeys.SUBMIT_SKJEMADATA, getStønadskontoerSaga)]);
 }
 
-export default uttakSaga;
+export default stønadskontoerSaga;

@@ -5,7 +5,7 @@ import { AppState } from '../redux/reducers';
 import { connect } from 'react-redux';
 import { DispatchProps } from '../redux/types';
 import { SituasjonSkjemadata } from '../types';
-import { setSkjemadata } from '../redux/actions/common/commonActionCreators';
+import { submitSkjemadata } from '../redux/actions/common/commonActionCreators';
 
 interface StateProps {
     skjemadata?: SituasjonSkjemadata;
@@ -18,7 +18,7 @@ class Skjemaside extends React.Component<Props, {}> {
         const { dispatch } = this.props;
         return (
             <>
-                <Situasjonsskjema onSubmit={(data) => dispatch(setSkjemadata(data))} />
+                <Situasjonsskjema onSubmit={(data) => dispatch(submitSkjemadata(data))} />
                 <Link to="/plan">Gå til plan</Link>
             </>
         );

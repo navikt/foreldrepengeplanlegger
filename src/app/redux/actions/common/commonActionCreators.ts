@@ -10,9 +10,9 @@ export function setSpråk(språkkode: Språkkode): CommonActionTypes {
     };
 }
 
-export function setSkjemadata(data: SituasjonSkjemadata): CommonActionTypes {
+export function submitSkjemadata(data: SituasjonSkjemadata): CommonActionTypes {
     return {
-        type: CommonActionKeys.SET_SKJEMADATA,
+        type: CommonActionKeys.SUBMIT_SKJEMADATA,
         data
     };
 }

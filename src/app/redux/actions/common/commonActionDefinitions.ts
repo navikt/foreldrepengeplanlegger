@@ -5,7 +5,7 @@ import { Dekningsgrad } from 'common/types';
 export enum CommonActionKeys {
     'SET_SPRÅK' = 'setSpråk',
     'SET_DEKNINGSGRAD' = 'setDekningsgrad',
-    'SET_SKJEMADATA' = 'setSkjemadata',
+    'SUBMIT_SKJEMADATA' = 'setSkjemadata',
     'SET_PERIODER' = 'setPerioder',
     'ADD_PERIODE' = 'addPeriode',
     'UPDATE_PERIODE' = 'updatePeriode',
@@ -18,8 +18,8 @@ interface SetSpråk {
     språkkode: Språkkode;
 }
 
-interface SetSkjemadata {
-    type: CommonActionKeys.SET_SKJEMADATA;
+interface SubmitSkjemadata {
+    type: CommonActionKeys.SUBMIT_SKJEMADATA;
     data: SituasjonSkjemadata;
 }
 
@@ -62,4 +62,4 @@ export type CommonActionTypes =
     | UpdatePeriode
     | RemovePeriode
     | MovePeriode
-    | SetSkjemadata;
+    | SubmitSkjemadata;

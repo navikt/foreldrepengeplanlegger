@@ -9,11 +9,11 @@ interface Props {
     size?: SirkelknappSize;
 }
 
-const PinKnapp: React.StatelessComponent<Props> = ({ label, pressed, size = 'stor', onClick }) => (
+const PinKnapp: React.StatelessComponent<Props> = ({ label, pressed, size, onClick }) => (
     <Sirkelknapp
-        size={size}
+        size={size || 'stor'}
         stil="bla"
-        ikon={<PinIkon title={label} color={pressed === true ? 'white' : 'blue'} size={size === "stor" ? 16 : 12} />}
+        ikon={<PinIkon title={label} color={pressed === true ? 'white' : 'blue'} size={size === 'stor' ? 16 : 12} />}
         ariaLabel={label}
         onClick={() => onClick(pressed === true ? false : true)}
         toggle={{ pressed: pressed === true }}

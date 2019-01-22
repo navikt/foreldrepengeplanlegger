@@ -27,6 +27,8 @@ const commonReducer = (state = getDefaultCommonState(), action: CommonActionType
     switch (action.type) {
         case CommonActionKeys.SET_SPRÅK:
             return { ...state, språkkode: action.språkkode };
+        case CommonActionKeys.SUBMIT_SKJEMADATA:
+            return { ...state, skjemadata: action.data };
         case CommonActionKeys.ADD_PERIODE:
             return {
                 ...state,

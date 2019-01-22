@@ -23,9 +23,6 @@
             "common/*": ["./common/*"]
         }
     },
-    "awesomeTypescriptLoaderOptions": {
-        "useCache": false
-    },
     "exclude": [
         "node_modules",
         "build",

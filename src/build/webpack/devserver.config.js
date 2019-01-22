@@ -7,7 +7,7 @@ const configureDevServer = (decoratorFragments) => ({
         app.engine('html', mustacheExpress());
         app.set('views', `${__dirname}/../../../dist/dev`);
         app.set('view engine', 'mustache');
-        app.get('/dist/js/settings.js', (req, res) => {
+        app.get('/foreldrepengeplanlegger/dist/js/settings.js', (req, res) => {
             res.sendFile(path.resolve(`${__dirname}/../../../dist/js/settings.js`));
         });
         app.get(/^\/(?!.*dist).*$/, (req, res) => {
@@ -18,7 +18,7 @@ const configureDevServer = (decoratorFragments) => ({
     quiet: false,
     noInfo: false,
     stats: 'minimal',
-    publicPath: '/dist'
+    publicPath: '/foreldrepengeplanlegger/dist'
 });
 
 module.exports = configureDevServer;

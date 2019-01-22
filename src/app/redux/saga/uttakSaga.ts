@@ -6,7 +6,7 @@ import { getStønadskontoSortOrder } from '../../utils/st\u00F8nadskontoer';
 import { updateApi } from '../actions/api/apiActionCreators';
 import { CommonActionKeys, SubmitSkjemadataAction } from '../actions/common/commonActionDefinitions';
 import { SituasjonSkjemadata } from '../../types';
-import { AppState } from '../reducers';
+import { AppState } from '../reducers/rootReducer';
 import situasjonsregler from '../../utils/situasjonsregler';
 
 const getStønadskontoerRequestParams = (

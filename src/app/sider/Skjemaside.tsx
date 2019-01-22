@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import Situasjonsskjema from '../components/situasjonsskjema/Situasjonsskjema';
-import { AppState } from '../redux/reducers';
+import { AppState } from '../redux/reducers/rootReducer';
 import { connect } from 'react-redux';
 import { DispatchProps } from '../redux/types';
 import { SituasjonSkjemadata } from '../types';

@@ -10,7 +10,7 @@ import {
     movePeriode,
     setDekningsgrad
 } from '../redux/actions/common/commonActionCreators';
-import { AppState } from '../redux/reducers';
+import { AppState } from '../redux/reducers/rootReducer';
 import { connect } from 'react-redux';
 import Block from 'common/components/block/Block';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';

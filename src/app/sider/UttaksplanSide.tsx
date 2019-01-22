@@ -18,6 +18,7 @@ import { Dekningsgrad } from 'common/types';
 import { TilgjengeligStønadskonto } from '../types/st\u00F8nadskontoer';
 import TilgjengeligeDager from '../components/tilgjengeligeDager/TilgjengeligeDager';
 import { getStønadskontoer } from '../redux/actions/api/apiActionCreators';
+import LoadContainer from '../components/loadContainer/LoadContainer';
 
 interface StateProps {
     perioder: Periode[];
@@ -25,20 +26,21 @@ interface StateProps {
     familiehendelsesdato: Date;
     tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[];
     stønadskontoerLastet: boolean;
+    henterStønadskontoer: boolean;
 }
 
 type Props = StateProps & DispatchProps & RouteComponentProps;
 
 class UttaksplanSide extends React.Component<Props, {}> {
-    componentWillMount() {
+    componentDidMount() {
         if (this.props.stønadskontoerLastet === false) {
             this.props.dispatch(getStønadskontoer(this.props.history));
         }
     }
     render() {
-        const { perioder, dekningsgrad, tilgjengeligeStønadskontoer, dispatch } = this.props;
+        const { perioder, dekningsgrad, tilgjengeligeStønadskontoer, henterStønadskontoer, dispatch } = this.props;
         return (
-            <>
+            <LoadContainer loading={henterStønadskontoer} overlay={true}>
                 <Link to="/">Tilbake</Link>
                 <Block>
                     <RadioGroup
@@ -71,7 +73,7 @@ class UttaksplanSide extends React.Component<Props, {}> {
                     onRemove={(periode) => dispatch(removePeriode(periode))}
                     onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
                 />
-            </>
+            </LoadContainer>
         );
     }
 }
@@ -83,7 +85,8 @@ const mapStateToProps = (state: AppState): StateProps => {
         dekningsgrad: state.common.dekningsgrad || '100',
         familiehendelsesdato: state.common.familiehendelsesdato,
         tilgjengeligeStønadskontoer: state.common.tilgjengeligeStønadskontoer,
-        stønadskontoerLastet: stønadskontoer.loaded === true
+        stønadskontoerLastet: stønadskontoer.loaded === true,
+        henterStønadskontoer: state.api.stønadskontoer.pending === true
     };
 };
 

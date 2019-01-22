@@ -1,6 +1,6 @@
 import { CommonActionKeys, CommonActionTypes } from '../actions/common/commonActionDefinitions';
 import { Språkkode } from '../../intl/types';
-import { Periode, SituasjonSkjemadata } from '../../types';
+import { Periode, SituasjonSkjemadata, Situasjon } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { mockPerioder } from '../../mock/perioder_mock';
 import { TilgjengeligStønadskonto } from '../../types/st\u00F8nadskontoer';
@@ -10,7 +10,14 @@ export const getDefaultCommonState = (): CommonState => ({
     språkkode: 'nb',
     perioder: [...mockPerioder],
     familiehendelsesdato: new Date(),
-    tilgjengeligeStønadskontoer: []
+    tilgjengeligeStønadskontoer: [],
+    skjemadata: {
+        antallBarn: 1,
+        familiehendelsesdato: new Date(),
+        navnForelder1: 'Henrik',
+        navnForelder2: 'Amalie',
+        situasjon: Situasjon.farOgMor
+    }
 });
 
 export interface CommonState {

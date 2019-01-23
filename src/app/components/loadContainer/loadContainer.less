@@ -1,0 +1,20 @@
+@import '../../../common/styles/variables.less';
+
+.loadContainer {
+    position: relative;
+    &__spinner {
+        padding: 5rem;
+        text-align: center;
+        display: block;
+    }
+    &--overlay {
+        position: relative;
+        .loadContainer__spinner {
+            z-index: @z-overlay-spinner;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            text-align: center;
+        }
+    }
+}

@@ -10,7 +10,6 @@ function getUttakskontoer(params: GetTilgjengeligeStønadskontoerParams) {
         antallBarn,
         farHarRett,
         morHarRett,
-        dekningsgrad,
         familiehendelsesdato,
         erFødsel,
         morHarAleneomsorg,
@@ -24,7 +23,6 @@ function getUttakskontoer(params: GetTilgjengeligeStønadskontoerParams) {
         morHarRett,
         morHarAleneomsorg: morHarAleneomsorg || false,
         farHarAleneomsorg: farHarAleneomsorg || false,
-        dekningsgrad,
         antallBarn,
         familiehendelsesdato: formaterDato(familiehendelsesdato, 'YYYYMMDD'),
         startdatoUttak: formaterDato(startdatoUttak, 'YYYYMMDD')

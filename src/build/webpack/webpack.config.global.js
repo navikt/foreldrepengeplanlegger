@@ -34,7 +34,7 @@ const webpackConfig = {
                     path.resolve(__dirname, './../../common'),
                     path.resolve(__dirname, './../../storage')
                 ],
-                loader: require.resolve('ts-loader')
+                loader: require.resolve('awesome-typescript-loader')
             },
 
             {

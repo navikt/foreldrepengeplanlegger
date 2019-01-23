@@ -17,5 +17,15 @@
     "situasjon.morOgMedmor": "Mor og  medmor",
     "situasjon.farOgFar": "Far og far",
     "uttaksplan.mor": "mor",
-    "uttaksplan.far": "far"
+    "uttaksplan.far": "far",
+
+    "stønadskontotype.AKTIVITETSFRI_FLERBARNSDAGER": "Flerbarnsuker uten aktivitetskrav",
+    "stønadskontotype.AKTIVITETSFRI_KVOTE": "Foreldrepenger uten aktivitetskrav",
+    "stønadskontotype.FEDREKVOTE": "Far sin kvote",
+    "stønadskontotype.FELLESPERIODE": "Fellesperiode",
+    "stønadskontotype.FLERBARNSDAGER": "Flerbarnsuker",
+    "stønadskontotype.FLERBARNSUKER": "Flerbarnsuker",
+    "stønadskontotype.FORELDREPENGER": "Foreldrepenger",
+    "stønadskontotype.FORELDREPENGER_FØR_FØDSEL": "Foreldrepenger før fødsel",
+    "stønadskontotype.MØDREKVOTE": "Mor sin kvote"
 }

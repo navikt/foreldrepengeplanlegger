@@ -1,5 +1,3 @@
-import { GetTilgjengeligeStønadskontoerParams } from '../api/types';
-
 export * from './periodetyper';
 
 export enum Forelder {
@@ -34,16 +32,12 @@ export interface PeriodeUttaksinfo {
     uttaksdagerBrukt: number;
 }
 
-export type Søknadsinfo = GetTilgjengeligeStønadskontoerParams;
-
 export type UttaksplanColor = 'purple' | 'blue' | 'green' | 'purpleBlue' | 'yellow' | '';
 
 export interface SituasjonSkjemadata {
-    situasjon?: Situasjon;
-    navnFar?: string;
-    navnMor?: string;
-    navnMedfar?: string;
-    navnMedmor?: string;
-    antallBarn?: number;
-    familiehendelsesdato?: Date;
+    situasjon: Situasjon;
+    navnForelder1: string;
+    navnForelder2: string;
+    antallBarn: number;
+    familiehendelsesdato: Date;
 }

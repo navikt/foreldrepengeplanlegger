@@ -2,6 +2,8 @@ import { CommonActionKeys, CommonActionTypes } from './commonActionDefinitions';
 import { Språkkode } from '../../../intl/types';
 import { Periode, SituasjonSkjemadata } from '../../../types';
 import { Dekningsgrad } from 'common/types';
+import { History } from 'history';
+import { TilgjengeligStønadskonto } from '../../../types/st\u00F8nadskontoer';
 
 export function setSpråk(språkkode: Språkkode): CommonActionTypes {
     return {
@@ -10,10 +12,11 @@ export function setSpråk(språkkode: Språkkode): CommonActionTypes {
     };
 }
 
-export function submitSkjemadata(data: SituasjonSkjemadata): CommonActionTypes {
+export function submitSkjemadata(data: SituasjonSkjemadata, history: History): CommonActionTypes {
     return {
         type: CommonActionKeys.SUBMIT_SKJEMADATA,
-        data
+        data,
+        history
     };
 }
 
@@ -21,6 +24,13 @@ export function setDekningsgrad(dekningsgrad: Dekningsgrad): CommonActionTypes {
     return {
         type: CommonActionKeys.SET_DEKNINGSGRAD,
         dekningsgrad
+    };
+}
+
+export function setStønadskontoer(stønadskontoer: TilgjengeligStønadskonto[]): CommonActionTypes {
+    return {
+        type: CommonActionKeys.SET_STØNADSKONTOER,
+        stønadskontoer
     };
 }
 

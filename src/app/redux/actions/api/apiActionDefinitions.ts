@@ -1,5 +1,5 @@
-import { GetTilgjengeligeStønadskontoerParams } from '../../../api/types';
 import { ApiState } from '../../reducers/apiReducer';
+import { History } from 'history';
 
 export enum ApiActionKeys {
     'UPDATE_API' = 'updateApi',
@@ -13,7 +13,7 @@ export interface UpdateApiAction {
 
 export interface GetStonadskontoerAction {
     type: ApiActionKeys.GET_STONADSKONTOER;
-    params: GetTilgjengeligeStønadskontoerParams;
+    history: History;
 }
 
-export type ApiActionTypes = GetStonadskontoerAction | UpdateApiAction; // GetStonadskontoerFailed | GetStonadskontoerSuccess |
+export type ApiActionTypes = GetStonadskontoerAction | UpdateApiAction;

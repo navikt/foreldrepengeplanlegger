@@ -19,6 +19,7 @@ class Periodeskjema extends React.Component<Props, {}> {
         const { periode, onSubmit, onCancel } = this.props;
         return (
             <Formik
+                isInitialValid={true}
                 initialValues={periodeskjemaUtils.getInitialFormValuesFromPeriode(periode)}
                 onSubmit={(values: PeriodeskjemaFormValues) =>
                     onSubmit(periodeskjemaUtils.createPeriodeFromValues(values))

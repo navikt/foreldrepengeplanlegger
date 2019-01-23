@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 
-import uttakSaga from './uttakSaga';
+import stønadskontoerSaga from './stønadskontoerSaga';
 
-export default function* rootSaga() {
-    yield all([uttakSaga()]);
+export default function*() {
+    yield all([stønadskontoerSaga()]);
 }

@@ -6,6 +6,7 @@ export interface ApiRequest<T> {
     result?: T;
     error?: AxiosError;
     pending?: boolean;
+    loaded?: boolean;
 }
 
 export const getDefaultApiState = (): ApiState => ({
@@ -13,7 +14,7 @@ export const getDefaultApiState = (): ApiState => ({
 });
 
 export interface ApiState {
-    stønadskontoer?: ApiRequest<TilgjengeligStønadskonto[]>;
+    stønadskontoer: ApiRequest<TilgjengeligStønadskonto[]>;
 }
 
 const apiReducer = (state = getDefaultApiState(), action: ApiActionTypes): ApiState => {
@@ -22,16 +23,6 @@ const apiReducer = (state = getDefaultApiState(), action: ApiActionTypes): ApiSt
             return {
                 ...state,
                 ...action.state
-            };
-
-        case ApiActionKeys.GET_STONADSKONTOER:
-            return {
-                ...state,
-                stønadskontoer: {
-                    pending: true,
-                    result: undefined,
-                    error: undefined
-                }
             };
     }
     return state;

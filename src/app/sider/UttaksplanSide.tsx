@@ -74,8 +74,6 @@ class UttaksplanSide extends React.Component<Props, {}> {
                                 </Block>
                                 <Uttaksplan
                                     perioder={perioder}
-                                    sortable={true}
-                                    lockable={true}
                                     onAdd={(periode) => dispatch(addPeriode(periode))}
                                     onUpdate={(periode) => dispatch(updatePeriode(periode))}
                                     onRemove={(periode) => dispatch(removePeriode(periode))}

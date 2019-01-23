@@ -8,7 +8,7 @@ import Forbruk from '../forbruk/Forbruk';
 import { getForbruk } from '../forbruk/forbrukUtils';
 import SorterbarPeriodeliste from '../periodeliste/SorterbarPeriodeliste';
 import { PeriodelisteProps } from '../periodeliste/types';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 
 interface State {
     visSkjema: boolean;
@@ -41,7 +41,7 @@ class Uttaksplan extends React.Component<Props, State> {
         return (
             <section>
                 <Block margin="xxs">
-                    <Systemtittel tag="h1">Perioder</Systemtittel>
+                    <Undertittel tag="h1">Perioder</Undertittel>
                 </Block>
 
                 <Block>

@@ -6,7 +6,7 @@ import { getVarighetString } from 'common/utils/intlUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 import './tilgjengeligeDagerOversikt.less';
-import { Systemtittel, Ingress } from 'nav-frontend-typografi';
+import { Systemtittel, Ingress, Element } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
 
 interface OwnProps {
@@ -29,6 +29,9 @@ const ListeElement: React.StatelessComponent<{ tittel: string; verdi: React.Reac
 const Kontoliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl }: Props) => {
     return (
         <>
+            <Block margin="xxs">
+                <Element>Dagene er fordelt ut fra:</Element>
+            </Block>
             {tilgjengeligeDager.stønadskontoer.map((konto) => (
                 <ListeElement
                     verdi={getVarighetString(konto.dager, intl)}

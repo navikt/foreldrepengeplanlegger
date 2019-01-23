@@ -1,29 +1,25 @@
 import { CommonActionKeys, CommonActionTypes } from '../actions/common/commonActionDefinitions';
 import { Språkkode } from '../../intl/types';
-import { Periode, SituasjonSkjemadata, Situasjon } from '../../types';
+import { Periode, SituasjonSkjemadata, Situasjon, TilgjengeligeDager, TilgjengeligStønadskonto } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { mockPerioder } from '../../mock/perioder_mock';
-import { TilgjengeligeDager } from '../../types/st\u00F8nadskontoer';
 import { Dekningsgrad } from 'common/types';
-import { getTilgjengeligeDagerFraKontoer } from '../../utils/st\u00F8nadskontoer';
+import { getTilgjengeligeDager } from '../../utils/kontoUtils';
 
 export const getDefaultCommonState = (): CommonState => ({
     språkkode: 'nb',
     perioder: [...mockPerioder],
     familiehendelsesdato: new Date(),
-    tilgjengeligeDager: {
-        kontoer: [],
-        dekningsgrad80: { totaltAntallDager: 0 },
-        dekningsgrad100: { totaltAntallDager: 0 },
-        harTilgjengeligeDager: false
-    },
+    dekningsgrad: '100',
     skjemadata: {
         antallBarn: 1,
         familiehendelsesdato: new Date(),
         navnForelder1: 'Henrik',
         navnForelder2: 'Amalie',
         situasjon: Situasjon.farOgMor
-    }
+    },
+    stønadskontoer100: [],
+    stønadskontoer80: []
 });
 
 export interface CommonState {
@@ -31,8 +27,10 @@ export interface CommonState {
     perioder: Periode[];
     skjemadata?: SituasjonSkjemadata;
     familiehendelsesdato: Date;
-    dekningsgrad?: Dekningsgrad;
-    tilgjengeligeDager: TilgjengeligeDager;
+    dekningsgrad: Dekningsgrad;
+    tilgjengeligeDager?: TilgjengeligeDager;
+    stønadskontoer80: TilgjengeligStønadskonto[];
+    stønadskontoer100: TilgjengeligStønadskonto[];
 }
 
 const commonReducer = (state = getDefaultCommonState(), action: CommonActionTypes): CommonState => {
@@ -43,11 +41,21 @@ const commonReducer = (state = getDefaultCommonState(), action: CommonActionType
         case CommonActionKeys.SUBMIT_SKJEMADATA:
             return { ...state, skjemadata: action.data };
         case CommonActionKeys.SET_DEKNINGSGRAD:
-            return { ...state, dekningsgrad: action.dekningsgrad };
+            return {
+                ...state,
+                dekningsgrad: action.dekningsgrad,
+                tilgjengeligeDager: getTilgjengeligeDager(
+                    state.dekningsgrad === '100' ? state.stønadskontoer100 : state.stønadskontoer80
+                )
+            };
         case CommonActionKeys.SET_STØNADSKONTOER:
             return {
                 ...state,
-                tilgjengeligeDager: getTilgjengeligeDagerFraKontoer(action.stønadskontoer)
+                stønadskontoer100: action.stønadskontoer100,
+                stønadskontoer80: action.stønadskontoer80,
+                tilgjengeligeDager: getTilgjengeligeDager(
+                    state.dekningsgrad === '100' ? action.stønadskontoer100 : action.stønadskontoer80
+                )
             };
         case CommonActionKeys.ADD_PERIODE:
             return {

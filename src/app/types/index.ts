@@ -41,3 +41,33 @@ export interface SituasjonSkjemadata {
     antallBarn: number;
     familiehendelsesdato: Date;
 }
+
+export enum StønadskontoType {
+    /** Kvote forbeholdt mor */
+    'Mødrekvote' = 'MØDREKVOTE',
+    /** Kvote forbehold medforelder */
+    'Fedrekvote' = 'FEDREKVOTE',
+    /** Felleskvote som kan fordeles mellom mor og medforelder */
+    'Fellesperiode' = 'FELLESPERIODE',
+    /** Når det kun er en forsørger/forelder */
+    'Foreldrepenger' = 'FORELDREPENGER',
+    /** Når det kun er en forsørger/forelder */
+    'ForeldrepengerFørFødsel' = 'FORELDREPENGER_FØR_FØDSEL',
+    /** Når det kun er en forsørger/forelder */
+    'SamtidigUttak' = 'SAMTIDIGUTTAK',
+    'Flerbarnsdager' = 'FLERBARNSDAGER',
+    'AktivitetsfriKvote' = 'AKTIVITETSFRI_KVOTE'
+}
+
+export interface TilgjengeligStønadskonto {
+    stønadskontoType: StønadskontoType;
+    dager: number;
+}
+
+export interface TilgjengeligeDager {
+    dagerTotalt: number;
+    dagerForbeholdtMor: number;
+    dagerForbeholdtFar: number;
+    dagerFelles: number;
+    stønadskontoer: TilgjengeligStønadskonto[];
+}

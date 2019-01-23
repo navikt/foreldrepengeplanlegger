@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TilgjengeligStønadskonto, TilgjengeligeDager } from '../../types/st\u00F8nadskontoer';
+import { TilgjengeligeDager } from '../../types';
 import BEMHelper from 'common/utils/bem';
 import { Dekningsgrad } from 'common/types';
 import { getVarighetString } from 'common/utils/intlUtils';
@@ -17,20 +17,15 @@ type Props = OwnProps & InjectedIntlProps;
 
 const bem = BEMHelper('tilgjengeligeDagerOversikt');
 
-const getDagerForDekningsgrad = (konto: TilgjengeligStønadskonto, dekningsgrad: Dekningsgrad): number =>
-    dekningsgrad === '80' ? konto.dager80 : konto.dager100;
-
 const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = ({ tilgjengeligeDager, dekningsgrad, intl }) => (
     <div className={bem.block}>
         <Systemtittel tag="h1">Tilgjengelige dager</Systemtittel>
-        {tilgjengeligeDager.kontoer.map((konto) => (
-            <div className={bem.element('konto')} key={konto.stønadskonto}>
+        {tilgjengeligeDager.stønadskontoer.map((konto) => (
+            <div className={bem.element('konto')} key={konto.stønadskontoType}>
                 <div className={bem.element('kontonavn')}>
-                    <FormattedMessage id={`stønadskontotype.${konto.stønadskonto}`} />
+                    <FormattedMessage id={`stønadskontotype.${konto.stønadskontoType}`} />
                 </div>
-                <div className={bem.element('kontoDager')}>
-                    {getVarighetString(getDagerForDekningsgrad(konto, dekningsgrad), intl)}
-                </div>
+                <div className={bem.element('kontoDager')}>{getVarighetString(konto.dager, intl)}</div>
             </div>
         ))}
         <div className={bem.element('total')} />

@@ -1,8 +1,7 @@
 import { Språkkode } from '../../../intl/types';
-import { Periode, SituasjonSkjemadata } from '../../../types';
+import { Periode, SituasjonSkjemadata, TilgjengeligStønadskonto } from '../../../types';
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
-import { TilgjengeligStønadskonto } from '../../../types/st\u00F8nadskontoer';
 
 export enum CommonActionKeys {
     'SET_SPRÅK' = 'setSpråk',
@@ -35,7 +34,8 @@ export interface GetStønadskontoerAction {
 
 export interface SetStønadskontoerAction {
     type: CommonActionKeys.SET_STØNADSKONTOER;
-    stønadskontoer: TilgjengeligStønadskonto[];
+    stønadskontoer80: TilgjengeligStønadskonto[];
+    stønadskontoer100: TilgjengeligStønadskonto[];
 }
 
 interface SetDekningsgrad {

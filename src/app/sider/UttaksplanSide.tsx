@@ -2,7 +2,7 @@ import * as React from 'react';
 import Uttaksplan from '../components/uttaksplan/Uttaksplan';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { DispatchProps } from '../redux/types';
-import { Periode } from '../types';
+import { Periode, TilgjengeligeDager } from '../types';
 import {
     addPeriode,
     updatePeriode,
@@ -15,7 +15,6 @@ import { connect } from 'react-redux';
 import Block from 'common/components/block/Block';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
 import { Dekningsgrad } from 'common/types';
-import { TilgjengeligeDager } from '../types/st\u00F8nadskontoer';
 import { getStønadskontoer } from '../redux/actions/api/apiActionCreators';
 import LoadContainer from '../components/loadContainer/LoadContainer';
 import { Collapse } from 'react-collapse';
@@ -25,7 +24,7 @@ interface StateProps {
     perioder: Periode[];
     dekningsgrad: Dekningsgrad;
     familiehendelsesdato: Date;
-    tilgjengeligeDager: TilgjengeligeDager;
+    tilgjengeligeDager?: TilgjengeligeDager;
     stønadskontoerLastet: boolean;
     henterStønadskontoer: boolean;
 }
@@ -40,6 +39,7 @@ class UttaksplanSide extends React.Component<Props, {}> {
     }
     render() {
         const { perioder, dekningsgrad, tilgjengeligeDager, henterStønadskontoer, dispatch } = this.props;
+        const visInnhold = henterStønadskontoer === false && tilgjengeligeDager !== undefined;
         return (
             <Collapse isOpened={true} forceInitialAnimation={false}>
                 <LoadContainer loading={henterStønadskontoer} overlay={false}>
@@ -63,20 +63,24 @@ class UttaksplanSide extends React.Component<Props, {}> {
                             twoColumns={true}
                         />
                     </Block>
-                    <Block visible={henterStønadskontoer === false && tilgjengeligeDager.harTilgjengeligeDager}>
-                        <TilgjengeligeDagerOversikt
-                            tilgjengeligeDager={tilgjengeligeDager}
-                            dekningsgrad={dekningsgrad}
-                        />
-                        <Uttaksplan
-                            perioder={perioder}
-                            sortable={true}
-                            lockable={true}
-                            onAdd={(periode) => dispatch(addPeriode(periode))}
-                            onUpdate={(periode) => dispatch(updatePeriode(periode))}
-                            onRemove={(periode) => dispatch(removePeriode(periode))}
-                            onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
-                        />
+                    <Block visible={visInnhold}>
+                        {tilgjengeligeDager !== undefined && (
+                            <>
+                                <TilgjengeligeDagerOversikt
+                                    tilgjengeligeDager={tilgjengeligeDager}
+                                    dekningsgrad={dekningsgrad}
+                                />
+                                <Uttaksplan
+                                    perioder={perioder}
+                                    sortable={true}
+                                    lockable={true}
+                                    onAdd={(periode) => dispatch(addPeriode(periode))}
+                                    onUpdate={(periode) => dispatch(updatePeriode(periode))}
+                                    onRemove={(periode) => dispatch(removePeriode(periode))}
+                                    onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
+                                />
+                            </>
+                        )}
                     </Block>
                 </LoadContainer>
             </Collapse>

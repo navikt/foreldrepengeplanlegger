@@ -1,9 +1,8 @@
 import { CommonActionKeys, CommonActionTypes } from './commonActionDefinitions';
 import { Språkkode } from '../../../intl/types';
-import { Periode, SituasjonSkjemadata } from '../../../types';
+import { Periode, SituasjonSkjemadata, TilgjengeligStønadskonto } from '../../../types';
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
-import { TilgjengeligStønadskonto } from '../../../types/st\u00F8nadskontoer';
 
 export function setSpråk(språkkode: Språkkode): CommonActionTypes {
     return {
@@ -27,10 +26,14 @@ export function setDekningsgrad(dekningsgrad: Dekningsgrad): CommonActionTypes {
     };
 }
 
-export function setStønadskontoer(stønadskontoer: TilgjengeligStønadskonto[]): CommonActionTypes {
+export function setStønadskontoer(
+    stønadskontoer80: TilgjengeligStønadskonto[],
+    stønadskontoer100: TilgjengeligStønadskonto[]
+): CommonActionTypes {
     return {
         type: CommonActionKeys.SET_STØNADSKONTOER,
-        stønadskontoer
+        stønadskontoer80,
+        stønadskontoer100
     };
 }
 

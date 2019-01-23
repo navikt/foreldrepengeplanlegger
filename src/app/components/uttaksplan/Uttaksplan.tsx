@@ -8,7 +8,8 @@ import Forbruk from '../forbruk/Forbruk';
 import { getForbruk } from '../forbruk/forbrukUtils';
 import SorterbarPeriodeliste from '../periodeliste/SorterbarPeriodeliste';
 import { PeriodelisteProps } from '../periodeliste/types';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Systemtittel, Ingress } from 'nav-frontend-typografi';
+import Knapperad from 'common/components/knapperad/Knapperad';
 
 interface State {
     visSkjema: boolean;
@@ -41,30 +42,34 @@ class Uttaksplan extends React.Component<Props, State> {
         return (
             <section>
                 <Block margin="xxs">
-                    <Undertittel tag="h1">Perioder</Undertittel>
+                    <Systemtittel tag="h1">Deres plan</Systemtittel>
+                </Block>
+                <Block margin="s">
+                    <Ingress>Fordel dagene deres ved å legge til og justere perioden i listen nedenfor</Ingress>
                 </Block>
 
                 <Block>
                     <div className="periodelisteWrapper">
-                        <SorterbarPeriodeliste {...this.props} />
+                        <Block margin="s">
+                            <SorterbarPeriodeliste {...this.props} />
+                        </Block>
+                        <Block visible={visSkjema}>
+                            <Periodeskjema
+                                onCancel={() => this.setState({ visSkjema: false })}
+                                onSubmit={(periode) => this.addPeriode(periode)}
+                            />
+                        </Block>
+                        <Block visible={visSkjema !== true}>
+                            <Knapperad align="center">
+                                <Knapp type="standard" onClick={() => this.setState({ visSkjema: true })}>
+                                    Legg til periode
+                                </Knapp>
+                            </Knapperad>
+                        </Block>
+                        <Block>
+                            <Forbruk forbruk={getForbruk(perioder)} />
+                        </Block>
                     </div>
-                </Block>
-
-                <Block>
-                    <Forbruk forbruk={getForbruk(perioder)} />
-                </Block>
-
-                <Block visible={visSkjema}>
-                    <Periodeskjema
-                        onCancel={() => this.setState({ visSkjema: false })}
-                        onSubmit={(periode) => this.addPeriode(periode)}
-                    />
-                </Block>
-
-                <Block>
-                    <Knapp type="standard" onClick={() => this.setState({ visSkjema: true })}>
-                        Legg til periode
-                    </Knapp>
                 </Block>
 
                 <PeriodeDevBar perioder={perioder} onAdd={onAdd} onDelete={onRemove} onChange={onUpdate} />

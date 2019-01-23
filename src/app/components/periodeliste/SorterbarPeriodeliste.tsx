@@ -5,6 +5,8 @@ import { Periode } from '../../types/periodetyper';
 import { PeriodelisteProps, PeriodelisteElementProps } from './types';
 
 import './periodeliste.less';
+import { Undertittel } from 'nav-frontend-typografi';
+import Block from 'common/components/block/Block';
 
 const ElementWrapper = SortableElement((props: PeriodelisteElementProps) => (
     <li className="periodeliste__periode">
@@ -29,11 +31,18 @@ const SorterbarPeriodeliste: React.StatelessComponent<PeriodelisteProps> = (prop
         return <div>Ingen perioder registrert</div>;
     }
     return (
-        <ListContainer
-            {...props}
-            useDragHandle={true}
-            onSortEnd={onMove ? (sortEnd: SortEnd) => onMove(perioder[sortEnd.oldIndex], sortEnd.newIndex) : undefined}
-        />
+        <section>
+            <Block margin="s">
+                <Undertittel tag="h1">Perioder</Undertittel>
+            </Block>
+            <ListContainer
+                {...props}
+                useDragHandle={true}
+                onSortEnd={
+                    onMove ? (sortEnd: SortEnd) => onMove(perioder[sortEnd.oldIndex], sortEnd.newIndex) : undefined
+                }
+            />
+        </section>
     );
 };
 

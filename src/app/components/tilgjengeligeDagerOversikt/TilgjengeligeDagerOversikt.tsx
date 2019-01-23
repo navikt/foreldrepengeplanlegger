@@ -6,8 +6,9 @@ import { getVarighetString } from 'common/utils/intlUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 import './tilgjengeligeDagerOversikt.less';
-import { Systemtittel, Ingress, Element } from 'nav-frontend-typografi';
+import { Systemtittel, Ingress, Undertittel } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
+import UtvidetInformasjon from 'common/components/utvidetInformasjon/UtvidetInformasjon';
 
 interface OwnProps {
     tilgjengeligeDager: TilgjengeligeDager;
@@ -28,9 +29,9 @@ const ListeElement: React.StatelessComponent<{ tittel: string; verdi: React.Reac
 
 const Kontoliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl }: Props) => {
     return (
-        <>
-            <Block margin="xxs">
-                <Element>Dagene er fordelt ut fra:</Element>
+        <Block margin="xs">
+            <Block margin="xs">
+                <Undertittel tag="div">Slik er deres dager beregnet ut:</Undertittel>
             </Block>
             {tilgjengeligeDager.stønadskontoer.map((konto) => (
                 <ListeElement
@@ -38,7 +39,7 @@ const Kontoliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl 
                     tittel={intl.formatMessage({ id: `stønadskontotype.${konto.stønadskontoType}` })}
                 />
             ))}
-        </>
+        </Block>
     );
 };
 
@@ -54,7 +55,7 @@ const Fordelingsliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, 
 };
 
 const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = (props: Props) => {
-    const { tilgjengeligeDager, visKontoliste, intl } = props;
+    const { tilgjengeligeDager, intl } = props;
     return (
         <section className={bem.block}>
             <Block margin="xxs">
@@ -65,7 +66,9 @@ const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = (props: Prop
             <Block margin="xs">
                 <Fordelingsliste {...props} />
             </Block>
-            {visKontoliste && <Kontoliste {...props} />}
+            <UtvidetInformasjon erApen={false} apneLabel="Se detaljert fordeling" lukkLabel="Lukk informasjon">
+                <Kontoliste {...props} />
+            </UtvidetInformasjon>
         </section>
     );
 };

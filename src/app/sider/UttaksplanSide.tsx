@@ -15,10 +15,10 @@ import { connect } from 'react-redux';
 import Block from 'common/components/block/Block';
 import { Dekningsgrad } from 'common/types';
 import { getStønadskontoer } from '../redux/actions/api/apiActionCreators';
-import LoadContainer from '../components/loadContainer/LoadContainer';
 import { Collapse } from 'react-collapse';
 import TilgjengeligeDagerOversikt from '../components/tilgjengeligeDagerOversikt/TilgjengeligeDagerOversikt';
 import DekningsgradSpørsmål from '../components/dekningsgradSp\u00F8rsm\u00E5l/DekningsgradSp\u00F8rsm\u00E5l';
+import LoadContainer from 'common/components/loadContainer/LoadContainer';
 
 interface StateProps {
     perioder: Periode[];

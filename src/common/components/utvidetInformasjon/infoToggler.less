@@ -1,0 +1,37 @@
+@import '../../styles/variables.less';
+@import '../../styles/mixins.less';
+
+.infoToggler {
+    position: relative;
+    border: none !important;
+    background: transparent;
+    padding: 0;
+    display: inline-block;
+    &:focus {
+        .buttonFocus();
+    }
+    &__content {
+        color: #0067c5;
+        display: block;
+        text-align: left;
+        border-bottom: solid 1px #b7b1a9;
+        padding-right: 1.5rem;
+        position: relative;
+    }
+    &:hover,
+    &:focus,
+    &:active {
+        .infoToggler__content {
+            border-bottom-color: #0067c5;
+        }
+    }
+    &__label  {
+        display: inline-block;
+    }
+    &__chevron {
+        line-height: 1.3rem;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { DispatchProps } from '../redux/types';
 import { SituasjonSkjemadata } from '../types';
 import { submitSkjemadata } from '../redux/actions/common/commonActionCreators';
-import LoadContainer from '../components/loadContainer/LoadContainer';
+import LoadContainer from 'common/components/loadContainer/LoadContainer';
 
 interface StateProps {
     henterStønadskontoer?: boolean;

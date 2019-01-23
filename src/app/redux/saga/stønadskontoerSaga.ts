@@ -83,7 +83,9 @@ function* getStønadskontoerSaga(action: SubmitSkjemadataAction | GetStønadskon
         );
         try {
             yield call(getStønadskontoer, params);
-            // action.history.push('/plan');
+            if (action.type === CommonActionKeys.SUBMIT_SKJEMADATA) {
+                action.history.push('/plan');
+            }
         } catch (error) {
             action.history.replace('/');
         }

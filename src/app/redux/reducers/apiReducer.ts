@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { ApiActionTypes, ApiActionKeys } from '../actions/api/apiActionDefinitions';
-import { TilgjengeligStønadskonto } from '../../types/st\u00F8nadskontoer';
+import { GetStønadskontoerDTO } from '../../api/types';
 
 export interface ApiRequest<T> {
     result?: T;
@@ -14,7 +14,7 @@ export const getDefaultApiState = (): ApiState => ({
 });
 
 export interface ApiState {
-    stønadskontoer: ApiRequest<TilgjengeligStønadskonto[]>;
+    stønadskontoer: ApiRequest<GetStønadskontoerDTO[]>;
 }
 
 const apiReducer = (state = getDefaultApiState(), action: ApiActionTypes): ApiState => {

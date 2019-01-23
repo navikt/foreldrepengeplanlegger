@@ -9,11 +9,13 @@ export interface GetTilgjengeligeStønadskontoerParams {
     startdatoUttak: Date;
 }
 
-export interface StønadskontoerDTO {
+export interface StønadskontoDTO {
+    d80: number;
+    d100: number;
+}
+
+export interface GetStønadskontoerDTO {
     kontoer: {
-        [key: string]: {
-            d80: number;
-            d100: number;
-        };
+        [key: string]: StønadskontoDTO;
     };
 }

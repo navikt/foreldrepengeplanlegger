@@ -1,8 +1,7 @@
 import { takeEvery, all, put, select, call } from 'redux-saga/effects';
 import api from '../../api';
-import { StønadskontoerDTO, GetTilgjengeligeStønadskontoerParams } from '../../api/types';
-import { TilgjengeligStønadskonto, StønadskontoType } from '../../types/st\u00F8nadskontoer';
-import { getStønadskontoSortOrder } from '../../utils/st\u00F8nadskontoer';
+import { GetStønadskontoerDTO, GetTilgjengeligeStønadskontoerParams } from '../../api/types';
+import { getStønadskontoSortOrder } from '../../utils/kontoUtils';
 import { updateApi } from '../actions/api/apiActionCreators';
 import {
     CommonActionKeys,
@@ -10,7 +9,7 @@ import {
     GetStønadskontoerAction
 } from '../actions/common/commonActionDefinitions';
 import { setStønadskontoer } from '../actions/common/commonActionCreators';
-import { SituasjonSkjemadata } from '../../types';
+import { SituasjonSkjemadata, TilgjengeligStønadskonto, StønadskontoType } from '../../types';
 import { AppState } from '../reducers/rootReducer';
 import situasjonsregler from '../../utils/situasjonsregler';
 
@@ -32,18 +31,28 @@ const getStønadskontoerRequestParams = (
 
 const stateSelector = (state: AppState) => state;
 
+const sortStønadskonto = (a: TilgjengeligStønadskonto, b: TilgjengeligStønadskonto) =>
+    getStønadskontoSortOrder(a.stønadskontoType) > getStønadskontoSortOrder(b.stønadskontoType) ? 1 : -1;
+
 function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
     try {
         yield put(updateApi({ stønadskontoer: { pending: true, error: undefined, result: undefined } }));
         const response = yield call(api.getUttakskontoer, params);
-        const stønadskontoer: StønadskontoerDTO = response.data;
-        const tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[] = Object.keys(stønadskontoer.kontoer).map(
-            (konto): TilgjengeligStønadskonto => ({
-                stønadskonto: konto as StønadskontoType,
-                dager80: stønadskontoer.kontoer[konto].d80,
-                dager100: stønadskontoer.kontoer[konto].d100
-            })
-        );
+        const stønadskontoer: GetStønadskontoerDTO = response.data;
+        const kontoer80: TilgjengeligStønadskonto[] = [];
+        const kontoer100: TilgjengeligStønadskonto[] = [];
+        Object.keys(stønadskontoer.kontoer).forEach((konto) => {
+            kontoer80.push({
+                dager: stønadskontoer.kontoer[konto].d80,
+                stønadskontoType: konto as StønadskontoType
+            });
+            kontoer100.push({
+                dager: stønadskontoer.kontoer[konto].d100,
+                stønadskontoType: konto as StønadskontoType
+            });
+        });
+        kontoer80.sort(sortStønadskonto);
+        kontoer100.sort(sortStønadskonto);
         yield put(
             updateApi({
                 stønadskontoer: {
@@ -53,14 +62,7 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
                 }
             })
         );
-        yield put(
-            setStønadskontoer(
-                tilgjengeligeStønadskontoer.sort(
-                    (a: TilgjengeligStønadskonto, b: TilgjengeligStønadskonto) =>
-                        getStønadskontoSortOrder(a.stønadskonto) > getStønadskontoSortOrder(b.stønadskonto) ? 1 : -1
-                )
-            )
-        );
+        yield put(setStønadskontoer({ dekning80: kontoer80, dekning100: kontoer100 }));
     } catch (error) {
         yield put(
             updateApi({
@@ -81,7 +83,9 @@ function* getStønadskontoerSaga(action: SubmitSkjemadataAction | GetStønadskon
         );
         try {
             yield call(getStønadskontoer, params);
-            action.history.push('/plan');
+            if (action.type === CommonActionKeys.SUBMIT_SKJEMADATA) {
+                action.history.push('/plan');
+            }
         } catch (error) {
             action.history.replace('/');
         }

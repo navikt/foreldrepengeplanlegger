@@ -29,30 +29,50 @@ const getStønadskontoerRequestParams = (
     };
 };
 
+const mockKontoer: GetStønadskontoerDTO = {
+    kontoer: {
+        MØDREKVOTE: { d80: 75, d100: 75 },
+        FEDREKVOTE: { d80: 75, d100: 75 },
+        FELLESPERIODE: { d80: 130, d100: 80 },
+        FORELDREPENGER_FØR_FØDSEL: { d80: 15, d100: 15 },
+        FLERBARNSDAGER: { d80: 10, d100: 10 }
+    }
+};
+
 const stateSelector = (state: AppState) => state;
 
 const sortStønadskonto = (a: TilgjengeligStønadskonto, b: TilgjengeligStønadskonto) =>
     getStønadskontoSortOrder(a.stønadskontoType) > getStønadskontoSortOrder(b.stønadskontoType) ? 1 : -1;
+
+const getKontoerFromDTO = (
+    stønadskontoer: GetStønadskontoerDTO
+): { dekning80: TilgjengeligStønadskonto[]; dekning100: TilgjengeligStønadskonto[] } => {
+    const dekning80: TilgjengeligStønadskonto[] = [];
+    const dekning100: TilgjengeligStønadskonto[] = [];
+    Object.keys(stønadskontoer.kontoer).forEach((konto) => {
+        dekning80.push({
+            dager: stønadskontoer.kontoer[konto].d80,
+            stønadskontoType: konto as StønadskontoType
+        });
+        dekning100.push({
+            dager: stønadskontoer.kontoer[konto].d100,
+            stønadskontoType: konto as StønadskontoType
+        });
+    });
+    dekning80.sort(sortStønadskonto);
+    dekning100.sort(sortStønadskonto);
+    return {
+        dekning100,
+        dekning80
+    };
+};
 
 function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
     try {
         yield put(updateApi({ stønadskontoer: { pending: true, error: undefined, result: undefined } }));
         const response = yield call(api.getUttakskontoer, params);
         const stønadskontoer: GetStønadskontoerDTO = response.data;
-        const kontoer80: TilgjengeligStønadskonto[] = [];
-        const kontoer100: TilgjengeligStønadskonto[] = [];
-        Object.keys(stønadskontoer.kontoer).forEach((konto) => {
-            kontoer80.push({
-                dager: stønadskontoer.kontoer[konto].d80,
-                stønadskontoType: konto as StønadskontoType
-            });
-            kontoer100.push({
-                dager: stønadskontoer.kontoer[konto].d100,
-                stønadskontoType: konto as StønadskontoType
-            });
-        });
-        kontoer80.sort(sortStønadskonto);
-        kontoer100.sort(sortStønadskonto);
+        const { dekning100, dekning80 } = getKontoerFromDTO(stønadskontoer);
         yield put(
             updateApi({
                 stønadskontoer: {
@@ -62,8 +82,11 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
                 }
             })
         );
-        yield put(setStønadskontoer({ dekning80: kontoer80, dekning100: kontoer100 }));
+        yield put(setStønadskontoer({ dekning80, dekning100 }));
     } catch (error) {
+        // Use mock
+        const { dekning100, dekning80 } = getKontoerFromDTO(mockKontoer);
+        yield put(setStønadskontoer({ dekning80, dekning100 }));
         yield put(
             updateApi({
                 stønadskontoer: { pending: false, result: undefined, error, loaded: false }

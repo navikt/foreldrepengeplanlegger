@@ -9,6 +9,7 @@ import {
     SubmitSkjemadataAction,
     GetStønadskontoerAction
 } from '../actions/common/commonActionDefinitions';
+import { setStønadskontoer } from '../actions/common/commonActionCreators';
 import { SituasjonSkjemadata } from '../../types';
 import { AppState } from '../reducers/rootReducer';
 import situasjonsregler from '../../utils/situasjonsregler';
@@ -37,8 +38,8 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
         const response = yield call(api.getUttakskontoer, params);
         const stønadskontoer: StønadskontoerDTO = response.data;
         const tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[] = Object.keys(stønadskontoer.kontoer).map(
-            (konto) => ({
-                konto: konto as StønadskontoType,
+            (konto): TilgjengeligStønadskonto => ({
+                stønadskonto: konto as StønadskontoType,
                 dager80: stønadskontoer.kontoer[konto].d80,
                 dager100: stønadskontoer.kontoer[konto].d100
             })
@@ -48,12 +49,17 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
                 stønadskontoer: {
                     loaded: true,
                     pending: false,
-                    result: tilgjengeligeStønadskontoer.sort(
-                        (a: TilgjengeligStønadskonto, b: TilgjengeligStønadskonto) =>
-                            getStønadskontoSortOrder(a.konto) > getStønadskontoSortOrder(b.konto) ? 1 : -1
-                    )
+                    result: response.data
                 }
             })
+        );
+        yield put(
+            setStønadskontoer(
+                tilgjengeligeStønadskontoer.sort(
+                    (a: TilgjengeligStønadskonto, b: TilgjengeligStønadskonto) =>
+                        getStønadskontoSortOrder(a.stønadskonto) > getStønadskontoSortOrder(b.stønadskonto) ? 1 : -1
+                )
+            )
         );
     } catch (error) {
         yield put(

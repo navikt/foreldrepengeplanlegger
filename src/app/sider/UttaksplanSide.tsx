@@ -19,6 +19,7 @@ import { TilgjengeligStønadskonto } from '../types/st\u00F8nadskontoer';
 import TilgjengeligeDager from '../components/tilgjengeligeDager/TilgjengeligeDager';
 import { getStønadskontoer } from '../redux/actions/api/apiActionCreators';
 import LoadContainer from '../components/loadContainer/LoadContainer';
+import { Collapse } from 'react-collapse';
 
 interface StateProps {
     perioder: Periode[];
@@ -40,40 +41,45 @@ class UttaksplanSide extends React.Component<Props, {}> {
     render() {
         const { perioder, dekningsgrad, tilgjengeligeStønadskontoer, henterStønadskontoer, dispatch } = this.props;
         return (
-            <LoadContainer loading={henterStønadskontoer} overlay={true}>
-                <Link to="/">Tilbake</Link>
-                <Block>
-                    <RadioGroup
-                        name="dekningsgrad"
-                        legend="Hvor lang periode med foreldrepenger ønsker du/dere?"
-                        options={[
-                            {
-                                label: '49 uker med 100 prosent foreldrepenger',
-                                value: '100'
-                            },
-                            {
-                                label: '59 uker med 80 prosent foreldrepenger',
-                                value: '80'
-                            }
-                        ]}
-                        onChange={(dg) => dispatch(setDekningsgrad(dg as Dekningsgrad))}
-                        checked={dekningsgrad}
-                        twoColumns={true}
-                    />
-                </Block>
-
-                <TilgjengeligeDager tilgjengeligeStønadskontoer={tilgjengeligeStønadskontoer} />
-
-                <Uttaksplan
-                    perioder={perioder}
-                    sortable={true}
-                    lockable={true}
-                    onAdd={(periode) => dispatch(addPeriode(periode))}
-                    onUpdate={(periode) => dispatch(updatePeriode(periode))}
-                    onRemove={(periode) => dispatch(removePeriode(periode))}
-                    onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
-                />
-            </LoadContainer>
+            <Collapse isOpened={true} forceInitialAnimation={false}>
+                <LoadContainer loading={henterStønadskontoer} overlay={false}>
+                    <Link to="/">Tilbake</Link>
+                    <Block>
+                        <RadioGroup
+                            name="dekningsgrad"
+                            legend="Hvor lang periode med foreldrepenger ønsker du/dere?"
+                            options={[
+                                {
+                                    label: '49 uker med 100 prosent foreldrepenger',
+                                    value: '100'
+                                },
+                                {
+                                    label: '59 uker med 80 prosent foreldrepenger',
+                                    value: '80'
+                                }
+                            ]}
+                            onChange={(dg) => dispatch(setDekningsgrad(dg as Dekningsgrad))}
+                            checked={dekningsgrad}
+                            twoColumns={true}
+                        />
+                    </Block>
+                    <Block visible={henterStønadskontoer === false && tilgjengeligeStønadskontoer.length > 0}>
+                        <TilgjengeligeDager
+                            tilgjengeligeStønadskontoer={tilgjengeligeStønadskontoer}
+                            dekningsgrad={dekningsgrad}
+                        />
+                        <Uttaksplan
+                            perioder={perioder}
+                            sortable={true}
+                            lockable={true}
+                            onAdd={(periode) => dispatch(addPeriode(periode))}
+                            onUpdate={(periode) => dispatch(updatePeriode(periode))}
+                            onRemove={(periode) => dispatch(removePeriode(periode))}
+                            onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
+                        />
+                    </Block>
+                </LoadContainer>
+            </Collapse>
         );
     }
 }

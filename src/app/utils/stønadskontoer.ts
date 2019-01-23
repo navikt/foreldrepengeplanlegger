@@ -4,14 +4,14 @@ export const getVelgbareStønadskontotyper = (stønadskontoTyper: TilgjengeligSt
     stønadskontoTyper
         .filter(
             (kontoType) =>
-                kontoType.konto === StønadskontoType.Flerbarnsdager ||
-                kontoType.konto === StønadskontoType.Fellesperiode ||
-                kontoType.konto === StønadskontoType.Fedrekvote ||
-                kontoType.konto === StønadskontoType.Mødrekvote ||
-                kontoType.konto === StønadskontoType.Foreldrepenger ||
-                kontoType.konto === StønadskontoType.AktivitetsfriKvote
+                kontoType.stønadskonto === StønadskontoType.Flerbarnsdager ||
+                kontoType.stønadskonto === StønadskontoType.Fellesperiode ||
+                kontoType.stønadskonto === StønadskontoType.Fedrekvote ||
+                kontoType.stønadskonto === StønadskontoType.Mødrekvote ||
+                kontoType.stønadskonto === StønadskontoType.Foreldrepenger ||
+                kontoType.stønadskonto === StønadskontoType.AktivitetsfriKvote
         )
-        .map((kontoType) => kontoType.konto);
+        .map((kontoType) => kontoType.stønadskonto);
 
 export const getStønadskontoSortOrder = (konto: StønadskontoType): number => stønadskontoSortOrder[konto];
 

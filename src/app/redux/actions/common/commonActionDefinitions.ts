@@ -2,12 +2,14 @@ import { Språkkode } from '../../../intl/types';
 import { Periode, SituasjonSkjemadata } from '../../../types';
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
+import { TilgjengeligStønadskonto } from '../../../types/st\u00F8nadskontoer';
 
 export enum CommonActionKeys {
     'SET_SPRÅK' = 'setSpråk',
     'SET_DEKNINGSGRAD' = 'setDekningsgrad',
     'SUBMIT_SKJEMADATA' = 'submitSkjemadata',
     'GET_STØNADSKONTOER' = 'getStonadskontoer',
+    'SET_STØNADSKONTOER' = 'setStonadskontoer',
     'SET_PERIODER' = 'setPerioder',
     'ADD_PERIODE' = 'addPeriode',
     'UPDATE_PERIODE' = 'updatePeriode',
@@ -29,6 +31,11 @@ export interface SubmitSkjemadataAction {
 export interface GetStønadskontoerAction {
     type: CommonActionKeys.GET_STØNADSKONTOER;
     history: History;
+}
+
+export interface SetStønadskontoerAction {
+    type: CommonActionKeys.SET_STØNADSKONTOER;
+    stønadskontoer: TilgjengeligStønadskonto[];
 }
 
 interface SetDekningsgrad {
@@ -65,6 +72,7 @@ interface MovePeriode {
 export type CommonActionTypes =
     | SetSpråk
     | SetPerioder
+    | SetStønadskontoerAction
     | SetDekningsgrad
     | AddPeriode
     | UpdatePeriode

@@ -3,6 +3,6 @@
         "MØDREKVOTE": { "d80": 75, "d100": 75 },
         "FEDREKVOTE": { "d80": 75, "d100": 75 },
         "FELLESPERIODE": { "d80": 130, "d100": 80 },
-        "FORELDREPENGER_FØR_FØDSEL": 15
+        "FORELDREPENGER_FØR_FØDSEL": { "d80": 15, "d100": 15 }
     }
 }

@@ -38,6 +38,8 @@ const commonReducer = (state = getDefaultCommonState(), action: CommonActionType
             return { ...state, skjemadata: action.data };
         case CommonActionKeys.SET_DEKNINGSGRAD:
             return { ...state, dekningsgrad: action.dekningsgrad };
+        case CommonActionKeys.SET_STØNADSKONTOER:
+            return { ...state, tilgjengeligeStønadskontoer: action.stønadskontoer };
         case CommonActionKeys.ADD_PERIODE:
             return {
                 ...state,

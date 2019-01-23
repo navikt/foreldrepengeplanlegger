@@ -18,22 +18,26 @@ const LoadContainer: React.StatelessComponent<Props> = ({ loading, overlay, chil
     if (loading !== true) {
         return <>{children}</>;
     }
-    if (overlay) {
-        return (
-            <div className={classNames(bem.block, { [bem.modifier('overlay')]: overlay })}>
-                <div className={bem.element('content')}>{children}</div>
-                <Overlay active={true} />
-                <div className={bem.element('spinner')}>
-                    <Spinner type="XXL" />
-                </div>
-            </div>
-        );
-    }
+    // if (overlay) {
     return (
-        <div className={bem.block}>
-            <Spinner className={bem.element('spinner')} type="L" negativ={true} />
+        <div className={classNames(bem.block, { [bem.modifier('overlay')]: overlay })}>
+            {overlay && (
+                <>
+                    <div className={bem.element('content')}>{children}</div>
+                    <Overlay active={true} />
+                </>
+            )}
+            <div className={bem.element('spinner')}>
+                <Spinner type="XXL" />
+            </div>
         </div>
     );
+    // }
+    // return (
+    //     <div className={bem.block}>
+    //         <Spinner className={bem.element('spinner')} type="L" negativ={true} />
+    //     </div>
+    // );
 };
 
 export default LoadContainer;

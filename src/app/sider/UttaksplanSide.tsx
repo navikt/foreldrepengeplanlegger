@@ -15,17 +15,17 @@ import { connect } from 'react-redux';
 import Block from 'common/components/block/Block';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
 import { Dekningsgrad } from 'common/types';
-import { TilgjengeligStønadskonto } from '../types/st\u00F8nadskontoer';
-import TilgjengeligeDager from '../components/tilgjengeligeDager/TilgjengeligeDager';
+import { TilgjengeligeDager } from '../types/st\u00F8nadskontoer';
 import { getStønadskontoer } from '../redux/actions/api/apiActionCreators';
 import LoadContainer from '../components/loadContainer/LoadContainer';
 import { Collapse } from 'react-collapse';
+import TilgjengeligeDagerOversikt from '../components/tilgjengeligeDagerOversikt/TilgjengeligeDagerOversikt';
 
 interface StateProps {
     perioder: Periode[];
     dekningsgrad: Dekningsgrad;
     familiehendelsesdato: Date;
-    tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[];
+    tilgjengeligeDager: TilgjengeligeDager;
     stønadskontoerLastet: boolean;
     henterStønadskontoer: boolean;
 }
@@ -39,7 +39,7 @@ class UttaksplanSide extends React.Component<Props, {}> {
         }
     }
     render() {
-        const { perioder, dekningsgrad, tilgjengeligeStønadskontoer, henterStønadskontoer, dispatch } = this.props;
+        const { perioder, dekningsgrad, tilgjengeligeDager, henterStønadskontoer, dispatch } = this.props;
         return (
             <Collapse isOpened={true} forceInitialAnimation={false}>
                 <LoadContainer loading={henterStønadskontoer} overlay={false}>
@@ -63,9 +63,9 @@ class UttaksplanSide extends React.Component<Props, {}> {
                             twoColumns={true}
                         />
                     </Block>
-                    <Block visible={henterStønadskontoer === false && tilgjengeligeStønadskontoer.length > 0}>
-                        <TilgjengeligeDager
-                            tilgjengeligeStønadskontoer={tilgjengeligeStønadskontoer}
+                    <Block visible={henterStønadskontoer === false && tilgjengeligeDager.harTilgjengeligeDager}>
+                        <TilgjengeligeDagerOversikt
+                            tilgjengeligeDager={tilgjengeligeDager}
                             dekningsgrad={dekningsgrad}
                         />
                         <Uttaksplan
@@ -90,7 +90,7 @@ const mapStateToProps = (state: AppState): StateProps => {
         perioder: state.common.perioder,
         dekningsgrad: state.common.dekningsgrad || '100',
         familiehendelsesdato: state.common.familiehendelsesdato,
-        tilgjengeligeStønadskontoer: state.common.tilgjengeligeStønadskontoer,
+        tilgjengeligeDager: state.common.tilgjengeligeDager,
         stønadskontoerLastet: stønadskontoer.loaded === true,
         henterStønadskontoer: state.api.stønadskontoer.pending === true
     };

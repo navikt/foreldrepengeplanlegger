@@ -1,29 +1,29 @@
 import * as React from 'react';
-import { TilgjengeligStønadskonto } from '../../types/st\u00F8nadskontoer';
+import { TilgjengeligStønadskonto, TilgjengeligeDager } from '../../types/st\u00F8nadskontoer';
 import BEMHelper from 'common/utils/bem';
 import { Dekningsgrad } from 'common/types';
 import { getVarighetString } from 'common/utils/intlUtils';
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
 
-import './tilgjengeligeDager.less';
+import './tilgjengeligeDagerOversikt.less';
 import { Systemtittel } from 'nav-frontend-typografi';
 
 interface OwnProps {
-    tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[];
+    tilgjengeligeDager: TilgjengeligeDager;
     dekningsgrad: Dekningsgrad;
 }
 
 type Props = OwnProps & InjectedIntlProps;
 
-const bem = BEMHelper('tilgjengeligeDager');
+const bem = BEMHelper('tilgjengeligeDagerOversikt');
 
 const getDagerForDekningsgrad = (konto: TilgjengeligStønadskonto, dekningsgrad: Dekningsgrad): number =>
     dekningsgrad === '80' ? konto.dager80 : konto.dager100;
 
-const TilgjengeligeDager: React.StatelessComponent<Props> = ({ tilgjengeligeStønadskontoer, dekningsgrad, intl }) => (
+const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = ({ tilgjengeligeDager, dekningsgrad, intl }) => (
     <div className={bem.block}>
         <Systemtittel tag="h1">Tilgjengelige dager</Systemtittel>
-        {tilgjengeligeStønadskontoer.map((konto) => (
+        {tilgjengeligeDager.kontoer.map((konto) => (
             <div className={bem.element('konto')} key={konto.stønadskonto}>
                 <div className={bem.element('kontonavn')}>
                     <FormattedMessage id={`stønadskontotype.${konto.stønadskonto}`} />
@@ -37,4 +37,4 @@ const TilgjengeligeDager: React.StatelessComponent<Props> = ({ tilgjengeligeStø
     </div>
 );
 
-export default injectIntl(TilgjengeligeDager);
+export default injectIntl(TilgjengeligeDagerOversikt);

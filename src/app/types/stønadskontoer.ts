@@ -20,3 +20,14 @@ export interface TilgjengeligStønadskonto {
     dager80: number;
     dager100: number;
 }
+
+interface DagerForDekningsgrad {
+    totaltAntallDager: number;
+}
+
+export interface TilgjengeligeDager {
+    harTilgjengeligeDager: boolean;
+    kontoer: TilgjengeligStønadskonto[];
+    dekningsgrad80: DagerForDekningsgrad;
+    dekningsgrad100: DagerForDekningsgrad;
+}

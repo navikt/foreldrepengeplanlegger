@@ -3,14 +3,20 @@ import { Språkkode } from '../../intl/types';
 import { Periode, SituasjonSkjemadata, Situasjon } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { mockPerioder } from '../../mock/perioder_mock';
-import { TilgjengeligStønadskonto } from '../../types/st\u00F8nadskontoer';
+import { TilgjengeligeDager } from '../../types/st\u00F8nadskontoer';
 import { Dekningsgrad } from 'common/types';
+import { getTilgjengeligeDagerFraKontoer } from '../../utils/st\u00F8nadskontoer';
 
 export const getDefaultCommonState = (): CommonState => ({
     språkkode: 'nb',
     perioder: [...mockPerioder],
     familiehendelsesdato: new Date(),
-    tilgjengeligeStønadskontoer: [],
+    tilgjengeligeDager: {
+        kontoer: [],
+        dekningsgrad80: { totaltAntallDager: 0 },
+        dekningsgrad100: { totaltAntallDager: 0 },
+        harTilgjengeligeDager: false
+    },
     skjemadata: {
         antallBarn: 1,
         familiehendelsesdato: new Date(),
@@ -26,7 +32,7 @@ export interface CommonState {
     skjemadata?: SituasjonSkjemadata;
     familiehendelsesdato: Date;
     dekningsgrad?: Dekningsgrad;
-    tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[];
+    tilgjengeligeDager: TilgjengeligeDager;
 }
 
 const commonReducer = (state = getDefaultCommonState(), action: CommonActionTypes): CommonState => {
@@ -39,7 +45,10 @@ const commonReducer = (state = getDefaultCommonState(), action: CommonActionType
         case CommonActionKeys.SET_DEKNINGSGRAD:
             return { ...state, dekningsgrad: action.dekningsgrad };
         case CommonActionKeys.SET_STØNADSKONTOER:
-            return { ...state, tilgjengeligeStønadskontoer: action.stønadskontoer };
+            return {
+                ...state,
+                tilgjengeligeDager: getTilgjengeligeDagerFraKontoer(action.stønadskontoer)
+            };
         case CommonActionKeys.ADD_PERIODE:
             return {
                 ...state,

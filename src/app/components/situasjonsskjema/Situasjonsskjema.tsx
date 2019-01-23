@@ -32,6 +32,7 @@ class Situasjonsskjema extends React.Component<Props> {
         return (
             <>
                 <Formik
+                    isInitialValid={true}
                     initialValues={initialValues}
                     onSubmit={onSubmit}
                     render={(props: FormikProps<SituasjonSkjemadata>) => <SituasjonsskjemaForm formik={props} />}

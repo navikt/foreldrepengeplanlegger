@@ -26,7 +26,7 @@ export const stønadskontoSortOrder = {
     [StønadskontoType.AktivitetsfriKvote]: 8
 };
 
-const summerAntallDager = (kontoer: TilgjengeligStønadskonto[]): number => {
+export const summerAntallDagerIKontoer = (kontoer: TilgjengeligStønadskonto[]): number => {
     return kontoer.reduce((dager, konto) => konto.dager + dager, 0);
 };
 
@@ -50,10 +50,10 @@ const getFellesStønadskontoer = (kontoer: TilgjengeligStønadskonto[]): Tilgjen
 
 export const getTilgjengeligeDager = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligeDager => {
     return {
-        dagerTotalt: summerAntallDager(kontoer),
-        dagerForbeholdtMor: summerAntallDager(getMorsStønadskontoer(kontoer)),
-        dagerForbeholdtFar: summerAntallDager(getFarsStønadskontoer(kontoer)),
-        dagerFelles: summerAntallDager(getFellesStønadskontoer(kontoer)),
+        dagerTotalt: summerAntallDagerIKontoer(kontoer),
+        dagerForbeholdtMor: summerAntallDagerIKontoer(getMorsStønadskontoer(kontoer)),
+        dagerForbeholdtFar: summerAntallDagerIKontoer(getFarsStønadskontoer(kontoer)),
+        dagerFelles: summerAntallDagerIKontoer(getFellesStønadskontoer(kontoer)),
         stønadskontoer: kontoer
     };
 };

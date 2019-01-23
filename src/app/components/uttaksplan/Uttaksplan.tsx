@@ -8,6 +8,7 @@ import Forbruk from '../forbruk/Forbruk';
 import { getForbruk } from '../forbruk/forbrukUtils';
 import SorterbarPeriodeliste from '../periodeliste/SorterbarPeriodeliste';
 import { PeriodelisteProps } from '../periodeliste/types';
+import { Systemtittel } from 'nav-frontend-typografi';
 
 interface State {
     visSkjema: boolean;
@@ -38,16 +39,18 @@ class Uttaksplan extends React.Component<Props, State> {
         const { visSkjema } = this.state;
 
         return (
-            <>
-                <h1>Perioder</h1>
+            <section>
+                <Block margin="xxs">
+                    <Systemtittel tag="h1">Perioder</Systemtittel>
+                </Block>
 
-                <Block animated={false}>
+                <Block>
                     <div className="periodelisteWrapper">
                         <SorterbarPeriodeliste {...this.props} />
                     </div>
                 </Block>
 
-                <Block animated={false}>
+                <Block>
                     <Forbruk forbruk={getForbruk(perioder)} />
                 </Block>
 
@@ -65,7 +68,7 @@ class Uttaksplan extends React.Component<Props, State> {
                 </Block>
 
                 <PeriodeDevBar perioder={perioder} onAdd={onAdd} onDelete={onRemove} onChange={onUpdate} />
-            </>
+            </section>
         );
     }
 }

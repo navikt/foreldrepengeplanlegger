@@ -4,7 +4,7 @@ import { Periode, SituasjonSkjemadata, Situasjon, TilgjengeligeDager, Tilgjengel
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { mockPerioder } from '../../mock/perioder_mock';
 import { Dekningsgrad } from 'common/types';
-import { getTilgjengeligeDager } from '../../utils/kontoUtils';
+import { getTilgjengeligeDager, summerAntallDagerIKontoer } from '../../utils/kontoUtils';
 
 export const getDefaultCommonState = (): CommonState => ({
     språkkode: 'nb',
@@ -18,8 +18,14 @@ export const getDefaultCommonState = (): CommonState => ({
         navnForelder2: 'Amalie',
         situasjon: Situasjon.farOgMor
     },
-    stønadskontoer100: [],
-    stønadskontoer80: []
+    stønadskontoer100: {
+        kontoer: [],
+        dager: 0
+    },
+    stønadskontoer80: {
+        kontoer: [],
+        dager: 0
+    }
 });
 
 export interface CommonState {
@@ -29,8 +35,14 @@ export interface CommonState {
     familiehendelsesdato: Date;
     dekningsgrad: Dekningsgrad;
     tilgjengeligeDager?: TilgjengeligeDager;
-    stønadskontoer80: TilgjengeligStønadskonto[];
-    stønadskontoer100: TilgjengeligStønadskonto[];
+    stønadskontoer80: {
+        dager: number;
+        kontoer: TilgjengeligStønadskonto[];
+    };
+    stønadskontoer100: {
+        dager: number;
+        kontoer: TilgjengeligStønadskonto[];
+    };
 }
 
 const commonReducer = (state = getDefaultCommonState(), action: CommonActionTypes): CommonState => {
@@ -45,7 +57,7 @@ const commonReducer = (state = getDefaultCommonState(), action: CommonActionType
                 ...state,
                 dekningsgrad: action.dekningsgrad,
                 tilgjengeligeDager: getTilgjengeligeDager(
-                    action.dekningsgrad === '100' ? state.stønadskontoer100 : state.stønadskontoer80
+                    action.dekningsgrad === '100' ? state.stønadskontoer100.kontoer : state.stønadskontoer80.kontoer
                 )
             };
         case CommonActionKeys.SET_STØNADSKONTOER:
@@ -53,8 +65,14 @@ const commonReducer = (state = getDefaultCommonState(), action: CommonActionType
             const stønadskontoer100 = action.kontoer.dekning100;
             return {
                 ...state,
-                stønadskontoer100,
-                stønadskontoer80,
+                stønadskontoer100: {
+                    kontoer: stønadskontoer100,
+                    dager: summerAntallDagerIKontoer(stønadskontoer100)
+                },
+                stønadskontoer80: {
+                    kontoer: stønadskontoer80,
+                    dager: summerAntallDagerIKontoer(stønadskontoer80)
+                },
                 tilgjengeligeDager: getTilgjengeligeDager(
                     state.dekningsgrad === '100' ? stønadskontoer100 : stønadskontoer80
                 )

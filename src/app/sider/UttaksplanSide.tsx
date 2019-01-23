@@ -13,12 +13,12 @@ import {
 import { AppState } from '../redux/reducers/rootReducer';
 import { connect } from 'react-redux';
 import Block from 'common/components/block/Block';
-import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
 import { Dekningsgrad } from 'common/types';
 import { getStønadskontoer } from '../redux/actions/api/apiActionCreators';
 import LoadContainer from '../components/loadContainer/LoadContainer';
 import { Collapse } from 'react-collapse';
 import TilgjengeligeDagerOversikt from '../components/tilgjengeligeDagerOversikt/TilgjengeligeDagerOversikt';
+import DekningsgradSpørsmål from '../components/dekningsgradSp\u00F8rsm\u00E5l/DekningsgradSp\u00F8rsm\u00E5l';
 
 interface StateProps {
     perioder: Periode[];
@@ -27,6 +27,8 @@ interface StateProps {
     tilgjengeligeDager?: TilgjengeligeDager;
     stønadskontoerLastet: boolean;
     henterStønadskontoer: boolean;
+    dager100: number;
+    dager80: number;
 }
 
 type Props = StateProps & DispatchProps & RouteComponentProps;
@@ -38,38 +40,38 @@ class UttaksplanSide extends React.Component<Props, {}> {
         }
     }
     render() {
-        const { perioder, dekningsgrad, tilgjengeligeDager, henterStønadskontoer, dispatch } = this.props;
+        const {
+            perioder,
+            dekningsgrad,
+            tilgjengeligeDager,
+            henterStønadskontoer,
+            dager100,
+            dager80,
+            dispatch
+        } = this.props;
         const visInnhold = henterStønadskontoer === false && tilgjengeligeDager !== undefined;
         return (
             <Collapse isOpened={true} forceInitialAnimation={false}>
                 <LoadContainer loading={henterStønadskontoer} overlay={false}>
                     <Link to="/">Tilbake</Link>
                     <Block>
-                        <RadioGroup
-                            name="dekningsgrad"
-                            legend="Hvor lang periode med foreldrepenger ønsker du/dere?"
-                            options={[
-                                {
-                                    label: '49 uker med 100 prosent foreldrepenger',
-                                    value: '100'
-                                },
-                                {
-                                    label: '59 uker med 80 prosent foreldrepenger',
-                                    value: '80'
-                                }
-                            ]}
+                        <DekningsgradSpørsmål
+                            dekningsgrad={dekningsgrad}
                             onChange={(dg) => dispatch(setDekningsgrad(dg as Dekningsgrad))}
-                            checked={dekningsgrad}
-                            twoColumns={true}
+                            dager100={dager100}
+                            dager80={dager80}
                         />
                     </Block>
                     <Block visible={visInnhold}>
                         {tilgjengeligeDager !== undefined && (
                             <>
-                                <TilgjengeligeDagerOversikt
-                                    tilgjengeligeDager={tilgjengeligeDager}
-                                    dekningsgrad={dekningsgrad}
-                                />
+                                <Block>
+                                    <TilgjengeligeDagerOversikt
+                                        tilgjengeligeDager={tilgjengeligeDager}
+                                        dekningsgrad={dekningsgrad}
+                                        visKontoliste={true}
+                                    />
+                                </Block>
                                 <Uttaksplan
                                     perioder={perioder}
                                     sortable={true}
@@ -96,7 +98,9 @@ const mapStateToProps = (state: AppState): StateProps => {
         familiehendelsesdato: state.common.familiehendelsesdato,
         tilgjengeligeDager: state.common.tilgjengeligeDager,
         stønadskontoerLastet: stønadskontoer.loaded === true,
-        henterStønadskontoer: state.api.stønadskontoer.pending === true
+        henterStønadskontoer: state.api.stønadskontoer.pending === true,
+        dager100: state.common.stønadskontoer100.dager,
+        dager80: state.common.stønadskontoer80.dager
     };
 };
 

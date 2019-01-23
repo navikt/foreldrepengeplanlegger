@@ -38,16 +38,7 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
     try {
         yield put(updateApi({ stønadskontoer: { pending: true, error: undefined, result: undefined } }));
         const response = yield call(api.getUttakskontoer, params);
-        const stønadskontoer: GetStønadskontoerDTO = response.data.sort(sortStønadskonto);
-        yield put(
-            updateApi({
-                stønadskontoer: {
-                    loaded: true,
-                    pending: false,
-                    result: response.data
-                }
-            })
-        );
+        const stønadskontoer: GetStønadskontoerDTO = response.data;
         const kontoer80: TilgjengeligStønadskonto[] = [];
         const kontoer100: TilgjengeligStønadskonto[] = [];
         Object.keys(stønadskontoer.kontoer).forEach((konto) => {
@@ -60,6 +51,17 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
                 stønadskontoType: konto as StønadskontoType
             });
         });
+        kontoer80.sort(sortStønadskonto);
+        kontoer100.sort(sortStønadskonto);
+        yield put(
+            updateApi({
+                stønadskontoer: {
+                    loaded: true,
+                    pending: false,
+                    result: response.data
+                }
+            })
+        );
         yield put(setStønadskontoer(kontoer80, kontoer100));
     } catch (error) {
         yield put(
@@ -81,7 +83,7 @@ function* getStønadskontoerSaga(action: SubmitSkjemadataAction | GetStønadskon
         );
         try {
             yield call(getStønadskontoer, params);
-            action.history.push('/plan');
+            // action.history.push('/plan');
         } catch (error) {
             action.history.replace('/');
         }

@@ -17,9 +17,11 @@ type Props = OwnProps & InjectedIntlProps;
 
 const bem = BEMHelper('tilgjengeligeDagerOversikt');
 
-const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = ({ tilgjengeligeDager, dekningsgrad, intl }) => (
+const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl }) => (
     <div className={bem.block}>
-        <Systemtittel tag="h1">Tilgjengelige dager</Systemtittel>
+        <Systemtittel tag="h1">
+            Dere har rett på: {getVarighetString(tilgjengeligeDager.dagerTotalt, intl)} med foreldrepenger
+        </Systemtittel>
         {tilgjengeligeDager.stønadskontoer.map((konto) => (
             <div className={bem.element('konto')} key={konto.stønadskontoType}>
                 <div className={bem.element('kontonavn')}>
@@ -28,7 +30,6 @@ const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = ({ tilgjenge
                 <div className={bem.element('kontoDager')}>{getVarighetString(konto.dager, intl)}</div>
             </div>
         ))}
-        <div className={bem.element('total')} />
     </div>
 );
 

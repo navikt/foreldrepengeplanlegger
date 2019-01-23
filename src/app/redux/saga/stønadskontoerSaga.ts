@@ -62,7 +62,7 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
                 }
             })
         );
-        yield put(setStønadskontoer(kontoer80, kontoer100));
+        yield put(setStønadskontoer({ dekning80: kontoer80, dekning100: kontoer100 }));
     } catch (error) {
         yield put(
             updateApi({

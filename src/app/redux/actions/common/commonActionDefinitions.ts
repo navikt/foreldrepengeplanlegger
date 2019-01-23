@@ -32,10 +32,13 @@ export interface GetStønadskontoerAction {
     history: History;
 }
 
+export interface SetStønadskontoerKontoerPayload {
+    dekning80: TilgjengeligStønadskonto[];
+    dekning100: TilgjengeligStønadskonto[];
+}
 export interface SetStønadskontoerAction {
     type: CommonActionKeys.SET_STØNADSKONTOER;
-    stønadskontoer80: TilgjengeligStønadskonto[];
-    stønadskontoer100: TilgjengeligStønadskonto[];
+    kontoer: SetStønadskontoerKontoerPayload;
 }
 
 interface SetDekningsgrad {

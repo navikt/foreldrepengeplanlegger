@@ -1,6 +1,6 @@
-import { CommonActionKeys, CommonActionTypes } from './commonActionDefinitions';
+import { CommonActionKeys, CommonActionTypes, SetStønadskontoerKontoerPayload } from './commonActionDefinitions';
 import { Språkkode } from '../../../intl/types';
-import { Periode, SituasjonSkjemadata, TilgjengeligStønadskonto } from '../../../types';
+import { Periode, SituasjonSkjemadata } from '../../../types';
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
 
@@ -26,14 +26,10 @@ export function setDekningsgrad(dekningsgrad: Dekningsgrad): CommonActionTypes {
     };
 }
 
-export function setStønadskontoer(
-    stønadskontoer80: TilgjengeligStønadskonto[],
-    stønadskontoer100: TilgjengeligStønadskonto[]
-): CommonActionTypes {
+export function setStønadskontoer(kontoer: SetStønadskontoerKontoerPayload): CommonActionTypes {
     return {
         type: CommonActionKeys.SET_STØNADSKONTOER,
-        stønadskontoer80,
-        stønadskontoer100
+        kontoer
     };
 }
 

@@ -45,16 +45,18 @@ const commonReducer = (state = getDefaultCommonState(), action: CommonActionType
                 ...state,
                 dekningsgrad: action.dekningsgrad,
                 tilgjengeligeDager: getTilgjengeligeDager(
-                    state.dekningsgrad === '100' ? state.stønadskontoer100 : state.stønadskontoer80
+                    action.dekningsgrad === '100' ? state.stønadskontoer100 : state.stønadskontoer80
                 )
             };
         case CommonActionKeys.SET_STØNADSKONTOER:
+            const stønadskontoer80 = action.kontoer.dekning80;
+            const stønadskontoer100 = action.kontoer.dekning100;
             return {
                 ...state,
-                stønadskontoer100: action.stønadskontoer100,
-                stønadskontoer80: action.stønadskontoer80,
+                stønadskontoer100,
+                stønadskontoer80,
                 tilgjengeligeDager: getTilgjengeligeDager(
-                    state.dekningsgrad === '100' ? action.stønadskontoer100 : action.stønadskontoer80
+                    state.dekningsgrad === '100' ? stønadskontoer100 : stønadskontoer80
                 )
             };
         case CommonActionKeys.ADD_PERIODE:

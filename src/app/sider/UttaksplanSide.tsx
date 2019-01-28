@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Uttaksplan from '../components/uttaksplan/Uttaksplan';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
 import { DispatchProps } from '../redux/types';
 import { Periode, TilgjengeligeDager, SituasjonSkjemadata } from '../types';
 import {
@@ -36,7 +36,8 @@ interface StateProps {
 type Props = StateProps & DispatchProps & RouteComponentProps;
 
 class UttaksplanSide extends React.Component<Props, {}> {
-    componentDidMount() {
+    constructor(props: Props) {
+        super(props);
         if (this.props.stønadskontoerLastet === false) {
             this.props.dispatch(getStønadskontoer(this.props.history));
         }
@@ -54,6 +55,9 @@ class UttaksplanSide extends React.Component<Props, {}> {
             dispatch
         } = this.props;
         const visInnhold = henterStønadskontoer === false && tilgjengeligeDager !== undefined;
+        if (skjemadata === undefined && henterStønadskontoer === false) {
+            return <Redirect to="/" />;
+        }
         return (
             <Collapse isOpened={true} forceInitialAnimation={false}>
                 <Situasjonsoppsummering

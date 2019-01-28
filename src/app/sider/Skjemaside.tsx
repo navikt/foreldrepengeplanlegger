@@ -22,7 +22,7 @@ type Props = StateProps & DispatchProps & RouteComponentProps<any>;
 
 class Skjemaside extends React.Component<Props, {}> {
     render() {
-        const { henterStønadskontoer, dispatch } = this.props;
+        const { henterStønadskontoer, skjemadata, dispatch } = this.props;
         return (
             <LoadContainer loading={henterStønadskontoer} overlay={true}>
                 <Block margin="l">
@@ -40,7 +40,10 @@ class Skjemaside extends React.Component<Props, {}> {
                         </LesMerPanel>
                     </Introduksjon>
                 </Block>
-                <Situasjonsskjema onSubmit={(data) => dispatch(submitSkjemadata(data, this.props.history))} />
+                <Situasjonsskjema
+                    onSubmit={(data) => dispatch(submitSkjemadata(data, this.props.history))}
+                    skjemadata={skjemadata}
+                />
             </LoadContainer>
         );
     }

@@ -26,7 +26,7 @@ class Situasjonsskjema extends React.Component<Props> {
         return (
             <>
                 <Formik
-                    isInitialValid={false}
+                    isInitialValid={skjemadata !== undefined}
                     initialValues={initialValues}
                     onSubmit={onSubmit}
                     render={(props: FormikProps<SituasjonSkjemadata>) => <SituasjonsskjemaForm formik={props} />}

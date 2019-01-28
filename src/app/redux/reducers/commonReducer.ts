@@ -5,9 +5,9 @@ import { UttaksplanBuilder } from '../../utils/Builder';
 import { mockPerioder } from '../../mock/perioder_mock';
 import { Dekningsgrad } from 'common/types';
 import { getTilgjengeligeDager, summerAntallDagerIKontoer } from '../../utils/kontoUtils';
-import { setStorage } from '../../utils/storage';
+import { setStorage, getStorage } from '../../utils/storage';
 
-export const getDefaultCommonState = (): CommonState => ({
+export const getDefaultCommonState = (storage: CommonState | undefined): CommonState => ({
     språkkode: 'nb',
     perioder: [...mockPerioder],
     familiehendelsesdato: new Date(),
@@ -19,7 +19,8 @@ export const getDefaultCommonState = (): CommonState => ({
     stønadskontoer80: {
         kontoer: [],
         dager: 0
-    }
+    },
+    ...storage
 });
 
 export interface CommonState {
@@ -39,11 +40,13 @@ export interface CommonState {
     };
 }
 
-const commonReducer = (state = getDefaultCommonState(), action: CommonActionTypes): CommonState => {
+const commonReducer = (state = getDefaultCommonState(getStorage()), action: CommonActionTypes): CommonState => {
     const builder = UttaksplanBuilder(state.perioder, state.familiehendelsesdato);
     switch (action.type) {
         case CommonActionKeys.SET_SPRÅK:
             return { ...state, språkkode: action.språkkode };
+        case CommonActionKeys.APPLY_STORAGE:
+            return { ...state, ...action.storage };
         case CommonActionKeys.SUBMIT_SKJEMADATA:
             const updatedState = { ...state, skjemadata: action.data };
             setStorage(updatedState);

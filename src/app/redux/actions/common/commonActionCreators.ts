@@ -3,6 +3,7 @@ import { Språkkode } from '../../../intl/types';
 import { Periode, SituasjonSkjemadata } from '../../../types';
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
+import { CommonState } from '../../reducers/commonReducer';
 
 export function setSpråk(språkkode: Språkkode): CommonActionTypes {
     return {
@@ -66,6 +67,13 @@ export function movePeriode(periode: Periode, toIndex: number): CommonActionType
         type: CommonActionKeys.MOVE_PERIODE,
         periode,
         toIndex
+    };
+}
+
+export function applyStorage(storage: CommonState): CommonActionTypes {
+    return {
+        type: CommonActionKeys.APPLY_STORAGE,
+        storage
     };
 }
 

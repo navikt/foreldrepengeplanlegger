@@ -5,6 +5,7 @@ import { UttaksplanBuilder } from '../../utils/Builder';
 import { mockPerioder } from '../../mock/perioder_mock';
 import { Dekningsgrad } from 'common/types';
 import { getTilgjengeligeDager, summerAntallDagerIKontoer } from '../../utils/kontoUtils';
+import { setStorage } from '../../utils/storage';
 
 export const getDefaultCommonState = (): CommonState => ({
     språkkode: 'nb',
@@ -44,7 +45,9 @@ const commonReducer = (state = getDefaultCommonState(), action: CommonActionType
         case CommonActionKeys.SET_SPRÅK:
             return { ...state, språkkode: action.språkkode };
         case CommonActionKeys.SUBMIT_SKJEMADATA:
-            return { ...state, skjemadata: action.data };
+            const updatedState = { ...state, skjemadata: action.data };
+            setStorage(updatedState);
+            return updatedState;
         case CommonActionKeys.SET_DEKNINGSGRAD:
             return {
                 ...state,

@@ -17,6 +17,7 @@ export interface DatoInputProps extends DatovelgerCommonProps {
     dato?: Date;
     postfix?: string;
     feil?: Feil;
+    visÅrValger?: boolean;
     onChange: (dato?: Date) => void;
 }
 
@@ -26,7 +27,7 @@ const bem = BEMHelper('datoInput');
 
 class DatoInput extends React.Component<Props, {}> {
     render() {
-        const { id, label, postfix, feil, intl, onChange, kalender, name, ...rest } = this.props;
+        const { id, label, postfix, feil, intl, onChange, kalender, name, visÅrValger, ...rest } = this.props;
         const avgrensningerTekst = this.props.avgrensninger
             ? getAvgrensningerDescriptionForInput(intl, this.props.avgrensninger)
             : undefined;
@@ -41,6 +42,7 @@ class DatoInput extends React.Component<Props, {}> {
                             id={id ? id : name}
                             locale={intl.locale}
                             kalender={kalender}
+                            visÅrVelger={visÅrValger}
                             input={{
                                 id,
                                 placeholder: 'dd.mm.åååå',

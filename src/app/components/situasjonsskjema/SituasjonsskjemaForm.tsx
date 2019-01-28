@@ -9,7 +9,7 @@ import VelgAntallBarn from './parts/VelgAntallBarn';
 import Skjemablokk from '../skjemablokk/Skjemablokk';
 import VelgSituasjon from './parts/velgSituasjon/VelgSituasjon';
 import VelgForeldrenavn from './parts/VelgForeldrenavn';
-import { getAntallForeldreISituasjon, inputHasValue } from '../../utils/common';
+import { getAntallForeldreISituasjon, inputHasValue, getTermindatoAvgrensninger } from '../../utils/common';
 
 interface OwnProps {
     formik: FormikProps<SituasjonSkjemadata>;
@@ -37,6 +37,7 @@ class SituasjonsskjemaForm extends React.Component<Props, {}> {
         const { situasjon, antallBarn, familiehendelsesdato, navnForelder1, navnForelder2 } = formik.values;
         const visAntallBarn = visAntallBarnValg(situasjon, navnForelder1, navnForelder2);
         const visTermindato = visAntallBarn && antallBarn !== undefined;
+        const termindatoAvgrensninger = getTermindatoAvgrensninger();
         return (
             <Form>
                 <Skjemablokk tittel="Velg deres situasjon">
@@ -73,6 +74,8 @@ class SituasjonsskjemaForm extends React.Component<Props, {}> {
                         id="familiehendelsesdato"
                         name="familiehendelsesdato"
                         label="Termindato"
+                        avgrensninger={termindatoAvgrensninger}
+                        visÅrValger={true}
                         onChange={(dato: Date) => formik.setFieldValue('familiehendelsesdato', dato)}
                         dato={familiehendelsesdato}
                     />

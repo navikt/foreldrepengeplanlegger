@@ -1,7 +1,6 @@
 import * as React from 'react';
+import { Situasjon } from '../../../../types';
 import Situasjonsvalg from './Situasjonsvalg';
-import { Situasjon } from '../../types';
-import { SkjemaGruppe } from 'nav-frontend-skjema';
 
 export interface Props {
     valgtSituasjon?: Situasjon;
@@ -19,18 +18,16 @@ const situasjoner: Situasjon[] = [
 
 const VelgSituasjon: React.StatelessComponent<Props> = ({ valgtSituasjon, onChange }) => (
     <>
-        <SkjemaGruppe>
-            <div className="situasjonsvalgGruppe">
-                {situasjoner.map((situasjon) => (
-                    <Situasjonsvalg
-                        key={situasjon}
-                        situasjon={situasjon}
-                        checked={situasjon === valgtSituasjon}
-                        onChange={() => onChange(situasjon)}
-                    />
-                ))}
-            </div>
-        </SkjemaGruppe>
+        <div className="situasjonsvalgGruppe">
+            {situasjoner.map((situasjon) => (
+                <Situasjonsvalg
+                    key={situasjon}
+                    situasjon={situasjon}
+                    checked={situasjon === valgtSituasjon}
+                    onChange={() => onChange(situasjon)}
+                />
+            ))}
+        </div>
         Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en
         fellesperiode som dere kan dele.
     </>

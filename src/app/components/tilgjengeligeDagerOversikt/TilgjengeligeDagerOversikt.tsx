@@ -35,6 +35,7 @@ const Kontoliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl 
             </Block>
             {tilgjengeligeDager.stønadskontoer.map((konto) => (
                 <ListeElement
+                    key={konto.stønadskontoType}
                     verdi={getVarighetString(konto.dager, intl)}
                     tittel={intl.formatMessage({ id: `stønadskontotype.${konto.stønadskontoType}` })}
                 />

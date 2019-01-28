@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Formik, FormikProps } from 'formik';
 import SituasjonsskjemaForm from './SituasjonsskjemaForm';
-import { SituasjonSkjemadata, Situasjon } from '../../types';
+import { SituasjonSkjemadata } from '../../types';
 import * as yup from 'yup';
 
 interface Props {
@@ -22,17 +22,11 @@ const situasjonValidationSkjema = yup.object().shape({
 class Situasjonsskjema extends React.Component<Props> {
     render() {
         const { onSubmit, skjemadata } = this.props;
-        const initialValues: Partial<SituasjonSkjemadata> = skjemadata || {
-            antallBarn: 1,
-            familiehendelsesdato: new Date(),
-            navnForelder1: 'Tore',
-            navnForelder2: 'Turid',
-            situasjon: Situasjon.farOgMor
-        };
+        const initialValues: Partial<SituasjonSkjemadata> = skjemadata || {};
         return (
             <>
                 <Formik
-                    isInitialValid={true}
+                    isInitialValid={false}
                     initialValues={initialValues}
                     onSubmit={onSubmit}
                     render={(props: FormikProps<SituasjonSkjemadata>) => <SituasjonsskjemaForm formik={props} />}

@@ -3,12 +3,13 @@ import { FormikProps, Form } from 'formik';
 import Block from 'common/components/block/Block';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import DatoInput from 'common/components/skjema/datoInput/DatoInput';
-import { SituasjonSkjemadata } from '../../types';
+import { SituasjonSkjemadata, Situasjon } from '../../types';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import VelgAntallBarn from './parts/VelgAntallBarn';
 import Skjemablokk from '../skjemablokk/Skjemablokk';
 import VelgSituasjon from './parts/velgSituasjon/VelgSituasjon';
 import VelgForeldrenavn from './parts/VelgForeldrenavn';
+import { getAntallForeldreISituasjon, inputHasValue } from '../../utils/common';
 
 interface OwnProps {
     formik: FormikProps<SituasjonSkjemadata>;
@@ -16,10 +17,26 @@ interface OwnProps {
 
 type Props = OwnProps & InjectedIntlProps;
 
+const visAntallBarnValg = (
+    situasjon: Situasjon | undefined,
+    navnForelder1: string | undefined,
+    navnForelder2: string | undefined
+): boolean => {
+    if (situasjon === undefined) {
+        return false;
+    }
+    if (getAntallForeldreISituasjon(situasjon) === 1) {
+        return inputHasValue(navnForelder1);
+    }
+    return inputHasValue(navnForelder1) && inputHasValue(navnForelder2);
+};
+
 class SituasjonsskjemaForm extends React.Component<Props, {}> {
     render() {
         const { formik } = this.props;
         const { situasjon, antallBarn, familiehendelsesdato, navnForelder1, navnForelder2 } = formik.values;
+        const visAntallBarn = visAntallBarnValg(situasjon, navnForelder1, navnForelder2);
+        const visTermindato = visAntallBarn && antallBarn !== undefined;
         return (
             <Form>
                 <Skjemablokk tittel="Velg deres situasjon">
@@ -44,14 +61,14 @@ class SituasjonsskjemaForm extends React.Component<Props, {}> {
                     </Block>
                 </Skjemablokk>
 
-                <Skjemablokk tittel="Hvor mange barn venter dere?" visible={navnForelder1 !== undefined}>
+                <Skjemablokk tittel="Hvor mange barn venter dere?" visible={visAntallBarn}>
                     <VelgAntallBarn
                         antallBarn={antallBarn}
                         onChange={(antall) => formik.setFieldValue('antallBarn', antall)}
                     />
                 </Skjemablokk>
 
-                <Skjemablokk tittel="Når er barnet forventet?" visible={antallBarn !== undefined}>
+                <Skjemablokk tittel="Når er barnet forventet?" visible={visTermindato}>
                     <DatoInput
                         id="familiehendelsesdato"
                         name="familiehendelsesdato"

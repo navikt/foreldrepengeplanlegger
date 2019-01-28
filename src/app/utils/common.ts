@@ -1,4 +1,6 @@
+import moment from 'moment';
 import { Situasjon } from '../types';
+import { Avgrensninger } from 'nav-datovelger';
 
 export const getAntallForeldreISituasjon = (situasjon: Situasjon) => {
     switch (situasjon) {
@@ -13,4 +15,15 @@ export const getAntallForeldreISituasjon = (situasjon: Situasjon) => {
 
 export const inputHasValue = (value: string | undefined) => {
     return value !== undefined && value !== '';
+};
+
+export const getTermindatoAvgrensninger = (): Avgrensninger => {
+    return {
+        minDato: moment()
+            .subtract(6, 'months')
+            .toDate(),
+        maksDato: moment()
+            .add(24, 'months')
+            .toDate()
+    };
 };

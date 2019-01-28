@@ -10,3 +10,7 @@ export const getAntallForeldreISituasjon = (situasjon: Situasjon) => {
             return 2;
     }
 };
+
+export const inputHasValue = (value: string | undefined) => {
+    return value !== undefined && value !== '';
+};

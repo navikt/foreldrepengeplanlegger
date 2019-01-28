@@ -29,7 +29,7 @@ class SituasjonsskjemaForm extends React.Component<Props, {}> {
                             valgtSituasjon={situasjon}
                         />
                     </Block>
-                    <Block visible={situasjon !== undefined} margin="none">
+                    <Block visible={situasjon !== undefined} margin="none" animated={true}>
                         <VelgForeldrenavn
                             situasjon={situasjon}
                             navnForelder1={navnForelder1}

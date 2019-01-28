@@ -1,11 +1,11 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import { Situasjon } from '../../types';
+import { Situasjon } from '../../../../types';
 import { FormattedMessage } from 'react-intl';
-import Foreldrepar from 'common/components/foreldrepar/Foreldrepar';
-
-import './situasjonsvalg.less';
 import BEMHelper from 'common/utils/bem';
+import SituasjonForeldrepar from '../../../situasjonForeldrepar/SituasjonForeldrepar';
+
+import './velgSituasjon.less';
 
 interface Props {
     situasjon: Situasjon;
@@ -16,23 +16,6 @@ interface Props {
 interface State {
     hasFocus: boolean;
 }
-
-const getForeldreparFromSituasjon = (situasjon: Situasjon): React.ReactNode => {
-    switch (situasjon) {
-        case Situasjon.farOgMor:
-            return <Foreldrepar firstParent="far1" secondParent="mor1" />;
-        case Situasjon.bareFar:
-            return <Foreldrepar firstParent="far1" secondParent="mor1" variant="andreForelderHalvtSynlig" />;
-        case Situasjon.bareMor:
-            return <Foreldrepar firstParent="far1" secondParent="mor1" variant="førsteForelderHalvtSynlig" />;
-        case Situasjon.aleneomsorg:
-            return <Foreldrepar firstParent="far2" secondParent="mor2" variant="foreldreSeparert" />;
-        case Situasjon.morOgMedmor:
-            return <Foreldrepar firstParent="medmor1" secondParent="medmor2" />;
-        case Situasjon.farOgFar:
-            return <Foreldrepar firstParent="far4" secondParent="far3" />;
-    }
-};
 
 const bem = BEMHelper('situasjonsvalg');
 
@@ -58,7 +41,7 @@ class Situasjonsvalg extends React.Component<Props, State> {
                 })}>
                 <div className={bem.element('ikonOgLabel')}>
                     <div className={bem.element('ikon')} role="presentation" aria-hidden={true}>
-                        {getForeldreparFromSituasjon(situasjon)}
+                        <SituasjonForeldrepar situasjon={situasjon} />
                     </div>
                     <div className={bem.element('label')}>
                         <FormattedMessage id={`situasjon.${situasjon}`} />

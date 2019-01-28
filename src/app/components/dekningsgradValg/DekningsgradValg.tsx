@@ -11,7 +11,7 @@ interface Props {
     onChange: (dekningsgrad: Dekningsgrad) => void;
 }
 
-const DekningsgradSpørsmål: React.StatelessComponent<Props & InjectedIntlProps> = ({
+const DekningsgradValg: React.StatelessComponent<Props & InjectedIntlProps> = ({
     dekningsgrad,
     dager100,
     dager80,
@@ -37,4 +37,4 @@ const DekningsgradSpørsmål: React.StatelessComponent<Props & InjectedIntlProps
     />
 );
 
-export default injectIntl(DekningsgradSpørsmål);
+export default injectIntl(DekningsgradValg);

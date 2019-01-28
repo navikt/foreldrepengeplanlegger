@@ -1,0 +1,24 @@
+.introduksjon {
+    text-align: center;
+    &__ikon {
+        margin-bottom: 1rem;
+    }
+    &__tittel {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+        &:after {
+            content: '';
+            width: 4rem;
+            height: 2px;
+            background-color: #3e3832;
+            position: absolute;
+            left: 50%;
+            margin-left: -2rem;
+            bottom: -1.25rem;
+        }
+    }
+    &__content {
+        text-align: left;
+    }
+}

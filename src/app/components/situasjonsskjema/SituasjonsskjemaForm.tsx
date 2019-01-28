@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { FormikProps, Form } from 'formik';
-import VelgSituasjon from '../velgSituasjon/VelgSituasjon';
-import { Input } from 'nav-frontend-skjema';
-import { Row, Column } from 'nav-frontend-grid';
 import Block from 'common/components/block/Block';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import AntallBarnBolk from './parts/AntallBarnBolk';
 import DatoInput from 'common/components/skjema/datoInput/DatoInput';
 import { SituasjonSkjemadata } from '../../types';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import VelgAntallBarn from './parts/VelgAntallBarn';
+import Skjemablokk from '../skjemablokk/Skjemablokk';
+import VelgSituasjon from './parts/velgSituasjon/VelgSituasjon';
+import VelgForeldrenavn from './parts/VelgForeldrenavn';
 
 interface OwnProps {
     formik: FormikProps<SituasjonSkjemadata>;
@@ -22,38 +22,36 @@ class SituasjonsskjemaForm extends React.Component<Props, {}> {
         const { situasjon, antallBarn, familiehendelsesdato, navnForelder1, navnForelder2 } = formik.values;
         return (
             <Form>
-                <Block title="Velg din eller deres situasjon">
-                    <VelgSituasjon onChange={(s) => formik.setFieldValue('situasjon', s)} valgtSituasjon={situasjon} />
-                </Block>
-                <Block visible={situasjon !== undefined}>
-                    <Row>
-                        <Column xs="6">
-                            <Input
-                                label="Far"
-                                value={navnForelder1}
-                                name="navnForelder1"
-                                onChange={formik.handleChange}
-                            />
-                        </Column>
-                        <Column xs="6">
-                            <Input
-                                label="Mor"
-                                value={navnForelder2}
-                                name="navnForelder2"
-                                onChange={formik.handleChange}
-                            />
-                        </Column>
-                    </Row>
-                </Block>
-                <Block margin="none" visible={navnForelder1 !== undefined}>
-                    <AntallBarnBolk
-                        spørsmål="Hvor mange barn venter dere?"
-                        inputName="antallBarn"
+                <Skjemablokk tittel="Velg deres situasjon">
+                    <Block margin="s">
+                        <VelgSituasjon
+                            onChange={(s) => formik.setFieldValue('situasjon', s)}
+                            valgtSituasjon={situasjon}
+                        />
+                    </Block>
+                    <Block visible={situasjon !== undefined} margin="none">
+                        <VelgForeldrenavn
+                            situasjon={situasjon}
+                            navnForelder1={navnForelder1}
+                            navnForelder2={navnForelder2}
+                            onChangeForelder1={(navn) => {
+                                formik.setFieldValue('navnForelder1', navn);
+                            }}
+                            onChangeForelder2={(navn) => {
+                                formik.setFieldValue('navnForelder2', navn);
+                            }}
+                        />
+                    </Block>
+                </Skjemablokk>
+
+                <Skjemablokk tittel="Hvor mange barn venter dere?" visible={navnForelder1 !== undefined}>
+                    <VelgAntallBarn
                         antallBarn={antallBarn}
                         onChange={(antall) => formik.setFieldValue('antallBarn', antall)}
                     />
-                </Block>
-                <Block visible={antallBarn !== undefined} title="Når er barnet forventet?">
+                </Skjemablokk>
+
+                <Skjemablokk tittel="Når er barnet forventet?" visible={antallBarn !== undefined}>
                     <DatoInput
                         id="familiehendelsesdato"
                         name="familiehendelsesdato"
@@ -61,7 +59,7 @@ class SituasjonsskjemaForm extends React.Component<Props, {}> {
                         onChange={(dato: Date) => formik.setFieldValue('familiehendelsesdato', dato)}
                         dato={familiehendelsesdato}
                     />
-                </Block>
+                </Skjemablokk>
                 <Block align="center" visible={formik.isValid}>
                     <Hovedknapp htmlType="submit">Gå videre</Hovedknapp>
                 </Block>

@@ -1,26 +1,22 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import BEMHelper from 'common/utils/bem';
-
-import './block.less';
 import { Collapse } from 'react-collapse';
 import { collapseSpringConfig } from 'common/utils/animationUtils';
+import { Undertittel, Element } from 'nav-frontend-typografi';
+
+import './block.less';
 
 export type BlockPadding = 'xl' | 'l' | 'm' | 's' | 'xs' | 'xxs' | 'none';
 
 export interface BlockProps {
-    /** Default true */
-    title?: string;
+    title?: React.ReactNode;
+    headingSize?: 'm' | 'l';
     visible?: boolean;
-    /** Animation is set to default true if visible is !undefined, unless animated is set to false */
     animated?: boolean;
-    /** Size - default m */
     margin?: BlockPadding;
-    /** If Block contains child Block. If so, it disables animation */
     hasChildBlocks?: boolean;
-    /** content */
     children: React.ReactNode;
-    /** content */
     align?: undefined | 'left' | 'center' | 'right';
 }
 
@@ -33,7 +29,8 @@ const Block: React.StatelessComponent<BlockProps> = ({
     animated = false,
     children,
     hasChildBlocks,
-    align
+    align,
+    headingSize = 'm'
 }) => {
     if (children === undefined || (animated !== true && visible === false)) {
         return null;
@@ -45,7 +42,11 @@ const Block: React.StatelessComponent<BlockProps> = ({
         title !== undefined ? (
             <section className={contentClass}>
                 <div className="heading">
-                    <h1 className={`typo-element ${bem.element('title')}`}>{title}</h1>
+                    {headingSize === 'm' ? (
+                        <Element tag="h1">{title}</Element>
+                    ) : (
+                        <Undertittel tag="h1">{title}</Undertittel>
+                    )}
                 </div>
                 {children}
             </section>

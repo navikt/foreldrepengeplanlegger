@@ -13,7 +13,7 @@ export interface RadioOption {
 
 interface OwnProps {
     name: string;
-    legend: string;
+    legend?: string;
     options: RadioOption[];
     checked?: string;
     onChange: (value: string | undefined) => void;
@@ -29,25 +29,24 @@ class RadioGroup extends React.Component<Props> {
         const cls = classnames('radioPanelWrapper', {
             'radioPanelWrapper--twoColumns': twoColumns === true
         });
-        return (
-            <div className="radioPanelGruppe">
-                <Fieldset legend={legend}>
-                    <div className="radioPanelGruppe--responsive">
-                        {options.map((option) => {
-                            return (
-                                <div className={cls} key={option.value}>
-                                    <RadioPanel
-                                        name={name}
-                                        checked={checked === option.value}
-                                        onChange={() => onChange(option.value)}
-                                        {...option}
-                                    />
-                                </div>
-                            );
-                        })}
-                    </div>
-                </Fieldset>
+        const content = (
+            <div className="radioPanelGruppe--responsive">
+                {options.map((option) => {
+                    return (
+                        <div className={cls} key={option.value}>
+                            <RadioPanel
+                                name={name}
+                                checked={checked === option.value}
+                                onChange={() => onChange(option.value)}
+                                {...option}
+                            />
+                        </div>
+                    );
+                })}
             </div>
+        );
+        return (
+            <div className="radioPanelGruppe">{legend ? <Fieldset legend={legend}>{content}</Fieldset> : content}</div>
         );
     }
 }

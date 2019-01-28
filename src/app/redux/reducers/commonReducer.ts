@@ -12,7 +12,7 @@ export const getDefaultCommonState = (): CommonState => ({
     familiehendelsesdato: new Date(),
     dekningsgrad: '100',
     skjemadata: {
-        antallBarn: 1,
+        antallBarn: 2,
         familiehendelsesdato: new Date(),
         navnForelder1: 'Henrik',
         navnForelder2: 'Amalie',

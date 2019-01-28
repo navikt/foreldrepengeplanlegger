@@ -20,7 +20,6 @@ const DekningsgradValg: React.StatelessComponent<Props & InjectedIntlProps> = ({
 }) => (
     <RadioGroup
         name="dekningsgrad"
-        legend="Hvor lang periode med foreldrepenger ønsker du/dere?"
         options={[
             {
                 label: `${getVarighetString(dager100, intl)} med 100 prosent foreldrepenger`,

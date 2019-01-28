@@ -20,6 +20,7 @@ import TilgjengeligeDagerOversikt from '../components/tilgjengeligeDagerOversikt
 import LoadContainer from 'common/components/loadContainer/LoadContainer';
 import DekningsgradValg from '../components/dekningsgradValg/DekningsgradValg';
 import Situasjonsoppsummering from '../components/situasjonOppsummering/SituasjonOppsummering';
+import Skjemablokk from '../components/skjemablokk/Skjemablokk';
 
 interface StateProps {
     perioder: Periode[];
@@ -54,7 +55,8 @@ class UttaksplanSide extends React.Component<Props, {}> {
             skjemadata,
             dispatch
         } = this.props;
-        const visInnhold = henterStønadskontoer === false && tilgjengeligeDager !== undefined;
+        const visInnhold =
+            henterStønadskontoer === false && tilgjengeligeDager !== undefined && dekningsgrad !== undefined;
         if (skjemadata === undefined && henterStønadskontoer === false) {
             return <Redirect to="/" />;
         }
@@ -68,18 +70,18 @@ class UttaksplanSide extends React.Component<Props, {}> {
                     situasjon={skjemadata.situasjon}
                 />
                 <LoadContainer loading={henterStønadskontoer} overlay={false}>
-                    <Block>
+                    <Skjemablokk tittel="Hvor lang periode med foreldrepenger ønsker du/dere?">
                         <DekningsgradValg
                             dekningsgrad={dekningsgrad}
                             onChange={(dg) => dispatch(setDekningsgrad(dg as Dekningsgrad))}
                             dager100={dager100}
                             dager80={dager80}
                         />
-                    </Block>
+                    </Skjemablokk>
                     <Block visible={visInnhold}>
                         {tilgjengeligeDager !== undefined && (
                             <>
-                                <Block>
+                                <Block visible={false}>
                                     <TilgjengeligeDagerOversikt
                                         tilgjengeligeDager={tilgjengeligeDager}
                                         dekningsgrad={dekningsgrad}

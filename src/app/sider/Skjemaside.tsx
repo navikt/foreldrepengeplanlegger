@@ -10,8 +10,8 @@ import LoadContainer from 'common/components/loadContainer/LoadContainer';
 import IntroSirkelSvg from '../components/illustrasjoner/IntroSirkelSvg';
 import Introduksjon from '../components/introduksjon/Introduksjon';
 import { Ingress } from 'nav-frontend-typografi';
-import UtvidetInformasjon from 'common/components/utvidetInformasjon/UtvidetInformasjon';
 import Block from 'common/components/block/Block';
+import LesMerPanel from 'nav-frontend-lesmerpanel';
 
 interface StateProps {
     henterStønadskontoer?: boolean;
@@ -33,11 +33,11 @@ class Skjemaside extends React.Component<Props, {}> {
                                 kan utsette perioder med foreldrepenger.
                             </Ingress>
                         </Block>
-                        <UtvidetInformasjon
-                            apneLabel="Les om begrensninger i planleggeren"
-                            lukkLabel="Lukk informasjon">
-                            sdfølsdf
-                        </UtvidetInformasjon>
+                        <LesMerPanel apneTekst="Les om begrensninger i planleggeren" className="noPadding">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                            galley of type and scrambled it to make a type specimen book.
+                        </LesMerPanel>
                     </Introduksjon>
                 </Block>
                 <Situasjonsskjema onSubmit={(data) => dispatch(submitSkjemadata(data, this.props.history))} />

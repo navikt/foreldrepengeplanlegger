@@ -8655,6 +8655,16 @@
             "integrity": "sha512-XrlQXOJv1U81EQ1azD33TuHUNr4xsMgAffvs//LzgachMxYjMZv0F+dtPMlCQfJjOZhL93r4PyaaWAHCcDo4Yw==",
             "dev": true
         },
+        "nav-frontend-lesmerpanel": {
+            "version": "0.0.23",
+            "resolved": "https://registry.npmjs.org/nav-frontend-lesmerpanel/-/nav-frontend-lesmerpanel-0.0.23.tgz",
+            "integrity": "sha512-7CCvpFW5rhCEjcZY8xBt8IC47E238JiIUOIUcvn72jvN6HYiQUYyvE2U1JUdWdFzRWs3At0p5HmkBIs5e8cceQ=="
+        },
+        "nav-frontend-lesmerpanel-style": {
+            "version": "0.0.23",
+            "resolved": "https://registry.npmjs.org/nav-frontend-lesmerpanel-style/-/nav-frontend-lesmerpanel-style-0.0.23.tgz",
+            "integrity": "sha512-vvyxd20U3CJYA1Y+UljtpLAhI0VsQHYBNgs7vHKdC+eZIuW9nu7Jpa/hoCe65j7lDCCbvAZwQ3L+0i2mFsbJuw=="
+        },
         "nav-frontend-lukknapp": {
             "version": "1.0.16",
             "resolved": "https://registry.npmjs.org/nav-frontend-lukknapp/-/nav-frontend-lukknapp-1.0.16.tgz",

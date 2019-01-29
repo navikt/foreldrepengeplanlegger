@@ -1,7 +1,8 @@
 .periodeElement {
     position: relative;
-    padding: 1.5rem 2rem 1.5rem 2rem;
+    padding: 1rem 1.5rem 1rem calc(1.5rem + 0.25rem);
     margin: 0;
+    display: flex;
     &__tools {
         position: absolute;
         top: 1.5rem;
@@ -10,6 +11,23 @@
     }
     &__tool  {
         margin-bottom: 0.5rem;
+    }
+    &__periode {
+        flex: 3 1 0;
+    }
+    &__forelder {
+        min-width: 5rem;
+        align-self: flex-end;
+        margin-left: 0.5rem;
+    }
+    &__tidsperiode {
+        min-width: 9rem;
+        align-self: flex-end;
+        margin-left: 0.5rem;
+    }
+    .menuButton,
+    .dropdownButton {
+        width: 100%;
     }
 }
 

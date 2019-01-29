@@ -1,8 +1,8 @@
 import * as React from 'react';
 import BEMHelper from 'common/utils/bem';
 import { Fordeling } from '../../types';
-import { getVarighetString } from 'common/utils/intlUtils';
 import { InjectedIntl, injectIntl, InjectedIntlProps } from 'react-intl';
+import Varighet from '../varighet/Varighet';
 
 import './fordelingGraf.less';
 
@@ -28,7 +28,9 @@ const Tittel: React.StatelessComponent<{ navn?: string; dager?: number; intl: In
         <div className={bem.element('tittel')}>
             <div className={bem.element('forbruk')}>
                 <div className={bem.element('forbruk__navn')}>{navn}</div>
-                <div className={bem.element('forbruk__dager')}>{getVarighetString(dager, intl)}</div>
+                <div className={bem.element('forbruk__dager')}>
+                    <Varighet dager={dager} />
+                </div>
             </div>
         </div>
     );

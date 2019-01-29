@@ -21,7 +21,7 @@ type Props = OwnProps & InjectedIntlProps;
 
 const bem = BEMHelper('varighetDropdown');
 const VarighetMeny: React.StatelessComponent<Props> = ({ uker, dager, tidsperiode, onChange, intl }) => (
-    <DropdownButton label={getVarighetString(uker * 5 + dager, intl)} onClose={() => null}>
+    <DropdownButton label={getVarighetString(uker * 5 + dager, intl, 'normal')} onClose={() => null}>
         <div className={bem.block}>
             <UkerOgDagerVelger
                 tittel="Velg uker og dager"

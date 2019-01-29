@@ -96,7 +96,6 @@ class UttaksplanSide extends React.Component<Props, {}> {
                                     perioder={perioder}
                                     navnForelder1={skjemadata.navnForelder1}
                                     navnForelder2={skjemadata.navnForelder2}
-                                    tilgjengeligeDager={tilgjengeligeDager}
                                     forbruk={forbruk!}
                                     onAdd={(periode) => dispatch(addPeriode(periode))}
                                     onUpdate={(periode) => dispatch(updatePeriode(periode))}

@@ -52,7 +52,7 @@ export interface ApplyStorage {
 
 export interface UpdateForbruk {
     type: CommonActionKeys.UPDATE_FORBRUK;
-    forbruk: Forbruk;
+    forbruk: Forbruk | undefined;
 }
 
 interface SetDekningsgrad {

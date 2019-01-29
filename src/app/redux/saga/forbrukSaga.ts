@@ -1,20 +1,16 @@
 import { takeEvery, all, put, select } from 'redux-saga/effects';
 import { AppState } from '../reducers/rootReducer';
-import { getForbruk } from '../../utils/forbrukUtils';
 import { updateForbruk } from '../actions/common/commonActionCreators';
-import { Forelder } from '../../types';
 import { CommonActionKeys } from '../actions/common/commonActionDefinitions';
+import { selectForbruk } from '../selectors/forbrukSelector';
 const stateSelector = (state: AppState) => state;
 
 function* updateForbrukSaga() {
     const appState: AppState = yield select(stateSelector);
-    const forbruk = getForbruk(appState.common.perioder);
-    yield put(
-        updateForbruk({
-            forelder1: forbruk[Forelder.forelder1],
-            forelder2: forbruk[Forelder.forelder2]
-        })
-    );
+    const { perioder, tilgjengeligeDager } = appState.common;
+    if (perioder && tilgjengeligeDager) {
+        yield put(updateForbruk(selectForbruk(appState)));
+    }
 }
 
 function* forbrukSaga() {

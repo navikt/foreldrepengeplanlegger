@@ -77,7 +77,7 @@ export function applyStorage(storage: CommonState): CommonActionTypes {
     };
 }
 
-export function updateForbruk(forbruk: Forbruk): CommonActionTypes {
+export function updateForbruk(forbruk: Forbruk | undefined): CommonActionTypes {
     return {
         type: CommonActionKeys.UPDATE_FORBRUK,
         forbruk

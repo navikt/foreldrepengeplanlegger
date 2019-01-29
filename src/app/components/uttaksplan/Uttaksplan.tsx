@@ -10,7 +10,7 @@ import { PeriodelisteProps } from '../periodeliste/types';
 import { Systemtittel, Ingress } from 'nav-frontend-typografi';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import FordelingGraf from '../fordelingGraf/FordelingGraf';
-import { Forbruk, TilgjengeligeDager } from '../../types';
+import { Forbruk } from '../../types';
 
 interface State {
     visSkjema: boolean;
@@ -21,7 +21,6 @@ interface OwnProps {
     navnForelder1: string;
     navnForelder2?: string;
     forbruk: Forbruk;
-    tilgjengeligeDager: TilgjengeligeDager;
 }
 
 type Props = OwnProps & PeriodelisteProps;
@@ -41,16 +40,7 @@ class Uttaksplan extends React.Component<Props, State> {
     }
 
     render() {
-        const {
-            perioder,
-            onAdd,
-            onUpdate,
-            onRemove,
-            forbruk,
-            navnForelder1,
-            navnForelder2,
-            tilgjengeligeDager
-        } = this.props;
+        const { perioder, onAdd, onUpdate, onRemove, forbruk, navnForelder1, navnForelder2 } = this.props;
         const { visSkjema } = this.state;
         return (
             <section>
@@ -79,12 +69,13 @@ class Uttaksplan extends React.Component<Props, State> {
                                 </Knapp>
                             </Knapperad>
                         </Block>
-                        <FordelingGraf
-                            dagerTotalt={tilgjengeligeDager.dagerTotalt}
-                            forbruk={forbruk}
-                            navnForelder1={navnForelder1}
-                            navnForelder2={navnForelder2}
-                        />
+                        {forbruk.fordeling && (
+                            <FordelingGraf
+                                fordeling={forbruk.fordeling}
+                                navnForelder1={navnForelder1}
+                                navnForelder2={navnForelder2}
+                            />
+                        )}
                     </Block>
                 </div>
 

@@ -26,7 +26,6 @@ class Uttaksplanlegger extends React.Component<Props> {
                             <Block margin="l">
                                 <VelkommenTekst />
                             </Block>
-
                             <Switch>
                                 <Route exact={true} path="/plan" component={UttaksplanSide} />
                                 <Route path="/" component={Skjemaside} />

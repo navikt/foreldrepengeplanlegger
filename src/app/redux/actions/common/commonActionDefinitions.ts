@@ -1,5 +1,5 @@
 import { Språkkode } from '../../../intl/types';
-import { Periode, SituasjonSkjemadata, TilgjengeligStønadskonto, Forbruk } from '../../../types';
+import { Periode, SituasjonSkjemadata, TilgjengeligStønadskonto, Forbruk, TilgjengeligeDager } from '../../../types';
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
 import { CommonState } from '../../reducers/commonReducer';
@@ -16,7 +16,8 @@ export enum CommonActionKeys {
     'REMOVE_PERIODE' = 'removePeriode',
     'MOVE_PERIODE' = 'movePeriode',
     'APPLY_STORAGE' = 'applyStorage',
-    'UPDATE_FORBRUK' = 'updateForbruk'
+    'UPDATE_FORBRUK' = 'updateForbruk',
+    'UPDATE_TILGJENGELIGE_DAGER' = 'updateTilgjengeligeDager'
 }
 
 interface SetSpråk {
@@ -52,7 +53,12 @@ export interface ApplyStorage {
 
 export interface UpdateForbruk {
     type: CommonActionKeys.UPDATE_FORBRUK;
-    forbruk: Forbruk;
+    forbruk: Forbruk | undefined;
+}
+
+export interface UpdateTilgjengeligeDager {
+    type: CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER;
+    tilgjengeligeDager: TilgjengeligeDager | undefined;
 }
 
 interface SetDekningsgrad {
@@ -97,4 +103,5 @@ export type CommonActionTypes =
     | MovePeriode
     | SubmitSkjemadataAction
     | ApplyStorage
-    | UpdateForbruk;
+    | UpdateForbruk
+    | UpdateTilgjengeligeDager;

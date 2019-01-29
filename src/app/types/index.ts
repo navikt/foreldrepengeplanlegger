@@ -85,7 +85,21 @@ export interface ForbrukPerPeriodetype {
     helligdagerIPeriodene: number;
 }
 
+export interface Fordeling {
+    dagerTotalt: number;
+    dagerGjenstaende: number;
+    forelder1: {
+        uttaksdager: number;
+        pst: number;
+    };
+    forelder2?: {
+        uttaksdager: number;
+        pst: number;
+    };
+}
+
 export interface Forbruk {
     forelder1: ForelderForbruk;
     forelder2?: ForelderForbruk;
+    fordeling: Fordeling;
 }

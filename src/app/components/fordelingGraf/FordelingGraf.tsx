@@ -1,14 +1,13 @@
 import * as React from 'react';
 import BEMHelper from 'common/utils/bem';
-import { Forbruk } from '../../types';
-
-import './fordelingGraf.less';
+import { Fordeling } from '../../types';
 import { getVarighetString } from 'common/utils/intlUtils';
 import { InjectedIntl, injectIntl, InjectedIntlProps } from 'react-intl';
 
+import './fordelingGraf.less';
+
 interface OwnProps {
-    dagerTotalt: number;
-    forbruk: Forbruk;
+    fordeling: Fordeling;
     navnForelder1: string;
     navnForelder2?: string;
 }
@@ -22,7 +21,7 @@ const Tittel: React.StatelessComponent<{ navn?: string; dager?: number; intl: In
     dager,
     intl
 }) => {
-    if (!navn || !dager) {
+    if (navn === undefined || dager === undefined) {
         return null;
     }
     return (
@@ -35,35 +34,19 @@ const Tittel: React.StatelessComponent<{ navn?: string; dager?: number; intl: In
     );
 };
 
-const FordelingGraf: React.StatelessComponent<Props> = ({
-    dagerTotalt,
-    forbruk,
-    navnForelder1,
-    navnForelder2,
-    intl
-}) => {
-    const pst = 100 / dagerTotalt;
-    const pstForelder1 = pst * forbruk.forelder1.brukteUttaksdager;
-    const pstForelder2 = forbruk.forelder2 ? pst * forbruk.forelder2.brukteUttaksdager : 0;
-    const gjenstående =
-        dagerTotalt -
-        forbruk.forelder1.brukteUttaksdager -
-        (forbruk.forelder2 ? forbruk.forelder2.brukteUttaksdager : 0);
+const FordelingGraf: React.StatelessComponent<Props> = ({ fordeling, navnForelder1, navnForelder2, intl }) => {
+    const { forelder1, forelder2, dagerGjenstaende } = fordeling;
     return (
         <div className={bem.block}>
             <div className={bem.element('titler')}>
-                <Tittel navn={navnForelder1} dager={forbruk.forelder1.brukteUttaksdager} intl={intl} />
-                <Tittel
-                    navn={navnForelder2}
-                    dager={forbruk.forelder2 ? forbruk.forelder2.brukteUttaksdager : undefined}
-                    intl={intl}
-                />
-                <Tittel navn="Gjenstående" dager={gjenstående} intl={intl} />
+                <Tittel navn={navnForelder1} dager={forelder1.uttaksdager} intl={intl} />
+                <Tittel navn={navnForelder2} dager={forelder2 ? forelder2.uttaksdager : undefined} intl={intl} />
+                <Tittel navn="Gjenstående" dager={dagerGjenstaende} intl={intl} />
             </div>
             <div className={bem.element('graf')} role="presentation">
-                <div className={bem.element('graf__bar bkg-forelder1')} style={{ width: `${pstForelder1}%` }} />
-                {forbruk.forelder2 && (
-                    <div className={bem.element('graf__bar bkg-forelder2')} style={{ width: `${pstForelder2}%` }} />
+                <div className={bem.element('graf__bar bkg-forelder1')} style={{ width: `${forelder1.pst}%` }} />
+                {forelder2 && (
+                    <div className={bem.element('graf__bar bkg-forelder2')} style={{ width: `${forelder2.pst}%` }} />
                 )}
             </div>
         </div>

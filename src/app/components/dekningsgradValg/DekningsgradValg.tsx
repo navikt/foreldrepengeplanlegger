@@ -32,7 +32,8 @@ const DekningsgradValg: React.StatelessComponent<Props & InjectedIntlProps> = ({
         ]}
         onChange={onChange}
         checked={dekningsgrad}
-        twoColumns={true}
+        columns={2}
+        sameHeight={true}
     />
 );
 

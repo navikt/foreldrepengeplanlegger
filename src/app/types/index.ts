@@ -103,3 +103,7 @@ export interface Forbruk {
     forelder2?: ForelderForbruk;
     fordeling: Fordeling;
 }
+
+export interface SvgIkonProps {
+    title: string;
+}

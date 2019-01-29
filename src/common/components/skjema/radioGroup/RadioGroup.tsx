@@ -17,23 +17,24 @@ interface OwnProps {
     options: RadioOption[];
     checked?: string;
     onChange: (value: string | undefined) => void;
-    twoColumns?: boolean;
+    columns?: 1 | 2 | 3;
+    sameHeight?: boolean;
 }
 
 type Props = OwnProps;
 
 class RadioGroup extends React.Component<Props> {
     render() {
-        const { twoColumns = false, legend, checked, name, options, onChange } = this.props;
+        const { columns = 3, legend, checked, name, options, sameHeight, onChange } = this.props;
 
-        const cls = classnames('radioPanelWrapper', {
-            'radioPanelWrapper--twoColumns': twoColumns === true
+        const wrapperCls = classnames('radioPanelWrapper', `radioPanelWrapper--columns-${columns}`, {
+            'radioPanelWrapper--sameHeight': sameHeight
         });
         const content = (
             <div className="radioPanelGruppe--responsive">
                 {options.map((option) => {
                     return (
-                        <div className={cls} key={option.value}>
+                        <div className={wrapperCls} key={option.value}>
                             <RadioPanel
                                 name={name}
                                 checked={checked === option.value}

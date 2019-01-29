@@ -17,7 +17,7 @@ const bem = BEMHelper('varighetDropdown');
 const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, onChange, intl }) => {
     const label = gradering === 100 || gradering === undefined ? '100%' : `Gradert ${gradering}%`;
     return (
-        <DropdownButton label={label} onClose={() => null}>
+        <DropdownButton label={label}>
             <div className={bem.block}>
                 <SkjemaNumberStepper
                     tittel="Velg hvor mye foreldrepenger du skal ta ut"

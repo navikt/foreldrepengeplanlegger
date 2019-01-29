@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Periodetype } from '../../types';
 import Lukknapp from 'nav-frontend-lukknapp';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import BEMHelper from 'common/utils/bem';
@@ -9,13 +8,14 @@ import PeriodetypeMeny from './parts/PeriodetypeMeny';
 import { changePeriodeType } from '../../utils/typeUtils';
 import VarighetMeny from './parts/VarighetMeny';
 
-import './periodeElement.less';
 import { SortableHandle } from 'react-sortable-hoc';
 import { PeriodelisteElementProps } from './types';
 import GraderingMeny from './parts/GraderingMeny';
 import PeriodeFargestrek from './parts/periodeFargestrek/periodeFargestrek';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
 import Block from 'common/components/block/Block';
+
+import './periodeElement.less';
 
 type Props = PeriodelisteElementProps & InjectedIntlProps;
 
@@ -54,8 +54,9 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lo
             </div>
             <div className={bem.element('periode')}>
                 <PeriodetypeMeny
-                    type={periode.type}
-                    onChange={(type: Periodetype) => onUpdate(changePeriodeType(periode, type))}
+                    id={periode.id}
+                    periodetype={periode.type}
+                    onChange={(evt) => onUpdate(changePeriodeType(periode, evt.periodetype))}
                 />
             </div>
             <div className={bem.element('forelder')}>

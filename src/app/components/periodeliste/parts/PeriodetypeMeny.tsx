@@ -1,21 +1,88 @@
 import * as React from 'react';
 import { Periodetype } from '../../../types';
-import MenuButton, { MenuButtonOption } from 'common/components/menuButton/MenuButton';
+import Block from 'common/components/block/Block';
+import { Element } from 'nav-frontend-typografi';
+import DropdownButton from 'common/components/dropdownButton/DropdownButton';
+import RadioGroup, { RadioOption } from 'common/components/skjema/radioGroup/RadioGroup';
+import Knapperad from 'common/components/knapperad/Knapperad';
+import { Knapp } from 'nav-frontend-knapper';
+import { CheckboksPanel } from 'nav-frontend-skjema';
+import { closeMenu } from 'react-aria-menubutton';
+
+export type PeriodetypeMenyChangeEvent = (evt: { periodetype: Periodetype; gradering: number | undefined }) => void;
 
 interface Props {
-    type: Periodetype;
-    onChange: (type: Periodetype) => void;
+    id: string;
+    periodetype?: Periodetype;
+    gradering?: number;
+    onChange: PeriodetypeMenyChangeEvent;
 }
 
-const options: MenuButtonOption[] = [
+interface State {
+    periodetype: Periodetype | undefined;
+    erGradert: boolean;
+    gradering: number | undefined;
+}
+
+const options: RadioOption[] = [
     { value: Periodetype.Uttak, label: 'Uttak' },
     { value: Periodetype.Ferie, label: 'Ferie' },
     { value: Periodetype.Arbeid, label: 'Arbeid' },
     { value: Periodetype.UbetaltPermisjon, label: 'Ubetalt permisjon' }
 ];
 
-const PeriodetypeMeny: React.StatelessComponent<Props> = ({ onChange, type }) => (
-    <MenuButton onChange={onChange} options={options} selectedValue={type} />
-);
+class PeriodetypeMeny extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            erGradert: props.gradering !== undefined,
+            periodetype: props.periodetype,
+            gradering: undefined
+        };
+    }
+    render() {
+        const { id, onChange } = this.props;
+        const wrapperId = `wrapper-${id}`;
+        return (
+            <DropdownButton label="sdf" wrapperClassName="periodetypeMeny" id={wrapperId}>
+                <Block margin="xs">
+                    <Element>Velg periodetype</Element>
+                </Block>
+                <Block margin="s">
+                    <RadioGroup
+                        name="periodetype"
+                        options={options}
+                        checked={this.state.periodetype}
+                        onChange={(type) => this.setState({ periodetype: type as Periodetype })}
+                        columns={1}
+                    />
+                </Block>
+                <Block margin="xs">
+                    <Element>Gradert periode?</Element>
+                </Block>
+                <Block margin="s">
+                    <CheckboksPanel
+                        checked={this.state.erGradert}
+                        label="Gradert"
+                        onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+                            this.setState({ erGradert: evt.target.checked })
+                        }
+                    />
+                </Block>
+                <Knapperad align="center">
+                    <Knapp
+                        htmlType="button"
+                        disabled={this.state.periodetype === undefined}
+                        onClick={() => {
+                            closeMenu(wrapperId);
+                            onChange({ periodetype: this.state.periodetype!, gradering: this.state.gradering });
+                        }}>
+                        Ok
+                    </Knapp>
+                </Knapperad>
+            </DropdownButton>
+        );
+    }
+}
 
 export default PeriodetypeMeny;

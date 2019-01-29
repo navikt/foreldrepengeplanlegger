@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Wrapper, Button, Menu } from 'react-aria-menubutton';
-import { guid } from 'nav-frontend-js-utils';
+import classnames from 'classnames';
 
 import BEMHelper from 'common/utils/bem';
 
@@ -8,19 +8,19 @@ import './dropdownButton.less';
 
 interface Props {
     label: React.ReactNode;
-    onClose: () => void;
+    id?: string;
+    wrapperClassName?: string;
 }
 
 const bem = BEMHelper('dropdownButton');
 
-const DropdownButton: React.StatelessComponent<Props> = ({ label, children, onClose }) => {
-    const id = guid();
+const DropdownButton: React.StatelessComponent<Props> = ({ label, id, wrapperClassName, children }) => {
     return (
-        <Wrapper className={bem.block} onSelection={onClose}>
-            <Button className={bem.element('button')} id={id} role="popupbutton">
+        <Wrapper className={bem.block} id={id}>
+            <Button className={bem.element('button')} role="popupbutton">
                 {label}
             </Button>
-            <Menu role="dialog" className={bem.element('wrapper')}>
+            <Menu role="dialog" className={classnames(bem.element('wrapper'), wrapperClassName)}>
                 {children}
             </Menu>
         </Wrapper>

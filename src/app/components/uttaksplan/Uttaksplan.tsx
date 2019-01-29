@@ -62,7 +62,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                 onSubmit={(periode) => this.addPeriode(periode)}
                             />
                         </Block>
-                        <Block visible={visSkjema !== true}>
+                        <Block visible={visSkjema !== true} margin="l">
                             <Knapperad align="center">
                                 <Knapp type="standard" onClick={() => this.setState({ visSkjema: true })}>
                                     Legg til periode

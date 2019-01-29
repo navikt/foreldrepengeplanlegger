@@ -16,15 +16,25 @@
     }
     &__wrapper {
         position: absolute;
+        left: 0;
+        right: 0;
         z-index: @z-popup;
         top: 100%;
+        margin-top: 0.25rem;
         min-width: 10rem;
+        background-color: #fff;
+        padding: 1.5rem;
+        border: 1px solid #e5e5e5;
+        border-radius: 0.5rem;
     }
-    &__menuItem {
+    &__menuItem,
+    &__menuItem--clean {
         .borderButton();
-        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
-        padding: 1rem 0.5rem;
-        margin-bottom: 0.25rem;
+        padding: 1rem 1rem;
+        margin-bottom: 0.5rem;
         cursor: pointer;
+    }
+    &__menuItem--clean {
+        padding: 0;
     }
 }

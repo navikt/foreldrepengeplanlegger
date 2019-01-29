@@ -1,6 +1,6 @@
 import { CommonActionKeys, CommonActionTypes, SetStønadskontoerKontoerPayload } from './commonActionDefinitions';
 import { Språkkode } from '../../../intl/types';
-import { Periode, SituasjonSkjemadata } from '../../../types';
+import { Periode, SituasjonSkjemadata, Forbruk } from '../../../types';
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
 import { CommonState } from '../../reducers/commonReducer';
@@ -74,6 +74,13 @@ export function applyStorage(storage: CommonState): CommonActionTypes {
     return {
         type: CommonActionKeys.APPLY_STORAGE,
         storage
+    };
+}
+
+export function updateForbruk(forbruk: Forbruk): CommonActionTypes {
+    return {
+        type: CommonActionKeys.UPDATE_FORBRUK,
+        forbruk
     };
 }
 

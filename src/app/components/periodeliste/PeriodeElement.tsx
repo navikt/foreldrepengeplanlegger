@@ -53,6 +53,11 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lo
                 </div>
             </div>
             <Block margin="xxs">
+                <PeriodetypeMeny
+                    type={periode.type}
+                    onChange={(type: Periodetype) => onUpdate(changePeriodeType(periode, type))}
+                />
+                {' - '}
                 <ForelderMeny
                     forelder={periode.forelder}
                     onChange={(forelder) =>
@@ -62,25 +67,23 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lo
                         })
                     }
                 />
-                {' - '}
-                <PeriodetypeMeny
-                    type={periode.type}
-                    onChange={(type: Periodetype) => onUpdate(changePeriodeType(periode, type))}
-                />
-                {' - '}
-                <VarighetMeny
-                    tidsperiode={periode.tidsperiode}
-                    uker={uker}
-                    dager={dager}
-                    onChange={(ukerOgDager) =>
-                        onUpdate(Perioden(periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
-                    }
-                />
-                {' - '}
-                <GraderingMeny
-                    gradering={periode.gradering}
-                    onChange={(gradering) => onUpdate({ ...periode, gradering })}
-                />
+                {1 + 1 === 3 && (
+                    <>
+                        <VarighetMeny
+                            tidsperiode={periode.tidsperiode}
+                            uker={uker}
+                            dager={dager}
+                            onChange={(ukerOgDager) =>
+                                onUpdate(Perioden(periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
+                            }
+                        />
+                        {' - '}
+                        <GraderingMeny
+                            gradering={periode.gradering}
+                            onChange={(gradering) => onUpdate({ ...periode, gradering })}
+                        />
+                    </>
+                )}
             </Block>
             <Block margin="xxs">
                 {lockable && (

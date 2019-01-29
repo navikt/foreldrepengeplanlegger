@@ -1,3 +1,5 @@
+import { Periodetype } from './periodetyper';
+
 export * from './periodetyper';
 
 export enum Forelder {
@@ -70,4 +72,20 @@ export interface TilgjengeligeDager {
     dagerForbeholdtFar: number;
     dagerFelles: number;
     stønadskontoer: TilgjengeligStønadskonto[];
+}
+
+export interface ForelderForbruk {
+    brukteUttaksdager: number;
+    forbrukPerPeriodetype: ForbrukPerPeriodetype[];
+}
+
+export interface ForbrukPerPeriodetype {
+    periodetype: Periodetype;
+    uttaksdagerIPeriodene: number;
+    helligdagerIPeriodene: number;
+}
+
+export interface Forbruk {
+    forelder1: ForelderForbruk;
+    forelder2?: ForelderForbruk;
 }

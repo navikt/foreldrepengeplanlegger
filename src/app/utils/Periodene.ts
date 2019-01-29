@@ -13,6 +13,7 @@ import {
 } from '../types/periodetyper';
 import { Forelder } from '../types';
 import { Perioden } from './Perioden';
+import { getUttaksinfoFromPeriode } from './periodeinfo';
 
 export const Periodene = (perioder: Periode[]) => ({
     getPeriode: (id: string) => getPeriode(perioder, id),
@@ -27,6 +28,8 @@ export const Periodene = (perioder: Periode[]) => ({
         getFørstePeriodeEtterFamiliehendelsesdato(perioder, dato),
     getFørsteUttaksdag: () => getFørsteUttaksdag(perioder),
     getAntallFeriedager: (forelder?: Forelder) => getAntallFeriedager(perioder, forelder),
+    getAntallUttaksdager: () => getAntallUttaksdager(perioder),
+    getAntallHelligdager: () => getAntallHelligdager(perioder),
     finnOverlappendePerioder: (periode: Periode) => finnOverlappendePerioder(perioder, periode),
     finnPeriodeMedDato: (dato: Date) => finnPeriodeMedDato(perioder, dato),
     finnAlleForegåendePerioder: (periode: Periode) => finnPerioderFørPeriode(perioder, periode),
@@ -177,4 +180,24 @@ function getAntallFeriedager(perioder: Periode[], forelder?: Forelder): number {
         .filter((p) => (isValidTidsperiode(p.tidsperiode) && forelder ? p.forelder === forelder : true))
         .map((p) => Tidsperioden(p.tidsperiode).getAntallUttaksdager())
         .reduce((tot = 0, curr) => tot + curr, 0);
+}
+
+function getAntallUttaksdager(perioder: Periode[]): number {
+    return perioder.reduce((dager, periode) => {
+        const uttaksinfo = periode.uttaksinfo || getUttaksinfoFromPeriode(periode);
+        if (uttaksinfo) {
+            return dager + uttaksinfo.uttaksdagerBrukt;
+        }
+        return dager;
+    }, 0);
+}
+
+function getAntallHelligdager(perioder: Periode[]): number {
+    return perioder.reduce((dager, periode) => {
+        const uttaksinfo = periode.uttaksinfo || getUttaksinfoFromPeriode(periode);
+        if (uttaksinfo) {
+            return dager + (uttaksinfo.helligdager || 0);
+        }
+        return dager;
+    }, 0);
 }

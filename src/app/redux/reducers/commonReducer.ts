@@ -1,6 +1,6 @@
 import { CommonActionKeys, CommonActionTypes } from '../actions/common/commonActionDefinitions';
 import { Språkkode } from '../../intl/types';
-import { Periode, SituasjonSkjemadata, TilgjengeligeDager, TilgjengeligStønadskonto } from '../../types';
+import { Periode, SituasjonSkjemadata, TilgjengeligeDager, TilgjengeligStønadskonto, Forbruk } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { mockPerioder } from '../../mock/perioder_mock';
 import { Dekningsgrad } from 'common/types';
@@ -38,6 +38,7 @@ export interface CommonState {
         dager: number;
         kontoer: TilgjengeligStønadskonto[];
     };
+    forbruk?: Forbruk;
 }
 
 const commonReducer = (state = getDefaultCommonState(getStorage()), action: CommonActionTypes): CommonState => {
@@ -47,6 +48,8 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
             return { ...state, språkkode: action.språkkode };
         case CommonActionKeys.APPLY_STORAGE:
             return { ...state, ...action.storage };
+        case CommonActionKeys.UPDATE_FORBRUK:
+            return { ...state, forbruk: action.forbruk };
         case CommonActionKeys.SUBMIT_SKJEMADATA:
             const updatedState = { ...state, skjemadata: action.data };
             setStorage(updatedState);

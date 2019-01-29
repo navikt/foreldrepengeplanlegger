@@ -1,0 +1,52 @@
+@import '../../styles/variables.less';
+.fordelingGraf {
+    &__titler {
+        display: flex;
+    }
+    &__tittel  {
+        flex: 1 1 0;
+        &:first-child {
+            text-align: left;
+        }
+        &:nth-child(2) {
+            text-align: center;
+        }
+        &:last-child {
+            text-align: right;
+        }
+    }
+    &__forbruk {
+        text-align: center;
+        margin-bottom: 1rem;
+        &__navn {
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        &__dager {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+    }
+    &__graf {
+        position: relative;
+        background-color: #d9d6d1;
+        display: flex;
+        &__bar {
+            background-color: gray;
+            height: 2.5rem;
+            display: block;
+            margin: 0;
+            border-right: 1px solid white;
+            &:last-child {
+                border-right: none;
+            }
+        }
+    }
+    .bkg-forelder1 {
+        background-color: @c-periodefarge-lilla;
+    }
+    .bkg-forelder2 {
+        background-color: @c-periodefarge-blaa;
+    }
+}

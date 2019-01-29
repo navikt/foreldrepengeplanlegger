@@ -2,7 +2,7 @@ import * as React from 'react';
 import Uttaksplan from '../components/uttaksplan/Uttaksplan';
 import { RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
 import { DispatchProps } from '../redux/types';
-import { Periode, TilgjengeligeDager, SituasjonSkjemadata } from '../types';
+import { Periode, TilgjengeligeDager, SituasjonSkjemadata, Forbruk } from '../types';
 import {
     addPeriode,
     updatePeriode,
@@ -15,7 +15,6 @@ import { connect } from 'react-redux';
 import Block from 'common/components/block/Block';
 import { Dekningsgrad } from 'common/types';
 import { getStønadskontoer } from '../redux/actions/api/apiActionCreators';
-import { Collapse } from 'react-collapse';
 import TilgjengeligeDagerOversikt from '../components/tilgjengeligeDagerOversikt/TilgjengeligeDagerOversikt';
 import LoadContainer from 'common/components/loadContainer/LoadContainer';
 import DekningsgradValg from '../components/dekningsgradValg/DekningsgradValg';
@@ -32,6 +31,7 @@ interface StateProps {
     dager100: number;
     dager80: number;
     skjemadata: SituasjonSkjemadata;
+    forbruk?: Forbruk;
 }
 
 type Props = StateProps & DispatchProps & RouteComponentProps;
@@ -53,15 +53,19 @@ class UttaksplanSide extends React.Component<Props, {}> {
             dager100,
             dager80,
             skjemadata,
+            forbruk,
             dispatch
         } = this.props;
         const visInnhold =
-            henterStønadskontoer === false && tilgjengeligeDager !== undefined && dekningsgrad !== undefined;
+            henterStønadskontoer === false &&
+            tilgjengeligeDager !== undefined &&
+            dekningsgrad !== undefined &&
+            forbruk !== undefined;
         if (skjemadata === undefined && henterStønadskontoer === false) {
             return <Redirect to="/" />;
         }
         return (
-            <Collapse isOpened={true} forceInitialAnimation={false}>
+            <>
                 <Situasjonsoppsummering
                     familiehendelsesdato={familiehendelsesdato}
                     antallBarn={skjemadata.antallBarn}
@@ -89,8 +93,11 @@ class UttaksplanSide extends React.Component<Props, {}> {
                                     />
                                 </Block>
                                 <Uttaksplan
-                                    lockable={true}
                                     perioder={perioder}
+                                    navnForelder1={skjemadata.navnForelder1}
+                                    navnForelder2={skjemadata.navnForelder2}
+                                    tilgjengeligeDager={tilgjengeligeDager}
+                                    forbruk={forbruk!}
                                     onAdd={(periode) => dispatch(addPeriode(periode))}
                                     onUpdate={(periode) => dispatch(updatePeriode(periode))}
                                     onRemove={(periode) => dispatch(removePeriode(periode))}
@@ -100,7 +107,7 @@ class UttaksplanSide extends React.Component<Props, {}> {
                         )}
                     </Block>
                 </LoadContainer>
-            </Collapse>
+            </>
         );
     }
 }
@@ -116,7 +123,8 @@ const mapStateToProps = (state: AppState): StateProps => {
         henterStønadskontoer: state.api.stønadskontoer.pending === true,
         dager100: state.common.stønadskontoer100.dager,
         dager80: state.common.stønadskontoer80.dager,
-        skjemadata: state.common.skjemadata!
+        skjemadata: state.common.skjemadata!,
+        forbruk: state.common.forbruk
     };
 };
 

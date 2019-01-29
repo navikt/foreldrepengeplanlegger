@@ -4,12 +4,13 @@ import Periodeskjema from '../periodeskjema/Periodeskjema';
 import Block from 'common/components/block/Block';
 import { Periode } from '../../types/periodetyper';
 import PeriodeDevBar from '../../dev/PeriodeDevBar';
-import Forbruk from '../forbruk/Forbruk';
-import { getForbruk } from '../forbruk/forbrukUtils';
+
 import SorterbarPeriodeliste from '../periodeliste/SorterbarPeriodeliste';
 import { PeriodelisteProps } from '../periodeliste/types';
 import { Systemtittel, Ingress } from 'nav-frontend-typografi';
 import Knapperad from 'common/components/knapperad/Knapperad';
+import FordelingGraf from '../fordelingGraf/FordelingGraf';
+import { Forbruk, TilgjengeligeDager } from '../../types';
 
 interface State {
     visSkjema: boolean;
@@ -17,6 +18,10 @@ interface State {
 
 interface OwnProps {
     perioder: Periode[];
+    navnForelder1: string;
+    navnForelder2?: string;
+    forbruk: Forbruk;
+    tilgjengeligeDager: TilgjengeligeDager;
 }
 
 type Props = OwnProps & PeriodelisteProps;
@@ -36,9 +41,17 @@ class Uttaksplan extends React.Component<Props, State> {
     }
 
     render() {
-        const { perioder, onRemove, onAdd, onUpdate } = this.props;
+        const {
+            perioder,
+            onAdd,
+            onUpdate,
+            onRemove,
+            forbruk,
+            navnForelder1,
+            navnForelder2,
+            tilgjengeligeDager
+        } = this.props;
         const { visSkjema } = this.state;
-
         return (
             <section>
                 <Block margin="xxs">
@@ -48,8 +61,8 @@ class Uttaksplan extends React.Component<Props, State> {
                     <Ingress>Fordel dagene deres ved å legge til og justere perioden i listen nedenfor</Ingress>
                 </Block>
 
-                <Block>
-                    <div className="periodelisteWrapper">
+                <div className="periodelisteWrapper">
+                    <Block animated={true}>
                         <Block margin="s">
                             <SorterbarPeriodeliste {...this.props} />
                         </Block>
@@ -66,11 +79,14 @@ class Uttaksplan extends React.Component<Props, State> {
                                 </Knapp>
                             </Knapperad>
                         </Block>
-                        <Block>
-                            <Forbruk forbruk={getForbruk(perioder)} />
-                        </Block>
-                    </div>
-                </Block>
+                        <FordelingGraf
+                            dagerTotalt={tilgjengeligeDager.dagerTotalt}
+                            forbruk={forbruk}
+                            navnForelder1={navnForelder1}
+                            navnForelder2={navnForelder2}
+                        />
+                    </Block>
+                </div>
 
                 <PeriodeDevBar perioder={perioder} onAdd={onAdd} onDelete={onRemove} onChange={onUpdate} />
             </section>

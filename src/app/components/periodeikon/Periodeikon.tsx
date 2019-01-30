@@ -6,6 +6,7 @@ import { getPeriodetypeFarge } from '../../utils/styleutils';
 import ArbeidIkon from './ikoner/ArbeidIkon';
 import FerieIkon from './ikoner/FerieIkon';
 import UttakIkon from './ikoner/UttakIkon';
+import GradertUttakIkon from './ikoner/GradertUttakIkon';
 
 export interface Props {
     periodetype: Periodetype;
@@ -18,6 +19,8 @@ const getPeriodetypeIkon = (periodetype: Periodetype, title = '') => {
             return <ArbeidIkon title={title} />;
         case 'ferie':
             return <FerieIkon title={title} />;
+        case 'gradertUttak':
+            return <GradertUttakIkon title={title} />;
         default:
             return <UttakIkon title={title} />;
     }

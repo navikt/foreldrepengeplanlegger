@@ -1,19 +1,16 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
-import { Periodetype, Forelder } from '../../../types';
+import { Periodetype, Periode } from '../../../types';
 import MenuButton, { MenuButtonOption } from 'common/components/menuButton/MenuButton';
 import Periodeikon from '../../periodeikon/Periodeikon';
 import getMessage from 'common/utils/i18nUtils';
-import { Tidsperiode } from 'common/types';
 import { Tidsperioden } from '../../../utils/Tidsperioden';
 import { Element } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
 
 interface OwnProps {
-    periodetype?: Periodetype;
-    tidsperiode?: Tidsperiode;
+    periode: Periode;
     foreldernavn?: string;
-    forelder?: Forelder;
     onChange: (periodetype: Periodetype) => void;
 }
 
@@ -27,20 +24,15 @@ const getOptions = (intl: InjectedIntl): MenuButtonOption[] => [
     // { value: Periodetype.UbetaltPermisjon, label: getMessage(intl, `periodetype.${Periodetype.UbetaltPermisjon}`) },
 ];
 
-const PeriodetypeMeny: React.StatelessComponent<Props> = ({
-    periodetype,
-    tidsperiode,
-    foreldernavn,
-    onChange,
-    forelder,
-    intl
-}) => {
+const PeriodetypeMeny: React.StatelessComponent<Props> = ({ periode, foreldernavn, onChange, intl }) => {
     return (
         <MenuButton
             options={getOptions(intl)}
             onChange={(value) => onChange(value as Periodetype)}
-            selectedValue={periodetype}
-            iconRenderer={(option) => <Periodeikon periodetype={option.value as Periodetype} forelder={forelder} />}
+            selectedValue={periode.type}
+            iconRenderer={(option) => (
+                <Periodeikon periodetype={option.value as Periodetype} forelder={periode.forelder} />
+            )}
             dialogClassName={'periodetypeDialog'}
             headerRenderer={() => (
                 <Block margin="xs">
@@ -53,9 +45,9 @@ const PeriodetypeMeny: React.StatelessComponent<Props> = ({
                         {getMessage(intl, `periodetype.${option.value}`)}
                         {foreldernavn && <span> - {foreldernavn}</span>}
                     </div>
-                    {tidsperiode && (
+                    {periode.tidsperiode && (
                         <div className="periodetypeMenyLabel__tidsperiode">
-                            {Tidsperioden(tidsperiode).formaterStringKort(intl)}
+                            {Tidsperioden(periode.tidsperiode).formaterStringKort(intl)}
                         </div>
                     )}
                 </div>

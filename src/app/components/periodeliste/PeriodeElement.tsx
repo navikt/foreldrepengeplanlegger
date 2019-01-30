@@ -65,10 +65,8 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, om
             </div>
             <div className={bem.element('periode')}>
                 <PeriodetypeMeny
-                    periodetype={periode.type}
+                    periode={periode}
                     foreldernavn={foreldernavn}
-                    forelder={periode.forelder}
-                    tidsperiode={periode.tidsperiode}
                     onChange={(periodetype) => onUpdate(changePeriodeType(periode, periodetype))}
                 />
             </div>

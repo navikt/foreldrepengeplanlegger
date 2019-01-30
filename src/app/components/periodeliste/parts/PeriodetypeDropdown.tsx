@@ -62,7 +62,7 @@ class PeriodetypeDropdown extends React.Component<Props, State> {
         const { id, onChange } = this.props;
         const wrapperId = `wrapper-${id}`;
         return (
-            <DropdownButton label={this.renderPeriodetypeLabel()} wrapperClassName="periodetypeMeny" id={wrapperId}>
+            <DropdownButton label={this.renderPeriodetypeLabel()} dialogClassName="periodetypeMeny" id={wrapperId}>
                 <Block margin="xs">
                     <Element>Velg periodetype</Element>
                 </Block>

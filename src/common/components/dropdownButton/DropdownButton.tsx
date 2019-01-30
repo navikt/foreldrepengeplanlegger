@@ -9,18 +9,18 @@ import './dropdownButton.less';
 interface Props {
     label: React.ReactNode;
     id?: string;
-    wrapperClassName?: string;
+    dialogClassName?: string;
 }
 
 const bem = BEMHelper('dropdownButton');
 
-const DropdownButton: React.StatelessComponent<Props> = ({ label, id, wrapperClassName, children }) => {
+const DropdownButton: React.StatelessComponent<Props> = ({ label, id, dialogClassName, children }) => {
     return (
         <Wrapper className={bem.block} id={id}>
             <Button className={bem.element('button')} role="popupbutton">
                 {label}
             </Button>
-            <Menu role="dialog" className={classnames(bem.element('wrapper'), wrapperClassName)}>
+            <Menu role="dialog" className={classnames(bem.element('wrapper'), dialogClassName)}>
                 {children}
             </Menu>
         </Wrapper>

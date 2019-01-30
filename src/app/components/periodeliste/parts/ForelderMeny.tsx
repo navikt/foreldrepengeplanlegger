@@ -9,9 +9,9 @@ interface Props {
     onChange: (forelder: Forelder) => void;
 }
 
-const forelderOptions: MenuButtonOption[] = [
-    { value: Forelder.forelder1, label: 'Forelder 1' },
-    { value: Forelder.forelder2, label: 'Forelder 2' }
+const getForelderOptions = (omForeldre: OmForeldre): MenuButtonOption[] => [
+    { value: Forelder.forelder1, label: omForeldre.forelder1.navn },
+    { value: Forelder.forelder2, label: omForeldre.forelder2!.navn }
 ];
 
 const renderForelderIkon = (option: MenuButtonOption, omForeldre: OmForeldre): React.ReactNode | undefined => {
@@ -28,10 +28,11 @@ const ForelderMeny: React.StatelessComponent<Props> = ({ onChange, forelder, omF
     return (
         <MenuButton
             onChange={onChange}
-            options={forelderOptions}
+            options={getForelderOptions(omForeldre)}
             selectedValue={forelder}
             iconRenderer={(option) => renderForelderIkon(option, omForeldre)}
             iconOnly={true}
+            dialogClassName="forelderMenyDialog"
         />
     );
 };

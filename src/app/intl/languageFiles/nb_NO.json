@@ -27,5 +27,10 @@
     "stønadskontotype.FLERBARNSUKER": "Flerbarnsuker",
     "stønadskontotype.FORELDREPENGER": "Foreldrepenger",
     "stønadskontotype.FORELDREPENGER_FØR_FØDSEL": "Foreldrepenger før fødsel",
-    "stønadskontotype.MØDREKVOTE": "Mor sin kvote"
+    "stønadskontotype.MØDREKVOTE": "Mor sin kvote",
+
+    "periodetype.uttak": "Uttak",
+    "periodetype.ferie": "Ferie",
+    "periodetype.arbeid": "Arbeid",
+    "periodetype.ubetaltPermisjon": "Ubetalt permisjon"
 }

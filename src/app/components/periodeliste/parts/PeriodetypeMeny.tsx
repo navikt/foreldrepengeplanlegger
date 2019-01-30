@@ -8,15 +8,20 @@ import Knapperad from 'common/components/knapperad/Knapperad';
 import { Knapp } from 'nav-frontend-knapper';
 import { CheckboksPanel } from 'nav-frontend-skjema';
 import { closeMenu } from 'react-aria-menubutton';
+import Periodeikon from '../../periodeikon/Periodeikon';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
+import getMessage from 'common/utils/i18nUtils';
 
 export type PeriodetypeMenyChangeEvent = (evt: { periodetype: Periodetype; gradering: number | undefined }) => void;
 
-interface Props {
+interface OwnProps {
     id: string;
     periodetype?: Periodetype;
     gradering?: number;
     onChange: PeriodetypeMenyChangeEvent;
 }
+
+type Props = OwnProps & InjectedIntlProps;
 
 interface State {
     periodetype: Periodetype | undefined;
@@ -40,11 +45,24 @@ class PeriodetypeMeny extends React.Component<Props, State> {
             gradering: undefined
         };
     }
+    renderPeriodetypeLabel() {
+        const { periodetype, intl } = this.props;
+        return periodetype ? (
+            <div className="valgtPeriodetype">
+                <div className="valgtPeriodetype__ikon">
+                    <Periodeikon periodetype={periodetype} />
+                </div>
+                <div className="valgtPeriodetype__label">{getMessage(intl, `periodetype.${periodetype}`)}</div>
+            </div>
+        ) : (
+            'Velg'
+        );
+    }
     render() {
         const { id, onChange } = this.props;
         const wrapperId = `wrapper-${id}`;
         return (
-            <DropdownButton label="sdf" wrapperClassName="periodetypeMeny" id={wrapperId}>
+            <DropdownButton label={this.renderPeriodetypeLabel()} wrapperClassName="periodetypeMeny" id={wrapperId}>
                 <Block margin="xs">
                     <Element>Velg periodetype</Element>
                 </Block>
@@ -85,4 +103,4 @@ class PeriodetypeMeny extends React.Component<Props, State> {
     }
 }
 
-export default PeriodetypeMeny;
+export default injectIntl(PeriodetypeMeny);

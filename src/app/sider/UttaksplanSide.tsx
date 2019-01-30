@@ -8,7 +8,9 @@ import {
     updatePeriode,
     removePeriode,
     movePeriode,
-    setDekningsgrad
+    setDekningsgrad,
+    setPerioder,
+    resetApp
 } from '../redux/actions/common/commonActionCreators';
 import { AppState } from '../redux/reducers/rootReducer';
 import { connect } from 'react-redux';
@@ -97,7 +99,7 @@ class UttaksplanSide extends React.Component<Props, {}> {
                                     />
                                 </Block>
                                 <Uttaksplan
-                                    omForelder={omForeldre}
+                                    omForeldre={omForeldre}
                                     perioder={perioder}
                                     navnForelder1={skjemadata.navnForelder1}
                                     navnForelder2={skjemadata.navnForelder2}
@@ -106,6 +108,8 @@ class UttaksplanSide extends React.Component<Props, {}> {
                                     onUpdate={(periode) => dispatch(updatePeriode(periode))}
                                     onRemove={(periode) => dispatch(removePeriode(periode))}
                                     onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
+                                    onResetPlan={() => dispatch(setPerioder([]))}
+                                    onResetApp={() => dispatch(resetApp())}
                                 />
                             </>
                         )}

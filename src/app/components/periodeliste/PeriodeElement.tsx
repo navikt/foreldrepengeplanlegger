@@ -16,6 +16,7 @@ import { getPeriodetypeFarge } from '../../utils/styleutils';
 import Block from 'common/components/block/Block';
 
 import './periodeElement.less';
+import { OmForeldre, Forelder } from '../../types';
 
 type Props = PeriodelisteElementProps & InjectedIntlProps;
 
@@ -27,10 +28,21 @@ const DragHandle = SortableHandle(() => (
     </span>
 ));
 
+const getForelderNavn = (forelder: Forelder | undefined, omForeldre: OmForeldre): string | undefined => {
+    if (forelder === undefined || omForeldre === undefined) {
+        return;
+    }
+    if (forelder === Forelder.forelder1) {
+        return omForeldre.forelder1.navn;
+    } else {
+        return omForeldre.forelder2 ? omForeldre.forelder2.navn : undefined;
+    }
+};
+
 const PeriodeElement: React.StatelessComponent<Props> = ({
     periode,
     sortable,
-    omForelder,
+    omForeldre,
     onRemove,
     onUpdate,
     intl
@@ -42,6 +54,7 @@ const PeriodeElement: React.StatelessComponent<Props> = ({
     }
 
     const { uker, dager } = uttaksinfo.ukerOgDager;
+    const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
     return (
         <div className={bem.block}>
             <PeriodeFargestrek farge={getPeriodetypeFarge(periode.type, periode.forelder)} />
@@ -62,13 +75,15 @@ const PeriodeElement: React.StatelessComponent<Props> = ({
             <div className={bem.element('periode')}>
                 <PeriodetypeMeny
                     periodetype={periode.type}
+                    foreldernavn={foreldernavn}
+                    tidsperiode={periode.tidsperiode}
                     onChange={(periodetype) => onUpdate(changePeriodeType(periode, periodetype))}
                 />
             </div>
             <div className={bem.element('forelder')}>
                 <ForelderMeny
                     forelder={periode.forelder}
-                    omForeldre={omForelder}
+                    omForeldre={omForeldre}
                     onChange={(forelder) =>
                         onUpdate({
                             ...periode,
@@ -89,15 +104,6 @@ const PeriodeElement: React.StatelessComponent<Props> = ({
             </div>
             {1 + 1 === 3 && (
                 <>
-                    <VarighetMeny
-                        tidsperiode={periode.tidsperiode}
-                        uker={uker}
-                        dager={dager}
-                        onChange={(ukerOgDager) =>
-                            onUpdate(Perioden(periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
-                        }
-                    />
-                    {' - '}
                     <GraderingMeny
                         gradering={periode.gradering}
                         onChange={(gradering) => onUpdate({ ...periode, gradering })}

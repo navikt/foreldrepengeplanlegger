@@ -12,6 +12,7 @@ interface Props {
     onAdd: (periode: Periode) => void;
     onDelete: (periode: Periode) => void;
     onChange: (periode: Periode) => void;
+    onResetApp: () => void;
 }
 
 const defaultDag = new Date(2019, 0, 14);
@@ -60,6 +61,7 @@ class PeriodeDevBar extends React.Component<Props, {}> {
                         <Flatknapp onClick={() => this.addAfter(Forelder.forelder2, Periodetype.Ferie, 5)}>
                             Ferie F2
                         </Flatknapp>
+                        <Flatknapp onClick={this.props.onResetApp}>Reset</Flatknapp>
                     </Knapperad>
                 </Panel>
             </div>

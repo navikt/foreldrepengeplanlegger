@@ -14,21 +14,23 @@ import { Dekningsgrad } from 'common/types';
 import { summerAntallDagerIKontoer } from '../../utils/kontoUtils';
 import { setStorage, getStorage } from '../../utils/storage';
 
-export const getDefaultCommonState = (storage: CommonState | undefined): CommonState => ({
-    språkkode: 'nb',
-    perioder: [...mockPerioder],
-    familiehendelsesdato: new Date(),
-    dekningsgrad: '100',
-    stønadskontoer100: {
-        kontoer: [],
-        dager: 0
-    },
-    stønadskontoer80: {
-        kontoer: [],
-        dager: 0
-    },
-    ...storage
-});
+export const getDefaultCommonState = (storage?: CommonState): CommonState => {
+    return {
+        språkkode: 'nb',
+        perioder: [...mockPerioder],
+        familiehendelsesdato: new Date(),
+        dekningsgrad: '100',
+        stønadskontoer100: {
+            kontoer: [],
+            dager: 0
+        },
+        stønadskontoer80: {
+            kontoer: [],
+            dager: 0
+        },
+        ...storage
+    };
+};
 
 export interface CommonState {
     språkkode: Språkkode;
@@ -49,6 +51,12 @@ export interface CommonState {
     omForeldre?: OmForeldre;
 }
 
+const updateStateAndStorage = (state: CommonState, updates: Partial<CommonState>): CommonState => {
+    const updatedState = { ...state, ...updates };
+    setStorage(updatedState);
+    return updatedState;
+};
+
 const commonReducer = (state = getDefaultCommonState(getStorage()), action: CommonActionTypes): CommonState => {
     const builder = UttaksplanBuilder(state.perioder, state.familiehendelsesdato);
     switch (action.type) {
@@ -57,31 +65,21 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
         case CommonActionKeys.APPLY_STORAGE:
             return { ...state, ...action.storage };
         case CommonActionKeys.UPDATE_FORBRUK:
-            return { ...state, forbruk: action.forbruk };
+            return updateStateAndStorage(state, { forbruk: action.forbruk });
         case CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER:
-            return { ...state, tilgjengeligeDager: action.tilgjengeligeDager };
+            return updateStateAndStorage(state, { tilgjengeligeDager: action.tilgjengeligeDager });
         case CommonActionKeys.SUBMIT_SKJEMADATA:
-            const updatedState = {
-                ...state,
-                skjemadata: action.data
-            };
-            setStorage(updatedState);
-            return updatedState;
+            return updateStateAndStorage(state, { skjemadata: action.data });
         case CommonActionKeys.SET_DEKNINGSGRAD:
-            return {
-                ...state,
+            return updateStateAndStorage(state, {
                 dekningsgrad: action.dekningsgrad
-            };
+            });
         case CommonActionKeys.UPDATE_OM_FORELDRE:
-            return {
-                ...state,
-                omForeldre: action.omForeldre
-            };
+            return updateStateAndStorage(state, { omForeldre: action.omForeldre });
         case CommonActionKeys.SET_STØNADSKONTOER:
             const stønadskontoer80 = action.kontoer.dekning80;
             const stønadskontoer100 = action.kontoer.dekning100;
-            return {
-                ...state,
+            return updateStateAndStorage(state, {
                 stønadskontoer100: {
                     kontoer: stønadskontoer100,
                     dager: summerAntallDagerIKontoer(stønadskontoer100)
@@ -90,29 +88,25 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                     kontoer: stønadskontoer80,
                     dager: summerAntallDagerIKontoer(stønadskontoer80)
                 }
-            };
+            });
         case CommonActionKeys.ADD_PERIODE:
-            return {
-                ...state,
-                perioder: builder.leggTilPeriode(action.periode).build().perioder
-            };
+            return updateStateAndStorage(state, { perioder: builder.leggTilPeriode(action.periode).build().perioder });
         case CommonActionKeys.UPDATE_PERIODE:
-            return {
-                ...state,
+            return updateStateAndStorage(state, {
                 perioder: builder.oppdaterPeriode(action.periode).build().perioder
-            };
+            });
         case CommonActionKeys.REMOVE_PERIODE:
-            return {
-                ...state,
+            return updateStateAndStorage(state, {
                 perioder: builder.fjernPeriode(action.periode).build().perioder
-            };
+            });
         case CommonActionKeys.MOVE_PERIODE:
-            return {
-                ...state,
+            return updateStateAndStorage(state, {
                 perioder: builder.flyttPeriode(action.periode, action.toIndex).build().perioder
-            };
+            });
         case CommonActionKeys.SET_PERIODER:
-            return { ...state, perioder: action.perioder };
+            return updateStateAndStorage(state, { perioder: action.perioder });
+        case CommonActionKeys.RESET_APP:
+            return updateStateAndStorage(getDefaultCommonState(), {});
     }
     return state;
 };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Knapp from 'nav-frontend-knapper';
+import Knapp, { Flatknapp } from 'nav-frontend-knapper';
 import Periodeskjema from '../periodeskjema/Periodeskjema';
 import Block from 'common/components/block/Block';
 import { Periode } from '../../types/periodetyper';
@@ -7,7 +7,7 @@ import PeriodeDevBar from '../../dev/PeriodeDevBar';
 
 import SorterbarPeriodeliste from '../periodeliste/SorterbarPeriodeliste';
 import { PeriodelisteProps } from '../periodeliste/types';
-import { Systemtittel, Ingress } from 'nav-frontend-typografi';
+import { Systemtittel } from 'nav-frontend-typografi';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import FordelingGraf from '../fordelingGraf/FordelingGraf';
 import { Forbruk } from '../../types';
@@ -21,6 +21,7 @@ interface OwnProps {
     navnForelder1: string;
     navnForelder2?: string;
     forbruk: Forbruk;
+    onResetApp: () => void;
 }
 
 type Props = OwnProps & PeriodelisteProps;
@@ -40,17 +41,13 @@ class Uttaksplan extends React.Component<Props, State> {
     }
 
     render() {
-        const { perioder, onAdd, onUpdate, onRemove, forbruk, navnForelder1, navnForelder2 } = this.props;
+        const { perioder, onAdd, onUpdate, onRemove, onResetPlan, forbruk, navnForelder1, navnForelder2 } = this.props;
         const { visSkjema } = this.state;
         return (
             <section>
                 <Block margin="xxs">
                     <Systemtittel tag="h1">Deres plan</Systemtittel>
                 </Block>
-                <Block margin="s">
-                    <Ingress>Fordel dagene deres ved å legge til og justere perioden i listen nedenfor</Ingress>
-                </Block>
-
                 <div className="periodelisteWrapper">
                     <Block animated={true}>
                         <Block margin="s">
@@ -67,6 +64,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                 <Knapp type="standard" onClick={() => this.setState({ visSkjema: true })}>
                                     Legg til periode
                                 </Knapp>
+                                {onResetPlan && <Flatknapp onClick={() => onResetPlan()}>Reset</Flatknapp>}
                             </Knapperad>
                         </Block>
                         {forbruk.fordeling && (
@@ -79,7 +77,13 @@ class Uttaksplan extends React.Component<Props, State> {
                     </Block>
                 </div>
 
-                <PeriodeDevBar perioder={perioder} onAdd={onAdd} onDelete={onRemove} onChange={onUpdate} />
+                <PeriodeDevBar
+                    perioder={perioder}
+                    onAdd={onAdd}
+                    onDelete={onRemove}
+                    onChange={onUpdate}
+                    onResetApp={this.props.onResetApp}
+                />
             </section>
         );
     }

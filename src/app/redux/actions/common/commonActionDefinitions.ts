@@ -25,7 +25,8 @@ export enum CommonActionKeys {
     'APPLY_STORAGE' = 'applyStorage',
     'UPDATE_FORBRUK' = 'updateForbruk',
     'UPDATE_TILGJENGELIGE_DAGER' = 'updateTilgjengeligeDager',
-    'UPDATE_OM_FORELDRE' = 'updateOmForeldre'
+    'UPDATE_OM_FORELDRE' = 'updateOmForeldre',
+    'RESET_APP' = 'resetApp'
 }
 
 interface SetSpråk {
@@ -74,6 +75,10 @@ export interface UpdateOmForeldre {
     omForeldre: OmForeldre;
 }
 
+export interface ResetApp {
+    type: CommonActionKeys.RESET_APP;
+}
+
 interface SetDekningsgrad {
     type: CommonActionKeys.SET_DEKNINGSGRAD;
     dekningsgrad: Dekningsgrad;
@@ -118,4 +123,5 @@ export type CommonActionTypes =
     | ApplyStorage
     | UpdateForbruk
     | UpdateTilgjengeligeDager
-    | UpdateOmForeldre;
+    | UpdateOmForeldre
+    | ResetApp;

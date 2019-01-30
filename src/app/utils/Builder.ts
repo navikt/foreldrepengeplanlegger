@@ -35,6 +35,7 @@ class Builder {
             this.perioder = oppdaterUttaksinfo(this.perioder);
         } else {
             this.perioder = resetTidsperioder(this.perioder);
+            this.perioder = oppdaterUttaksinfo(this.perioder);
         }
 
         return this;

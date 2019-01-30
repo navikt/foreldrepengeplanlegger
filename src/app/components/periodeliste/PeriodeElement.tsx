@@ -99,7 +99,10 @@ class PeriodeElement extends React.Component<Props, {}> {
                         uker={uker}
                         dager={dager}
                         onChange={(ukerOgDager) =>
-                            onUpdate(Perioden(this.props.periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
+                            onUpdate({
+                                ...this.props.periode,
+                                ...Perioden(this.props.periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager)
+                            })
                         }
                     />
                 </div>

@@ -5,6 +5,7 @@ import BEMHelper from 'common/utils/bem';
 import MenuButtonLabelRenderer from 'common/components/menuButton/MenuButtonIconLabelRenderer';
 
 import './menuButton.less';
+import CheckboxIkon from 'common/components/ikoner/CheckboxIkon';
 
 export interface MenuButtonOption {
     value: string;
@@ -65,7 +66,12 @@ const MenuButton: React.StatelessComponent<Props> = ({
                                 className={classnames(bem.element('menuItem'), 'inputPanel', {
                                     [`${bem.element('menuItem--selected')}`]: option.value === selectedValue
                                 })}>
-                                {option.label}
+                                {option.value === selectedValue && (
+                                    <span role="presentation" className={bem.element('menuItem__checked')}>
+                                        <CheckboxIkon checked={option.value === selectedValue} />
+                                    </span>
+                                )}
+                                <span className={bem.element('menuItem__label')}>{option.label}</span>
                             </MenuItem>
                         </li>
                     ))}

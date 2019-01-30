@@ -76,6 +76,7 @@ const PeriodeElement: React.StatelessComponent<Props> = ({
                 <PeriodetypeMeny
                     periodetype={periode.type}
                     foreldernavn={foreldernavn}
+                    tidsperiode={periode.tidsperiode}
                     onChange={(periodetype) => onUpdate(changePeriodeType(periode, periodetype))}
                 />
             </div>
@@ -103,15 +104,6 @@ const PeriodeElement: React.StatelessComponent<Props> = ({
             </div>
             {1 + 1 === 3 && (
                 <>
-                    <VarighetMeny
-                        tidsperiode={periode.tidsperiode}
-                        uker={uker}
-                        dager={dager}
-                        onChange={(ukerOgDager) =>
-                            onUpdate(Perioden(periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
-                        }
-                    />
-                    {' - '}
                     <GraderingMeny
                         gradering={periode.gradering}
                         onChange={(gradering) => onUpdate({ ...periode, gradering })}

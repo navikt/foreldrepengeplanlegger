@@ -21,6 +21,7 @@ interface Props {
     onChange: (value: string) => void;
     headerRenderer?: () => React.ReactNode;
     iconRenderer?: MenuButtonIconRenderer;
+    labelRenderer?: (option: MenuButtonOption) => React.ReactNode;
     iconOnly?: boolean;
     dialogClassName?: string;
 }
@@ -34,6 +35,7 @@ const MenuButton: React.StatelessComponent<Props> = ({
     iconRenderer,
     onChange,
     dialogClassName,
+    labelRenderer,
     iconOnly
 }) => {
     const selectedItem = options.find((o) => o.value === selectedValue);
@@ -47,6 +49,7 @@ const MenuButton: React.StatelessComponent<Props> = ({
                         iconRenderer={iconRenderer}
                         isSelected={true}
                         iconOnly={iconOnly}
+                        labelRenderer={labelRenderer}
                     />
                 ) : (
                     'Velg'

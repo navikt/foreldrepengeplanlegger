@@ -9,6 +9,7 @@ interface Props {
     isSelected: boolean;
     iconRenderer?: MenuButtonIconRenderer;
     iconOnly?: boolean;
+    labelRenderer?: (option: MenuButtonOption) => React.ReactNode;
 }
 
 const bem = BEMHelper('menuButtonIconLabel');
@@ -17,7 +18,8 @@ const MenuButtonIconLabelRenderer: React.StatelessComponent<Props> = ({
     option,
     iconRenderer,
     isSelected,
-    iconOnly = false
+    iconOnly = false,
+    labelRenderer
 }) => {
     return (
         <div className={classnames(bem.block, { [`${bem.block}--iconOnly`]: iconOnly })}>
@@ -25,7 +27,7 @@ const MenuButtonIconLabelRenderer: React.StatelessComponent<Props> = ({
             {iconOnly ? (
                 <AriaText>{option.label}</AriaText>
             ) : (
-                <div className={bem.element('label')}>{option.label}</div>
+                <div className={bem.element('label')}>{labelRenderer ? labelRenderer(option) : option.label}</div>
             )}
         </div>
     );

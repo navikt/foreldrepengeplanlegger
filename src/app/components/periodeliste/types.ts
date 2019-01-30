@@ -2,12 +2,12 @@ import { Periode, OmForeldre } from '../../types';
 
 export interface PeriodelisteBaseProps {
     perioder: Periode[];
-    omForelder: OmForeldre;
+    omForeldre: OmForeldre;
 }
 
 export interface PeriodelisteElementBaseProps {
     periode: Periode;
-    omForelder: OmForeldre;
+    omForeldre: OmForeldre;
 }
 
 export interface PeriodelisteActions {

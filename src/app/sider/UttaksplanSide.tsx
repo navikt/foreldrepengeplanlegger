@@ -97,7 +97,7 @@ class UttaksplanSide extends React.Component<Props, {}> {
                                     />
                                 </Block>
                                 <Uttaksplan
-                                    omForelder={omForeldre}
+                                    omForeldre={omForeldre}
                                     perioder={perioder}
                                     navnForelder1={skjemadata.navnForelder1}
                                     navnForelder2={skjemadata.navnForelder2}

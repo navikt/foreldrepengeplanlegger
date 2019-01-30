@@ -27,7 +27,9 @@ function getPeriodeFootprint(periode: Periode) {
     Object.keys(rest)
         .sort()
         .forEach((key) => {
-            sortedPeriode[key] = rest[key];
+            if (rest[key]) {
+                sortedPeriode[key] = rest[key];
+            }
         });
     return JSON.stringify({ ...sortedPeriode });
 }

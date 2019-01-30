@@ -37,71 +37,75 @@ const getForelderNavn = (forelder: Forelder | undefined, omForeldre: OmForeldre)
     }
 };
 
-const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, omForeldre, onRemove, onUpdate }) => {
-    const { uttaksinfo } = periode;
+class PeriodeElement extends React.Component<Props, {}> {
+    render() {
+        const { sortable, omForeldre, onRemove, onUpdate } = this.props;
+        const { uttaksinfo } = this.props.periode;
+        const periode = this.props.periode;
 
-    if (uttaksinfo === undefined) {
-        return <div>Ingen periodeinfo</div>;
-    }
+        if (uttaksinfo === undefined) {
+            return <div>Ingen periodeinfo</div>;
+        }
 
-    const { uker, dager } = uttaksinfo.ukerOgDager;
-    const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
-    return (
-        <div className={bem.block}>
-            <PeriodeFargestrek farge={getPeriodetypeFarge(periode.type, periode.forelder)} />
-            <div className={bem.element('tools')}>
-                <Block visible={false}>
-                    {sortable && (
+        const { uker, dager } = uttaksinfo.ukerOgDager;
+        const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
+        return (
+            <div className={bem.block}>
+                <PeriodeFargestrek farge={getPeriodetypeFarge(this.props.periode.type, this.props.periode.forelder)} />
+                <div className={bem.element('tools')}>
+                    <Block visible={false}>
+                        {sortable && (
+                            <div className={bem.element('tool')}>
+                                <DragHandle />
+                            </div>
+                        )}
                         <div className={bem.element('tool')}>
-                            <DragHandle />
+                            <Lukknapp onClick={() => onRemove(this.props.periode)} ariaLabel="Slett periode">
+                                Slett periode
+                            </Lukknapp>
                         </div>
-                    )}
-                    <div className={bem.element('tool')}>
-                        <Lukknapp onClick={() => onRemove(periode)} ariaLabel="Slett periode">
-                            Slett periode
-                        </Lukknapp>
-                    </div>
-                </Block>
-            </div>
-            <div className={bem.element('periode')}>
-                <PeriodetypeMeny
-                    periode={periode}
-                    foreldernavn={foreldernavn}
-                    onChange={(periodetype) => onUpdate(changePeriodeType(periode, periodetype))}
-                />
-            </div>
-            {periode.type === Periodetype.GradertUttak && (
-                <div className={bem.element('gradering')}>
-                    <GraderingMeny
-                        gradering={periode.gradering}
-                        onChange={(gradering) => onUpdate({ ...periode, gradering })}
+                    </Block>
+                </div>
+                <div className={bem.element('periode')}>
+                    <PeriodetypeMeny
+                        periode={this.props.periode}
+                        foreldernavn={foreldernavn}
+                        onChange={(periodetype) => onUpdate(changePeriodeType(this.props.periode, periodetype))}
                     />
                 </div>
-            )}
-            <div className={bem.element('forelder')}>
-                <ForelderMeny
-                    forelder={periode.forelder}
-                    omForeldre={omForeldre}
-                    onChange={(forelder) =>
-                        onUpdate({
-                            ...periode,
-                            forelder
-                        })
-                    }
-                />
+                {this.props.periode.type === Periodetype.GradertUttak && (
+                    <div className={bem.element('gradering')}>
+                        <GraderingMeny
+                            gradering={this.props.periode.gradering}
+                            onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
+                        />
+                    </div>
+                )}
+                <div className={bem.element('forelder')}>
+                    <ForelderMeny
+                        forelder={this.props.periode.forelder}
+                        omForeldre={omForeldre}
+                        onChange={(forelder) =>
+                            onUpdate({
+                                ...this.props.periode,
+                                forelder
+                            })
+                        }
+                    />
+                </div>
+                <div className={bem.element('tidsperiode')}>
+                    <VarighetMeny
+                        tidsperiode={this.props.periode.tidsperiode}
+                        uker={uker}
+                        dager={dager}
+                        onChange={(ukerOgDager) =>
+                            onUpdate(Perioden(this.props.periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
+                        }
+                    />
+                </div>
             </div>
-            <div className={bem.element('tidsperiode')}>
-                <VarighetMeny
-                    tidsperiode={periode.tidsperiode}
-                    uker={uker}
-                    dager={dager}
-                    onChange={(ukerOgDager) =>
-                        onUpdate(Perioden(periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
-                    }
-                />
-            </div>
-        </div>
-    );
-};
+        );
+    }
+}
 
 export default PeriodeElement;

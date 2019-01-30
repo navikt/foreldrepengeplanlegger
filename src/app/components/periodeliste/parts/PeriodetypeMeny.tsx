@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import { Periodetype } from '../../../types';
+import { Periodetype, Forelder } from '../../../types';
 import MenuButton, { MenuButtonOption } from 'common/components/menuButton/MenuButton';
 import Periodeikon from '../../periodeikon/Periodeikon';
 import getMessage from 'common/utils/i18nUtils';
@@ -11,6 +11,7 @@ interface OwnProps {
     periodetype?: Periodetype;
     tidsperiode?: Tidsperiode;
     foreldernavn?: string;
+    forelder?: Forelder;
     onChange: (periodetype: Periodetype) => void;
 }
 
@@ -28,6 +29,7 @@ const PeriodetypeMeny: React.StatelessComponent<Props> = ({
     tidsperiode,
     foreldernavn,
     onChange,
+    forelder,
     intl
 }) => {
     return (
@@ -35,7 +37,7 @@ const PeriodetypeMeny: React.StatelessComponent<Props> = ({
             options={options}
             onChange={(value) => onChange(value as Periodetype)}
             selectedValue={periodetype}
-            iconRenderer={(option) => <Periodeikon periodetype={option.value as Periodetype} />}
+            iconRenderer={(option) => <Periodeikon periodetype={option.value as Periodetype} forelder={forelder} />}
             labelRenderer={(option) => (
                 <div className="periodetypeMenyLabel">
                     <div className="periodetypeMenyLabel__type">

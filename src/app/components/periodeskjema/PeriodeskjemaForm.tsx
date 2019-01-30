@@ -9,8 +9,10 @@ import PeriodetypeValg from './parts/PeriodetypeValg';
 import ForelderValg from './parts/ForelderValg';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { PeriodeskjemaFormValues } from './types';
+import { OmForeldre } from '../../types';
 
 interface OwnProps {
+    omForeldre: OmForeldre;
     onCancel: () => void;
     formik: FormikProps<PeriodeskjemaFormValues>;
 }
@@ -19,7 +21,7 @@ type Props = OwnProps;
 
 class PeriodeskjemaForm extends React.Component<Props, {}> {
     render() {
-        const { formik, onCancel } = this.props;
+        const { formik, onCancel, omForeldre } = this.props;
         const { fom, tom, type, forelder } = formik.values;
         return (
             <Form className="periodeskjema">
@@ -30,7 +32,11 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                     />
                 </Block>
                 <Block>
-                    <ForelderValg forelder={forelder} onChange={(f) => formik.setFieldValue('forelder', f)} />
+                    <ForelderValg
+                        forelder={forelder}
+                        onChange={(f) => formik.setFieldValue('forelder', f)}
+                        omForeldre={omForeldre}
+                    />
                 </Block>
                 <Block>
                     <TidsperiodeValg

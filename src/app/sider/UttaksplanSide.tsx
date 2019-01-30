@@ -101,8 +101,6 @@ class UttaksplanSide extends React.Component<Props, {}> {
                                 <Uttaksplan
                                     omForeldre={omForeldre}
                                     perioder={perioder}
-                                    navnForelder1={skjemadata.navnForelder1}
-                                    navnForelder2={skjemadata.navnForelder2}
                                     forbruk={forbruk!}
                                     onAdd={(periode) => dispatch(addPeriode(periode))}
                                     onUpdate={(periode) => dispatch(updatePeriode(periode))}

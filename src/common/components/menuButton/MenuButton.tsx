@@ -42,7 +42,7 @@ const MenuButton: React.StatelessComponent<Props> = ({
 
     return (
         <Wrapper className={bem.block} onSelection={onChange}>
-            <Button className={bem.element('button')}>
+            <Button className={classnames(bem.element('button'), 'inputPanel')}>
                 {selectedItem ? (
                     <MenuButtonLabelRenderer
                         option={selectedItem}
@@ -62,7 +62,7 @@ const MenuButton: React.StatelessComponent<Props> = ({
                         <li key={option.value}>
                             <MenuItem
                                 value={option.value}
-                                className={classnames(bem.element('menuItem'), {
+                                className={classnames(bem.element('menuItem'), 'inputPanel', {
                                     [`${bem.element('menuItem--selected')}`]: option.value === selectedValue
                                 })}>
                                 {option.label}

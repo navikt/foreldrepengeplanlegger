@@ -17,7 +17,7 @@ const bem = BEMHelper('dropdownButton');
 const DropdownButton: React.StatelessComponent<Props> = ({ label, id, dialogClassName, children }) => {
     return (
         <Wrapper className={bem.block} id={id}>
-            <Button className={bem.element('button')} role="popupbutton">
+            <Button className={classnames(bem.element('button'), 'inputPanel')} role="popupbutton">
                 {label}
             </Button>
             <Menu role="dialog" className={classnames(bem.element('wrapper'), dialogClassName)}>

@@ -76,6 +76,7 @@ const PeriodeElement: React.StatelessComponent<Props> = ({
                 <PeriodetypeMeny
                     periodetype={periode.type}
                     foreldernavn={foreldernavn}
+                    forelder={periode.forelder}
                     tidsperiode={periode.tidsperiode}
                     onChange={(periodetype) => onUpdate(changePeriodeType(periode, periodetype))}
                 />

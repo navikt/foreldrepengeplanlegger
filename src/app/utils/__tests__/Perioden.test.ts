@@ -8,7 +8,6 @@ const periode1: Periode = {
     id: guid(),
     fixed: false,
     forelder: Forelder.forelder1,
-    gradering: undefined,
     tidsperiode: getTidsperiode(new Date(), 10),
     type: Periodetype.Uttak
 };
@@ -17,7 +16,6 @@ const periode2: Periode = {
     id: guid(),
     fixed: false,
     forelder: Forelder.forelder2,
-    gradering: undefined,
     tidsperiode: getTidsperiode(new Date(), 20),
     type: Periodetype.Uttak
 };
@@ -46,9 +44,8 @@ describe('Perioden', () => {
         });
         it('når gradering er ulik', () => {
             expect(
-                Perioden(periode1).erLik({
-                    ...periode1,
-                    gradering: 1
+                Perioden({ ...periode1, type: Periodetype.GradertUttak, gradering: 10 }).erLik({
+                    ...{ ...periode1, type: Periodetype.GradertUttak, gradering: 20 }
                 })
             ).toBeFalsy();
         });

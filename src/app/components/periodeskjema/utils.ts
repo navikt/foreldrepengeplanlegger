@@ -34,6 +34,16 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
                 },
                 forelder: values.forelder
             };
+        case Periodetype.GradertUttak:
+            return {
+                type: Periodetype.GradertUttak,
+                id: guid(),
+                tidsperiode: {
+                    fom: values.fom,
+                    tom: values.tom
+                },
+                forelder: values.forelder
+            };
         case Periodetype.UbetaltPermisjon:
             return {
                 type: Periodetype.UbetaltPermisjon,

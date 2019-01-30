@@ -29,6 +29,10 @@
         min-width: 9rem;
         margin: 0.25rem;
     }
+    &__gradering {
+        min-width: 4rem;
+        margin: 0.25rem;
+    }
     .menuButton,
     .dropdownButton {
         width: 100%;
@@ -38,7 +42,7 @@
             height: 100%;
         }
     }
-    @media (max-width: @tablet-breakpoint) {
+    @media (max-width: @mobile-breakpoint) {
         flex-wrap: wrap;
         &__periode  {
             min-width: calc(100% - 0.5rem);
@@ -67,6 +71,7 @@
     }
     cursor: move;
 }
+
 .periodetypeMenyLabel {
     &__type {
         margin-bottom: 0.25rem;
@@ -83,9 +88,39 @@
         margin: -0.5rem;
     }
 }
-
+.periodetypeDialog  {
+    left: 0;
+    right: 0;
+}
 .forelderMenyDialog {
-    // min-width: 12rem;
-    // left: -6rem;
-    // right: -6rem;
+    min-width: 15rem;
+    left: auto;
+    right: 0;
+    @media (max-width: @mobile-breakpoint) {
+        left: 0;
+        right: auto;
+    }
+}
+.varighetDialog {
+    left: auto;
+    right: 0;
+    min-width: 15rem;
+}
+
+.graderingLabel {
+    width: 100%;
+    text-align: center;
+    margin: -0.5rem 0 -0.5rem 0;
+    &__ikon {
+        line-height: 0;
+        margin-bottom: -0.25rem;
+        svg * {
+            max-height: 20px;
+            fill: @c-periodefarge-gronn; //#7f756c;
+        }
+    }
+    &__label {
+        text-transform: uppercase;
+        font-size: 0.875;
+    }
 }

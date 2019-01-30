@@ -4,10 +4,8 @@ import Periodeskjema from '../periodeskjema/Periodeskjema';
 import Block from 'common/components/block/Block';
 import { Periode } from '../../types/periodetyper';
 import PeriodeDevBar from '../../dev/PeriodeDevBar';
-
 import SorterbarPeriodeliste from '../periodeliste/SorterbarPeriodeliste';
 import { PeriodelisteProps } from '../periodeliste/types';
-import { Systemtittel } from 'nav-frontend-typografi';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import FordelingGraf from '../fordelingGraf/FordelingGraf';
 import { Forbruk, OmForeldre } from '../../types';
@@ -44,9 +42,6 @@ class Uttaksplan extends React.Component<Props, State> {
         const { visSkjema } = this.state;
         return (
             <section>
-                <Block margin="xxs">
-                    <Systemtittel tag="h1">Deres plan</Systemtittel>
-                </Block>
                 <div className="periodelisteWrapper">
                     <Block animated={true}>
                         <Block margin="s">

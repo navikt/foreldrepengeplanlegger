@@ -61,6 +61,11 @@ export function removePeriode(periode: Periode): CommonActionTypes {
         periode
     };
 }
+export function resetApp(): CommonActionTypes {
+    return {
+        type: CommonActionKeys.RESET_APP
+    };
+}
 
 export function movePeriode(periode: Periode, toIndex: number): CommonActionTypes {
     return {

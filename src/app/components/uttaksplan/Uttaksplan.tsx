@@ -4,11 +4,11 @@ import Periodeskjema from '../periodeskjema/Periodeskjema';
 import Block from 'common/components/block/Block';
 import { Periode } from '../../types/periodetyper';
 import PeriodeDevBar from '../../dev/PeriodeDevBar';
-import SorterbarPeriodeliste from '../periodeliste/SorterbarPeriodeliste';
 import { PeriodelisteProps } from '../periodeliste/types';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import FordelingGraf from '../fordelingGraf/FordelingGraf';
 import { Forbruk, OmForeldre } from '../../types';
+import Periodeliste from '../periodeliste/Periodeliste';
 
 interface State {
     visSkjema: boolean;
@@ -45,7 +45,7 @@ class Uttaksplan extends React.Component<Props, State> {
                 <div className="periodelisteWrapper">
                     <Block animated={true}>
                         <Block margin="s">
-                            <SorterbarPeriodeliste {...this.props} />
+                            <Periodeliste {...this.props} />
                         </Block>
                         <Block visible={visSkjema}>
                             <Periodeskjema

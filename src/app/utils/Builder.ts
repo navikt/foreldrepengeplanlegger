@@ -12,7 +12,7 @@ export const UttaksplanBuilder = (perioder: Periode[], familiehendelsesdato: Dat
     return new Builder(perioder, familiehendelsesdato);
 };
 
-const useFixedPerioder = true;
+const useFixedPerioder = false;
 
 class Builder {
     protected familiehendelsesdato: Date;
@@ -51,7 +51,7 @@ class Builder {
     }
 
     oppdaterPeriode(periode: Periode) {
-        this.perioder = this.perioder.map((p) => (p.id === periode.id ? periode : p));
+        this.perioder = this.perioder.map((p) => (p.id === periode.id ? { ...periode } : p));
         return this;
     }
 
@@ -239,8 +239,10 @@ function splittPeriodeMedPeriode(periode: Periode, nyPeriode: Periode): Periode[
 }
 
 function oppdaterUttaksinfo(perioder: Periode[]): Periode[] {
-    return perioder.map((p): Periode => ({
-        ...p,
-        uttaksinfo: getUttaksinfoFromPeriode(p)
-    }));
+    return perioder.map(
+        (p): Periode => ({
+            ...p,
+            uttaksinfo: getUttaksinfoFromPeriode(p)
+        })
+    );
 }

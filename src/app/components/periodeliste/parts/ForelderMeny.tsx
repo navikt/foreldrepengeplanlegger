@@ -27,7 +27,7 @@ const renderForelderIkon = (option: MenuButtonOption, omForeldre: OmForeldre): R
 const ForelderMeny: React.StatelessComponent<Props> = ({ onChange, forelder, omForeldre }) => {
     return (
         <MenuButton
-            onChange={onChange}
+            onChange={(value) => onChange(value as Forelder)}
             options={getForelderOptions(omForeldre)}
             selectedValue={forelder}
             iconRenderer={(option) => renderForelderIkon(option, omForeldre)}

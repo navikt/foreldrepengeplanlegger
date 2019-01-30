@@ -13,6 +13,10 @@ const periodetypeValg: RadioOption[] = [
         label: 'Uttak'
     },
     {
+        value: Periodetype.GradertUttak,
+        label: 'Gradert uttak'
+    },
+    {
         value: Periodetype.Ferie,
         label: 'Ferie'
     },

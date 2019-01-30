@@ -1,24 +1,22 @@
 import * as React from 'react';
 import Lukknapp from 'nav-frontend-lukknapp';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
 import BEMHelper from 'common/utils/bem';
 import { Perioden } from '../../utils/Perioden';
 import ForelderMeny from './parts/ForelderMeny';
 import PeriodetypeMeny from './parts/PeriodetypeMeny';
 import { changePeriodeType } from '../../utils/typeUtils';
 import VarighetMeny from './parts/VarighetMeny';
-
 import { SortableHandle } from 'react-sortable-hoc';
 import { PeriodelisteElementProps } from './types';
 import GraderingMeny from './parts/GraderingMeny';
 import PeriodeFargestrek from './parts/periodeFargestrek/periodeFargestrek';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
 import Block from 'common/components/block/Block';
+import { OmForeldre, Forelder, Periodetype } from '../../types';
 
 import './periodeElement.less';
-import { OmForeldre, Forelder } from '../../types';
 
-type Props = PeriodelisteElementProps & InjectedIntlProps;
+type Props = PeriodelisteElementProps;
 
 const bem = BEMHelper('periodeElement');
 
@@ -39,14 +37,7 @@ const getForelderNavn = (forelder: Forelder | undefined, omForeldre: OmForeldre)
     }
 };
 
-const PeriodeElement: React.StatelessComponent<Props> = ({
-    periode,
-    sortable,
-    omForeldre,
-    onRemove,
-    onUpdate,
-    intl
-}) => {
+const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, omForeldre, onRemove, onUpdate }) => {
     const { uttaksinfo } = periode;
 
     if (uttaksinfo === undefined) {
@@ -76,10 +67,19 @@ const PeriodeElement: React.StatelessComponent<Props> = ({
                 <PeriodetypeMeny
                     periodetype={periode.type}
                     foreldernavn={foreldernavn}
+                    forelder={periode.forelder}
                     tidsperiode={periode.tidsperiode}
                     onChange={(periodetype) => onUpdate(changePeriodeType(periode, periodetype))}
                 />
             </div>
+            {periode.type === Periodetype.GradertUttak && (
+                <div className={bem.element('gradering')}>
+                    <GraderingMeny
+                        gradering={periode.gradering}
+                        onChange={(gradering) => onUpdate({ ...periode, gradering })}
+                    />
+                </div>
+            )}
             <div className={bem.element('forelder')}>
                 <ForelderMeny
                     forelder={periode.forelder}
@@ -102,16 +102,8 @@ const PeriodeElement: React.StatelessComponent<Props> = ({
                     }
                 />
             </div>
-            {1 + 1 === 3 && (
-                <>
-                    <GraderingMeny
-                        gradering={periode.gradering}
-                        onChange={(gradering) => onUpdate({ ...periode, gradering })}
-                    />
-                </>
-            )}
         </div>
     );
 };
 
-export default injectIntl(PeriodeElement);
+export default PeriodeElement;

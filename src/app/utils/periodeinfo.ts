@@ -10,6 +10,8 @@ const beregnBrukteUttaksdager = (
 ): number => {
     switch (type) {
         case Periodetype.Uttak:
+            return uttaksdager;
+        case Periodetype.GradertUttak:
             if (gradering === undefined || isNaN(gradering)) {
                 return uttaksdager;
             }

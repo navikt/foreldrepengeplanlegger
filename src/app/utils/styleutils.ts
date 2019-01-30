@@ -1,7 +1,7 @@
 import { Forelder, Periodetype, UttaksplanColor } from '../types';
 
 const getForelderFarge = (forelder: Forelder) => {
-    return forelder === Forelder.forelder1 ? 'purple' : 'blue';
+    return forelder === Forelder.forelder2 ? 'purple' : 'blue';
 };
 
 export const getPeriodetypeFarge = (periodetype: Periodetype, forelder?: Forelder): UttaksplanColor => {

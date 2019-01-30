@@ -30,7 +30,8 @@
     "stønadskontotype.MØDREKVOTE": "Mor sin kvote",
 
     "periodetype.uttak": "Uttak",
+    "periodetype.gradertUttak": "Gradert uttak",
     "periodetype.ferie": "Ferie",
-    "periodetype.arbeid": "Arbeid",
+    "periodetype.arbeid": "Arbeid fulltud",
     "periodetype.ubetaltPermisjon": "Ubetalt permisjon"
 }

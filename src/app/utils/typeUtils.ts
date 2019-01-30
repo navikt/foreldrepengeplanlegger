@@ -1,6 +1,6 @@
 import { Periodetype, Periode } from '../types';
 
-export const changePeriodeType = (periode: Periode, type: Periodetype, gradering?: number): Periode => {
+export const changePeriodeType = (periode: Periode, type: Periodetype): Periode => {
     switch (type) {
         case Periodetype.Ferie:
             return {
@@ -15,8 +15,12 @@ export const changePeriodeType = (periode: Periode, type: Periodetype, gradering
         case Periodetype.Uttak:
             return {
                 ...periode,
-                type: Periodetype.Uttak,
-                gradering
+                type: Periodetype.Uttak
+            };
+        case Periodetype.GradertUttak:
+            return {
+                ...periode,
+                type: Periodetype.GradertUttak
             };
         case Periodetype.UbetaltPermisjon:
             return {

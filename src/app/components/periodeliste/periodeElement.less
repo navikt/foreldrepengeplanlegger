@@ -1,10 +1,13 @@
+@import '../../styles/variables.less';
+
 .periodeElement {
     position: relative;
-    padding: 1rem 1.5rem 1rem calc(1.5rem + 0.25rem);
+    padding: 1rem 1rem 1rem 1.25rem;
     margin: 0;
     display: flex;
     justify-content: stretch;
     align-content: stretch;
+    flex-wrap: nowrap;
     &__tools {
         position: absolute;
         top: 1.5rem;
@@ -15,15 +18,20 @@
         margin-bottom: 0.5rem;
     }
     &__periode {
-        flex: 3 1 0;
+        flex: 3 1 50%;
+        margin: 0.25rem;
     }
     &__forelder {
         min-width: 4rem;
-        margin-left: 0.5rem;
+        margin: 0.25rem;
     }
     &__tidsperiode {
         min-width: 9rem;
-        margin-left: 0.5rem;
+        margin: 0.25rem;
+    }
+    &__gradering {
+        min-width: 4rem;
+        margin: 0.25rem;
     }
     .menuButton,
     .dropdownButton {
@@ -32,6 +40,18 @@
         .menuButton__button,
         .dropdownButton__button {
             height: 100%;
+        }
+    }
+    @media (max-width: @mobile-breakpoint) {
+        flex-wrap: wrap;
+        &__periode  {
+            min-width: calc(100% - 0.5rem);
+        }
+        &__forelder {
+            width: calc(30% - 0.5rem);
+        }
+        &__tidsperiode {
+            width: calc(70% - 0.5rem);
         }
     }
 }
@@ -51,12 +71,7 @@
     }
     cursor: move;
 }
-.periodetypeMeny {
-    left: -0.25rem;
-    right: -0.25rem;
-    margin-top: 0.25rem;
-    min-width: 15rem;
-}
+
 .periodetypeMenyLabel {
     &__type {
         margin-bottom: 0.25rem;
@@ -73,9 +88,39 @@
         margin: -0.5rem;
     }
 }
-
+.periodetypeDialog  {
+    left: 0;
+    right: 0;
+}
 .forelderMenyDialog {
-    min-width: 12rem;
-    left: -6rem;
-    right: -6rem;
+    min-width: 15rem;
+    left: auto;
+    right: 0;
+    @media (max-width: @mobile-breakpoint) {
+        left: 0;
+        right: auto;
+    }
+}
+.varighetDialog {
+    left: auto;
+    right: 0;
+    min-width: 15rem;
+}
+
+.graderingLabel {
+    width: 100%;
+    text-align: center;
+    margin: -0.5rem 0 -0.5rem 0;
+    &__ikon {
+        line-height: 0;
+        margin-bottom: -0.25rem;
+        svg * {
+            max-height: 20px;
+            fill: @c-periodefarge-gronn; //#7f756c;
+        }
+    }
+    &__label {
+        text-transform: uppercase;
+        font-size: 0.875;
+    }
 }

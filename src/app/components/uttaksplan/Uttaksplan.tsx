@@ -4,13 +4,11 @@ import Periodeskjema from '../periodeskjema/Periodeskjema';
 import Block from 'common/components/block/Block';
 import { Periode } from '../../types/periodetyper';
 import PeriodeDevBar from '../../dev/PeriodeDevBar';
-
 import SorterbarPeriodeliste from '../periodeliste/SorterbarPeriodeliste';
 import { PeriodelisteProps } from '../periodeliste/types';
-import { Systemtittel } from 'nav-frontend-typografi';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import FordelingGraf from '../fordelingGraf/FordelingGraf';
-import { Forbruk } from '../../types';
+import { Forbruk, OmForeldre } from '../../types';
 
 interface State {
     visSkjema: boolean;
@@ -18,8 +16,7 @@ interface State {
 
 interface OwnProps {
     perioder: Periode[];
-    navnForelder1: string;
-    navnForelder2?: string;
+    omForeldre: OmForeldre;
     forbruk: Forbruk;
     onResetApp: () => void;
 }
@@ -41,13 +38,10 @@ class Uttaksplan extends React.Component<Props, State> {
     }
 
     render() {
-        const { perioder, onAdd, onUpdate, onRemove, onResetPlan, forbruk, navnForelder1, navnForelder2 } = this.props;
+        const { perioder, onAdd, onUpdate, onRemove, onResetPlan, forbruk, omForeldre } = this.props;
         const { visSkjema } = this.state;
         return (
             <section>
-                <Block margin="xxs">
-                    <Systemtittel tag="h1">Deres plan</Systemtittel>
-                </Block>
                 <div className="periodelisteWrapper">
                     <Block animated={true}>
                         <Block margin="s">
@@ -55,6 +49,7 @@ class Uttaksplan extends React.Component<Props, State> {
                         </Block>
                         <Block visible={visSkjema}>
                             <Periodeskjema
+                                omForeldre={omForeldre}
                                 onCancel={() => this.setState({ visSkjema: false })}
                                 onSubmit={(periode) => this.addPeriode(periode)}
                             />
@@ -67,13 +62,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                 {onResetPlan && <Flatknapp onClick={() => onResetPlan()}>Reset</Flatknapp>}
                             </Knapperad>
                         </Block>
-                        {forbruk.fordeling && (
-                            <FordelingGraf
-                                fordeling={forbruk.fordeling}
-                                navnForelder1={navnForelder1}
-                                navnForelder2={navnForelder2}
-                            />
-                        )}
+                        {forbruk.fordeling && <FordelingGraf fordeling={forbruk.fordeling} omForeldre={omForeldre} />}
                     </Block>
                 </div>
 

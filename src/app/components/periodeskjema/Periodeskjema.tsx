@@ -4,9 +4,11 @@ import PeriodeskjemaForm from './PeriodeskjemaForm';
 import { Periode } from '../../types/periodetyper';
 import periodeskjemaUtils from './utils';
 import { PeriodeskjemaFormValues } from './types';
+import { OmForeldre } from '../../types';
 
 interface Props {
     periode?: Periode;
+    omForeldre: OmForeldre;
     onSubmit: (periode: Periode) => void;
     onCancel: () => void;
 }
@@ -16,7 +18,7 @@ class Periodeskjema extends React.Component<Props, {}> {
         super(props);
     }
     render() {
-        const { periode, onSubmit, onCancel } = this.props;
+        const { periode, omForeldre, onSubmit, onCancel } = this.props;
         return (
             <Formik
                 isInitialValid={true}
@@ -25,7 +27,7 @@ class Periodeskjema extends React.Component<Props, {}> {
                     onSubmit(periodeskjemaUtils.createPeriodeFromValues(values))
                 }
                 render={(props: FormikProps<PeriodeskjemaFormValues>) => (
-                    <PeriodeskjemaForm onCancel={onCancel} formik={props} />
+                    <PeriodeskjemaForm onCancel={onCancel} formik={props} omForeldre={omForeldre} />
                 )}
             />
         );

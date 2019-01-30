@@ -2,7 +2,7 @@ import * as React from 'react';
 import Uttaksplan from '../components/uttaksplan/Uttaksplan';
 import { RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
 import { DispatchProps } from '../redux/types';
-import { Periode, TilgjengeligeDager, SituasjonSkjemadata, Forbruk } from '../types';
+import { Periode, TilgjengeligeDager, SituasjonSkjemadata, Forbruk, OmForeldre } from '../types';
 import {
     addPeriode,
     updatePeriode,
@@ -32,6 +32,7 @@ interface StateProps {
     dager80: number;
     skjemadata: SituasjonSkjemadata;
     forbruk?: Forbruk;
+    omForeldre?: OmForeldre;
 }
 
 type Props = StateProps & DispatchProps & RouteComponentProps;
@@ -54,13 +55,16 @@ class UttaksplanSide extends React.Component<Props, {}> {
             dager80,
             skjemadata,
             forbruk,
+            omForeldre,
             dispatch
         } = this.props;
+
         const visInnhold =
             henterStønadskontoer === false &&
             tilgjengeligeDager !== undefined &&
             dekningsgrad !== undefined &&
             forbruk !== undefined;
+
         if (skjemadata === undefined && henterStønadskontoer === false) {
             return <Redirect to="/" />;
         }
@@ -83,7 +87,7 @@ class UttaksplanSide extends React.Component<Props, {}> {
                         />
                     </Skjemablokk>
                     <Block visible={visInnhold}>
-                        {tilgjengeligeDager !== undefined && (
+                        {tilgjengeligeDager !== undefined && omForeldre !== undefined && (
                             <>
                                 <Block visible={false}>
                                     <TilgjengeligeDagerOversikt
@@ -93,6 +97,7 @@ class UttaksplanSide extends React.Component<Props, {}> {
                                     />
                                 </Block>
                                 <Uttaksplan
+                                    omForelder={omForeldre}
                                     perioder={perioder}
                                     navnForelder1={skjemadata.navnForelder1}
                                     navnForelder2={skjemadata.navnForelder2}
@@ -123,7 +128,8 @@ const mapStateToProps = (state: AppState): StateProps => {
         dager100: state.common.stønadskontoer100.dager,
         dager80: state.common.stønadskontoer80.dager,
         skjemadata: state.common.skjemadata!,
-        forbruk: state.common.forbruk
+        forbruk: state.common.forbruk,
+        omForeldre: state.common.omForeldre
     };
 };
 

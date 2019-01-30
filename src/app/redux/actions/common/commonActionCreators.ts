@@ -1,6 +1,6 @@
 import { CommonActionKeys, CommonActionTypes, SetStønadskontoerKontoerPayload } from './commonActionDefinitions';
 import { Språkkode } from '../../../intl/types';
-import { Periode, SituasjonSkjemadata, Forbruk, TilgjengeligeDager } from '../../../types';
+import { Periode, SituasjonSkjemadata, Forbruk, TilgjengeligeDager, OmForeldre } from '../../../types';
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
 import { CommonState } from '../../reducers/commonReducer';
@@ -88,6 +88,13 @@ export function UpdateTilgjengeligeDager(tilgjengeligeDager: TilgjengeligeDager 
     return {
         type: CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER,
         tilgjengeligeDager
+    };
+}
+
+export function UpdateOmForeldre(omForeldre: OmForeldre): CommonActionTypes {
+    return {
+        type: CommonActionKeys.UPDATE_OM_FORELDRE,
+        omForeldre
     };
 }
 

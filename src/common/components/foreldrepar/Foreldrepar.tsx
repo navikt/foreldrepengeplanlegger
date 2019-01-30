@@ -2,28 +2,21 @@ import * as React from 'react';
 import { FlexibleSvg } from '../customSvg/CustomSVG';
 import classnames from 'classnames';
 import BEMHelper from 'common/utils/bem';
+import { ForeldreparForelder, ForeldreparIllustrasjonsvariant } from 'common/components/foreldrepar/foreldreparTypes';
 
 import './foreldrepar.less';
 
-export type ForeldreparForelder = 'far1' | 'far2' | 'far3' | 'far4' | 'medmor1' | 'medmor2' | 'mor1' | 'mor2';
-
-type Illustrasjonsvariant =
-    | 'førsteForelderHalvtSynlig'
-    | 'andreForelderHalvtSynlig'
-    | 'foreldreSeparert'
-    | 'foreldreNærmere';
-
 interface Props {
     firstParent: ForeldreparForelder;
-    secondParent: ForeldreparForelder;
-    variant?: Illustrasjonsvariant;
+    secondParent?: ForeldreparForelder;
+    variant?: ForeldreparIllustrasjonsvariant;
 }
 
 const cls = BEMHelper('foreldrepar');
 
 const Foreldrepar: React.StatelessComponent<Props> = ({ firstParent, secondParent, variant }) => {
     const firstSvg = require(`./assets/${firstParent}.svg`).default;
-    const secondSvg = require(`./assets/${secondParent}.svg`).default;
+    const secondSvg = secondParent ? require(`./assets/${secondParent}.svg`).default : undefined;
 
     return (
         <div
@@ -36,12 +29,16 @@ const Foreldrepar: React.StatelessComponent<Props> = ({ firstParent, secondParen
                 svg={firstSvg}
                 lessOpacity={variant === 'førsteForelderHalvtSynlig'}
             />
-            {variant && variant === 'foreldreSeparert' && <span className={cls.element('parentSeparator')} />}
-            <Forelder
-                className={cls.element('secondParent')}
-                svg={secondSvg}
-                lessOpacity={variant === 'andreForelderHalvtSynlig'}
-            />
+            {secondSvg && (
+                <>
+                    {variant && variant === 'foreldreSeparert' && <span className={cls.element('parentSeparator')} />}
+                    <Forelder
+                        className={cls.element('secondParent')}
+                        svg={secondSvg}
+                        lessOpacity={variant === 'andreForelderHalvtSynlig'}
+                    />
+                </>
+            )}
         </div>
     );
 };

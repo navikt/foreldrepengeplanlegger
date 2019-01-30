@@ -1,6 +1,13 @@
 import { CommonActionKeys, CommonActionTypes } from '../actions/common/commonActionDefinitions';
 import { Språkkode } from '../../intl/types';
-import { Periode, SituasjonSkjemadata, TilgjengeligeDager, TilgjengeligStønadskonto, Forbruk } from '../../types';
+import {
+    Periode,
+    SituasjonSkjemadata,
+    TilgjengeligeDager,
+    TilgjengeligStønadskonto,
+    Forbruk,
+    OmForeldre
+} from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { mockPerioder } from '../../mock/perioder_mock';
 import { Dekningsgrad } from 'common/types';
@@ -39,6 +46,7 @@ export interface CommonState {
         kontoer: TilgjengeligStønadskonto[];
     };
     forbruk?: Forbruk;
+    omForeldre?: OmForeldre;
 }
 
 const commonReducer = (state = getDefaultCommonState(getStorage()), action: CommonActionTypes): CommonState => {
@@ -53,13 +61,21 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
         case CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER:
             return { ...state, tilgjengeligeDager: action.tilgjengeligeDager };
         case CommonActionKeys.SUBMIT_SKJEMADATA:
-            const updatedState = { ...state, skjemadata: action.data };
+            const updatedState = {
+                ...state,
+                skjemadata: action.data
+            };
             setStorage(updatedState);
             return updatedState;
         case CommonActionKeys.SET_DEKNINGSGRAD:
             return {
                 ...state,
                 dekningsgrad: action.dekningsgrad
+            };
+        case CommonActionKeys.UPDATE_OM_FORELDRE:
+            return {
+                ...state,
+                omForeldre: action.omForeldre
             };
         case CommonActionKeys.SET_STØNADSKONTOER:
             const stønadskontoer80 = action.kontoer.dekning80;

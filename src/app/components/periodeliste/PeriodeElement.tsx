@@ -27,7 +27,14 @@ const DragHandle = SortableHandle(() => (
     </span>
 ));
 
-const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lockable, onRemove, onUpdate, intl }) => {
+const PeriodeElement: React.StatelessComponent<Props> = ({
+    periode,
+    sortable,
+    omForelder,
+    onRemove,
+    onUpdate,
+    intl
+}) => {
     const { uttaksinfo } = periode;
 
     if (uttaksinfo === undefined) {
@@ -61,6 +68,7 @@ const PeriodeElement: React.StatelessComponent<Props> = ({ periode, sortable, lo
             <div className={bem.element('forelder')}>
                 <ForelderMeny
                     forelder={periode.forelder}
+                    omForeldre={omForelder}
                     onChange={(forelder) =>
                         onUpdate({
                             ...periode,

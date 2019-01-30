@@ -43,12 +43,19 @@
     display: flex;
     align-items: center;
     position: relative;
-
     &__icon {
         margin-left: 0.5rem;
         margin-right: 0.75rem;
         flex: 1 1 0;
     }
+    &--iconOnly {
+        width: 100%;
+        text-align: center;
+        .menuButtonIconLabel__icon {
+            margin-right: 0.5rem;
+        }
+    }
+
     &__label {
         width: 100%;
         font-weight: bold;

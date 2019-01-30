@@ -21,6 +21,7 @@ interface Props {
     onChange: (value: string) => void;
     headerRenderer?: () => React.ReactNode;
     iconRenderer?: MenuButtonIconRenderer;
+    iconOnly?: boolean;
 }
 
 const bem = BEMHelper('menuButton');
@@ -30,7 +31,8 @@ const MenuButton: React.StatelessComponent<Props> = ({
     selectedValue,
     headerRenderer,
     iconRenderer,
-    onChange
+    onChange,
+    iconOnly
 }) => {
     const selectedItem = options.find((o) => o.value === selectedValue);
 
@@ -38,7 +40,12 @@ const MenuButton: React.StatelessComponent<Props> = ({
         <Wrapper className={bem.block} onSelection={onChange}>
             <Button className={bem.element('button')}>
                 {selectedItem ? (
-                    <MenuButtonLabelRenderer option={selectedItem} iconRenderer={iconRenderer} isSelected={true} />
+                    <MenuButtonLabelRenderer
+                        option={selectedItem}
+                        iconRenderer={iconRenderer}
+                        isSelected={true}
+                        iconOnly={iconOnly}
+                    />
                 ) : (
                     'Velg'
                 )}

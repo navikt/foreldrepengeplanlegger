@@ -1,5 +1,6 @@
 import { Periodetype } from './periodetyper';
-
+import { Situasjon, ForeldreparForelder } from 'common/components/foreldrepar/foreldreparTypes';
+export * from 'common/components/foreldrepar/foreldreparTypes';
 export * from './periodetyper';
 
 export enum Forelder {
@@ -11,15 +12,6 @@ export enum Søkersituasjon {
     FØDSEL = 'fødsel',
     ADOPSJON = 'adopsjon',
     FORELDREANSVAR = 'omsorgsovertakelse'
-}
-
-export enum Situasjon {
-    'farOgMor' = 'farOgMor',
-    'bareFar' = 'bareFar',
-    'bareMor' = 'bareMor',
-    'aleneomsorg' = 'aleneomsorg',
-    'farOgFar' = 'farOgFar',
-    'morOgMedmor' = 'morOgMedmor'
 }
 
 export interface UkerOgDager {
@@ -106,4 +98,14 @@ export interface Forbruk {
 
 export interface SvgIkonProps {
     title: string;
+}
+
+export interface Forelderinfo {
+    navn: string;
+    ikonRef: ForeldreparForelder;
+}
+
+export interface OmForeldre {
+    forelder1: Forelderinfo;
+    forelder2?: Forelderinfo;
 }

@@ -1,8 +1,10 @@
 import { takeEvery, all, put, select } from 'redux-saga/effects';
 import { AppState } from '../reducers/rootReducer';
-import { updateForbruk, UpdateTilgjengeligeDager } from '../actions/common/commonActionCreators';
+import { updateForbruk, UpdateTilgjengeligeDager, UpdateOmForeldre } from '../actions/common/commonActionCreators';
 import { CommonActionKeys } from '../actions/common/commonActionDefinitions';
 import { selectForbruk, selectTilgjengeligeDager } from '../selectors';
+import { getInformasjonOmForeldre } from '../../utils/common';
+import { ApiActionKeys } from '../actions/api/apiActionDefinitions';
 
 const stateSelector = (state: AppState) => state;
 
@@ -19,6 +21,19 @@ function* updateTilgjengeligeDagerSaga() {
     yield put(UpdateTilgjengeligeDager(selectTilgjengeligeDager(appState)));
 }
 
+function* updateOmForeldre() {
+    const appState: AppState = yield select(stateSelector);
+    const { skjemadata } = appState.common;
+    if (skjemadata) {
+        const omForeldre = getInformasjonOmForeldre(
+            skjemadata.situasjon,
+            skjemadata.navnForelder1,
+            skjemadata.navnForelder2
+        );
+        yield put(UpdateOmForeldre(omForeldre));
+    }
+}
+
 function* forbrukSaga() {
     yield all([takeEvery(CommonActionKeys.SET_DEKNINGSGRAD, updateTilgjengeligeDagerSaga)]);
     yield all([takeEvery(CommonActionKeys.SET_STØNADSKONTOER, updateTilgjengeligeDagerSaga)]);
@@ -29,6 +44,9 @@ function* forbrukSaga() {
     yield all([takeEvery(CommonActionKeys.UPDATE_PERIODE, updateForbrukSaga)]);
     yield all([takeEvery(CommonActionKeys.REMOVE_PERIODE, updateForbrukSaga)]);
     yield all([takeEvery(CommonActionKeys.MOVE_PERIODE, updateForbrukSaga)]);
+    yield all([takeEvery(CommonActionKeys.SUBMIT_SKJEMADATA, updateOmForeldre)]);
+    yield all([takeEvery(CommonActionKeys.APPLY_STORAGE, updateOmForeldre)]);
+    yield all([takeEvery(ApiActionKeys.UPDATE_API, updateOmForeldre)]);
 }
 
 export default forbrukSaga;

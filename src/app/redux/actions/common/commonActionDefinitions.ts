@@ -1,5 +1,12 @@
 import { Språkkode } from '../../../intl/types';
-import { Periode, SituasjonSkjemadata, TilgjengeligStønadskonto, Forbruk, TilgjengeligeDager } from '../../../types';
+import {
+    Periode,
+    SituasjonSkjemadata,
+    TilgjengeligStønadskonto,
+    Forbruk,
+    TilgjengeligeDager,
+    OmForeldre
+} from '../../../types';
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
 import { CommonState } from '../../reducers/commonReducer';
@@ -17,7 +24,8 @@ export enum CommonActionKeys {
     'MOVE_PERIODE' = 'movePeriode',
     'APPLY_STORAGE' = 'applyStorage',
     'UPDATE_FORBRUK' = 'updateForbruk',
-    'UPDATE_TILGJENGELIGE_DAGER' = 'updateTilgjengeligeDager'
+    'UPDATE_TILGJENGELIGE_DAGER' = 'updateTilgjengeligeDager',
+    'UPDATE_OM_FORELDRE' = 'updateOmForeldre'
 }
 
 interface SetSpråk {
@@ -59,6 +67,11 @@ export interface UpdateForbruk {
 export interface UpdateTilgjengeligeDager {
     type: CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER;
     tilgjengeligeDager: TilgjengeligeDager | undefined;
+}
+
+export interface UpdateOmForeldre {
+    type: CommonActionKeys.UPDATE_OM_FORELDRE;
+    omForeldre: OmForeldre;
 }
 
 interface SetDekningsgrad {
@@ -104,4 +117,5 @@ export type CommonActionTypes =
     | SubmitSkjemadataAction
     | ApplyStorage
     | UpdateForbruk
-    | UpdateTilgjengeligeDager;
+    | UpdateTilgjengeligeDager
+    | UpdateOmForeldre;

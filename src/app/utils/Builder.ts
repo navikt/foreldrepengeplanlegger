@@ -5,7 +5,7 @@ import { Uttaksdagen } from './Uttaksdagen';
 import { Perioden } from './Perioden';
 import { guid } from 'nav-frontend-js-utils';
 import { getTidsperiode, Tidsperioden } from './Tidsperioden';
-import { getUttaksinfoForPeriode } from './periodeinfo';
+import { getUttaksinfoForPeriode } from './uttaksinfo';
 import arrayMove from 'array-move';
 
 export const UttaksplanBuilder = (perioder: Periode[], familiehendelsesdato: Date) => {

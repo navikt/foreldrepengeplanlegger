@@ -20,7 +20,7 @@ export interface UkerOgDager {
     dager: number;
 }
 
-export interface PeriodeUttaksinfo {
+export interface Uttaksinfo {
     antallUttaksdager?: number;
     antallFridager?: number;
     ukerOgDager: UkerOgDager;

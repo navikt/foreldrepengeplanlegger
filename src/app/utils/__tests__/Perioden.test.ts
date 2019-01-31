@@ -1,7 +1,7 @@
 import { Periode, Forelder, Periodetype } from '../../types';
 import { guid } from 'nav-frontend-js-utils';
 import { getTidsperiode } from '../Tidsperioden';
-import { getUttaksinfoForPeriode } from '../periodeinfo';
+import { getUttaksinfoForPeriode } from '../uttaksinfo';
 import { Perioden } from '../Perioden';
 
 const periode1: Periode = {

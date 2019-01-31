@@ -1,4 +1,4 @@
-import { Periode, PeriodeUttaksinfo, Periodetype } from '../types';
+import { Periode, Uttaksinfo, Periodetype } from '../types';
 import { isValidTidsperiode, Tidsperioden } from './Tidsperioden';
 import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
 
@@ -25,7 +25,7 @@ const beregnBrukteUttaksdager = (
     }
 };
 
-export const getUttaksinfoForPeriode = (periode: Periode): PeriodeUttaksinfo | undefined => {
+export const getUttaksinfoForPeriode = (periode: Periode): Uttaksinfo | undefined => {
     const { tidsperiode } = periode;
     if (isValidTidsperiode(tidsperiode)) {
         const antallUttaksdager = Tidsperioden(tidsperiode).getAntallUttaksdager();

@@ -1,5 +1,5 @@
 import { Tidsperiode } from 'common/types';
-import { Forelder, PeriodeUttaksinfo } from '.';
+import { Forelder, Uttaksinfo } from '.';
 
 export enum Periodetype {
     'Uttak' = 'uttak',
@@ -15,7 +15,7 @@ export interface PeriodeBase {
     tidsperiode: Tidsperiode;
     forelder: Forelder;
     fixed?: boolean;
-    uttaksinfo?: PeriodeUttaksinfo;
+    uttaksinfo?: Uttaksinfo;
     gradering?: number;
 }
 

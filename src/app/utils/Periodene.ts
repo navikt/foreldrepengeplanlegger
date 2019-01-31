@@ -2,16 +2,8 @@ import moment from 'moment';
 import { Uttaksdagen } from './Uttaksdagen';
 import { isValidTidsperiode, Tidsperioden } from './Tidsperioden';
 import { Tidsperiode } from 'common/types';
-import {
-    Periode,
-    isUttak,
-    Uttaksperiode,
-    Utsettelsesperiode,
-    isUtsettelse,
-    isFerie,
-    isArbeid
-} from '../types/periodetyper';
-import { Forelder } from '../types';
+import { Periode, Uttaksperiode, Utsettelsesperiode, isUtsettelse, isFerie, isArbeid } from '../types/periodetyper';
+import { Forelder, GradertUttaksperiode, isUttakOrGradertUttak } from '../types';
 import { Perioden } from './Perioden';
 import { getUttaksinfoFromPeriode } from './periodeinfo';
 
@@ -28,7 +20,7 @@ export const Periodene = (perioder: Periode[]) => ({
         getFørstePeriodeEtterFamiliehendelsesdato(perioder, dato),
     getFørsteUttaksdag: () => getFørsteUttaksdag(perioder),
     getAntallFeriedager: (forelder?: Forelder) => getAntallFeriedager(perioder, forelder),
-    getAntallUttaksdager: () => getAntallUttaksdager(perioder),
+    getBrukteUttaksdager: () => getBrukteUttaksdager(perioder),
     getAntallHelligdager: () => getAntallHelligdager(perioder),
     finnOverlappendePerioder: (periode: Periode) => finnOverlappendePerioder(perioder, periode),
     finnPeriodeMedDato: (dato: Date) => finnPeriodeMedDato(perioder, dato),
@@ -54,8 +46,8 @@ function getPeriode(perioder: Periode[], id: string): Periode | undefined {
     return perioder.find((p) => p.id === id);
 }
 
-function getUttak(perioder: Periode[]): Uttaksperiode[] {
-    return perioder.filter(isUttak);
+function getUttak(perioder: Periode[]): Array<Uttaksperiode | GradertUttaksperiode> {
+    return perioder.filter(isUttakOrGradertUttak);
 }
 
 function getUtsettelser(perioder: Periode[]): Utsettelsesperiode[] {
@@ -182,7 +174,7 @@ function getAntallFeriedager(perioder: Periode[], forelder?: Forelder): number {
         .reduce((tot = 0, curr) => tot + curr, 0);
 }
 
-function getAntallUttaksdager(perioder: Periode[]): number {
+function getBrukteUttaksdager(perioder: Periode[]): number {
     return perioder.reduce((dager, periode) => {
         const uttaksinfo = periode.uttaksinfo || getUttaksinfoFromPeriode(periode);
         if (uttaksinfo) {

@@ -5,17 +5,20 @@ import { Periodene } from './Periodene';
 export const getForbrukIPerioder = (perioder: Periode[]): ForelderForbruk => {
     const perioderGruppertPåType = groupby(perioder, (periode) => periode.type);
     const forbrukPerPeriodetype: ForbrukPerPeriodetype[] = [];
+    // const brukteUttaksdager = 0;
     Object.keys(perioderGruppertPåType).forEach((key) => {
         const periodetype = key as Periodetype;
+        const uttaksdagerIPeriodene = Periodene(perioderGruppertPåType[key]).getBrukteUttaksdager();
+        const helligdagerIPeriodene = Periodene(perioderGruppertPåType[key]).getAntallFeriedager();
         forbrukPerPeriodetype.push({
             periodetype,
-            uttaksdagerIPeriodene: Periodene(perioderGruppertPåType[key]).getAntallUttaksdager(),
-            helligdagerIPeriodene: Periodene(perioderGruppertPåType[key]).getAntallFeriedager()
+            uttaksdagerIPeriodene,
+            helligdagerIPeriodene
         });
     });
     return {
         forbrukPerPeriodetype,
-        brukteUttaksdager: Periodene(perioder).getAntallUttaksdager()
+        brukteUttaksdager: Periodene(perioder).getBrukteUttaksdager()
     };
 };
 

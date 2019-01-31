@@ -43,6 +43,10 @@ export type Utsettelsesperiode = Ferieperiode | Arbeidsperiode;
 
 export type Periode = Uttaksperiode | GradertUttaksperiode | Utsettelsesperiode | UbetaltPermisjon | Ferieperiode;
 
+export function isUttakOrGradertUttak(periode: Periode): periode is Uttaksperiode | GradertUttaksperiode {
+    return periode.type === Periodetype.Uttak || periode.type === Periodetype.GradertUttak;
+}
+
 export function isUttak(periode: Periode): periode is Uttaksperiode {
     return periode.type === Periodetype.Uttak;
 }

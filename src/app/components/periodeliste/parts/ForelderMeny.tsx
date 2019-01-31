@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Forelder, OmForeldre, ForeldreparForelder } from '../../../types';
 import MenuButton, { MenuButtonOption } from 'common/components/menuButton/MenuButton';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
+import Block from 'common/components/block/Block';
+import { Element } from 'nav-frontend-typografi';
 
 interface Props {
     forelder: Forelder;
@@ -33,6 +35,11 @@ const ForelderMeny: React.StatelessComponent<Props> = ({ onChange, forelder, omF
             iconRenderer={(option) => renderForelderIkon(option, omForeldre)}
             iconOnly={true}
             dialogClassName="forelderMenyDialog"
+            headerRenderer={() => (
+                <Block margin="xxs">
+                    <Element>Hvem gjelder perioden?</Element>
+                </Block>
+            )}
         />
     );
 };

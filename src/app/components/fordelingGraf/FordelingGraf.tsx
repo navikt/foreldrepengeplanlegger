@@ -24,7 +24,7 @@ const Tittel: React.StatelessComponent<{ navn: string; dager?: number; intl: Inj
             <div className={bem.element('forbruk')}>
                 <div className={bem.element('forbruk__navn')}>{navn}</div>
                 <div className={bem.element('forbruk__dager')}>
-                    <Varighet dager={dager} />
+                    <Varighet dager={dager | 0} />
                 </div>
             </div>
         </div>

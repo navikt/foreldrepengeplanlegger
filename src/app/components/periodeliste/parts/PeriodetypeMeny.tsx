@@ -24,6 +24,12 @@ const getOptions = (intl: InjectedIntl): MenuButtonOption[] => [
     // { value: Periodetype.UbetaltPermisjon, label: getMessage(intl, `periodetype.${Periodetype.UbetaltPermisjon}`) },
 ];
 
+const getPeriodetypeLabel = (periode: Periode, intl: InjectedIntl): string => {
+    return `${getMessage(intl, `periodetype.${periode.type}`)}${
+        periode.type === Periodetype.GradertUttak ? ` (${periode.gradering}%)` : ''
+    }`;
+};
+
 const PeriodetypeMeny: React.StatelessComponent<Props> = ({ periode, foreldernavn, onChange, intl }) => {
     return (
         <MenuButton
@@ -35,14 +41,14 @@ const PeriodetypeMeny: React.StatelessComponent<Props> = ({ periode, foreldernav
             )}
             dialogClassName={'periodetypeDialog'}
             headerRenderer={() => (
-                <Block margin="xs">
+                <Block margin="xxs">
                     <Element>Velg type periode</Element>
                 </Block>
             )}
             labelRenderer={(option) => (
                 <div className="periodetypeMenyLabel">
                     <div className="periodetypeMenyLabel__type">
-                        {getMessage(intl, `periodetype.${option.value}`)}
+                        {getPeriodetypeLabel(periode, intl)}
                         {foreldernavn && <span> - {foreldernavn}</span>}
                     </div>
                     {periode.tidsperiode && (

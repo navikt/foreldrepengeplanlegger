@@ -1,5 +1,5 @@
 import { Periode, Forelder, Periodetype } from 'app/types';
-import { getUttaksinfoForPeriode } from 'app/utils/periodeinfo';
+import { getUttaksinfoForPeriode } from '../utils/uttaksinfo';
 
 const periode1: Periode = {
     forelder: Forelder.forelder1,

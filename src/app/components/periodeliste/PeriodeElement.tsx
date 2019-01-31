@@ -76,6 +76,7 @@ class PeriodeElement extends React.Component<Props, {}> {
                 {this.props.periode.type === Periodetype.GradertUttak && (
                     <div className={bem.element('gradering')}>
                         <GraderingMeny
+                            foreldernavn={foreldernavn}
                             gradering={this.props.periode.gradering}
                             onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
                         />

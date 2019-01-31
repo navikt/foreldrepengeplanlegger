@@ -32,6 +32,6 @@
     "periodetype.uttak": "Uttak",
     "periodetype.gradertUttak": "Gradert uttak",
     "periodetype.ferie": "Ferie",
-    "periodetype.arbeid": "Arbeid fulltud",
+    "periodetype.arbeid": "Arbeid fulltid",
     "periodetype.ubetaltPermisjon": "Ubetalt permisjon"
 }

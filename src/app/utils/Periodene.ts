@@ -5,7 +5,7 @@ import { Tidsperiode } from 'common/types';
 import { Periode, Uttaksperiode, Utsettelsesperiode, isUtsettelse, isFerie, isArbeid } from '../types/periodetyper';
 import { Forelder, GradertUttaksperiode, isUttakOrGradertUttak } from '../types';
 import { Perioden } from './Perioden';
-import { getUttaksinfoForPeriode } from './periodeinfo';
+import { getUttaksinfoForPeriode } from './uttaksinfo';
 
 export const Periodene = (perioder: Periode[]) => ({
     getPeriode: (id: string) => getPeriode(perioder, id),

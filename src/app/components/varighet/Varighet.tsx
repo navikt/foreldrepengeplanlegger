@@ -25,15 +25,14 @@ const Varighet: React.StatelessComponent<Props> = ({ dager, intl }) => {
                 </span>
             )}
             {ud.uker > 0 && ud.dager > 0 && <span className={bem.element('separator')}>{', '}</span>}
-            {ud.dager > 0 ||
-                (ud.uker === 0 && (
-                    <span className={bem.element('dager')}>
-                        <span className={bem.element('value')}>{ud.dager}</span>
-                        <span className={bem.element('title')}>
-                            {getMessage(intl, 'common.varighet.dagerTekst', { dager: ud.dager })}
-                        </span>
+            {(ud.dager > 0 || ud.uker === 0) && (
+                <span className={bem.element('dager')}>
+                    <span className={bem.element('value')}>{ud.dager}</span>
+                    <span className={bem.element('title')}>
+                        {getMessage(intl, 'common.varighet.dagerTekst', { dager: ud.dager })}
                     </span>
-                ))}
+                </span>
+            )}
         </div>
     );
 };

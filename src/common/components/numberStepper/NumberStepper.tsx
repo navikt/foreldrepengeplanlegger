@@ -9,6 +9,7 @@ export interface Props {
     stepSize?: number;
     max?: number;
     min?: number;
+    placeholder?: string;
     onChange: (value: number | undefined) => void;
 }
 
@@ -73,7 +74,7 @@ class NumberStepper extends React.Component<Props, State> {
 
     render() {
         const { value } = this.state;
-        const { min, max, stepSize = 1, onChange } = this.props;
+        const { min, max, stepSize = 1, onChange, placeholder } = this.props;
         const canDecrease = min === undefined || (value !== undefined && value > min) || value === undefined;
         const canIncrease = max === undefined || (value !== undefined && value < max) || value === undefined;
         return (
@@ -92,7 +93,7 @@ class NumberStepper extends React.Component<Props, State> {
                         aria-label="Verdi"
                         type="number"
                         value={value || ''}
-                        placeholder="%"
+                        placeholder={placeholder}
                         onChange={(evt) => this.updateValue(getChangeValue(evt.target.value, min, max))}
                         onBlur={() => onChange(this.state.value)}
                     />

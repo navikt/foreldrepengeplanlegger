@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { UkerOgDager } from '../../../types';
-import { getVarighetString } from 'common/utils/intlUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import DropdownButton from 'common/components/dropdownButton/DropdownButton';
 import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVelger';
@@ -8,6 +7,7 @@ import { Tidsperioden } from '../../../utils/Tidsperioden';
 import { Tidsperiode } from 'nav-datovelger';
 
 import BEMHelper from 'common/utils/bem';
+import Varighet from '../../varighet/Varighet';
 
 interface OwnProps {
     tidsperiode: Tidsperiode;
@@ -20,7 +20,10 @@ type Props = OwnProps & InjectedIntlProps;
 
 const bem = BEMHelper('varighetDropdown');
 const VarighetMeny: React.StatelessComponent<Props> = ({ uker, dager, tidsperiode, onChange, intl }) => (
-    <DropdownButton label={getVarighetString(uker * 5 + dager, intl, 'normal')} dialogClassName={'varighetDialog'}>
+    <DropdownButton
+        label="whoa"
+        labelRenderer={() => <Varighet dager={(uker * 5 + dager) | 0} />}
+        dialogClassName={'varighetDialog'}>
         <div className={bem.block}>
             <UkerOgDagerVelger
                 tittel="Velg uker og dager"

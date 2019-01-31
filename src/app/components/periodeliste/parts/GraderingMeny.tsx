@@ -8,6 +8,7 @@ import AriaAlternative from 'common/components/aria/AriaAlternative';
 
 interface OwnProps {
     gradering?: number;
+    foreldernavn?: string;
     onChange: (gradering: number | undefined) => void;
 }
 
@@ -22,7 +23,7 @@ const beregnGraderingUtFraArbeidsprosent = (arbeidsprosent: number | undefined):
     return undefined;
 };
 
-const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, onChange }) => {
+const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, foreldernavn, onChange }) => {
     const label = gradering === 100 || gradering === undefined ? '100%' : `${100 - gradering}%`;
     const arbeidsprosent = gradering === undefined ? 100 : 100 - gradering;
     return (
@@ -41,7 +42,7 @@ const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, onChange })
             )}>
             <div className={bem.block}>
                 <SkjemaNumberStepper
-                    tittel="Hvor mye skal du arbeide i perioden (prosent)?"
+                    tittel={`Velg hvor mye skal ${foreldernavn ? foreldernavn : 'du'} arbeide (prosent)?`}
                     min={1}
                     max={100}
                     stepSize={5}

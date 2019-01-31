@@ -5,7 +5,6 @@ import BEMHelper from 'common/utils/bem';
 import SkjemaNumberStepper from 'common/components/skjema/skjemaNumberStepper/SkjemaNumberStepper';
 import ArbeidIkon from '../../periodeikon/ikoner/ArbeidIkon';
 import AriaAlternative from 'common/components/aria/AriaAlternative';
-import './varighetMeny.less';
 
 interface OwnProps {
     gradering?: number;
@@ -14,9 +13,18 @@ interface OwnProps {
 
 type Props = OwnProps & InjectedIntlProps;
 
-const bem = BEMHelper('varighetDropdown');
-const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, onChange, intl }) => {
+const bem = BEMHelper('graderingDropdown');
+
+const beregnGraderingUtFraArbeidsprosent = (arbeidsprosent: number | undefined): number | undefined => {
+    if (arbeidsprosent !== undefined) {
+        return Math.max(0, 100 - arbeidsprosent);
+    }
+    return undefined;
+};
+
+const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, onChange }) => {
     const label = gradering === 100 || gradering === undefined ? '100%' : `${100 - gradering}%`;
+    const arbeidsprosent = gradering === undefined ? 100 : 100 - gradering;
     return (
         <DropdownButton
             label={label}
@@ -32,12 +40,12 @@ const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, onChange, i
             )}>
             <div className={bem.block}>
                 <SkjemaNumberStepper
-                    tittel="Velg hvor mye foreldrepenger du skal ta ut"
+                    tittel="Hvor mye skal du arbeide i perioden?"
                     min={1}
                     max={100}
                     stepSize={5}
-                    value={gradering}
-                    onChange={(g) => onChange(g)}
+                    value={arbeidsprosent}
+                    onChange={(g) => onChange(beregnGraderingUtFraArbeidsprosent(g))}
                 />
             </div>
         </DropdownButton>

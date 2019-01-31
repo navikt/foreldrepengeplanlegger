@@ -5,7 +5,7 @@ import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
 const beregnBrukteUttaksdager = (
     type: Periodetype,
     uttaksdager: number,
-    helligdager: number,
+    fridager: number,
     gradering?: number
 ): number => {
     switch (type) {
@@ -17,7 +17,7 @@ const beregnBrukteUttaksdager = (
             }
             return Math.floor(uttaksdager * (gradering / 100));
         case Periodetype.Ferie:
-            return helligdager;
+            return fridager;
         case Periodetype.UbetaltPermisjon:
             return 0;
         case Periodetype.Arbeid:
@@ -25,15 +25,15 @@ const beregnBrukteUttaksdager = (
     }
 };
 
-export const getUttaksinfoFromPeriode = (periode: Periode): PeriodeUttaksinfo | undefined => {
+export const getUttaksinfoForPeriode = (periode: Periode): PeriodeUttaksinfo | undefined => {
     const { tidsperiode } = periode;
     if (isValidTidsperiode(tidsperiode)) {
         const uttaksdager = Tidsperioden(tidsperiode).getAntallUttaksdager();
-        const helligdager = Tidsperioden(tidsperiode).getAntallHelligdager();
-        const uttaksdagerBrukt = beregnBrukteUttaksdager(periode.type, uttaksdager, helligdager, periode.gradering);
+        const fridager = Tidsperioden(tidsperiode).getAntallFridager();
+        const uttaksdagerBrukt = beregnBrukteUttaksdager(periode.type, uttaksdager, fridager, periode.gradering);
         return {
             uttaksdager,
-            helligdager,
+            fridager,
             ukerOgDager: getUkerOgDagerFromDager(uttaksdager),
             uttaksdagerBrukt
         };

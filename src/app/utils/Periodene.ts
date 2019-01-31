@@ -5,7 +5,7 @@ import { Tidsperiode } from 'common/types';
 import { Periode, Uttaksperiode, Utsettelsesperiode, isUtsettelse, isFerie, isArbeid } from '../types/periodetyper';
 import { Forelder, GradertUttaksperiode, isUttakOrGradertUttak } from '../types';
 import { Perioden } from './Perioden';
-import { getUttaksinfoFromPeriode } from './periodeinfo';
+import { getUttaksinfoForPeriode } from './periodeinfo';
 
 export const Periodene = (perioder: Periode[]) => ({
     getPeriode: (id: string) => getPeriode(perioder, id),
@@ -21,7 +21,7 @@ export const Periodene = (perioder: Periode[]) => ({
     getFørsteUttaksdag: () => getFørsteUttaksdag(perioder),
     getAntallFeriedager: (forelder?: Forelder) => getAntallFeriedager(perioder, forelder),
     getBrukteUttaksdager: () => getBrukteUttaksdager(perioder),
-    getAntallHelligdager: () => getAntallHelligdager(perioder),
+    getAntallFridager: () => getAntallFridager(perioder),
     finnOverlappendePerioder: (periode: Periode) => finnOverlappendePerioder(perioder, periode),
     finnPeriodeMedDato: (dato: Date) => finnPeriodeMedDato(perioder, dato),
     finnAlleForegåendePerioder: (periode: Periode) => finnPerioderFørPeriode(perioder, periode),
@@ -176,7 +176,7 @@ function getAntallFeriedager(perioder: Periode[], forelder?: Forelder): number {
 
 function getBrukteUttaksdager(perioder: Periode[]): number {
     return perioder.reduce((dager, periode) => {
-        const uttaksinfo = periode.uttaksinfo || getUttaksinfoFromPeriode(periode);
+        const uttaksinfo = periode.uttaksinfo || getUttaksinfoForPeriode(periode);
         if (uttaksinfo) {
             return dager + uttaksinfo.uttaksdagerBrukt;
         }
@@ -184,11 +184,11 @@ function getBrukteUttaksdager(perioder: Periode[]): number {
     }, 0);
 }
 
-function getAntallHelligdager(perioder: Periode[]): number {
+function getAntallFridager(perioder: Periode[]): number {
     return perioder.reduce((dager, periode) => {
-        const uttaksinfo = periode.uttaksinfo || getUttaksinfoFromPeriode(periode);
+        const uttaksinfo = periode.uttaksinfo || getUttaksinfoForPeriode(periode);
         if (uttaksinfo) {
-            return dager + (uttaksinfo.helligdager || 0);
+            return dager + (uttaksinfo.fridager || 0);
         }
         return dager;
     }, 0);

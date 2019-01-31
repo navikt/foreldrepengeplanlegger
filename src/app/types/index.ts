@@ -21,7 +21,7 @@ export interface UkerOgDager {
 
 export interface PeriodeUttaksinfo {
     uttaksdager?: number;
-    helligdager?: number;
+    fridager?: number;
     ukerOgDager: UkerOgDager;
     uttaksdagerBrukt: number;
 }
@@ -74,7 +74,7 @@ export interface ForelderForbruk {
 export interface ForbrukPerPeriodetype {
     periodetype: Periodetype;
     uttaksdagerIPeriodene: number;
-    helligdagerIPeriodene: number;
+    fridagerIPeriodene: number;
 }
 
 export interface Fordeling {

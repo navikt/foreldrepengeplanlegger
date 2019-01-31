@@ -1,7 +1,7 @@
 import { Periode, Forelder, Periodetype } from '../../types';
 import { guid } from 'nav-frontend-js-utils';
 import { getTidsperiode } from '../Tidsperioden';
-import { getUttaksinfoFromPeriode } from '../periodeinfo';
+import { getUttaksinfoForPeriode } from '../periodeinfo';
 import { Perioden } from '../Perioden';
 
 const periode1: Periode = {
@@ -11,7 +11,7 @@ const periode1: Periode = {
     tidsperiode: getTidsperiode(new Date(), 10),
     type: Periodetype.Uttak
 };
-periode1.uttaksinfo = getUttaksinfoFromPeriode(periode1);
+periode1.uttaksinfo = getUttaksinfoForPeriode(periode1);
 const periode2: Periode = {
     id: guid(),
     fixed: false,
@@ -19,7 +19,7 @@ const periode2: Periode = {
     tidsperiode: getTidsperiode(new Date(), 20),
     type: Periodetype.Uttak
 };
-periode2.uttaksinfo = getUttaksinfoFromPeriode(periode2);
+periode2.uttaksinfo = getUttaksinfoForPeriode(periode2);
 
 describe('Perioden', () => {
     it('periode sammenlignet med seg selv er lik', () => {
@@ -79,7 +79,7 @@ describe('Perioden', () => {
             expect(
                 Perioden(periode1).erLik({
                     ...periode1,
-                    uttaksinfo: getUttaksinfoFromPeriode(periode2)
+                    uttaksinfo: getUttaksinfoForPeriode(periode2)
                 })
             ).toBeTruthy();
         });

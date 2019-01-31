@@ -1,5 +1,5 @@
 import { Periode, Forelder, Periodetype } from 'app/types';
-import { getUttaksinfoFromPeriode } from 'app/utils/periodeinfo';
+import { getUttaksinfoForPeriode } from 'app/utils/periodeinfo';
 
 const periode1: Periode = {
     forelder: Forelder.forelder1,
@@ -32,6 +32,6 @@ const periode3: Periode = {
 export const mockPerioder: Periode[] = [periode1, periode2, periode3].map(
     (periode: Periode): Periode => ({
         ...periode,
-        uttaksinfo: getUttaksinfoFromPeriode(periode)
+        uttaksinfo: getUttaksinfoForPeriode(periode)
     })
 );

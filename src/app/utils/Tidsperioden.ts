@@ -13,6 +13,7 @@ export const Tidsperioden = (tidsperiode: Partial<Tidsperiode>) => ({
     erUtenfor: (tidsperiode2: Tidsperiode) => erTidsperiodeUtenforTidsperiode(tidsperiode, tidsperiode2),
     getAntallUttaksdager: (taBortFridager?: boolean) => getAntallUttaksdagerITidsperiode(tidsperiode, taBortFridager),
     getAntallFridager: () => getUttaksdagerSomErFridager(tidsperiode).length,
+    getUttaksdagerSomErFridager: () => getUttaksdagerSomErFridager(tidsperiode),
     setStartdato: (fom: Date) => (isValidTidsperiode(tidsperiode) ? flyttTidsperiode(tidsperiode, fom) : tidsperiode),
     setUttaksdager: (uttaksdager: number) =>
         tidsperiode.fom ? getTidsperiode(tidsperiode.fom, uttaksdager) : tidsperiode,
@@ -88,7 +89,8 @@ function getUttaksdagerSomErFridager(tidsperiode: Partial<Tidsperiode>): Holiday
     if (isValidTidsperiode(tidsperiode) === false) {
         return [];
     }
-    return getOffentligeFridager(tidsperiode as Tidsperiode).filter((dag) => Uttaksdagen(dag.date).erUttaksdag());
+    const { fom, tom } = tidsperiode as Tidsperiode;
+    return getOffentligeFridager(fom, tom).filter((dag) => Uttaksdagen(dag.date).erUttaksdag());
 }
 
 function flyttTidsperiode(tidsperiode: Tidsperiode, fom: Date): Tidsperiode {

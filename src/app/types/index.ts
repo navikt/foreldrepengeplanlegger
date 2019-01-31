@@ -1,5 +1,6 @@
 import { Periodetype } from './periodetyper';
 import { Situasjon, ForeldreparForelder } from 'common/components/foreldrepar/foreldreparTypes';
+import { Holiday } from 'date-holidays';
 export * from 'common/components/foreldrepar/foreldreparTypes';
 export * from './periodetyper';
 
@@ -20,10 +21,11 @@ export interface UkerOgDager {
 }
 
 export interface PeriodeUttaksinfo {
-    uttaksdager?: number;
-    fridager?: number;
+    antallUttaksdager?: number;
+    antallFridager?: number;
     ukerOgDager: UkerOgDager;
-    uttaksdagerBrukt: number;
+    antallUttaksdagerBrukt: number;
+    fridager: Holiday[];
 }
 
 export type UttaksplanColor = 'purple' | 'blue' | 'green' | 'purpleBlue' | 'yellow' | '';

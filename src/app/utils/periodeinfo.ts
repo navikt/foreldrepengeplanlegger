@@ -28,14 +28,21 @@ const beregnBrukteUttaksdager = (
 export const getUttaksinfoForPeriode = (periode: Periode): PeriodeUttaksinfo | undefined => {
     const { tidsperiode } = periode;
     if (isValidTidsperiode(tidsperiode)) {
-        const uttaksdager = Tidsperioden(tidsperiode).getAntallUttaksdager();
-        const fridager = Tidsperioden(tidsperiode).getAntallFridager();
-        const uttaksdagerBrukt = beregnBrukteUttaksdager(periode.type, uttaksdager, fridager, periode.gradering);
+        const antallUttaksdager = Tidsperioden(tidsperiode).getAntallUttaksdager();
+        const antallFridager = Tidsperioden(tidsperiode).getAntallFridager();
+        const antallUttaksdagerBrukt = beregnBrukteUttaksdager(
+            periode.type,
+            antallUttaksdager,
+            antallFridager,
+
+            periode.gradering
+        );
         return {
-            uttaksdager,
-            fridager,
-            ukerOgDager: getUkerOgDagerFromDager(uttaksdager),
-            uttaksdagerBrukt
+            antallUttaksdager,
+            antallFridager,
+            ukerOgDager: getUkerOgDagerFromDager(antallUttaksdager),
+            fridager: Tidsperioden(tidsperiode).getUttaksdagerSomErFridager(),
+            antallUttaksdagerBrukt
         };
     }
     return undefined;

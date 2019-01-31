@@ -100,6 +100,8 @@ export interface Forbruk {
 
 export interface SvgIkonProps {
     title: string;
+    width?: number;
+    height?: number;
 }
 
 export interface Forelderinfo {

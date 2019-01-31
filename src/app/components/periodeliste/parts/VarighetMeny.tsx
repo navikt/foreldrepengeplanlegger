@@ -9,6 +9,7 @@ import Varighet from '../../varighet/Varighet';
 import Block from 'common/components/block/Block';
 import FomTomValg from '../../periodeskjema/parts/FomTomValg';
 import DropdownDialogTittel from './DropdownDialogTittel';
+import TidIkon from '../../periodeikon/ikoner/TidIkon';
 
 interface OwnProps {
     uker: number;
@@ -28,7 +29,8 @@ const VarighetMeny: React.StatelessComponent<Props> = ({
     tidsperiode,
     onVarighetChange,
     onTidsperiodeChange,
-    låstStartdato
+    låstStartdato,
+    intl
 }) => {
     const datovalg = (
         <FomTomValg
@@ -49,7 +51,18 @@ const VarighetMeny: React.StatelessComponent<Props> = ({
     );
 
     return (
-        <DropdownButton label={() => <Varighet dager={(uker * 5 + dager) | 0} />} dialogClassName={'varighetDialog'}>
+        <DropdownButton
+            label={() => (
+                <div className="varighetLabel">
+                    <div className="varighetLabel__ikon">
+                        <TidIkon title="tid" width={22} height={22} />
+                    </div>
+                    <div className="varighetLabel__value">
+                        <Varighet dager={(uker * 5 + dager) | 0} />
+                    </div>
+                </div>
+            )}
+            dialogClassName={'varighetDialog'}>
             <div className={bem.block}>
                 {låstStartdato ? (
                     <>

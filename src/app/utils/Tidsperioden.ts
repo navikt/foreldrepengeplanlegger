@@ -4,7 +4,13 @@ import { Tidsperiode } from 'common/types';
 import { getOffentligeFridager } from 'common/utils/fridagerUtils';
 import { Uttaksdagen } from './Uttaksdagen';
 import { InjectedIntl } from 'react-intl';
-import { formaterDatoUtenDag, dateIsSameOrBefore, dateIsSameOrAfter, formaterDato } from 'common/utils/datoUtils';
+import {
+    formaterDatoUtenDag,
+    dateIsSameOrBefore,
+    dateIsSameOrAfter,
+    formaterDato,
+    formaterDatoMedDagKort
+} from 'common/utils/datoUtils';
 import getMessage from 'common/utils/i18nUtils';
 
 export const Tidsperioden = (tidsperiode: Partial<Tidsperiode>) => ({
@@ -153,11 +159,11 @@ function tidsperiodeToStringMedDag(tidsperiode: Partial<Tidsperiode>, intl: Inje
 function tidsperiodeToStringKort(tidsperiode: Partial<Tidsperiode>, intl: InjectedIntl) {
     const { fom, tom } = tidsperiode;
     if (fom && tom && moment(fom).isSame(tom, 'day')) {
-        return formaterDatoUtenDag(fom ? fom : tom);
+        return formaterDatoMedDagKort(fom ? fom : tom);
     }
     return getMessage(intl, 'tidsperiode.kort', {
-        fom: fom ? formaterDatoUtenDag(fom) : '',
-        tom: tom ? formaterDatoUtenDag(tom) : ''
+        fom: fom ? formaterDatoMedDagKort(fom) : '',
+        tom: tom ? formaterDatoMedDagKort(tom) : ''
     });
 }
 

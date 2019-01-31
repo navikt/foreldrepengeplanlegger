@@ -82,8 +82,8 @@ const FomTomValg: React.StatelessComponent<Props> = ({
             </Block>
             {låstFomDato && fom && (
                 <div className="comment">
-                    Perioden starter {formaterDato(fom)} (første dag etter foregående periode). For å endre når denne
-                    perioden starter, må du endre sluttdato på foregående periode.
+                    Perioden starter <strong>{formaterDato(fom)}</strong> (første dag etter foregående periode). For å
+                    endre når denne perioden starter, må du endre sluttdato på foregående periode.
                 </div>
             )}
         </>

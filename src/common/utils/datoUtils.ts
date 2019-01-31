@@ -13,6 +13,10 @@ export function formaterDatoUtenDag(dato: Date): string {
     return moment(dato).format('D. MMMM YYYY');
 }
 
+export function formaterDatoMedDagKort(dato: Date): string {
+    return moment(dato).format('dddd D. MMM YYYY');
+}
+
 export function år(dato: Date): string {
     return moment(dato).format('YYYY');
 }

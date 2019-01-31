@@ -38,6 +38,7 @@ class SituasjonsskjemaForm extends React.Component<Props, {}> {
         const visAntallBarn = visAntallBarnValg(situasjon, navnForelder1, navnForelder2);
         const visTermindato = visAntallBarn && antallBarn !== undefined;
         const termindatoAvgrensninger = getTermindatoAvgrensninger();
+        const erToForeldre = getAntallForeldreISituasjon(situasjon) > 1;
         return (
             <Form>
                 <Skjemablokk tittel="Velg deres situasjon">
@@ -62,7 +63,9 @@ class SituasjonsskjemaForm extends React.Component<Props, {}> {
                     </Block>
                 </Skjemablokk>
 
-                <Skjemablokk tittel="Hvor mange barn venter dere?" visible={visAntallBarn}>
+                <Skjemablokk
+                    tittel={erToForeldre ? 'Hvor mange barn venter dere?' : 'Hvor mange barn venter du?'}
+                    visible={visAntallBarn}>
                     <VelgAntallBarn
                         antallBarn={antallBarn}
                         onChange={(antall) => formik.setFieldValue('antallBarn', antall)}

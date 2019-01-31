@@ -110,6 +110,7 @@ export interface Forelderinfo {
 }
 
 export interface OmForeldre {
+    antallForeldre: number;
     forelder1: Forelderinfo;
     forelder2?: Forelderinfo;
 }

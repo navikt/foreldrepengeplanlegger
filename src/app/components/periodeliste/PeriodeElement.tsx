@@ -49,6 +49,7 @@ class PeriodeElement extends React.Component<Props, {}> {
 
         const { uker, dager } = uttaksinfo.ukerOgDager;
         const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
+        const harFlereForelder = omForeldre.antallForeldre > 1;
         return (
             <div className={bem.block}>
                 <PeriodeFargestrek farge={getPeriodetypeFarge(this.props.periode.type, this.props.periode.forelder)} />
@@ -68,6 +69,7 @@ class PeriodeElement extends React.Component<Props, {}> {
                 </div>
                 <div className={bem.element('periode')}>
                     <PeriodetypeMeny
+                        flereForeldre={harFlereForelder}
                         periode={this.props.periode}
                         foreldernavn={foreldernavn}
                         onChange={(periodetype) => onUpdate(changePeriodeType(this.props.periode, periodetype))}
@@ -82,18 +84,20 @@ class PeriodeElement extends React.Component<Props, {}> {
                         />
                     </div>
                 )}
-                <div className={bem.element('forelder')}>
-                    <ForelderMeny
-                        forelder={this.props.periode.forelder}
-                        omForeldre={omForeldre}
-                        onChange={(forelder) =>
-                            onUpdate({
-                                ...this.props.periode,
-                                forelder
-                            })
-                        }
-                    />
-                </div>
+                {harFlereForelder && (
+                    <div className={bem.element('forelder')}>
+                        <ForelderMeny
+                            forelder={this.props.periode.forelder}
+                            omForeldre={omForeldre}
+                            onChange={(forelder) =>
+                                onUpdate({
+                                    ...this.props.periode,
+                                    forelder
+                                })
+                            }
+                        />
+                    </div>
+                )}
                 <div className={bem.element('tidsperiode')}>
                     <VarighetMeny
                         tidsperiode={this.props.periode.tidsperiode}

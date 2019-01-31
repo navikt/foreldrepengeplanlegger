@@ -35,13 +35,15 @@ export const getInformasjonOmForeldre = (
     navnForelder2: string
 ): OmForeldre => {
     const info = getSituasjonForelderSvg(situasjon);
+    const antallForeldre = getAntallForeldreISituasjon(situasjon);
     return {
+        antallForeldre,
         forelder1: {
             navn: navnForelder1,
             ikonRef: info.forelder1
         },
         forelder2:
-            navnForelder2 && info.forelder2
+            antallForeldre === 2 && navnForelder2 && info.forelder2
                 ? {
                       navn: navnForelder2,
                       ikonRef: info.forelder2

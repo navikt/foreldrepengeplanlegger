@@ -9,6 +9,7 @@ import DropdownDialogTittel from './DropdownDialogTittel';
 
 interface OwnProps {
     periode: Periode;
+    flereForeldre: boolean;
     foreldernavn?: string;
     onChange: (periodetype: Periodetype) => void;
 }
@@ -29,7 +30,7 @@ const getPeriodetypeLabel = (periode: Periode, intl: InjectedIntl): string => {
     }`;
 };
 
-const PeriodetypeMeny: React.StatelessComponent<Props> = ({ periode, foreldernavn, onChange, intl }) => {
+const PeriodetypeMeny: React.StatelessComponent<Props> = ({ periode, foreldernavn, flereForeldre, onChange, intl }) => {
     return (
         <MenuButton
             options={getOptions(intl)}
@@ -44,7 +45,7 @@ const PeriodetypeMeny: React.StatelessComponent<Props> = ({ periode, foreldernav
                 <div className="periodetypeMenyLabel">
                     <div className="periodetypeMenyLabel__type">
                         {getPeriodetypeLabel(periode, intl)}
-                        {foreldernavn && <span> - {foreldernavn}</span>}
+                        {flereForeldre && foreldernavn && <span> - {foreldernavn}</span>}
                     </div>
                     {periode.tidsperiode && (
                         <div className="periodetypeMenyLabel__tidsperiode">

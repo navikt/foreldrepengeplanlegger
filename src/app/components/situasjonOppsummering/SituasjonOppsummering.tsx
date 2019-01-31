@@ -1,20 +1,17 @@
 import * as React from 'react';
 import { Situasjon } from '../../types';
 import BEMHelper from 'common/utils/bem';
-// import { formaterDato } from 'common/utils/datoUtils';
 import SituasjonForeldrepar from '../situasjonForeldrepar/SituasjonForeldrepar';
 
 import './situasjonOppsummering.less';
 import BarnIkon from 'common/components/ikoner/BarnIkon';
-import TerminIkon from 'common/components/ikoner/TerminIkon';
-import { Link } from 'react-router-dom';
 
 interface Props {
     situasjon: Situasjon;
     antallBarn: number;
     familiehendelsesdato: Date;
     navnForelder1: string;
-    navnForelder2: string;
+    navnForelder2?: string;
 }
 
 const bem = BEMHelper('situasjonOppsummering');
@@ -39,8 +36,8 @@ const Situasjonsoppsummering: React.StatelessComponent<Props> = ({
                 <SituasjonForeldrepar situasjon={situasjon} />
             </div>
             <div className={bem.element('foreldre')}>
-                <span className={bem.element('navn')}>{navnForelder1}</span> og{' '}
-                <span className={bem.element('navn')}>{navnForelder2}</span>
+                <span className={bem.element('navn')}>{navnForelder1}</span>
+                {navnForelder2 && <span className={bem.element('navn')}> og {navnForelder2}</span>}
             </div>
         </div>
         <div className={bem.element('barn')}>
@@ -49,16 +46,10 @@ const Situasjonsoppsummering: React.StatelessComponent<Props> = ({
         </div>
         <div className={bem.element('familiehendelsesdato')}>
             <div className="kalenderdag">
-                <span className="kalenderdag__hjerte">
-                    <TerminIkon />
-                </span>
                 <span className="kalenderdag__dag">23</span>
                 <span className="kalenderdag__mnd">jan. 2019</span>
             </div>
             <div className={bem.element('familiehendelsesdato__tittel')}>Termin</div>
-        </div>
-        <div className={bem.element('tools')}>
-            <Link to="/">Endre </Link>
         </div>
     </div>
 );

@@ -5,6 +5,7 @@ import BEMHelper from 'common/utils/bem';
 import SkjemaNumberStepper from 'common/components/skjema/skjemaNumberStepper/SkjemaNumberStepper';
 import ArbeidIkon from '../../periodeikon/ikoner/ArbeidIkon';
 import AriaAlternative from 'common/components/aria/AriaAlternative';
+import DropdownDialogTittel from './DropdownDialogTittel';
 
 interface OwnProps {
     gradering?: number;
@@ -40,8 +41,9 @@ const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, foreldernav
                 </div>
             )}>
             <div className={bem.block}>
+                <DropdownDialogTittel>Stillingsprosent</DropdownDialogTittel>
                 <SkjemaNumberStepper
-                    tittel={`Velg hvor mye skal ${foreldernavn ? foreldernavn : 'du'} arbeide (prosent)?`}
+                    tittel={`Velg hvor mye (prosent) skal ${foreldernavn ? foreldernavn : 'du'} arbeide?`}
                     min={1}
                     max={100}
                     stepSize={5}

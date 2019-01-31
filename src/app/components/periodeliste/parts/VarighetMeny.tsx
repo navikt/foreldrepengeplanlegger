@@ -3,17 +3,18 @@ import { UkerOgDager } from '../../../types';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import DropdownButton from 'common/components/dropdownButton/DropdownButton';
 import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVelger';
-// import { Tidsperioden } from '../../../utils/Tidsperioden';
 import { Tidsperiode } from 'nav-datovelger';
 import BEMHelper from 'common/utils/bem';
 import Varighet from '../../varighet/Varighet';
 import Block from 'common/components/block/Block';
 import FomTomValg from '../../periodeskjema/parts/FomTomValg';
+import DropdownDialogTittel from './DropdownDialogTittel';
 
 interface OwnProps {
-    tidsperiode: Tidsperiode;
     uker: number;
     dager: number;
+    tidsperiode: Tidsperiode;
+    låstStartdato?: boolean;
     onTidsperiodeChange: (tidsperiode: Tidsperiode) => void;
     onVarighetChange: (ukerOgDager: UkerOgDager) => void;
 }
@@ -27,24 +28,46 @@ const VarighetMeny: React.StatelessComponent<Props> = ({
     tidsperiode,
     onVarighetChange,
     onTidsperiodeChange,
-    intl
-}) => (
-    <DropdownButton label={() => <Varighet dager={(uker * 5 + dager) | 0} />} dialogClassName={'varighetDialog'}>
-        <Block margin="s">
-            <Block margin="xxs">
-                <FomTomValg onChange={onTidsperiodeChange} fom={tidsperiode.fom} tom={tidsperiode.tom} />
-            </Block>
-            {/* <div className={bem.element('tidsperiode')}>{Tidsperioden(tidsperiode).formaterStringMedDag(intl)}</div> */}
-        </Block>
-        <div className={bem.block}>
-            <UkerOgDagerVelger
-                tittel="Varighet"
-                uker={uker}
-                dager={dager}
-                onChange={(ukerOgDager) => onVarighetChange(ukerOgDager)}
-            />
-        </div>
-    </DropdownButton>
-);
+    låstStartdato
+}) => {
+    const datovalg = (
+        <FomTomValg
+            onChange={onTidsperiodeChange}
+            fom={tidsperiode.fom}
+            tom={tidsperiode.tom}
+            låstFomDato={låstStartdato}
+            tomLabel={låstStartdato ? 'Velg sluttdato' : undefined}
+        />
+    );
+    const varighetsvalg = (
+        <UkerOgDagerVelger
+            tittel="Velg varighet"
+            uker={uker}
+            dager={dager}
+            onChange={(ukerOgDager) => onVarighetChange(ukerOgDager)}
+        />
+    );
+
+    return (
+        <DropdownButton label={() => <Varighet dager={(uker * 5 + dager) | 0} />} dialogClassName={'varighetDialog'}>
+            <div className={bem.block}>
+                {låstStartdato ? (
+                    <>
+                        <DropdownDialogTittel>Hvor lang skal periode være?</DropdownDialogTittel>
+                        <Block margin="xs">{varighetsvalg}</Block>
+                        <Block margin="m">eller</Block>
+                        <Block>{datovalg}</Block>
+                    </>
+                ) : (
+                    <>
+                        <DropdownDialogTittel>Velg tidsperiode</DropdownDialogTittel>
+                        <Block margin="xs">{datovalg}</Block>
+                        <Block>{varighetsvalg}</Block>
+                    </>
+                )}
+            </div>
+        </DropdownButton>
+    );
+};
 
 export default injectIntl(VarighetMeny);

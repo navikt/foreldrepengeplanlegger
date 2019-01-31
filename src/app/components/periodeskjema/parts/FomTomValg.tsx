@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
-import { Fieldset } from 'nav-frontend-skjema';
 import DatoInput from 'common/components/skjema/datoInput/DatoInput';
 import { Row, Column } from 'nav-frontend-grid';
+import Block from 'common/components/block/Block';
+import { Uttaksdagen } from '../../../utils/Uttaksdagen';
+import { formaterDato } from 'common/utils/datoUtils';
 
 interface TidsperiodeChangeEvent {
     fom?: Date;
@@ -12,48 +14,79 @@ interface TidsperiodeChangeEvent {
 interface OwnProps {
     fom: Date | undefined;
     tom: Date | undefined;
+    låstFomDato?: boolean;
+    tomLabel?: React.ReactNode;
+    fomLabel?: React.ReactNode;
     onChange: (evt: TidsperiodeChangeEvent) => void;
     onSetVarighet?: (dager: number) => void;
 }
 
 type Props = OwnProps & InjectedIntlProps;
 
-const FomTomValg: React.StatelessComponent<Props> = ({ intl, onChange, fom, tom }) => {
+const FomTomValg: React.StatelessComponent<Props> = ({
+    intl,
+    onChange,
+    fom,
+    tom,
+    låstFomDato,
+    fomLabel = 'Startdato',
+    tomLabel = 'Sluttdato'
+}) => {
     return (
-        <Fieldset legend="Velg tidsperiode">
-            <Row>
-                <Column xs="6">
-                    <DatoInput
-                        name="startdato"
-                        label="Fra og med"
-                        dato={fom}
-                        locale={intl.locale}
-                        id="tidsperiodeFra"
-                        onChange={(dato) =>
-                            onChange({
-                                fom: dato,
-                                tom
-                            })
-                        }
-                    />
-                </Column>
-                <Column xs="6">
-                    <DatoInput
-                        name="sluttdato"
-                        label="Til og med"
-                        dato={tom}
-                        locale={intl.locale}
-                        id="tidsperiodeTil"
-                        onChange={(dato) =>
-                            onChange({
-                                fom,
-                                tom: dato
-                            })
-                        }
-                    />
-                </Column>
-            </Row>
-        </Fieldset>
+        <>
+            <Block margin="none">
+                <Row>
+                    {låstFomDato !== true && (
+                        <Column xs="12" sm="6">
+                            <Block margin="xs">
+                                <DatoInput
+                                    name="startdato"
+                                    label={fomLabel}
+                                    dato={fom}
+                                    locale={intl.locale}
+                                    id="tidsperiodeFra"
+                                    disabled={låstFomDato}
+                                    avgrensninger={{ helgedagerIkkeTillatt: true }}
+                                    onChange={(dato) =>
+                                        onChange({
+                                            fom: dato,
+                                            tom
+                                        })
+                                    }
+                                />
+                            </Block>
+                        </Column>
+                    )}
+                    <Column xs="12" sm="6">
+                        <Block margin="xs">
+                            <DatoInput
+                                name="sluttdato"
+                                label={tomLabel}
+                                dato={tom}
+                                locale={intl.locale}
+                                id="tidsperiodeTil"
+                                avgrensninger={{
+                                    helgedagerIkkeTillatt: true,
+                                    minDato: låstFomDato && fom ? Uttaksdagen(fom).neste() : undefined
+                                }}
+                                onChange={(dato) =>
+                                    onChange({
+                                        fom,
+                                        tom: dato
+                                    })
+                                }
+                            />
+                        </Block>
+                    </Column>
+                </Row>
+            </Block>
+            {låstFomDato && fom && (
+                <div className="comment">
+                    Perioden starter {formaterDato(fom)} (første dag etter foregående periode). For å endre når denne
+                    perioden starter, må du endre sluttdato på foregående periode.
+                </div>
+            )}
+        </>
     );
 };
 

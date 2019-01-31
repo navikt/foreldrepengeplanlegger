@@ -5,8 +5,7 @@ import MenuButton, { MenuButtonOption } from 'common/components/menuButton/MenuB
 import Periodeikon from '../../periodeikon/Periodeikon';
 import getMessage from 'common/utils/i18nUtils';
 import { Tidsperioden } from '../../../utils/Tidsperioden';
-import { Element } from 'nav-frontend-typografi';
-import Block from 'common/components/block/Block';
+import DropdownDialogTittel from './DropdownDialogTittel';
 
 interface OwnProps {
     periode: Periode;
@@ -40,12 +39,8 @@ const PeriodetypeMeny: React.StatelessComponent<Props> = ({ periode, foreldernav
                 <Periodeikon periodetype={option.value as Periodetype} forelder={periode.forelder} />
             )}
             dialogClassName={'periodetypeDialog'}
-            headerRenderer={() => (
-                <Block margin="xxs">
-                    <Element>Velg type periode</Element>
-                </Block>
-            )}
-            labelRenderer={(option) => (
+            headerRenderer={() => <DropdownDialogTittel>Velg type periode</DropdownDialogTittel>}
+            labelRenderer={() => (
                 <div className="periodetypeMenyLabel">
                     <div className="periodetypeMenyLabel__type">
                         {getPeriodetypeLabel(periode, intl)}

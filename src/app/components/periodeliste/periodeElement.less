@@ -71,6 +71,12 @@
             max-width: calc(70% - 0.5rem);
             min-width: calc((100% / 3) - 0.5rem);
         }
+        .dropdownButton {
+            position: initial;
+            &__wrapper {
+                top: initial;
+            }
+        }
     }
 }
 
@@ -139,11 +145,12 @@
 .varighetDialog {
     left: auto;
     right: 0;
-    min-width: 15rem;
-}
-
-.varighetDropdown {
-    min-width: 26rem;
+    min-width: 25rem;
+    @media (max-width: @mobile-breakpoint) {
+        left: 0;
+        right: 0;
+        min-width: auto;
+    }
 }
 
 .graderingDialog {
@@ -153,4 +160,8 @@
 }
 .graderingDropdown {
     min-width: 13rem;
+}
+
+.dropdownDialogTittel {
+    font-size: 1.1rem;
 }

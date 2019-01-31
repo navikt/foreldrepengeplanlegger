@@ -39,7 +39,7 @@ const getForelderNavn = (forelder: Forelder | undefined, omForeldre: OmForeldre)
 
 class PeriodeElement extends React.Component<Props, {}> {
     render() {
-        const { sortable, omForeldre, onRemove, onUpdate } = this.props;
+        const { sortable, omForeldre, onRemove, onUpdate, erFørstePeriode } = this.props;
         const { uttaksinfo } = this.props.periode;
         const periode = this.props.periode;
 
@@ -97,6 +97,7 @@ class PeriodeElement extends React.Component<Props, {}> {
                 <div className={bem.element('tidsperiode')}>
                     <VarighetMeny
                         tidsperiode={this.props.periode.tidsperiode}
+                        låstStartdato={erFørstePeriode !== true}
                         uker={uker}
                         dager={dager}
                         onTidsperiodeChange={(tidsperiode) => {

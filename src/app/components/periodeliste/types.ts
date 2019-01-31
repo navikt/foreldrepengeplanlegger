@@ -8,6 +8,7 @@ export interface PeriodelisteBaseProps {
 export interface PeriodelisteElementBaseProps {
     periode: Periode;
     omForeldre: OmForeldre;
+    erFørstePeriode?: boolean;
 }
 
 export interface PeriodelisteActions {

@@ -15,7 +15,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
             {perioder.map((periode: Periode, index: number) => {
                 return (
                     <li className="periodeliste__periode" key={periode.id}>
-                        <PeriodeElement periode={periode} {...elementProps} />
+                        <PeriodeElement periode={periode} {...elementProps} erFørstePeriode={index === 0} />
                     </li>
                 );
             })}

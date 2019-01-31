@@ -28,9 +28,8 @@ const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, foreldernav
     const arbeidsprosent = gradering === undefined ? 100 : 100 - gradering;
     return (
         <DropdownButton
-            label={label}
             dialogClassName="graderingDialog"
-            labelRenderer={() => (
+            label={() => (
                 <div className="graderingLabel">
                     <div className="graderingLabel__ikon" role="presentation">
                         <ArbeidIkon title="Arbeidsikon" />

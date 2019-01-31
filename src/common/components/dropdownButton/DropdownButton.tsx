@@ -6,20 +6,22 @@ import BEMHelper from 'common/utils/bem';
 
 import './dropdownButton.less';
 
+type LabelRenderer = () => React.ReactNode;
+type LabelOrLabelRenderer = LabelRenderer;
+
 interface Props {
-    label: React.ReactNode;
+    label: React.ReactNode | LabelOrLabelRenderer;
     id?: string;
     dialogClassName?: string;
-    labelRenderer?: () => React.ReactNode;
 }
 
 const bem = BEMHelper('dropdownButton');
 
-const DropdownButton: React.StatelessComponent<Props> = ({ label, id, dialogClassName, labelRenderer, children }) => {
+const DropdownButton: React.StatelessComponent<Props> = ({ label, id, dialogClassName, children }) => {
     return (
         <Wrapper className={bem.block} id={id}>
             <Button className={classnames(bem.element('button'), 'inputPanel')} role="popupbutton" tag="div">
-                {labelRenderer ? labelRenderer() : label}
+                {label instanceof Function ? label() : label}
             </Button>
             <Menu role="dialog" className={classnames(bem.element('wrapper'), dialogClassName)}>
                 {children}

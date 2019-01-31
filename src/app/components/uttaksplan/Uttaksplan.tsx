@@ -9,6 +9,7 @@ import Knapperad from 'common/components/knapperad/Knapperad';
 import FordelingGraf from '../fordelingGraf/FordelingGraf';
 import { Forbruk, OmForeldre } from '../../types';
 import Periodeliste from '../periodeliste/Periodeliste';
+import { Systemtittel } from 'nav-frontend-typografi';
 
 interface State {
     visSkjema: boolean;
@@ -45,6 +46,9 @@ class Uttaksplan extends React.Component<Props, State> {
                 <div className="periodelisteWrapper">
                     <Block animated={true}>
                         <Block margin="s">
+                            <Systemtittel>Deres plan</Systemtittel>
+                        </Block>
+                        <Block margin="s">
                             <Periodeliste {...this.props} />
                         </Block>
                         <Block visible={visSkjema}>
@@ -57,9 +61,11 @@ class Uttaksplan extends React.Component<Props, State> {
                         <Block visible={visSkjema !== true} margin="l">
                             <Knapperad align="center">
                                 <Knapp type="standard" onClick={() => this.setState({ visSkjema: true })}>
-                                    Legg til periode
+                                    Legg til ny periode
                                 </Knapp>
-                                {onResetPlan && <Flatknapp onClick={() => onResetPlan()}>Reset</Flatknapp>}
+                                <div className="dev">
+                                    {onResetPlan && <Flatknapp onClick={() => onResetPlan()}>Reset</Flatknapp>}
+                                </div>
                             </Knapperad>
                         </Block>
                         {forbruk.fordeling && <FordelingGraf fordeling={forbruk.fordeling} omForeldre={omForeldre} />}

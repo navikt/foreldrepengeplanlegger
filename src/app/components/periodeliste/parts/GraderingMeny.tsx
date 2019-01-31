@@ -3,9 +3,10 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import DropdownButton from 'common/components/dropdownButton/DropdownButton';
 import BEMHelper from 'common/utils/bem';
 import SkjemaNumberStepper from 'common/components/skjema/skjemaNumberStepper/SkjemaNumberStepper';
-import ArbeidIkon from '../../periodeikon/ikoner/ArbeidIkon';
 import AriaAlternative from 'common/components/aria/AriaAlternative';
 import DropdownDialogTittel from './DropdownDialogTittel';
+import IkonLabel from './IkonLabel';
+import WorkIkon from 'common/components/ikoner/WorkIkon';
 
 interface OwnProps {
     gradering?: number;
@@ -32,12 +33,9 @@ const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, foreldernav
             dialogClassName="graderingDialog"
             label={() => (
                 <div className="graderingLabel">
-                    <div className="graderingLabel__ikon" role="presentation">
-                        <ArbeidIkon title="Arbeidsikon" />
-                    </div>
-                    <div className="graderingLabel__label">
+                    <IkonLabel ikon={<WorkIkon />}>
                         <AriaAlternative ariaText={`Arbeider ${label}`} visibleText={label} />
-                    </div>
+                    </IkonLabel>
                 </div>
             )}>
             <div className={bem.block}>

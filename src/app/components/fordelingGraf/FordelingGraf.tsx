@@ -36,7 +36,11 @@ const FordelingGraf: React.StatelessComponent<Props> = ({ fordeling, omForeldre,
     return (
         <div className={bem.block}>
             <div className={bem.element('titler')}>
-                <Tittel navn={omForeldre.forelder1.navn} dager={forelder1.uttaksdager} intl={intl} />
+                <Tittel
+                    navn={omForeldre.forelder2 ? omForeldre.forelder1.navn : 'Brukt'}
+                    dager={forelder1.uttaksdager}
+                    intl={intl}
+                />
                 {omForeldre.forelder2 && (
                     <Tittel
                         navn={omForeldre.forelder2.navn}

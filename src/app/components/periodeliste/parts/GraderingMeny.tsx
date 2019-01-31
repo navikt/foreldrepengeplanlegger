@@ -28,6 +28,7 @@ const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, onChange })
     return (
         <DropdownButton
             label={label}
+            dialogClassName="graderingDialog"
             labelRenderer={() => (
                 <div className="graderingLabel">
                     <div className="graderingLabel__ikon" role="presentation">
@@ -40,7 +41,7 @@ const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, onChange })
             )}>
             <div className={bem.block}>
                 <SkjemaNumberStepper
-                    tittel="Hvor mye skal du arbeide i perioden?"
+                    tittel="Hvor mye skal du arbeide i perioden (prosent)?"
                     min={1}
                     max={100}
                     stepSize={5}

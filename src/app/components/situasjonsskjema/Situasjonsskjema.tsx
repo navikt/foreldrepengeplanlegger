@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Formik, FormikProps } from 'formik';
 import SituasjonsskjemaForm from './SituasjonsskjemaForm';
-import { SituasjonSkjemadata } from '../../types';
+import { SituasjonSkjemadata, Situasjon } from '../../types';
 import * as yup from 'yup';
 import { getAntallForeldreISituasjon } from '../../utils/common';
 
@@ -12,8 +12,16 @@ interface Props {
 
 const situasjonValidationSkjema = yup.object().shape({
     situasjon: yup.string().required('Du må velge situasjon'),
-    navnForelder1: yup.string(),
-    navnForelder2: yup.string(),
+    navnForelder1: yup
+        .string()
+        .min(1, 'Må være minst ett tegn')
+        .required('Navn på foreldre er påkrevd'),
+    navnForelder2: yup.string().when('situasjon', (situasjon: Situasjon, schema: yup.Schema<SituasjonSkjemadata>) => {
+        if (getAntallForeldreISituasjon(situasjon) === 2) {
+            return schema.required('Forelder 2 må være fylt ut');
+        }
+        return schema;
+    }),
     antallBarn: yup.number().required('Antall barn er påkrevd!'),
     familiehendelsesdato: yup.date().required('familiehendelsesdato er påkrevd!')
 });

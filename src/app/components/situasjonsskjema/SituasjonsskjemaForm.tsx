@@ -14,9 +14,11 @@ import { getAntallForeldreISituasjon, inputHasValue, getTermindatoAvgrensninger 
 interface OwnProps {
     formik: FormikProps<SituasjonSkjemadata>;
 }
-
 type Props = OwnProps & InjectedIntlProps;
 
+interface State {
+    isInitialValid: boolean;
+}
 const visAntallBarnValg = (
     situasjon: Situasjon | undefined,
     navnForelder1: string | undefined,
@@ -31,7 +33,21 @@ const visAntallBarnValg = (
     return inputHasValue(navnForelder1) && inputHasValue(navnForelder2);
 };
 
-class SituasjonsskjemaForm extends React.Component<Props, {}> {
+class SituasjonsskjemaForm extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            isInitialValid: true
+        };
+    }
+    componentDidMount() {
+        const { validateForm } = this.props.formik;
+        validateForm().then((errors) => {
+            if (Object.keys(errors).length > 0) {
+                this.setState({ isInitialValid: false });
+            }
+        });
+    }
     render() {
         const { formik } = this.props;
         const { situasjon, antallBarn, familiehendelsesdato, navnForelder1, navnForelder2 } = formik.values;
@@ -83,7 +99,7 @@ class SituasjonsskjemaForm extends React.Component<Props, {}> {
                         dato={familiehendelsesdato}
                     />
                 </Skjemablokk>
-                <Block align="center" visible={formik.isValid}>
+                <Block align="center" visible={formik.isValid && this.state.isInitialValid}>
                     <Hovedknapp htmlType="submit">Gå videre</Hovedknapp>
                 </Block>
             </Form>

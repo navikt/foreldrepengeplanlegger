@@ -41,7 +41,7 @@ const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, foreldernav
             <div className={bem.block}>
                 <DropdownDialogTittel>Stillingsprosent</DropdownDialogTittel>
                 <SkjemaNumberStepper
-                    tittel={`Velg hvor mye (prosent) skal ${foreldernavn ? foreldernavn : 'du'} arbeide?`}
+                    tittel={`Velg hvor mye (i prosent) ${foreldernavn ? foreldernavn : 'du'} skal arbeide?`}
                     min={1}
                     max={100}
                     stepSize={5}

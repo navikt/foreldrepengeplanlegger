@@ -11,7 +11,6 @@ import { PeriodelisteElementProps } from './types';
 import GraderingMeny from './parts/GraderingMeny';
 import PeriodeFargestrek from './parts/periodeFargestrek/periodeFargestrek';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
-import Block from 'common/components/block/Block';
 import { OmForeldre, Forelder, Periodetype } from '../../types';
 
 import './periodeElement.less';
@@ -53,20 +52,6 @@ class PeriodeElement extends React.Component<Props, {}> {
         return (
             <div className={bem.block}>
                 <PeriodeFargestrek farge={getPeriodetypeFarge(this.props.periode.type, this.props.periode.forelder)} />
-                <div className={bem.element('tools')}>
-                    <Block visible={false}>
-                        {sortable && (
-                            <div className={bem.element('tool')}>
-                                <DragHandle />
-                            </div>
-                        )}
-                        <div className={bem.element('tool')}>
-                            <Lukknapp onClick={() => onRemove(this.props.periode)} ariaLabel="Slett periode">
-                                Slett periode
-                            </Lukknapp>
-                        </div>
-                    </Block>
-                </div>
                 <div className={bem.element('periode')}>
                     <PeriodetypeMeny
                         flereForeldre={harFlereForelder}
@@ -78,7 +63,7 @@ class PeriodeElement extends React.Component<Props, {}> {
                 {this.props.periode.type === Periodetype.GradertUttak && (
                     <div className={bem.element('gradering')}>
                         <GraderingMeny
-                            foreldernavn={foreldernavn}
+                            foreldernavn={omForeldre.antallForeldre === 2 ? foreldernavn : 'du'}
                             gradering={this.props.periode.gradering}
                             onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
                         />
@@ -117,6 +102,19 @@ class PeriodeElement extends React.Component<Props, {}> {
                             })
                         }
                     />
+                </div>
+                <div className={bem.element('tools')}>
+                    {sortable && (
+                        <div className={bem.element('tool')}>
+                            <DragHandle />
+                        </div>
+                    )}
+                    <Lukknapp
+                        onClick={() => onRemove(this.props.periode)}
+                        ariaLabel="Slett periode"
+                        title="Slett periode">
+                        Slett periode
+                    </Lukknapp>
                 </div>
             </div>
         );

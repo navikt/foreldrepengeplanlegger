@@ -5,6 +5,8 @@ import SituasjonForeldrepar from '../situasjonForeldrepar/SituasjonForeldrepar';
 
 import './situasjonOppsummering.less';
 import BarnIkon from 'common/components/ikoner/BarnIkon';
+import { Link } from 'react-router-dom';
+import Block from 'common/components/block/Block';
 
 interface Props {
     situasjon: Situasjon;
@@ -30,28 +32,37 @@ const Situasjonsoppsummering: React.StatelessComponent<Props> = ({
     navnForelder1,
     antallBarn
 }) => (
-    <div className={bem.block}>
-        <div className={bem.element('situasjon')}>
-            <div className={bem.element('situasjon__ikon')}>
-                <SituasjonForeldrepar situasjon={situasjon} />
+    <>
+        <Block margin="s">
+            <div className={bem.block}>
+                <div className={bem.element('situasjon')}>
+                    <div className={bem.element('situasjon__ikon')}>
+                        <SituasjonForeldrepar situasjon={situasjon} />
+                    </div>
+                    <div className={bem.element('foreldre')}>
+                        <span className={bem.element('navn')}>{navnForelder1}</span>
+                        {navnForelder2 && <span className={bem.element('navn')}> og {navnForelder2}</span>}
+                    </div>
+                </div>
+                <div className={bem.element('barn')}>
+                    <div className={bem.element('barn__ikon')}>{renderBarn(antallBarn)}</div>
+                    <div className={bem.element('barn__antall')}>{antallBarn} barn</div>
+                </div>
+                <div className={bem.element('familiehendelsesdato')}>
+                    <div className="kalenderdag">
+                        <span className="kalenderdag__dag">23</span>
+                        <span className="kalenderdag__mnd">jan. 2019</span>
+                    </div>
+                    <div className={bem.element('familiehendelsesdato__tittel')}>Termin</div>
+                </div>
             </div>
-            <div className={bem.element('foreldre')}>
-                <span className={bem.element('navn')}>{navnForelder1}</span>
-                {navnForelder2 && <span className={bem.element('navn')}> og {navnForelder2}</span>}
-            </div>
-        </div>
-        <div className={bem.element('barn')}>
-            <div className={bem.element('barn__ikon')}>{renderBarn(antallBarn)}</div>
-            <div className={bem.element('barn__antall')}>{antallBarn} barn</div>
-        </div>
-        <div className={bem.element('familiehendelsesdato')}>
-            <div className="kalenderdag">
-                <span className="kalenderdag__dag">23</span>
-                <span className="kalenderdag__mnd">jan. 2019</span>
-            </div>
-            <div className={bem.element('familiehendelsesdato__tittel')}>Termin</div>
-        </div>
-    </div>
+        </Block>
+        <Block align="center">
+            <Link className="lenke" to="/">
+                Tilbake til skjema
+            </Link>
+        </Block>
+    </>
 );
 
 export default Situasjonsoppsummering;

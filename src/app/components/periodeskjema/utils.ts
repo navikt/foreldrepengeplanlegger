@@ -1,4 +1,4 @@
-import { Periodetype, Periode } from '../../types';
+import { Periodetype, Periode, OmForeldre, Forelder } from '../../types';
 import { guid } from 'nav-frontend-js-utils';
 import { PeriodeskjemaFormValues } from './types';
 
@@ -57,9 +57,14 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
     }
 };
 
-const getInitialFormValuesFromPeriode = (periode: Periode | undefined): PeriodeskjemaFormValues | {} => {
+const getInitialFormValuesFromPeriode = (
+    periode: Periode | undefined,
+    omForeldre: OmForeldre
+): PeriodeskjemaFormValues | {} => {
     if (!periode) {
-        return {};
+        return {
+            forelder: omForeldre.antallForeldre === 1 ? Forelder.forelder1 : undefined
+        };
     }
     return {
         fom: periode.tidsperiode.fom,

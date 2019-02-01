@@ -9,8 +9,8 @@ import Varighet from '../../varighet/Varighet';
 import Block from 'common/components/block/Block';
 import FomTomValg from '../../periodeskjema/parts/FomTomValg';
 import DropdownDialogTittel from './DropdownDialogTittel';
-import KalenderIkon from 'common/components/ikoner/KalenderIkon';
-import IkonLabel from './IkonLabel';
+// import KalenderIkon from 'common/components/ikoner/KalenderIkon';
+// import IkonLabel from './IkonLabel';
 
 interface OwnProps {
     uker: number;
@@ -54,9 +54,11 @@ const VarighetMeny: React.StatelessComponent<Props> = ({
     return (
         <DropdownButton
             label={() => (
-                <IkonLabel ikon={<KalenderIkon />}>
+                <Block align="center" margin="none">
                     <Varighet dager={(uker * 5 + dager) | 0} />
-                </IkonLabel>
+                </Block>
+                // <IkonLabel ikon={<KalenderIkon />}>
+                // </IkonLabel>
             )}
             dialogClassName={'varighetDialog'}>
             <div className={bem.block}>

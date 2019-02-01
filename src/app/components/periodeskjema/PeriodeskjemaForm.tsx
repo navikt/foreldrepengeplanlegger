@@ -31,13 +31,15 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                         onChange={(periodetype) => formik.setFieldValue('type', periodetype)}
                     />
                 </Block>
-                <Block>
-                    <ForelderValg
-                        forelder={forelder}
-                        onChange={(f) => formik.setFieldValue('forelder', f)}
-                        omForeldre={omForeldre}
-                    />
-                </Block>
+                {omForeldre.antallForeldre === 2 && (
+                    <Block>
+                        <ForelderValg
+                            forelder={forelder}
+                            onChange={(f) => formik.setFieldValue('forelder', f)}
+                            omForeldre={omForeldre}
+                        />
+                    </Block>
+                )}
                 <Block>
                     <TidsperiodeValg
                         fom={fom}

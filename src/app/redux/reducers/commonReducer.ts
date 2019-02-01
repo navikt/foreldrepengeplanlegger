@@ -9,15 +9,16 @@ import {
     OmForeldre
 } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
-import { mockPerioder } from '../../mock/perioder_mock';
+import { getMockPerioder } from '../../mock/perioder_mock';
 import { Dekningsgrad } from 'common/types';
 import { summerAntallDagerIKontoer } from '../../utils/kontoUtils';
 import { setStorage, getStorage } from '../../utils/storage';
+import { getAntallForeldreISituasjon } from '../../utils/common';
 
 export const getDefaultCommonState = (storage?: CommonState): CommonState => {
     return {
         språkkode: 'nb',
-        perioder: [...mockPerioder],
+        perioder: [],
         familiehendelsesdato: new Date(),
         dekningsgrad: '100',
         stønadskontoer100: {
@@ -69,7 +70,10 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
         case CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER:
             return updateStateAndStorage(state, { tilgjengeligeDager: action.tilgjengeligeDager });
         case CommonActionKeys.SUBMIT_SKJEMADATA:
-            return updateStateAndStorage(state, { skjemadata: action.data });
+            return updateStateAndStorage(state, {
+                skjemadata: action.data,
+                perioder: getMockPerioder(action.data.antallBarn, getAntallForeldreISituasjon(action.data.situasjon))
+            });
         case CommonActionKeys.SET_DEKNINGSGRAD:
             return updateStateAndStorage(state, {
                 dekningsgrad: action.dekningsgrad

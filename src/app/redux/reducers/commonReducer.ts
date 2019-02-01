@@ -21,6 +21,7 @@ export const getDefaultCommonState = (storage?: CommonState): CommonState => {
         perioder: [],
         familiehendelsesdato: new Date(),
         dekningsgrad: '100',
+        uttaksdagerFørTermin: 15,
         stønadskontoer100: {
             kontoer: [],
             dager: 0
@@ -40,6 +41,7 @@ export interface CommonState {
     familiehendelsesdato: Date;
     dekningsgrad: Dekningsgrad;
     tilgjengeligeDager?: TilgjengeligeDager;
+    uttaksdagerFørTermin: number;
     stønadskontoer80: {
         dager: number;
         kontoer: TilgjengeligStønadskonto[];

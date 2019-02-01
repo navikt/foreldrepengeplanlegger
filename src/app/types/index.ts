@@ -33,7 +33,7 @@ export type UttaksplanColor = 'purple' | 'blue' | 'green' | 'purpleBlue' | 'yell
 export interface SituasjonSkjemadata {
     situasjon: Situasjon;
     navnForelder1: string;
-    navnForelder2: string;
+    navnForelder2?: string;
     antallBarn: number;
     familiehendelsesdato: Date;
 }

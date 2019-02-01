@@ -32,7 +32,7 @@ export const getTermindatoAvgrensninger = (): Avgrensninger => {
 export const getInformasjonOmForeldre = (
     situasjon: Situasjon,
     navnForelder1: string,
-    navnForelder2: string
+    navnForelder2?: string
 ): OmForeldre => {
     const info = getSituasjonForelderSvg(situasjon);
     const antallForeldre = getAntallForeldreISituasjon(situasjon);

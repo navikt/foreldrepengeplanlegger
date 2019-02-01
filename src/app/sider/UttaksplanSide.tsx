@@ -67,7 +67,7 @@ class UttaksplanSide extends React.Component<Props, {}> {
             dekningsgrad !== undefined &&
             forbruk !== undefined;
 
-        if (skjemadata === undefined && henterStønadskontoer === false) {
+        if ((skjemadata === undefined && henterStønadskontoer === false) || omForeldre === undefined) {
             return <Redirect to="/" />;
         }
         return (
@@ -80,7 +80,10 @@ class UttaksplanSide extends React.Component<Props, {}> {
                     situasjon={skjemadata.situasjon}
                 />
                 <LoadContainer loading={henterStønadskontoer} overlay={false}>
-                    <Skjemablokk tittel="Hvor lang periode med foreldrepenger ønsker du/dere?">
+                    <Skjemablokk
+                        tittel={`Hvor lang periode med foreldrepenger ønsker ${
+                            omForeldre.antallForeldre === 2 ? 'dere' : 'du'
+                        }?`}>
                         <DekningsgradValg
                             dekningsgrad={dekningsgrad}
                             onChange={(dg) => dispatch(setDekningsgrad(dg as Dekningsgrad))}
@@ -88,14 +91,16 @@ class UttaksplanSide extends React.Component<Props, {}> {
                             dager80={dager80}
                         />
                     </Skjemablokk>
+
                     <Block visible={visInnhold}>
                         {tilgjengeligeDager !== undefined && omForeldre !== undefined && (
                             <>
-                                <Block visible={false}>
+                                <Block>
                                     <TilgjengeligeDagerOversikt
                                         tilgjengeligeDager={tilgjengeligeDager}
                                         dekningsgrad={dekningsgrad}
                                         visKontoliste={true}
+                                        omForeldre={omForeldre}
                                     />
                                 </Block>
                                 <Uttaksplan

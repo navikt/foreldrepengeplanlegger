@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TilgjengeligeDager } from '../../types';
+import { TilgjengeligeDager, OmForeldre } from '../../types';
 import BEMHelper from 'common/utils/bem';
 import { Dekningsgrad } from 'common/types';
 import { getVarighetString } from 'common/utils/intlUtils';
@@ -13,6 +13,7 @@ import UtvidetInformasjon from 'common/components/utvidetInformasjon/UtvidetInfo
 interface OwnProps {
     tilgjengeligeDager: TilgjengeligeDager;
     dekningsgrad: Dekningsgrad;
+    omForeldre: OmForeldre;
     visKontoliste?: boolean;
 }
 
@@ -31,7 +32,7 @@ const Kontoliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl 
     return (
         <Block margin="xs">
             <Block margin="xs">
-                <Undertittel tag="div">Slik er deres dager beregnet ut:</Undertittel>
+                <Undertittel tag="div">Slik er dagene fordelt:</Undertittel>
             </Block>
             {tilgjengeligeDager.stønadskontoer.map((konto) => (
                 <ListeElement
@@ -44,27 +45,31 @@ const Kontoliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl 
     );
 };
 
-const Fordelingsliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl }: Props) => {
+const Fordelingsliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, omForeldre, intl }: Props) => {
     const { dagerFelles, dagerForbeholdtFar, dagerForbeholdtMor } = tilgjengeligeDager;
+    if (omForeldre.forelder2 === undefined) {
+        return null;
+    }
     return (
         <Ingress tag="p">
-            Far må ta ut <strong>{getVarighetString(dagerForbeholdtFar, intl)}</strong> og mor må ta ut{' '}
-            <strong>{getVarighetString(dagerForbeholdtMor, intl)}</strong>. Dere har{' '}
-            <strong>{getVarighetString(dagerFelles, intl)}</strong> som dere kan fordele som dere ønsker.
+            {omForeldre.forelder1.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtFar, intl)}</strong> og{' '}
+            {omForeldre.forelder2.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtMor, intl)}</strong>. Dere
+            har <strong>{getVarighetString(dagerFelles, intl)}</strong> som dere kan fordele som dere ønsker.
         </Ingress>
     );
 };
 
 const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = (props: Props) => {
-    const { tilgjengeligeDager, intl } = props;
+    const { tilgjengeligeDager, intl, omForeldre } = props;
     return (
         <section className={bem.block}>
             <Block margin="xxs">
                 <Systemtittel tag="h1">
-                    Dere har rett på {getVarighetString(tilgjengeligeDager.dagerTotalt, intl)} med foreldrepenger
+                    {omForeldre.antallForeldre === 2 ? 'Dere' : 'Du '} har rett på{' '}
+                    {getVarighetString(tilgjengeligeDager.dagerTotalt, intl)} med foreldrepenger
                 </Systemtittel>
             </Block>
-            <Block margin="xs">
+            <Block margin="xs" visible={omForeldre.antallForeldre === 2}>
                 <Fordelingsliste {...props} />
             </Block>
             <UtvidetInformasjon erApen={false} apneLabel="Se detaljert fordeling" lukkLabel="Lukk informasjon">

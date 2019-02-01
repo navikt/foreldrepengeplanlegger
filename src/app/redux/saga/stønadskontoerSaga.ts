@@ -114,6 +114,7 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
             params.farHarAleneomsorg || params.morHarAleneomsorg
                 ? mockAleneomsorg[params.antallBarn - 1]
                 : mockToForeldre[params.antallBarn - 1];
+
         const { dekning100, dekning80 } = getKontoerFromDTO(mock);
 
         yield put(setStønadskontoer({ dekning80, dekning100 }));

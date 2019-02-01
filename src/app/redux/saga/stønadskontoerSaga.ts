@@ -29,15 +29,40 @@ const getStønadskontoerRequestParams = (
     };
 };
 
-const mockKontoer: GetStønadskontoerDTO = {
-    kontoer: {
-        MØDREKVOTE: { d80: 75, d100: 75 },
-        FEDREKVOTE: { d80: 75, d100: 75 },
-        FELLESPERIODE: { d80: 130, d100: 80 },
-        FORELDREPENGER_FØR_FØDSEL: { d80: 15, d100: 15 },
-        FLERBARNSDAGER: { d80: 10, d100: 10 }
+const mockToForeldre: GetStønadskontoerDTO[] = [
+    {
+        kontoer: {
+            MØDREKVOTE: { d80: 75, d100: 75 },
+            FEDREKVOTE: { d80: 75, d100: 75 },
+            FELLESPERIODE: { d80: 130, d100: 80 },
+            FORELDREPENGER_FØR_FØDSEL: { d80: 15, d100: 15 }
+        }
+    },
+    {
+        kontoer: {
+            MØDREKVOTE: { d80: 75, d100: 75 },
+            FEDREKVOTE: { d80: 75, d100: 75 },
+            FELLESPERIODE: { d80: 130, d100: 80 },
+            FORELDREPENGER_FØR_FØDSEL: { d80: 15, d100: 15 },
+            FLERBARNSDAGER: { d80: 10, d100: 10 }
+        }
     }
-};
+];
+const mockAleneomsorg: GetStønadskontoerDTO[] = [
+    {
+        kontoer: {
+            FORELDREPENGER: { d80: 180, d100: 230 },
+            FORELDREPENGER_FØR_FØDSEL: { d80: 15, d100: 15 }
+        }
+    },
+    {
+        kontoer: {
+            FORELDREPENGER: { d80: 180, d100: 230 },
+            FORELDREPENGER_FØR_FØDSEL: { d80: 15, d100: 15 },
+            FLERBARNSDAGER: { d80: 10, d100: 10 }
+        }
+    }
+];
 
 const stateSelector = (state: AppState) => state;
 
@@ -85,7 +110,12 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
         yield put(setStønadskontoer({ dekning80, dekning100 }));
     } catch (error) {
         // Use mock
-        const { dekning100, dekning80 } = getKontoerFromDTO(mockKontoer);
+        const mock: GetStønadskontoerDTO =
+            params.farHarAleneomsorg || params.morHarAleneomsorg
+                ? mockAleneomsorg[params.antallBarn]
+                : mockToForeldre[params.antallBarn];
+        const { dekning100, dekning80 } = getKontoerFromDTO(mock);
+
         yield put(setStønadskontoer({ dekning80, dekning100 }));
         yield put(
             updateApi({

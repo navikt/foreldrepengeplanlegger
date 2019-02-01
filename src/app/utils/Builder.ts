@@ -8,7 +8,7 @@ import { getTidsperiode, Tidsperioden } from './Tidsperioden';
 import { getUttaksinfoForPeriode } from './uttaksinfo';
 import arrayMove from 'array-move';
 
-export const UttaksplanBuilder = (perioder: Periode[], familiehendelsesdato: Date) => {
+export const UttaksplanBuilder = (perioder: Periode[], familiehendelsesdato: Date, antallDagerFørTermin: number) => {
     return new Builder(perioder, familiehendelsesdato);
 };
 

@@ -26,7 +26,8 @@ export enum CommonActionKeys {
     'UPDATE_FORBRUK' = 'updateForbruk',
     'UPDATE_TILGJENGELIGE_DAGER' = 'updateTilgjengeligeDager',
     'UPDATE_OM_FORELDRE' = 'updateOmForeldre',
-    'RESET_APP' = 'resetApp'
+    'RESET_APP' = 'resetApp',
+    'SET_UTTAKSDAGER_FØR_TERMIN' = 'setUttaksdagerFørTermin'
 }
 
 interface SetSpråk {
@@ -110,6 +111,11 @@ interface MovePeriode {
     toIndex: number;
 }
 
+interface SetUttaksdagerFørTermin {
+    type: CommonActionKeys.SET_UTTAKSDAGER_FØR_TERMIN;
+    antallDager: number;
+}
+
 export type CommonActionTypes =
     | SetSpråk
     | SetPerioder
@@ -124,4 +130,5 @@ export type CommonActionTypes =
     | UpdateForbruk
     | UpdateTilgjengeligeDager
     | UpdateOmForeldre
-    | ResetApp;
+    | ResetApp
+    | SetUttaksdagerFørTermin;

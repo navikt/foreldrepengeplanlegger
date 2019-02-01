@@ -103,6 +103,13 @@ export function UpdateOmForeldre(omForeldre: OmForeldre): CommonActionTypes {
     };
 }
 
+export function SetUttaksdagerFørTermin(antallDager: number): CommonActionTypes {
+    return {
+        type: CommonActionKeys.SET_UTTAKSDAGER_FØR_TERMIN,
+        antallDager
+    };
+}
+
 export default {
     setSpråk
 };

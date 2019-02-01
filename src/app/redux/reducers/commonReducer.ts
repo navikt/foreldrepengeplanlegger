@@ -61,12 +61,16 @@ const updateStateAndStorage = (state: CommonState, updates: Partial<CommonState>
 };
 
 const commonReducer = (state = getDefaultCommonState(getStorage()), action: CommonActionTypes): CommonState => {
-    const builder = UttaksplanBuilder(state.perioder, state.familiehendelsesdato);
+    const getBuilder = () => {
+        return UttaksplanBuilder(state.perioder, state.familiehendelsesdato, state.uttaksdagerFørTermin);
+    };
     switch (action.type) {
         case CommonActionKeys.SET_SPRÅK:
             return { ...state, språkkode: action.språkkode };
         case CommonActionKeys.APPLY_STORAGE:
             return { ...state, ...action.storage };
+        case CommonActionKeys.SET_UTTAKSDAGER_FØR_TERMIN:
+            return { ...state, uttaksdagerFørTermin: action.antallDager };
         case CommonActionKeys.UPDATE_FORBRUK:
             return updateStateAndStorage(state, { forbruk: action.forbruk });
         case CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER:
@@ -96,18 +100,28 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                 }
             });
         case CommonActionKeys.ADD_PERIODE:
-            return updateStateAndStorage(state, { perioder: builder.leggTilPeriode(action.periode).build().perioder });
+            return updateStateAndStorage(state, {
+                perioder: getBuilder()
+                    .leggTilPeriode(action.periode)
+                    .build().perioder
+            });
         case CommonActionKeys.UPDATE_PERIODE:
             return updateStateAndStorage(state, {
-                perioder: builder.oppdaterPeriode(action.periode).build().perioder
+                perioder: getBuilder()
+                    .oppdaterPeriode(action.periode)
+                    .build().perioder
             });
         case CommonActionKeys.REMOVE_PERIODE:
             return updateStateAndStorage(state, {
-                perioder: builder.fjernPeriode(action.periode).build().perioder
+                perioder: getBuilder()
+                    .fjernPeriode(action.periode)
+                    .build().perioder
             });
         case CommonActionKeys.MOVE_PERIODE:
             return updateStateAndStorage(state, {
-                perioder: builder.flyttPeriode(action.periode, action.toIndex).build().perioder
+                perioder: getBuilder()
+                    .flyttPeriode(action.periode, action.toIndex)
+                    .build().perioder
             });
         case CommonActionKeys.SET_PERIODER:
             return updateStateAndStorage(state, { perioder: action.perioder });

@@ -12,7 +12,15 @@ export const UttaksplanBuilder = (perioder: Periode[], familiehendelsesdato: Dat
     return new Builder(perioder, familiehendelsesdato);
 };
 
-const useFixedPerioder = false;
+interface BuilderSettings {
+    useFixedPerioder: boolean;
+    slåSammenPerioder: boolean;
+}
+
+const SETTINGS: BuilderSettings = {
+    useFixedPerioder: false,
+    slåSammenPerioder: false
+};
 
 class Builder {
     protected familiehendelsesdato: Date;
@@ -23,7 +31,7 @@ class Builder {
     }
 
     build() {
-        if (useFixedPerioder) {
+        if (SETTINGS.useFixedPerioder) {
             const fastePerioder = this.perioder.filter((p) => p.fixed === true);
             const fleksiblePerioder = this.perioder.filter((p) => p.fixed !== true);
 
@@ -109,6 +117,9 @@ function settInnPerioder(perioder: Periode[], perioder2: Periode[]): Periode[] {
 }
 
 function slåSammenLikePerioder(perioder: Periode[]): Periode[] {
+    if (SETTINGS.slåSammenPerioder !== true) {
+        return perioder;
+    }
     if (perioder.length <= 1) {
         return perioder;
     }

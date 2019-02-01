@@ -63,14 +63,16 @@ const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = (props: Prop
     const { tilgjengeligeDager, intl, omForeldre } = props;
     return (
         <section className={bem.block}>
-            <Block margin="xxs">
-                <Systemtittel tag="h1">
-                    {omForeldre.antallForeldre === 2 ? 'Dere' : 'Du '} har rett på{' '}
-                    {getVarighetString(tilgjengeligeDager.dagerTotalt, intl)} med foreldrepenger
-                </Systemtittel>
-            </Block>
-            <Block margin="xs" visible={omForeldre.antallForeldre === 2}>
-                <Fordelingsliste {...props} />
+            <Block visible={false}>
+                <Block margin="xxs">
+                    <Systemtittel tag="h1">
+                        {omForeldre.antallForeldre === 2 ? 'Dere' : 'Du '} har rett på{' '}
+                        {getVarighetString(tilgjengeligeDager.dagerTotalt, intl)} med foreldrepenger
+                    </Systemtittel>
+                </Block>
+                <Block margin="xs" visible={omForeldre.antallForeldre === 2}>
+                    <Fordelingsliste {...props} />
+                </Block>
             </Block>
             <UtvidetInformasjon erApen={false} apneLabel="Se detaljert fordeling" lukkLabel="Lukk informasjon">
                 <Kontoliste {...props} />

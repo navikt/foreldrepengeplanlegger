@@ -23,6 +23,12 @@ export const changePeriodeType = (periode: Periode, type: Periodetype): Periode 
                 type: Periodetype.Uttak,
                 gradering: undefined
             };
+        case Periodetype.UttakFørTermin:
+            return {
+                ...periode,
+                type: Periodetype.UttakFørTermin,
+                gradering: undefined
+            };
         case Periodetype.GradertUttak:
             return {
                 ...periode,

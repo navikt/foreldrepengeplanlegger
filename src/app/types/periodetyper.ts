@@ -3,6 +3,7 @@ import { Forelder, Uttaksinfo } from '.';
 
 export enum Periodetype {
     'Uttak' = 'uttak',
+    'UttakFørTermin' = 'uttakFørTermin',
     'GradertUttak' = 'gradertUttak',
     'Ferie' = 'ferie',
     'Arbeid' = 'arbeid',
@@ -27,6 +28,10 @@ export interface GradertUttaksperiode extends PeriodeBase {
     type: Periodetype.GradertUttak;
 }
 
+export interface UttakFørTermin extends PeriodeBase {
+    type: Periodetype.UttakFørTermin;
+}
+
 export interface Ferieperiode extends PeriodeBase {
     type: Periodetype.Ferie;
 }
@@ -41,7 +46,13 @@ export interface UbetaltPermisjon extends PeriodeBase {
 
 export type Utsettelsesperiode = Ferieperiode | Arbeidsperiode;
 
-export type Periode = Uttaksperiode | GradertUttaksperiode | Utsettelsesperiode | UbetaltPermisjon | Ferieperiode;
+export type Periode =
+    | Uttaksperiode
+    | UttakFørTermin
+    | GradertUttaksperiode
+    | Utsettelsesperiode
+    | UbetaltPermisjon
+    | Ferieperiode;
 
 export function isUttakOrGradertUttak(periode: Periode): periode is Uttaksperiode | GradertUttaksperiode {
     return periode.type === Periodetype.Uttak || periode.type === Periodetype.GradertUttak;

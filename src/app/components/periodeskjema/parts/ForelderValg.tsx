@@ -9,8 +9,8 @@ interface Props {
 }
 
 const getForelderOptions = (omForeldre: OmForeldre): RadioOption[] => [
-    { value: Forelder.forelder1, label: omForeldre.forelder1.navn },
-    { value: Forelder.forelder2, label: omForeldre.forelder2!.navn }
+    { value: Forelder.farMedmor, label: omForeldre.farMedmor.navn },
+    { value: Forelder.mor, label: omForeldre.mor!.navn }
 ];
 
 const ForelderValg: React.StatelessComponent<Props> = ({ forelder, omForeldre, onChange }) => (

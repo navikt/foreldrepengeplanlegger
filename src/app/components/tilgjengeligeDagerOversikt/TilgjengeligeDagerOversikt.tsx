@@ -47,14 +47,14 @@ const Kontoliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl 
 
 const Fordelingsliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, omForeldre, intl }: Props) => {
     const { dagerFelles, dagerForbeholdtFar, dagerForbeholdtMor } = tilgjengeligeDager;
-    if (omForeldre.forelder2 === undefined) {
+    if (omForeldre.mor === undefined) {
         return null;
     }
     return (
         <Ingress tag="p">
-            {omForeldre.forelder1.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtFar, intl)}</strong> og{' '}
-            {omForeldre.forelder2.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtMor, intl)}</strong>. Dere
-            har <strong>{getVarighetString(dagerFelles, intl)}</strong> som dere kan fordele som dere ønsker.
+            {omForeldre.farMedmor.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtFar, intl)}</strong> og{' '}
+            {omForeldre.mor.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtMor, intl)}</strong>. Dere har{' '}
+            <strong>{getVarighetString(dagerFelles, intl)}</strong> som dere kan fordele som dere ønsker.
         </Ingress>
     );
 };

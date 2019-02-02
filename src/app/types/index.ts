@@ -5,8 +5,8 @@ export * from 'common/components/foreldrepar/foreldreparTypes';
 export * from './periodetyper';
 
 export enum Forelder {
-    'forelder1' = 'forelder1',
-    'forelder2' = 'forelder2'
+    'farMedmor' = 'farMedmor',
+    'mor' = 'mor'
 }
 
 export enum Søkersituasjon {
@@ -82,19 +82,19 @@ export interface ForbrukPerPeriodetype {
 export interface Fordeling {
     dagerTotalt: number;
     dagerGjenstaende: number;
-    forelder1: {
+    farMedmor: {
         uttaksdager: number;
         pst: number;
     };
-    forelder2?: {
+    mor?: {
         uttaksdager: number;
         pst: number;
     };
 }
 
 export interface Forbruk {
-    forelder1: ForelderForbruk;
-    forelder2?: ForelderForbruk;
+    farMedmor: ForelderForbruk;
+    mor?: ForelderForbruk;
     fordeling: Fordeling;
 }
 
@@ -111,6 +111,6 @@ export interface Forelderinfo {
 
 export interface OmForeldre {
     antallForeldre: number;
-    forelder1: Forelderinfo;
-    forelder2?: Forelderinfo;
+    farMedmor: Forelderinfo;
+    mor?: Forelderinfo;
 }

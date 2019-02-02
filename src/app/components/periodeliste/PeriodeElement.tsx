@@ -29,10 +29,10 @@ const getForelderNavn = (forelder: Forelder | undefined, omForeldre: OmForeldre)
     if (forelder === undefined || omForeldre === undefined) {
         return;
     }
-    if (forelder === Forelder.forelder1) {
-        return omForeldre.forelder1.navn;
+    if (forelder === Forelder.farMedmor) {
+        return omForeldre.farMedmor.navn;
     } else {
-        return omForeldre.forelder2 ? omForeldre.forelder2.navn : undefined;
+        return omForeldre.mor ? omForeldre.mor.navn : undefined;
     }
 };
 

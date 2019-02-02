@@ -7,7 +7,7 @@ import { Perioden } from '../Perioden';
 const periode1: Periode = {
     id: guid(),
     fixed: false,
-    forelder: Forelder.forelder1,
+    forelder: Forelder.farMedmor,
     tidsperiode: getTidsperiode(new Date(), 10),
     type: Periodetype.Uttak
 };
@@ -15,7 +15,7 @@ periode1.uttaksinfo = getUttaksinfoForPeriode(periode1);
 const periode2: Periode = {
     id: guid(),
     fixed: false,
-    forelder: Forelder.forelder2,
+    forelder: Forelder.mor,
     tidsperiode: getTidsperiode(new Date(), 20),
     type: Periodetype.Uttak
 };
@@ -30,7 +30,7 @@ describe('Perioden', () => {
             expect(
                 Perioden(periode1).erLik({
                     ...periode1,
-                    forelder: Forelder.forelder2
+                    forelder: Forelder.mor
                 })
             ).toBeFalsy();
         });

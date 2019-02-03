@@ -8,7 +8,7 @@ const periode1: Periode = {
     id: guid(),
     fixed: false,
     forelder: Forelder.farMedmor,
-    tidsperiode: getTidsperiode(new Date(), 10),
+    tidsperiode: getTidsperiode(new Date(1, 0, 2019), 10),
     type: Periodetype.Uttak
 };
 periode1.uttaksinfo = getUttaksinfoForPeriode(periode1);
@@ -16,7 +16,7 @@ const periode2: Periode = {
     id: guid(),
     fixed: false,
     forelder: Forelder.mor,
-    tidsperiode: getTidsperiode(new Date(), 20),
+    tidsperiode: getTidsperiode(new Date(8, 0, 2019), 20),
     type: Periodetype.Uttak
 };
 periode2.uttaksinfo = getUttaksinfoForPeriode(periode2);

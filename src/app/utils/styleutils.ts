@@ -1,7 +1,7 @@
 import { Forelder, Periodetype, UttaksplanColor } from '../types';
 
 const getForelderFarge = (forelder: Forelder) => {
-    return forelder === Forelder.forelder2 ? 'purple' : 'blue';
+    return forelder === Forelder.mor ? 'purple' : 'blue';
 };
 
 export const getPeriodetypeFarge = (periodetype: Periodetype, forelder?: Forelder): UttaksplanColor => {
@@ -10,6 +10,6 @@ export const getPeriodetypeFarge = (periodetype: Periodetype, forelder?: Forelde
         case Periodetype.Ferie:
             return 'green';
         default:
-            return getForelderFarge(forelder || Forelder.forelder1);
+            return getForelderFarge(forelder || Forelder.farMedmor);
     }
 };

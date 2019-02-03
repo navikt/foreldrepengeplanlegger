@@ -2,7 +2,7 @@ import { Periode, Forelder, Periodetype } from 'app/types';
 import { getUttaksinfoForPeriode } from '../utils/uttaksinfo';
 
 const toForeldrePeriode1: Periode = {
-    forelder: Forelder.forelder1,
+    forelder: Forelder.farMedmor,
     id: '89658209-22972-6250-27502-00358020458505',
     tidsperiode: {
         fom: new Date('2019-01-13T23:00:00.000Z'),
@@ -11,7 +11,7 @@ const toForeldrePeriode1: Periode = {
     type: Periodetype.Uttak
 };
 const toForeldrePeriode2: Periode = {
-    forelder: Forelder.forelder1,
+    forelder: Forelder.farMedmor,
     id: '77701867-4877-12517-0900-7334518603534',
     tidsperiode: {
         fom: new Date('2019-02-10T23:00:00.000Z'),
@@ -20,7 +20,7 @@ const toForeldrePeriode2: Periode = {
     type: Periodetype.Ferie
 };
 const toForeldrePeriode3: Periode = {
-    forelder: Forelder.forelder2,
+    forelder: Forelder.mor,
     id: '56204685-2952-7449-7913-90900854017943',
     tidsperiode: {
         fom: new Date('2019-02-24T23:00:00.000Z'),
@@ -30,7 +30,7 @@ const toForeldrePeriode3: Periode = {
 };
 
 const enForelderPeriode1: Periode = {
-    forelder: Forelder.forelder1,
+    forelder: Forelder.farMedmor,
     id: '89658209-22972-6250-27502-00358020458502',
     tidsperiode: {
         fom: new Date('2019-01-13T23:00:00.000Z'),
@@ -39,7 +39,7 @@ const enForelderPeriode1: Periode = {
     type: Periodetype.Uttak
 };
 const enForelderPeriode2: Periode = {
-    forelder: Forelder.forelder1,
+    forelder: Forelder.farMedmor,
     id: '89658209-22972-6250-27502-00358020458501',
     tidsperiode: {
         fom: new Date('2019-01-13T23:00:00.000Z'),

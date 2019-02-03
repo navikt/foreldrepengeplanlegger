@@ -32,29 +32,23 @@ const Tittel: React.StatelessComponent<{ navn: string; dager?: number; intl: Inj
 };
 
 const FordelingGraf: React.StatelessComponent<Props> = ({ fordeling, omForeldre, intl }) => {
-    const { forelder1, forelder2, dagerGjenstaende } = fordeling;
+    const { farMedmor, mor, dagerGjenstaende } = fordeling;
     return (
         <div className={bem.block}>
             <div className={bem.element('titler')}>
                 <Tittel
-                    navn={omForeldre.forelder2 ? omForeldre.forelder1.navn : 'Brukt'}
-                    dager={forelder1.uttaksdager}
+                    navn={omForeldre.mor ? omForeldre.farMedmor.navn : 'Brukt'}
+                    dager={farMedmor.uttaksdager}
                     intl={intl}
                 />
-                {omForeldre.forelder2 && (
-                    <Tittel
-                        navn={omForeldre.forelder2.navn}
-                        dager={forelder2 ? forelder2.uttaksdager : undefined}
-                        intl={intl}
-                    />
+                {omForeldre.mor && (
+                    <Tittel navn={omForeldre.mor.navn} dager={mor ? mor.uttaksdager : undefined} intl={intl} />
                 )}
                 <Tittel navn="Gjenstående" dager={dagerGjenstaende} intl={intl} />
             </div>
             <div className={bem.element('graf')} role="presentation">
-                <div className={bem.element('graf__bar bkg-forelder1')} style={{ width: `${forelder1.pst}%` }} />
-                {forelder2 && (
-                    <div className={bem.element('graf__bar bkg-forelder2')} style={{ width: `${forelder2.pst}%` }} />
-                )}
+                <div className={bem.element('graf__bar bkg-farMedmor')} style={{ width: `${farMedmor.pst}%` }} />
+                {mor && <div className={bem.element('graf__bar bkg-mor')} style={{ width: `${mor.pst}%` }} />}
             </div>
         </div>
     );

@@ -49,16 +49,16 @@ class PeriodeDevBar extends React.Component<Props, {}> {
             <div className="dev">
                 <Panel border={true}>
                     <Knapperad>
-                        <Flatknapp onClick={() => this.addAfter(Forelder.forelder1, Periodetype.Uttak, 20)}>
+                        <Flatknapp onClick={() => this.addAfter(Forelder.farMedmor, Periodetype.Uttak, 20)}>
                             Uttak F1
                         </Flatknapp>
-                        <Flatknapp onClick={() => this.addAfter(Forelder.forelder2, Periodetype.Uttak, 20)}>
+                        <Flatknapp onClick={() => this.addAfter(Forelder.mor, Periodetype.Uttak, 20)}>
                             Uttak F2
                         </Flatknapp>
-                        <Flatknapp onClick={() => this.addAfter(Forelder.forelder1, Periodetype.Ferie, 5)}>
+                        <Flatknapp onClick={() => this.addAfter(Forelder.farMedmor, Periodetype.Ferie, 5)}>
                             Ferie F1
                         </Flatknapp>
-                        <Flatknapp onClick={() => this.addAfter(Forelder.forelder2, Periodetype.Ferie, 5)}>
+                        <Flatknapp onClick={() => this.addAfter(Forelder.mor, Periodetype.Ferie, 5)}>
                             Ferie F2
                         </Flatknapp>
                         <Flatknapp onClick={this.props.onResetApp}>Reset</Flatknapp>

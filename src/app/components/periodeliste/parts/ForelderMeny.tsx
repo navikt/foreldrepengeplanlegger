@@ -11,13 +11,13 @@ interface Props {
 }
 
 const getForelderOptions = (omForeldre: OmForeldre): MenuButtonOption[] => [
-    { value: Forelder.forelder1, label: omForeldre.forelder1.navn },
-    { value: Forelder.forelder2, label: omForeldre.forelder2!.navn }
+    { value: Forelder.farMedmor, label: omForeldre.farMedmor.navn },
+    { value: Forelder.mor, label: omForeldre.mor!.navn }
 ];
 
 const renderForelderIkon = (option: MenuButtonOption, omForeldre: OmForeldre): React.ReactNode | undefined => {
     const iconRef: ForeldreparForelder =
-        option.value === Forelder.forelder1 ? omForeldre.forelder1.ikonRef : omForeldre.forelder2!.ikonRef;
+        option.value === Forelder.farMedmor ? omForeldre.farMedmor.ikonRef : omForeldre.mor!.ikonRef;
     return (
         <div className="forelderMenyIkon">
             <ForelderIkon forelder={iconRef} />

@@ -37,6 +37,7 @@ export const getDefaultCommonState = (storage?: CommonState): CommonState => {
 export interface CommonState {
     språkkode: Språkkode;
     perioder: Periode[];
+    periodeFørTermin?: Periode;
     skjemadata?: SituasjonSkjemadata;
     familiehendelsesdato: Date;
     dekningsgrad: Dekningsgrad;

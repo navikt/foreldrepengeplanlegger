@@ -7,16 +7,16 @@ import { Perioden } from '../Perioden';
 const periode1: Periode = {
     id: guid(),
     fixed: false,
-    forelder: Forelder.forelder1,
-    tidsperiode: getTidsperiode(new Date(), 10),
+    forelder: Forelder.farMedmor,
+    tidsperiode: getTidsperiode(new Date(1, 0, 2019), 10),
     type: Periodetype.Uttak
 };
 periode1.uttaksinfo = getUttaksinfoForPeriode(periode1);
 const periode2: Periode = {
     id: guid(),
     fixed: false,
-    forelder: Forelder.forelder2,
-    tidsperiode: getTidsperiode(new Date(), 20),
+    forelder: Forelder.mor,
+    tidsperiode: getTidsperiode(new Date(8, 0, 2019), 20),
     type: Periodetype.Uttak
 };
 periode2.uttaksinfo = getUttaksinfoForPeriode(periode2);
@@ -30,7 +30,7 @@ describe('Perioden', () => {
             expect(
                 Perioden(periode1).erLik({
                     ...periode1,
-                    forelder: Forelder.forelder2
+                    forelder: Forelder.mor
                 })
             ).toBeFalsy();
         });

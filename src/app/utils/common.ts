@@ -38,15 +38,15 @@ export const getInformasjonOmForeldre = (
     const antallForeldre = getAntallForeldreISituasjon(situasjon);
     return {
         antallForeldre,
-        forelder1: {
+        farMedmor: {
             navn: navnForelder1,
-            ikonRef: info.forelder1
+            ikonRef: info.farMedmor
         },
-        forelder2:
-            antallForeldre === 2 && navnForelder2 && info.forelder2
+        mor:
+            antallForeldre === 2 && navnForelder2 && info.mor
                 ? {
                       navn: navnForelder2,
-                      ikonRef: info.forelder2
+                      ikonRef: info.mor
                   }
                 : undefined
     };

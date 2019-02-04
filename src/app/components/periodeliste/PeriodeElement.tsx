@@ -91,6 +91,7 @@ class PeriodeElement extends React.Component<Props, {}> {
                         render: () => (
                             <PeriodetypeMeny
                                 type={this.props.periode.type}
+                                forelder={this.props.periode.forelder}
                                 flereForeldre={harFlereForeldre}
                                 tidsperiode={this.props.periode.tidsperiode}
                                 foreldernavn={foreldernavn}

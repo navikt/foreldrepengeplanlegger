@@ -85,10 +85,15 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
         case CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER:
             return updateStateAndStorage(state, { tilgjengeligeDager: action.tilgjengeligeDager });
         case CommonActionKeys.SUBMIT_SKJEMADATA:
+            const builder = getBuilder();
+            builder.perioder = getMockPerioder(
+                action.data.antallBarn,
+                getAntallForeldreISituasjon(action.data.situasjon)
+            );
             return updateStateAndStorage(state, {
                 skjemadata: action.data,
                 familiehendelsesdato: action.data.familiehendelsesdato,
-                perioder: getMockPerioder(action.data.antallBarn, getAntallForeldreISituasjon(action.data.situasjon)),
+                perioder: builder.build().perioder,
                 periodeFørTermin: state.tilgjengeligeDager
                     ? getPeriodeFørTermin(state.familiehendelsesdato, state.tilgjengeligeDager.dagerFørTermin)
                     : getPeriodeFørTermin(state.familiehendelsesdato, 15) // TODO - mock

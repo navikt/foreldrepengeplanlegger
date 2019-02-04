@@ -34,14 +34,14 @@ class Builder {
             const fastePerioder = this.perioder.filter((p) => p.fixed === true);
             const fleksiblePerioder = this.perioder.filter((p) => p.fixed !== true);
 
-            this.perioder = resetTidsperioder(fleksiblePerioder);
+            this.perioder = resetTidsperioder(fleksiblePerioder, this.familiehendelsesdato);
             this.perioder = slåSammenLikePerioder(this.perioder);
             this.perioder = settInnPerioder(this.perioder, fastePerioder);
             this.sort();
             this.perioder = slåSammenLikePerioder(this.perioder);
             // this.perioder = oppdaterUttaksinfo(this.perioder);
         } else {
-            this.perioder = resetTidsperioder(this.perioder);
+            this.perioder = resetTidsperioder(this.perioder, this.familiehendelsesdato);
             // this.perioder = oppdaterUttaksinfo(this.perioder);
         }
 
@@ -68,7 +68,7 @@ class Builder {
         const startDato = this.perioder[0].tidsperiode.fom;
         this.perioder = arrayMove(this.perioder, fromIndex, toIndex);
         this.perioder[0] = Perioden(this.perioder[0]).setStartdato(startDato);
-        this.perioder = resetTidsperioder(this.perioder, true);
+        this.perioder = resetTidsperioder(this.perioder, this.familiehendelsesdato, true);
         return this;
     }
 
@@ -78,11 +78,16 @@ class Builder {
     }
 }
 
-function resetTidsperioder(perioder: Periode[], skipSort?: boolean): Periode[] {
+function resetTidsperioder(perioder: Periode[], familiehendelsesdato: Date, skipSort?: boolean): Periode[] {
     let forrigePeriode: Periode;
     const sammenslåttePerioder = slåSammenLikePerioder(
         skipSort ? perioder : perioder.sort(sorterPerioder)
     ) as Periode[];
+
+    const førsteUttaksdag = Uttaksdagen(familiehendelsesdato).denneEllerNeste();
+    if (perioder.length > 0) {
+        sammenslåttePerioder[0] = Perioden(sammenslåttePerioder[0]).setStartdato(førsteUttaksdag);
+    }
     const resattePerioder = sammenslåttePerioder.map((periode) => {
         if (forrigePeriode === undefined) {
             forrigePeriode = periode;

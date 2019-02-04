@@ -87,6 +87,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
         case CommonActionKeys.SUBMIT_SKJEMADATA:
             return updateStateAndStorage(state, {
                 skjemadata: action.data,
+                familiehendelsesdato: action.data.familiehendelsesdato,
                 perioder: getMockPerioder(action.data.antallBarn, getAntallForeldreISituasjon(action.data.situasjon)),
                 periodeFørTermin: state.tilgjengeligeDager
                     ? getPeriodeFørTermin(state.familiehendelsesdato, state.tilgjengeligeDager.dagerFørTermin)

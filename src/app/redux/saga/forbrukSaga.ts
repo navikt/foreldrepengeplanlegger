@@ -1,6 +1,6 @@
 import { takeEvery, all, put, select } from 'redux-saga/effects';
 import { AppState } from '../reducers/rootReducer';
-import { updateForbruk, UpdateTilgjengeligeDager, UpdateOmForeldre } from '../actions/common/commonActionCreators';
+import { updateForbruk, updateTilgjengeligeDager, updateOmForeldre } from '../actions/common/commonActionCreators';
 import { CommonActionKeys } from '../actions/common/commonActionDefinitions';
 import { selectForbruk, selectTilgjengeligeDager } from '../selectors';
 import { getInformasjonOmForeldre } from '../../utils/common';
@@ -18,10 +18,10 @@ function* updateForbrukSaga() {
 
 function* updateTilgjengeligeDagerSaga() {
     const appState: AppState = yield select(stateSelector);
-    yield put(UpdateTilgjengeligeDager(selectTilgjengeligeDager(appState)));
+    yield put(updateTilgjengeligeDager(selectTilgjengeligeDager(appState)));
 }
 
-function* updateOmForeldre() {
+function* updateOmForeldreSaga() {
     const appState: AppState = yield select(stateSelector);
     const { skjemadata } = appState.common;
     if (skjemadata) {
@@ -30,7 +30,7 @@ function* updateOmForeldre() {
             skjemadata.navnForelder1,
             skjemadata.navnForelder2
         );
-        yield put(UpdateOmForeldre(omForeldre));
+        yield put(updateOmForeldre(omForeldre));
     }
 }
 
@@ -44,9 +44,9 @@ function* forbrukSaga() {
     yield all([takeEvery(CommonActionKeys.UPDATE_PERIODE, updateForbrukSaga)]);
     yield all([takeEvery(CommonActionKeys.REMOVE_PERIODE, updateForbrukSaga)]);
     yield all([takeEvery(CommonActionKeys.MOVE_PERIODE, updateForbrukSaga)]);
-    yield all([takeEvery(CommonActionKeys.SUBMIT_SKJEMADATA, updateOmForeldre)]);
-    yield all([takeEvery(CommonActionKeys.APPLY_STORAGE, updateOmForeldre)]);
-    yield all([takeEvery(ApiActionKeys.UPDATE_API, updateOmForeldre)]);
+    yield all([takeEvery(CommonActionKeys.SUBMIT_SKJEMADATA, updateOmForeldreSaga)]);
+    yield all([takeEvery(CommonActionKeys.APPLY_STORAGE, updateOmForeldreSaga)]);
+    yield all([takeEvery(ApiActionKeys.UPDATE_API, updateOmForeldreSaga)]);
 }
 
 export default forbrukSaga;

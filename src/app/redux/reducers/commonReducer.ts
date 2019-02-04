@@ -6,7 +6,10 @@ import {
     TilgjengeligeDager,
     TilgjengeligStønadskonto,
     Forbruk,
-    OmForeldre
+    OmForeldre,
+    Periodetype,
+    UttakFørTermin,
+    Forelder
 } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { getMockPerioder } from '../../mock/perioder_mock';
@@ -14,35 +17,17 @@ import { Dekningsgrad } from 'common/types';
 import { summerAntallDagerIKontoer, getPeriodeFørTermin } from '../../utils/kontoUtils';
 import { setStorage, getStorage } from '../../utils/storage';
 import { getAntallForeldreISituasjon } from '../../utils/common';
-
-export const getDefaultCommonState = (storage?: CommonState): CommonState => {
-    return {
-        språkkode: 'nb',
-        perioder: [],
-        familiehendelsesdato: new Date(),
-        dekningsgrad: '100',
-        uttaksdagerFørTermin: 15,
-        stønadskontoer100: {
-            kontoer: [],
-            dager: 0
-        },
-        stønadskontoer80: {
-            kontoer: [],
-            dager: 0
-        },
-        ...storage
-    };
-};
+import { guid } from 'nav-frontend-js-utils';
+import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
 
 export interface CommonState {
     språkkode: Språkkode;
     perioder: Periode[];
-    periodeFørTermin?: Periode;
+    periodeFørTermin: UttakFørTermin;
     skjemadata?: SituasjonSkjemadata;
     familiehendelsesdato: Date;
     dekningsgrad: Dekningsgrad;
     tilgjengeligeDager?: TilgjengeligeDager;
-    uttaksdagerFørTermin: number;
     stønadskontoer80: {
         dager: number;
         kontoer: TilgjengeligStønadskonto[];
@@ -55,6 +40,31 @@ export interface CommonState {
     omForeldre?: OmForeldre;
 }
 
+export const getDefaultCommonState = (storage?: CommonState): CommonState => {
+    return {
+        språkkode: 'nb',
+        perioder: [],
+        familiehendelsesdato: new Date(),
+        dekningsgrad: '100',
+        stønadskontoer100: {
+            kontoer: [],
+            dager: 0
+        },
+        stønadskontoer80: {
+            kontoer: [],
+            dager: 0
+        },
+        periodeFørTermin: {
+            id: guid(),
+            type: Periodetype.UttakFørTermin,
+            forelder: Forelder.mor,
+            tidsperiode: { fom: new Date(), tom: new Date() }
+        },
+
+        ...storage
+    };
+};
+
 const updateStateAndStorage = (state: CommonState, updates: Partial<CommonState>): CommonState => {
     const updatedState = { ...state, ...updates };
     setStorage(updatedState);
@@ -63,15 +73,13 @@ const updateStateAndStorage = (state: CommonState, updates: Partial<CommonState>
 
 const commonReducer = (state = getDefaultCommonState(getStorage()), action: CommonActionTypes): CommonState => {
     const getBuilder = () => {
-        return UttaksplanBuilder(state.perioder, state.familiehendelsesdato, state.uttaksdagerFørTermin);
+        return UttaksplanBuilder(state.perioder, state.familiehendelsesdato);
     };
     switch (action.type) {
         case CommonActionKeys.SET_SPRÅK:
             return { ...state, språkkode: action.språkkode };
         case CommonActionKeys.APPLY_STORAGE:
             return { ...state, ...action.storage };
-        case CommonActionKeys.SET_UTTAKSDAGER_FØR_TERMIN:
-            return { ...state, uttaksdagerFørTermin: action.antallDager };
         case CommonActionKeys.UPDATE_FORBRUK:
             return updateStateAndStorage(state, { forbruk: action.forbruk });
         case CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER:
@@ -80,7 +88,9 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
             return updateStateAndStorage(state, {
                 skjemadata: action.data,
                 perioder: getMockPerioder(action.data.antallBarn, getAntallForeldreISituasjon(action.data.situasjon)),
-                periodeFørTermin: getPeriodeFørTermin(state.familiehendelsesdato, state.uttaksdagerFørTermin)
+                periodeFørTermin: state.tilgjengeligeDager
+                    ? getPeriodeFørTermin(state.familiehendelsesdato, state.tilgjengeligeDager.dagerFørTermin)
+                    : undefined
             });
         case CommonActionKeys.SET_DEKNINGSGRAD:
             return updateStateAndStorage(state, {
@@ -108,10 +118,20 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                     .build().perioder
             });
         case CommonActionKeys.UPDATE_PERIODE:
+            if (action.periode.type === Periodetype.UttakFørTermin) {
+                return {
+                    ...state,
+                    periodeFørTermin: {
+                        ...action.periode,
+                        uttaksinfo: getUttaksinfoForPeriode(action.periode)
+                    }
+                };
+            }
             return updateStateAndStorage(state, {
                 perioder: getBuilder()
                     .oppdaterPeriode(action.periode)
-                    .build().perioder
+                    .build()
+                    .perioder.map((p) => ({ ...p, uttaksinfo: getUttaksinfoForPeriode(p) }))
             });
         case CommonActionKeys.REMOVE_PERIODE:
             return updateStateAndStorage(state, {

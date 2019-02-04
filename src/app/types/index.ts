@@ -65,6 +65,7 @@ export interface TilgjengeligeDager {
     dagerForbeholdtMor: number;
     dagerForbeholdtFar: number;
     dagerFelles: number;
+    dagerFørTermin: number;
     stønadskontoer: TilgjengeligStønadskonto[];
 }
 

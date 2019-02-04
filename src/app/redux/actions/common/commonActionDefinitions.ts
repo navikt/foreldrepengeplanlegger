@@ -111,11 +111,6 @@ interface MovePeriode {
     toIndex: number;
 }
 
-interface SetUttaksdagerFørTermin {
-    type: CommonActionKeys.SET_UTTAKSDAGER_FØR_TERMIN;
-    antallDager: number;
-}
-
 export type CommonActionTypes =
     | SetSpråk
     | SetPerioder
@@ -130,5 +125,4 @@ export type CommonActionTypes =
     | UpdateForbruk
     | UpdateTilgjengeligeDager
     | UpdateOmForeldre
-    | ResetApp
-    | SetUttaksdagerFørTermin;
+    | ResetApp;

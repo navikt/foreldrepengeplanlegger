@@ -112,7 +112,7 @@ class UttaksplanSide extends React.Component<Props, {}> {
                                     perioder={perioder}
                                     forbruk={forbruk!}
                                     onAdd={(periode) => dispatch(addPeriode(periode))}
-                                    onUpdate={(periode) => dispatch(updatePeriode(periode))}
+                                    onUpdate={(periode) => periode.type === dispatch(updatePeriode(periode))}
                                     onRemove={(periode) => dispatch(removePeriode(periode))}
                                     onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
                                     onResetPlan={() => dispatch(setPerioder([]))}

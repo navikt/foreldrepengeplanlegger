@@ -43,7 +43,7 @@ class PeriodeElement extends React.Component<Props, {}> {
             typeErLåst,
             forelderErLåst,
             startdatoErLåst,
-            // sluttdatoErLåst,
+            sluttdatoErLåst,
             slettErLåst,
             omForeldre,
             onRemove,
@@ -99,7 +99,8 @@ class PeriodeElement extends React.Component<Props, {}> {
                 <div className={bem.element('tidsperiode')}>
                     <VarighetMeny
                         tidsperiode={this.props.periode.tidsperiode}
-                        startdatoErLåst={startdatoErLåst !== true}
+                        startdatoErLåst={startdatoErLåst}
+                        sluttdatoErLåst={sluttdatoErLåst}
                         uker={uker}
                         dager={dager}
                         onTidsperiodeChange={(tidsperiode) => {
@@ -111,7 +112,12 @@ class PeriodeElement extends React.Component<Props, {}> {
                         onVarighetChange={(ukerOgDager) =>
                             onUpdate({
                                 ...this.props.periode,
-                                ...Perioden(this.props.periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager)
+                                ...(periode.type === Periodetype.UttakFørTermin
+                                    ? Perioden(this.props.periode).setUkerOgDagerFlyttStartdato(
+                                          ukerOgDager.uker,
+                                          ukerOgDager.dager
+                                      )
+                                    : Perioden(this.props.periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
                             })
                         }
                     />

@@ -1,4 +1,4 @@
-import { takeEvery, all, put, select } from 'redux-saga/effects';
+import { all, put, select, takeLatest } from 'redux-saga/effects';
 import { AppState } from '../reducers/rootReducer';
 import { updateForbruk, updateTilgjengeligeDager, updateOmForeldre } from '../actions/common/commonActionCreators';
 import { CommonActionKeys } from '../actions/common/commonActionDefinitions';
@@ -35,18 +35,32 @@ function* updateOmForeldreSaga() {
 }
 
 function* forbrukSaga() {
-    yield all([takeEvery(CommonActionKeys.SET_DEKNINGSGRAD, updateTilgjengeligeDagerSaga)]);
-    yield all([takeEvery(CommonActionKeys.SET_STØNADSKONTOER, updateTilgjengeligeDagerSaga)]);
-    yield all([takeEvery(CommonActionKeys.SET_STØNADSKONTOER, updateForbrukSaga)]);
-    yield all([takeEvery(CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER, updateForbrukSaga)]);
-    yield all([takeEvery(CommonActionKeys.SET_PERIODER, updateForbrukSaga)]);
-    yield all([takeEvery(CommonActionKeys.ADD_PERIODE, updateForbrukSaga)]);
-    yield all([takeEvery(CommonActionKeys.UPDATE_PERIODE, updateForbrukSaga)]);
-    yield all([takeEvery(CommonActionKeys.REMOVE_PERIODE, updateForbrukSaga)]);
-    yield all([takeEvery(CommonActionKeys.MOVE_PERIODE, updateForbrukSaga)]);
-    yield all([takeEvery(CommonActionKeys.SUBMIT_SKJEMADATA, updateOmForeldreSaga)]);
-    yield all([takeEvery(CommonActionKeys.APPLY_STORAGE, updateOmForeldreSaga)]);
-    yield all([takeEvery(ApiActionKeys.UPDATE_API, updateOmForeldreSaga)]);
+    yield all([
+        takeLatest(
+            [CommonActionKeys.SET_DEKNINGSGRAD, CommonActionKeys.SET_STØNADSKONTOER],
+            updateTilgjengeligeDagerSaga
+        )
+    ]);
+    yield all([
+        takeLatest(
+            [
+                CommonActionKeys.SET_STØNADSKONTOER,
+                CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER,
+                CommonActionKeys.SET_PERIODER,
+                CommonActionKeys.ADD_PERIODE,
+                CommonActionKeys.UPDATE_PERIODE,
+                CommonActionKeys.REMOVE_PERIODE,
+                CommonActionKeys.MOVE_PERIODE
+            ],
+            updateForbrukSaga
+        )
+    ]);
+    yield all([
+        takeLatest(
+            [CommonActionKeys.SUBMIT_SKJEMADATA, CommonActionKeys.APPLY_STORAGE, ApiActionKeys.UPDATE_API],
+            updateOmForeldreSaga
+        )
+    ]);
 }
 
 export default forbrukSaga;

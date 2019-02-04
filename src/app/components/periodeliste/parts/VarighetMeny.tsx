@@ -7,8 +7,9 @@ import { Tidsperiode } from 'nav-datovelger';
 import BEMHelper from 'common/utils/bem';
 import Varighet from '../../varighet/Varighet';
 import Block from 'common/components/block/Block';
-import TomValg from '../../periodeskjema/parts/FomTomValg';
+import FomTomValg from '../../periodeskjema/parts/FomTomValg';
 import DropdownDialogTittel from './DropdownDialogTittel';
+import { Checkbox } from 'nav-frontend-skjema';
 
 interface OwnProps {
     uker: number;
@@ -16,8 +17,10 @@ interface OwnProps {
     tidsperiode: Tidsperiode;
     startdatoErLåst?: boolean;
     sluttdatoErLåst?: boolean;
+    ingenVarighet?: boolean;
+    minDager?: number;
     onTidsperiodeChange: (tidsperiode: Tidsperiode) => void;
-    onVarighetChange: (ukerOgDager: UkerOgDager) => void;
+    onVarighetChange: (ukerOgDager: UkerOgDager, skalIkkeHa?: boolean) => void;
 }
 
 type Props = OwnProps & InjectedIntlProps;
@@ -28,34 +31,38 @@ const DatoValg: React.StatelessComponent<Props> = ({
     tidsperiode,
     onTidsperiodeChange,
     sluttdatoErLåst,
-    startdatoErLåst
+    startdatoErLåst,
+    ingenVarighet
 }) => {
     return (
-        <TomValg
+        <FomTomValg
             onChange={onTidsperiodeChange}
             fom={tidsperiode.fom}
             tom={tidsperiode.tom}
             låstFomDato={startdatoErLåst}
             låstTomDato={sluttdatoErLåst}
+            disabled={ingenVarighet}
             tomLabel={startdatoErLåst ? 'Velg sluttdato' : undefined}
             fomLabel={sluttdatoErLåst ? 'Velg startdato' : undefined}
         />
     );
 };
 
-const VarighetValg: React.StatelessComponent<Props> = ({ uker, dager, onVarighetChange }) => {
+const VarighetValg: React.StatelessComponent<Props> = ({ uker, dager, minDager, ingenVarighet, onVarighetChange }) => {
     return (
         <UkerOgDagerVelger
             tittel="Velg varighet"
             uker={uker}
             dager={dager}
+            disabled={ingenVarighet}
+            minDager={minDager}
             onChange={(ukerOgDager) => onVarighetChange(ukerOgDager)}
         />
     );
 };
 
 const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
-    const { sluttdatoErLåst, startdatoErLåst } = props;
+    const { uker, dager, sluttdatoErLåst, startdatoErLåst, onVarighetChange } = props;
     if (startdatoErLåst === true && sluttdatoErLåst !== true) {
         return (
             <>
@@ -70,15 +77,22 @@ const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
             </>
         );
     } else if (startdatoErLåst !== true && sluttdatoErLåst === true) {
+        /** Foreldrepenger før termin */
         return (
             <>
-                <DropdownDialogTittel>Når ønsker du å starte perioden?</DropdownDialogTittel>
+                <DropdownDialogTittel>Når ønsker du å starte uttaket før termin?</DropdownDialogTittel>
+                <Block>
+                    <DatoValg {...props} />
+                </Block>
+                <Block margin="m">eller</Block>
                 <Block margin="xs">
                     <VarighetValg {...props} />
                 </Block>
-                <Block margin="m">eller</Block>
                 <Block>
-                    <DatoValg {...props} />
+                    <Checkbox
+                        label="Jeg skal ikke ha uttak før termin"
+                        onChange={(evt) => onVarighetChange({ uker, dager }, true)}
+                    />
                 </Block>
             </>
         );

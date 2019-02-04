@@ -55,6 +55,12 @@ function setUkerOgDager(periode: Periode, uker: number, dager: number): Periode 
 
 function setUkerOgDagerFlyttStartdato(periode: Periode, uker: number, dager: number): Periode {
     const { tom } = periode.tidsperiode;
-    const fom = Uttaksdagen(tom).trekkFra(uker * 5 + dager - 1);
-    return { ...periode, tidsperiode: { fom, tom } };
+    const uttaksdager = uker * 5 + dager;
+    if (uttaksdager > 0) {
+        const fom = Uttaksdagen(tom).trekkFra(uttaksdager - 1);
+        return { ...periode, tidsperiode: { fom, tom } };
+    }
+    return {
+        ...periode
+    };
 }

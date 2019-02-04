@@ -11,7 +11,7 @@ import { PeriodelisteElementProps } from './types';
 import GraderingMeny from './parts/GraderingMeny';
 import PeriodeFargestrek from './parts/periodeFargestrek/periodeFargestrek';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
-import { OmForeldre, Forelder, Periodetype } from '../../types';
+import { OmForeldre, Forelder, Periodetype, UkerOgDager } from '../../types';
 
 import './periodeElement.less';
 
@@ -37,6 +37,24 @@ const getForelderNavn = (forelder: Forelder | undefined, omForeldre: OmForeldre)
 };
 
 class PeriodeElement extends React.Component<Props, {}> {
+    constructor(props: Props) {
+        super(props);
+        this.handleChangeVarighet = this.handleChangeVarighet.bind(this);
+    }
+    handleChangeVarighet(ukerOgDager: UkerOgDager) {
+        const { periode } = this.props;
+        const antallDager = ukerOgDager.uker * 5 + ukerOgDager.dager;
+        if (periode.type === Periodetype.UttakFørTermin) {
+            const oppdatertPeriode = {
+                ...Perioden(this.props.periode).setUkerOgDagerFlyttStartdato(ukerOgDager.uker, ukerOgDager.dager),
+                skalIkkeHaUttakFørTermin: antallDager === 0
+            };
+            this.props.onUpdate(oppdatertPeriode);
+        } else {
+            this.props.onUpdate(Perioden(this.props.periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager));
+        }
+    }
+
     render() {
         const {
             sortable,
@@ -103,23 +121,14 @@ class PeriodeElement extends React.Component<Props, {}> {
                         sluttdatoErLåst={sluttdatoErLåst}
                         uker={uker}
                         dager={dager}
+                        minDager={periode.type === Periodetype.UttakFørTermin ? 0 : 1}
                         onTidsperiodeChange={(tidsperiode) => {
                             onUpdate({
                                 ...this.props.periode,
                                 tidsperiode
                             });
                         }}
-                        onVarighetChange={(ukerOgDager) =>
-                            onUpdate({
-                                ...this.props.periode,
-                                ...(periode.type === Periodetype.UttakFørTermin
-                                    ? Perioden(this.props.periode).setUkerOgDagerFlyttStartdato(
-                                          ukerOgDager.uker,
-                                          ukerOgDager.dager
-                                      )
-                                    : Perioden(this.props.periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager))
-                            })
-                        }
+                        onVarighetChange={this.handleChangeVarighet}
                     />
                 </div>
                 {(slettErLåst !== true || sortable) && (

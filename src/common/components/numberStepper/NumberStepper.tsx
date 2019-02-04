@@ -10,6 +10,7 @@ export interface Props {
     max?: number;
     min?: number;
     placeholder?: string;
+    disabled?: boolean;
     onChange: (value: number | undefined) => void;
 }
 
@@ -74,7 +75,7 @@ class NumberStepper extends React.Component<Props, State> {
 
     render() {
         const { value } = this.state;
-        const { min, max, stepSize = 1, onChange, placeholder } = this.props;
+        const { min, max, stepSize = 1, onChange, placeholder, disabled } = this.props;
         const canDecrease = min === undefined || (value !== undefined && value > min) || value === undefined;
         const canIncrease = max === undefined || (value !== undefined && value < max) || value === undefined;
         return (
@@ -82,7 +83,7 @@ class NumberStepper extends React.Component<Props, State> {
                 <div className={bem.element('decrease')}>
                     <StepperKnapp
                         direction="previous"
-                        disabled={canDecrease === false}
+                        disabled={disabled || canDecrease === false}
                         onClick={() => onChange(decreaseValue(value, stepSize))}
                         label="decrease"
                     />
@@ -94,6 +95,7 @@ class NumberStepper extends React.Component<Props, State> {
                         type="number"
                         value={value || ''}
                         placeholder={placeholder}
+                        disabled={disabled}
                         onChange={(evt) => this.updateValue(getChangeValue(evt.target.value, min, max))}
                         onBlur={() => onChange(this.state.value)}
                     />
@@ -101,7 +103,7 @@ class NumberStepper extends React.Component<Props, State> {
                 <div className={bem.element('increase')}>
                     <StepperKnapp
                         direction="next"
-                        disabled={canIncrease === false}
+                        disabled={disabled || canIncrease === false}
                         onClick={() => onChange(increaseValue(value, stepSize))}
                         label="increase"
                     />

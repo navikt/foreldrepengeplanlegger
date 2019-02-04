@@ -8,7 +8,7 @@ import {
     Forbruk,
     OmForeldre,
     Periodetype,
-    UttakFørTermin,
+    UttakFørTerminPeriode,
     Forelder
 } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
@@ -23,7 +23,7 @@ import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
 export interface CommonState {
     språkkode: Språkkode;
     perioder: Periode[];
-    periodeFørTermin: UttakFørTermin;
+    periodeFørTermin: UttakFørTerminPeriode;
     skjemadata?: SituasjonSkjemadata;
     familiehendelsesdato: Date;
     dekningsgrad: Dekningsgrad;
@@ -90,7 +90,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                 perioder: getMockPerioder(action.data.antallBarn, getAntallForeldreISituasjon(action.data.situasjon)),
                 periodeFørTermin: state.tilgjengeligeDager
                     ? getPeriodeFørTermin(state.familiehendelsesdato, state.tilgjengeligeDager.dagerFørTermin)
-                    : undefined
+                    : getPeriodeFørTermin(state.familiehendelsesdato, 15) // TODO - mock
             });
         case CommonActionKeys.SET_DEKNINGSGRAD:
             return updateStateAndStorage(state, {

@@ -18,6 +18,7 @@ interface OwnProps {
     låstTomDato?: boolean;
     tomLabel?: React.ReactNode;
     fomLabel?: React.ReactNode;
+    disabled?: boolean;
     onChange: (evt: TidsperiodeChangeEvent) => void;
     onSetVarighet?: (dager: number) => void;
 }
@@ -32,7 +33,8 @@ const FomTomValg: React.StatelessComponent<Props> = ({
     låstFomDato,
     låstTomDato,
     fomLabel = 'Startdato',
-    tomLabel = 'Sluttdato'
+    tomLabel = 'Sluttdato',
+    disabled
 }) => {
     return (
         <>
@@ -47,7 +49,7 @@ const FomTomValg: React.StatelessComponent<Props> = ({
                                     dato={fom}
                                     locale={intl.locale}
                                     id="tidsperiodeFra"
-                                    disabled={låstFomDato}
+                                    disabled={disabled || låstFomDato}
                                     avgrensninger={{ helgedagerIkkeTillatt: true }}
                                     onChange={(dato) =>
                                         onChange({
@@ -68,6 +70,7 @@ const FomTomValg: React.StatelessComponent<Props> = ({
                                     dato={tom}
                                     locale={intl.locale}
                                     id="tidsperiodeTil"
+                                    disabled={disabled}
                                     avgrensninger={{
                                         helgedagerIkkeTillatt: true,
                                         minDato: låstFomDato && fom ? Uttaksdagen(fom).neste() : undefined

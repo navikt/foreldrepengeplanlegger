@@ -11,13 +11,23 @@ export interface Props {
     tittel: string;
     uker: number;
     dager: number;
+    minDager?: number;
+    disabled?: boolean;
     feil?: Feil;
     onChange: (ukerOgDager: UkerOgDager) => void;
 }
 
 const bem = BEMHelper('ukerOgDagerVelger');
 
-const UkerOgDagerVelger: React.StatelessComponent<Props> = ({ uker, dager, feil, tittel, onChange }) => (
+const UkerOgDagerVelger: React.StatelessComponent<Props> = ({
+    uker,
+    dager,
+    feil,
+    tittel,
+    minDager,
+    disabled,
+    onChange
+}) => (
     <div className={bem.block}>
         <SkjemaGruppe feil={feil}>
             <Fieldset legend={tittel}>
@@ -27,14 +37,16 @@ const UkerOgDagerVelger: React.StatelessComponent<Props> = ({ uker, dager, feil,
                             tittel="Uker"
                             min={0}
                             value={uker}
+                            disabled={disabled}
                             onChange={(u) => onChange({ uker: u === undefined ? 0 : u, dager })}
                         />
                     </div>
                     <div className={bem.element('dager')}>
                         <SkjemaNumberStepper
                             tittel="Dager"
-                            min={uker !== undefined && uker > 0 ? -1 : 1}
+                            min={uker !== undefined && uker > 0 ? -1 : minDager}
                             value={dager}
+                            disabled={disabled}
                             onChange={(d) => onChange({ uker, dager: d === undefined ? 0 : d })}
                         />
                     </div>

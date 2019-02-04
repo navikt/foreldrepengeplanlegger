@@ -28,8 +28,9 @@ export interface GradertUttaksperiode extends PeriodeBase {
     type: Periodetype.GradertUttak;
 }
 
-export interface UttakFørTermin extends PeriodeBase {
+export interface UttakFørTerminPeriode extends PeriodeBase {
     type: Periodetype.UttakFørTermin;
+    skalIkkeHaUttakFørTermin?: boolean;
 }
 
 export interface Ferieperiode extends PeriodeBase {
@@ -48,7 +49,7 @@ export type Utsettelsesperiode = Ferieperiode | Arbeidsperiode;
 
 export type Periode =
     | Uttaksperiode
-    | UttakFørTermin
+    | UttakFørTerminPeriode
     | GradertUttaksperiode
     | Utsettelsesperiode
     | UbetaltPermisjon

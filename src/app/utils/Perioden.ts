@@ -13,9 +13,6 @@ export const Perioden = (periode: Periode) => ({
         (periode.tidsperiode = getTidsperiode(periode.tidsperiode.fom, uttaksdager)),
     getAntallUttaksdager: () => Tidsperioden(periode.tidsperiode).getAntallUttaksdager(),
     erSammenhengende: (periode2: Periode) => erPerioderSammenhengende(periode, periode2),
-    setUkerOgDager: (uker: number, dager: number): Periode => setUkerOgDager(periode, uker, dager),
-    setUkerOgDagerFlyttStartdato: (uker: number, dager: number): Periode =>
-        setUkerOgDagerFlyttStartdato(periode, uker, dager),
     erLik: (periode2: Periode) => erPerioderLike(periode, periode2)
 });
 
@@ -46,21 +43,5 @@ function flyttPeriode(periode: Periode, fom: Date): Periode {
     return {
         ...periode,
         tidsperiode: Tidsperioden(periode.tidsperiode).setStartdato(fom) as Tidsperiode
-    };
-}
-
-function setUkerOgDager(periode: Periode, uker: number, dager: number): Periode {
-    return { ...periode, tidsperiode: getTidsperiode(periode.tidsperiode.fom, Math.max(uker * 5 + dager, 1)) };
-}
-
-function setUkerOgDagerFlyttStartdato(periode: Periode, uker: number, dager: number): Periode {
-    const { tom } = periode.tidsperiode;
-    const uttaksdager = uker * 5 + dager;
-    if (uttaksdager > 0) {
-        const fom = Uttaksdagen(tom).trekkFra(uttaksdager - 1);
-        return { ...periode, tidsperiode: { fom, tom } };
-    }
-    return {
-        ...periode
     };
 }

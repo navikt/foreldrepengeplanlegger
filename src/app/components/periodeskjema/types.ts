@@ -1,7 +1,7 @@
 import { Periodetype, Forelder } from '../../types';
 
 export interface PeriodeskjemaFormValues {
-    type: Periodetype;
+    periodetype: Periodetype;
     fom: Date;
     tom: Date;
     forelder: Forelder;

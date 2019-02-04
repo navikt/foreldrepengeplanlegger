@@ -19,7 +19,7 @@ export interface VarighetChangeEvent {
 interface OwnProps {
     uker: number;
     dager: number;
-    tidsperiode: Tidsperiode;
+    tidsperiode?: Partial<Tidsperiode>;
     startdatoErLåst?: boolean;
     sluttdatoErLåst?: boolean;
     ingenVarighet?: boolean;
@@ -42,8 +42,8 @@ const DatoValg: React.StatelessComponent<Props> = ({
     return (
         <FomTomValg
             onChange={onTidsperiodeChange}
-            fom={tidsperiode.fom}
-            tom={tidsperiode.tom}
+            fom={tidsperiode ? tidsperiode.fom : undefined}
+            tom={tidsperiode ? tidsperiode.tom : undefined}
             låstFomDato={startdatoErLåst}
             låstTomDato={sluttdatoErLåst}
             disabled={ingenVarighet}

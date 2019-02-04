@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Lukknapp from 'nav-frontend-lukknapp';
 import BEMHelper from 'common/utils/bem';
-import { Perioden } from '../../utils/Perioden';
 import ForelderMeny from './parts/ForelderMeny';
 import PeriodetypeMeny from './parts/PeriodetypeMeny';
 import { changePeriodeType } from '../../utils/typeUtils';
@@ -11,7 +10,9 @@ import { PeriodelisteElementProps } from './types';
 import GraderingMeny from './parts/GraderingMeny';
 import PeriodeFargestrek from './parts/periodeFargestrek/periodeFargestrek';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
-import { OmForeldre, Forelder, Periodetype } from '../../types';
+import { OmForeldre, Forelder, Periodetype, Periode } from '../../types';
+import { Tidsperioden } from '../../utils/Tidsperioden';
+import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
 
 import './periodeElement.less';
 
@@ -41,17 +42,29 @@ class PeriodeElement extends React.Component<Props, {}> {
         super(props);
         this.handleChangeVarighet = this.handleChangeVarighet.bind(this);
     }
+
     handleChangeVarighet(evt: VarighetChangeEvent) {
         const { periode } = this.props;
+        const { tidsperiode } = periode;
         const { ukerOgDager, ingenVarighet } = evt;
         if (periode.type === Periodetype.UttakFørTermin) {
             const oppdatertPeriode = {
-                ...Perioden(this.props.periode).setUkerOgDagerFlyttStartdato(ukerOgDager.uker, ukerOgDager.dager),
+                ...periode,
+                tidsperiode: Tidsperioden(tidsperiode || {}).setUkerOgDagerFlyttStartdato(
+                    ukerOgDager.uker,
+                    ukerOgDager.dager
+                ),
                 skalIkkeHaUttakFørTermin: ingenVarighet
             };
-            this.props.onUpdate(oppdatertPeriode);
+            this.props.onUpdate(oppdatertPeriode as Periode);
         } else {
-            this.props.onUpdate(Perioden(this.props.periode).setUkerOgDager(ukerOgDager.uker, ukerOgDager.dager));
+            this.props.onUpdate({
+                ...periode,
+                tidsperiode: Tidsperioden(tidsperiode || {}).setUkerOgDager(
+                    ukerOgDager.uker,
+                    ukerOgDager.dager
+                ) as Tidsperiode
+            });
         }
     }
 
@@ -67,6 +80,7 @@ class PeriodeElement extends React.Component<Props, {}> {
             onRemove,
             onUpdate
         } = this.props;
+
         const { uttaksinfo } = this.props.periode;
         const periode = this.props.periode;
 

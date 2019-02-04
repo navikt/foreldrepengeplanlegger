@@ -5,7 +5,7 @@ import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
 import DropdownDialogTittel from './DropdownDialogTittel';
 
 interface Props {
-    forelder: Forelder;
+    forelder?: Forelder;
     omForeldre: OmForeldre;
     erLåst?: boolean;
     onChange: (forelder: Forelder) => void;

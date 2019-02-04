@@ -16,22 +16,33 @@ const Varighet: React.StatelessComponent<Props> = ({ dager, intl }) => {
     const ud = getUkerOgDagerFromDager(dager);
     return (
         <div className={bem.block}>
-            {ud.uker > 0 && (
+            {dager < 0 ? (
                 <span className={bem.element('uker')}>
-                    <span className={bem.element('value')}>{ud.uker}</span>
+                    <span className={bem.element('value')}>{dager}</span>
                     <span className={bem.element('title')}>
-                        {getMessage(intl, 'common.varighet.ukerTekst', { uker: ud.uker })}
+                        {getMessage(intl, 'common.varighet.dagerTekst', { dager })}
                     </span>
                 </span>
-            )}
-            {ud.uker > 0 && ud.dager > 0 && <span className={bem.element('separator')}>{', '}</span>}
-            {(ud.dager > 0 || ud.uker === 0) && (
-                <span className={bem.element('dager')}>
-                    <span className={bem.element('value')}>{ud.dager}</span>
-                    <span className={bem.element('title')}>
-                        {getMessage(intl, 'common.varighet.dagerTekst', { dager: ud.dager })}
-                    </span>
-                </span>
+            ) : (
+                <>
+                    {ud.uker > 0 && (
+                        <span className={bem.element('uker')}>
+                            <span className={bem.element('value')}>{ud.uker}</span>
+                            <span className={bem.element('title')}>
+                                {getMessage(intl, 'common.varighet.ukerTekst', { uker: ud.uker })}
+                            </span>
+                        </span>
+                    )}
+                    {ud.uker > 0 && ud.dager > 0 && <span className={bem.element('separator')}>{', '}</span>}
+                    {(ud.dager > 0 || ud.uker === 0) && (
+                        <span className={bem.element('dager')}>
+                            <span className={bem.element('value')}>{ud.dager}</span>
+                            <span className={bem.element('title')}>
+                                {getMessage(intl, 'common.varighet.dagerTekst', { dager: ud.dager })}
+                            </span>
+                        </span>
+                    )}
+                </>
             )}
         </div>
     );

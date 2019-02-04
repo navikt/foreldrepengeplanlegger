@@ -5,8 +5,8 @@ const toForeldrePeriode1: Periode = {
     forelder: Forelder.farMedmor,
     id: '89658209-22972-6250-27502-00358020458505',
     tidsperiode: {
-        fom: new Date('2019-01-13T23:00:00.000Z'),
-        tom: new Date('2019-02-07T23:00:00.000Z')
+        fom: new Date('2019-02-07T23:00:00.000Z'),
+        tom: new Date('2019-07-31T23:00:00.000Z')
     },
     type: Periodetype.Uttak
 };
@@ -14,8 +14,8 @@ const toForeldrePeriode2: Periode = {
     forelder: Forelder.farMedmor,
     id: '77701867-4877-12517-0900-7334518603534',
     tidsperiode: {
-        fom: new Date('2019-02-10T23:00:00.000Z'),
-        tom: new Date('2019-02-21T23:00:00.000Z')
+        fom: new Date('2019-08-01T23:00:00.000Z'),
+        tom: new Date('2019-08-14T23:00:00.000Z')
     },
     type: Periodetype.Ferie
 };
@@ -23,8 +23,8 @@ const toForeldrePeriode3: Periode = {
     forelder: Forelder.mor,
     id: '56204685-2952-7449-7913-90900854017943',
     tidsperiode: {
-        fom: new Date('2019-02-24T23:00:00.000Z'),
-        tom: new Date('2019-03-21T23:00:00.000Z')
+        fom: new Date('2019-08-15T23:00:00.000Z'),
+        tom: new Date('2020-01-08T23:00:00.000Z')
     },
     type: Periodetype.Uttak
 };

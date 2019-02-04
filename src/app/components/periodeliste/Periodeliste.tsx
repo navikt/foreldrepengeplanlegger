@@ -7,6 +7,9 @@ import HjerteIkon from '../periodeikon/ikoner/HjerteIkon';
 import IkonTekst from 'common/components/ikonTekst/IkonTekst';
 
 import './periodeliste.less';
+import BEMHelper from 'common/utils/bem';
+
+const bem = BEMHelper('periodeliste');
 
 const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
     const { perioder, periodeFørTermin, familiehendelsesdato, ...elementProps } = props;
@@ -14,10 +17,10 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
         return <div>Ingen perioder registrert</div>;
     }
     return (
-        <ol className="periodeliste">
+        <ol className={bem.block}>
             {periodeFørTermin ? (
                 <>
-                    <li className="periodeliste__periode" key={periodeFørTermin.id}>
+                    <li className={bem.element('periode')} key={periodeFørTermin.id}>
                         <PeriodeElement
                             periode={periodeFørTermin}
                             typeErLåst={true}
@@ -27,7 +30,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
                             {...elementProps}
                         />
                     </li>
-                    <li className="periodeliste__termin">
+                    <li className={bem.element('termin')}>
                         <IkonTekst ikon={<HjerteIkon fylt={true} title="Termin" />}>
                             {formaterDato(familiehendelsesdato)}
                         </IkonTekst>

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import PeriodeElement from './PeriodeElement';
+import PeriodeElement from '../PeriodeElement';
 import { SortableElement, SortableContainer, SortEnd } from 'react-sortable-hoc';
-import { Periode } from '../../types/periodetyper';
-import { PeriodelisteProps, PeriodelisteElementProps } from './types';
+import { Periode } from '../../../types/periodetyper';
+import { PeriodelisteProps, PeriodelisteElementProps } from '../types';
 
 import './periodeliste.less';
 import { Undertittel } from 'nav-frontend-typografi';

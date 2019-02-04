@@ -16,7 +16,7 @@ interface OwnProps {
     uker: number;
     dager: number;
     tidsperiode: Tidsperiode;
-    låstStartdato?: boolean;
+    startdatoErLåst?: boolean;
     onTidsperiodeChange: (tidsperiode: Tidsperiode) => void;
     onVarighetChange: (ukerOgDager: UkerOgDager) => void;
 }
@@ -30,7 +30,7 @@ const VarighetMeny: React.StatelessComponent<Props> = ({
     tidsperiode,
     onVarighetChange,
     onTidsperiodeChange,
-    låstStartdato,
+    startdatoErLåst,
     intl
 }) => {
     const datovalg = (
@@ -38,8 +38,8 @@ const VarighetMeny: React.StatelessComponent<Props> = ({
             onChange={onTidsperiodeChange}
             fom={tidsperiode.fom}
             tom={tidsperiode.tom}
-            låstFomDato={låstStartdato}
-            tomLabel={låstStartdato ? 'Velg sluttdato' : undefined}
+            låstFomDato={startdatoErLåst}
+            tomLabel={startdatoErLåst ? 'Velg sluttdato' : undefined}
         />
     );
     const varighetsvalg = (
@@ -62,7 +62,7 @@ const VarighetMeny: React.StatelessComponent<Props> = ({
             )}
             dialogClassName={'varighetDialog'}>
             <div className={bem.block}>
-                {låstStartdato ? (
+                {startdatoErLåst ? (
                     <>
                         <DropdownDialogTittel>Hvor lang skal periode være?</DropdownDialogTittel>
                         <Block margin="xs">{varighetsvalg}</Block>

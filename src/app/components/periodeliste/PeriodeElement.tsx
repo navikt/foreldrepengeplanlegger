@@ -38,7 +38,17 @@ const getForelderNavn = (forelder: Forelder | undefined, omForeldre: OmForeldre)
 
 class PeriodeElement extends React.Component<Props, {}> {
     render() {
-        const { sortable, omForeldre, onRemove, onUpdate, erFørstePeriode } = this.props;
+        const {
+            sortable,
+            typeErLåst,
+            forelderErLåst,
+            startdatoErLåst,
+            // sluttdatoErLåst,
+            slettErLåst,
+            omForeldre,
+            onRemove,
+            onUpdate
+        } = this.props;
         const { uttaksinfo } = this.props.periode;
         const periode = this.props.periode;
 
@@ -49,6 +59,7 @@ class PeriodeElement extends React.Component<Props, {}> {
         const { uker, dager } = uttaksinfo.ukerOgDager;
         const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
         const harFlereForelder = omForeldre.antallForeldre > 1;
+
         return (
             <div className={bem.block}>
                 <PeriodeFargestrek farge={getPeriodetypeFarge(this.props.periode.type, this.props.periode.forelder)} />
@@ -57,6 +68,7 @@ class PeriodeElement extends React.Component<Props, {}> {
                         flereForeldre={harFlereForelder}
                         periode={this.props.periode}
                         foreldernavn={foreldernavn}
+                        erLåst={typeErLåst}
                         onChange={(periodetype) => onUpdate(changePeriodeType(this.props.periode, periodetype))}
                     />
                 </div>
@@ -74,6 +86,7 @@ class PeriodeElement extends React.Component<Props, {}> {
                         <ForelderMeny
                             forelder={this.props.periode.forelder}
                             omForeldre={omForeldre}
+                            erLåst={forelderErLåst}
                             onChange={(forelder) =>
                                 onUpdate({
                                     ...this.props.periode,
@@ -86,7 +99,7 @@ class PeriodeElement extends React.Component<Props, {}> {
                 <div className={bem.element('tidsperiode')}>
                     <VarighetMeny
                         tidsperiode={this.props.periode.tidsperiode}
-                        låstStartdato={erFørstePeriode !== true}
+                        startdatoErLåst={startdatoErLåst !== true}
                         uker={uker}
                         dager={dager}
                         onTidsperiodeChange={(tidsperiode) => {
@@ -103,19 +116,23 @@ class PeriodeElement extends React.Component<Props, {}> {
                         }
                     />
                 </div>
-                <div className={bem.element('tools')}>
-                    {sortable && (
-                        <div className={bem.element('tool')}>
-                            <DragHandle />
-                        </div>
-                    )}
-                    <Lukknapp
-                        onClick={() => onRemove(this.props.periode)}
-                        ariaLabel="Slett periode"
-                        title="Slett periode">
-                        Slett periode
-                    </Lukknapp>
-                </div>
+                {(slettErLåst !== true || sortable) && (
+                    <div className={bem.element('tools')}>
+                        {sortable && (
+                            <div className={bem.element('tool')}>
+                                <DragHandle />
+                            </div>
+                        )}
+                        {slettErLåst !== true && (
+                            <Lukknapp
+                                onClick={() => onRemove(this.props.periode)}
+                                ariaLabel="Slett periode"
+                                title="Slett periode">
+                                Slett periode
+                            </Lukknapp>
+                        )}
+                    </div>
+                )}
             </div>
         );
     }

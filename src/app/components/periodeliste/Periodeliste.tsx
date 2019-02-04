@@ -18,7 +18,14 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
             {periodeFørTermin ? (
                 <>
                     <li className="periodeliste__periode" key={periodeFørTermin.id}>
-                        <PeriodeElement periode={periodeFørTermin} {...elementProps} erFørstePeriode={true} />
+                        <PeriodeElement
+                            periode={periodeFørTermin}
+                            typeErLåst={true}
+                            forelderErLåst={true}
+                            sluttdatoErLåst={true}
+                            slettErLåst={true}
+                            {...elementProps}
+                        />
                     </li>
                     <li className="periodeliste__termin">
                         <IkonTekst ikon={<HjerteIkon fylt={true} title="Termin" />}>
@@ -32,11 +39,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
             {perioder.map((periode: Periode, index: number) => {
                 return (
                     <li className="periodeliste__periode" key={periode.id}>
-                        <PeriodeElement
-                            periode={periode}
-                            {...elementProps}
-                            erFørstePeriode={periodeFørTermin === undefined && index === 0}
-                        />
+                        <PeriodeElement periode={periode} {...elementProps} startdatoErLåst={true} />
                     </li>
                 );
             })}

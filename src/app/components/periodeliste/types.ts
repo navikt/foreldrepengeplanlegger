@@ -10,7 +10,11 @@ export interface PeriodelisteBaseProps {
 export interface PeriodelisteElementBaseProps {
     periode: Periode;
     omForeldre: OmForeldre;
-    erFørstePeriode?: boolean;
+    typeErLåst?: boolean;
+    forelderErLåst?: boolean;
+    startdatoErLåst?: boolean;
+    sluttdatoErLåst?: boolean;
+    slettErLåst?: boolean;
 }
 
 export interface PeriodelisteActions {

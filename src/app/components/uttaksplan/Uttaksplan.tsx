@@ -16,6 +16,7 @@ interface State {
 }
 
 interface OwnProps {
+    periodeFørTermin?: Periode;
     perioder: Periode[];
     omForeldre: OmForeldre;
     forbruk: Forbruk;

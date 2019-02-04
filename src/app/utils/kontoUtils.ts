@@ -1,4 +1,14 @@
-import { TilgjengeligStønadskonto, StønadskontoType, TilgjengeligeDager } from '../types';
+import {
+    TilgjengeligStønadskonto,
+    StønadskontoType,
+    TilgjengeligeDager,
+    Periode,
+    Forelder,
+    Periodetype
+} from '../types';
+import { guid } from 'nav-frontend-js-utils';
+import { getUttaksinfoForPeriode } from './uttaksinfo';
+import { Uttaksdagen } from './Uttaksdagen';
 
 export const getVelgbareStønadskontotyper = (stønadskontoTyper: TilgjengeligStønadskonto[]): StønadskontoType[] =>
     stønadskontoTyper
@@ -56,4 +66,17 @@ export const getTilgjengeligeDager = (kontoer: TilgjengeligStønadskonto[]): Til
         dagerFelles: summerAntallDagerIKontoer(getFellesStønadskontoer(kontoer)),
         stønadskontoer: kontoer
     };
+};
+
+export const getPeriodeFørTermin = (familiehendelsesdato: Date, antallDagerFørTermin: number): Periode => {
+    const tom = Uttaksdagen(familiehendelsesdato).forrige();
+    const fom = Uttaksdagen(tom).trekkFra(antallDagerFørTermin - 1);
+    const periode: Periode = {
+        type: Periodetype.UttakFørTermin,
+        id: guid(),
+        forelder: Forelder.mor,
+        tidsperiode: { fom, tom }
+    };
+    periode.uttaksinfo = getUttaksinfoForPeriode(periode);
+    return periode;
 };

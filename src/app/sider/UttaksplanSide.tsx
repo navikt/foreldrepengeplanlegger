@@ -24,6 +24,7 @@ import Situasjonsoppsummering from '../components/situasjonOppsummering/Situasjo
 import Skjemablokk from '../components/skjemablokk/Skjemablokk';
 
 interface StateProps {
+    periodeFørTermin?: Periode;
     perioder: Periode[];
     dekningsgrad: Dekningsgrad;
     familiehendelsesdato: Date;
@@ -49,6 +50,7 @@ class UttaksplanSide extends React.Component<Props, {}> {
     render() {
         const {
             perioder,
+            periodeFørTermin,
             dekningsgrad,
             tilgjengeligeDager,
             henterStønadskontoer,
@@ -104,7 +106,9 @@ class UttaksplanSide extends React.Component<Props, {}> {
                                     />
                                 </Block>
                                 <Uttaksplan
+                                    familiehendelsesdato={familiehendelsesdato}
                                     omForeldre={omForeldre}
+                                    periodeFørTermin={periodeFørTermin}
                                     perioder={perioder}
                                     forbruk={forbruk!}
                                     onAdd={(periode) => dispatch(addPeriode(periode))}
@@ -126,6 +130,7 @@ class UttaksplanSide extends React.Component<Props, {}> {
 const mapStateToProps = (state: AppState): StateProps => {
     const { stønadskontoer } = state.api;
     return {
+        periodeFørTermin: state.common.periodeFørTermin,
         perioder: state.common.perioder,
         dekningsgrad: state.common.dekningsgrad || '100',
         familiehendelsesdato: state.common.familiehendelsesdato,

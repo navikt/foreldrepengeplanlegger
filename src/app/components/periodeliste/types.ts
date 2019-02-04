@@ -2,7 +2,9 @@ import { Periode, OmForeldre } from '../../types';
 
 export interface PeriodelisteBaseProps {
     perioder: Periode[];
+    periodeFørTermin?: Periode;
     omForeldre: OmForeldre;
+    familiehendelsesdato: Date;
 }
 
 export interface PeriodelisteElementBaseProps {

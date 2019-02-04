@@ -5,7 +5,6 @@ import { Uttaksdagen } from './Uttaksdagen';
 import { Perioden } from './Perioden';
 import { guid } from 'nav-frontend-js-utils';
 import { getTidsperiode, Tidsperioden } from './Tidsperioden';
-// import { getUttaksinfoForPeriode } from './uttaksinfo';
 import arrayMove from 'array-move';
 
 export const UttaksplanBuilder = (perioder: Periode[], familiehendelsesdato: Date) => {
@@ -249,12 +248,3 @@ function splittPeriodeMedPeriode(periode: Periode, nyPeriode: Periode): Periode[
     };
     return [forste, midt, siste];
 }
-
-// function oppdaterUttaksinfo(perioder: Periode[]): Periode[] {
-//     return perioder.map(
-//         (p): Periode => ({
-//             ...p,
-//             uttaksinfo: getUttaksinfoForPeriode(p)
-//         })
-//     );
-// }

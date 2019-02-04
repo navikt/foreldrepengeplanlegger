@@ -91,14 +91,15 @@ class PeriodeElement extends React.Component<Props, {}> {
         const { uker, dager } = uttaksinfo.ukerOgDager;
         const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
         const harFlereForelder = omForeldre.antallForeldre > 1;
-
+        const { fom, tom } = this.props.periode.tidsperiode;
         return (
             <div className={bem.block}>
                 <PeriodeFargestrek farge={getPeriodetypeFarge(this.props.periode.type, this.props.periode.forelder)} />
                 <div className={bem.element('periode')}>
                     <PeriodetypeMeny
+                        type={this.props.periode.type}
                         flereForeldre={harFlereForelder}
-                        periode={this.props.periode}
+                        tidsperiode={this.props.periode.tidsperiode}
                         foreldernavn={foreldernavn}
                         erLåst={typeErLåst}
                         onChange={(periodetype) => onUpdate(changePeriodeType(this.props.periode, periodetype))}
@@ -130,9 +131,10 @@ class PeriodeElement extends React.Component<Props, {}> {
                 )}
                 <div className={bem.element('tidsperiode')}>
                     <VarighetMeny
-                        tidsperiode={this.props.periode.tidsperiode}
                         startdatoErLåst={startdatoErLåst}
                         sluttdatoErLåst={sluttdatoErLåst}
+                        fom={fom}
+                        tom={tom}
                         uker={uker}
                         dager={dager}
                         minDager={periode.type === Periodetype.UttakFørTermin ? 0 : 1}

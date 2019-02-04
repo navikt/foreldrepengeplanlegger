@@ -19,7 +19,8 @@ export interface VarighetChangeEvent {
 interface OwnProps {
     uker: number;
     dager: number;
-    tidsperiode?: Partial<Tidsperiode>;
+    fom?: Date;
+    tom?: Date;
     startdatoErLåst?: boolean;
     sluttdatoErLåst?: boolean;
     ingenVarighet?: boolean;
@@ -33,7 +34,8 @@ type Props = OwnProps & InjectedIntlProps;
 const bem = BEMHelper('varighetDropdown');
 
 const DatoValg: React.StatelessComponent<Props> = ({
-    tidsperiode,
+    fom,
+    tom,
     onTidsperiodeChange,
     sluttdatoErLåst,
     startdatoErLåst,
@@ -42,8 +44,8 @@ const DatoValg: React.StatelessComponent<Props> = ({
     return (
         <FomTomValg
             onChange={onTidsperiodeChange}
-            fom={tidsperiode ? tidsperiode.fom : undefined}
-            tom={tidsperiode ? tidsperiode.tom : undefined}
+            fom={fom}
+            tom={tom}
             låstFomDato={startdatoErLåst}
             låstTomDato={sluttdatoErLåst}
             disabled={ingenVarighet}

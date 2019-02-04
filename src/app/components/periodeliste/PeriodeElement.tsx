@@ -5,13 +5,13 @@ import { Perioden } from '../../utils/Perioden';
 import ForelderMeny from './parts/ForelderMeny';
 import PeriodetypeMeny from './parts/PeriodetypeMeny';
 import { changePeriodeType } from '../../utils/typeUtils';
-import VarighetMeny from './parts/VarighetMeny';
+import VarighetMeny, { VarighetChangeEvent } from './parts/VarighetMeny';
 import { SortableHandle } from 'react-sortable-hoc';
 import { PeriodelisteElementProps } from './types';
 import GraderingMeny from './parts/GraderingMeny';
 import PeriodeFargestrek from './parts/periodeFargestrek/periodeFargestrek';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
-import { OmForeldre, Forelder, Periodetype, UkerOgDager } from '../../types';
+import { OmForeldre, Forelder, Periodetype } from '../../types';
 
 import './periodeElement.less';
 
@@ -41,13 +41,13 @@ class PeriodeElement extends React.Component<Props, {}> {
         super(props);
         this.handleChangeVarighet = this.handleChangeVarighet.bind(this);
     }
-    handleChangeVarighet(ukerOgDager: UkerOgDager) {
+    handleChangeVarighet(evt: VarighetChangeEvent) {
         const { periode } = this.props;
-        const antallDager = ukerOgDager.uker * 5 + ukerOgDager.dager;
+        const { ukerOgDager, ingenVarighet } = evt;
         if (periode.type === Periodetype.UttakFørTermin) {
             const oppdatertPeriode = {
                 ...Perioden(this.props.periode).setUkerOgDagerFlyttStartdato(ukerOgDager.uker, ukerOgDager.dager),
-                skalIkkeHaUttakFørTermin: antallDager === 0
+                skalIkkeHaUttakFørTermin: ingenVarighet
             };
             this.props.onUpdate(oppdatertPeriode);
         } else {
@@ -129,6 +129,11 @@ class PeriodeElement extends React.Component<Props, {}> {
                             });
                         }}
                         onVarighetChange={this.handleChangeVarighet}
+                        ingenVarighet={
+                            this.props.periode.type === Periodetype.UttakFørTermin
+                                ? this.props.periode.skalIkkeHaUttakFørTermin
+                                : undefined
+                        }
                     />
                 </div>
                 {(slettErLåst !== true || sortable) && (

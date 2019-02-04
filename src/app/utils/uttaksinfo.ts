@@ -29,7 +29,10 @@ const beregnBrukteUttaksdager = (
 export const getUttaksinfoForPeriode = (periode: Periode): Uttaksinfo | undefined => {
     const { tidsperiode } = periode;
     if (isValidTidsperiode(tidsperiode)) {
-        const antallUttaksdager = Tidsperioden(tidsperiode).getAntallUttaksdager();
+        const antallUttaksdager =
+            periode.type === Periodetype.UttakFørTermin && periode.skalIkkeHaUttakFørTermin
+                ? 0
+                : Tidsperioden(tidsperiode).getAntallUttaksdager();
         const antallFridager = Tidsperioden(tidsperiode).getAntallFridager();
         const antallUttaksdagerBrukt = beregnBrukteUttaksdager(
             periode.type,

@@ -11,6 +11,11 @@ import FomTomValg from '../../periodeskjema/parts/FomTomValg';
 import DropdownDialogTittel from './DropdownDialogTittel';
 import { Checkbox } from 'nav-frontend-skjema';
 
+export interface VarighetChangeEvent {
+    ukerOgDager: UkerOgDager;
+    ingenVarighet?: boolean;
+}
+
 interface OwnProps {
     uker: number;
     dager: number;
@@ -20,7 +25,7 @@ interface OwnProps {
     ingenVarighet?: boolean;
     minDager?: number;
     onTidsperiodeChange: (tidsperiode: Tidsperiode) => void;
-    onVarighetChange: (ukerOgDager: UkerOgDager, skalIkkeHa?: boolean) => void;
+    onVarighetChange: (evt: VarighetChangeEvent) => void;
 }
 
 type Props = OwnProps & InjectedIntlProps;
@@ -56,13 +61,13 @@ const VarighetValg: React.StatelessComponent<Props> = ({ uker, dager, minDager, 
             dager={dager}
             disabled={ingenVarighet}
             minDager={minDager}
-            onChange={(ukerOgDager) => onVarighetChange(ukerOgDager)}
+            onChange={(ukerOgDager) => onVarighetChange({ ukerOgDager })}
         />
     );
 };
 
 const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
-    const { uker, dager, sluttdatoErLåst, startdatoErLåst, onVarighetChange } = props;
+    const { uker, dager, sluttdatoErLåst, startdatoErLåst, onVarighetChange, ingenVarighet } = props;
     if (startdatoErLåst === true && sluttdatoErLåst !== true) {
         return (
             <>
@@ -81,17 +86,22 @@ const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
         return (
             <>
                 <DropdownDialogTittel>Når ønsker du å starte uttaket før termin?</DropdownDialogTittel>
-                <Block>
-                    <DatoValg {...props} />
-                </Block>
-                <Block margin="m">eller</Block>
-                <Block margin="xs">
-                    <VarighetValg {...props} />
+                <Block animated={true} visible={ingenVarighet !== true}>
+                    <Block>
+                        <DatoValg {...props} />
+                    </Block>
+                    <Block margin="m">eller</Block>
+                    <Block margin="xs">
+                        <VarighetValg {...props} />
+                    </Block>
                 </Block>
                 <Block>
                     <Checkbox
                         label="Jeg skal ikke ha uttak før termin"
-                        onChange={(evt) => onVarighetChange({ uker, dager }, true)}
+                        checked={ingenVarighet === true || false}
+                        onChange={(evt) =>
+                            onVarighetChange({ ukerOgDager: { uker, dager }, ingenVarighet: evt.target.checked })
+                        }
                     />
                 </Block>
             </>
@@ -111,12 +121,12 @@ const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
 };
 
 const VarighetMeny: React.StatelessComponent<Props> = (props) => {
-    const { uker, dager } = props;
+    const { uker, dager, ingenVarighet } = props;
     return (
         <DropdownButton
             label={() => (
                 <Block align="center" margin="none">
-                    <Varighet dager={(uker * 5 + dager) | 0} />
+                    <Varighet dager={ingenVarighet ? 0 : (uker * 5 + dager) | 0} />
                 </Block>
             )}
             dialogClassName={'varighetDialog'}>

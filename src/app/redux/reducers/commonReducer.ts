@@ -119,13 +119,12 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
             });
         case CommonActionKeys.UPDATE_PERIODE:
             if (action.periode.type === Periodetype.UttakFørTermin) {
-                return {
-                    ...state,
+                return updateStateAndStorage(state, {
                     periodeFørTermin: {
                         ...action.periode,
                         uttaksinfo: getUttaksinfoForPeriode(action.periode)
                     }
-                };
+                });
             }
             return updateStateAndStorage(state, {
                 perioder: getBuilder()

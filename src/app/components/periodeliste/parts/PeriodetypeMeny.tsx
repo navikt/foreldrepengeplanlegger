@@ -11,12 +11,18 @@ interface OwnProps {
     periode: Periode;
     flereForeldre: boolean;
     foreldernavn?: string;
+    erLåst?: boolean;
     onChange: (periodetype: Periodetype) => void;
 }
 
 type Props = OwnProps & InjectedIntlProps;
 
 const getOptions = (intl: InjectedIntl): MenuButtonOption[] => [
+    {
+        value: Periodetype.UttakFørTermin,
+        label: getMessage(intl, `periodetype.${Periodetype.UttakFørTermin}`),
+        hidden: true
+    },
     { value: Periodetype.Uttak, label: getMessage(intl, `periodetype.${Periodetype.Uttak}`) },
     { value: Periodetype.GradertUttak, label: getMessage(intl, `periodetype.${Periodetype.GradertUttak}`) },
     { value: Periodetype.Ferie, label: getMessage(intl, `periodetype.${Periodetype.Ferie}`) },
@@ -30,9 +36,27 @@ const getPeriodetypeLabel = (periode: Periode, intl: InjectedIntl): string => {
     }`;
 };
 
-const PeriodetypeMeny: React.StatelessComponent<Props> = ({ periode, foreldernavn, flereForeldre, onChange, intl }) => {
+const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({ periode, flereForeldre, foreldernavn, intl }) => {
+    return (
+        <div className="periodetypeMenyLabel">
+            <div className="periodetypeMenyLabel__type">
+                {getPeriodetypeLabel(periode, intl)}
+                {flereForeldre && foreldernavn && <span> - {foreldernavn}</span>}
+            </div>
+            {periode.tidsperiode && (
+                <div className="periodetypeMenyLabel__tidsperiode">
+                    {Tidsperioden(periode.tidsperiode).formaterStringKort(intl)}
+                </div>
+            )}
+        </div>
+    );
+};
+
+const PeriodetypeMeny: React.StatelessComponent<Props> = (props) => {
+    const { erLåst, intl, periode, onChange } = props;
     return (
         <MenuButton
+            disabled={erLåst}
             options={getOptions(intl)}
             onChange={(value) => onChange(value as Periodetype)}
             selectedValue={periode.type}
@@ -41,19 +65,7 @@ const PeriodetypeMeny: React.StatelessComponent<Props> = ({ periode, foreldernav
             )}
             dialogClassName={'periodetypeDialog'}
             headerRenderer={() => <DropdownDialogTittel>Velg type periode</DropdownDialogTittel>}
-            labelRenderer={() => (
-                <div className="periodetypeMenyLabel">
-                    <div className="periodetypeMenyLabel__type">
-                        {getPeriodetypeLabel(periode, intl)}
-                        {flereForeldre && foreldernavn && <span> - {foreldernavn}</span>}
-                    </div>
-                    {periode.tidsperiode && (
-                        <div className="periodetypeMenyLabel__tidsperiode">
-                            {Tidsperioden(periode.tidsperiode).formaterStringKort(intl)}
-                        </div>
-                    )}
-                </div>
-            )}
+            labelRenderer={() => <PeriodetypeMenyLabel {...props} />}
         />
     );
 };

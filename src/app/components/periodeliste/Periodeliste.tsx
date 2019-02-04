@@ -4,18 +4,42 @@ import PeriodeElement from './PeriodeElement';
 import { PeriodelisteProps } from './types';
 
 import './periodeliste.less';
+import { formaterDato } from 'common/utils/datoUtils';
+import HjerteIkon from '../periodeikon/ikoner/HjerteIkon';
+import IkonTekst from 'common/components/ikonTekst/IkonTekst';
 
 const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
-    const { perioder, ...elementProps } = props;
+    const { perioder, periodeFørTermin, familiehendelsesdato, ...elementProps } = props;
     if (perioder.length === 0) {
         return <div>Ingen perioder registrert</div>;
     }
     return (
         <ol className="periodeliste">
+            {periodeFørTermin ? (
+                <>
+                    <li className="periodeliste__periode" key={periodeFørTermin.id}>
+                        <PeriodeElement
+                            periode={periodeFørTermin}
+                            typeErLåst={true}
+                            forelderErLåst={true}
+                            sluttdatoErLåst={true}
+                            slettErLåst={true}
+                            {...elementProps}
+                        />
+                    </li>
+                    <li className="periodeliste__termin">
+                        <IkonTekst ikon={<HjerteIkon fylt={true} title="Termin" />}>
+                            {formaterDato(familiehendelsesdato)}
+                        </IkonTekst>
+                    </li>
+                </>
+            ) : (
+                undefined
+            )}
             {perioder.map((periode: Periode, index: number) => {
                 return (
                     <li className="periodeliste__periode" key={periode.id}>
-                        <PeriodeElement periode={periode} {...elementProps} erFørstePeriode={index === 0} />
+                        <PeriodeElement periode={periode} {...elementProps} startdatoErLåst={true} />
                     </li>
                 );
             })}

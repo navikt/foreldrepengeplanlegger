@@ -11,7 +11,7 @@ import {
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { getMockPerioder } from '../../mock/perioder_mock';
 import { Dekningsgrad } from 'common/types';
-import { summerAntallDagerIKontoer } from '../../utils/kontoUtils';
+import { summerAntallDagerIKontoer, getPeriodeFørTermin } from '../../utils/kontoUtils';
 import { setStorage, getStorage } from '../../utils/storage';
 import { getAntallForeldreISituasjon } from '../../utils/common';
 
@@ -79,7 +79,8 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
         case CommonActionKeys.SUBMIT_SKJEMADATA:
             return updateStateAndStorage(state, {
                 skjemadata: action.data,
-                perioder: getMockPerioder(action.data.antallBarn, getAntallForeldreISituasjon(action.data.situasjon))
+                perioder: getMockPerioder(action.data.antallBarn, getAntallForeldreISituasjon(action.data.situasjon)),
+                periodeFørTermin: getPeriodeFørTermin(state.familiehendelsesdato, state.uttaksdagerFørTermin)
             });
         case CommonActionKeys.SET_DEKNINGSGRAD:
             return updateStateAndStorage(state, {

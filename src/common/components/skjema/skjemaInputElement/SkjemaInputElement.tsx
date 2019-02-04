@@ -1,6 +1,6 @@
 import * as React from 'react';
 const { guid } = require('nav-frontend-js-utils');
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/src/skjemaelement-feilmelding';
 import SkjemaelementFeilmelding from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 
@@ -16,7 +16,7 @@ const SkjemaInputElement: React.StatelessComponent<Props> = (props: Props) => {
     const inputId = id || guid();
     return (
         <div
-            className={classnames('skjemaelement', {
+            className={classNames('skjemaelement', {
                 'skjemaelement--harFeil': feil !== undefined
             })}>
             {typeof label === 'string' ? (
@@ -27,7 +27,7 @@ const SkjemaInputElement: React.StatelessComponent<Props> = (props: Props) => {
                 label
             )}
             <div
-                className={classnames({
+                className={classNames({
                     'skjema__feilomrade--harFeil': feil !== undefined
                 })}>
                 {children}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import Lukknapp from 'nav-frontend-lukknapp';
 import BEMHelper from 'common/utils/bem';
 import { UttaksplanColor } from '../../../types';
@@ -25,7 +25,7 @@ const bem = BEMHelper('periodelisteElement');
 
 const PeriodeElementMenyWrapper: React.StatelessComponent<{ meny: PeriodeElementMeny }> = ({ meny }) => {
     return (
-        <div className={classnames(bem.element('menyWrapper'), meny.className)} id={meny.id}>
+        <div className={classNames(bem.element('menyWrapper'), meny.className)} id={meny.id}>
             {meny.render()}
         </div>
     );
@@ -38,7 +38,7 @@ const PeriodeFargestrek: React.StatelessComponent<{ farge: UttaksplanColor; grad
     const bemStrek = bem.child('fargestrek');
     return (
         <div
-            className={classnames(
+            className={classNames(
                 bemStrek.block,
                 bemStrek.modifier(farge),
                 gradert ? `${bemStrek.modifier(farge)}--gradert` : undefined

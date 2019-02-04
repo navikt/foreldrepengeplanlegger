@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import BEMHelper from 'common/utils/bem';
 
 import './ikonTekst.less';
@@ -14,7 +14,7 @@ interface Props {
 const bem = BEMHelper('ikonTekst');
 
 const IkonTekst: React.StatelessComponent<Props> = ({ ikon, kunIkon, children }) => (
-    <div className={classnames(bem.block, { [`${bem.block}--iconOnly`]: kunIkon })}>
+    <div className={classNames(bem.block, { [`${bem.block}--iconOnly`]: kunIkon })}>
         <span className={bem.element('ikon')}>{ikon}</span>
         {kunIkon ? <AriaText>{children}</AriaText> : <span className={bem.element('tekst')}>{children}</span>}
     </div>

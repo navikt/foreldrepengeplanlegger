@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as classnames from 'classnames';
+import classNames from 'classnames';
 import { Collapse } from 'react-collapse';
 
 import './ekspanderbartInnhold.less';
@@ -32,7 +32,7 @@ const EkspanderbartInnhold: React.StatelessComponent<OwnProps> = ({
         <Collapse
             isOpened={erApen}
             springConfig={{ stiffness: 250, damping: 30 }}
-            className={classnames('ekspanderbartInnhold', {
+            className={classNames('ekspanderbartInnhold', {
                 'ekspanderbartInnhold--apen': erApen
             })}
             hasNestedCollapse={harEkspanderbartInnhold}>

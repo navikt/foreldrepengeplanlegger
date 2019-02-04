@@ -9,11 +9,11 @@ import UttakIkon from './ikoner/UttakIkon';
 import GradertUttakIkon from './ikoner/GradertUttakIkon';
 
 export interface Props {
-    periodetype: Periodetype;
+    periodetype?: Periodetype;
     forelder?: Forelder;
 }
 
-const getPeriodetypeIkon = (periodetype: Periodetype, title = '') => {
+const getPeriodetypeIkon = (periodetype?: Periodetype, title = '') => {
     switch (periodetype) {
         case 'arbeid':
             return <ArbeidIkon title={title} />;

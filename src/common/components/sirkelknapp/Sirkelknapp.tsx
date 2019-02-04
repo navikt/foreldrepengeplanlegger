@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as classnames from 'classnames';
+import classNames from 'classnames';
 
 import './sirkelknapp.less';
 import { guid } from 'nav-frontend-js-utils';
@@ -44,7 +44,7 @@ const Sirkelknapp: React.StatelessComponent<SirkelknappProps> = ({
             onClick={() => onClick()}
             onTouchStart={preventDoubleTapZoom}
             aria-labelledby={labelId}
-            className={classnames(`sirkelknapp`, `sirkelknapp--${stil}`, `sirkelknapp--${size}`, {
+            className={classNames(`sirkelknapp`, `sirkelknapp--${stil}`, `sirkelknapp--${size}`, {
                 'sirkelknapp--toggle': toggle,
                 'sirkelknapp--pressed': toggle && toggle.pressed,
                 'sirkelknapp--disabled': disabled

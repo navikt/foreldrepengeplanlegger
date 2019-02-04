@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
 import { Periodetype, Forelder } from '../../../types';
-import MenuButton, { MenuButtonOption } from 'common/components/menuButton/MenuButton';
-import Periodeikon from '../../periodeikon/Periodeikon';
 import getMessage from 'common/utils/i18nUtils';
 import { Tidsperioden } from '../../../utils/Tidsperioden';
-import DropdownDialogTittel from './DropdownDialogTittel';
 import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
+import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
+import DropdownForm from 'common/components/dropdownForm/DropdownForm';
+import IkonTekst from 'common/components/ikonTekst/IkonTekst';
+import Periodeikon from '../../periodeikon/Periodeikon';
 
 interface OwnProps {
     type?: Periodetype;
@@ -20,7 +21,7 @@ interface OwnProps {
 
 type Props = OwnProps & InjectedIntlProps;
 
-const getOptions = (intl: InjectedIntl): MenuButtonOption[] => [
+const getOptions = (intl: InjectedIntl): DropdownFormMenuOption[] => [
     {
         value: Periodetype.UttakFørTermin,
         label: getMessage(intl, `periodetype.${Periodetype.UttakFørTermin}`),
@@ -39,39 +40,56 @@ const getPeriodetypeLabel = (type: Periodetype | undefined, intl: InjectedIntl):
 const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
     type,
     tidsperiode,
+    forelder,
     flereForeldre,
     foreldernavn,
     intl
 }) => {
     return (
-        <div className="periodetypeMenyLabel">
-            <div className="periodetypeMenyLabel__type">
-                {getPeriodetypeLabel(type, intl)}
-                {flereForeldre && foreldernavn && <span> - {foreldernavn}</span>}
-            </div>
-            {tidsperiode && (
-                <div className="periodetypeMenyLabel__tidsperiode">
-                    {Tidsperioden(tidsperiode).formaterStringKort(intl)}
+        <IkonTekst ikon={<Periodeikon periodetype={type} forelder={forelder} />}>
+            <div className="periodetypeMenyLabel">
+                <div className="periodetypeMenyLabel__type">
+                    {getPeriodetypeLabel(type, intl)}
+                    {flereForeldre && foreldernavn && <span> - {foreldernavn}</span>}
                 </div>
-            )}
-        </div>
+                {tidsperiode && (
+                    <div className="periodetypeMenyLabel__tidsperiode">
+                        {Tidsperioden(tidsperiode).formaterStringKort(intl)}
+                    </div>
+                )}
+            </div>
+        </IkonTekst>
     );
 };
 
 const PeriodetypeMeny: React.StatelessComponent<Props> = (props) => {
-    const { erLåst, intl, type, forelder, onChange } = props;
+    const { erLåst, intl, type, onChange } = props;
     return (
-        <MenuButton
+        <DropdownForm
             disabled={erLåst}
-            options={getOptions(intl)}
-            onChange={(value) => onChange(value as Periodetype)}
-            selectedValue={type}
-            iconRenderer={(option) => <Periodeikon periodetype={option.value as Periodetype} forelder={forelder} />}
-            dialogClassName={'periodetypeDialog'}
-            headerRenderer={() => <DropdownDialogTittel>Velg type periode</DropdownDialogTittel>}
             labelRenderer={() => <PeriodetypeMenyLabel {...props} />}
+            dialogClassName="periodetypeDialog"
+            dialogContentRenderer={() => (
+                <DropdownFormMenu
+                    options={getOptions(intl)}
+                    selectedValue={type}
+                    onSelection={(value) => onChange(value as Periodetype)}
+                />
+            )}
         />
     );
 };
 
 export default injectIntl(PeriodetypeMeny);
+{
+    /* <MenuButton
+        disabled={erLåst}
+        options={getOptions(intl)}
+        onChange={(value) => onChange(value as Periodetype)}
+        selectedValue={type}
+        iconRenderer={(option) => <Periodeikon periodetype={option.value as Periodetype} forelder={forelder} />}
+        dialogClassName={'periodetypeDialog'}
+        headerRenderer={() => <DropdownDialogTittel>Velg type periode</DropdownDialogTittel>}
+        labelRenderer={() => <PeriodetypeMenyLabel {...props} />}
+    /> */
+}

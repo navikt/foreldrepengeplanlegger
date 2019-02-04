@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { Wrapper, Button, Menu, MenuItem } from 'react-aria-menubutton';
 import BEMHelper from 'common/utils/bem';
 import MenuButtonLabelRenderer from 'common/components/menuButton/MenuButtonIconLabelRenderer';
@@ -45,7 +45,7 @@ const MenuButton: React.StatelessComponent<Props> = ({
     const selectedItem = options.find((o) => o.value === selectedValue);
 
     return (
-        <Wrapper className={classnames(bem.block, { [bem.modifier('disabled')]: disabled })} onSelection={onChange}>
+        <Wrapper className={classNames(bem.block, { [bem.modifier('disabled')]: disabled })} onSelection={onChange}>
             {disabled && selectedItem ? (
                 <MenuButtonLabelRenderer
                     option={selectedItem}
@@ -55,7 +55,7 @@ const MenuButton: React.StatelessComponent<Props> = ({
                     labelRenderer={labelRenderer}
                 />
             ) : (
-                <Button className={classnames(bem.element('button'), 'inputPanel')}>
+                <Button className={classNames(bem.element('button'), 'inputPanel')}>
                     {selectedItem ? (
                         <MenuButtonLabelRenderer
                             option={selectedItem}
@@ -69,7 +69,7 @@ const MenuButton: React.StatelessComponent<Props> = ({
                     )}
                 </Button>
             )}
-            <Menu className={classnames(bem.element('wrapper'), dialogClassName)}>
+            <Menu className={classNames(bem.element('wrapper'), dialogClassName)}>
                 {headerRenderer ? headerRenderer() : null}
                 <ul>
                     {options
@@ -78,7 +78,7 @@ const MenuButton: React.StatelessComponent<Props> = ({
                             <li key={option.value}>
                                 <MenuItem
                                     value={option.value}
-                                    className={classnames(bem.element('menuItem'), 'inputPanel', {
+                                    className={classNames(bem.element('menuItem'), 'inputPanel', {
                                         [`${bem.element('menuItem--selected')}`]: option.value === selectedValue
                                     })}>
                                     {option.value === selectedValue && (

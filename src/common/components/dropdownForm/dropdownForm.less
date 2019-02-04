@@ -1,0 +1,68 @@
+@import '../../styles/mixins.less';
+@import '../../styles/variables.less';
+
+.dropdownForm {
+    &__button {
+        cursor: pointer;
+        padding: 1rem 1rem;
+        border-style: dashed;
+        min-height: 4.5rem;
+        transition: border-color 200ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+        display: flex;
+        align-items: center;
+        flex: 1 1 0;
+        &:focus  {
+            .buttonFocus();
+        }
+        &:hover:not(:focus) {
+            border-color: @c-buttonBlue;
+            border-style: solid;
+        }
+    }
+    &__dialogWrapper {
+        position: absolute;
+        z-index: @z-popup;
+        top: 100%;
+        margin-top: 0.25rem;
+        min-width: 10rem;
+        background-color: #fff;
+        padding: 1.5rem;
+        border: 1px solid #0067c5;
+        border-radius: 0.5rem;
+        box-shadow: #b7b1a9 0 2px 1px 0;
+        &:focus {
+            .focusOutline();
+        }
+    }
+}
+.dropdownFormMenu {
+    ul,
+    li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    &__option {
+        .borderButton();
+        cursor: pointer;
+        padding: 1rem 1rem;
+        margin-bottom: 0.5rem;
+        width: 100%;
+        align-items: center;
+        display: flex;
+        &--selected {
+            background-color: rgba(0, 103, 197, 0.2);
+            border: 1px solid transparent;
+        }
+        &__checked {
+            order: 2;
+            width: 2rem;
+            text-align: right;
+            margin-top: -0.5rem;
+            margin-bottom: -0.5rem;
+        }
+        &__label {
+            flex-grow: 2;
+        }
+    }
+}

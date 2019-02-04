@@ -31,9 +31,7 @@ const getOptions = (intl: InjectedIntl): MenuButtonOption[] => [
 ];
 
 const getPeriodetypeLabel = (periode: Periode, intl: InjectedIntl): string => {
-    return `${getMessage(intl, `periodetype.${periode.type}`)}${
-        periode.type === Periodetype.GradertUttak ? ` (${periode.gradering}%)` : ''
-    }`;
+    return getMessage(intl, `periodetype.${periode.type}`);
 };
 
 const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({ periode, flereForeldre, foreldernavn, intl }) => {

@@ -2,9 +2,14 @@
 @import '../../styles/variables.less';
 
 .dropdownForm {
+    @buttonPadding: 1rem;
+    &__lockedValue {
+        padding: @buttonPadding;
+        border: 1px solid transparent;
+    }
     &__button {
         cursor: pointer;
-        padding: 1rem 1rem;
+        padding: @buttonPadding;
         border-style: dashed;
         min-height: 4.5rem;
         transition: border-color 200ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
@@ -22,11 +27,10 @@
     &__dialogWrapper {
         position: absolute;
         z-index: @z-popup;
-        top: 100%;
         margin-top: 0.25rem;
-        min-width: 10rem;
+        min-width: 15rem;
         background-color: #fff;
-        padding: 1.5rem;
+        padding: 1rem;
         border: 1px solid #0067c5;
         border-radius: 0.5rem;
         box-shadow: #b7b1a9 0 2px 1px 0;
@@ -35,6 +39,7 @@
         }
     }
 }
+
 .dropdownFormMenu {
     ul,
     li {
@@ -54,12 +59,13 @@
             background-color: rgba(0, 103, 197, 0.2);
             border: 1px solid transparent;
         }
-        &__checked {
+        &__icon {
             order: 2;
-            width: 2rem;
+            width: 2.5rem;
             text-align: right;
             margin-top: -0.5rem;
             margin-bottom: -0.5rem;
+            line-height: 0;
         }
         &__label {
             flex-grow: 2;

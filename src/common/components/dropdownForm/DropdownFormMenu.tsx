@@ -12,7 +12,6 @@ export interface DropdownFormMenuOption {
 
 interface Props {
     options: DropdownFormMenuOption[];
-    onSelection: (value: string) => void;
     selectedValue?: string;
 }
 

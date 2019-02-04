@@ -67,29 +67,12 @@ const PeriodetypeMeny: React.StatelessComponent<Props> = (props) => {
     return (
         <DropdownForm
             disabled={erLåst}
+            onSelection={onChange}
             labelRenderer={() => <PeriodetypeMenyLabel {...props} />}
             dialogClassName="periodetypeDialog"
-            dialogContentRenderer={() => (
-                <DropdownFormMenu
-                    options={getOptions(intl)}
-                    selectedValue={type}
-                    onSelection={(value) => onChange(value as Periodetype)}
-                />
-            )}
+            dialogContentRenderer={() => <DropdownFormMenu options={getOptions(intl)} selectedValue={type} />}
         />
     );
 };
 
 export default injectIntl(PeriodetypeMeny);
-{
-    /* <MenuButton
-        disabled={erLåst}
-        options={getOptions(intl)}
-        onChange={(value) => onChange(value as Periodetype)}
-        selectedValue={type}
-        iconRenderer={(option) => <Periodeikon periodetype={option.value as Periodetype} forelder={forelder} />}
-        dialogClassName={'periodetypeDialog'}
-        headerRenderer={() => <DropdownDialogTittel>Velg type periode</DropdownDialogTittel>}
-        labelRenderer={() => <PeriodetypeMenyLabel {...props} />}
-    /> */
-}

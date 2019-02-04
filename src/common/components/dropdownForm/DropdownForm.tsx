@@ -19,10 +19,16 @@ const DropdownForm: React.StatelessComponent<Props> = ({
     labelRenderer,
     dialogContentRenderer,
     dialogClassName,
-    onSelection
+    onSelection,
+    disabled
 }) => (
     <Wrapper className={bem.block} onSelection={onSelection}>
-        <Button className={classNames(bem.element('button'), 'inputPanel')}>{labelRenderer()}</Button>
+        {disabled ? (
+            <div className={bem.element('lockedValue')}>{labelRenderer()}</div>
+        ) : (
+            <Button className={classNames(bem.element('button'), 'inputPanel')}>{labelRenderer()}</Button>
+        )}
+
         <Menu className={classNames(bem.element('dialogWrapper'), dialogClassName)}>{dialogContentRenderer()}</Menu>
     </Wrapper>
 );

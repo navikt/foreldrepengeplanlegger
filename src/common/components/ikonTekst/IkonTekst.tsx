@@ -14,7 +14,7 @@ interface Props {
 const bem = BEMHelper('ikonTekst');
 
 const IkonTekst: React.StatelessComponent<Props> = ({ ikon, kunIkon, children }) => (
-    <div className={classNames(bem.block, { [`${bem.block}--iconOnly`]: kunIkon })}>
+    <div className={classNames(bem.block, { [`${bem.block}--kunIkon`]: kunIkon })}>
         <span className={bem.element('ikon')}>{ikon}</span>
         {kunIkon ? <AriaText>{children}</AriaText> : <span className={bem.element('tekst')}>{children}</span>}
     </div>

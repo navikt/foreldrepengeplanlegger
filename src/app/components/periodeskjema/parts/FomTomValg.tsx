@@ -15,6 +15,7 @@ interface OwnProps {
     fom: Date | undefined;
     tom: Date | undefined;
     låstFomDato?: boolean;
+    låstTomDato?: boolean;
     tomLabel?: React.ReactNode;
     fomLabel?: React.ReactNode;
     onChange: (evt: TidsperiodeChangeEvent) => void;
@@ -29,6 +30,7 @@ const FomTomValg: React.StatelessComponent<Props> = ({
     fom,
     tom,
     låstFomDato,
+    låstTomDato,
     fomLabel = 'Startdato',
     tomLabel = 'Sluttdato'
 }) => {
@@ -57,27 +59,29 @@ const FomTomValg: React.StatelessComponent<Props> = ({
                             </Block>
                         </Column>
                     )}
-                    <Column xs="12" sm="6">
-                        <Block margin="xs">
-                            <DatoInput
-                                name="sluttdato"
-                                label={tomLabel}
-                                dato={tom}
-                                locale={intl.locale}
-                                id="tidsperiodeTil"
-                                avgrensninger={{
-                                    helgedagerIkkeTillatt: true,
-                                    minDato: låstFomDato && fom ? Uttaksdagen(fom).neste() : undefined
-                                }}
-                                onChange={(dato) =>
-                                    onChange({
-                                        fom,
-                                        tom: dato
-                                    })
-                                }
-                            />
-                        </Block>
-                    </Column>
+                    {låstTomDato !== true && (
+                        <Column xs="12" sm="6">
+                            <Block margin="xs">
+                                <DatoInput
+                                    name="sluttdato"
+                                    label={tomLabel}
+                                    dato={tom}
+                                    locale={intl.locale}
+                                    id="tidsperiodeTil"
+                                    avgrensninger={{
+                                        helgedagerIkkeTillatt: true,
+                                        minDato: låstFomDato && fom ? Uttaksdagen(fom).neste() : undefined
+                                    }}
+                                    onChange={(dato) =>
+                                        onChange({
+                                            fom,
+                                            tom: dato
+                                        })
+                                    }
+                                />
+                            </Block>
+                        </Column>
+                    )}
                 </Row>
             </Block>
             {låstFomDato && fom && (

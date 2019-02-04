@@ -89,24 +89,17 @@ export function updateForbruk(forbruk: Forbruk | undefined): CommonActionTypes {
     };
 }
 
-export function UpdateTilgjengeligeDager(tilgjengeligeDager: TilgjengeligeDager | undefined): CommonActionTypes {
+export function updateTilgjengeligeDager(tilgjengeligeDager: TilgjengeligeDager | undefined): CommonActionTypes {
     return {
         type: CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER,
         tilgjengeligeDager
     };
 }
 
-export function UpdateOmForeldre(omForeldre: OmForeldre): CommonActionTypes {
+export function updateOmForeldre(omForeldre: OmForeldre): CommonActionTypes {
     return {
         type: CommonActionKeys.UPDATE_OM_FORELDRE,
         omForeldre
-    };
-}
-
-export function SetUttaksdagerFørTermin(antallDager: number): CommonActionTypes {
-    return {
-        type: CommonActionKeys.SET_UTTAKSDAGER_FØR_TERMIN,
-        antallDager
     };
 }
 

@@ -2,11 +2,11 @@ import * as React from 'react';
 import { Periode } from '../../types';
 import PeriodeElement from './PeriodeElement';
 import { PeriodelisteProps } from './types';
-
-import './periodeliste.less';
 import { formaterDato } from 'common/utils/datoUtils';
 import HjerteIkon from '../periodeikon/ikoner/HjerteIkon';
 import IkonTekst from 'common/components/ikonTekst/IkonTekst';
+
+import './periodeliste.less';
 
 const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
     const { perioder, periodeFørTermin, familiehendelsesdato, ...elementProps } = props;

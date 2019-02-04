@@ -4,7 +4,8 @@ import {
     TilgjengeligeDager,
     Periode,
     Forelder,
-    Periodetype
+    Periodetype,
+    UttakFørTermin
 } from '../types';
 import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from './uttaksinfo';
@@ -58,17 +59,23 @@ const getFellesStønadskontoer = (kontoer: TilgjengeligStønadskonto[]): Tilgjen
             konto.stønadskontoType !== StønadskontoType.ForeldrepengerFørFødsel
     );
 
+const getDagerFørTermin = (kontoer: TilgjengeligStønadskonto[]): number => {
+    const konto = kontoer.find((k) => k.stønadskontoType === StønadskontoType.ForeldrepengerFørFødsel);
+    return konto ? konto.dager : 0;
+};
+
 export const getTilgjengeligeDager = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligeDager => {
     return {
         dagerTotalt: summerAntallDagerIKontoer(kontoer),
         dagerForbeholdtMor: summerAntallDagerIKontoer(getMorsStønadskontoer(kontoer)),
         dagerForbeholdtFar: summerAntallDagerIKontoer(getFarsStønadskontoer(kontoer)),
         dagerFelles: summerAntallDagerIKontoer(getFellesStønadskontoer(kontoer)),
+        dagerFørTermin: getDagerFørTermin(kontoer),
         stønadskontoer: kontoer
     };
 };
 
-export const getPeriodeFørTermin = (familiehendelsesdato: Date, antallDagerFørTermin: number): Periode => {
+export const getPeriodeFørTermin = (familiehendelsesdato: Date, antallDagerFørTermin: number): UttakFørTermin => {
     const tom = Uttaksdagen(familiehendelsesdato).forrige();
     const fom = Uttaksdagen(tom).trekkFra(antallDagerFørTermin - 1);
     const periode: Periode = {

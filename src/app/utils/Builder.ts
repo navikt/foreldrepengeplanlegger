@@ -5,10 +5,10 @@ import { Uttaksdagen } from './Uttaksdagen';
 import { Perioden } from './Perioden';
 import { guid } from 'nav-frontend-js-utils';
 import { getTidsperiode, Tidsperioden } from './Tidsperioden';
-import { getUttaksinfoForPeriode } from './uttaksinfo';
+// import { getUttaksinfoForPeriode } from './uttaksinfo';
 import arrayMove from 'array-move';
 
-export const UttaksplanBuilder = (perioder: Periode[], familiehendelsesdato: Date, antallDagerFørTermin: number) => {
+export const UttaksplanBuilder = (perioder: Periode[], familiehendelsesdato: Date) => {
     return new Builder(perioder, familiehendelsesdato);
 };
 
@@ -40,10 +40,10 @@ class Builder {
             this.perioder = settInnPerioder(this.perioder, fastePerioder);
             this.sort();
             this.perioder = slåSammenLikePerioder(this.perioder);
-            this.perioder = oppdaterUttaksinfo(this.perioder);
+            // this.perioder = oppdaterUttaksinfo(this.perioder);
         } else {
             this.perioder = resetTidsperioder(this.perioder);
-            this.perioder = oppdaterUttaksinfo(this.perioder);
+            // this.perioder = oppdaterUttaksinfo(this.perioder);
         }
 
         return this;
@@ -250,11 +250,11 @@ function splittPeriodeMedPeriode(periode: Periode, nyPeriode: Periode): Periode[
     return [forste, midt, siste];
 }
 
-function oppdaterUttaksinfo(perioder: Periode[]): Periode[] {
-    return perioder.map(
-        (p): Periode => ({
-            ...p,
-            uttaksinfo: getUttaksinfoForPeriode(p)
-        })
-    );
-}
+// function oppdaterUttaksinfo(perioder: Periode[]): Periode[] {
+//     return perioder.map(
+//         (p): Periode => ({
+//             ...p,
+//             uttaksinfo: getUttaksinfoForPeriode(p)
+//         })
+//     );
+// }

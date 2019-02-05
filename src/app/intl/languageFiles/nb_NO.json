@@ -40,9 +40,10 @@
     "uttaksplan.skjema.fordeling.annenForeldersFellesperiode": "{navnFarMedmor} kan ta ut {antallUker} uker av fellesperioden",
     "uttaksplan.skjema.fordeling.aria.fordeling": "Hvor mange uker av fellesdelen skal {navnMor} ha av totalt {ukerFellesperiode} uker?",
     "uttaksplan.skjema.fordeling.reduser.tooltip": "En uke mindre",
-    "uttaksplan.skjema.fordeling.spørsmål": "Hvor mange uker skal du ha av fellesperioden?",
+    "uttaksplan.skjema.fordeling.spørsmål": "Hvor mange uker skal {navn} ha av fellesperioden?",
     "uttaksplan.skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
     "uttaksplan.skjema.fordeling.valgtVerdi": "{ukerForelder} av {ukerTotalt, plural, one {# uke} other {# uker}} med fellesperiode",
     "uttaksplan.skjema.fordeling.veiledning.lenketekst": "Les mer om aktivitetskravet her.",
-    "uttaksplan.skjema.fordeling.øk.tooltip": "En uke mer"
+    "uttaksplan.skjema.fordeling.øk.tooltip": "En uke mer",
+    "skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}"
 }

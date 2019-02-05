@@ -50,12 +50,6 @@ const defaultValueLabelRenderer: RangeInputElementRenderer = (options: RangeInpu
     </div>
 );
 
-const defaultBottomContentRenderer: RangeInputElementRenderer = (options: RangeInputElementRendererOptions) => (
-    <div className="rangeInput__bottomContent">
-        <span className="typo-normaltekst">{options.max - options.min}</span>
-    </div>
-);
-
 class RangeInput extends React.Component<Props, State> {
     container: HTMLDivElement | null;
 
@@ -99,7 +93,6 @@ class RangeInput extends React.Component<Props, State> {
             valueLabelRenderer,
             steppers,
             ariaValueChangedMessage,
-            bottomContentRenderer,
             valueLabelPlacement = 'above',
             ...rest
         } = this.props;
@@ -108,7 +101,6 @@ class RangeInput extends React.Component<Props, State> {
         const id = inputId || guid();
         const labelRenderer = valueLabelRenderer || defaultValueLabelRenderer;
         const ariaLabelId = `${id}_label`;
-        const bottomRenderer = bottomContentRenderer || defaultBottomContentRenderer;
 
         const bemWrapper = BEMHelper('rangeInputWrapper');
         const bemRangeInput = BEMHelper('rangeInput');
@@ -170,7 +162,6 @@ class RangeInput extends React.Component<Props, State> {
                     <div aria-live="polite">
                         {valueLabelPlacement === 'below' && labelRenderer({ value, min, max })}
                     </div>
-                    {bottomRenderer({ value, min, max })}
                 </Fieldset>
             </div>
         );

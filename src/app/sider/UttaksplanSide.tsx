@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Uttaksplan from '../components/uttaksplan/Uttaksplan';
-import { RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Redirect, Link } from 'react-router-dom';
 import { DispatchProps } from '../redux/types';
 import { Periode, TilgjengeligeDager, SituasjonSkjemadata, Forbruk, OmForeldre } from '../types';
 import {
@@ -89,6 +89,12 @@ class UttaksplanSide extends React.Component<Props> {
                         situasjon={skjemadata.situasjon}
                     />
                 </Block>
+                <Block align="center">
+                    <Link className="lenke" to="/">
+                        Tilbake til skjema
+                    </Link>
+                </Block>
+
                 <LoadContainer loading={henterStønadskontoer} overlay={false}>
                     <Skjemablokk
                         tittel={`Hvor lang periode med foreldrepenger ønsker ${

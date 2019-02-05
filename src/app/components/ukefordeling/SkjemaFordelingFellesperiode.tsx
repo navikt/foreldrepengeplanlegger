@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { InjectedIntlProps, injectIntl, FormattedMessage } from 'react-intl';
-import { Ingress, Normaltekst } from 'nav-frontend-typografi';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import getMessage from 'common/utils/i18nUtils';
 import RangeInput from 'common/components/skjema/rangeInput/RangeInput';
+
+import './fordelingFellesperiode.less';
+import FordelingFellesperiodeLabelRenderer from './FordelingFellesperiodeLabelRenderer';
 
 export interface OwnProps {
     navnMor: string;
@@ -23,8 +25,8 @@ const FordelingFellesperiodeSpørsmål: React.StatelessComponent<OwnProps & Inje
     // const ukerMor = ønsketFordeling ? ønsketFordeling.ukerMor : undefined;
     return (
         <RangeInput
-            label={getMessage(intl, 'uttaksplan.skjema.fordeling.spørsmål')}
-            ariaLabelText={getMessage(intl, 'uttaksplan.skjema.fordeling.spørsmål')}
+            label={getMessage(intl, 'uttaksplan.skjema.fordeling.spørsmål', { navn: navnMor })}
+            ariaLabelText={getMessage(intl, 'uttaksplan.skjema.fordeling.spørsmål', { navn: navnMor })}
             value={ukerMor}
             min={0}
             max={ukerTotalt}
@@ -44,26 +46,13 @@ const FordelingFellesperiodeSpørsmål: React.StatelessComponent<OwnProps & Inje
                 )
             }
             valueLabelRenderer={(options) => (
-                <Ingress tag="p" className="m-text-center fordelingFellesperiode--valgtVerdi">
-                    <FormattedMessage
-                        id="uttaksplan.skjema.fordeling.valgtVerdi"
-                        values={{
-                            ukerForelder: options.value,
-                            ukerTotalt: options.max,
-                            navnForelder: navnMor
-                        }}
-                    />
-                </Ingress>
+                <FordelingFellesperiodeLabelRenderer
+                    options={options}
+                    navnMor={navnMor}
+                    navnFarMedmor={navnFarMedmor}
+                />
             )}
             valueLabelPlacement="above"
-            bottomContentRenderer={(options) => (
-                <Normaltekst className="m-text-center fordelingFellesperiode--bottomContent">
-                    <FormattedMessage
-                        id="uttaksplan.skjema.fordeling.annenForeldersFellesperiode"
-                        values={{ navnFarMedmor, antallUker: options.max - options.value }}
-                    />
-                </Normaltekst>
-            )}
         />
     );
 };

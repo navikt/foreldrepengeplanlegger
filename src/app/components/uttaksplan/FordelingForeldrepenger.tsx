@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Block from 'common/components/block/Block';
-import { Systemtittel } from 'nav-frontend-typografi';
-import FordelingValg from '../fordelingValg/FordelingValg';
+import { Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import Ukefordeling from '../ukefordeling/Ukefordeling';
 import { TilgjengeligeUker } from '../../types';
-import SkjemaFordelingFellesperiode from '../fordelingValg/SkjemaFordelingFellesperiode';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import SkjemaFordelingFellesperiode from '../ukefordeling/SkjemaFordelingFellesperiode';
 
 interface Props {
     tilgjengeligeUker: TilgjengeligeUker;
@@ -42,23 +42,28 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
                 <div className="periodelisteWrapper">
                     <Block margin="s">
                         <Systemtittel>Hvordan vil dere dele fellesperioden?</Systemtittel>
-                        <FordelingValg
-                            foreldrepengerFørTermin={tilgjengeligeUker.ukerFørTermin}
-                            modrekvote={tilgjengeligeUker.ukerForbeholdtMor}
-                            fedrekvote={tilgjengeligeUker.ukerForbeholdtFar}
-                            fellesukerForelder1={ukerMor || defaultUker}
-                            fellesukerForelder2={ukerFarMedmor || defaultUker}
-                            navnForelder1={navnMor}
-                            navnForelder2={navnFarMedmor}
-                        />
                     </Block>
-                    <Block margin="s">
+                    <Block>
                         <SkjemaFordelingFellesperiode
                             navnFarMedmor={navnFarMedmor}
                             navnMor={navnMor}
                             ukerTotalt={tilgjengeligeUker.ukerFelles}
                             ukerMor={ukerMor}
                             onChange={(uker) => this.setState({ ukerMor: uker })}
+                        />
+                    </Block>
+                    <Block>
+                        <Block margin="xs">
+                            <Undertittel>Deres totale fordeling</Undertittel>
+                        </Block>
+                        <Ukefordeling
+                            foreldrepengerFørTermin={tilgjengeligeUker.ukerFørTermin}
+                            modrekvote={tilgjengeligeUker.ukerForbeholdtMor}
+                            fedrekvote={tilgjengeligeUker.ukerForbeholdtFar}
+                            fellesukerMor={ukerMor || defaultUker}
+                            fellesukerFarMedmor={ukerFarMedmor}
+                            navnMor={navnMor}
+                            navnFarMedmor={navnFarMedmor}
                         />
                     </Block>
                     <Knapperad>

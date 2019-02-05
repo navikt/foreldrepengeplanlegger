@@ -20,7 +20,6 @@ import { getAntallForeldreISituasjon } from '../../utils/common';
 import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
 import { lagUttaksplan } from '../../utils/forslag/lagUttaksplan';
-import { getForbruk } from '../../utils/forbrukUtils';
 
 export interface ØnsketFordelingForeldrepenger {
     harValgtFordeling: boolean;
@@ -181,8 +180,8 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                     ukerMor: action.ukerMor,
                     ukerFarMedmor: state.tilgjengeligeDager!.dagerFelles - action.ukerMor
                 },
-                perioder,
-                forbruk: getForbruk(perioder, state.tilgjengeligeDager!.dagerTotalt)
+                perioder
+                // forbruk: getForbruk(perioder, state.tilgjengeligeDager!.dagerTotalt - state.tilgjengeligeDager.)
             });
         case CommonActionKeys.RESET_APP:
             return updateStateAndStorage(getDefaultCommonState(), {});

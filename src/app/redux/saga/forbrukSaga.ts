@@ -41,6 +41,7 @@ function* forbrukSaga() {
         takeLatest(
             [
                 CommonActionKeys.SET_STØNADSKONTOER,
+                CommonActionKeys.SET_ØNSKET_FORDELING,
                 CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER,
                 CommonActionKeys.SET_PERIODER,
                 CommonActionKeys.ADD_PERIODE,

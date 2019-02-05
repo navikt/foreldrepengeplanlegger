@@ -1,10 +1,12 @@
 @import '../../../styles/variables.less';
 
 .periodelisteElement {
-    display: flex;
-    justify-content: stretch;
-    align-content: stretch;
-    flex-wrap: nowrap;
+    &__mainContent {
+        display: flex;
+        justify-content: stretch;
+        align-content: stretch;
+        flex-wrap: nowrap;
+    }
     &__menyWrapper {
         flex: 1 1 0;
         margin-right: 0.25rem;
@@ -18,6 +20,18 @@
     &__tools {
         padding-left: 0.75rem;
         display: flex;
+        flex-direction: column;
         align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    &__tool  {
+        margin-bottom: 0.5rem;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    &__info {
+        margin-top: 0.5rem;
     }
 }

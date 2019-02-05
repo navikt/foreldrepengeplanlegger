@@ -45,5 +45,7 @@
     "uttaksplan.skjema.fordeling.valgtVerdi": "{ukerForelder} av {ukerTotalt, plural, one {# uke} other {# uker}} med fellesperiode",
     "uttaksplan.skjema.fordeling.veiledning.lenketekst": "Les mer om aktivitetskravet her.",
     "uttaksplan.skjema.fordeling.øk.tooltip": "En uke mer",
-    "skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}"
+    "skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
+
+    "uttaksplan.ferie.inneholderHelligdager": "Du kan ikke utsette på en helligdag. Denne perioden inneholder {dager, plural, one {# helligdag} other {# helligdager}} som vil regnet som {dager, plural, one {# dag} other {# dager}} med foreldrepenger."
 }

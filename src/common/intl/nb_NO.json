@@ -16,6 +16,7 @@
     "common.varighet.dager.kunTekst": "{dager, plural, one {dag} other {dager}}",
     "common.varighet.dager": "{dager, plural, one {# dag} other {# dager}}",
     "common.varighet.uker": "{uker, plural, one {# uke} other {# uker}}",
+    "common.varighet.helligdager": "{dager, plural, one {# helligdag} other {# helligdager}}",
     "common.varighet.dagerTekst": "{dager, plural, one {dag} other {dager}}",
     "common.varighet.ukerTekst": "{uker, plural, one {uke} other {uker}}",
     "common.varighet.ukerogdager": "{uker, plural, zero {} one {# uke} other {# uker}} {dager, plural, =0 {} one {og # dag} other {og # dager}}",

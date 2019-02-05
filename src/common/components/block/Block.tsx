@@ -18,6 +18,7 @@ export interface BlockProps {
     hasChildBlocks?: boolean;
     children: React.ReactNode;
     align?: undefined | 'left' | 'center' | 'right';
+    style?: 'info' | undefined;
 }
 
 const bem = BEMHelper('block');
@@ -30,13 +31,15 @@ const Block: React.StatelessComponent<BlockProps> = ({
     children,
     hasChildBlocks,
     align,
+    style,
     headingSize = 'm'
 }) => {
     if (children === undefined || (animated !== true && visible === false)) {
         return null;
     }
     const contentClass = classNames(bem.block, !hasChildBlocks ? bem.modifier(margin) : bem.modifier('none'), {
-        [bem.modifier(`align-${align}`)]: align
+        [bem.modifier(`align-${align}`)]: align,
+        [bem.modifier(`style-${style}`)]: style
     });
     const content =
         title !== undefined ? (

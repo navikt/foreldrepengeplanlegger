@@ -12,8 +12,10 @@ import { Tidsperioden } from '../../utils/Tidsperioden';
 import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
 import PeriodelisteElement from './periodelisteElement/PeriodelisteElement';
 import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
+import getMessage from 'common/utils/i18nUtils';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 
-type Props = PeriodelisteElementProps;
+type Props = PeriodelisteElementProps & InjectedIntlProps;
 
 const bem = BEMHelper('periodeElement');
 
@@ -69,7 +71,8 @@ class PeriodeElement extends React.Component<Props, {}> {
             omForeldre,
             onRemove,
             onUpdate,
-            uttaksdatoer
+            uttaksdatoer,
+            intl
         } = this.props;
 
         const { uttaksinfo } = this.props.periode;
@@ -181,10 +184,19 @@ class PeriodeElement extends React.Component<Props, {}> {
                               }
                             : undefined
                     }
+                    info={
+                        periode.type === Periodetype.Ferie && uttaksinfo.antallUttaksdagerBrukt > 0
+                            ? [
+                                  getMessage(intl, 'uttaksplan.ferie.inneholderHelligdager', {
+                                      dager: uttaksinfo.antallUttaksdagerBrukt
+                                  })
+                              ]
+                            : undefined
+                    }
                 />
             </PeriodeBlokk>
         );
     }
 }
 
-export default PeriodeElement;
+export default injectIntl(PeriodeElement);

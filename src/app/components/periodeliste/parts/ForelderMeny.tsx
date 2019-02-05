@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Forelder, OmForeldre, ForeldreparForelder } from '../../../types';
-// import MenuButton, { MenuButtonOption } from 'common/components/menuButton/MenuButton';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
-// import DropdownDialogTittel from './DropdownDialogTittel';
 import DropdownForm from 'common/components/dropdownForm/DropdownForm';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
 import IkonTekst from 'common/components/ikonTekst/IkonTekst';

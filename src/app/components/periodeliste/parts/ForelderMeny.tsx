@@ -38,13 +38,14 @@ const ForelderMeny: React.StatelessComponent<Props> = ({ onChange, forelder, omF
             disabled={erLåst}
             onSelection={(value) => onChange(value as Forelder)}
             contentClassName="forelderMenyDialog"
+            contentTitle="Hvem gjelder perioden?"
             labelRenderer={() => (
                 <IkonTekst ikon={renderForelderIkon(forelder, omForeldre)} kunIkon={true}>
                     {valgtForelderNavn}
                 </IkonTekst>
             )}
             contentRenderer={() => <DropdownFormMenu options={options} selectedValue={forelder} />}
-            labelPlacement="center"
+            labelAlignment="center"
             dropdownPlacement="right"
         />
     );

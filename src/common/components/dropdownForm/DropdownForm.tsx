@@ -2,6 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { Wrapper, Button, Menu } from 'react-aria-menubutton';
 import BEMHelper from 'common/utils/bem';
+import { Undertittel } from 'nav-frontend-typografi';
 
 import './dropdownForm.less';
 
@@ -9,10 +10,11 @@ interface Props {
     labelRenderer: () => React.ReactNode;
     contentRenderer: () => React.ReactNode;
     onSelection?: (value: string) => void;
-    labelPlacement?: 'left' | 'center' | 'right';
+    labelAlignment?: 'left' | 'center' | 'right';
     dropdownPlacement?: 'left' | 'right';
     buttonClassName?: string;
     contentClassName?: string;
+    contentTitle?: string;
     buttonSize?: 'inline' | 'stretched';
     disabled?: boolean;
 }
@@ -25,9 +27,10 @@ const DropdownForm: React.StatelessComponent<Props> = ({
     buttonClassName,
     contentClassName,
     onSelection,
-    labelPlacement = 'left',
+    labelAlignment = 'left',
     dropdownPlacement = 'left',
     buttonSize = 'stretched',
+    contentTitle,
     disabled
 }) => (
     <Wrapper
@@ -41,7 +44,7 @@ const DropdownForm: React.StatelessComponent<Props> = ({
                     bem.element('button'),
                     buttonClassName,
                     'inputPanel',
-                    labelPlacement ? bem.element('button', labelPlacement) : undefined
+                    labelAlignment ? bem.element('button', labelAlignment) : undefined
                 )}>
                 {labelRenderer()}
             </Button>
@@ -52,7 +55,14 @@ const DropdownForm: React.StatelessComponent<Props> = ({
                 bem.element('dialogWrapper', dropdownPlacement),
                 contentClassName
             )}>
-            {contentRenderer()}
+            <section>
+                {contentTitle && (
+                    <Undertittel tag="h1" className={bem.element('dialogTitle')}>
+                        {contentTitle}
+                    </Undertittel>
+                )}
+                {contentRenderer()}
+            </section>
         </Menu>
     </Wrapper>
 );

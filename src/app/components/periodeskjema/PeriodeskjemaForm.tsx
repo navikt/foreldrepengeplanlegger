@@ -83,7 +83,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                 },
                                 {
                                     id: 'forelder',
-                                    className: bem.element('foreldre'),
+                                    className: bem.element('foreldre', 'skjema'),
                                     render: () => (
                                         <ForelderMeny
                                             forelder={forelder}
@@ -96,7 +96,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                 },
                                 {
                                     id: 'varighet',
-                                    className: bem.element('varighet'),
+                                    className: bem.element('varighet', 'skjema'),
                                     render: () => (
                                         <VarighetMeny
                                             fom={fom}

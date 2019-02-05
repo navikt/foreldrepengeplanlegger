@@ -8,6 +8,7 @@ import './dropdownForm.less';
 import { guid } from 'nav-frontend-js-utils';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { Flatknapp } from 'nav-frontend-knapper';
+import { NedChevron } from 'nav-frontend-chevron';
 
 interface Props {
     labelRenderer: () => React.ReactNode;
@@ -67,7 +68,10 @@ class DropdownForm extends React.Component<Props> {
                             buttonClassName,
                             labelAlignment ? bem.element('button', labelAlignment) : undefined
                         )}>
-                        {labelRenderer()}
+                        <div className={bem.element('button__label')}>{labelRenderer()}</div>
+                        <div className={bem.element('button__chevron')}>
+                            <NedChevron />
+                        </div>
                     </Button>
                 )}
                 <Menu

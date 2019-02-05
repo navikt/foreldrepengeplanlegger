@@ -10,7 +10,7 @@ import { getPeriodetypeFarge } from '../../utils/styleutils';
 import { OmForeldre, Forelder, Periodetype, Periode } from '../../types';
 import { Tidsperioden } from '../../utils/Tidsperioden';
 import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
-import PeriodeElementLayout from './periodelisteElement/PeriodelisteElement';
+import PeriodelisteElement from './periodelisteElement/PeriodelisteElement';
 
 type Props = PeriodelisteElementProps;
 
@@ -82,7 +82,7 @@ class PeriodeElement extends React.Component<Props, {}> {
         const harFlereForeldre = omForeldre.antallForeldre > 1;
         const { fom, tom } = this.props.periode.tidsperiode;
         return (
-            <PeriodeElementLayout
+            <PeriodelisteElement
                 farge={getPeriodetypeFarge(this.props.periode.type, this.props.periode.forelder)}
                 menyer={[
                     {

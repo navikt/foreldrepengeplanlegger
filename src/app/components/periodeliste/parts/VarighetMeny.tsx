@@ -5,7 +5,7 @@ import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVe
 import { Tidsperiode } from 'nav-datovelger';
 import Varighet from '../../varighet/Varighet';
 import Block from 'common/components/block/Block';
-import FomTomValg from '../../periodeskjema/parts/FomTomValg';
+import FomTomValg from './FomTomValg';
 import { Checkbox } from 'nav-frontend-skjema';
 import DropdownForm from 'common/components/dropdownForm/DropdownForm';
 

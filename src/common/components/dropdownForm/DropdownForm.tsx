@@ -41,9 +41,9 @@ const DropdownForm: React.StatelessComponent<Props> = ({
         ) : (
             <Button
                 className={classNames(
+                    'inputPanel',
                     bem.element('button'),
                     buttonClassName,
-                    'inputPanel',
                     labelAlignment ? bem.element('button', labelAlignment) : undefined
                 )}>
                 {labelRenderer()}

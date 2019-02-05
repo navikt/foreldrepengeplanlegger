@@ -1,19 +1,22 @@
 import * as React from 'react';
 import { Form, FormikProps } from 'formik';
 import Block from 'common/components/block/Block';
-import TidsperiodeValg from './parts/TidsperiodeValg';
 import { Knapp } from 'nav-frontend-knapper';
-
-import './periodeskjema.less';
-import PeriodetypeValg from './parts/PeriodetypeValg';
-import ForelderValg from './parts/ForelderValg';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { PeriodeskjemaFormValues } from './types';
-import { OmForeldre } from '../../types';
-import PeriodeElementLayout from '../periodeliste/periodelisteElement/PeriodelisteElement';
+import { OmForeldre, Periodetype, UkerOgDager } from '../../types';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
 import PeriodetypeMeny from '../periodeliste/parts/PeriodetypeMeny';
 import BEMHelper from 'common/utils/bem';
+import GraderingMeny from '../periodeliste/parts/GraderingMeny';
+import { getForelderNavn } from '../../utils/common';
+import ForelderMeny from '../periodeliste/parts/ForelderMeny';
+import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
+import { Tidsperioden } from '../../utils/Tidsperioden';
+import VarighetMeny from '../periodeliste/parts/VarighetMeny';
+import { Tidsperiode } from 'nav-datovelger';
+import PeriodelisteElement from '../periodeliste/periodelisteElement/PeriodelisteElement';
+import { Ingress } from 'nav-frontend-typografi';
 
 interface OwnProps {
     omForeldre: OmForeldre;
@@ -26,51 +29,91 @@ type Props = OwnProps;
 const bem = BEMHelper('periodeElement');
 
 class PeriodeskjemaForm extends React.Component<Props, {}> {
+    constructor(props: Props) {
+        super(props);
+        this.handleTidsperiodeChange = this.handleTidsperiodeChange.bind(this);
+        this.handleVarighetChange = this.handleVarighetChange.bind(this);
+    }
+
+    handleTidsperiodeChange(tidsperiode: Tidsperiode) {
+        const { formik } = this.props;
+        formik.setFieldValue('fom', tidsperiode.fom);
+        formik.setFieldValue('tom', tidsperiode.tom);
+    }
+    handleVarighetChange(ukerOgDager: UkerOgDager) {
+        console.log(ukerOgDager);
+    }
     render() {
         const { formik, onCancel, omForeldre } = this.props;
-        const { fom, tom, periodetype, forelder } = formik.values;
+        const { fom, tom, periodetype, forelder, gradering } = formik.values;
+        const forelderNavn = getForelderNavn(forelder, omForeldre);
+        const harFlereForeldre = omForeldre.antallForeldre > 1;
+        const { uker, dager } = getUkerOgDagerFromDager(Tidsperioden({ fom, tom }).getAntallUttaksdager());
         return (
-            <Form className="periodeskjema">
-                <PeriodeElementLayout
-                    farge={getPeriodetypeFarge(periodetype)}
-                    menyer={[
-                        {
-                            id: 'periodetype',
-                            className: bem.element('periode'),
-                            render: () => (
-                                <PeriodetypeMeny
-                                    type={periodetype}
-                                    forelder={forelder}
-                                    flereForeldre={omForeldre.antallForeldre > 1}
-                                    tidsperiode={{ fom, tom }}
-                                    foreldernavn={forelder ? 'sdf' : 'sdf'}
-                                    onChange={(type) => formik.setFieldValue('periodetype', periodetype)}
-                                />
-                            )
-                        }
-                    ]}
-                />
-                <Block>
-                    <PeriodetypeValg periodetype={periodetype} onChange={(pt) => formik.setFieldValue('type', pt)} />
+            <Form>
+                <Block margin="xs">
+                    <Ingress>Legg til ny periode</Ingress>
                 </Block>
-                {omForeldre.antallForeldre === 2 && (
-                    <Block>
-                        <ForelderValg
-                            forelder={forelder}
-                            onChange={(f) => formik.setFieldValue('forelder', f)}
-                            mor={omForeldre.mor}
-                            farMedmor={omForeldre.farMedmor!}
-                        />
-                    </Block>
-                )}
-                <Block>
-                    <TidsperiodeValg
-                        fom={fom}
-                        tom={tom}
-                        onChange={(tidsperiode) => {
-                            formik.setFieldValue('fom', tidsperiode.fom);
-                            formik.setFieldValue('tom', tidsperiode.tom);
-                        }}
+                <Block margin="xs">
+                    <PeriodelisteElement
+                        nyPeriodeModus={true}
+                        farge={getPeriodetypeFarge(periodetype)}
+                        menyer={[
+                            {
+                                id: 'periodetype',
+                                className: bem.element('periode'),
+                                render: () => (
+                                    <PeriodetypeMeny
+                                        type={periodetype}
+                                        forelder={forelder}
+                                        flereForeldre={harFlereForeldre}
+                                        tidsperiode={{ fom, tom }}
+                                        foreldernavn={forelderNavn}
+                                        onChange={(type) => formik.setFieldValue('periodetype', type)}
+                                    />
+                                )
+                            },
+                            {
+                                id: 'gradering',
+                                className: bem.element('gradering'),
+                                render: () => (
+                                    <GraderingMeny
+                                        foreldernavn={harFlereForeldre ? forelderNavn : 'du'}
+                                        gradering={gradering}
+                                        onChange={(g) => formik.setFieldValue('gradering', g)}
+                                    />
+                                ),
+                                isVisibleCheck: () => periodetype === Periodetype.GradertUttak
+                            },
+                            {
+                                id: 'forelder',
+                                className: bem.element('foreldre'),
+                                render: () => (
+                                    <ForelderMeny
+                                        forelder={forelder}
+                                        mor={omForeldre.mor}
+                                        farMedmor={omForeldre.farMedmor!}
+                                        onChange={(f) => formik.setFieldValue('forelder', f)}
+                                    />
+                                ),
+                                isVisibleCheck: () => harFlereForeldre
+                            },
+                            {
+                                id: 'varighet',
+                                className: bem.element('varighet'),
+                                render: () => (
+                                    <VarighetMeny
+                                        fom={fom}
+                                        tom={tom}
+                                        uker={uker}
+                                        dager={dager}
+                                        minDager={1}
+                                        onTidsperiodeChange={this.handleTidsperiodeChange}
+                                        onVarighetChange={(evt) => this.handleVarighetChange(evt.ukerOgDager)}
+                                    />
+                                )
+                            }
+                        ]}
                     />
                 </Block>
                 <Knapperad>

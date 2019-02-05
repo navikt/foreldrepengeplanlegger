@@ -13,6 +13,7 @@ interface OwnProps {
         onRemove: () => void;
         ariaLabel: string;
     };
+    nyPeriodeModus?: boolean;
 }
 
 interface PeriodeElementMeny {
@@ -47,11 +48,11 @@ const PeriodeFargestrek: React.StatelessComponent<{ farge: UttaksplanColor; grad
     );
 };
 
-class PeriodeElementLayout extends React.Component<OwnProps, {}> {
+class PeriodelisteElement extends React.Component<OwnProps, {}> {
     render() {
-        const { farge, menyer, slett } = this.props;
+        const { farge, menyer, slett, nyPeriodeModus } = this.props;
         return (
-            <div className={bem.block}>
+            <div className={classNames(bem.block, { [`${bem.modifier('nyPeriodeModus')}`]: nyPeriodeModus })}>
                 <PeriodeFargestrek farge={farge} />
                 {menyer
                     .filter((meny) => (meny.isVisibleCheck ? meny.isVisibleCheck() : true))
@@ -73,4 +74,4 @@ class PeriodeElementLayout extends React.Component<OwnProps, {}> {
     }
 }
 
-export default PeriodeElementLayout;
+export default PeriodelisteElement;

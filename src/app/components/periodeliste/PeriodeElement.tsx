@@ -11,6 +11,7 @@ import { OmForeldre, Forelder, Periodetype, Periode } from '../../types';
 import { Tidsperioden } from '../../utils/Tidsperioden';
 import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
 import PeriodelisteElement from './periodelisteElement/PeriodelisteElement';
+import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
 
 type Props = PeriodelisteElementProps;
 
@@ -82,92 +83,95 @@ class PeriodeElement extends React.Component<Props, {}> {
         const harFlereForeldre = omForeldre.antallForeldre > 1;
         const { fom, tom } = this.props.periode.tidsperiode;
         return (
-            <PeriodelisteElement
-                farge={getPeriodetypeFarge(this.props.periode.type, this.props.periode.forelder)}
-                menyer={[
-                    {
-                        id: 'periodetype',
-                        className: bem.element('periode'),
-                        render: () => (
-                            <PeriodetypeMeny
-                                type={this.props.periode.type}
-                                forelder={this.props.periode.forelder}
-                                flereForeldre={harFlereForeldre}
-                                tidsperiode={this.props.periode.tidsperiode}
-                                foreldernavn={foreldernavn}
-                                erLåst={typeErLåst}
-                                onChange={(periodetype) => onUpdate(changePeriodeType(this.props.periode, periodetype))}
-                            />
-                        )
-                    },
-                    {
-                        id: 'gradering',
-                        className: bem.element('gradering'),
-                        render: () => (
-                            <GraderingMeny
-                                foreldernavn={omForeldre.antallForeldre === 2 ? foreldernavn : 'du'}
-                                gradering={this.props.periode.gradering}
-                                onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
-                            />
-                        ),
-                        isVisibleCheck: () => periode.type === Periodetype.GradertUttak
-                    },
-                    {
-                        id: 'forelder',
-                        className: bem.element('foreldre'),
-                        render: () => (
-                            <ForelderMeny
-                                forelder={this.props.periode.forelder}
-                                mor={this.props.omForeldre.mor}
-                                farMedmor={this.props.omForeldre.farMedmor!}
-                                erLåst={forelderErLåst}
-                                onChange={(forelder) =>
-                                    onUpdate({
-                                        ...this.props.periode,
-                                        forelder
-                                    })
-                                }
-                            />
-                        ),
-                        isVisibleCheck: () => harFlereForeldre
-                    },
-                    {
-                        id: 'varighet',
-                        className: bem.element('varighet'),
-                        render: () => (
-                            <VarighetMeny
-                                startdatoErLåst={startdatoErLåst}
-                                sluttdatoErLåst={sluttdatoErLåst}
-                                fom={fom}
-                                tom={tom}
-                                uker={uker}
-                                dager={dager}
-                                minDager={periode.type === Periodetype.UttakFørTermin ? 0 : 1}
-                                onTidsperiodeChange={(tidsperiode) => {
-                                    onUpdate({
-                                        ...this.props.periode,
-                                        tidsperiode
-                                    });
-                                }}
-                                onVarighetChange={this.handleChangeVarighet}
-                                ingenVarighet={
-                                    this.props.periode.type === Periodetype.UttakFørTermin
-                                        ? this.props.periode.skalIkkeHaUttakFørTermin
-                                        : undefined
-                                }
-                            />
-                        )
+            <PeriodeBlokk farge={getPeriodetypeFarge(this.props.periode.type, this.props.periode.forelder)}>
+                <PeriodelisteElement
+                    menyer={[
+                        {
+                            id: 'periodetype',
+                            className: bem.element('periode'),
+                            render: () => (
+                                <PeriodetypeMeny
+                                    type={this.props.periode.type}
+                                    forelder={this.props.periode.forelder}
+                                    flereForeldre={harFlereForeldre}
+                                    tidsperiode={this.props.periode.tidsperiode}
+                                    foreldernavn={foreldernavn}
+                                    erLåst={typeErLåst}
+                                    onChange={(periodetype) =>
+                                        onUpdate(changePeriodeType(this.props.periode, periodetype))
+                                    }
+                                />
+                            )
+                        },
+                        {
+                            id: 'gradering',
+                            className: bem.element('gradering'),
+                            render: () => (
+                                <GraderingMeny
+                                    foreldernavn={omForeldre.antallForeldre === 2 ? foreldernavn : 'du'}
+                                    gradering={this.props.periode.gradering}
+                                    onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
+                                />
+                            ),
+                            isVisibleCheck: () => periode.type === Periodetype.GradertUttak
+                        },
+                        {
+                            id: 'forelder',
+                            className: bem.element('foreldre'),
+                            render: () => (
+                                <ForelderMeny
+                                    forelder={this.props.periode.forelder}
+                                    mor={this.props.omForeldre.mor}
+                                    farMedmor={this.props.omForeldre.farMedmor!}
+                                    erLåst={forelderErLåst}
+                                    onChange={(forelder) =>
+                                        onUpdate({
+                                            ...this.props.periode,
+                                            forelder
+                                        })
+                                    }
+                                />
+                            ),
+                            isVisibleCheck: () => harFlereForeldre
+                        },
+                        {
+                            id: 'varighet',
+                            className: bem.element('varighet'),
+                            render: () => (
+                                <VarighetMeny
+                                    startdatoErLåst={startdatoErLåst}
+                                    sluttdatoErLåst={sluttdatoErLåst}
+                                    fom={fom}
+                                    tom={tom}
+                                    uker={uker}
+                                    dager={dager}
+                                    minDager={periode.type === Periodetype.UttakFørTermin ? 0 : 1}
+                                    onTidsperiodeChange={(tidsperiode) => {
+                                        onUpdate({
+                                            ...this.props.periode,
+                                            tidsperiode
+                                        });
+                                    }}
+                                    onVarighetChange={this.handleChangeVarighet}
+                                    ingenVarighet={
+                                        this.props.periode.type === Periodetype.UttakFørTermin
+                                            ? this.props.periode.skalIkkeHaUttakFørTermin
+                                            : undefined
+                                    }
+                                />
+                            )
+                        }
+                    ]}
+                    slett={
+                        slettErLåst !== true
+                            ? {
+                                  ariaLabel: 'Slett periode',
+                                  onRemove: () => onRemove(this.props.periode)
+                              }
+                            : undefined
                     }
-                ]}
-                slett={
-                    slettErLåst !== true
-                        ? {
-                              ariaLabel: 'Slett periode',
-                              onRemove: () => onRemove(this.props.periode)
-                          }
-                        : undefined
-                }
-            />
+                />
+            </PeriodeBlokk>
         );
     }
 }

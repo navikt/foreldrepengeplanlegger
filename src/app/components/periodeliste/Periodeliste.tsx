@@ -4,10 +4,10 @@ import PeriodeElement from './PeriodeElement';
 import { PeriodelisteProps } from './types';
 import { formaterDato } from 'common/utils/datoUtils';
 import HjerteIkon from '../periodeikon/ikoner/HjerteIkon';
-import IkonTekst from 'common/components/ikonTekst/IkonTekst';
 
 import './periodeliste.less';
 import BEMHelper from 'common/utils/bem';
+import IconText from 'common/components/iconText/IconText';
 
 const bem = BEMHelper('periodeliste');
 
@@ -31,9 +31,9 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
                         />
                     </li>
                     <li className={bem.element('termin')}>
-                        <IkonTekst ikon={<HjerteIkon fylt={true} title="Termin" />}>
+                        <IconText icon={<HjerteIkon fylt={true} title="Termin" />}>
                             {formaterDato(familiehendelsesdato)}
-                        </IkonTekst>
+                        </IconText>
                     </li>
                 </>
             ) : (

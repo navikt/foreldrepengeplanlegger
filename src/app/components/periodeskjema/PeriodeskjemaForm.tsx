@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Form, FormikProps } from 'formik';
 import Block from 'common/components/block/Block';
-import { Knapp } from 'nav-frontend-knapper';
+import { Knapp, Flatknapp } from 'nav-frontend-knapper';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { PeriodeskjemaFormValues } from './types';
 import { OmForeldre, Periodetype } from '../../types';
@@ -17,6 +17,7 @@ import VarighetMeny from '../periodeliste/parts/VarighetMeny';
 import { Tidsperiode } from 'nav-datovelger';
 import PeriodelisteElement from '../periodeliste/periodelisteElement/PeriodelisteElement';
 import { Ingress } from 'nav-frontend-typografi';
+import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
 
 interface OwnProps {
     omForeldre: OmForeldre;
@@ -50,73 +51,73 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                 <Block margin="xs">
                     <Ingress>Legg til ny periode</Ingress>
                 </Block>
-                <Block margin="xs">
-                    <PeriodelisteElement
-                        nyPeriodeModus={true}
-                        farge={getPeriodetypeFarge(periodetype, forelder)}
-                        menyer={[
-                            {
-                                id: 'periodetype',
-                                className: bem.element('periode'),
-                                render: () => (
-                                    <PeriodetypeMeny
-                                        type={periodetype}
-                                        forelder={forelder}
-                                        flereForeldre={harFlereForeldre}
-                                        tidsperiode={{ fom, tom }}
-                                        foreldernavn={forelderNavn}
-                                        onChange={(type) => formik.setFieldValue('periodetype', type)}
-                                    />
-                                )
-                            },
-                            {
-                                id: 'gradering',
-                                className: bem.element('gradering'),
-                                render: () => (
-                                    <GraderingMeny
-                                        foreldernavn={harFlereForeldre ? forelderNavn : 'du'}
-                                        gradering={gradering}
-                                        onChange={(g) => formik.setFieldValue('gradering', g)}
-                                    />
-                                ),
-                                isVisibleCheck: () => periodetype === Periodetype.GradertUttak
-                            },
-                            {
-                                id: 'forelder',
-                                className: bem.element('foreldre'),
-                                render: () => (
-                                    <ForelderMeny
-                                        forelder={forelder}
-                                        mor={omForeldre.mor}
-                                        farMedmor={omForeldre.farMedmor!}
-                                        onChange={(f) => formik.setFieldValue('forelder', f)}
-                                    />
-                                ),
-                                isVisibleCheck: () => harFlereForeldre
-                            },
-                            {
-                                id: 'varighet',
-                                className: bem.element('varighet'),
-                                render: () => (
-                                    <VarighetMeny
-                                        fom={fom}
-                                        tom={tom}
-                                        uker={uker}
-                                        dager={dager}
-                                        minDager={1}
-                                        onTidsperiodeChange={this.handleTidsperiodeChange}
-                                    />
-                                )
-                            }
-                        ]}
-                    />
-                </Block>
-                <Knapperad>
-                    <Knapp htmlType="submit">Ok</Knapp>
-                    <Knapp htmlType="button" onClick={() => onCancel()}>
-                        Avbryt
-                    </Knapp>
-                </Knapperad>
+                <PeriodeBlokk farge={getPeriodetypeFarge(periodetype, forelder)} nyPeriode={true}>
+                    <Block margin="xs">
+                        <PeriodelisteElement
+                            menyer={[
+                                {
+                                    id: 'periodetype',
+                                    className: bem.element('periode'),
+                                    render: () => (
+                                        <PeriodetypeMeny
+                                            type={periodetype}
+                                            forelder={forelder}
+                                            flereForeldre={harFlereForeldre}
+                                            tidsperiode={{ fom, tom }}
+                                            foreldernavn={forelderNavn}
+                                            onChange={(type) => formik.setFieldValue('periodetype', type)}
+                                        />
+                                    )
+                                },
+                                {
+                                    id: 'gradering',
+                                    className: bem.element('gradering'),
+                                    render: () => (
+                                        <GraderingMeny
+                                            foreldernavn={harFlereForeldre ? forelderNavn : 'du'}
+                                            gradering={gradering}
+                                            onChange={(g) => formik.setFieldValue('gradering', g)}
+                                        />
+                                    ),
+                                    isVisibleCheck: () => periodetype === Periodetype.GradertUttak
+                                },
+                                {
+                                    id: 'forelder',
+                                    className: bem.element('foreldre'),
+                                    render: () => (
+                                        <ForelderMeny
+                                            forelder={forelder}
+                                            mor={omForeldre.mor}
+                                            farMedmor={omForeldre.farMedmor!}
+                                            onChange={(f) => formik.setFieldValue('forelder', f)}
+                                        />
+                                    ),
+                                    isVisibleCheck: () => harFlereForeldre
+                                },
+                                {
+                                    id: 'varighet',
+                                    className: bem.element('varighet'),
+                                    render: () => (
+                                        <VarighetMeny
+                                            fom={fom}
+                                            tom={tom}
+                                            uker={uker}
+                                            dager={dager}
+                                            minDager={1}
+                                            onTidsperiodeChange={this.handleTidsperiodeChange}
+                                        />
+                                    )
+                                }
+                            ]}
+                        />
+                    </Block>
+                    <Knapperad>
+                        <Knapp htmlType="submit">Ok</Knapp>
+                        <Flatknapp htmlType="button" onClick={() => onCancel()}>
+                            Avbryt
+                        </Flatknapp>
+                    </Knapperad>
+                </PeriodeBlokk>
             </Form>
         );
     }

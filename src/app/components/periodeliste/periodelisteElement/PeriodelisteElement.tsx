@@ -2,19 +2,15 @@ import * as React from 'react';
 import classNames from 'classnames';
 import Lukknapp from 'nav-frontend-lukknapp';
 import BEMHelper from 'common/utils/bem';
-import { UttaksplanColor } from '../../../types';
-import PeriodeBlokk from '../../periodeBlokk/PeriodeBlokk';
 
 import './periodelisteElement.less';
 
 interface OwnProps {
-    farge: UttaksplanColor;
     menyer: PeriodeElementMeny[];
     slett?: {
         onRemove: () => void;
         ariaLabel: string;
     };
-    nyPeriodeModus?: boolean;
 }
 
 interface PeriodeElementMeny {
@@ -35,27 +31,25 @@ const PeriodeElementMenyWrapper: React.StatelessComponent<{ meny: PeriodeElement
 
 class PeriodelisteElement extends React.Component<OwnProps, {}> {
     render() {
-        const { farge, menyer, slett, nyPeriodeModus } = this.props;
+        const { menyer, slett } = this.props;
         return (
-            <PeriodeBlokk farge={farge} nyPeriode={nyPeriodeModus}>
-                <div className={bem.block}>
-                    {menyer
-                        .filter((meny) => (meny.isVisibleCheck ? meny.isVisibleCheck() : true))
-                        .map((meny) => (
-                            <PeriodeElementMenyWrapper meny={meny} key={meny.id} />
-                        ))}
+            <div className={bem.block}>
+                {menyer
+                    .filter((meny) => (meny.isVisibleCheck ? meny.isVisibleCheck() : true))
+                    .map((meny) => (
+                        <PeriodeElementMenyWrapper meny={meny} key={meny.id} />
+                    ))}
 
-                    {slett && (
-                        <div className={bem.element('tools')}>
-                            <Lukknapp
-                                onClick={() => slett.onRemove()}
-                                ariaLabel={slett.ariaLabel}
-                                title={slett.ariaLabel}
-                            />
-                        </div>
-                    )}
-                </div>
-            </PeriodeBlokk>
+                {slett && (
+                    <div className={bem.element('tools')}>
+                        <Lukknapp
+                            onClick={() => slett.onRemove()}
+                            ariaLabel={slett.ariaLabel}
+                            title={slett.ariaLabel}
+                        />
+                    </div>
+                )}
+            </div>
         );
     }
 }

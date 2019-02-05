@@ -6,8 +6,8 @@ import { Tidsperioden, isValidTidsperiode } from '../../../utils/Tidsperioden';
 import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
 import DropdownForm from 'common/components/dropdownForm/DropdownForm';
-import IkonTekst from 'common/components/ikonTekst/IkonTekst';
 import Periodeikon from '../../periodeikon/Periodeikon';
+import IconText from 'common/components/iconText/IconText';
 
 interface OwnProps {
     type?: Periodetype;
@@ -45,8 +45,8 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
     foreldernavn,
     intl
 }) => {
-    return (
-        <IkonTekst ikon={<Periodeikon periodetype={type} forelder={forelder} />}>
+    return type ? (
+        <IconText icon={<Periodeikon periodetype={type} forelder={forelder} />}>
             <div className="periodetypeMenyLabel">
                 <div className="periodetypeMenyLabel__type">
                     {getPeriodetypeLabel(type, intl)}
@@ -58,7 +58,9 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
                     </div>
                 )}
             </div>
-        </IkonTekst>
+        </IconText>
+    ) : (
+        <span>Velg type periode</span>
     );
 };
 

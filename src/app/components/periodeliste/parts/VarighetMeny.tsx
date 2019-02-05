@@ -169,17 +169,25 @@ const getTittel = (variant: VarighetVariant): string => {
     }
 };
 
+const VarighetMenyLabel: React.StatelessComponent<Props> = (props) => {
+    const { fom, tom, uker, dager, ingenVarighet } = props;
+    if (!fom || !tom) {
+        return <span>Velg tid</span>;
+    }
+    return (
+        <Block align="center" margin="none">
+            <Varighet dager={ingenVarighet ? 0 : (uker * 5 + dager) | 0} />
+        </Block>
+    );
+};
+
 const VarighetMeny: React.StatelessComponent<Props> = (props) => {
-    const { uker, dager, ingenVarighet } = props;
     const variant = getVariant(props);
     return (
         <>
             <DropdownForm
-                labelRenderer={() => (
-                    <Block align="center" margin="none">
-                        <Varighet dager={ingenVarighet ? 0 : (uker * 5 + dager) | 0} />
-                    </Block>
-                )}
+                labelRenderer={() => <VarighetMenyLabel {...props} />}
+                labelAlignment="center"
                 contentClassName="varighetDialog"
                 contentTitle={getTittel(variant)}
                 contentRenderer={() => <VarighetMenyInnhold {...props} />}

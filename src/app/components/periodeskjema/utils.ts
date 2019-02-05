@@ -52,7 +52,8 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
                     fom: values.fom,
                     tom: values.tom
                 },
-                forelder: values.forelder
+                forelder: values.forelder,
+                gradering: values.gradering
             };
         case Periodetype.UbetaltPermisjon:
             return {

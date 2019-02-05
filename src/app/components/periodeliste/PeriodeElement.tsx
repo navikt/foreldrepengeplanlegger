@@ -140,8 +140,16 @@ class PeriodeElement extends React.Component<Props, {}> {
                             className: bem.element('varighet'),
                             render: () => (
                                 <VarighetMeny
-                                    førsteUttaksdag={uttaksdatoer.førsteUttaksdag}
-                                    sisteUttaksdag={uttaksdatoer.etterFødsel.sisteMuligeUttaksdag}
+                                    førsteUttaksdag={
+                                        periode.type === Periodetype.UttakFørTermin
+                                            ? uttaksdatoer.førFødsel.førsteMuligeUttaksdag
+                                            : uttaksdatoer.førsteUttaksdag
+                                    }
+                                    sisteUttaksdag={
+                                        periode.type === Periodetype.UttakFørTermin
+                                            ? uttaksdatoer.førFødsel.sisteUttaksdagFørFødsel
+                                            : uttaksdatoer.etterFødsel.sisteMuligeUttaksdag
+                                    }
                                     startdatoErLåst={startdatoErLåst}
                                     sluttdatoErLåst={sluttdatoErLåst}
                                     fom={fom}

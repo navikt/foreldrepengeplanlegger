@@ -59,7 +59,7 @@ class Uttaksplan extends React.Component<Props, State> {
 
                                 {onResetPlan && (
                                     <div className="periodeliste__reset">
-                                        <LinkButton onClick={() => onResetPlan()}>Nullstill</LinkButton>
+                                        <LinkButton onClick={() => onResetPlan()}>Tøm plan</LinkButton>
                                     </div>
                                 )}
                             </div>

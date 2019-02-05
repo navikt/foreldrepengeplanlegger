@@ -43,7 +43,7 @@ export function getFørsteUttaksdagForeldrepengerFørFødsel(familiehendelsesdat
 }
 
 export function getFørsteMuligeUttaksdag(familiehendelsesdato: Date): Date {
-    return Uttaksdagen(getFørsteUttaksdagPåEllerEtterFødsel(familiehendelsesdato)).trekkFra(15);
+    return Uttaksdagen(getFørsteUttaksdagPåEllerEtterFødsel(familiehendelsesdato)).trekkFra(12 * 5);
 }
 
 export function getSisteMuligeUttaksdag(familiehendelsesdato: Date): Date {

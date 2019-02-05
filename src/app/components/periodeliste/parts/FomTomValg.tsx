@@ -48,6 +48,7 @@ const FomTomValg: React.StatelessComponent<Props> = ({
                                     name="startdato"
                                     label={fomLabel}
                                     dato={fom}
+                                    visÅrValger={true}
                                     locale={intl.locale}
                                     id="tidsperiodeFra"
                                     disabled={disabled || låstFomDato}
@@ -69,12 +70,14 @@ const FomTomValg: React.StatelessComponent<Props> = ({
                                     name="sluttdato"
                                     label={tomLabel}
                                     dato={tom}
+                                    visÅrValger={true}
                                     locale={intl.locale}
                                     id="tidsperiodeTil"
                                     disabled={disabled}
+                                    dayPickerProps={{ initialMonth: fom }}
                                     avgrensninger={{
                                         helgedagerIkkeTillatt: true,
-                                        minDato: låstFomDato && fom ? Uttaksdagen(fom).neste() : undefined
+                                        minDato: fom ? Uttaksdagen(fom).neste() : undefined
                                     }}
                                     onChange={(dato) =>
                                         onChange({

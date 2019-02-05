@@ -12,6 +12,7 @@ import Periodeliste from '../periodeliste/Periodeliste';
 import { Systemtittel } from 'nav-frontend-typografi';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import { isPeriodeFixed } from '../../utils/typeUtils';
+import { Uttaksdagen } from '../../utils/Uttaksdagen';
 
 interface State {
     visSkjema: boolean;
@@ -44,6 +45,7 @@ class Uttaksplan extends React.Component<Props, State> {
     render() {
         const { perioder, onAdd, onUpdate, onRemove, onResetPlan, forbruk, omForeldre } = this.props;
         const { visSkjema } = this.state;
+        const nesteUttaksdag = Uttaksdagen(perioder[perioder.length - 1].tidsperiode.tom).neste();
         return (
             <section>
                 <div className="periodelisteWrapper">
@@ -69,6 +71,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                 omForeldre={omForeldre}
                                 onCancel={() => this.setState({ visSkjema: false })}
                                 onSubmit={(periode) => this.addPeriode(periode)}
+                                nesteUttaksdag={nesteUttaksdag}
                             />
                         </Block>
                         <Block visible={visSkjema !== true} margin="l">

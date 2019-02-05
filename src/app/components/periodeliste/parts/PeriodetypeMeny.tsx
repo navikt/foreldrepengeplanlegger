@@ -69,8 +69,8 @@ const PeriodetypeMeny: React.StatelessComponent<Props> = (props) => {
             disabled={erLåst}
             onSelection={onChange}
             labelRenderer={() => <PeriodetypeMenyLabel {...props} />}
-            dialogClassName="periodetypeDialog"
-            dialogContentRenderer={() => <DropdownFormMenu options={getOptions(intl)} selectedValue={type} />}
+            contentClassName="periodetypeDialog"
+            contentRenderer={() => <DropdownFormMenu options={getOptions(intl)} selectedValue={type} />}
         />
     );
 };

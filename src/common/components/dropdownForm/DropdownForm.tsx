@@ -7,29 +7,53 @@ import './dropdownForm.less';
 
 interface Props {
     labelRenderer: () => React.ReactNode;
-    dialogContentRenderer: () => React.ReactNode;
-    dialogClassName?: string;
-    disabled?: boolean;
+    contentRenderer: () => React.ReactNode;
     onSelection?: (value: string) => void;
+    labelPlacement?: 'left' | 'center' | 'right';
+    dropdownPlacement?: 'left' | 'right';
+    buttonClassName?: string;
+    contentClassName?: string;
+    buttonSize?: 'inline' | 'stretched';
+    disabled?: boolean;
 }
 
 const bem = BEMHelper('dropdownForm');
 
 const DropdownForm: React.StatelessComponent<Props> = ({
     labelRenderer,
-    dialogContentRenderer,
-    dialogClassName,
+    contentRenderer,
+    buttonClassName,
+    contentClassName,
     onSelection,
+    labelPlacement = 'left',
+    dropdownPlacement = 'left',
+    buttonSize = 'stretched',
     disabled
 }) => (
-    <Wrapper className={bem.block} onSelection={onSelection}>
+    <Wrapper
+        className={classNames(bem.block, buttonSize ? bem.modifier(buttonSize) : undefined)}
+        onSelection={onSelection}>
         {disabled ? (
             <div className={bem.element('lockedValue')}>{labelRenderer()}</div>
         ) : (
-            <Button className={classNames(bem.element('button'), 'inputPanel')}>{labelRenderer()}</Button>
+            <Button
+                className={classNames(
+                    bem.element('button'),
+                    buttonClassName,
+                    'inputPanel',
+                    labelPlacement ? bem.element('button', labelPlacement) : undefined
+                )}>
+                {labelRenderer()}
+            </Button>
         )}
-
-        <Menu className={classNames(bem.element('dialogWrapper'), dialogClassName)}>{dialogContentRenderer()}</Menu>
+        <Menu
+            className={classNames(
+                bem.element('dialogWrapper'),
+                bem.element('dialogWrapper', dropdownPlacement),
+                contentClassName
+            )}>
+            {contentRenderer()}
+        </Menu>
     </Wrapper>
 );
 

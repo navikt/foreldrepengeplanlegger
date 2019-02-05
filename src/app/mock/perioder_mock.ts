@@ -2,7 +2,7 @@ import { Periode, Forelder, Periodetype } from 'app/types';
 import { getUttaksinfoForPeriode } from '../utils/uttaksinfo';
 
 const toForeldrePeriode1: Periode = {
-    forelder: Forelder.farMedmor,
+    forelder: Forelder.mor,
     id: '89658209-22972-6250-27502-00358020458505',
     tidsperiode: {
         fom: new Date('2019-02-07T23:00:00.000Z'),
@@ -11,7 +11,7 @@ const toForeldrePeriode1: Periode = {
     type: Periodetype.Uttak
 };
 const toForeldrePeriode2: Periode = {
-    forelder: Forelder.farMedmor,
+    forelder: Forelder.mor,
     id: '77701867-4877-12517-0900-7334518603534',
     tidsperiode: {
         fom: new Date('2019-07-18T23:00:00.000Z'),
@@ -20,7 +20,7 @@ const toForeldrePeriode2: Periode = {
     type: Periodetype.Ferie
 };
 const toForeldrePeriode3: Periode = {
-    forelder: Forelder.mor,
+    forelder: Forelder.farMedmor,
     id: '56204685-2952-7449-7913-90900854017943',
     tidsperiode: {
         fom: new Date('2019-08-01T23:00:00.000Z'),

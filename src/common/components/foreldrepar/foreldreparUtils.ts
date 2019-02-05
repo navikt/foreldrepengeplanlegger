@@ -1,8 +1,8 @@
 import { Situasjon, ForeldreparForelder, ForeldreparIllustrasjonsvariant } from 'app/types';
 
 export interface SituasjonForelderSvg {
-    farMedmor: ForeldreparForelder;
-    mor?: ForeldreparForelder;
+    mor: ForeldreparForelder;
+    farMedmor?: ForeldreparForelder;
     variant?: ForeldreparIllustrasjonsvariant;
 }
 

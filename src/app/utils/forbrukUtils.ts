@@ -22,29 +22,29 @@ export const getForbrukIPerioder = (perioder: Periode[]): ForelderForbruk => {
 };
 
 export const getForbruk = (perioder: Periode[], dagerTotalt: number): Forbruk => {
-    const forbrukForelder1 = getForbrukIPerioder(perioder.filter((p) => p.forelder === Forelder.farMedmor));
-    const forbrukForelder2 = getForbrukIPerioder(perioder.filter((p) => p.forelder === Forelder.mor));
+    const forbrukFarMedmor = getForbrukIPerioder(perioder.filter((p) => p.forelder === Forelder.farMedmor));
+    const forbrukMor = getForbrukIPerioder(perioder.filter((p) => p.forelder === Forelder.mor));
 
     const pst = 100 / dagerTotalt;
     const dagerGjenstaende =
-        dagerTotalt - forbrukForelder1.brukteUttaksdager - (forbrukForelder2 ? forbrukForelder2.brukteUttaksdager : 0);
+        dagerTotalt - forbrukFarMedmor.brukteUttaksdager - (forbrukMor ? forbrukMor.brukteUttaksdager : 0);
 
     return {
-        farMedmor: forbrukForelder1,
-        mor: forbrukForelder2,
+        farMedmor: forbrukFarMedmor,
+        mor: forbrukMor,
         fordeling: {
             dagerTotalt,
             dagerGjenstaende,
-            farMedmor: {
-                uttaksdager: forbrukForelder1.brukteUttaksdager,
-                pst: pst * forbrukForelder1.brukteUttaksdager
-            },
-            mor: forbrukForelder2
+            farMedmor: forbrukFarMedmor
                 ? {
-                      uttaksdager: forbrukForelder2.brukteUttaksdager,
-                      pst: pst * forbrukForelder2.brukteUttaksdager
+                      uttaksdager: forbrukFarMedmor.brukteUttaksdager,
+                      pst: pst * forbrukFarMedmor.brukteUttaksdager
                   }
-                : undefined
+                : undefined,
+            mor: {
+                uttaksdager: forbrukMor.brukteUttaksdager,
+                pst: pst * forbrukMor.brukteUttaksdager
+            }
         }
     };
 };

@@ -6,13 +6,13 @@ import { getAntallForeldreISituasjon } from '../../../utils/common';
 
 interface Props {
     situasjon: Situasjon;
-    navnForelder1?: string;
-    navnForelder2?: string;
-    onChangeForelder1: (navn: string) => void;
-    onChangeForelder2: (navn: string) => void;
+    navnFarMedmor?: string;
+    navnMor?: string;
+    onChangeFarMedmor: (navn: string) => void;
+    onChangeMor: (navn: string) => void;
 }
 
-const getForelder1Label = (situasjon: Situasjon): string => {
+const getFarMedmorLabel = (situasjon: Situasjon): string => {
     switch (situasjon) {
         case Situasjon.farOgFar:
         case Situasjon.farOgMor:
@@ -24,7 +24,7 @@ const getForelder1Label = (situasjon: Situasjon): string => {
     }
 };
 
-const getForelder2Label = (situasjon: Situasjon): string => {
+const getMorLabel = (situasjon: Situasjon): string => {
     switch (situasjon) {
         case Situasjon.farOgFar:
             return 'Fornavn mor';
@@ -39,29 +39,29 @@ const getForelder2Label = (situasjon: Situasjon): string => {
 
 const VelgForeldrenavn: React.StatelessComponent<Props> = ({
     situasjon,
-    navnForelder1 = '',
-    navnForelder2 = '',
-    onChangeForelder1,
-    onChangeForelder2
+    navnFarMedmor = '',
+    navnMor = '',
+    onChangeFarMedmor,
+    onChangeMor
 }) => {
     const toForeldre = getAntallForeldreISituasjon(situasjon) === 2;
     return (
         <Row>
             <Column xs="6">
                 <Input
-                    label={getForelder1Label(situasjon)}
-                    value={navnForelder1}
-                    name="navnForelder1"
-                    onChange={(evt: React.ChangeEvent<HTMLInputElement>) => onChangeForelder1(evt.target.value)}
+                    label={getFarMedmorLabel(situasjon)}
+                    value={navnFarMedmor}
+                    name="navnFarMedmor"
+                    onChange={(evt: React.ChangeEvent<HTMLInputElement>) => onChangeFarMedmor(evt.target.value)}
                 />
             </Column>
             {toForeldre && (
                 <Column xs="6">
                     <Input
-                        label={getForelder2Label(situasjon)}
-                        value={navnForelder2}
-                        name="navnForelder2"
-                        onChange={(evt: React.ChangeEvent<HTMLInputElement>) => onChangeForelder2(evt.target.value)}
+                        label={getMorLabel(situasjon)}
+                        value={navnMor}
+                        name="navnMor"
+                        onChange={(evt: React.ChangeEvent<HTMLInputElement>) => onChangeMor(evt.target.value)}
                     />
                 </Column>
             )}

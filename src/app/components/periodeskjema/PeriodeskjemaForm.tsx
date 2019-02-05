@@ -10,6 +10,10 @@ import ForelderValg from './parts/ForelderValg';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { PeriodeskjemaFormValues } from './types';
 import { OmForeldre } from '../../types';
+import PeriodeElementLayout from '../periodeliste/periodelisteElement/PeriodelisteElement';
+import { getPeriodetypeFarge } from '../../utils/styleutils';
+import PeriodetypeMeny from '../periodeliste/parts/PeriodetypeMeny';
+import BEMHelper from 'common/utils/bem';
 
 interface OwnProps {
     omForeldre: OmForeldre;
@@ -19,12 +23,33 @@ interface OwnProps {
 
 type Props = OwnProps;
 
+const bem = BEMHelper('periodeElement');
+
 class PeriodeskjemaForm extends React.Component<Props, {}> {
     render() {
         const { formik, onCancel, omForeldre } = this.props;
         const { fom, tom, periodetype, forelder } = formik.values;
         return (
             <Form className="periodeskjema">
+                <PeriodeElementLayout
+                    farge={getPeriodetypeFarge(periodetype)}
+                    menyer={[
+                        {
+                            id: 'periodetype',
+                            className: bem.element('periode'),
+                            render: () => (
+                                <PeriodetypeMeny
+                                    type={periodetype}
+                                    forelder={forelder}
+                                    flereForeldre={omForeldre.antallForeldre > 1}
+                                    tidsperiode={{ fom, tom }}
+                                    foreldernavn={forelder ? 'sdf' : 'sdf'}
+                                    onChange={(type) => formik.setFieldValue('periodetype', periodetype)}
+                                />
+                            )
+                        }
+                    ]}
+                />
                 <Block>
                     <PeriodetypeValg periodetype={periodetype} onChange={(pt) => formik.setFieldValue('type', pt)} />
                 </Block>
@@ -33,7 +58,8 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                         <ForelderValg
                             forelder={forelder}
                             onChange={(f) => formik.setFieldValue('forelder', f)}
-                            omForeldre={omForeldre}
+                            mor={omForeldre.mor}
+                            farMedmor={omForeldre.farMedmor!}
                         />
                     </Block>
                 )}

@@ -32,8 +32,8 @@ export type UttaksplanColor = 'purple' | 'blue' | 'green' | 'purpleBlue' | 'yell
 
 export interface SituasjonSkjemadata {
     situasjon: Situasjon;
-    navnForelder1: string;
-    navnForelder2?: string;
+    navnMor: string;
+    navnFarMedmor?: string;
     antallBarn: number;
     familiehendelsesdato: Date;
 }
@@ -83,11 +83,11 @@ export interface ForbrukPerPeriodetype {
 export interface Fordeling {
     dagerTotalt: number;
     dagerGjenstaende: number;
-    farMedmor: {
+    mor: {
         uttaksdager: number;
         pst: number;
     };
-    mor?: {
+    farMedmor?: {
         uttaksdager: number;
         pst: number;
     };
@@ -112,6 +112,6 @@ export interface Forelderinfo {
 
 export interface OmForeldre {
     antallForeldre: number;
-    farMedmor: Forelderinfo;
-    mor?: Forelderinfo;
+    mor: Forelderinfo;
+    farMedmor?: Forelderinfo;
 }

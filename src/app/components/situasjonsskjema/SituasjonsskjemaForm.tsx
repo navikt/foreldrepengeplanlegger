@@ -18,23 +18,23 @@ type Props = OwnProps & InjectedIntlProps;
 
 const visAntallBarnValg = (
     situasjon: Situasjon | undefined,
-    navnForelder1: string | undefined,
-    navnForelder2: string | undefined
+    navnFarMedmor: string | undefined,
+    navnMor: string | undefined
 ): boolean => {
     if (situasjon === undefined) {
         return false;
     }
     if (getAntallForeldreISituasjon(situasjon) === 1) {
-        return inputHasValue(navnForelder1);
+        return inputHasValue(navnFarMedmor);
     }
-    return inputHasValue(navnForelder1) && inputHasValue(navnForelder2);
+    return inputHasValue(navnFarMedmor) && inputHasValue(navnMor);
 };
 
 class SituasjonsskjemaForm extends React.Component<Props> {
     render() {
         const { formik } = this.props;
-        const { situasjon, antallBarn, familiehendelsesdato, navnForelder1, navnForelder2 } = formik.values;
-        const visAntallBarn = visAntallBarnValg(situasjon, navnForelder1, navnForelder2);
+        const { situasjon, antallBarn, familiehendelsesdato, navnFarMedmor, navnMor } = formik.values;
+        const visAntallBarn = visAntallBarnValg(situasjon, navnFarMedmor, navnMor);
         const visTermindato = visAntallBarn && antallBarn !== undefined;
         const termindatoAvgrensninger = getTermindatoAvgrensninger();
         const erToForeldre = getAntallForeldreISituasjon(situasjon) > 1;
@@ -50,13 +50,13 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                     <Block visible={situasjon !== undefined} margin="none">
                         <VelgForeldrenavn
                             situasjon={situasjon}
-                            navnForelder1={navnForelder1}
-                            navnForelder2={navnForelder2}
-                            onChangeForelder1={(navn) => {
-                                formik.setFieldValue('navnForelder1', navn);
+                            navnFarMedmor={navnFarMedmor}
+                            navnMor={navnMor}
+                            onChangeFarMedmor={(navn) => {
+                                formik.setFieldValue('navnFarMedmor', navn);
                             }}
-                            onChangeForelder2={(navn) => {
-                                formik.setFieldValue('navnForelder2', navn);
+                            onChangeMor={(navn) => {
+                                formik.setFieldValue('navnMor', navn);
                             }}
                         />
                     </Block>

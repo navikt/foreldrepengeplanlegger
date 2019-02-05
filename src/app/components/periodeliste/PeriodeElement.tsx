@@ -20,10 +20,10 @@ const getForelderNavn = (forelder: Forelder | undefined, omForeldre: OmForeldre)
     if (forelder === undefined || omForeldre === undefined) {
         return;
     }
-    if (forelder === Forelder.farMedmor) {
-        return omForeldre.farMedmor.navn;
+    if (forelder === Forelder.mor) {
+        return omForeldre.mor.navn;
     } else {
-        return omForeldre.mor ? omForeldre.mor.navn : undefined;
+        return omForeldre.farMedmor ? omForeldre.farMedmor.navn : undefined;
     }
 };
 
@@ -118,7 +118,8 @@ class PeriodeElement extends React.Component<Props, {}> {
                         render: () => (
                             <ForelderMeny
                                 forelder={this.props.periode.forelder}
-                                omForeldre={omForeldre}
+                                mor={this.props.omForeldre.mor}
+                                farMedmor={this.props.omForeldre.farMedmor!}
                                 erLåst={forelderErLåst}
                                 onChange={(forelder) =>
                                     onUpdate({

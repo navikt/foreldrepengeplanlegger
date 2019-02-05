@@ -52,7 +52,7 @@ const Fordelingsliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, 
     }
     return (
         <Ingress tag="p">
-            {omForeldre.farMedmor.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtFar, intl)}</strong> og{' '}
+            {omForeldre.farMedmor!.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtFar, intl)}</strong> og{' '}
             {omForeldre.mor.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtMor, intl)}</strong>. Dere har{' '}
             <strong>{getVarighetString(dagerFelles, intl)}</strong> som dere kan fordele som dere ønsker.
         </Ingress>

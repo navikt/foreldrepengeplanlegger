@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Situasjon, OmForeldre } from '../types';
+import { Situasjon, Forelder, OmForeldre } from '../types';
 import { Avgrensninger } from 'nav-datovelger';
 import { getSituasjonForelderSvg } from 'common/components/foreldrepar/foreldreparUtils';
 
@@ -12,6 +12,17 @@ export const getAntallForeldreISituasjon = (situasjon: Situasjon) => {
         default:
             return 2;
     }
+};
+
+export const getForelderNavn = (forelder: Forelder | undefined, omForeldre: OmForeldre): string | undefined => {
+    if (forelder) {
+        if (forelder === Forelder.mor) {
+            return omForeldre.mor.navn;
+        } else {
+            return omForeldre.farMedmor ? omForeldre.farMedmor.navn : undefined;
+        }
+    }
+    return undefined;
 };
 
 export const inputHasValue = (value: string | undefined) => {
@@ -29,24 +40,20 @@ export const getTermindatoAvgrensninger = (): Avgrensninger => {
     };
 };
 
-export const getInformasjonOmForeldre = (
-    situasjon: Situasjon,
-    navnForelder1: string,
-    navnForelder2?: string
-): OmForeldre => {
+export const getInformasjonOmForeldre = (situasjon: Situasjon, navnMor: string, navnFarMedmor?: string): OmForeldre => {
     const info = getSituasjonForelderSvg(situasjon);
     const antallForeldre = getAntallForeldreISituasjon(situasjon);
     return {
         antallForeldre,
-        farMedmor: {
-            navn: navnForelder1,
-            ikonRef: info.farMedmor
+        mor: {
+            navn: navnMor,
+            ikonRef: info.mor
         },
-        mor:
-            antallForeldre === 2 && navnForelder2 && info.mor
+        farMedmor:
+            antallForeldre === 2 && navnFarMedmor && info.farMedmor
                 ? {
-                      navn: navnForelder2,
-                      ikonRef: info.mor
+                      navn: navnFarMedmor,
+                      ikonRef: info.farMedmor
                   }
                 : undefined
     };

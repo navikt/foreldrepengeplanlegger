@@ -77,8 +77,8 @@ class UttaksplanSide extends React.Component<Props, {}> {
                 <Situasjonsoppsummering
                     familiehendelsesdato={familiehendelsesdato}
                     antallBarn={skjemadata.antallBarn}
-                    navnForelder1={skjemadata.navnForelder1}
-                    navnForelder2={skjemadata.navnForelder2}
+                    navnMor={skjemadata.navnMor}
+                    navnFarMedmor={skjemadata.navnFarMedmor}
                     situasjon={skjemadata.situasjon}
                 />
                 <LoadContainer loading={henterStønadskontoer} overlay={false}>

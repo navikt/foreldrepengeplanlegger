@@ -10,6 +10,6 @@ export const getPeriodetypeFarge = (periodetype: Periodetype | undefined, foreld
         case Periodetype.Ferie:
             return 'green';
         default:
-            return getForelderFarge(forelder || Forelder.farMedmor);
+            return getForelderFarge(forelder || Forelder.mor);
     }
 };

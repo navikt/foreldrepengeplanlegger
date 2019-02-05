@@ -12,8 +12,8 @@ interface Props {
     situasjon: Situasjon;
     antallBarn: number;
     familiehendelsesdato: Date;
-    navnForelder1: string;
-    navnForelder2?: string;
+    navnMor: string;
+    navnFarMedmor?: string;
 }
 
 const bem = BEMHelper('situasjonOppsummering');
@@ -26,12 +26,7 @@ const renderBarn = (antall: number) => {
     return barn;
 };
 
-const Situasjonsoppsummering: React.StatelessComponent<Props> = ({
-    situasjon,
-    navnForelder2,
-    navnForelder1,
-    antallBarn
-}) => (
+const Situasjonsoppsummering: React.StatelessComponent<Props> = ({ situasjon, navnFarMedmor, navnMor, antallBarn }) => (
     <>
         <Block margin="s">
             <div className={bem.block}>
@@ -40,8 +35,8 @@ const Situasjonsoppsummering: React.StatelessComponent<Props> = ({
                         <SituasjonForeldrepar situasjon={situasjon} />
                     </div>
                     <div className={bem.element('foreldre')}>
-                        <span className={bem.element('navn')}>{navnForelder1}</span>
-                        {navnForelder2 && <span className={bem.element('navn')}> og {navnForelder2}</span>}
+                        <span className={bem.element('navn')}>{navnMor}</span>
+                        {navnFarMedmor && <span className={bem.element('navn')}> og {navnFarMedmor}</span>}
                     </div>
                 </div>
                 <div className={bem.element('barn')}>

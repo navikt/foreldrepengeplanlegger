@@ -12,13 +12,13 @@ interface Props {
 
 const situasjonValidationSkjema = yup.object().shape({
     situasjon: yup.string().required('Du må velge situasjon'),
-    navnForelder1: yup
+    navnFarMedmor: yup
         .string()
         .min(1, 'Må være minst ett tegn')
         .required('Navn på foreldre er påkrevd'),
-    navnForelder2: yup.string().when('situasjon', (situasjon: Situasjon, schema: yup.Schema<SituasjonSkjemadata>) => {
+    navnMor: yup.string().when('situasjon', (situasjon: Situasjon, schema: yup.Schema<SituasjonSkjemadata>) => {
         if (getAntallForeldreISituasjon(situasjon) === 2) {
-            return schema.required('Forelder 2 må være fylt ut');
+            return schema.required('Navn på foreldre er påkrevd');
         }
         return schema;
     }),
@@ -35,7 +35,7 @@ class Situasjonsskjema extends React.Component<Props> {
         const antallForeldre = getAntallForeldreISituasjon(skjemadata.situasjon);
         const data: SituasjonSkjemadata = {
             ...skjemadata,
-            navnForelder2: antallForeldre === 2 ? skjemadata.navnForelder2 : undefined
+            navnFarMedmor: antallForeldre === 2 ? skjemadata.navnFarMedmor : undefined
         };
         this.props.onSubmit(data);
     }

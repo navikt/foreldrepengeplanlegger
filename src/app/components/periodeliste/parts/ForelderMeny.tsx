@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Forelder, OmForeldre, ForeldreparForelder } from '../../../types';
+import { Forelder, ForeldreparForelder, Forelderinfo } from '../../../types';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
 import DropdownForm from 'common/components/dropdownForm/DropdownForm';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
@@ -7,19 +7,23 @@ import IkonTekst from 'common/components/ikonTekst/IkonTekst';
 
 interface Props {
     forelder?: Forelder;
-    omForeldre: OmForeldre;
+    mor: Forelderinfo;
+    farMedmor: Forelderinfo;
     erLåst?: boolean;
     onChange: (forelder: Forelder) => void;
 }
 
-const getForelderOptions = (omForeldre: OmForeldre): DropdownFormMenuOption[] => [
-    { value: Forelder.farMedmor, label: omForeldre.farMedmor.navn },
-    { value: Forelder.mor, label: omForeldre.mor!.navn }
+const getForelderOptions = (navnMor: string, navnFarMedmor: string): DropdownFormMenuOption[] => [
+    { value: Forelder.farMedmor, label: navnFarMedmor },
+    { value: Forelder.mor, label: navnMor }
 ];
 
-const renderForelderIkon = (forelder: Forelder | undefined, omForeldre: OmForeldre): React.ReactNode | undefined => {
-    const iconRef: ForeldreparForelder =
-        forelder === Forelder.farMedmor ? omForeldre.farMedmor.ikonRef : omForeldre.mor!.ikonRef;
+const renderForelderIkon = (
+    forelder: Forelder | undefined,
+    mor: Forelderinfo,
+    farMedmor: Forelderinfo
+): React.ReactNode | undefined => {
+    const iconRef: ForeldreparForelder = forelder === Forelder.farMedmor ? farMedmor.ikonRef : mor.ikonRef;
     return (
         <div className="forelderMenyIkon">
             <ForelderIkon forelder={iconRef} />
@@ -27,8 +31,8 @@ const renderForelderIkon = (forelder: Forelder | undefined, omForeldre: OmForeld
     );
 };
 
-const ForelderMeny: React.StatelessComponent<Props> = ({ onChange, forelder, omForeldre, erLåst }) => {
-    const options = getForelderOptions(omForeldre);
+const ForelderMeny: React.StatelessComponent<Props> = ({ onChange, forelder, mor, farMedmor, erLåst }) => {
+    const options = getForelderOptions(mor.navn, farMedmor!.navn);
     const valgtOption = forelder ? options.find((f) => f.value === forelder) : undefined;
     const valgtForelderNavn = valgtOption ? valgtOption.label : undefined;
     return (
@@ -38,7 +42,7 @@ const ForelderMeny: React.StatelessComponent<Props> = ({ onChange, forelder, omF
             contentClassName="forelderMenyDialog"
             contentTitle="Hvem gjelder perioden?"
             labelRenderer={() => (
-                <IkonTekst ikon={renderForelderIkon(forelder, omForeldre)} kunIkon={true}>
+                <IkonTekst ikon={renderForelderIkon(forelder, mor, farMedmor)} kunIkon={true}>
                     {valgtForelderNavn}
                 </IkonTekst>
             )}

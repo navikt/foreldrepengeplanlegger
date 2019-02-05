@@ -25,11 +25,7 @@ function* updateOmForeldreSaga() {
     const appState: AppState = yield select(stateSelector);
     const { skjemadata } = appState.common;
     if (skjemadata) {
-        const omForeldre = getInformasjonOmForeldre(
-            skjemadata.situasjon,
-            skjemadata.navnForelder1,
-            skjemadata.navnForelder2
-        );
+        const omForeldre = getInformasjonOmForeldre(skjemadata.situasjon, skjemadata.navnMor, skjemadata.navnFarMedmor);
         yield put(updateOmForeldre(omForeldre));
     }
 }

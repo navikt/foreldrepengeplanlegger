@@ -36,19 +36,21 @@ const FordelingGraf: React.StatelessComponent<Props> = ({ fordeling, omForeldre,
     return (
         <div className={bem.block}>
             <div className={bem.element('titler')}>
-                <Tittel
-                    navn={omForeldre.mor ? omForeldre.farMedmor.navn : 'Brukt'}
-                    dager={farMedmor.uttaksdager}
-                    intl={intl}
-                />
-                {omForeldre.mor && (
-                    <Tittel navn={omForeldre.mor.navn} dager={mor ? mor.uttaksdager : undefined} intl={intl} />
+                <Tittel navn={omForeldre.mor ? omForeldre.mor.navn : 'Brukt'} dager={mor.uttaksdager} intl={intl} />
+                {omForeldre.farMedmor && (
+                    <Tittel
+                        navn={omForeldre.farMedmor.navn}
+                        dager={farMedmor ? farMedmor.uttaksdager : undefined}
+                        intl={intl}
+                    />
                 )}
                 <Tittel navn="Gjenstående" dager={dagerGjenstaende} intl={intl} />
             </div>
             <div className={bem.element('graf')} role="presentation">
-                <div className={bem.element('graf__bar bkg-farMedmor')} style={{ width: `${farMedmor.pst}%` }} />
-                {mor && <div className={bem.element('graf__bar bkg-mor')} style={{ width: `${mor.pst}%` }} />}
+                {farMedmor && (
+                    <div className={bem.element('graf__bar bkg-farMedmor')} style={{ width: `${farMedmor.pst}%` }} />
+                )}
+                <div className={bem.element('graf__bar bkg-mor')} style={{ width: `${mor.pst}%` }} />
             </div>
         </div>
     );

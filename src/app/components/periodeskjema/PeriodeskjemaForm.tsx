@@ -4,7 +4,7 @@ import Block from 'common/components/block/Block';
 import { Knapp } from 'nav-frontend-knapper';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { PeriodeskjemaFormValues } from './types';
-import { OmForeldre, Periodetype, UkerOgDager } from '../../types';
+import { OmForeldre, Periodetype } from '../../types';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
 import PeriodetypeMeny from '../periodeliste/parts/PeriodetypeMeny';
 import BEMHelper from 'common/utils/bem';
@@ -32,16 +32,12 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
     constructor(props: Props) {
         super(props);
         this.handleTidsperiodeChange = this.handleTidsperiodeChange.bind(this);
-        this.handleVarighetChange = this.handleVarighetChange.bind(this);
     }
 
     handleTidsperiodeChange(tidsperiode: Tidsperiode) {
         const { formik } = this.props;
         formik.setFieldValue('fom', tidsperiode.fom);
         formik.setFieldValue('tom', tidsperiode.tom);
-    }
-    handleVarighetChange(ukerOgDager: UkerOgDager) {
-        console.log(ukerOgDager);
     }
     render() {
         const { formik, onCancel, omForeldre } = this.props;
@@ -57,7 +53,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                 <Block margin="xs">
                     <PeriodelisteElement
                         nyPeriodeModus={true}
-                        farge={getPeriodetypeFarge(periodetype)}
+                        farge={getPeriodetypeFarge(periodetype, forelder)}
                         menyer={[
                             {
                                 id: 'periodetype',
@@ -109,7 +105,6 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                         dager={dager}
                                         minDager={1}
                                         onTidsperiodeChange={this.handleTidsperiodeChange}
-                                        onVarighetChange={(evt) => this.handleVarighetChange(evt.ukerOgDager)}
                                     />
                                 )
                             }

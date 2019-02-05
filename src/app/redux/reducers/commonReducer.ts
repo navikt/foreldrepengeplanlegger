@@ -121,7 +121,8 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
             return updateStateAndStorage(state, {
                 perioder: getBuilder()
                     .leggTilPeriode(action.periode)
-                    .build().perioder
+                    .build()
+                    .perioder.map((p) => ({ ...p, uttaksinfo: getUttaksinfoForPeriode(p) }))
             });
         case CommonActionKeys.UPDATE_PERIODE:
             if (action.periode.type === Periodetype.UttakFørTermin) {
@@ -144,12 +145,12 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                     .fjernPeriode(action.periode)
                     .build().perioder
             });
-        case CommonActionKeys.MOVE_PERIODE:
-            return updateStateAndStorage(state, {
-                perioder: getBuilder()
-                    .flyttPeriode(action.periode, action.toIndex)
-                    .build().perioder
-            });
+        // case CommonActionKeys.MOVE_PERIODE:
+        //     return updateStateAndStorage(state, {
+        //         perioder: getBuilder()
+        //             .flyttPeriode(action.periode, action.toIndex)
+        //             .build().perioder
+        //     });
         case CommonActionKeys.SET_PERIODER:
             return updateStateAndStorage(state, { perioder: action.perioder });
         case CommonActionKeys.RESET_APP:

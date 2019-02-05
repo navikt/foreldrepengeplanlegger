@@ -1,0 +1,12 @@
+@import '../../styles/variables.less';
+@import '../../../../node_modules/nav-frontend-knapper-style/src/mixins.less';
+.slettKnapp {
+    .knappbase-mixin(inherit);
+    padding: 0.4rem 0.3rem 0.1rem 0.3rem;
+    margin: -0.3rem;
+    border: none;
+    background: none;
+    svg * {
+        stroke: @c-buttonBlue;
+    }
+}

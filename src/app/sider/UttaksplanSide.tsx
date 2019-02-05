@@ -32,7 +32,7 @@ import { getUttaksdatoer } from '../utils/uttaksdatoer';
 interface StateProps {
     periodeFørTermin?: Periode;
     perioder: Periode[];
-    dekningsgrad: Dekningsgrad;
+    dekningsgrad?: Dekningsgrad;
     familiehendelsesdato: Date;
     tilgjengeligeDager?: TilgjengeligeDager;
     stønadskontoerLastet: boolean;
@@ -118,7 +118,7 @@ class UttaksplanSide extends React.Component<Props> {
                                 <Block visible={false}>
                                     <TilgjengeligeDagerOversikt
                                         tilgjengeligeDager={tilgjengeligeDager}
-                                        dekningsgrad={dekningsgrad}
+                                        dekningsgrad={dekningsgrad!}
                                         visKontoliste={true}
                                         omForeldre={omForeldre}
                                     />
@@ -161,7 +161,7 @@ const mapStateToProps = (state: AppState): StateProps => {
     return {
         periodeFørTermin: state.common.periodeFørTermin,
         perioder: state.common.perioder,
-        dekningsgrad: state.common.dekningsgrad || '100',
+        dekningsgrad: state.common.dekningsgrad,
         familiehendelsesdato: state.common.familiehendelsesdato,
         tilgjengeligeDager: state.common.tilgjengeligeDager,
         stønadskontoerLastet: stønadskontoer.loaded === true,

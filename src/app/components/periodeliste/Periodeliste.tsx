@@ -62,7 +62,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
                         />
                     </li>
                     <li className={bem.element('termin')}>
-                        <IconText layout="horizontal" align="center" icon={<HjerteIkon fylt={true} title="Termin" />}>
+                        <IconText layout="horizontal" icon={<HjerteIkon fylt={true} title="Termin" />}>
                             Termin {formaterDato(familiehendelsesdato)}
                         </IconText>
                     </li>

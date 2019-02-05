@@ -25,6 +25,7 @@ const FordelingFellesperiodeSpørsmål: React.StatelessComponent<OwnProps & Inje
     return (
         <RangeInput
             label={getMessage(intl, 'uttaksplan.skjema.fordeling.spørsmål', { navn: navnMor })}
+            hiddenLabel={true}
             ariaLabelText={getMessage(intl, 'uttaksplan.skjema.fordeling.spørsmål', { navn: navnMor })}
             value={ukerMor}
             min={0}

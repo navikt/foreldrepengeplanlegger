@@ -21,6 +21,7 @@ export type RangeValueLabelPlacement = 'above' | 'below';
 
 interface Props {
     label: string;
+    hiddenLabel?: boolean;
     hjelpetekst?: React.ReactNode;
     ariaLabelText: string;
     value: number;
@@ -87,6 +88,7 @@ class RangeInput extends React.Component<Props, State> {
     render() {
         const {
             label,
+            hiddenLabel,
             hjelpetekst,
             ariaLabelText,
             inputId,
@@ -108,7 +110,7 @@ class RangeInput extends React.Component<Props, State> {
 
         return (
             <div className={bemWrapper.block}>
-                <Fieldset legend={label}>
+                <Fieldset legend={label} className={hiddenLabel ? bemWrapper.modifier('hiddenLegend') : undefined}>
                     {hjelpetekst && (
                         <div className={bemWrapper.element('help')}>
                             <Infoboks tekst={hjelpetekst} />

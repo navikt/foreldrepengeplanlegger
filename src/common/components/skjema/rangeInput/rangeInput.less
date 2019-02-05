@@ -1,4 +1,5 @@
 @import '../../../styles/variables.less';
+@import '../../../styles/mixins.less';
 
 .rangeInputStyling(@width: 100%, @trackColor: #66cbec, @thumbBkg: white, @thumbBorder: #0067c5) {
     @thumbSize: 32px;
@@ -113,6 +114,11 @@
         position: absolute;
         top: 0;
         right: 0.5rem;
+    }
+    &--hiddenLegend {
+        legend {
+            .hidden();
+        }
     }
 }
 

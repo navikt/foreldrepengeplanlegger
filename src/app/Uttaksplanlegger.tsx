@@ -23,7 +23,7 @@ class Uttaksplanlegger extends React.Component<Props> {
                     <div className={cls.element('wrapper')}>
                         <Breadcrumbs sti={'/foreldrepengeplanlegger'} />
                         <div className="content">
-                            <Block margin="l">
+                            <Block>
                                 <VelkommenTekst />
                             </Block>
                             <Switch>

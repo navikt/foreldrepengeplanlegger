@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Block from 'common/components/block/Block';
-import { Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 import Ukefordeling from '../ukefordeling/Ukefordeling';
 import { TilgjengeligeUker } from '../../types';
 import Knapperad from 'common/components/knapperad/Knapperad';
@@ -41,7 +41,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
             <section>
                 <div className="periodelisteWrapper">
                     <Block margin="s">
-                        <Systemtittel>Hvordan vil dere dele fellesperioden?</Systemtittel>
+                        <Undertittel>Hvordan vil dere dele fellesperioden?</Undertittel>
                     </Block>
                     <Block>
                         <SkjemaFordelingFellesperiode

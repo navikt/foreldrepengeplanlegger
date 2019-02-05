@@ -94,7 +94,9 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
         case CommonActionKeys.UPDATE_FORBRUK:
             return updateStateAndStorage(state, { forbruk: action.forbruk });
         case CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER:
-            return updateStateAndStorage(state, { tilgjengeligeDager: action.tilgjengeligeDager });
+            return updateStateAndStorage(state, {
+                tilgjengeligeDager: action.tilgjengeligeDager
+            });
         case CommonActionKeys.SUBMIT_SKJEMADATA:
             const builder = getBuilder();
             builder.perioder = getMockPerioder(

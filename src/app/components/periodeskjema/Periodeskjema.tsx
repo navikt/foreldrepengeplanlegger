@@ -11,6 +11,9 @@ interface Props {
     periode?: Periode;
     omForeldre: OmForeldre;
     nesteUttaksdag: Date;
+    førsteUttaksdagFørTermin: Date;
+    førsteUttaksdag: Date;
+    sisteUttaksdag: Date;
     onSubmit: (periode: Periode) => void;
     onCancel: () => void;
 }
@@ -35,7 +38,16 @@ class Periodeskjema extends React.Component<Props, {}> {
         super(props);
     }
     render() {
-        const { periode, omForeldre, nesteUttaksdag, onSubmit, onCancel } = this.props;
+        const {
+            periode,
+            omForeldre,
+            nesteUttaksdag,
+            førsteUttaksdagFørTermin,
+            førsteUttaksdag,
+            sisteUttaksdag,
+            onSubmit,
+            onCancel
+        } = this.props;
         return (
             <Formik
                 isInitialValid={false}
@@ -49,6 +61,9 @@ class Periodeskjema extends React.Component<Props, {}> {
                         formik={props}
                         omForeldre={omForeldre}
                         nesteUttaksdag={nesteUttaksdag}
+                        førsteUttaksdagFørTermin={førsteUttaksdagFørTermin}
+                        førsteUttaksdag={førsteUttaksdag}
+                        sisteUttaksdag={sisteUttaksdag}
                     />
                 )}
                 validationSchema={periodeValidationSchema}

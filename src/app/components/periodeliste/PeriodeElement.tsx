@@ -68,7 +68,8 @@ class PeriodeElement extends React.Component<Props, {}> {
             slettErLåst,
             omForeldre,
             onRemove,
-            onUpdate
+            onUpdate,
+            uttaksdatoer
         } = this.props;
 
         const { uttaksinfo } = this.props.periode;
@@ -139,6 +140,8 @@ class PeriodeElement extends React.Component<Props, {}> {
                             className: bem.element('varighet'),
                             render: () => (
                                 <VarighetMeny
+                                    førsteUttaksdag={uttaksdatoer.førsteUttaksdag}
+                                    sisteUttaksdag={uttaksdatoer.etterFødsel.sisteMuligeUttaksdag}
                                     startdatoErLåst={startdatoErLåst}
                                     sluttdatoErLåst={sluttdatoErLåst}
                                     fom={fom}

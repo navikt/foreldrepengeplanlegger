@@ -10,6 +10,8 @@ import Knapperad from 'common/components/knapperad/Knapperad';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { NedChevron } from 'nav-frontend-chevron';
 
+const USE_CHEVRON = false;
+
 interface Props {
     labelRenderer: () => React.ReactNode;
     contentRenderer: () => React.ReactNode;
@@ -69,9 +71,11 @@ class DropdownForm extends React.Component<Props> {
                             labelAlignment ? bem.element('button', labelAlignment) : undefined
                         )}>
                         <div className={bem.element('button__label')}>{labelRenderer()}</div>
-                        <div className={bem.element('button__chevron')}>
-                            <NedChevron />
-                        </div>
+                        {USE_CHEVRON && (
+                            <div className={bem.element('button__chevron')}>
+                                <NedChevron />
+                            </div>
+                        )}
                     </Button>
                 )}
                 <Menu

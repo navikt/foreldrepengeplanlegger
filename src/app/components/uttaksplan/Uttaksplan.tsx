@@ -7,11 +7,12 @@ import PeriodeDevBar from '../../dev/PeriodeDevBar';
 import { PeriodelisteProps } from '../periodeliste/types';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import FordelingGraf from '../fordelingGraf/FordelingGraf';
-import { Forbruk, OmForeldre } from '../../types';
+import { Forbruk, OmForeldre, Uttaksdatoer } from '../../types';
 import Periodeliste from '../periodeliste/Periodeliste';
 import { Systemtittel } from 'nav-frontend-typografi';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import { isPeriodeFixed } from '../../utils/typeUtils';
+import { Uttaksdagen } from '../../utils/Uttaksdagen';
 
 interface State {
     visSkjema: boolean;
@@ -22,6 +23,7 @@ interface OwnProps {
     perioder: Periode[];
     omForeldre: OmForeldre;
     forbruk: Forbruk;
+    uttaksdatoer: Uttaksdatoer;
     onResetApp: () => void;
 }
 
@@ -42,8 +44,9 @@ class Uttaksplan extends React.Component<Props, State> {
     }
 
     render() {
-        const { perioder, onAdd, onUpdate, onRemove, onResetPlan, forbruk, omForeldre } = this.props;
+        const { perioder, onAdd, onUpdate, onRemove, onResetPlan, forbruk, omForeldre, uttaksdatoer } = this.props;
         const { visSkjema } = this.state;
+        const nesteUttaksdag = Uttaksdagen(perioder[perioder.length - 1].tidsperiode.tom).neste();
         return (
             <section>
                 <div className="periodelisteWrapper">
@@ -69,6 +72,10 @@ class Uttaksplan extends React.Component<Props, State> {
                                 omForeldre={omForeldre}
                                 onCancel={() => this.setState({ visSkjema: false })}
                                 onSubmit={(periode) => this.addPeriode(periode)}
+                                nesteUttaksdag={nesteUttaksdag}
+                                førsteUttaksdag={uttaksdatoer.førsteUttaksdag}
+                                sisteUttaksdag={uttaksdatoer.etterFødsel.sisteMuligeUttaksdag}
+                                førsteUttaksdagFørTermin={uttaksdatoer.førFødsel.førsteMuligeUttaksdag}
                             />
                         </Block>
                         <Block visible={visSkjema !== true} margin="l">

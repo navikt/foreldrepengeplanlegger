@@ -1,4 +1,4 @@
-import { Periode, OmForeldre } from '../../types';
+import { Periode, OmForeldre, Uttaksdatoer } from '../../types';
 
 interface PeriodelisteBaseProps {
     perioder: Periode[];
@@ -17,6 +17,10 @@ interface PeriodelisteElementBaseProps {
     slettErLåst?: boolean;
 }
 
+interface PeriodelisteDatoer {
+    uttaksdatoer: Uttaksdatoer;
+}
+
 export interface PeriodelisteActions {
     onAdd: (periode: Periode) => void;
     onUpdate: (periode: Periode) => void;
@@ -30,6 +34,9 @@ export interface PeriodelisteFeatures {
     lockable?: boolean;
 }
 
-export type PeriodelisteProps = PeriodelisteBaseProps & PeriodelisteActions & PeriodelisteFeatures;
+export type PeriodelisteProps = PeriodelisteBaseProps & PeriodelisteDatoer & PeriodelisteActions & PeriodelisteFeatures;
 
-export type PeriodelisteElementProps = PeriodelisteElementBaseProps & PeriodelisteActions & PeriodelisteFeatures;
+export type PeriodelisteElementProps = PeriodelisteElementBaseProps &
+    PeriodelisteDatoer &
+    PeriodelisteActions &
+    PeriodelisteFeatures;

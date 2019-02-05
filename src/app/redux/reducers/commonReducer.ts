@@ -19,6 +19,8 @@ import { setStorage, getStorage } from '../../utils/storage';
 import { getAntallForeldreISituasjon } from '../../utils/common';
 import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
+import { lagUttaksplan } from '../../utils/forslag/lagUttaksplan';
+import { getForbruk } from '../../utils/forbrukUtils';
 
 export interface ØnsketFordelingForeldrepenger {
     harValgtFordeling: boolean;
@@ -92,7 +94,9 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
         case CommonActionKeys.UPDATE_FORBRUK:
             return updateStateAndStorage(state, { forbruk: action.forbruk });
         case CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER:
-            return updateStateAndStorage(state, { tilgjengeligeDager: action.tilgjengeligeDager });
+            return updateStateAndStorage(state, {
+                tilgjengeligeDager: action.tilgjengeligeDager
+            });
         case CommonActionKeys.SUBMIT_SKJEMADATA:
             const builder = getBuilder();
             builder.perioder = getMockPerioder(
@@ -166,13 +170,19 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                         : state.ønsketFordeling
             });
         case CommonActionKeys.SET_ØNSKET_FORDELING:
+            const perioder = lagUttaksplan(
+                state.familiehendelsesdato,
+                state.dekningsgrad === '100' ? state.stønadskontoer100.kontoer : state.stønadskontoer80.kontoer,
+                action.ukerMor
+            );
             return updateStateAndStorage(state, {
                 ønsketFordeling: {
                     harValgtFordeling: true,
                     ukerMor: action.ukerMor,
                     ukerFarMedmor: state.tilgjengeligeDager!.dagerFelles - action.ukerMor
-                }
-                // perioder: lagForslagTilPlan()
+                },
+                perioder,
+                forbruk: getForbruk(perioder, state.tilgjengeligeDager!.dagerTotalt)
             });
         case CommonActionKeys.RESET_APP:
             return updateStateAndStorage(getDefaultCommonState(), {});

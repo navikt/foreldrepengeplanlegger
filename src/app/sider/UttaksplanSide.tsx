@@ -2,7 +2,7 @@ import * as React from 'react';
 import Uttaksplan from '../components/uttaksplan/Uttaksplan';
 import { RouteComponentProps, withRouter, Redirect, Link } from 'react-router-dom';
 import { DispatchProps } from '../redux/types';
-import { Periode, TilgjengeligeDager, SituasjonSkjemadata, Forbruk, OmForeldre } from '../types';
+import { Periode, TilgjengeligeDager, SituasjonSkjemadata, Forbruk, OmForeldre, Uttaksdatoer } from '../types';
 import {
     addPeriode,
     updatePeriode,
@@ -26,6 +26,7 @@ import Skjemablokk from '../components/skjemablokk/Skjemablokk';
 import { ØnsketFordelingForeldrepenger } from '../redux/reducers/commonReducer';
 import FordelingForeldrepenger from '../components/uttaksplan/FordelingForeldrepenger';
 import { getTilgjengeligeUker } from '../utils/kontoUtils';
+import { getUttaksdatoer } from '../utils/uttaksdatoer';
 
 interface StateProps {
     periodeFørTermin?: Periode;
@@ -41,6 +42,7 @@ interface StateProps {
     forbruk?: Forbruk;
     omForeldre?: OmForeldre;
     ønsketFordeling: ØnsketFordelingForeldrepenger;
+    uttaksdatoer: Uttaksdatoer;
 }
 
 type Props = StateProps & DispatchProps & RouteComponentProps;
@@ -66,6 +68,7 @@ class UttaksplanSide extends React.Component<Props> {
             forbruk,
             omForeldre,
             ønsketFordeling,
+            uttaksdatoer,
             dispatch
         } = this.props;
 
@@ -139,6 +142,7 @@ class UttaksplanSide extends React.Component<Props> {
                                         onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
                                         onResetPlan={() => dispatch(setPerioder([]))}
                                         onResetApp={() => dispatch(resetApp())}
+                                        uttaksdatoer={uttaksdatoer}
                                     />
                                 )}
                             </>
@@ -165,7 +169,8 @@ const mapStateToProps = (state: AppState): StateProps => {
         skjemadata: state.common.skjemadata!,
         forbruk: state.common.forbruk,
         omForeldre: state.common.omForeldre,
-        ønsketFordeling: state.common.ønsketFordeling
+        ønsketFordeling: state.common.ønsketFordeling,
+        uttaksdatoer: getUttaksdatoer(state.common.familiehendelsesdato)
     };
 };
 

@@ -20,6 +20,10 @@ import { Ingress } from 'nav-frontend-typografi';
 import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
 
 interface OwnProps {
+    nesteUttaksdag: Date;
+    førsteUttaksdagFørTermin: Date;
+    førsteUttaksdag: Date;
+    sisteUttaksdag: Date;
     omForeldre: OmForeldre;
     onCancel: () => void;
     formik: FormikProps<PeriodeskjemaFormValues>;
@@ -41,11 +45,12 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         formik.setFieldValue('tom', tidsperiode.tom);
     }
     render() {
-        const { formik, onCancel, omForeldre } = this.props;
+        const { formik, onCancel, omForeldre, nesteUttaksdag, førsteUttaksdag, sisteUttaksdag } = this.props;
         const { fom, tom, periodetype, forelder, gradering } = formik.values;
         const forelderNavn = getForelderNavn(forelder, omForeldre);
         const harFlereForeldre = omForeldre.antallForeldre > 1;
         const { uker, dager } = getUkerOgDagerFromDager(Tidsperioden({ fom, tom }).getAntallUttaksdager());
+
         return (
             <Form>
                 <Block margin="xs">
@@ -99,11 +104,13 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                     className: bem.element('varighet', 'skjema'),
                                     render: () => (
                                         <VarighetMeny
-                                            fom={fom}
+                                            fom={fom || nesteUttaksdag}
                                             tom={tom}
                                             uker={uker}
                                             dager={dager}
                                             minDager={1}
+                                            førsteUttaksdag={førsteUttaksdag}
+                                            sisteUttaksdag={sisteUttaksdag}
                                             visLukkKnapp={fom !== undefined && tom !== undefined}
                                             onTidsperiodeChange={this.handleTidsperiodeChange}
                                         />

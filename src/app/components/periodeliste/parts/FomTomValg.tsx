@@ -13,6 +13,8 @@ interface TidsperiodeChangeEvent {
 interface OwnProps {
     fom: Date | undefined;
     tom: Date | undefined;
+    minDato: Date;
+    maksDato: Date;
     låstFomDato?: boolean;
     låstTomDato?: boolean;
     tomLabel?: React.ReactNode;
@@ -32,6 +34,8 @@ const FomTomValg: React.StatelessComponent<Props> = ({
     tom,
     låstFomDato,
     låstTomDato,
+    minDato,
+    maksDato,
     fomLabel = 'Startdato',
     tomLabel = 'Sluttdato',
     disabled,
@@ -48,10 +52,11 @@ const FomTomValg: React.StatelessComponent<Props> = ({
                                     name="startdato"
                                     label={fomLabel}
                                     dato={fom}
+                                    visÅrValger={true}
                                     locale={intl.locale}
                                     id="tidsperiodeFra"
                                     disabled={disabled || låstFomDato}
-                                    avgrensninger={{ helgedagerIkkeTillatt: true }}
+                                    avgrensninger={{ helgedagerIkkeTillatt: true, minDato, maksDato }}
                                     onChange={(dato) =>
                                         onChange({
                                             fom: dato,
@@ -69,12 +74,15 @@ const FomTomValg: React.StatelessComponent<Props> = ({
                                     name="sluttdato"
                                     label={tomLabel}
                                     dato={tom}
+                                    visÅrValger={true}
                                     locale={intl.locale}
                                     id="tidsperiodeTil"
                                     disabled={disabled}
+                                    dayPickerProps={{ initialMonth: fom }}
                                     avgrensninger={{
                                         helgedagerIkkeTillatt: true,
-                                        minDato: låstFomDato && fom ? Uttaksdagen(fom).neste() : undefined
+                                        minDato: fom ? Uttaksdagen(fom).neste() : minDato,
+                                        maksDato
                                     }}
                                     onChange={(dato) =>
                                         onChange({

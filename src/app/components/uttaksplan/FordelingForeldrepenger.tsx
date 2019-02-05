@@ -58,7 +58,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
                         </Block>
                         <Ukefordeling
                             foreldrepengerFørTermin={tilgjengeligeUker.ukerFørTermin}
-                            modrekvote={tilgjengeligeUker.ukerForbeholdtMor}
+                            modrekvote={tilgjengeligeUker.ukerForbeholdtMor - tilgjengeligeUker.ukerFørTermin}
                             fedrekvote={tilgjengeligeUker.ukerForbeholdtFar}
                             fellesukerMor={ukerMor}
                             fellesukerFarMedmor={ukerFarMedmor}

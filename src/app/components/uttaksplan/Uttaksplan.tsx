@@ -30,7 +30,7 @@ class Uttaksplan extends React.Component<Props, State> {
         super(props);
         this.addPeriode = this.addPeriode.bind(this);
         this.state = {
-            visSkjema: true
+            visSkjema: false
         };
     }
 

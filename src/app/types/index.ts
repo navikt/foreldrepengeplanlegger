@@ -69,6 +69,14 @@ export interface TilgjengeligeDager {
     stønadskontoer: TilgjengeligStønadskonto[];
 }
 
+export interface TilgjengeligeUker {
+    ukerTotalt: number;
+    ukerForbeholdtMor: number;
+    ukerForbeholdtFar: number;
+    ukerFelles: number;
+    ukerFørTermin: number;
+}
+
 export interface ForelderForbruk {
     brukteUttaksdager: number;
     forbrukPerPeriodetype: ForbrukPerPeriodetype[];

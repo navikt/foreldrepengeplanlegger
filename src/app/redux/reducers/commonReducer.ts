@@ -20,6 +20,12 @@ import { getAntallForeldreISituasjon } from '../../utils/common';
 import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
 
+export interface ØnsketFordelingForeldrepenger {
+    harValgtFordeling: boolean;
+    ukerMor?: number;
+    ukerFarMedmor?: number;
+}
+
 export interface CommonState {
     språkkode: Språkkode;
     perioder: Periode[];
@@ -27,6 +33,7 @@ export interface CommonState {
     skjemadata?: SituasjonSkjemadata;
     familiehendelsesdato: Date;
     dekningsgrad: Dekningsgrad;
+    ønsketFordeling: ØnsketFordelingForeldrepenger;
     tilgjengeligeDager?: TilgjengeligeDager;
     stønadskontoer80: {
         dager: number;
@@ -60,7 +67,9 @@ export const getDefaultCommonState = (storage?: CommonState): CommonState => {
             forelder: Forelder.mor,
             tidsperiode: { fom: new Date(), tom: new Date() }
         },
-
+        ønsketFordeling: {
+            harValgtFordeling: false
+        },
         ...storage
     };
 };
@@ -152,7 +161,24 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
         //             .build().perioder
         //     });
         case CommonActionKeys.SET_PERIODER:
-            return updateStateAndStorage(state, { perioder: action.perioder });
+            return updateStateAndStorage(state, {
+                perioder: action.perioder,
+                ønsketFordeling:
+                    action.perioder.length === 0
+                        ? {
+                              ...state.ønsketFordeling,
+                              harValgtFordeling: false
+                          }
+                        : state.ønsketFordeling
+            });
+        case CommonActionKeys.SET_ØNSKET_FORDELING:
+            return updateStateAndStorage(state, {
+                ønsketFordeling: {
+                    harValgtFordeling: true,
+                    ukerMor: action.ukerMor,
+                    ukerFarMedmor: state.tilgjengeligeDager!.dagerFelles - action.ukerMor
+                }
+            });
         case CommonActionKeys.RESET_APP:
             return updateStateAndStorage(getDefaultCommonState(), {});
     }

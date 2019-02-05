@@ -2,11 +2,10 @@ import * as React from 'react';
 import { Situasjon } from '../../types';
 import BEMHelper from 'common/utils/bem';
 import SituasjonForeldrepar from '../situasjonForeldrepar/SituasjonForeldrepar';
+import BarnIkon from 'common/components/ikoner/BarnIkon';
+import Block from 'common/components/block/Block';
 
 import './situasjonOppsummering.less';
-import BarnIkon from 'common/components/ikoner/BarnIkon';
-import { Link } from 'react-router-dom';
-import Block from 'common/components/block/Block';
 
 interface Props {
     situasjon: Situasjon;
@@ -51,11 +50,6 @@ const Situasjonsoppsummering: React.StatelessComponent<Props> = ({ situasjon, na
                     <div className={bem.element('familiehendelsesdato__tittel')}>Termin</div>
                 </div>
             </div>
-        </Block>
-        <Block align="center">
-            <Link className="lenke" to="/">
-                Tilbake til skjema
-            </Link>
         </Block>
     </>
 );

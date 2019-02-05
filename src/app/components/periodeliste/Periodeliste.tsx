@@ -4,10 +4,10 @@ import PeriodeElement from './PeriodeElement';
 import { PeriodelisteProps } from './types';
 import { formaterDato } from 'common/utils/datoUtils';
 import HjerteIkon from '../periodeikon/ikoner/HjerteIkon';
-
-import './periodeliste.less';
 import BEMHelper from 'common/utils/bem';
 import IconText from 'common/components/iconText/IconText';
+
+import './periodeliste.less';
 
 const bem = BEMHelper('periodeliste');
 

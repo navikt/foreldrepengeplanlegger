@@ -103,6 +103,13 @@ export function updateOmForeldre(omForeldre: OmForeldre): CommonActionTypes {
     };
 }
 
+export function setØnsketFordeling(ukerMor: number): CommonActionTypes {
+    return {
+        type: CommonActionKeys.SET_ØNSKET_FORDELING,
+        ukerMor
+    };
+}
+
 export default {
     setSpråk
 };

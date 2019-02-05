@@ -38,7 +38,7 @@ const renderLabel = (props: Props, options: DropdownFormMenuOption[]): React.Rea
         const valgtOption = forelder ? options.find((f) => f.value === forelder) : undefined;
         const navn = valgtOption ? valgtOption.label : undefined;
         return (
-            <IconText icon={renderForelderIkon(forelder, mor, farMedmor)} iconOnly={true}>
+            <IconText layout="vertical" icon={renderForelderIkon(forelder, mor, farMedmor)} iconOnly={true}>
                 {navn}
             </IconText>
         );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Uttaksplan from '../components/uttaksplan/Uttaksplan';
-import { RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Redirect, Link } from 'react-router-dom';
 import { DispatchProps } from '../redux/types';
 import { Periode, TilgjengeligeDager, SituasjonSkjemadata, Forbruk, OmForeldre } from '../types';
 import {
@@ -10,7 +10,8 @@ import {
     movePeriode,
     setDekningsgrad,
     setPerioder,
-    resetApp
+    resetApp,
+    setØnsketFordeling
 } from '../redux/actions/common/commonActionCreators';
 import { AppState } from '../redux/reducers/rootReducer';
 import { connect } from 'react-redux';
@@ -22,6 +23,9 @@ import LoadContainer from 'common/components/loadContainer/LoadContainer';
 import DekningsgradValg from '../components/dekningsgradValg/DekningsgradValg';
 import Situasjonsoppsummering from '../components/situasjonOppsummering/SituasjonOppsummering';
 import Skjemablokk from '../components/skjemablokk/Skjemablokk';
+import { ØnsketFordelingForeldrepenger } from '../redux/reducers/commonReducer';
+import FordelingForeldrepenger from '../components/uttaksplan/FordelingForeldrepenger';
+import { getTilgjengeligeUker } from '../utils/kontoUtils';
 
 interface StateProps {
     periodeFørTermin?: Periode;
@@ -36,11 +40,12 @@ interface StateProps {
     skjemadata: SituasjonSkjemadata;
     forbruk?: Forbruk;
     omForeldre?: OmForeldre;
+    ønsketFordeling: ØnsketFordelingForeldrepenger;
 }
 
 type Props = StateProps & DispatchProps & RouteComponentProps;
 
-class UttaksplanSide extends React.Component<Props, {}> {
+class UttaksplanSide extends React.Component<Props> {
     constructor(props: Props) {
         super(props);
         if (this.props.stønadskontoerLastet === false) {
@@ -60,6 +65,7 @@ class UttaksplanSide extends React.Component<Props, {}> {
             skjemadata,
             forbruk,
             omForeldre,
+            ønsketFordeling,
             dispatch
         } = this.props;
 
@@ -74,13 +80,21 @@ class UttaksplanSide extends React.Component<Props, {}> {
         }
         return (
             <>
-                <Situasjonsoppsummering
-                    familiehendelsesdato={familiehendelsesdato}
-                    antallBarn={skjemadata.antallBarn}
-                    navnMor={skjemadata.navnMor}
-                    navnFarMedmor={skjemadata.navnFarMedmor}
-                    situasjon={skjemadata.situasjon}
-                />
+                <Block visible={false}>
+                    <Situasjonsoppsummering
+                        familiehendelsesdato={familiehendelsesdato}
+                        antallBarn={skjemadata.antallBarn}
+                        navnMor={skjemadata.navnMor}
+                        navnFarMedmor={skjemadata.navnFarMedmor}
+                        situasjon={skjemadata.situasjon}
+                    />
+                </Block>
+                <Block align="center">
+                    <Link className="lenke" to="/">
+                        Tilbake til skjema
+                    </Link>
+                </Block>
+
                 <LoadContainer loading={henterStønadskontoer} overlay={false}>
                     <Skjemablokk
                         tittel={`Hvor lang periode med foreldrepenger ønsker ${
@@ -97,7 +111,7 @@ class UttaksplanSide extends React.Component<Props, {}> {
                     <Block visible={visInnhold}>
                         {tilgjengeligeDager !== undefined && omForeldre !== undefined && (
                             <>
-                                <Block>
+                                <Block visible={false}>
                                     <TilgjengeligeDagerOversikt
                                         tilgjengeligeDager={tilgjengeligeDager}
                                         dekningsgrad={dekningsgrad}
@@ -105,19 +119,28 @@ class UttaksplanSide extends React.Component<Props, {}> {
                                         omForeldre={omForeldre}
                                     />
                                 </Block>
-                                <Uttaksplan
-                                    familiehendelsesdato={familiehendelsesdato}
-                                    omForeldre={omForeldre}
-                                    periodeFørTermin={periodeFørTermin}
-                                    perioder={perioder}
-                                    forbruk={forbruk!}
-                                    onAdd={(periode) => dispatch(addPeriode(periode))}
-                                    onUpdate={(periode) => periode.type === dispatch(updatePeriode(periode))}
-                                    onRemove={(periode) => dispatch(removePeriode(periode))}
-                                    onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
-                                    onResetPlan={() => dispatch(setPerioder([]))}
-                                    onResetApp={() => dispatch(resetApp())}
-                                />
+                                {ønsketFordeling.harValgtFordeling === false && omForeldre.antallForeldre === 2 ? (
+                                    <FordelingForeldrepenger
+                                        navnMor={omForeldre.mor.navn}
+                                        navnFarMedmor={omForeldre.farMedmor!.navn}
+                                        tilgjengeligeUker={getTilgjengeligeUker(tilgjengeligeDager)}
+                                        onChange={(uker) => dispatch(setØnsketFordeling(uker))}
+                                    />
+                                ) : (
+                                    <Uttaksplan
+                                        familiehendelsesdato={familiehendelsesdato}
+                                        omForeldre={omForeldre}
+                                        periodeFørTermin={periodeFørTermin}
+                                        perioder={perioder}
+                                        forbruk={forbruk!}
+                                        onAdd={(periode) => dispatch(addPeriode(periode))}
+                                        onUpdate={(periode) => periode.type === dispatch(updatePeriode(periode))}
+                                        onRemove={(periode) => dispatch(removePeriode(periode))}
+                                        onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
+                                        onResetPlan={() => dispatch(setPerioder([]))}
+                                        onResetApp={() => dispatch(resetApp())}
+                                    />
+                                )}
                             </>
                         )}
                     </Block>
@@ -141,7 +164,8 @@ const mapStateToProps = (state: AppState): StateProps => {
         dager80: state.common.stønadskontoer80.dager,
         skjemadata: state.common.skjemadata!,
         forbruk: state.common.forbruk,
-        omForeldre: state.common.omForeldre
+        omForeldre: state.common.omForeldre,
+        ønsketFordeling: state.common.ønsketFordeling
     };
 };
 

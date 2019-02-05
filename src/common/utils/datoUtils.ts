@@ -17,7 +17,7 @@ export function formaterDatoMedDagKort(dato: Date): string {
     const dag = moment(dato)
         .format('dddd')
         .substr(0, 3);
-    return `${dag}. ${moment(dato).format('D.MM.YYYY')}`;
+    return `${dag}. ${moment(dato).format('DD.MM.YYYY')}`;
 }
 
 export function år(dato: Date): string {

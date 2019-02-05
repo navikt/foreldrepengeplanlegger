@@ -5,7 +5,7 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { getVarighetString } from 'common/utils/intlUtils';
 
 interface Props {
-    dekningsgrad: Dekningsgrad;
+    dekningsgrad?: Dekningsgrad;
     dager100: number;
     dager80: number;
     onChange: (dekningsgrad: Dekningsgrad) => void;

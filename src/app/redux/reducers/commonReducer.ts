@@ -33,7 +33,7 @@ export interface CommonState {
     periodeFørTermin: UttakFørTerminPeriode;
     skjemadata?: SituasjonSkjemadata;
     familiehendelsesdato: Date;
-    dekningsgrad: Dekningsgrad;
+    dekningsgrad?: Dekningsgrad;
     ønsketFordeling: ØnsketFordelingForeldrepenger;
     tilgjengeligeDager?: TilgjengeligeDager;
     stønadskontoer80: {
@@ -53,7 +53,7 @@ export const getDefaultCommonState = (storage?: CommonState): CommonState => {
         språkkode: 'nb',
         perioder: [],
         familiehendelsesdato: new Date(),
-        dekningsgrad: '100',
+        dekningsgrad: undefined,
         stønadskontoer100: {
             kontoer: [],
             dager: 0

@@ -3,7 +3,6 @@ import { InjectedIntlProps, injectIntl } from 'react-intl';
 import DatoInput from 'common/components/skjema/datoInput/DatoInput';
 import { Row, Column } from 'nav-frontend-grid';
 import Block from 'common/components/block/Block';
-import { Uttaksdagen } from '../../../utils/Uttaksdagen';
 
 interface TidsperiodeChangeEvent {
     fom?: Date;
@@ -81,7 +80,7 @@ const FomTomValg: React.StatelessComponent<Props> = ({
                                     dayPickerProps={{ initialMonth: fom }}
                                     avgrensninger={{
                                         helgedagerIkkeTillatt: true,
-                                        minDato: fom ? Uttaksdagen(fom).neste() : minDato,
+                                        minDato: fom ? fom : minDato,
                                         maksDato
                                     }}
                                     onChange={(dato) =>

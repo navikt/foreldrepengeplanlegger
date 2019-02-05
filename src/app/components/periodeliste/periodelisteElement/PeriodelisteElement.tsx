@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import Lukknapp from 'nav-frontend-lukknapp';
 import BEMHelper from 'common/utils/bem';
+import SlettKnapp from 'common/components/slett-knapp/SlettKnapp';
 
 import './periodelisteElement.less';
 
@@ -42,7 +42,7 @@ class PeriodelisteElement extends React.Component<OwnProps, {}> {
 
                 {slett && (
                     <div className={bem.element('tools')}>
-                        <Lukknapp
+                        <SlettKnapp
                             onClick={() => slett.onRemove()}
                             ariaLabel={slett.ariaLabel}
                             title={slett.ariaLabel}

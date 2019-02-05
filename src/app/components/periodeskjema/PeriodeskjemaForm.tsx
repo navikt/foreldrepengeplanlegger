@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Form, FormikProps } from 'formik';
 import Block from 'common/components/block/Block';
-import { Knapp, Flatknapp } from 'nav-frontend-knapper';
+import { Knapp, Hovedknapp } from 'nav-frontend-knapper';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { PeriodeskjemaFormValues } from './types';
 import { OmForeldre, Periodetype } from '../../types';
@@ -112,10 +112,10 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                         />
                     </Block>
                     <Knapperad>
-                        <Knapp htmlType="submit">Ok</Knapp>
-                        <Flatknapp htmlType="button" onClick={() => onCancel()}>
+                        <Hovedknapp htmlType="submit">Ok</Hovedknapp>
+                        <Knapp htmlType="button" onClick={() => onCancel()}>
                             Avbryt
-                        </Flatknapp>
+                        </Knapp>
                     </Knapperad>
                 </PeriodeBlokk>
             </Form>

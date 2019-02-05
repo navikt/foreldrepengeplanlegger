@@ -184,16 +184,15 @@ const VarighetMenyLabel: React.StatelessComponent<Props> = (props) => {
 const VarighetMeny: React.StatelessComponent<Props> = (props) => {
     const variant = getVariant(props);
     return (
-        <>
-            <DropdownForm
-                labelRenderer={() => <VarighetMenyLabel {...props} />}
-                labelAlignment="center"
-                contentClassName="varighetDialog"
-                contentTitle={getTittel(variant)}
-                contentRenderer={() => <VarighetMenyInnhold {...props} />}
-                dropdownPlacement="right"
-            />
-        </>
+        <DropdownForm
+            labelRenderer={() => <VarighetMenyLabel {...props} />}
+            labelAlignment="center"
+            contentClassName="varighetDialog"
+            contentTitle={getTittel(variant)}
+            contentRenderer={() => <VarighetMenyInnhold {...props} />}
+            dropdownPlacement="right"
+            renderCloseButton={true}
+        />
     );
 };
 

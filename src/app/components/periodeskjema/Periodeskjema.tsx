@@ -23,14 +23,10 @@ const periodeValidationSchema = yup.object().shape({
     forelder: yup.string().required('Du må velge hvem perioden gjelder'),
     fom: yup.date().required('Fradato må velges'),
     tom: yup.date().required('Tildato må velges'),
-    gradering: yup
-        .number()
-        .when('periodetype', (periodetype: Periodetype, schema: yup.Schema<PeriodeskjemaFormValues>) => {
-            if (periodetype === Periodetype.GradertUttak) {
-                return schema.required('Gradering må velges');
-            }
-            return schema;
-        })
+    gradering: yup.number().when('periodetype', {
+        is: Periodetype.GradertUttak,
+        then: yup.string().required('Gradering må velges')
+    })
 });
 
 class Periodeskjema extends React.Component<Props, {}> {

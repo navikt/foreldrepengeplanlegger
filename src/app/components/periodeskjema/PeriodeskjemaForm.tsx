@@ -119,6 +119,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                             ]}
                         />
                     </Block>
+                    {`-${formik.isValid}`}
                     <Knapperad>
                         <Hovedknapp htmlType="submit" disabled={formik.isValid === false}>
                             Legg til

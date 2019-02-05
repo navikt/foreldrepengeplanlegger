@@ -24,6 +24,8 @@ interface OwnProps {
     sluttdatoErLåst?: boolean;
     ingenVarighet?: boolean;
     minDager?: number;
+    visLukkKnapp?: boolean;
+    lukkAutomatisk?: boolean;
     onTidsperiodeChange: (tidsperiode: Tidsperiode) => void;
     onVarighetChange?: (evt: VarighetChangeEvent) => void;
 }
@@ -181,19 +183,35 @@ const VarighetMenyLabel: React.StatelessComponent<Props> = (props) => {
     );
 };
 
-const VarighetMeny: React.StatelessComponent<Props> = (props) => {
-    const variant = getVariant(props);
-    return (
-        <DropdownForm
-            labelRenderer={() => <VarighetMenyLabel {...props} />}
-            labelAlignment="center"
-            contentClassName="varighetDialog"
-            contentTitle={getTittel(variant)}
-            contentRenderer={() => <VarighetMenyInnhold {...props} />}
-            dropdownPlacement="right"
-            renderCloseButton={true}
-        />
-    );
-};
+class VarighetMeny extends React.Component<Props, {}> {
+    dropdown: DropdownForm | null;
+    constructor(props: Props) {
+        super(props);
+        this.handleTidsperiodeChange = this.handleTidsperiodeChange.bind(this);
+    }
+    handleTidsperiodeChange(tidsperiode: Tidsperiode) {
+        this.props.onTidsperiodeChange(tidsperiode);
+        if (this.props.fom && this.props.tom === undefined && this.dropdown) {
+            this.dropdown.closeMenu();
+        }
+    }
+    render() {
+        const variant = getVariant(this.props);
+        return (
+            <DropdownForm
+                ref={(c) => (this.dropdown = c)}
+                labelRenderer={() => <VarighetMenyLabel {...this.props} />}
+                labelAlignment="center"
+                contentClassName="varighetDialog"
+                contentTitle={getTittel(variant)}
+                contentRenderer={() => (
+                    <VarighetMenyInnhold {...this.props} onTidsperiodeChange={this.handleTidsperiodeChange} />
+                )}
+                dropdownPlacement="right"
+                renderCloseButton={this.props.visLukkKnapp}
+            />
+        );
+    }
+}
 
 export default injectIntl(VarighetMeny);

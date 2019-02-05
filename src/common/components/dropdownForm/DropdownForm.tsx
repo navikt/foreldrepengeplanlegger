@@ -20,6 +20,7 @@ interface Props {
     contentTitle?: string;
     buttonSize?: 'inline' | 'stretched';
     disabled?: boolean;
+    wrapperId?: string;
     renderCloseButton?: boolean;
 }
 
@@ -30,7 +31,7 @@ class DropdownForm extends React.Component<Props> {
 
     constructor(props: Props) {
         super(props);
-        this.id = guid();
+        this.id = props.wrapperId || guid();
         this.closeMenu = this.closeMenu.bind(this);
     }
     closeMenu() {

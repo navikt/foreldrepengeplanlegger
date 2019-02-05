@@ -104,6 +104,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             uker={uker}
                                             dager={dager}
                                             minDager={1}
+                                            visLukkKnapp={fom !== undefined && tom !== undefined}
                                             onTidsperiodeChange={this.handleTidsperiodeChange}
                                         />
                                     )
@@ -112,7 +113,9 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                         />
                     </Block>
                     <Knapperad>
-                        <Hovedknapp htmlType="submit">Ok</Hovedknapp>
+                        <Hovedknapp htmlType="submit" disabled={formik.isValid === false}>
+                            Legg til
+                        </Hovedknapp>
                         <Knapp htmlType="button" onClick={() => onCancel()}>
                             Avbryt
                         </Knapp>

@@ -5,7 +5,8 @@ import {
     Periode,
     Forelder,
     Periodetype,
-    UttakFørTerminPeriode
+    UttakFørTerminPeriode,
+    TilgjengeligeUker
 } from '../types';
 import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from './uttaksinfo';
@@ -75,7 +76,20 @@ export const getTilgjengeligeDager = (kontoer: TilgjengeligStønadskonto[]): Til
     };
 };
 
-export const getPeriodeFørTermin = (familiehendelsesdato: Date, antallDagerFørTermin: number): UttakFørTerminPeriode => {
+export const getTilgjengeligeUker = (tilgjengeligeDager: TilgjengeligeDager): TilgjengeligeUker => {
+    return {
+        ukerTotalt: tilgjengeligeDager.dagerTotalt / 5,
+        ukerForbeholdtMor: tilgjengeligeDager.dagerForbeholdtMor / 5,
+        ukerForbeholdtFar: tilgjengeligeDager.dagerForbeholdtFar / 5,
+        ukerFelles: tilgjengeligeDager.dagerFelles / 5,
+        ukerFørTermin: tilgjengeligeDager.dagerFørTermin / 5
+    };
+};
+
+export const getPeriodeFørTermin = (
+    familiehendelsesdato: Date,
+    antallDagerFørTermin: number
+): UttakFørTerminPeriode => {
     const tom = Uttaksdagen(familiehendelsesdato).forrige();
     const fom = Uttaksdagen(tom).trekkFra(antallDagerFørTermin - 1);
     const periode: Periode = {

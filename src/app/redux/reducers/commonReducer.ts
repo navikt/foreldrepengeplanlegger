@@ -154,12 +154,6 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                     .fjernPeriode(action.periode)
                     .build().perioder
             });
-        // case CommonActionKeys.MOVE_PERIODE:
-        //     return updateStateAndStorage(state, {
-        //         perioder: getBuilder()
-        //             .flyttPeriode(action.periode, action.toIndex)
-        //             .build().perioder
-        //     });
         case CommonActionKeys.SET_PERIODER:
             return updateStateAndStorage(state, {
                 perioder: action.perioder,
@@ -178,6 +172,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                     ukerMor: action.ukerMor,
                     ukerFarMedmor: state.tilgjengeligeDager!.dagerFelles - action.ukerMor
                 }
+                // perioder: lagForslagTilPlan()
             });
         case CommonActionKeys.RESET_APP:
             return updateStateAndStorage(getDefaultCommonState(), {});

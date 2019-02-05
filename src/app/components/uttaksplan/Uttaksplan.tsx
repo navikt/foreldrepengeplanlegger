@@ -11,6 +11,7 @@ import { Forbruk, OmForeldre } from '../../types';
 import Periodeliste from '../periodeliste/Periodeliste';
 import { Systemtittel } from 'nav-frontend-typografi';
 import LinkButton from 'common/components/linkButton/LinkButton';
+import { isPeriodeFixed } from '../../utils/typeUtils';
 
 interface State {
     visSkjema: boolean;
@@ -36,7 +37,7 @@ class Uttaksplan extends React.Component<Props, State> {
     }
 
     addPeriode(periode: Periode) {
-        this.props.onAdd(periode);
+        this.props.onAdd({ ...periode, fixed: isPeriodeFixed(periode.type) });
         this.setState({ visSkjema: false });
     }
 

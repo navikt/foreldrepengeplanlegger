@@ -17,6 +17,7 @@ const toForeldrePeriode2: Periode = {
         fom: new Date('2019-07-18T23:00:00.000Z'),
         tom: new Date('2019-07-31T23:00:00.000Z')
     },
+    fixed: true,
     type: Periodetype.Ferie
 };
 const toForeldrePeriode3: Periode = {

@@ -67,7 +67,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
                         />
                     </Block>
                     <Knapperad>
-                        <Hovedknapp onClick={() => onChange(ukerMor)}>Lag plan</Hovedknapp>
+                        <Hovedknapp onClick={() => onChange(ukerMor)}>Vis plan</Hovedknapp>
                     </Knapperad>
                 </div>
             </section>

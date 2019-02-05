@@ -8,6 +8,10 @@ const getBasePeriode = (periode: Periode): PeriodeBase => {
     return periode;
 };
 
+export const isPeriodeFixed = (periodetype: Periodetype): boolean => {
+    return periodetype === Periodetype.Arbeid || periodetype === Periodetype.Ferie;
+};
+
 export const changePeriodeType = (periode: Periode, type: Periodetype): Periode => {
     if (type === periode.type) {
         return periode;
@@ -18,37 +22,43 @@ export const changePeriodeType = (periode: Periode, type: Periodetype): Periode 
             return {
                 ...basePeriode,
                 type: Periodetype.Ferie,
-                gradering: undefined
+                gradering: undefined,
+                fixed: true
             };
         case Periodetype.Arbeid:
             return {
                 ...basePeriode,
                 type: Periodetype.Arbeid,
-                gradering: undefined
+                gradering: undefined,
+                fixed: true
             };
         case Periodetype.Uttak:
             return {
                 ...basePeriode,
                 type: Periodetype.Uttak,
-                gradering: undefined
+                gradering: undefined,
+                fixed: false
             };
         case Periodetype.UttakFørTermin:
             return {
                 ...basePeriode,
                 type: Periodetype.UttakFørTermin,
-                gradering: undefined
+                gradering: undefined,
+                fixed: false
             };
         case Periodetype.GradertUttak:
             return {
                 ...basePeriode,
                 type: Periodetype.GradertUttak,
-                gradering: 50
+                gradering: 50,
+                fixed: false
             };
         case Periodetype.UbetaltPermisjon:
             return {
                 ...basePeriode,
                 type: Periodetype.UbetaltPermisjon,
-                gradering: undefined
+                gradering: undefined,
+                fixed: false
             };
     }
 };

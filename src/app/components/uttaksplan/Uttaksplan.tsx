@@ -10,6 +10,7 @@ import FordelingGraf from '../fordelingGraf/FordelingGraf';
 import { Forbruk, OmForeldre } from '../../types';
 import Periodeliste from '../periodeliste/Periodeliste';
 import { Systemtittel } from 'nav-frontend-typografi';
+import LinkButton from 'common/components/linkButton/LinkButton';
 
 interface State {
     visSkjema: boolean;
@@ -47,7 +48,17 @@ class Uttaksplan extends React.Component<Props, State> {
                 <div className="periodelisteWrapper">
                     <Block animated={true}>
                         <Block margin="s">
-                            <Systemtittel>Deres plan</Systemtittel>
+                            <div className="periodeliste__header">
+                                <div className="periodeliste__title">
+                                    <Systemtittel>Deres plan</Systemtittel>
+                                </div>
+
+                                {onResetPlan && (
+                                    <div className="periodeliste__reset">
+                                        <LinkButton onClick={() => onResetPlan()}>Nullstill</LinkButton>
+                                    </div>
+                                )}
+                            </div>
                         </Block>
                         <Block margin="s">
                             <Periodeliste {...this.props} />

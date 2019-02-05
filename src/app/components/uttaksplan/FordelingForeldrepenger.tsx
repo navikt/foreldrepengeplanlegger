@@ -60,7 +60,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
                             foreldrepengerFørTermin={tilgjengeligeUker.ukerFørTermin}
                             modrekvote={tilgjengeligeUker.ukerForbeholdtMor}
                             fedrekvote={tilgjengeligeUker.ukerForbeholdtFar}
-                            fellesukerMor={ukerMor || defaultUker}
+                            fellesukerMor={ukerMor}
                             fellesukerFarMedmor={ukerFarMedmor}
                             navnMor={navnMor}
                             navnFarMedmor={navnFarMedmor}

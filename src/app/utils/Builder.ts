@@ -39,10 +39,8 @@ class Builder {
             this.perioder = settInnPerioder(this.perioder, fastePerioder);
             this.sort();
             this.perioder = slåSammenLikePerioder(this.perioder);
-            // this.perioder = oppdaterUttaksinfo(this.perioder);
         } else {
             this.perioder = resetTidsperioder(this.perioder, this.familiehendelsesdato);
-            // this.perioder = oppdaterUttaksinfo(this.perioder);
         }
 
         return this;

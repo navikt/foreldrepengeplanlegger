@@ -1,22 +1,25 @@
 import * as React from 'react';
 import { Forelder, OmForeldre, ForeldreparForelder } from '../../../types';
-import MenuButton, { MenuButtonOption } from 'common/components/menuButton/MenuButton';
+// import MenuButton, { MenuButtonOption } from 'common/components/menuButton/MenuButton';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
-import DropdownDialogTittel from './DropdownDialogTittel';
+// import DropdownDialogTittel from './DropdownDialogTittel';
+import DropdownForm from 'common/components/dropdownForm/DropdownForm';
+import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
+import IkonTekst from 'common/components/ikonTekst/IkonTekst';
 
 interface Props {
-    forelder: Forelder;
+    forelder?: Forelder;
     omForeldre: OmForeldre;
     erLåst?: boolean;
     onChange: (forelder: Forelder) => void;
 }
 
-const getForelderOptions = (omForeldre: OmForeldre): MenuButtonOption[] => [
+const getForelderOptions = (omForeldre: OmForeldre): DropdownFormMenuOption[] => [
     { value: Forelder.farMedmor, label: omForeldre.farMedmor.navn },
     { value: Forelder.mor, label: omForeldre.mor!.navn }
 ];
 
-const renderForelderIkon = (forelder: Forelder, omForeldre: OmForeldre): React.ReactNode | undefined => {
+const renderForelderIkon = (forelder: Forelder | undefined, omForeldre: OmForeldre): React.ReactNode | undefined => {
     const iconRef: ForeldreparForelder =
         forelder === Forelder.farMedmor ? omForeldre.farMedmor.ikonRef : omForeldre.mor!.ikonRef;
     return (
@@ -27,16 +30,23 @@ const renderForelderIkon = (forelder: Forelder, omForeldre: OmForeldre): React.R
 };
 
 const ForelderMeny: React.StatelessComponent<Props> = ({ onChange, forelder, omForeldre, erLåst }) => {
+    const options = getForelderOptions(omForeldre);
+    const valgtOption = forelder ? options.find((f) => f.value === forelder) : undefined;
+    const valgtForelderNavn = valgtOption ? valgtOption.label : undefined;
     return (
-        <MenuButton
+        <DropdownForm
             disabled={erLåst}
-            onChange={(value) => onChange(value as Forelder)}
-            options={getForelderOptions(omForeldre)}
-            selectedValue={forelder}
-            iconRenderer={(option) => renderForelderIkon(option.value as Forelder, omForeldre)}
-            iconOnly={true}
-            dialogClassName="forelderMenyDialog"
-            headerRenderer={() => <DropdownDialogTittel>Hvem gjelder perioden?</DropdownDialogTittel>}
+            onSelection={(value) => onChange(value as Forelder)}
+            contentClassName="forelderMenyDialog"
+            contentTitle="Hvem gjelder perioden?"
+            labelRenderer={() => (
+                <IkonTekst ikon={renderForelderIkon(forelder, omForeldre)} kunIkon={true}>
+                    {valgtForelderNavn}
+                </IkonTekst>
+            )}
+            contentRenderer={() => <DropdownFormMenu options={options} selectedValue={forelder} />}
+            labelAlignment="center"
+            dropdownPlacement="right"
         />
     );
 };

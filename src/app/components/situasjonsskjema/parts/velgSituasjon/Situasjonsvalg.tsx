@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { Situasjon } from '../../../../types';
 import { FormattedMessage } from 'react-intl';
 import BEMHelper from 'common/utils/bem';
@@ -35,7 +35,7 @@ class Situasjonsvalg extends React.Component<Props, State> {
         const { situasjon, checked, onChange } = this.props;
         return (
             <label
-                className={classnames(bem.block, {
+                className={classNames(bem.block, {
                     [bem.modifier('valgt')]: checked,
                     [bem.modifier('medFokus')]: this.state.hasFocus
                 })}>

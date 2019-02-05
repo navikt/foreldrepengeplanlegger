@@ -1,7 +1,7 @@
 import * as React from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import BEMHelper from 'common/utils/bem';
-import { UttaksplanColor } from '../../../../types';
+import { UttaksplanColor } from '../../../types';
 
 import './periodeFargestrek.less';
 
@@ -15,7 +15,7 @@ const bem = BEMHelper('periodeFargestrek');
 const PeriodeFargestrek: React.StatelessComponent<Props> = ({ farge, gradert }) => {
     return (
         <div
-            className={classnames(
+            className={classNames(
                 bem.block,
                 bem.modifier(farge),
                 gradert ? `${bem.modifier(farge)}--gradert` : undefined
@@ -23,4 +23,5 @@ const PeriodeFargestrek: React.StatelessComponent<Props> = ({ farge, gradert }) 
         />
     );
 };
+
 export default PeriodeFargestrek;

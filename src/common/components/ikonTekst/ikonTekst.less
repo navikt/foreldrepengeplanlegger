@@ -1,12 +1,24 @@
 .ikonTekst {
-    display: Flex;
+    display: flex;
     &__ikon {
-        float: left;
         flex: 0 1 0;
-        margin-right: 0.75em;
+        margin-right: 1em;
         line-height: 0;
     }
     &__tekst {
         flex: 2 1 0;
+    }
+    &--kunIkon {
+        .ikonTekst__ikon {
+            margin-right: 0;
+        }
+    }
+    &--vertikal {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        .ikonTekst__ikon {
+            margin: 0 0 0.25rem 0;
+        }
     }
 }

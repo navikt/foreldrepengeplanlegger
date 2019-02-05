@@ -1,8 +1,6 @@
 import * as React from 'react';
-import classnames from 'classnames';
 import { MenuButtonOption, MenuButtonIconRenderer } from 'common/components/menuButton/MenuButton';
-import BEMHelper from 'common/utils/bem';
-import AriaText from 'common/components/aria/AriaText';
+import IkonTekst from 'common/components/ikonTekst/IkonTekst';
 
 interface Props {
     option: MenuButtonOption;
@@ -12,8 +10,6 @@ interface Props {
     labelRenderer?: (option: MenuButtonOption) => React.ReactNode;
 }
 
-const bem = BEMHelper('menuButtonIconLabel');
-
 const MenuButtonIconLabelRenderer: React.StatelessComponent<Props> = ({
     option,
     iconRenderer,
@@ -21,15 +17,11 @@ const MenuButtonIconLabelRenderer: React.StatelessComponent<Props> = ({
     iconOnly = false,
     labelRenderer
 }) => {
+    const Ikon = iconRenderer ? iconRenderer(option, isSelected) : undefined;
     return (
-        <div className={classnames(bem.block, { [`${bem.block}--iconOnly`]: iconOnly })}>
-            {iconRenderer && <div className={bem.element('icon')}>{iconRenderer(option, isSelected)}</div>}
-            {iconOnly ? (
-                <AriaText>{option.label}</AriaText>
-            ) : (
-                <div className={bem.element('label')}>{labelRenderer ? labelRenderer(option) : option.label}</div>
-            )}
-        </div>
+        <IkonTekst kunIkon={iconOnly} ikon={Ikon}>
+            {labelRenderer ? labelRenderer(option) : option.label}
+        </IkonTekst>
     );
 };
 

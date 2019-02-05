@@ -4,6 +4,8 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
 import getMessage from 'common/utils/i18nUtils';
 
+import './varighet.less';
+
 interface OwnProps {
     dager: number;
 }

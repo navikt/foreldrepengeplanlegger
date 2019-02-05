@@ -3,7 +3,7 @@ import { injectIntl, InjectedIntl, InjectedIntlProps } from 'react-intl';
 import NavFrontendChevron from 'nav-frontend-chevron';
 import TypografiBase from 'nav-frontend-typografi';
 import { Link } from 'react-router-dom';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import getMessage from 'common/utils/i18nUtils';
 import BEMHelper from 'common/utils/bem';
 import './breadcrumbs.less';
@@ -94,7 +94,7 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps & InjectedIntlProps> 
                         aria-current={current ? 'page' : ''}
                         key={`crumb${index}`}
                         type="normaltekst"
-                        className={classnames(cls.element('item'), {
+                        className={classNames(cls.element('item'), {
                             [cls.element('current')]: current
                         })}>
                         {current ? path.label : <a href={path.url}>{path.label}</a>}

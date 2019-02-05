@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as classnames from 'classnames';
+import classNames from 'classnames';
 import { Fieldset, RadioPanel } from 'nav-frontend-skjema';
 
 import './radioGroup.less';
@@ -27,7 +27,7 @@ class RadioGroup extends React.Component<Props> {
     render() {
         const { columns = 3, legend, checked, name, options, sameHeight, onChange } = this.props;
 
-        const wrapperCls = classnames('radioPanelWrapper', `radioPanelWrapper--columns-${columns}`, {
+        const wrapperCls = classNames('radioPanelWrapper', `radioPanelWrapper--columns-${columns}`, {
             'radioPanelWrapper--sameHeight': sameHeight
         });
         const content = (

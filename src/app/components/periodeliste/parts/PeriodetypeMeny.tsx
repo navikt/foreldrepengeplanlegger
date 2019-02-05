@@ -1,14 +1,18 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
-import { Periodetype, Periode } from '../../../types';
-import MenuButton, { MenuButtonOption } from 'common/components/menuButton/MenuButton';
-import Periodeikon from '../../periodeikon/Periodeikon';
+import { Periodetype, Forelder } from '../../../types';
 import getMessage from 'common/utils/i18nUtils';
 import { Tidsperioden } from '../../../utils/Tidsperioden';
-import DropdownDialogTittel from './DropdownDialogTittel';
+import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
+import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
+import DropdownForm from 'common/components/dropdownForm/DropdownForm';
+import IkonTekst from 'common/components/ikonTekst/IkonTekst';
+import Periodeikon from '../../periodeikon/Periodeikon';
 
 interface OwnProps {
-    periode: Periode;
+    type?: Periodetype;
+    tidsperiode?: Tidsperiode;
+    forelder?: Forelder;
     flereForeldre: boolean;
     foreldernavn?: string;
     erLåst?: boolean;
@@ -17,7 +21,7 @@ interface OwnProps {
 
 type Props = OwnProps & InjectedIntlProps;
 
-const getOptions = (intl: InjectedIntl): MenuButtonOption[] => [
+const getOptions = (intl: InjectedIntl): DropdownFormMenuOption[] => [
     {
         value: Periodetype.UttakFørTermin,
         label: getMessage(intl, `periodetype.${Periodetype.UttakFørTermin}`),
@@ -27,45 +31,47 @@ const getOptions = (intl: InjectedIntl): MenuButtonOption[] => [
     { value: Periodetype.GradertUttak, label: getMessage(intl, `periodetype.${Periodetype.GradertUttak}`) },
     { value: Periodetype.Ferie, label: getMessage(intl, `periodetype.${Periodetype.Ferie}`) },
     { value: Periodetype.Arbeid, label: getMessage(intl, `periodetype.${Periodetype.Arbeid}`) }
-    // { value: Periodetype.UbetaltPermisjon, label: getMessage(intl, `periodetype.${Periodetype.UbetaltPermisjon}`) },
 ];
 
-const getPeriodetypeLabel = (periode: Periode, intl: InjectedIntl): string => {
-    return `${getMessage(intl, `periodetype.${periode.type}`)}${
-        periode.type === Periodetype.GradertUttak ? ` (${periode.gradering}%)` : ''
-    }`;
+const getPeriodetypeLabel = (type: Periodetype | undefined, intl: InjectedIntl): string => {
+    return getMessage(intl, `periodetype.${type}`);
 };
 
-const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({ periode, flereForeldre, foreldernavn, intl }) => {
+const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
+    type,
+    tidsperiode,
+    forelder,
+    flereForeldre,
+    foreldernavn,
+    intl
+}) => {
     return (
-        <div className="periodetypeMenyLabel">
-            <div className="periodetypeMenyLabel__type">
-                {getPeriodetypeLabel(periode, intl)}
-                {flereForeldre && foreldernavn && <span> - {foreldernavn}</span>}
-            </div>
-            {periode.tidsperiode && (
-                <div className="periodetypeMenyLabel__tidsperiode">
-                    {Tidsperioden(periode.tidsperiode).formaterStringKort(intl)}
+        <IkonTekst ikon={<Periodeikon periodetype={type} forelder={forelder} />}>
+            <div className="periodetypeMenyLabel">
+                <div className="periodetypeMenyLabel__type">
+                    {getPeriodetypeLabel(type, intl)}
+                    {flereForeldre && foreldernavn && <span> - {foreldernavn}</span>}
                 </div>
-            )}
-        </div>
+                {tidsperiode && (
+                    <div className="periodetypeMenyLabel__tidsperiode">
+                        {Tidsperioden(tidsperiode).formaterStringKort(intl)}
+                    </div>
+                )}
+            </div>
+        </IkonTekst>
     );
 };
 
 const PeriodetypeMeny: React.StatelessComponent<Props> = (props) => {
-    const { erLåst, intl, periode, onChange } = props;
+    const { erLåst, intl, type, onChange } = props;
     return (
-        <MenuButton
+        <DropdownForm
             disabled={erLåst}
-            options={getOptions(intl)}
-            onChange={(value) => onChange(value as Periodetype)}
-            selectedValue={periode.type}
-            iconRenderer={(option) => (
-                <Periodeikon periodetype={option.value as Periodetype} forelder={periode.forelder} />
-            )}
-            dialogClassName={'periodetypeDialog'}
-            headerRenderer={() => <DropdownDialogTittel>Velg type periode</DropdownDialogTittel>}
+            onSelection={onChange}
             labelRenderer={() => <PeriodetypeMenyLabel {...props} />}
+            contentClassName="periodetypeDialog"
+            contentTitle="Velg type periode"
+            contentRenderer={() => <DropdownFormMenu options={getOptions(intl)} selectedValue={type} />}
         />
     );
 };

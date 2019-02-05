@@ -1,43 +1,52 @@
-import { Periodetype, Periode } from '../types';
+import { Periodetype, Periode, PeriodeBase } from '../types';
+
+const getBasePeriode = (periode: Periode): PeriodeBase => {
+    if (periode.type === Periodetype.UttakFørTermin) {
+        const { skalIkkeHaUttakFørTermin, ...rest } = periode;
+        return rest;
+    }
+    return periode;
+};
 
 export const changePeriodeType = (periode: Periode, type: Periodetype): Periode => {
     if (type === periode.type) {
         return periode;
     }
+    const basePeriode = getBasePeriode(periode);
     switch (type) {
         case Periodetype.Ferie:
             return {
-                ...periode,
+                ...basePeriode,
                 type: Periodetype.Ferie,
                 gradering: undefined
             };
         case Periodetype.Arbeid:
             return {
-                ...periode,
+                ...basePeriode,
                 type: Periodetype.Arbeid,
                 gradering: undefined
             };
         case Periodetype.Uttak:
             return {
-                ...periode,
+                ...basePeriode,
                 type: Periodetype.Uttak,
                 gradering: undefined
             };
         case Periodetype.UttakFørTermin:
             return {
-                ...periode,
+                ...basePeriode,
                 type: Periodetype.UttakFørTermin,
                 gradering: undefined
             };
         case Periodetype.GradertUttak:
             return {
-                ...periode,
+                ...basePeriode,
                 type: Periodetype.GradertUttak,
                 gradering: 50
             };
         case Periodetype.UbetaltPermisjon:
             return {
-                ...periode,
+                ...basePeriode,
                 type: Periodetype.UbetaltPermisjon,
                 gradering: undefined
             };

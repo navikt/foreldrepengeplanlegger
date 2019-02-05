@@ -22,14 +22,11 @@ type Props = OwnProps;
 class PeriodeskjemaForm extends React.Component<Props, {}> {
     render() {
         const { formik, onCancel, omForeldre } = this.props;
-        const { fom, tom, type, forelder } = formik.values;
+        const { fom, tom, periodetype, forelder } = formik.values;
         return (
             <Form className="periodeskjema">
                 <Block>
-                    <PeriodetypeValg
-                        periodetype={type}
-                        onChange={(periodetype) => formik.setFieldValue('type', periodetype)}
-                    />
+                    <PeriodetypeValg periodetype={periodetype} onChange={(pt) => formik.setFieldValue('type', pt)} />
                 </Block>
                 {omForeldre.antallForeldre === 2 && (
                     <Block>

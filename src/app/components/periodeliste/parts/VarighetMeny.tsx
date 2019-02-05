@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { UkerOgDager } from '../../../types';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import DropdownButton from 'common/components/dropdownButton/DropdownButton';
 import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVelger';
 import { Tidsperiode } from 'nav-datovelger';
-import BEMHelper from 'common/utils/bem';
 import Varighet from '../../varighet/Varighet';
 import Block from 'common/components/block/Block';
 import FomTomValg from '../../periodeskjema/parts/FomTomValg';
-import DropdownDialogTittel from './DropdownDialogTittel';
 import { Checkbox } from 'nav-frontend-skjema';
+import DropdownForm from 'common/components/dropdownForm/DropdownForm';
 
 export interface VarighetChangeEvent {
     ukerOgDager: UkerOgDager;
@@ -19,7 +17,8 @@ export interface VarighetChangeEvent {
 interface OwnProps {
     uker: number;
     dager: number;
-    tidsperiode: Tidsperiode;
+    fom?: Date;
+    tom?: Date;
     startdatoErLåst?: boolean;
     sluttdatoErLåst?: boolean;
     ingenVarighet?: boolean;
@@ -30,10 +29,9 @@ interface OwnProps {
 
 type Props = OwnProps & InjectedIntlProps;
 
-const bem = BEMHelper('varighetDropdown');
-
 const DatoValg: React.StatelessComponent<Props> = ({
-    tidsperiode,
+    fom,
+    tom,
     onTidsperiodeChange,
     sluttdatoErLåst,
     startdatoErLåst,
@@ -42,8 +40,8 @@ const DatoValg: React.StatelessComponent<Props> = ({
     return (
         <FomTomValg
             onChange={onTidsperiodeChange}
-            fom={tidsperiode.fom}
-            tom={tidsperiode.tom}
+            fom={fom}
+            tom={tom}
             låstFomDato={startdatoErLåst}
             låstTomDato={sluttdatoErLåst}
             disabled={ingenVarighet}
@@ -67,11 +65,11 @@ const VarighetValg: React.StatelessComponent<Props> = ({ uker, dager, minDager, 
 };
 
 const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
-    const { uker, dager, sluttdatoErLåst, startdatoErLåst, onVarighetChange, ingenVarighet } = props;
-    if (startdatoErLåst === true && sluttdatoErLåst !== true) {
+    const { uker, dager, onVarighetChange, ingenVarighet } = props;
+    const variant = getVariant(props);
+    if (variant === 'låstStartdato') {
         return (
             <>
-                <DropdownDialogTittel>Hvor lang skal periode være?</DropdownDialogTittel>
                 <Block margin="xs">
                     <VarighetValg {...props} />
                 </Block>
@@ -81,11 +79,9 @@ const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
                 </Block>
             </>
         );
-    } else if (startdatoErLåst !== true && sluttdatoErLåst === true) {
-        /** Foreldrepenger før termin */
+    } else if (variant === 'foreldrepengerFørTermin') {
         return (
             <>
-                <DropdownDialogTittel>Når ønsker du å starte uttaket før termin?</DropdownDialogTittel>
                 <Block animated={true} visible={ingenVarighet !== true}>
                     <Block>
                         <DatoValg {...props} />
@@ -109,7 +105,6 @@ const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
     }
     return (
         <>
-            <DropdownDialogTittel>Velg tidsperiode</DropdownDialogTittel>
             <Block margin="xs">
                 <DatoValg {...props} />
             </Block>
@@ -120,20 +115,42 @@ const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
     );
 };
 
+type VarighetVariant = 'foreldrepengerFørTermin' | 'låstStartdato';
+
+const getVariant = (props: Props): VarighetVariant => {
+    const { sluttdatoErLåst, startdatoErLåst } = props;
+    if (startdatoErLåst === true && sluttdatoErLåst !== true) {
+        return 'låstStartdato';
+    }
+    return 'foreldrepengerFørTermin';
+};
+
+const getTittel = (variant: VarighetVariant): string => {
+    switch (variant) {
+        case 'foreldrepengerFørTermin':
+            return 'Når ønsker du å starte uttaket før termin?';
+        default:
+            return 'Hvor lenge skal perioden vare?';
+    }
+};
+
 const VarighetMeny: React.StatelessComponent<Props> = (props) => {
     const { uker, dager, ingenVarighet } = props;
+    const variant = getVariant(props);
     return (
-        <DropdownButton
-            label={() => (
-                <Block align="center" margin="none">
-                    <Varighet dager={ingenVarighet ? 0 : (uker * 5 + dager) | 0} />
-                </Block>
-            )}
-            dialogClassName={'varighetDialog'}>
-            <div className={bem.block}>
-                <VarighetMenyInnhold {...props} />
-            </div>
-        </DropdownButton>
+        <>
+            <DropdownForm
+                labelRenderer={() => (
+                    <Block align="center" margin="none">
+                        <Varighet dager={ingenVarighet ? 0 : (uker * 5 + dager) | 0} />
+                    </Block>
+                )}
+                contentClassName="varighetDialog"
+                contentTitle={getTittel(variant)}
+                contentRenderer={() => <VarighetMenyInnhold {...props} />}
+                dropdownPlacement="right"
+            />
+        </>
     );
 };
 

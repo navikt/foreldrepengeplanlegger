@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import DropdownButton from 'common/components/dropdownButton/DropdownButton';
-import BEMHelper from 'common/utils/bem';
 import SkjemaNumberStepper from 'common/components/skjema/skjemaNumberStepper/SkjemaNumberStepper';
 import AriaAlternative from 'common/components/aria/AriaAlternative';
-import DropdownDialogTittel from './DropdownDialogTittel';
-import IkonLabel from './IkonLabel';
 import WorkIkon from 'common/components/ikoner/WorkIkon';
+import DropdownForm from 'common/components/dropdownForm/DropdownForm';
+import IkonTekst from 'common/components/ikonTekst/IkonTekst';
+import Block from 'common/components/block/Block';
 
 interface OwnProps {
     gradering?: number;
@@ -15,8 +14,6 @@ interface OwnProps {
 }
 
 type Props = OwnProps & InjectedIntlProps;
-
-const bem = BEMHelper('graderingDropdown');
 
 const beregnGraderingUtFraArbeidsprosent = (arbeidsprosent: number | undefined): number | undefined => {
     if (arbeidsprosent !== undefined) {
@@ -29,27 +26,54 @@ const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, foreldernav
     const label = gradering === 100 || gradering === undefined ? '100%' : `${100 - gradering}%`;
     const arbeidsprosent = gradering === undefined ? 100 : 100 - gradering;
     return (
-        <DropdownButton
-            dialogClassName="graderingDialog"
-            label={() => (
-                <div className="graderingLabel">
-                    <IkonLabel ikon={<WorkIkon />}>
-                        <AriaAlternative ariaText={`Arbeider ${label}`} visibleText={label} />
-                    </IkonLabel>
+        <>
+            <DropdownForm
+                contentClassName="graderingDialog"
+                dropdownPlacement="right"
+                labelAlignment="center"
+                labelRenderer={() => (
+                    <div className="graderingLabel">
+                        <IkonTekst ikon={<WorkIkon />} layout="vertikal">
+                            <AriaAlternative ariaText={`Arbeider ${label}`} visibleText={label} />
+                        </IkonTekst>
+                    </div>
+                )}
+                contentTitle="Velg stillingsprosent"
+                contentRenderer={() => (
+                    <Block margin="xs">
+                        <SkjemaNumberStepper
+                            tittel={`Hvor mange prosent skal ${foreldernavn ? foreldernavn : 'du'} arbeide?`}
+                            min={1}
+                            max={100}
+                            stepSize={5}
+                            value={arbeidsprosent}
+                            onChange={(g) => onChange(beregnGraderingUtFraArbeidsprosent(g))}
+                        />
+                    </Block>
+                )}
+            />
+            {/* <DropdownButton
+                dialogClassName="graderingDialog"
+                label={() => (
+                    <div className="graderingLabel">
+                        <IkonLabel ikon={<WorkIkon />}>
+                            <AriaAlternative ariaText={`Arbeider ${label}`} visibleText={label} />
+                        </IkonLabel>
+                    </div>
+                )}>
+                <div className={bem.block}>
+                    <DropdownDialogTittel>Stillingsprosent</DropdownDialogTittel>
+                    <SkjemaNumberStepper
+                        tittel={`Velg hvor mye (i prosent) ${foreldernavn ? foreldernavn : 'du'} skal arbeide?`}
+                        min={1}
+                        max={100}
+                        stepSize={5}
+                        value={arbeidsprosent}
+                        onChange={(g) => onChange(beregnGraderingUtFraArbeidsprosent(g))}
+                    />
                 </div>
-            )}>
-            <div className={bem.block}>
-                <DropdownDialogTittel>Stillingsprosent</DropdownDialogTittel>
-                <SkjemaNumberStepper
-                    tittel={`Velg hvor mye (i prosent) ${foreldernavn ? foreldernavn : 'du'} skal arbeide?`}
-                    min={1}
-                    max={100}
-                    stepSize={5}
-                    value={arbeidsprosent}
-                    onChange={(g) => onChange(beregnGraderingUtFraArbeidsprosent(g))}
-                />
-            </div>
-        </DropdownButton>
+            </DropdownButton> */}
+        </>
     );
 };
 

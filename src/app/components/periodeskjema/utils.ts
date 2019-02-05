@@ -3,7 +3,7 @@ import { guid } from 'nav-frontend-js-utils';
 import { PeriodeskjemaFormValues } from './types';
 
 const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
-    switch (values.type) {
+    switch (values.periodetype) {
         case Periodetype.Ferie:
             return {
                 type: Periodetype.Ferie,
@@ -81,7 +81,7 @@ const getInitialFormValuesFromPeriode = (
         tom: periode.tidsperiode.tom,
         forelder: periode.forelder,
         gradering: periode.gradering,
-        type: periode.type
+        periodetype: periode.type
     };
 };
 

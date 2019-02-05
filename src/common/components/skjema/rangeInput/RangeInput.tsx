@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as classnames from 'classnames';
+import classNames from 'classnames';
 import { guid } from 'nav-frontend-js-utils';
 import { Fieldset } from 'nav-frontend-skjema';
 import Infoboks from 'common/components/infoboks/Infoboks';
@@ -126,7 +126,7 @@ class RangeInput extends React.Component<Props, State> {
                         {valueLabelPlacement === 'above' && labelRenderer({ value, min, max })}
                     </div>
                     <div
-                        className={classnames(bemRangeInput.block, {
+                        className={classNames(bemRangeInput.block, {
                             [bemRangeInput.modifier('withSteppers')]: steppers !== undefined
                         })}
                         ref={(c) => (this.container = c)}

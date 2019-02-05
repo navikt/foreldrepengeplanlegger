@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as classnames from 'classnames';
+import classNames from 'classnames';
 import BEMHelper from 'common/utils/bem';
 
 import './knapperad.less';
@@ -13,7 +13,7 @@ export interface Props {
 const bem = BEMHelper('knapperad');
 
 const Knapperad: React.StatelessComponent<Props> = ({ children, align = 'center', style = 'normal' }) => {
-    const cls = classnames(bem.block, `${bem.modifier(align)}`, `${bem.modifier(style)}`);
+    const cls = classNames(bem.block, `${bem.modifier(align)}`, `${bem.modifier(style)}`);
     return (
         <div className={cls}>
             {React.Children.map(children, (knapp, index) => (

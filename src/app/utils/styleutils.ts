@@ -4,7 +4,7 @@ const getForelderFarge = (forelder: Forelder) => {
     return forelder === Forelder.mor ? 'purple' : 'blue';
 };
 
-export const getPeriodetypeFarge = (periodetype: Periodetype, forelder?: Forelder): UttaksplanColor => {
+export const getPeriodetypeFarge = (periodetype: Periodetype | undefined, forelder?: Forelder): UttaksplanColor => {
     switch (periodetype) {
         case Periodetype.Arbeid:
         case Periodetype.Ferie:

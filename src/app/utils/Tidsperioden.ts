@@ -27,7 +27,10 @@ export const Tidsperioden = (tidsperiode: Partial<Tidsperiode>) => ({
     formaterStringMedDag: (intl: InjectedIntl) => tidsperiodeToStringMedDag(tidsperiode, intl),
     formaterStringKort: (intl: InjectedIntl) => tidsperiodeToStringKort(tidsperiode, intl),
     erFomEllerEtterDato: (dato: Date) => erTidsperiodeFomEllerEtterDato(tidsperiode, dato),
-    erFørDato: (dato: Date) => erTidsperiodeFomEllerEtterDato(tidsperiode, dato) === false
+    erFørDato: (dato: Date) => erTidsperiodeFomEllerEtterDato(tidsperiode, dato) === false,
+    setUkerOgDager: (uker: number, dager: number): Partial<Tidsperiode> => setUkerOgDager(tidsperiode, uker, dager),
+    setUkerOgDagerFlyttStartdato: (uker: number, dager: number): Partial<Tidsperiode> =>
+        setUkerOgDagerFlyttStartdato(tidsperiode, uker, dager)
 });
 
 export function isValidTidsperiode(tidsperiode: any): tidsperiode is Tidsperiode {
@@ -175,3 +178,23 @@ const erTidsperiodeFomEllerEtterDato = (tidsperiode: Partial<Tidsperiode>, dato:
         moment(tidsperiode.tom).isSameOrAfter(dato, 'day')
     );
 };
+
+function setUkerOgDager(tidsperiode: Partial<Tidsperiode>, uker: number, dager: number): Partial<Tidsperiode> {
+    if (tidsperiode.fom) {
+        return getTidsperiode(tidsperiode.fom, Math.max(uker * 5 + dager, 1));
+    }
+    return tidsperiode;
+}
+
+function setUkerOgDagerFlyttStartdato(
+    tidsperiode: Partial<Tidsperiode>,
+    uker: number,
+    dager: number
+): Partial<Tidsperiode> {
+    const uttaksdager = uker * 5 + dager;
+    const { tom } = tidsperiode;
+    if (tom && uttaksdager > 0) {
+        return { fom: Uttaksdagen(tom).trekkFra(uttaksdager - 1), tom };
+    }
+    return tidsperiode;
+}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as classnames from 'classnames';
+import classNames from 'classnames';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { guid } from 'nav-frontend-js-utils';
 import InfoToggler from 'common/components/utvidetInformasjon/InfoToggler';
@@ -33,7 +33,7 @@ class UtvidetInformasjon extends React.Component<Props, State> {
     }
     render() {
         const { intl } = this.props;
-        const cls = classnames('utvidetInformasjon', {
+        const cls = classNames('utvidetInformasjon', {
             'utvidetInformasjon--apen': this.state.apen
         });
 

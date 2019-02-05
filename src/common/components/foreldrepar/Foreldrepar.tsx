@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FlexibleSvg } from '../customSvg/CustomSVG';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import BEMHelper from 'common/utils/bem';
 import { ForeldreparForelder, ForeldreparIllustrasjonsvariant } from 'common/components/foreldrepar/foreldreparTypes';
 
@@ -21,7 +21,7 @@ const Foreldrepar: React.StatelessComponent<Props> = ({ firstParent, secondParen
     return (
         <div
             role="presentation"
-            className={classnames(cls.block, {
+            className={classNames(cls.block, {
                 [cls.element('closerParents')]: variant && variant === 'foreldreNærmere'
             })}>
             <Forelder
@@ -46,7 +46,7 @@ const Foreldrepar: React.StatelessComponent<Props> = ({ firstParent, secondParen
 const Forelder = ({ className, svg, lessOpacity }: { className: string; svg: any; lessOpacity?: boolean }) => {
     const svgToRender = (
         <FlexibleSvg
-            className={classnames(className, { [cls.element('halfOpacity')]: lessOpacity })}
+            className={classNames(className, { [cls.element('halfOpacity')]: lessOpacity })}
             iconRef={svg}
             width={31}
             height={45}

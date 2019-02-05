@@ -157,6 +157,13 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                     .fjernPeriode(action.periode)
                     .build().perioder
             });
+        case CommonActionKeys.SLÅ_SAMMEN_PERIODER:
+            return updateStateAndStorage(state, {
+                perioder: getBuilder()
+                    .slåSammenPerioder(action.periode1, action.periode2)
+                    .build()
+                    .perioder.map((p) => ({ ...p, uttaksinfo: getUttaksinfoForPeriode(p) }))
+            });
         case CommonActionKeys.SET_PERIODER:
             return updateStateAndStorage(state, {
                 perioder: action.perioder,
@@ -181,7 +188,6 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                     ukerFarMedmor: state.tilgjengeligeDager!.dagerFelles - action.ukerMor
                 },
                 perioder
-                // forbruk: getForbruk(perioder, state.tilgjengeligeDager!.dagerTotalt - state.tilgjengeligeDager.)
             });
         case CommonActionKeys.RESET_APP:
             return updateStateAndStorage(getDefaultCommonState(), {});

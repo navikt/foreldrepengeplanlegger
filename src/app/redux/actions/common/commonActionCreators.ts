@@ -110,6 +110,14 @@ export function setØnsketFordeling(ukerMor: number): CommonActionTypes {
     };
 }
 
+export function slåSammenPerioder(periode1: Periode, periode2: Periode): CommonActionTypes {
+    return {
+        type: CommonActionKeys.SLÅ_SAMMEN_PERIODER,
+        periode1,
+        periode2
+    };
+}
+
 export default {
     setSpråk
 };

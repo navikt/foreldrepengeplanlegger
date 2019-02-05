@@ -27,6 +27,7 @@ export interface PeriodelisteActions {
     onRemove: (periode: Periode) => void;
     onMove?: (periode: Periode, toIndex: number) => void;
     onResetPlan?: () => void;
+    onSlåSammenPerioder?: (periode1: Periode, periode2: Periode) => void;
 }
 
 export interface PeriodelisteFeatures {

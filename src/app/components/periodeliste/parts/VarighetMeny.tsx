@@ -204,7 +204,7 @@ class VarighetMeny extends React.Component<Props, {}> {
     }
     handleTidsperiodeChange(tidsperiode: Tidsperiode) {
         this.props.onTidsperiodeChange(tidsperiode);
-        if (this.props.fom && this.props.tom === undefined && this.dropdown) {
+        if (this.props.fom && tidsperiode.tom !== undefined && this.props.tom === undefined && this.dropdown) {
             this.dropdown.closeMenu();
         }
     }

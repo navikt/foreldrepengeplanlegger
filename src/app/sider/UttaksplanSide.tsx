@@ -11,7 +11,8 @@ import {
     setDekningsgrad,
     setPerioder,
     resetApp,
-    setØnsketFordeling
+    setØnsketFordeling,
+    slåSammenPerioder
 } from '../redux/actions/common/commonActionCreators';
 import { AppState } from '../redux/reducers/rootReducer';
 import { connect } from 'react-redux';
@@ -142,6 +143,7 @@ class UttaksplanSide extends React.Component<Props> {
                                         onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
                                         onResetPlan={() => dispatch(setPerioder([]))}
                                         onResetApp={() => dispatch(resetApp())}
+                                        onSlåSammenPerioder={(p1, p2) => dispatch(slåSammenPerioder(p1, p2))}
                                         uttaksdatoer={uttaksdatoer}
                                     />
                                 )}

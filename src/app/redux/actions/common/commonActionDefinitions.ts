@@ -21,6 +21,7 @@ export enum CommonActionKeys {
     'ADD_PERIODE' = 'addPeriode',
     'UPDATE_PERIODE' = 'updatePeriode',
     'REMOVE_PERIODE' = 'removePeriode',
+    'SLÅ_SAMMEN_PERIODER' = 'slåSammenPerioder',
     'MOVE_PERIODE' = 'movePeriode',
     'APPLY_STORAGE' = 'applyStorage',
     'UPDATE_FORBRUK' = 'updateForbruk',
@@ -106,6 +107,12 @@ interface RemovePeriode {
     periode: Periode;
 }
 
+interface SlåSammenPerioder {
+    type: CommonActionKeys.SLÅ_SAMMEN_PERIODER;
+    periode1: Periode;
+    periode2: Periode;
+}
+
 interface MovePeriode {
     type: CommonActionKeys.MOVE_PERIODE;
     periode: Periode;
@@ -125,6 +132,7 @@ export type CommonActionTypes =
     | AddPeriode
     | UpdatePeriode
     | RemovePeriode
+    | SlåSammenPerioder
     | MovePeriode
     | SubmitSkjemadataAction
     | ApplyStorage

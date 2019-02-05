@@ -6,14 +6,45 @@ import { formaterDato } from 'common/utils/datoUtils';
 import HjerteIkon from '../periodeikon/ikoner/HjerteIkon';
 import BEMHelper from 'common/utils/bem';
 import IconText from 'common/components/iconText/IconText';
+import { Perioden } from '../../utils/Perioden';
+import LinkButton from 'common/components/linkButton/LinkButton';
 
 import './periodeliste.less';
 
 const bem = BEMHelper('periodeliste');
 
+const erPeriodeLikForrigePeriode = (
+    perioder: Periode[],
+    periode: Periode,
+    index: number,
+    antallPerioder: number
+): boolean => {
+    if (index === 0 || index === antallPerioder - 1) {
+        return false;
+    }
+    const forrigePeriode = perioder[index - 1];
+    return Perioden(forrigePeriode).erLik(periode);
+};
+
+const SlåSammenPeriodeValg: React.StatelessComponent<{
+    periode: Periode;
+    forrigePeriode: Periode;
+    onSamlePerioder: (periode1: Periode, periode2: Periode) => void;
+}> = ({ periode, forrigePeriode, onSamlePerioder }) => {
+    return (
+        <div className={bem.element('likePerioder')}>
+            Perioden over og under er like og kan{' '}
+            <LinkButton onClick={() => onSamlePerioder(periode, forrigePeriode)}>
+                slåes sammen til en periode
+            </LinkButton>{' '}
+        </div>
+    );
+};
+
 const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
-    const { perioder, periodeFørTermin, familiehendelsesdato, ...elementProps } = props;
-    if (perioder.length === 0) {
+    const { perioder, periodeFørTermin, familiehendelsesdato, onSlåSammenPerioder, ...elementProps } = props;
+    const antallPerioder = perioder.length;
+    if (antallPerioder === 0) {
         return <div>Ingen perioder registrert</div>;
     }
     return (
@@ -32,7 +63,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
                     </li>
                     <li className={bem.element('termin')}>
                         <IconText icon={<HjerteIkon fylt={true} title="Termin" />}>
-                            {formaterDato(familiehendelsesdato)}
+                            Termin {formaterDato(familiehendelsesdato)}
                         </IconText>
                     </li>
                 </>
@@ -42,6 +73,14 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
             {perioder.map((periode: Periode, index: number) => {
                 return (
                     <li className="periodeliste__periode" key={periode.id}>
+                        {onSlåSammenPerioder &&
+                            erPeriodeLikForrigePeriode(perioder, periode, index, antallPerioder) && (
+                                <SlåSammenPeriodeValg
+                                    periode={periode}
+                                    forrigePeriode={perioder[index - 1]}
+                                    onSamlePerioder={onSlåSammenPerioder}
+                                />
+                            )}
                         <PeriodeElement periode={periode} {...elementProps} startdatoErLåst={true} />
                     </li>
                 );

@@ -6,6 +6,7 @@ import { Perioden } from './Perioden';
 import { guid } from 'nav-frontend-js-utils';
 import { getTidsperiode, Tidsperioden } from './Tidsperioden';
 import arrayMove from 'array-move';
+import { getUttaksinfoForPeriode } from './uttaksinfo';
 
 export const UttaksplanBuilder = (perioder: Periode[], familiehendelsesdato: Date) => {
     return new Builder(perioder, familiehendelsesdato);
@@ -69,9 +70,18 @@ class Builder {
         this.perioder = resetTidsperioder(this.perioder, this.familiehendelsesdato, true);
         return this;
     }
-
+    slåSammenPerioder(periode1: Periode, periode2: Periode) {
+        if (Perioden(periode1).erLik(periode2)) {
+            this.perioder = slåSammenLikePerioder(this.perioder);
+        }
+        return this;
+    }
     sort() {
         this.perioder.sort(sorterPerioder);
+        return this;
+    }
+    oppdaterUttaksinfo() {
+        this.perioder.map((p) => ({ ...p, uttaksinfo: getUttaksinfoForPeriode(p) }));
         return this;
     }
 }
@@ -119,9 +129,9 @@ function settInnPerioder(perioder: Periode[], perioder2: Periode[]): Periode[] {
 }
 
 function slåSammenLikePerioder(perioder: Periode[]): Periode[] {
-    if (SETTINGS.slåSammenPerioder !== true) {
-        return perioder;
-    }
+    // if (SETTINGS.slåSammenPerioder !== true) {
+    //     return perioder;
+    // }
     if (perioder.length <= 1) {
         return perioder;
     }

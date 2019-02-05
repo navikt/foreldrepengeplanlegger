@@ -4,7 +4,6 @@ import DatoInput from 'common/components/skjema/datoInput/DatoInput';
 import { Row, Column } from 'nav-frontend-grid';
 import Block from 'common/components/block/Block';
 import { Uttaksdagen } from '../../../utils/Uttaksdagen';
-import { formaterDato } from 'common/utils/datoUtils';
 
 interface TidsperiodeChangeEvent {
     fom?: Date;
@@ -19,6 +18,7 @@ interface OwnProps {
     tomLabel?: React.ReactNode;
     fomLabel?: React.ReactNode;
     disabled?: boolean;
+    footer?: React.ReactNode;
     onChange: (evt: TidsperiodeChangeEvent) => void;
     onSetVarighet?: (dager: number) => void;
 }
@@ -34,7 +34,8 @@ const FomTomValg: React.StatelessComponent<Props> = ({
     låstTomDato,
     fomLabel = 'Startdato',
     tomLabel = 'Sluttdato',
-    disabled
+    disabled,
+    footer
 }) => {
     return (
         <>
@@ -87,12 +88,7 @@ const FomTomValg: React.StatelessComponent<Props> = ({
                     )}
                 </Row>
             </Block>
-            {låstFomDato && fom && (
-                <div className="comment">
-                    Perioden starter <strong>{formaterDato(fom)}</strong> (første dag etter foregående periode). For å
-                    endre når denne perioden starter, må du endre sluttdato på foregående periode.
-                </div>
-            )}
+            {footer}
         </>
     );
 };

@@ -4,7 +4,7 @@ import SkjemaNumberStepper from 'common/components/skjema/skjemaNumberStepper/Sk
 import AriaAlternative from 'common/components/aria/AriaAlternative';
 import WorkIkon from 'common/components/ikoner/WorkIkon';
 import DropdownForm from 'common/components/dropdownForm/DropdownForm';
-import IkonTekst from 'common/components/ikonTekst/IkonTekst';
+import IconText from 'common/components/iconText/IconText';
 import Block from 'common/components/block/Block';
 
 interface OwnProps {
@@ -33,9 +33,9 @@ const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, foreldernav
                 labelAlignment="center"
                 labelRenderer={() => (
                     <div className="graderingLabel">
-                        <IkonTekst ikon={<WorkIkon />} layout="vertikal">
+                        <IconText icon={<WorkIkon />} layout="vertical">
                             <AriaAlternative ariaText={`Arbeider ${label}`} visibleText={label} />
-                        </IkonTekst>
+                        </IconText>
                     </div>
                 )}
                 contentTitle="Velg stillingsprosent"

@@ -1,62 +1,23 @@
 @import '../../../styles/variables.less';
 
-.striped(@color1, @color2) {
-    @pos: 6.2px;
-    background: repeating-linear-gradient(-45deg, @color1, @color1 @pos, @color2 @pos, @color2 @pos + 1.5px);
-}
-
 .periodelisteElement {
-    position: relative;
-    margin: 0;
     display: flex;
     justify-content: stretch;
     align-content: stretch;
     flex-wrap: nowrap;
-    padding: 0.5rem 1rem;
-    background-color: white;
-    border-radius: 0.5rem;
     &__menyWrapper {
         flex: 1 1 0;
         margin-right: 0.25rem;
         min-width: 5rem;
         position: relative;
         align-items: stretch;
+        &:last-child {
+            margin-right: 0;
+        }
     }
     &__tools {
         padding-left: 1rem;
         display: flex;
         align-items: center;
-    }
-    &__fargestrek {
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 8px;
-        z-index: 3;
-        border-top-left-radius: 0.25rem;
-        border-bottom-left-radius: 0.25rem;
-
-        &--purple {
-            background-color: @c-periodefarge-lilla;
-            &--gradert {
-                .striped(@c-periodefarge-lilla, @c-periodefarge-lilla--gradert);
-            }
-        }
-        &--green {
-            background-color: @c-periodefarge-gronn;
-            &--gradert {
-                .striped(@c-periodefarge-gronn, @c-periodefarge-gronn--gradert);
-            }
-        }
-        &--blue {
-            background-color: @c-periodefarge-blaa;
-            &--gradert {
-                .striped(@c-periodefarge-blaa, @c-periodefarge-blaa--gradert);
-            }
-        }
-        &--yellow {
-            background-color: @c-periodefarge-yellow;
-        }
     }
 }

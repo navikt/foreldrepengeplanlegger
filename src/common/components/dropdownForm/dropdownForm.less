@@ -7,7 +7,8 @@
         padding: @buttonPadding;
         border: 1px solid transparent;
     }
-    &__button {
+
+    .dropdownForm__button {
         cursor: pointer;
         padding: @buttonPadding;
         border-style: dashed;
@@ -28,6 +29,7 @@
         }
         &--center {
             justify-content: center;
+            text-align: center;
         }
         &--right {
             justify-content: flex-end;
@@ -36,7 +38,7 @@
     &__dialogTitle {
         font-size: 1.1rem;
         margin-top: 0.25rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
     }
     &__dialogWrapper {
         position: absolute;
@@ -66,37 +68,36 @@
         height: 100%;
         display: flex;
     }
-}
-
-.dropdownFormMenu {
-    ul,
-    li {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-    &__option {
-        .borderButton();
-        cursor: pointer;
-        padding: 1rem 1rem;
-        margin-bottom: 0.5rem;
-        width: 100%;
-        align-items: center;
-        display: flex;
-        &--selected {
-            background-color: rgba(0, 103, 197, 0.2);
-            border: 1px solid transparent;
+    .dropdownFormMenu {
+        ul,
+        li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }
-        &__icon {
-            order: 2;
-            width: 2.5rem;
-            text-align: right;
-            margin-top: -0.5rem;
-            margin-bottom: -0.5rem;
-            line-height: 0;
-        }
-        &__label {
-            flex-grow: 2;
+        &__option {
+            .borderButton();
+            cursor: pointer;
+            padding: 1rem 1rem;
+            margin-bottom: 0.5rem;
+            width: 100%;
+            align-items: center;
+            display: flex;
+            &--selected {
+                background-color: rgba(0, 103, 197, 0.2);
+                border: 1px solid transparent;
+            }
+            &__icon {
+                order: 2;
+                width: 2.5rem;
+                text-align: right;
+                margin-top: -0.5rem;
+                margin-bottom: -0.5rem;
+                line-height: 0;
+            }
+            &__label {
+                flex-grow: 2;
+            }
         }
     }
 }

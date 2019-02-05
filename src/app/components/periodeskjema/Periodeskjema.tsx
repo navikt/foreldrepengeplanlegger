@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Formik, FormikProps } from 'formik';
+import * as yup from 'yup';
 import PeriodeskjemaForm from './PeriodeskjemaForm';
-import { Periode } from '../../types/periodetyper';
+import { Periode, Periodetype } from '../../types/periodetyper';
 import periodeskjemaUtils from './utils';
 import { PeriodeskjemaFormValues } from './types';
 import { OmForeldre } from '../../types';
@@ -13,6 +14,21 @@ interface Props {
     onCancel: () => void;
 }
 
+const periodeValidationSchema = yup.object().shape({
+    periodetype: yup.string().required('Du må velge periodetype'),
+    forelder: yup.string().required('Du må velge hvem perioden gjelder'),
+    fom: yup.date().required('Fradato må velges'),
+    tom: yup.date().required('Tildato må velges'),
+    gradering: yup
+        .number()
+        .when('periodetype', (periodetype: Periodetype, schema: yup.Schema<PeriodeskjemaFormValues>) => {
+            if (periodetype === Periodetype.GradertUttak) {
+                return schema.required('Gradering må velges');
+            }
+            return schema;
+        })
+});
+
 class Periodeskjema extends React.Component<Props, {}> {
     constructor(props: Props) {
         super(props);
@@ -21,7 +37,7 @@ class Periodeskjema extends React.Component<Props, {}> {
         const { periode, omForeldre, onSubmit, onCancel } = this.props;
         return (
             <Formik
-                isInitialValid={true}
+                isInitialValid={false}
                 initialValues={periodeskjemaUtils.getInitialFormValuesFromPeriode(periode, omForeldre)}
                 onSubmit={(values: PeriodeskjemaFormValues) =>
                     onSubmit(periodeskjemaUtils.createPeriodeFromValues(values))
@@ -29,6 +45,7 @@ class Periodeskjema extends React.Component<Props, {}> {
                 render={(props: FormikProps<PeriodeskjemaFormValues>) => (
                     <PeriodeskjemaForm onCancel={onCancel} formik={props} omForeldre={omForeldre} />
                 )}
+                validationSchema={periodeValidationSchema}
             />
         );
     }

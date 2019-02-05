@@ -1,13 +1,13 @@
 import { Periode, OmForeldre } from '../../types';
 
-export interface PeriodelisteBaseProps {
+interface PeriodelisteBaseProps {
     perioder: Periode[];
     periodeFørTermin?: Periode;
     omForeldre: OmForeldre;
     familiehendelsesdato: Date;
 }
 
-export interface PeriodelisteElementBaseProps {
+interface PeriodelisteElementBaseProps {
     periode: Periode;
     omForeldre: OmForeldre;
     typeErLåst?: boolean;
@@ -31,4 +31,5 @@ export interface PeriodelisteFeatures {
 }
 
 export type PeriodelisteProps = PeriodelisteBaseProps & PeriodelisteActions & PeriodelisteFeatures;
+
 export type PeriodelisteElementProps = PeriodelisteElementBaseProps & PeriodelisteActions & PeriodelisteFeatures;

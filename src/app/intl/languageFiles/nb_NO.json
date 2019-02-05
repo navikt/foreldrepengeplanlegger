@@ -29,6 +29,7 @@
     "stønadskontotype.FORELDREPENGER_FØR_FØDSEL": "Foreldrepenger før fødsel",
     "stønadskontotype.MØDREKVOTE": "Mor sin kvote",
 
+    "periodetype.undefined": "Ukjent periodetype",
     "periodetype.uttak": "Foreldrepenger",
     "periodetype.uttakFørTermin": "Foreldrepenger før fødsel",
     "periodetype.gradertUttak": "Foreldrepenger og arbeid",

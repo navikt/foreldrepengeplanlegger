@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Forelder, ForeldreparForelder, Forelderinfo } from '../../../types';
+import { Forelder, Forelderinfo } from '../../../types';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
 import DropdownForm from 'common/components/dropdownForm/DropdownForm';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
-import IkonTekst from 'common/components/ikonTekst/IkonTekst';
+import IconText from 'common/components/iconText/IconText';
 
 interface Props {
     forelder?: Forelder;
@@ -23,31 +23,41 @@ const renderForelderIkon = (
     mor: Forelderinfo,
     farMedmor: Forelderinfo
 ): React.ReactNode | undefined => {
-    const iconRef: ForeldreparForelder = forelder === Forelder.farMedmor ? farMedmor.ikonRef : mor.ikonRef;
-    return (
+    return forelder ? (
         <div className="forelderMenyIkon">
-            <ForelderIkon forelder={iconRef} />
+            <ForelderIkon forelder={forelder === Forelder.farMedmor ? farMedmor.ikonRef : mor.ikonRef} />
         </div>
+    ) : (
+        <span>Velg forelder</span>
     );
 };
 
-const ForelderMeny: React.StatelessComponent<Props> = ({ onChange, forelder, mor, farMedmor, erLåst }) => {
+const renderLabel = (props: Props, options: DropdownFormMenuOption[]): React.ReactNode => {
+    const { forelder, mor, farMedmor } = props;
+    if (forelder) {
+        const valgtOption = forelder ? options.find((f) => f.value === forelder) : undefined;
+        const navn = valgtOption ? valgtOption.label : undefined;
+        return (
+            <IconText icon={renderForelderIkon(forelder, mor, farMedmor)} iconOnly={true}>
+                {navn}
+            </IconText>
+        );
+    }
+    return <span>Velg forelder</span>;
+};
+
+const ForelderMeny: React.StatelessComponent<Props> = (props) => {
+    const { onChange, forelder, mor, farMedmor, erLåst } = props;
     const options = getForelderOptions(mor.navn, farMedmor!.navn);
-    const valgtOption = forelder ? options.find((f) => f.value === forelder) : undefined;
-    const valgtForelderNavn = valgtOption ? valgtOption.label : undefined;
     return (
         <DropdownForm
             disabled={erLåst}
             onSelection={(value) => onChange(value as Forelder)}
             contentClassName="forelderMenyDialog"
             contentTitle="Hvem gjelder perioden?"
-            labelRenderer={() => (
-                <IkonTekst ikon={renderForelderIkon(forelder, mor, farMedmor)} kunIkon={true}>
-                    {valgtForelderNavn}
-                </IkonTekst>
-            )}
-            contentRenderer={() => <DropdownFormMenu options={options} selectedValue={forelder} />}
+            labelRenderer={() => renderLabel(props, options)}
             labelAlignment="center"
+            contentRenderer={() => <DropdownFormMenu options={options} selectedValue={forelder} />}
             dropdownPlacement="right"
         />
     );

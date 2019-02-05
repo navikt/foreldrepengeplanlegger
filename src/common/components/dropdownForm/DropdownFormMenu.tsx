@@ -27,7 +27,7 @@ const DropdownFormMenu: React.StatelessComponent<Props> = ({ options, selectedVa
                     <li key={option.value}>
                         <MenuItem
                             value={option.value}
-                            className={classNames(bemOption.block, 'inputPanel', {
+                            className={classNames('inputPanel', bemOption.block, {
                                 [`${bemOption.modifier('selected')}`]: option.value === selectedValue
                             })}>
                             {option.value === selectedValue && (

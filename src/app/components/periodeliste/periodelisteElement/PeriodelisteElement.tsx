@@ -2,12 +2,10 @@ import * as React from 'react';
 import classNames from 'classnames';
 import Lukknapp from 'nav-frontend-lukknapp';
 import BEMHelper from 'common/utils/bem';
-import { UttaksplanColor } from '../../../types';
 
 import './periodelisteElement.less';
 
 interface OwnProps {
-    farge: UttaksplanColor;
     menyer: PeriodeElementMeny[];
     slett?: {
         onRemove: () => void;
@@ -31,28 +29,11 @@ const PeriodeElementMenyWrapper: React.StatelessComponent<{ meny: PeriodeElement
     );
 };
 
-const PeriodeFargestrek: React.StatelessComponent<{ farge: UttaksplanColor; gradert?: boolean }> = ({
-    farge,
-    gradert
-}) => {
-    const bemStrek = bem.child('fargestrek');
-    return (
-        <div
-            className={classNames(
-                bemStrek.block,
-                bemStrek.modifier(farge),
-                gradert ? `${bemStrek.modifier(farge)}--gradert` : undefined
-            )}
-        />
-    );
-};
-
-class PeriodeElementLayout extends React.Component<OwnProps, {}> {
+class PeriodelisteElement extends React.Component<OwnProps, {}> {
     render() {
-        const { farge, menyer, slett } = this.props;
+        const { menyer, slett } = this.props;
         return (
             <div className={bem.block}>
-                <PeriodeFargestrek farge={farge} />
                 {menyer
                     .filter((meny) => (meny.isVisibleCheck ? meny.isVisibleCheck() : true))
                     .map((meny) => (
@@ -73,4 +54,4 @@ class PeriodeElementLayout extends React.Component<OwnProps, {}> {
     }
 }
 
-export default PeriodeElementLayout;
+export default PeriodelisteElement;

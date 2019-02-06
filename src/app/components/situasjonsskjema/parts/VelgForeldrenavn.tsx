@@ -49,19 +49,19 @@ const VelgForeldrenavn: React.StatelessComponent<Props> = ({
         <Row>
             <Column xs="6">
                 <Input
-                    label={getFarMedmorLabel(situasjon)}
-                    value={navnFarMedmor}
-                    name="navnFarMedmor"
-                    onChange={(evt: React.ChangeEvent<HTMLInputElement>) => onChangeFarMedmor(evt.target.value)}
+                    label={getMorLabel(situasjon)}
+                    value={navnMor}
+                    name="navnMor"
+                    onChange={(evt: React.ChangeEvent<HTMLInputElement>) => onChangeMor(evt.target.value)}
                 />
             </Column>
             {toForeldre && (
                 <Column xs="6">
                     <Input
-                        label={getMorLabel(situasjon)}
-                        value={navnMor}
-                        name="navnMor"
-                        onChange={(evt: React.ChangeEvent<HTMLInputElement>) => onChangeMor(evt.target.value)}
+                        label={getFarMedmorLabel(situasjon)}
+                        value={navnFarMedmor}
+                        name="navnFarMedmor"
+                        onChange={(evt: React.ChangeEvent<HTMLInputElement>) => onChangeFarMedmor(evt.target.value)}
                     />
                 </Column>
             )}

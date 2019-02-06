@@ -47,10 +47,10 @@ const FordelingGraf: React.StatelessComponent<Props> = ({ fordeling, omForeldre,
                 <Tittel navn="Gjenstående" dager={dagerGjenstaende} intl={intl} />
             </div>
             <div className={bem.element('graf')} role="presentation">
+                <div className={bem.element('graf__bar bkg-mor')} style={{ width: `${mor.pst}%` }} />
                 {farMedmor && (
                     <div className={bem.element('graf__bar bkg-farMedmor')} style={{ width: `${farMedmor.pst}%` }} />
                 )}
-                <div className={bem.element('graf__bar bkg-mor')} style={{ width: `${mor.pst}%` }} />
             </div>
         </div>
     );

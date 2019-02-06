@@ -52,8 +52,14 @@
             display: block;
             margin: 0;
             border-right: 1px solid white;
+            &:first-child {
+                border-top-left-radius: 0.25rem;
+                border-bottom-left-radius: 0.25rem;
+            }
             &:last-child {
                 border-right: none;
+                border-top-right-radius: 0.25rem;
+                border-bottom-right-radius: 0.25rem;
             }
         }
     }

@@ -5,7 +5,7 @@ import { AppState } from '../redux/reducers/rootReducer';
 import { connect } from 'react-redux';
 import { DispatchProps } from '../redux/types';
 import { SituasjonSkjemadata } from '../types';
-import { submitSkjemadata } from '../redux/actions/common/commonActionCreators';
+import { submitSkjemadata, resetApp } from '../redux/actions/common/commonActionCreators';
 import LoadContainer from 'common/components/loadContainer/LoadContainer';
 
 interface StateProps {
@@ -22,6 +22,7 @@ class Skjemaside extends React.Component<Props, {}> {
             <LoadContainer loading={henterStønadskontoer} overlay={true}>
                 <Situasjonsskjema
                     onSubmit={(data) => dispatch(submitSkjemadata(data, this.props.history))}
+                    onReset={() => dispatch(resetApp())}
                     skjemadata={skjemadata}
                 />
             </LoadContainer>

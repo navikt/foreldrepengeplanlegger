@@ -9,7 +9,7 @@ interface Props {
 
 const SituasjonForeldrepar: React.StatelessComponent<Props> = ({ situasjon }) => {
     const info = getSituasjonForelderSvg(situasjon);
-    return <Foreldrepar firstParent={info.mor} secondParent={info.farMedmor!} variant={info.variant} />;
+    return <Foreldrepar firstParent={info.mor} secondParent={info.farMedmor} variant={info.variant} />;
 };
 
 export default SituasjonForeldrepar;

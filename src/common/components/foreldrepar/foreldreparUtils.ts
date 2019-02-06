@@ -2,7 +2,7 @@ import { Situasjon, ForeldreparForelder, ForeldreparIllustrasjonsvariant } from 
 
 export interface SituasjonForelderSvg {
     mor: ForeldreparForelder;
-    farMedmor?: ForeldreparForelder;
+    farMedmor: ForeldreparForelder;
     variant?: ForeldreparIllustrasjonsvariant;
 }
 
@@ -10,36 +10,36 @@ export const getSituasjonForelderSvg = (situasjon: Situasjon): SituasjonForelder
     switch (situasjon) {
         case Situasjon.farOgMor:
             return {
-                farMedmor: 'far1',
-                mor: 'mor1'
+                mor: 'mor1',
+                farMedmor: 'far1'
             };
         case Situasjon.bareFar:
             return {
-                farMedmor: 'far1',
                 mor: 'mor1',
-                variant: 'andreForelderHalvtSynlig'
+                farMedmor: 'far1',
+                variant: 'førsteForelderHalvtSynlig'
             };
         case Situasjon.bareMor:
             return {
-                farMedmor: 'far1',
                 mor: 'mor1',
-                variant: 'førsteForelderHalvtSynlig'
+                farMedmor: 'far1',
+                variant: 'andreForelderHalvtSynlig'
             };
         case Situasjon.aleneomsorg:
             return {
-                farMedmor: 'far2',
                 mor: 'mor2',
+                farMedmor: 'far2',
                 variant: 'foreldreSeparert'
             };
         case Situasjon.morOgMedmor:
             return {
-                farMedmor: 'medmor1',
-                mor: 'medmor2'
+                mor: 'medmor2',
+                farMedmor: 'medmor1'
             };
         case Situasjon.farOgFar:
             return {
-                farMedmor: 'far4',
-                mor: 'far3'
+                mor: 'far3',
+                farMedmor: 'far4'
             };
     }
 };

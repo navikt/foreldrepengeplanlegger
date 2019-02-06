@@ -10,9 +10,11 @@ import Skjemablokk from '../skjemablokk/Skjemablokk';
 import VelgSituasjon from './parts/velgSituasjon/VelgSituasjon';
 import VelgForeldrenavn from './parts/VelgForeldrenavn';
 import { getAntallForeldreISituasjon, inputHasValue, getTermindatoAvgrensninger } from '../../utils/common';
+import LinkButton from 'common/components/linkButton/LinkButton';
 
 interface OwnProps {
     formik: FormikProps<SituasjonSkjemadata>;
+    onReset?: () => void;
 }
 type Props = OwnProps & InjectedIntlProps;
 
@@ -32,7 +34,7 @@ const visAntallBarnValg = (
 
 class SituasjonsskjemaForm extends React.Component<Props> {
     render() {
-        const { formik } = this.props;
+        const { formik, onReset } = this.props;
         const { situasjon, antallBarn, familiehendelsesdato, navnFarMedmor, navnMor } = formik.values;
         const visAntallBarn = visAntallBarnValg(situasjon, navnFarMedmor, navnMor);
         const visTermindato = visAntallBarn && antallBarn !== undefined;
@@ -83,7 +85,10 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                     />
                 </Skjemablokk>
                 <Block align="center" visible={formik.isValid}>
-                    <Hovedknapp htmlType="submit">Gå videre</Hovedknapp>
+                    <Block>
+                        <Hovedknapp htmlType="submit">Gå videre</Hovedknapp>
+                    </Block>
+                    {onReset && <LinkButton onClick={onReset}>Start på ny</LinkButton>}
                 </Block>
             </Form>
         );

@@ -9,8 +9,8 @@ export interface Props {
 
 const situasjoner: Situasjon[] = [
     Situasjon.farOgMor,
-    Situasjon.bareFar,
     Situasjon.bareMor,
+    Situasjon.bareFar,
     Situasjon.aleneomsorg,
     Situasjon.morOgMedmor,
     Situasjon.farOgFar

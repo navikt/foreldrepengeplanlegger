@@ -14,8 +14,8 @@ interface Props {
 }
 
 const getForelderOptions = (navnMor: string, navnFarMedmor: string): DropdownFormMenuOption[] => [
-    { value: Forelder.farMedmor, label: navnFarMedmor },
-    { value: Forelder.mor, label: navnMor }
+    { value: Forelder.mor, label: navnMor },
+    { value: Forelder.farMedmor, label: navnFarMedmor }
 ];
 
 const renderForelderIkon = (

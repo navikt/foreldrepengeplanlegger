@@ -27,7 +27,7 @@ const getFarMedmorLabel = (situasjon: Situasjon): string => {
 const getMorLabel = (situasjon: Situasjon): string => {
     switch (situasjon) {
         case Situasjon.farOgFar:
-            return 'Fornavn mor';
+            return 'Fornavn far';
         case Situasjon.farOgMor:
             return 'Fornavn mor';
         case Situasjon.morOgMedmor:

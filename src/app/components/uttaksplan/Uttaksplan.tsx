@@ -13,9 +13,12 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import { isPeriodeFixed } from '../../utils/typeUtils';
 import { Uttaksdagen } from '../../utils/Uttaksdagen';
+import BekreftDialog from 'common/components/dialog/BekreftDialog';
 
 interface State {
     visSkjema: boolean;
+    visBekreftSlettDialog: boolean;
+    valgtPeriode?: Periode;
 }
 
 interface OwnProps {
@@ -33,8 +36,11 @@ class Uttaksplan extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.addPeriode = this.addPeriode.bind(this);
+        this.visBekreftSlettDialog = this.visBekreftSlettDialog.bind(this);
+        this.slettValgtPeriode = this.slettValgtPeriode.bind(this);
         this.state = {
-            visSkjema: false
+            visSkjema: false,
+            visBekreftSlettDialog: false
         };
     }
 
@@ -43,10 +49,27 @@ class Uttaksplan extends React.Component<Props, State> {
         this.setState({ visSkjema: false });
     }
 
+    visBekreftSlettDialog(periode: Periode) {
+        this.setState({ visBekreftSlettDialog: true, valgtPeriode: periode });
+    }
+
+    slettValgtPeriode() {
+        if (this.state.valgtPeriode) {
+            this.props.onRemove(this.state.valgtPeriode);
+        }
+        this.setState({
+            visBekreftSlettDialog: false,
+            valgtPeriode: undefined
+        });
+    }
+
     render() {
         const { perioder, onAdd, onUpdate, onRemove, onResetPlan, forbruk, omForeldre, uttaksdatoer } = this.props;
         const { visSkjema } = this.state;
-        const nesteUttaksdag = Uttaksdagen(perioder[perioder.length - 1].tidsperiode.tom).neste();
+        const nesteUttaksdag =
+            perioder.length > 0
+                ? Uttaksdagen(perioder[perioder.length - 1].tidsperiode.tom).neste()
+                : uttaksdatoer.førsteUttaksdag;
         return (
             <section>
                 <div className="periodelisteWrapper">
@@ -65,7 +88,7 @@ class Uttaksplan extends React.Component<Props, State> {
                             </div>
                         </Block>
                         <Block margin="s">
-                            <Periodeliste {...this.props} />
+                            <Periodeliste {...this.props} onRemove={(periode) => this.visBekreftSlettDialog(periode)} />
                         </Block>
                         <Block visible={visSkjema}>
                             <Periodeskjema
@@ -88,7 +111,9 @@ class Uttaksplan extends React.Component<Props, State> {
                                 </div>
                             </Knapperad>
                         </Block>
-                        {forbruk.fordeling && <FordelingGraf fordeling={forbruk.fordeling} omForeldre={omForeldre} />}
+                        {forbruk.fordeling && perioder.length > 0 && (
+                            <FordelingGraf fordeling={forbruk.fordeling} omForeldre={omForeldre} />
+                        )}
                     </Block>
                 </div>
 
@@ -99,6 +124,15 @@ class Uttaksplan extends React.Component<Props, State> {
                     onChange={onUpdate}
                     onResetApp={this.props.onResetApp}
                 />
+                <BekreftDialog
+                    tittel="Bekreft fjern periode"
+                    isOpen={this.state.visBekreftSlettDialog}
+                    avbrytLabel="Avbryt"
+                    bekreftLabel="Fjern periode"
+                    onBekreft={() => this.slettValgtPeriode()}
+                    onAvbryt={() => this.setState({ visBekreftSlettDialog: false, valgtPeriode: undefined })}>
+                    Ønsker du å slette perioden?
+                </BekreftDialog>
             </section>
         );
     }

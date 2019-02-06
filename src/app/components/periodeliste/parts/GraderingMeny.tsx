@@ -52,6 +52,7 @@ const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, foreldernav
                         />
                     </Block>
                 )}
+                renderCloseButton={true}
             />
         </>
     );

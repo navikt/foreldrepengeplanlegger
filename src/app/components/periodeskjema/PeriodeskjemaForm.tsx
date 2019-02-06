@@ -111,7 +111,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             minDager={1}
                                             førsteUttaksdag={førsteUttaksdag}
                                             sisteUttaksdag={sisteUttaksdag}
-                                            visLukkKnapp={fom !== undefined && tom !== undefined}
+                                            visLukkKnapp={true /*fom !== undefined && tom !== undefined*/}
                                             onTidsperiodeChange={this.handleTidsperiodeChange}
                                         />
                                     )

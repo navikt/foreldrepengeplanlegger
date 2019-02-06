@@ -8,6 +8,7 @@ import BEMHelper from 'common/utils/bem';
 import IconText from 'common/components/iconText/IconText';
 import { Perioden } from '../../utils/Perioden';
 import LinkButton from 'common/components/linkButton/LinkButton';
+import { Ingress } from 'nav-frontend-typografi';
 
 import './periodeliste.less';
 
@@ -43,9 +44,17 @@ const SlåSammenPeriodeValg: React.StatelessComponent<{
 
 const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
     const { perioder, periodeFørTermin, familiehendelsesdato, onSlåSammenPerioder, ...elementProps } = props;
+    const { onResetPlan } = elementProps;
     const antallPerioder = perioder.length;
     if (antallPerioder === 0) {
-        return <div>Ingen perioder registrert</div>;
+        return (
+            <div className={bem.element('tomListe')}>
+                <Ingress tag="p">
+                    Ingen perioder er registrert.{' '}
+                    {onResetPlan && <LinkButton onClick={() => onResetPlan()}>Lag nytt forslag</LinkButton>}
+                </Ingress>
+            </div>
+        );
     }
     return (
         <ol className={bem.block}>

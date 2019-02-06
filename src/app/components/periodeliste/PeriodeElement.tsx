@@ -30,7 +30,7 @@ const getForelderNavn = (forelder: Forelder | undefined, omForeldre: OmForeldre)
     }
 };
 
-class PeriodeElement extends React.Component<Props, {}> {
+class PeriodeElement extends React.Component<Props> {
     constructor(props: Props) {
         super(props);
         this.handleChangeVarighet = this.handleChangeVarighet.bind(this);
@@ -60,7 +60,6 @@ class PeriodeElement extends React.Component<Props, {}> {
             });
         }
     }
-
     render() {
         const {
             typeErLåst,
@@ -69,8 +68,8 @@ class PeriodeElement extends React.Component<Props, {}> {
             sluttdatoErLåst,
             slettErLåst,
             omForeldre,
-            onRemove,
             onUpdate,
+            onRemove,
             uttaksdatoer,
             intl
         } = this.props;
@@ -166,6 +165,7 @@ class PeriodeElement extends React.Component<Props, {}> {
                                             tidsperiode
                                         });
                                     }}
+                                    visLukkKnapp={true}
                                     onVarighetChange={this.handleChangeVarighet}
                                     ingenVarighet={
                                         this.props.periode.type === Periodetype.UttakFørTermin
@@ -180,7 +180,7 @@ class PeriodeElement extends React.Component<Props, {}> {
                         slettErLåst !== true
                             ? {
                                   ariaLabel: 'Slett periode',
-                                  onRemove: () => onRemove(this.props.periode)
+                                  onRemove: () => onRemove(periode)
                               }
                             : undefined
                     }

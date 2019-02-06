@@ -2,7 +2,7 @@ import * as React from 'react';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
 import { Periodetype, Forelder } from '../../../types';
 import getMessage from 'common/utils/i18nUtils';
-import { Tidsperioden, isValidTidsperiode } from '../../../utils/Tidsperioden';
+// import { Tidsperioden, isValid Tidsperiode } from '../../../utils/Tidsperioden';
 import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
 import DropdownForm from 'common/components/dropdownForm/DropdownForm';
@@ -48,15 +48,13 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
     return type ? (
         <IconText icon={<Periodeikon periodetype={type} forelder={forelder} />}>
             <div className="periodetypeMenyLabel">
-                <div className="periodetypeMenyLabel__type">
-                    {getPeriodetypeLabel(type, intl)}
-                    {flereForeldre && foreldernavn && <span> - {foreldernavn}</span>}
+                <div className="periodetypeMenyLabel__type">{getPeriodetypeLabel(type, intl)}</div>
+                {/* {isValidTidsperiode(tidsperiode) && ( */}
+                <div className="periodetypeMenyLabel__tidsperiode">
+                    {flereForeldre && foreldernavn && <span>{foreldernavn}</span>}
+                    {/* {Tidsperioden(tidsperiode).formaterStringKort(intl)} */}
                 </div>
-                {isValidTidsperiode(tidsperiode) && (
-                    <div className="periodetypeMenyLabel__tidsperiode">
-                        {Tidsperioden(tidsperiode).formaterStringKort(intl)}
-                    </div>
-                )}
+                {/* )} */}
             </div>
         </IconText>
     ) : (

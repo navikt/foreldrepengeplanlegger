@@ -9,11 +9,14 @@ import FomTomValg from './FomTomValg';
 import { Checkbox } from 'nav-frontend-skjema';
 import DropdownForm from 'common/components/dropdownForm/DropdownForm';
 import { formaterDato } from 'common/utils/datoUtils';
+import DagMndPeriode from 'common/components/dagMnd/DagMndPeriode';
 
 export interface VarighetChangeEvent {
     ukerOgDager: UkerOgDager;
     ingenVarighet?: boolean;
 }
+
+const VIS_DATO: boolean = false;
 
 interface OwnProps {
     uker: number;
@@ -197,11 +200,18 @@ const VarighetMenyLabel: React.StatelessComponent<Props> = (props) => {
     if (!fom || !tom) {
         return <span>Velg tid</span>;
     }
-    return (
-        <Block align="center" margin="none">
-            <Varighet dager={ingenVarighet ? 0 : (uker * 5 + dager) | 0} />
-        </Block>
-    );
+    if (VIS_DATO) {
+        return <DagMndPeriode fom={fom} tom={tom} />;
+    } else {
+        if (!fom || !tom) {
+            return <span>Velg tid</span>;
+        }
+        return (
+            <Block align="center" margin="none">
+                <Varighet dager={ingenVarighet ? 0 : (uker * 5 + dager) | 0} layout="vertical" />
+            </Block>
+        );
+    }
 };
 
 class VarighetMeny extends React.Component<Props, {}> {

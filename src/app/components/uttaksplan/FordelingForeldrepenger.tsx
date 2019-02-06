@@ -53,17 +53,14 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
                         />
                     </Block>
                     <Block>
-                        <Block margin="xs">
-                            <Undertittel>Deres totale fordeling</Undertittel>
-                        </Block>
                         <Ukefordeling
                             foreldrepengerFørTermin={tilgjengeligeUker.ukerFørTermin}
                             modrekvote={tilgjengeligeUker.ukerForbeholdtMor - tilgjengeligeUker.ukerFørTermin}
                             fedrekvote={tilgjengeligeUker.ukerForbeholdtFar}
                             fellesukerMor={ukerMor}
                             fellesukerFarMedmor={ukerFarMedmor}
-                            navnMor={navnMor}
-                            navnFarMedmor={navnFarMedmor}
+                            navnMor={`Uker totalt for ${navnMor}`}
+                            navnFarMedmor={`Uker totalt for ${navnFarMedmor}`}
                         />
                     </Block>
                     <Knapperad>

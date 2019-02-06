@@ -64,31 +64,44 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                     </Block>
                 </Skjemablokk>
 
-                <Skjemablokk
-                    tittel={erToForeldre ? 'Hvor mange barn venter dere?' : 'Hvor mange barn venter du?'}
-                    visible={visAntallBarn}>
-                    <VelgAntallBarn
-                        antallBarn={antallBarn}
-                        onChange={(antall) => formik.setFieldValue('antallBarn', antall)}
-                    />
-                </Skjemablokk>
+                {visAntallBarn && (
+                    <Skjemablokk
+                        tittel={erToForeldre ? 'Hvor mange barn venter dere?' : 'Hvor mange barn venter du?'}
+                        visible={visAntallBarn}>
+                        <VelgAntallBarn
+                            antallBarn={antallBarn}
+                            onChange={(antall) => formik.setFieldValue('antallBarn', antall)}
+                        />
+                    </Skjemablokk>
+                )}
 
-                <Skjemablokk tittel="Når er barnet forventet?" visible={visTermindato}>
-                    <DatoInput
-                        id="familiehendelsesdato"
-                        name="familiehendelsesdato"
-                        label="Termindato"
-                        avgrensninger={termindatoAvgrensninger}
-                        visÅrValger={true}
-                        onChange={(dato: Date) => formik.setFieldValue('familiehendelsesdato', dato)}
-                        dato={familiehendelsesdato}
-                    />
-                </Skjemablokk>
+                {visTermindato && (
+                    <Skjemablokk tittel="Når er barnet forventet?" visible={visTermindato}>
+                        <DatoInput
+                            id="familiehendelsesdato"
+                            name="familiehendelsesdato"
+                            label="Termindato"
+                            avgrensninger={termindatoAvgrensninger}
+                            visÅrValger={true}
+                            onChange={(dato: Date) => formik.setFieldValue('familiehendelsesdato', dato)}
+                            dato={familiehendelsesdato}
+                        />
+                    </Skjemablokk>
+                )}
                 <Block align="center" visible={formik.isValid}>
                     <Block>
                         <Hovedknapp htmlType="submit">Gå videre</Hovedknapp>
                     </Block>
-                    {onReset && <LinkButton onClick={onReset}>Start på ny</LinkButton>}
+                    {onReset && (
+                        <LinkButton
+                            onClick={() => {
+                                onReset();
+                                // formik.setTouched("situasjon");
+                                formik.resetForm();
+                            }}>
+                            Start på ny
+                        </LinkButton>
+                    )}
                 </Block>
             </Form>
         );

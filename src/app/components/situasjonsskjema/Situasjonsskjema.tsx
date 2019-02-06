@@ -47,6 +47,7 @@ class Situasjonsskjema extends React.Component<Props> {
             <>
                 <Formik
                     isInitialValid={skjemadata !== undefined}
+                    enableReinitialize={true}
                     initialValues={initialValues}
                     onSubmit={this.handleOnSubmit}
                     render={(props: FormikProps<SituasjonSkjemadata>) => (

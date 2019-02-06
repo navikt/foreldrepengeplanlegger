@@ -22,7 +22,9 @@ class Skjemaside extends React.Component<Props, {}> {
             <LoadContainer loading={henterStønadskontoer} overlay={true}>
                 <Situasjonsskjema
                     onSubmit={(data) => dispatch(submitSkjemadata(data, this.props.history))}
-                    onReset={() => dispatch(resetApp())}
+                    onReset={() => {
+                        dispatch(resetApp());
+                    }}
                     skjemadata={skjemadata}
                 />
             </LoadContainer>

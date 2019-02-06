@@ -1,9 +1,19 @@
 import { Periodetype, Periode, PeriodeBase } from '../types';
+import { Tidsperioden } from './Tidsperioden';
+import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
 
 const getBasePeriode = (periode: Periode): PeriodeBase => {
     if (periode.type === Periodetype.UttakFørTermin) {
         const { skalIkkeHaUttakFørTermin, ...rest } = periode;
         return rest;
+    } else if (periode.type === Periodetype.GradertUttak) {
+        const pst = periode.gradering ? periode.gradering / 100 : 1;
+        const uttaksdagerJustert = Tidsperioden(periode.tidsperiode).getAntallUttaksdager() * pst;
+        return {
+            ...periode,
+            gradering: undefined,
+            tidsperiode: Tidsperioden(periode.tidsperiode).setUttaksdager(uttaksdagerJustert) as Tidsperiode
+        };
     }
     return periode;
 };

@@ -24,6 +24,7 @@ export interface Uttaksinfo {
     antallUttaksdager?: number;
     antallFridager?: number;
     ukerOgDager: UkerOgDager;
+    ukerOgDagerBrukt: UkerOgDager;
     antallUttaksdagerBrukt: number;
     fridager: Holiday[];
 }

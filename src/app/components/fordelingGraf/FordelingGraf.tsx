@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classNames from 'classnames';
 import BEMHelper from 'common/utils/bem';
 import { Fordeling, OmForeldre } from '../../types';
 import { InjectedIntl, injectIntl, InjectedIntlProps } from 'react-intl';
@@ -20,7 +21,7 @@ const Tittel: React.StatelessComponent<{ navn: string; dager?: number; intl: Inj
         return null;
     }
     return (
-        <div className={bem.element('tittel')}>
+        <div className={classNames(bem.element('tittel'), { [`${bem.element('tittel', 'error')}`]: dager < 0 })}>
             <div className={bem.element('forbruk')}>
                 <div className={bem.element('forbruk__navn')}>{navn}</div>
                 <div className={bem.element('forbruk__dager')}>

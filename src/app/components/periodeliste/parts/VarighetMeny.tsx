@@ -25,6 +25,7 @@ interface OwnProps {
     startdatoErLåst?: boolean;
     sluttdatoErLåst?: boolean;
     ingenVarighet?: boolean;
+    gradert?: boolean;
     minDager?: number;
     visLukkKnapp?: boolean;
     lukkAutomatisk?: boolean;
@@ -81,10 +82,17 @@ const Footer: React.StatelessComponent<Props> = (props) => {
     }
 };
 
-const VarighetValg: React.StatelessComponent<Props> = ({ uker, dager, minDager, ingenVarighet, onVarighetChange }) => {
+const VarighetValg: React.StatelessComponent<Props> = ({
+    uker,
+    dager,
+    minDager,
+    ingenVarighet,
+    onVarighetChange,
+    gradert
+}) => {
     return onVarighetChange ? (
         <UkerOgDagerVelger
-            tittel="Velg varighet"
+            tittel={gradert ? 'Velg hvor mye foreldrepenger som skal brukes' : 'Velg variget'}
             uker={uker}
             dager={dager}
             disabled={ingenVarighet}

@@ -40,23 +40,27 @@ class PeriodeElement extends React.Component<Props> {
         const { periode } = this.props;
         const { tidsperiode } = periode;
         const { ukerOgDager, ingenVarighet } = evt;
+
+        const graderingPst = Periodetype.GradertUttak && periode.gradering !== undefined ? 100 / periode.gradering : 1;
+        const { uker, dager } =
+            periode.type === Periodetype.GradertUttak && periode.gradering !== undefined
+                ? {
+                      uker: ukerOgDager.uker * graderingPst,
+                      dager: ukerOgDager.dager * graderingPst
+                  }
+                : ukerOgDager;
+
         if (periode.type === Periodetype.UttakFørTermin) {
             const oppdatertPeriode = {
                 ...periode,
-                tidsperiode: Tidsperioden(tidsperiode || {}).setUkerOgDagerFlyttStartdato(
-                    ukerOgDager.uker,
-                    ukerOgDager.dager
-                ),
+                tidsperiode: Tidsperioden(tidsperiode || {}).setUkerOgDagerFlyttStartdato(uker, dager),
                 skalIkkeHaUttakFørTermin: ingenVarighet
             };
             this.props.onUpdate(oppdatertPeriode as Periode);
         } else {
             this.props.onUpdate({
                 ...periode,
-                tidsperiode: Tidsperioden(tidsperiode || {}).setUkerOgDager(
-                    ukerOgDager.uker,
-                    ukerOgDager.dager
-                ) as Tidsperiode
+                tidsperiode: Tidsperioden(tidsperiode || {}).setUkerOgDager(uker, dager) as Tidsperiode
             });
         }
     }
@@ -81,7 +85,8 @@ class PeriodeElement extends React.Component<Props> {
             return <div>Ingen periodeinfo</div>;
         }
 
-        const { uker, dager } = uttaksinfo.ukerOgDager;
+        const { uker, dager } =
+            periode.type === Periodetype.GradertUttak ? uttaksinfo.ukerOgDagerBrukt : uttaksinfo.ukerOgDager;
         const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
         const harFlereForeldre = omForeldre.antallForeldre > 1;
         const { fom, tom } = this.props.periode.tidsperiode;
@@ -142,6 +147,7 @@ class PeriodeElement extends React.Component<Props> {
                             className: bem.element('varighet'),
                             render: () => (
                                 <VarighetMeny
+                                    gradert={periode.type === Periodetype.GradertUttak}
                                     førsteUttaksdag={
                                         periode.type === Periodetype.UttakFørTermin
                                             ? uttaksdatoer.førFødsel.førsteMuligeUttaksdag

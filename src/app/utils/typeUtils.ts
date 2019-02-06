@@ -7,12 +7,11 @@ const getBasePeriode = (periode: Periode): PeriodeBase => {
         const { skalIkkeHaUttakFørTermin, ...rest } = periode;
         return rest;
     } else if (periode.type === Periodetype.GradertUttak) {
-        const pst = periode.gradering ? periode.gradering / 100 : 1;
-        const uttaksdagerJustert = Tidsperioden(periode.tidsperiode).getAntallUttaksdager() * pst;
+        const antallUttaksdager = Tidsperioden(periode.tidsperiode).getAntallUttaksdager();
         return {
             ...periode,
             gradering: undefined,
-            tidsperiode: Tidsperioden(periode.tidsperiode).setUttaksdager(uttaksdagerJustert) as Tidsperiode
+            tidsperiode: Tidsperioden(periode.tidsperiode).setUttaksdager(antallUttaksdager) as Tidsperiode
         };
     }
     return periode;

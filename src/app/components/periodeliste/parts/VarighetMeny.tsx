@@ -97,7 +97,8 @@ const VarighetValg: React.StatelessComponent<Props> = ({
 }) => {
     return onVarighetChange ? (
         <UkerOgDagerVelger
-            tittel={gradert ? 'Velg hvor mye foreldrepenger som skal brukes' : 'Velg variget'}
+            // tittel={gradert ? 'Velg hvor mye foreldrepenger som skal brukes' : 'Velg variget'}
+            tittel={'Velg variget'}
             uker={uker}
             dager={dager}
             disabled={ingenVarighet}

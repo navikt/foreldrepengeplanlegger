@@ -51,7 +51,7 @@ class PeriodeElement extends React.Component<Props> {
         } else {
             this.props.onUpdate({
                 ...periode,
-                tidsperiode: Tidsperioden(tidsperiode || {}).setUttaksdager(dager, periode.gradering) as Tidsperiode
+                tidsperiode: Tidsperioden(tidsperiode || {}).setUttaksdager(dager) as Tidsperiode
             });
         }
     }
@@ -76,8 +76,7 @@ class PeriodeElement extends React.Component<Props> {
             return <div>Ingen periodeinfo</div>;
         }
 
-        const { uker, dager } =
-            periode.type === Periodetype.GradertUttak ? uttaksinfo.ukerOgDagerBrukt : uttaksinfo.ukerOgDager;
+        const { uker, dager } = uttaksinfo.ukerOgDager;
         const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
         const harFlereForeldre = omForeldre.antallForeldre > 1;
         const { fom, tom } = this.props.periode.tidsperiode;
@@ -139,7 +138,6 @@ class PeriodeElement extends React.Component<Props> {
                             className: bem.element('varighet'),
                             render: () => (
                                 <VarighetMeny
-                                    gradert={periode.type === Periodetype.GradertUttak}
                                     førsteUttaksdag={
                                         periode.type === Periodetype.UttakFørTermin
                                             ? uttaksdatoer.førFødsel.førsteMuligeUttaksdag

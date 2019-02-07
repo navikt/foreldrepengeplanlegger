@@ -107,8 +107,8 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                 familiehendelsesdato: action.data.familiehendelsesdato,
                 perioder: builder.build().perioder,
                 periodeFørTermin: state.tilgjengeligeDager
-                    ? getPeriodeFørTermin(state.familiehendelsesdato, state.tilgjengeligeDager.dagerFørTermin)
-                    : getPeriodeFørTermin(state.familiehendelsesdato, 15) // TODO - mock
+                    ? getPeriodeFørTermin(action.data.familiehendelsesdato, state.tilgjengeligeDager.dagerFørTermin)
+                    : getPeriodeFørTermin(action.data.familiehendelsesdato, 15) // TODO - mock
             });
         case CommonActionKeys.SET_DEKNINGSGRAD:
             return updateStateAndStorage(state, {

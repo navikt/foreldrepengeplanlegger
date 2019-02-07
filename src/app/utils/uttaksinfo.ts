@@ -45,6 +45,7 @@ export const getUttaksinfoForPeriode = (periode: Periode): Uttaksinfo | undefine
             antallUttaksdager,
             antallFridager,
             ukerOgDager: getUkerOgDagerFromDager(antallUttaksdager),
+            ukerOgDagerBrukt: getUkerOgDagerFromDager(antallUttaksdagerBrukt),
             fridager: Tidsperioden(tidsperiode).getUttaksdagerSomErFridager(),
             antallUttaksdagerBrukt
         };

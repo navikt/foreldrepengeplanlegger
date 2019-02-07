@@ -20,7 +20,7 @@ const erPeriodeLikForrigePeriode = (
     index: number,
     antallPerioder: number
 ): boolean => {
-    if (index === 0 || index === antallPerioder - 1) {
+    if (index === 0 || index === antallPerioder) {
         return false;
     }
     const forrigePeriode = perioder[index - 1];
@@ -36,7 +36,7 @@ const SlåSammenPeriodeValg: React.StatelessComponent<{
         <div className={bem.element('likePerioder')}>
             Perioden over og under er like og kan{' '}
             <LinkButton onClick={() => onSamlePerioder(periode, forrigePeriode)}>
-                slåes sammen til en periode
+                slåes sammen til én periode
             </LinkButton>{' '}
         </div>
     );

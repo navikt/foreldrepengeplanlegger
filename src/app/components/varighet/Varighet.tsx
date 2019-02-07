@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classNames from 'classnames';
 import BEMHelper from 'common/utils/bem';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
@@ -8,16 +9,18 @@ import './varighet.less';
 
 interface OwnProps {
     dager: number;
+    separator?: React.ReactNode;
+    layout?: 'vertical';
 }
 
 const bem = BEMHelper('varighet');
 
 type Props = OwnProps & InjectedIntlProps;
 
-const Varighet: React.StatelessComponent<Props> = ({ dager, intl }) => {
+const Varighet: React.StatelessComponent<Props> = ({ dager, layout, separator, intl }) => {
     const ud = getUkerOgDagerFromDager(dager);
     return (
-        <div className={bem.block}>
+        <span className={classNames(bem.block, layout ? bem.modifier(layout) : undefined)}>
             {dager < 0 ? (
                 <span className={bem.element('uker')}>
                     <span className={bem.element('value')}>{dager}</span>
@@ -35,7 +38,9 @@ const Varighet: React.StatelessComponent<Props> = ({ dager, intl }) => {
                             </span>
                         </span>
                     )}
-                    {ud.uker > 0 && ud.dager > 0 && <span className={bem.element('separator')}>{', '}</span>}
+                    {ud.uker > 0 && ud.dager > 0 && (
+                        <span className={bem.element('separator')}>{separator || ', '}</span>
+                    )}
                     {(ud.dager > 0 || ud.uker === 0) && (
                         <span className={bem.element('dager')}>
                             <span className={bem.element('value')}>{ud.dager}</span>
@@ -46,7 +51,7 @@ const Varighet: React.StatelessComponent<Props> = ({ dager, intl }) => {
                     )}
                 </>
             )}
-        </div>
+        </span>
     );
 };
 

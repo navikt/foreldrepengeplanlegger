@@ -19,7 +19,7 @@ interface BuilderSettings {
 
 const SETTINGS: BuilderSettings = {
     useFixedPerioder: false,
-    slåSammenPerioder: false
+    slåSammenPerioder: true
 };
 
 class Builder {
@@ -72,7 +72,7 @@ class Builder {
     }
     slåSammenPerioder(periode1: Periode, periode2: Periode) {
         if (Perioden(periode1).erLik(periode2)) {
-            this.perioder = slåSammenLikePerioder(this.perioder);
+            this.perioder = slåSammenLikePerioder(this.perioder, true);
         }
         return this;
     }
@@ -128,10 +128,10 @@ function settInnPerioder(perioder: Periode[], perioder2: Periode[]): Periode[] {
     return nyePerioder.sort(sorterPerioder);
 }
 
-function slåSammenLikePerioder(perioder: Periode[]): Periode[] {
-    // if (SETTINGS.slåSammenPerioder !== true) {
-    //     return perioder;
-    // }
+function slåSammenLikePerioder(perioder: Periode[], forceSlåSammen?: boolean): Periode[] {
+    if (SETTINGS.slåSammenPerioder !== true && forceSlåSammen !== true) {
+        return perioder;
+    }
     if (perioder.length <= 1) {
         return perioder;
     }

@@ -39,24 +39,19 @@ class PeriodeElement extends React.Component<Props> {
     handleChangeVarighet(evt: VarighetChangeEvent) {
         const { periode } = this.props;
         const { tidsperiode } = periode;
-        const { ukerOgDager, ingenVarighet } = evt;
+        const { ingenVarighet, dager } = evt;
+
         if (periode.type === Periodetype.UttakFørTermin) {
             const oppdatertPeriode = {
                 ...periode,
-                tidsperiode: Tidsperioden(tidsperiode || {}).setUkerOgDagerFlyttStartdato(
-                    ukerOgDager.uker,
-                    ukerOgDager.dager
-                ),
+                tidsperiode: Tidsperioden(tidsperiode || {}).setUttaksdager(dager),
                 skalIkkeHaUttakFørTermin: ingenVarighet
             };
             this.props.onUpdate(oppdatertPeriode as Periode);
         } else {
             this.props.onUpdate({
                 ...periode,
-                tidsperiode: Tidsperioden(tidsperiode || {}).setUkerOgDager(
-                    ukerOgDager.uker,
-                    ukerOgDager.dager
-                ) as Tidsperiode
+                tidsperiode: Tidsperioden(tidsperiode || {}).setUttaksdager(dager) as Tidsperiode
             });
         }
     }
@@ -114,6 +109,7 @@ class PeriodeElement extends React.Component<Props> {
                                     foreldernavn={omForeldre.antallForeldre === 2 ? foreldernavn : 'du'}
                                     gradering={this.props.periode.gradering}
                                     onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
+                                    uttaksdagerBrukt={uttaksinfo.antallUttaksdagerBrukt}
                                 />
                             ),
                             isVisibleCheck: () => periode.type === Periodetype.GradertUttak

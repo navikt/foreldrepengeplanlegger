@@ -43,8 +43,13 @@ class PeriodelisteElement extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            infoVisible: false
+            infoVisible: true
         };
+    }
+    componentWillReceiveProps(nextProps: Props) {
+        if (this.props.info === undefined && nextProps.info !== undefined) {
+            this.setState({ infoVisible: true });
+        }
     }
     render() {
         const { menyer, slett, info } = this.props;

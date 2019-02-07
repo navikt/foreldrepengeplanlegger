@@ -1,4 +1,5 @@
 @import '../../styles/variables.less';
+
 .fordelingGraf {
     &__titler {
         display: flex;
@@ -37,6 +38,9 @@
         .varighet__title {
             font-size: 0.875rem;
             text-transform: uppercase;
+            &--error {
+                color: @redError;
+            }
         }
     }
     &__graf {

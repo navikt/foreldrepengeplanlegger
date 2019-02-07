@@ -44,11 +44,11 @@ class PeriodeElement extends React.Component<Props> {
         if (periode.type === Periodetype.UttakFørTermin) {
             const oppdatertPeriode = {
                 ...periode,
-                tidsperiode: Tidsperioden(tidsperiode || {}).setUttaksdager(dager),
+                tidsperiode: dager ? Tidsperioden(tidsperiode).setUttaksdager(dager) : tidsperiode,
                 skalIkkeHaUttakFørTermin: ingenVarighet
             };
             this.props.onUpdate(oppdatertPeriode as Periode);
-        } else {
+        } else if (dager !== undefined) {
             this.props.onUpdate({
                 ...periode,
                 tidsperiode: Tidsperioden(tidsperiode || {}).setUttaksdager(dager) as Tidsperiode
@@ -76,7 +76,6 @@ class PeriodeElement extends React.Component<Props> {
             return <div>Ingen periodeinfo</div>;
         }
 
-        const { uker, dager } = uttaksinfo.ukerOgDager;
         const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
         const harFlereForeldre = omForeldre.antallForeldre > 1;
         const { fom, tom } = this.props.periode.tidsperiode;
@@ -138,6 +137,8 @@ class PeriodeElement extends React.Component<Props> {
                             className: bem.element('varighet'),
                             render: () => (
                                 <VarighetMeny
+                                    dager={uttaksinfo.antallUttaksdager}
+                                    brukteUttaksdager={uttaksinfo.antallUttaksdagerBrukt}
                                     førsteUttaksdag={
                                         periode.type === Periodetype.UttakFørTermin
                                             ? uttaksdatoer.førFødsel.førsteMuligeUttaksdag
@@ -152,8 +153,6 @@ class PeriodeElement extends React.Component<Props> {
                                     sluttdatoErLåst={sluttdatoErLåst}
                                     fom={fom}
                                     tom={tom}
-                                    uker={uker}
-                                    dager={dager}
                                     minDager={periode.type === Periodetype.UttakFørTermin ? 0 : 1}
                                     onTidsperiodeChange={(tidsperiode) => {
                                         onUpdate({

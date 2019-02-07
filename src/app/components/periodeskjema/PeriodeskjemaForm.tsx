@@ -11,7 +11,6 @@ import BEMHelper from 'common/utils/bem';
 import GraderingMeny from '../periodeliste/parts/GraderingMeny';
 import { getForelderNavn } from '../../utils/common';
 import ForelderMeny from '../periodeliste/parts/ForelderMeny';
-import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
 import { Tidsperioden } from '../../utils/Tidsperioden';
 import VarighetMeny from '../periodeliste/parts/VarighetMeny';
 import { Tidsperiode } from 'nav-datovelger';
@@ -49,7 +48,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         const { fom, tom, periodetype, forelder, gradering } = formik.values;
         const forelderNavn = getForelderNavn(forelder, omForeldre);
         const harFlereForeldre = omForeldre.antallForeldre > 1;
-        const { uker, dager } = getUkerOgDagerFromDager(Tidsperioden({ fom, tom }).getAntallUttaksdager());
+        const dager = Tidsperioden({ fom, tom }).getAntallUttaksdager();
 
         return (
             <Form>
@@ -106,7 +105,6 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                         <VarighetMeny
                                             fom={fom || nesteUttaksdag}
                                             tom={tom}
-                                            uker={uker}
                                             dager={dager}
                                             minDager={1}
                                             førsteUttaksdag={førsteUttaksdag}

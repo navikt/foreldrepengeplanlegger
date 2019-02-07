@@ -7,7 +7,7 @@ import { Undertittel, Element } from 'nav-frontend-typografi';
 
 import './block.less';
 
-export type BlockPadding = 'xl' | 'l' | 'm' | 's' | 'xs' | 'xxs' | 'none';
+export type BlockPadding = 'xl' | 'l' | 'm' | 's' | 'xs' | 'xxs' | 'xxxs' | 'none';
 
 export interface BlockProps {
     title?: React.ReactNode;

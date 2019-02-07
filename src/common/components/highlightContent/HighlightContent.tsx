@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { CSSTransition } from 'react-transition-group';
 
-import './shaker.less';
+import './highlightContent.less';
 
 interface Props {
-    value: string | number;
+    watchValue: string | number | Date | undefined;
+    style?: 'shake' | 'glow';
 }
 
 interface State {
@@ -13,7 +14,7 @@ interface State {
 
 const DURATION = 400;
 
-class Shaker extends React.Component<Props, State> {
+class HighlightContent extends React.Component<Props, State> {
     timeoutId: number | undefined;
     constructor(props: Props) {
         super(props);
@@ -25,7 +26,7 @@ class Shaker extends React.Component<Props, State> {
         this.shake = this.shake.bind(this);
     }
     componentWillReceiveProps(nextProps: Props) {
-        if (nextProps.value !== this.props.value) {
+        if (`${nextProps.watchValue}` !== `${this.props.watchValue}`) {
             this.start();
         }
     }
@@ -49,12 +50,12 @@ class Shaker extends React.Component<Props, State> {
         this.start();
     }
     render() {
-        const { children } = this.props;
+        const { style = 'glow', children } = this.props;
         return (
-            <CSSTransition in={this.state.active} classNames="shake" timeout={DURATION}>
+            <CSSTransition in={this.state.active} classNames={style} timeout={DURATION}>
                 {children}
             </CSSTransition>
         );
     }
 }
-export default Shaker;
+export default HighlightContent;

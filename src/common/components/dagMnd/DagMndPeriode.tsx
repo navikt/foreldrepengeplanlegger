@@ -3,6 +3,7 @@ import BEMHelper from 'common/utils/bem';
 
 import './dagMndPeriode.less';
 import DagMnd from 'common/components/dagMnd/DagMnd';
+import HighlightContent from 'common/components/highlightContent/HighlightContent';
 
 interface Props {
     fom: Date;
@@ -15,11 +16,15 @@ const DagMndPeriode: React.StatelessComponent<Props> = ({ fom, tom }) => {
     return (
         <div className={bem.block}>
             <div className={bem.element('dato')}>
-                <DagMnd dato={fom} />
+                <HighlightContent watchValue={fom}>
+                    <DagMnd dato={fom} />
+                </HighlightContent>
             </div>
             <span className="separator">-</span>
             <div className={bem.element('dato')}>
-                <DagMnd dato={tom} />
+                <HighlightContent watchValue={tom}>
+                    <DagMnd dato={tom} />
+                </HighlightContent>
             </div>
         </div>
     );

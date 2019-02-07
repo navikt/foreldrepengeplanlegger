@@ -6,6 +6,7 @@ import './highlightContent.less';
 interface Props {
     watchValue: string | number | Date | undefined;
     style?: 'shake' | 'glow';
+    invalid?: boolean;
 }
 
 interface State {
@@ -50,9 +51,10 @@ class HighlightContent extends React.Component<Props, State> {
         this.start();
     }
     render() {
-        const { style = 'glow', children } = this.props;
+        const { style = 'glow', invalid, children } = this.props;
+        const classNames = `${style}${invalid ? `-invalid` : ''}`;
         return (
-            <CSSTransition in={this.state.active} classNames={style} timeout={DURATION}>
+            <CSSTransition in={this.state.active} classNames={classNames} timeout={DURATION}>
                 {children}
             </CSSTransition>
         );

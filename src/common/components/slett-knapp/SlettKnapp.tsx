@@ -1,6 +1,4 @@
 import * as React from 'react';
-const Icon = require('nav-frontend-ikoner-assets').default;
-
 import { KnappProps } from 'nav-frontend-knapper/lib/knapp';
 
 import './slettKnapp.less';
@@ -21,8 +19,7 @@ const SlettKnapp: React.StatelessComponent<SlettKnappProps> = ({ onClick, ariaLa
             e.stopPropagation();
             onClick();
         }}>
-        <Icon kind="trashcan" size={20} role="presentation" aria-hidden={true} />
-        <AriaText>{ariaLabel}</AriaText>
+        X<AriaText>{ariaLabel}</AriaText>
     </button>
 );
 

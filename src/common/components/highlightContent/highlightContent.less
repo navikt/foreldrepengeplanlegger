@@ -23,6 +23,18 @@
         animation: none;
     }
 }
+.glow-invalid {
+    &-enter {
+        animation: glowing-invalid 0.3s ease-in-out 1;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+        border-radius: 0.25rem;
+    }
+    &-exit {
+        animation: none;
+    }
+}
 
 @keyframes shake {
     10%,
@@ -49,7 +61,6 @@
 
 @c-glow-off: rgba(255, 189, 102, 0);
 @c-glow-on: rgba(255, 189, 102, 0.5);
-
 @keyframes glowing {
     0% {
         box-shadow: 0 0 -0.3rem @c-glow-on;
@@ -62,5 +73,25 @@
     100% {
         box-shadow: 0 0 4rem @c-glow-off;
         background-color: @c-glow-off;
+    }
+}
+@c-glow-invalid-off: rgba(199, 41, 13, 0.1);
+@c-glow-invalid-on: rgba(199, 41, 13, 0.4);
+@keyframes glowing-invalid {
+    0% {
+        box-shadow: 0 0 -0.3rem @c-glow-invalid-on;
+        background-color: @c-glow-invalid-off;
+    }
+    30% {
+        box-shadow: 0 0 1rem @c-glow-invalid-on;
+        background-color: @c-glow-invalid-on;
+    }
+    60% {
+        box-shadow: 0 0 1rem @c-glow-invalid-on;
+        background-color: @c-glow-invalid-on;
+    }
+    100% {
+        box-shadow: 0 0 4rem @c-glow-invalid-off;
+        background-color: @c-glow-invalid-off;
     }
 }

@@ -56,8 +56,10 @@ const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, foreldernav
                         </Block>
                         {uttaksdagerBrukt && (
                             <Block margin="xxs">
-                                I valgt tidsperiode vil dette gi et uttak på{' '}
-                                <Varighet dager={uttaksdagerBrukt} separator=" og " />.
+                                <strong>
+                                    <Varighet dager={uttaksdagerBrukt} separator={' og '} />
+                                </strong>{' '}
+                                med foreldrepenger brukes.
                             </Block>
                         )}
                     </>

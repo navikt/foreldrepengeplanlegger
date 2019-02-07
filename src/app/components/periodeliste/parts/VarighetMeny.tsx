@@ -8,15 +8,15 @@ import Block from 'common/components/block/Block';
 import FomTomValg from './FomTomValg';
 import { Checkbox } from 'nav-frontend-skjema';
 import DropdownForm from 'common/components/dropdownForm/DropdownForm';
-import { formaterDato } from 'common/utils/datoUtils';
 import DagMndPeriode from 'common/components/dagMnd/DagMndPeriode';
 
 export interface VarighetChangeEvent {
     ukerOgDager: UkerOgDager;
     ingenVarighet?: boolean;
+    dager: number;
 }
 
-const VIS_DATO: boolean = false;
+type VarighetVariant = 'foreldrepengerFørTermin' | 'låstStartdato' | 'kunFomTom';
 
 interface OwnProps {
     uker: number;
@@ -37,6 +37,8 @@ interface OwnProps {
 }
 
 type Props = OwnProps & InjectedIntlProps;
+
+const VIS_DATO: boolean = true;
 
 const DatoValg: React.StatelessComponent<Props> = (props) => {
     const {
@@ -71,12 +73,12 @@ const Footer: React.StatelessComponent<Props> = (props) => {
     if (!fom) {
         return null;
     }
-    switch (getVariant(props)) {
+    switch (getVarighetVariant(props)) {
         case 'låstStartdato':
             return (
                 <div className="comment">
-                    Perioden starter <strong>{formaterDato(fom)}</strong> (første dag etter foregående periode). For å
-                    endre når denne perioden starter, må du endre sluttdato på foregående periode.
+                    Startdatoen er bestemt ut fra når foregående periode slutter. For å endre denne periodens startdato,
+                    må du endre sluttdatoen på den foregående.
                 </div>
             );
 
@@ -100,14 +102,16 @@ const VarighetValg: React.StatelessComponent<Props> = ({
             dager={dager}
             disabled={ingenVarighet}
             minDager={minDager}
-            onChange={(ukerOgDager) => onVarighetChange({ ukerOgDager })}
+            onChange={(ukerOgDager) =>
+                onVarighetChange({ ukerOgDager, dager: ukerOgDager.uker * 5 + ukerOgDager.dager })
+            }
         />
     ) : null;
 };
 
 const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
     const { uker, dager, onVarighetChange, ingenVarighet } = props;
-    const variant = getVariant(props);
+    const variant = getVarighetVariant(props);
     if (variant === 'låstStartdato') {
         return (
             <>
@@ -152,7 +156,11 @@ const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
                             label="Jeg skal ikke ha uttak før termin"
                             checked={ingenVarighet === true || false}
                             onChange={(evt) =>
-                                onVarighetChange({ ukerOgDager: { uker, dager }, ingenVarighet: evt.target.checked })
+                                onVarighetChange({
+                                    ukerOgDager: { uker, dager },
+                                    ingenVarighet: evt.target.checked,
+                                    dager: uker * 5 + dager
+                                })
                             }
                         />
                     </Block>
@@ -172,9 +180,7 @@ const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
     );
 };
 
-type VarighetVariant = 'foreldrepengerFørTermin' | 'låstStartdato' | 'kunFomTom';
-
-const getVariant = (props: Props): VarighetVariant => {
+const getVarighetVariant = (props: Props): VarighetVariant => {
     const { sluttdatoErLåst, startdatoErLåst, onVarighetChange } = props;
     if (startdatoErLåst === true && sluttdatoErLåst !== true) {
         return 'låstStartdato';
@@ -227,19 +233,19 @@ class VarighetMeny extends React.Component<Props, {}> {
         }
     }
     render() {
-        const variant = getVariant(this.props);
+        const variant = getVarighetVariant(this.props);
         return (
             <DropdownForm
                 ref={(c) => (this.dropdown = c)}
                 labelRenderer={() => <VarighetMenyLabel {...this.props} />}
-                labelAlignment="center"
-                contentClassName="varighetDialog"
-                contentTitle={getTittel(variant)}
                 contentRenderer={() => (
                     <VarighetMenyInnhold {...this.props} onTidsperiodeChange={this.handleTidsperiodeChange} />
                 )}
-                dropdownPlacement="right"
+                labelAlignment="center"
+                contentClassName="varighetDialog"
+                contentTitle={getTittel(variant)}
                 renderCloseButton={this.props.visLukkKnapp}
+                dropdownPlacement="right"
             />
         );
     }

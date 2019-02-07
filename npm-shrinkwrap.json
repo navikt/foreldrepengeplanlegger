@@ -409,14 +409,12 @@
         "@types/prop-types": {
             "version": "15.5.8",
             "resolved": "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.5.8.tgz",
-            "integrity": "sha512-3AQoUxQcQtLHsK25wtTWIoIpgYjH3vSDroZOUr7PpCHw/jLY1RB9z9E8dBT/OSmwStVgkRNvdh+ZHNiomRieaw==",
-            "dev": true
+            "integrity": "sha512-3AQoUxQcQtLHsK25wtTWIoIpgYjH3vSDroZOUr7PpCHw/jLY1RB9z9E8dBT/OSmwStVgkRNvdh+ZHNiomRieaw=="
         },
         "@types/react": {
             "version": "16.7.20",
             "resolved": "https://registry.npmjs.org/@types/react/-/react-16.7.20.tgz",
             "integrity": "sha512-Qd5RWkwl6SL7R2XzLk/cicjVQm1Mhc6HqXY5Ei4pWd1Vi8Fkbd5O0sA398x8fRSTPAuHdDYD9nrWmJMYTJI0vQ==",
-            "dev": true,
             "requires": {
                 "@types/prop-types": "15.5.8",
                 "csstype": "2.6.1"
@@ -515,6 +513,14 @@
             "resolved": "https://registry.npmjs.org/@types/react-scroll/-/react-scroll-1.5.4.tgz",
             "integrity": "sha512-EYJt9wDvyrcDZpZqI19eb2UlAzCoXBeoFu3yMkrBDC8zkwFXOhb8lv3tD9V9UAqptora096M7qWYktsWq1guEg==",
             "dev": true,
+            "requires": {
+                "@types/react": "16.7.20"
+            }
+        },
+        "@types/react-transition-group": {
+            "version": "2.0.15",
+            "resolved": "https://registry.npmjs.org/@types/react-transition-group/-/react-transition-group-2.0.15.tgz",
+            "integrity": "sha512-S0QnNzbHoWXDbKBl/xk5dxA4FT+BNlBcI3hku991cl8Cz3ytOkUMcCRtzdX11eb86E131bSsQqy5WrPCdJYblw==",
             "requires": {
                 "@types/react": "16.7.20"
             }
@@ -3144,8 +3150,7 @@
         "csstype": {
             "version": "2.6.1",
             "resolved": "https://registry.npmjs.org/csstype/-/csstype-2.6.1.tgz",
-            "integrity": "sha512-wv7IRqCGsL7WGKB8gPvrl+++HlFM9kxAM6jL1EXNPNTshEJYilMkbfS2SnuHha77uosp/YVK0wAp2jmlBzn1tg==",
-            "dev": true
+            "integrity": "sha512-wv7IRqCGsL7WGKB8gPvrl+++HlFM9kxAM6jL1EXNPNTshEJYilMkbfS2SnuHha77uosp/YVK0wAp2jmlBzn1tg=="
         },
         "cyclist": {
             "version": "0.2.2",
@@ -3531,6 +3536,29 @@
             "dev": true,
             "requires": {
                 "utila": "0.4.0"
+            }
+        },
+        "dom-helpers": {
+            "version": "3.4.0",
+            "resolved": "https://registry.npmjs.org/dom-helpers/-/dom-helpers-3.4.0.tgz",
+            "integrity": "sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==",
+            "requires": {
+                "@babel/runtime": "7.3.1"
+            },
+            "dependencies": {
+                "@babel/runtime": {
+                    "version": "7.3.1",
+                    "resolved": "https://registry.npmjs.org/@babel/runtime/-/runtime-7.3.1.tgz",
+                    "integrity": "sha512-7jGW8ppV0ant637pIqAcFfQDDH1orEPGJb8aXfUozuCU3QqX7rX4DA8iwrbPrR1hcH0FTTHz47yQnk+bl5xHQA==",
+                    "requires": {
+                        "regenerator-runtime": "0.12.1"
+                    }
+                },
+                "regenerator-runtime": {
+                    "version": "0.12.1",
+                    "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz",
+                    "integrity": "sha512-odxIc1/vDlo4iZcfXqRYFj0vpXFNoGdKMAUieAlFYO6m/nl5e9KR/beGf41z4a1FI+aQgtjhuaSlDxQ0hmkrHg=="
+                }
             }
         },
         "dom-serializer": {
@@ -10307,6 +10335,17 @@
                 "prop-types": "15.6.2",
                 "react-is": "16.7.0",
                 "scheduler": "0.12.0"
+            }
+        },
+        "react-transition-group": {
+            "version": "2.5.3",
+            "resolved": "https://registry.npmjs.org/react-transition-group/-/react-transition-group-2.5.3.tgz",
+            "integrity": "sha512-2DGFck6h99kLNr8pOFk+z4Soq3iISydwOFeeEVPjTN6+Y01CmvbWmnN02VuTWyFdnRtIDPe+wy2q6Ui8snBPZg==",
+            "requires": {
+                "dom-helpers": "3.4.0",
+                "loose-envify": "1.4.0",
+                "prop-types": "15.6.2",
+                "react-lifecycles-compat": "3.0.4"
             }
         },
         "read-pkg": {

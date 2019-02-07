@@ -22,6 +22,8 @@ interface OwnProps {
     footer?: React.ReactNode;
     onChange: (evt: TidsperiodeChangeEvent) => void;
     onSetVarighet?: (dager: number) => void;
+    onDisabledFomClick?: () => void;
+    onDisabledTomClick?: () => void;
 }
 
 type Props = OwnProps & InjectedIntlProps;
@@ -38,61 +40,69 @@ const FomTomValg: React.StatelessComponent<Props> = ({
     fomLabel = 'Startdato',
     tomLabel = 'Sluttdato',
     disabled,
+    onDisabledFomClick,
+    onDisabledTomClick,
     footer
 }) => {
     return (
         <>
             <Block margin="none">
                 <Row>
-                    {låstFomDato !== true && (
-                        <Column xs="12" sm="6">
-                            <Block margin="xs">
-                                <DatoInput
-                                    name="startdato"
-                                    label={fomLabel}
-                                    dato={fom}
-                                    visÅrValger={true}
-                                    locale={intl.locale}
-                                    id="tidsperiodeFra"
-                                    disabled={disabled || låstFomDato}
-                                    avgrensninger={{ helgedagerIkkeTillatt: true, minDato, maksDato }}
-                                    onChange={(dato) =>
-                                        onChange({
-                                            fom: dato,
-                                            tom
-                                        })
-                                    }
-                                />
-                            </Block>
-                        </Column>
-                    )}
-                    {låstTomDato !== true && (
-                        <Column xs="12" sm="6">
-                            <Block margin="xs">
-                                <DatoInput
-                                    name="sluttdato"
-                                    label={tomLabel}
-                                    dato={tom}
-                                    visÅrValger={true}
-                                    locale={intl.locale}
-                                    id="tidsperiodeTil"
-                                    disabled={disabled}
-                                    dayPickerProps={{ initialMonth: fom }}
-                                    avgrensninger={{
-                                        helgedagerIkkeTillatt: true,
-                                        minDato: fom ? fom : minDato,
-                                        maksDato
-                                    }}
-                                    onChange={(dato) =>
-                                        onChange({
-                                            fom,
-                                            tom: dato
-                                        })
-                                    }
-                                />
-                            </Block>
-                        </Column>
-                    )}
+                    <Column xs="12" sm="6">
+                        <Block margin="xs">
+                            <DatoInput
+                                name="startdato"
+                                label={fomLabel}
+                                dato={fom}
+                                visÅrValger={true}
+                                locale={intl.locale}
+                                id="tidsperiodeFra"
+                                disabled={disabled || låstFomDato}
+                                avgrensninger={{ helgedagerIkkeTillatt: true, minDato, maksDato }}
+                                onChange={(dato) =>
+                                    onChange({
+                                        fom: dato,
+                                        tom
+                                    })
+                                }
+                                onDisabledClick={
+                                    (disabled || låstFomDato) && onDisabledFomClick
+                                        ? () => onDisabledFomClick()
+                                        : undefined
+                                }
+                            />
+                        </Block>
+                    </Column>
+                    <Column xs="12" sm="6">
+                        <Block margin="xs">
+                            <DatoInput
+                                name="sluttdato"
+                                label={tomLabel}
+                                dato={tom}
+                                visÅrValger={true}
+                                locale={intl.locale}
+                                id="tidsperiodeTil"
+                                disabled={disabled || låstTomDato}
+                                dayPickerProps={{ initialMonth: fom }}
+                                avgrensninger={{
+                                    helgedagerIkkeTillatt: true,
+                                    minDato: fom ? fom : minDato,
+                                    maksDato
+                                }}
+                                onChange={(dato) =>
+                                    onChange({
+                                        fom,
+                                        tom: dato
+                                    })
+                                }
+                                onDisabledClick={
+                                    (disabled || låstTomDato) && onDisabledTomClick
+                                        ? () => onDisabledTomClick()
+                                        : undefined
+                                }
+                            />
+                        </Block>
+                    </Column>
                 </Row>
             </Block>
             {footer}

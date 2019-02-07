@@ -7,19 +7,22 @@ import './dagMnd.less';
 
 interface Props {
     dato: Date;
+    visÅr?: boolean;
 }
 
 const bem = BEMHelper('dagMnd');
 
-const DagMnd: React.StatelessComponent<Props> = ({ dato }) => {
+const DagMnd: React.StatelessComponent<Props> = ({ dato, visÅr = true }) => {
     return (
         <div className={bem.block}>
-            <span className={bem.element('dato')}>
-                {dato.getDate()}. {måned3bokstaver(dato)}.
+            <span className={bem.classNames(bem.element('dato'), visÅr ? bem.modifier('medAar') : undefined)}>
+                {dato.getDate()}. {måned3bokstaver(dato)}
             </span>
-            <EtikettLiten tag="span" className={bem.element('mnd')}>
-                <abbr title={`${måned(dato)} ${år(dato)}`}>{år(dato)}</abbr>
-            </EtikettLiten>
+            {visÅr && (
+                <EtikettLiten tag="span" className={bem.element('aar')}>
+                    <abbr title={`${måned(dato)} ${år(dato)}`}>{år(dato)}</abbr>
+                </EtikettLiten>
+            )}
         </div>
     );
 };

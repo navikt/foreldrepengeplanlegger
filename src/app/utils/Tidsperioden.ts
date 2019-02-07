@@ -21,16 +21,15 @@ export const Tidsperioden = (tidsperiode: Partial<Tidsperiode>) => ({
     getAntallFridager: () => getUttaksdagerSomErFridager(tidsperiode).length,
     getUttaksdagerSomErFridager: () => getUttaksdagerSomErFridager(tidsperiode),
     setStartdato: (fom: Date) => (isValidTidsperiode(tidsperiode) ? flyttTidsperiode(tidsperiode, fom) : tidsperiode),
-    setUttaksdager: (uttaksdager: number) =>
+    setUttaksdager: (uttaksdager: number, uttaksprosent?: number) =>
         tidsperiode.fom ? getTidsperiode(tidsperiode.fom, uttaksdager) : tidsperiode,
+    setUttaksdagerFlyttStartdato: (uttaksdager: number, uttaksprosent?: number) =>
+        setUttaksdagerFlyttStartdato(tidsperiode, uttaksdager),
     formaterString: (intl: InjectedIntl) => tidsperiodeToString(tidsperiode, intl),
     formaterStringMedDag: (intl: InjectedIntl) => tidsperiodeToStringMedDag(tidsperiode, intl),
     formaterStringKort: (intl: InjectedIntl) => tidsperiodeToStringKort(tidsperiode, intl),
     erFomEllerEtterDato: (dato: Date) => erTidsperiodeFomEllerEtterDato(tidsperiode, dato),
-    erFørDato: (dato: Date) => erTidsperiodeFomEllerEtterDato(tidsperiode, dato) === false,
-    setUkerOgDager: (uker: number, dager: number): Partial<Tidsperiode> => setUkerOgDager(tidsperiode, uker, dager),
-    setUkerOgDagerFlyttStartdato: (uker: number, dager: number): Partial<Tidsperiode> =>
-        setUkerOgDagerFlyttStartdato(tidsperiode, uker, dager)
+    erFørDato: (dato: Date) => erTidsperiodeFomEllerEtterDato(tidsperiode, dato) === false
 });
 
 export function isValidTidsperiode(tidsperiode: any): tidsperiode is Tidsperiode {
@@ -179,19 +178,14 @@ const erTidsperiodeFomEllerEtterDato = (tidsperiode: Partial<Tidsperiode>, dato:
     );
 };
 
-function setUkerOgDager(tidsperiode: Partial<Tidsperiode>, uker: number, dager: number): Partial<Tidsperiode> {
-    if (tidsperiode.fom) {
-        return getTidsperiode(tidsperiode.fom, Math.max(uker * 5 + dager, 1));
-    }
-    return tidsperiode;
-}
+// function setUkerOgDager(tidsperiode: Partial<Tidsperiode>, uker: number, dager: number): Partial<Tidsperiode> {
+//     if (tidsperiode.fom) {
+//         return getTidsperiode(tidsperiode.fom, Math.max(uker * 5 + dager, 1));
+//     }
+//     return tidsperiode;
+// }
 
-function setUkerOgDagerFlyttStartdato(
-    tidsperiode: Partial<Tidsperiode>,
-    uker: number,
-    dager: number
-): Partial<Tidsperiode> {
-    const uttaksdager = uker * 5 + dager;
+function setUttaksdagerFlyttStartdato(tidsperiode: Partial<Tidsperiode>, uttaksdager: number): Partial<Tidsperiode> {
     const { tom } = tidsperiode;
     if (tom && uttaksdager > 0) {
         return { fom: Uttaksdagen(tom).trekkFra(uttaksdager - 1), tom };

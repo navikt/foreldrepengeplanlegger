@@ -10,6 +10,7 @@ import BEMHelper from 'common/utils/bem';
 import { getAvgrensningerDescriptionForInput } from './datoInputDescription';
 
 import './datoInput.less';
+import FocusContainer from 'common/components/focusContainer/FocusContainer';
 
 export interface DatoInputProps extends DatovelgerCommonProps {
     name: string;
@@ -19,6 +20,7 @@ export interface DatoInputProps extends DatovelgerCommonProps {
     feil?: Feil;
     visÅrValger?: boolean;
     onChange: (dato?: Date) => void;
+    onDisabledClick?: () => void;
 }
 
 export type Props = DatoInputProps & InjectedIntlProps;
@@ -27,7 +29,19 @@ const bem = BEMHelper('datoInput');
 
 class DatoInput extends React.Component<Props, {}> {
     render() {
-        const { id, label, postfix, feil, intl, onChange, kalender, name, visÅrValger, ...rest } = this.props;
+        const {
+            id,
+            label,
+            postfix,
+            feil,
+            intl,
+            onChange,
+            kalender,
+            name,
+            visÅrValger,
+            onDisabledClick,
+            ...rest
+        } = this.props;
         const avgrensningerTekst = this.props.avgrensninger
             ? getAvgrensningerDescriptionForInput(intl, this.props.avgrensninger)
             : undefined;
@@ -37,20 +51,24 @@ class DatoInput extends React.Component<Props, {}> {
             <SkjemaInputElement id={this.props.id} feil={feil} label={label}>
                 <div className={bem.block}>
                     <div className={bem.element('datovelger')}>
-                        <NavDatovelger.Datovelger
-                            {...rest}
-                            id={id ? id : name}
-                            locale={intl.locale}
-                            kalender={kalender}
-                            visÅrVelger={visÅrValger}
-                            input={{
-                                id,
-                                placeholder: 'dd.mm.åååå',
-                                name,
-                                ariaDescribedby: ariaDescriptionId
-                            }}
-                            onChange={(dato) => onChange(dato ? dato : undefined)}
-                        />
+                        <FocusContainer
+                            onClick={onDisabledClick ? () => onDisabledClick() : undefined}
+                            active={rest.disabled === true}>
+                            <NavDatovelger.Datovelger
+                                {...rest}
+                                id={id ? id : name}
+                                locale={intl.locale}
+                                kalender={kalender}
+                                visÅrVelger={visÅrValger}
+                                input={{
+                                    id,
+                                    placeholder: 'dd.mm.åååå',
+                                    name,
+                                    ariaDescribedby: ariaDescriptionId
+                                }}
+                                onChange={(dato) => onChange(dato ? dato : undefined)}
+                            />
+                        </FocusContainer>
                         {ariaDescriptionId && (
                             <AriaText id={ariaDescriptionId} aria-role="presentation" aria-hidden="true">
                                 {avgrensningerTekst}

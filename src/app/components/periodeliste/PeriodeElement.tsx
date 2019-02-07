@@ -39,28 +39,21 @@ class PeriodeElement extends React.Component<Props> {
     handleChangeVarighet(evt: VarighetChangeEvent) {
         const { periode } = this.props;
         const { tidsperiode } = periode;
-        const { ukerOgDager, ingenVarighet } = evt;
-
-        const graderingPst = Periodetype.GradertUttak && periode.gradering !== undefined ? 100 / periode.gradering : 1;
-        const { uker, dager } =
-            periode.type === Periodetype.GradertUttak && periode.gradering !== undefined
-                ? {
-                      uker: ukerOgDager.uker * graderingPst,
-                      dager: ukerOgDager.dager * graderingPst
-                  }
-                : ukerOgDager;
+        const { ingenVarighet, dager } = evt;
+        const uttaksprosent =
+            Periodetype.GradertUttak && periode.gradering !== undefined ? periode.gradering : undefined;
 
         if (periode.type === Periodetype.UttakFørTermin) {
             const oppdatertPeriode = {
                 ...periode,
-                tidsperiode: Tidsperioden(tidsperiode || {}).setUkerOgDagerFlyttStartdato(uker, dager),
+                tidsperiode: Tidsperioden(tidsperiode || {}).setUttaksdager(dager, uttaksprosent),
                 skalIkkeHaUttakFørTermin: ingenVarighet
             };
             this.props.onUpdate(oppdatertPeriode as Periode);
         } else {
             this.props.onUpdate({
                 ...periode,
-                tidsperiode: Tidsperioden(tidsperiode || {}).setUkerOgDager(uker, dager) as Tidsperiode
+                tidsperiode: Tidsperioden(tidsperiode || {}).setUttaksdager(dager, uttaksprosent) as Tidsperiode
             });
         }
     }
@@ -119,6 +112,7 @@ class PeriodeElement extends React.Component<Props> {
                                     foreldernavn={omForeldre.antallForeldre === 2 ? foreldernavn : 'du'}
                                     gradering={this.props.periode.gradering}
                                     onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
+                                    uttaksdagerBrukt={uttaksinfo.antallUttaksdagerBrukt}
                                 />
                             ),
                             isVisibleCheck: () => periode.type === Periodetype.GradertUttak

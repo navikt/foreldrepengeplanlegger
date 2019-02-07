@@ -2,7 +2,7 @@ import * as React from 'react';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
 import { Periodetype, Forelder } from '../../../types';
 import getMessage from 'common/utils/i18nUtils';
-// import { Tidsperioden, isValid Tidsperiode } from '../../../utils/Tidsperioden';
+// import { Tidsperioden, isValidTidsperiode } from '../../../utils/Tidsperioden';
 import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
 import DropdownForm from 'common/components/dropdownForm/DropdownForm';

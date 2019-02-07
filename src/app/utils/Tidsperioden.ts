@@ -13,7 +13,7 @@ import {
 } from 'common/utils/datoUtils';
 import getMessage from 'common/utils/i18nUtils';
 
-export const Tidsperioden = (tidsperiode: Partial<Tidsperiode>) => ({
+export const Tidsperioden = (tidsperiode: Partial<Tidsperiode> | Tidsperiode) => ({
     erLik: (tidsperiode2: Tidsperiode) => erTidsperioderLike(tidsperiode, tidsperiode2),
     erOmsluttetAv: (tidsperiode2: Tidsperiode) => erTidsperiodeOmsluttetAvTidsperiode(tidsperiode, tidsperiode2),
     erUtenfor: (tidsperiode2: Tidsperiode) => erTidsperiodeUtenforTidsperiode(tidsperiode, tidsperiode2),
@@ -22,9 +22,9 @@ export const Tidsperioden = (tidsperiode: Partial<Tidsperiode>) => ({
     getUttaksdagerSomErFridager: () => getUttaksdagerSomErFridager(tidsperiode),
     setStartdato: (fom: Date) => (isValidTidsperiode(tidsperiode) ? flyttTidsperiode(tidsperiode, fom) : tidsperiode),
     setUttaksdager: (uttaksdager: number, uttaksprosent?: number) =>
-        tidsperiode.fom ? getTidsperiode(tidsperiode.fom, uttaksdager) : tidsperiode,
+        tidsperiode.fom ? getTidsperiode(tidsperiode.fom, uttaksdager, uttaksprosent) : tidsperiode,
     setUttaksdagerFlyttStartdato: (uttaksdager: number, uttaksprosent?: number) =>
-        setUttaksdagerFlyttStartdato(tidsperiode, uttaksdager),
+        setUttaksdagerFlyttStartdato(tidsperiode, uttaksdager, uttaksprosent),
     formaterString: (intl: InjectedIntl) => tidsperiodeToString(tidsperiode, intl),
     formaterStringMedDag: (intl: InjectedIntl) => tidsperiodeToStringMedDag(tidsperiode, intl),
     formaterStringKort: (intl: InjectedIntl) => tidsperiodeToStringKort(tidsperiode, intl),
@@ -60,13 +60,13 @@ export function getValidTidsperiode(tidsperiode: Partial<Tidsperiode> | undefine
     return undefined;
 }
 
-export function getTidsperiode(fom: Date, uttaksdager: number): Tidsperiode {
+export function getTidsperiode(fom: Date, uttaksdager: number, uttaksprosent?: number): Tidsperiode {
     if (!Uttaksdagen(fom).erUttaksdag()) {
         throw new Error('FOM er ikke en uttaksdag');
     }
     return {
         fom,
-        tom: Uttaksdagen(fom).leggTil(uttaksdager - 1)
+        tom: Uttaksdagen(fom).leggTil(uttaksdager - 1, uttaksprosent)
     };
 }
 
@@ -178,17 +178,14 @@ const erTidsperiodeFomEllerEtterDato = (tidsperiode: Partial<Tidsperiode>, dato:
     );
 };
 
-// function setUkerOgDager(tidsperiode: Partial<Tidsperiode>, uker: number, dager: number): Partial<Tidsperiode> {
-//     if (tidsperiode.fom) {
-//         return getTidsperiode(tidsperiode.fom, Math.max(uker * 5 + dager, 1));
-//     }
-//     return tidsperiode;
-// }
-
-function setUttaksdagerFlyttStartdato(tidsperiode: Partial<Tidsperiode>, uttaksdager: number): Partial<Tidsperiode> {
+function setUttaksdagerFlyttStartdato(
+    tidsperiode: Partial<Tidsperiode>,
+    uttaksdager: number,
+    uttaksprosent?: number
+): Partial<Tidsperiode> {
     const { tom } = tidsperiode;
     if (tom && uttaksdager > 0) {
-        return { fom: Uttaksdagen(tom).trekkFra(uttaksdager - 1), tom };
+        return { fom: Uttaksdagen(tom).trekkFra(uttaksdager - 1, uttaksprosent), tom };
     }
     return tidsperiode;
 }

@@ -40,20 +40,18 @@ class PeriodeElement extends React.Component<Props> {
         const { periode } = this.props;
         const { tidsperiode } = periode;
         const { ingenVarighet, dager } = evt;
-        const uttaksprosent =
-            Periodetype.GradertUttak && periode.gradering !== undefined ? periode.gradering : undefined;
 
         if (periode.type === Periodetype.UttakFørTermin) {
             const oppdatertPeriode = {
                 ...periode,
-                tidsperiode: Tidsperioden(tidsperiode || {}).setUttaksdager(dager, uttaksprosent),
+                tidsperiode: Tidsperioden(tidsperiode || {}).setUttaksdager(dager),
                 skalIkkeHaUttakFørTermin: ingenVarighet
             };
             this.props.onUpdate(oppdatertPeriode as Periode);
         } else {
             this.props.onUpdate({
                 ...periode,
-                tidsperiode: Tidsperioden(tidsperiode || {}).setUttaksdager(dager, uttaksprosent) as Tidsperiode
+                tidsperiode: Tidsperioden(tidsperiode || {}).setUttaksdager(dager, periode.gradering) as Tidsperiode
             });
         }
     }

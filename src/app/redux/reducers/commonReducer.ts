@@ -12,11 +12,11 @@ import {
     Forelder
 } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
-import { getMockPerioder } from '../../mock/perioder_mock';
+// import { getMockPerioder } from '../../mock/perioder_mock';
 import { Dekningsgrad } from 'common/types';
 import { summerAntallDagerIKontoer, getPeriodeFørTermin } from '../../utils/kontoUtils';
 import { setStorage, getStorage } from '../../utils/storage';
-import { getAntallForeldreISituasjon } from '../../utils/common';
+// import { getAntallForeldreISituasjon } from '../../utils/common';
 import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
 import { lagUttaksplan } from '../../utils/forslag/lagUttaksplan';
@@ -98,10 +98,10 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
             });
         case CommonActionKeys.SUBMIT_SKJEMADATA:
             const builder = getBuilder();
-            builder.perioder = getMockPerioder(
-                action.data.antallBarn,
-                getAntallForeldreISituasjon(action.data.situasjon)
-            );
+            // builder.perioder = getMockPerioder(
+            //     action.data.antallBarn,
+            //     getAntallForeldreISituasjon(action.data.situasjon)
+            // );
             return updateStateAndStorage(state, {
                 skjemadata: action.data,
                 familiehendelsesdato: action.data.familiehendelsesdato,

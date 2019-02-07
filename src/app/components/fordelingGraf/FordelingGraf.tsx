@@ -6,6 +6,7 @@ import { InjectedIntl, injectIntl, InjectedIntlProps } from 'react-intl';
 import Varighet from '../varighet/Varighet';
 
 import './fordelingGraf.less';
+import HighlightContent from 'common/components/highlightContent/HighlightContent';
 
 interface OwnProps {
     fordeling: Fordeling;
@@ -25,7 +26,9 @@ const Tittel: React.StatelessComponent<{ navn: string; dager?: number; intl: Inj
             <div className={bem.element('forbruk')}>
                 <div className={bem.element('forbruk__navn')}>{navn}</div>
                 <div className={bem.element('forbruk__dager')}>
-                    <Varighet dager={dager | 0} />
+                    <HighlightContent watchValue={dager} invalid={dager < 0}>
+                        <Varighet dager={dager | 0} />
+                    </HighlightContent>
                 </div>
             </div>
         </div>

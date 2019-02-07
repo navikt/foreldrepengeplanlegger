@@ -53,7 +53,7 @@ const ForelderMeny: React.StatelessComponent<Props> = (props) => {
         <DropdownForm
             disabled={erLåst}
             onSelection={(value) => onChange(value as Forelder)}
-            contentClassName="forelderMenyDialog"
+            contentClassName="forelderDialog"
             contentTitle="Hvem gjelder perioden?"
             labelRenderer={() => renderLabel(props, options)}
             labelAlignment="center"

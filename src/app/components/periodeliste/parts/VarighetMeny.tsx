@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { UkerOgDager } from '../../../types';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVelger';
 import { Tidsperiode } from 'nav-datovelger';
@@ -9,20 +8,18 @@ import FomTomValg from './FomTomValg';
 import { Checkbox } from 'nav-frontend-skjema';
 import DropdownForm from 'common/components/dropdownForm/DropdownForm';
 import DagMndPeriode from 'common/components/dagMnd/DagMndPeriode';
+import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
 
 export interface VarighetChangeEvent {
-    ukerOgDager: UkerOgDager;
     ingenVarighet?: boolean;
-    dager: number;
+    dager?: number;
 }
 
 type VarighetVariant = 'foreldrepengerFørTermin' | 'låstStartdato' | 'kunFomTom';
 
 interface OwnProps {
-    uker: number;
-    dager: number;
-    førsteUttaksdag: Date;
-    sisteUttaksdag: Date;
+    dager?: number;
+    brukteUttaksdager?: number;
     fom?: Date;
     tom?: Date;
     startdatoErLåst?: boolean;
@@ -32,6 +29,8 @@ interface OwnProps {
     minDager?: number;
     visLukkKnapp?: boolean;
     lukkAutomatisk?: boolean;
+    førsteUttaksdag: Date;
+    sisteUttaksdag: Date;
     onTidsperiodeChange: (tidsperiode: Tidsperiode) => void;
     onVarighetChange?: (evt: VarighetChangeEvent) => void;
 }
@@ -39,6 +38,26 @@ interface OwnProps {
 type Props = OwnProps & InjectedIntlProps;
 
 const VIS_DATO: boolean = true;
+
+const getVarighetVariant = (props: Props): VarighetVariant => {
+    const { sluttdatoErLåst, startdatoErLåst, onVarighetChange } = props;
+    if (startdatoErLåst === true && sluttdatoErLåst !== true) {
+        return 'låstStartdato';
+    } else if (onVarighetChange === undefined) {
+        return 'kunFomTom';
+    }
+    return 'foreldrepengerFørTermin';
+};
+
+const getTittel = (variant: VarighetVariant): string => {
+    switch (variant) {
+        case 'foreldrepengerFørTermin':
+            return 'Når ønsker du å starte uttaket før termin?';
+        default:
+        case 'kunFomTom':
+            return 'Velg når perioden skal starte og slutte';
+    }
+};
 
 const DatoValg: React.StatelessComponent<Props> = (props) => {
     const {
@@ -87,73 +106,58 @@ const Footer: React.StatelessComponent<Props> = (props) => {
     }
 };
 
-const VarighetValg: React.StatelessComponent<Props> = ({
-    uker,
-    dager,
-    minDager,
-    ingenVarighet,
-    onVarighetChange,
-    gradert
-}) => {
-    return onVarighetChange ? (
-        <UkerOgDagerVelger
-            // tittel={gradert ? 'Velg hvor mye foreldrepenger som skal brukes' : 'Velg variget'}
-            tittel={'Velg varighet'}
-            uker={uker}
-            dager={dager}
-            disabled={ingenVarighet}
-            minDager={minDager}
-            onChange={(ukerOgDager) =>
-                onVarighetChange({ ukerOgDager, dager: ukerOgDager.uker * 5 + ukerOgDager.dager })
-            }
-        />
-    ) : null;
+const VarighetValg: React.StatelessComponent<Props> = (props) => {
+    const { dager, minDager, ingenVarighet, onVarighetChange, brukteUttaksdager, gradert } = props;
+
+    if (onVarighetChange) {
+        const ukerOgDager = getUkerOgDagerFromDager(dager || 0);
+        return (
+            <Block margin="s" visible={ingenVarighet !== true}>
+                <UkerOgDagerVelger
+                    tittel={'Velg varighet'}
+                    uker={ukerOgDager.uker}
+                    dager={ukerOgDager.dager}
+                    disabled={ingenVarighet}
+                    minDager={minDager}
+                    onChange={(ud) => onVarighetChange({ dager: ud.uker * 5 + ud.dager })}
+                />
+                {gradert && brukteUttaksdager && brukteUttaksdager >= 0 && (
+                    <p className="comment">
+                        Dette tilsvarer <Varighet dager={brukteUttaksdager} />
+                    </p>
+                )}
+            </Block>
+        );
+    }
+    return null;
 };
 
 const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
-    const { uker, dager, onVarighetChange, ingenVarighet } = props;
+    const { onVarighetChange, ingenVarighet } = props;
     const variant = getVarighetVariant(props);
-    if (variant === 'låstStartdato') {
+
+    const handleIngenVarighet = (ingenVarighetValgt: boolean) => {
+        onVarighetChange!({
+            ingenVarighet: ingenVarighetValgt
+        });
+    };
+
+    if (variant === 'låstStartdato' || variant === 'foreldrepengerFørTermin') {
         return (
             <>
                 <Block>
                     <DatoValg {...props} />
-                </Block>
-                {onVarighetChange && (
-                    <Block margin="xs">
-                        <VarighetValg {...props} />
-                    </Block>
-                )}
-            </>
-        );
-    } else if (variant === 'foreldrepengerFørTermin') {
-        return (
-            <>
-                <Block animated={true} visible={ingenVarighet !== true}>
-                    <Block>
-                        <DatoValg {...props} />
-                    </Block>
-                    {onVarighetChange && (
-                        <Block margin="xs">
-                            <VarighetValg {...props} />
+                    {variant === 'foreldrepengerFørTermin' && (
+                        <Block margin="none">
+                            <Checkbox
+                                label="Jeg skal ikke ha uttak før termin"
+                                checked={ingenVarighet === true || false}
+                                onChange={(evt) => handleIngenVarighet(evt.target.checked)}
+                            />
                         </Block>
                     )}
                 </Block>
-                {onVarighetChange && (
-                    <Block>
-                        <Checkbox
-                            label="Jeg skal ikke ha uttak før termin"
-                            checked={ingenVarighet === true || false}
-                            onChange={(evt) =>
-                                onVarighetChange({
-                                    ukerOgDager: { uker, dager },
-                                    ingenVarighet: evt.target.checked,
-                                    dager: uker * 5 + dager
-                                })
-                            }
-                        />
-                    </Block>
-                )}
+                {onVarighetChange && variant !== 'foreldrepengerFørTermin' && <VarighetValg {...props} />}
             </>
         );
     }
@@ -164,29 +168,8 @@ const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
     );
 };
 
-const getVarighetVariant = (props: Props): VarighetVariant => {
-    const { sluttdatoErLåst, startdatoErLåst, onVarighetChange } = props;
-    if (startdatoErLåst === true && sluttdatoErLåst !== true) {
-        return 'låstStartdato';
-    } else if (onVarighetChange === undefined) {
-        return 'kunFomTom';
-    }
-    return 'foreldrepengerFørTermin';
-};
-
-const getTittel = (variant: VarighetVariant): string => {
-    switch (variant) {
-        case 'foreldrepengerFørTermin':
-            return 'Når ønsker du å starte uttaket før termin?';
-        default:
-        case 'kunFomTom':
-            return 'Velg når perioden skal starte og slutte';
-        // return 'Hvor lenge skal perioden vare?';
-    }
-};
-
 const VarighetMenyLabel: React.StatelessComponent<Props> = (props) => {
-    const { fom, tom, uker, dager, ingenVarighet } = props;
+    const { fom, tom, dager, ingenVarighet } = props;
     if (!fom || !tom) {
         return <span>Velg tid</span>;
     }
@@ -198,7 +181,7 @@ const VarighetMenyLabel: React.StatelessComponent<Props> = (props) => {
         }
         return (
             <Block align="center" margin="none">
-                <Varighet dager={ingenVarighet ? 0 : (uker * 5 + dager) | 0} layout="vertical" />
+                <Varighet dager={ingenVarighet ? 0 : dager || 0} layout="vertical" />
             </Block>
         );
     }

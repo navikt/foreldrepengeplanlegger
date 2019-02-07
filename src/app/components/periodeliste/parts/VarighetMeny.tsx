@@ -77,8 +77,8 @@ const Footer: React.StatelessComponent<Props> = (props) => {
         case 'låstStartdato':
             return (
                 <div className="comment">
-                    Startdatoen er bestemt ut fra når foregående periode slutter. For å endre denne periodens startdato,
-                    må du endre sluttdatoen på den foregående.
+                    Startdato bestemmes ut fra når foregående periode slutter. For å endre denne periodens startdato, må
+                    du endre sluttdatoen på den foregående.
                 </div>
             );
 
@@ -98,7 +98,7 @@ const VarighetValg: React.StatelessComponent<Props> = ({
     return onVarighetChange ? (
         <UkerOgDagerVelger
             // tittel={gradert ? 'Velg hvor mye foreldrepenger som skal brukes' : 'Velg variget'}
-            tittel={'Velg variget'}
+            tittel={'Velg varighet'}
             uker={uker}
             dager={dager}
             disabled={ingenVarighet}
@@ -116,24 +116,15 @@ const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
     if (variant === 'låstStartdato') {
         return (
             <>
-                {onVarighetChange && (
-                    <>
-                        <Block margin="xs">
-                            <VarighetValg {...props} />
-                        </Block>
-                        <Block margin="m">eller</Block>
-                    </>
-                )}
                 <Block>
                     <DatoValg {...props} />
                 </Block>
+                {onVarighetChange && (
+                    <Block margin="xs">
+                        <VarighetValg {...props} />
+                    </Block>
+                )}
             </>
-        );
-    } else if (variant === 'kunFomTom') {
-        return (
-            <Block margin="xs">
-                <DatoValg {...props} />
-            </Block>
         );
     } else if (variant === 'foreldrepengerFørTermin') {
         return (
@@ -143,12 +134,9 @@ const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
                         <DatoValg {...props} />
                     </Block>
                     {onVarighetChange && (
-                        <>
-                            <Block margin="m">eller</Block>
-                            <Block margin="xs">
-                                <VarighetValg {...props} />
-                            </Block>
-                        </>
+                        <Block margin="xs">
+                            <VarighetValg {...props} />
+                        </Block>
                     )}
                 </Block>
                 {onVarighetChange && (
@@ -170,14 +158,9 @@ const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
         );
     }
     return (
-        <>
-            <Block margin="xs">
-                <DatoValg {...props} />
-            </Block>
-            <Block>
-                <VarighetValg {...props} />
-            </Block>
-        </>
+        <Block margin="xs">
+            <DatoValg {...props} />
+        </Block>
     );
 };
 
@@ -195,10 +178,10 @@ const getTittel = (variant: VarighetVariant): string => {
     switch (variant) {
         case 'foreldrepengerFørTermin':
             return 'Når ønsker du å starte uttaket før termin?';
+        default:
         case 'kunFomTom':
             return 'Velg når perioden skal starte og slutte';
-        default:
-            return 'Hvor lenge skal perioden vare?';
+        // return 'Hvor lenge skal perioden vare?';
     }
 };
 

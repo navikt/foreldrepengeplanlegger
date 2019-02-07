@@ -9,6 +9,8 @@ import { Checkbox } from 'nav-frontend-skjema';
 import DropdownForm from 'common/components/dropdownForm/DropdownForm';
 import DagMndPeriode from 'common/components/dagMnd/DagMndPeriode';
 import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
+import Alertstriper from 'nav-frontend-alertstriper';
+import { Element } from 'nav-frontend-typografi';
 
 export interface VarighetChangeEvent {
     ingenVarighet?: boolean;
@@ -31,6 +33,8 @@ interface OwnProps {
     lukkAutomatisk?: boolean;
     førsteUttaksdag: Date;
     sisteUttaksdag: Date;
+    forelderNavn?: string;
+    gradering?: number;
     onTidsperiodeChange: (tidsperiode: Tidsperiode) => void;
     onVarighetChange?: (evt: VarighetChangeEvent) => void;
 }
@@ -107,7 +111,16 @@ const Footer: React.StatelessComponent<Props> = (props) => {
 };
 
 const VarighetValg: React.StatelessComponent<Props> = (props) => {
-    const { dager, minDager, ingenVarighet, onVarighetChange, brukteUttaksdager, gradert } = props;
+    const {
+        dager,
+        minDager,
+        ingenVarighet,
+        gradering,
+        forelderNavn,
+        onVarighetChange,
+        brukteUttaksdager,
+        gradert
+    } = props;
 
     if (onVarighetChange) {
         const ukerOgDager = getUkerOgDagerFromDager(dager || 0);
@@ -121,10 +134,15 @@ const VarighetValg: React.StatelessComponent<Props> = (props) => {
                     minDager={minDager}
                     onChange={(ud) => onVarighetChange({ dager: ud.uker * 5 + ud.dager })}
                 />
-                {gradert && brukteUttaksdager && brukteUttaksdager >= 0 && (
-                    <p className="comment">
-                        Dette tilsvarer <Varighet dager={brukteUttaksdager} />
-                    </p>
+                {gradert && gradering !== undefined && brukteUttaksdager && brukteUttaksdager >= 0 && (
+                    <Alertstriper type="nav-ansatt">
+                        <Element>Foreldrepenger og arbeid</Element>
+                        På grunn av at {forelderNavn || 'du'} arbeider {100 - gradering} prosent, brukes{' '}
+                        <strong>
+                            <Varighet dager={brukteUttaksdager} separator={' og '} />
+                        </strong>{' '}
+                        dager med foreldrepenger i denne perioden.
+                    </Alertstriper>
                 )}
             </Block>
         );

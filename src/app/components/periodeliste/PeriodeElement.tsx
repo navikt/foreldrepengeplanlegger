@@ -137,6 +137,9 @@ class PeriodeElement extends React.Component<Props> {
                             className: bem.element('varighet'),
                             render: () => (
                                 <VarighetMeny
+                                    forelderNavn={foreldernavn}
+                                    gradering={periode.gradering}
+                                    gradert={periode.type === Periodetype.GradertUttak}
                                     dager={uttaksinfo.antallUttaksdager}
                                     brukteUttaksdager={uttaksinfo.antallUttaksdagerBrukt}
                                     førsteUttaksdag={

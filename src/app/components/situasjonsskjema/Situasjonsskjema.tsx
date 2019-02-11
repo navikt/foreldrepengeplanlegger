@@ -13,11 +13,11 @@ interface Props {
 
 const situasjonValidationSkjema = yup.object().shape({
     situasjon: yup.string().required('Du må velge situasjon'),
-    navnFarMedmor: yup
+    navnMor: yup
         .string()
         .min(1, 'Må være minst ett tegn')
         .required('Navn på foreldre er påkrevd'),
-    navnMor: yup.string().when('situasjon', (situasjon: Situasjon, schema: yup.Schema<SituasjonSkjemadata>) => {
+    navnFarMedmor: yup.string().when('situasjon', (situasjon: Situasjon, schema: yup.Schema<SituasjonSkjemadata>) => {
         if (getAntallForeldreISituasjon(situasjon) === 2) {
             return schema.required('Navn på foreldre er påkrevd');
         }

@@ -27,9 +27,9 @@ const visAntallBarnValg = (
         return false;
     }
     if (getAntallForeldreISituasjon(situasjon) === 1) {
-        return inputHasValue(navnFarMedmor);
+        return inputHasValue(navnMor);
     }
-    return inputHasValue(navnFarMedmor) && inputHasValue(navnMor);
+    return inputHasValue(navnMor) && inputHasValue(navnFarMedmor);
 };
 
 class SituasjonsskjemaForm extends React.Component<Props> {

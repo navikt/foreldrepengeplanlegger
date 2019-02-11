@@ -25,6 +25,7 @@ interface OwnProps {
     sisteUttaksdag: Date;
     omForeldre: OmForeldre;
     onCancel: () => void;
+    onChange: (values: PeriodeskjemaFormValues) => void;
     formik: FormikProps<PeriodeskjemaFormValues>;
 }
 
@@ -36,12 +37,23 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
     constructor(props: Props) {
         super(props);
         this.handleTidsperiodeChange = this.handleTidsperiodeChange.bind(this);
+        this.handleValueOnChange = this.handleValueOnChange.bind(this);
     }
 
     handleTidsperiodeChange(tidsperiode: Tidsperiode) {
         const { formik } = this.props;
         formik.setFieldValue('fom', tidsperiode.fom);
         formik.setFieldValue('tom', tidsperiode.tom);
+        this.handleValueOnChange();
+    }
+
+    handleValueOnChange() {
+        const { onChange } = this.props;
+        if (onChange) {
+            setTimeout(() => {
+                onChange(this.props.formik.values);
+            });
+        }
     }
     render() {
         const { formik, onCancel, omForeldre, nesteUttaksdag, førsteUttaksdag, sisteUttaksdag } = this.props;
@@ -69,7 +81,10 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             flereForeldre={harFlereForeldre}
                                             tidsperiode={{ fom, tom }}
                                             foreldernavn={forelderNavn}
-                                            onChange={(type) => formik.setFieldValue('periodetype', type)}
+                                            onChange={(type) => {
+                                                formik.setFieldValue('periodetype', type);
+                                                this.handleValueOnChange();
+                                            }}
                                         />
                                     )
                                 },
@@ -93,7 +108,10 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             forelder={forelder}
                                             mor={omForeldre.mor}
                                             farMedmor={omForeldre.farMedmor!}
-                                            onChange={(f) => formik.setFieldValue('forelder', f)}
+                                            onChange={(f) => {
+                                                formik.setFieldValue('forelder', f);
+                                                this.handleValueOnChange();
+                                            }}
                                         />
                                     ),
                                     isVisibleCheck: () => harFlereForeldre

@@ -118,6 +118,13 @@ export function slåSammenPerioder(periode1: Periode, periode2: Periode): Common
     };
 }
 
+export function nyPeriodeChange(periode: Periode | undefined): CommonActionTypes {
+    return {
+        type: CommonActionKeys.NY_PERIODE_CHANGE,
+        periode
+    };
+}
+
 export default {
     setSpråk
 };

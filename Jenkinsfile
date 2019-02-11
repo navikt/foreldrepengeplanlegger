@@ -50,6 +50,11 @@ node {
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexusUser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                 sh "docker login -u ${env.USERNAME} -p ${env.PASSWORD} ${dockerRepo} && docker push ${dockerRepo}/${app}:${releaseVersion}"
                 sh "curl --fail -v -u ${env.USERNAME}:${env.PASSWORD} --upload-file ${appConfig} https://repo.adeo.no/repository/raw/${groupId}/${app}/${releaseVersion}/nais.yaml"
+
+                def appPolicies = deployLib.buildAppPolicies(app)
+                sh "echo '${appPolicies}' > app-policies.xml"
+                sh "curl --fail -v -u ${env.USERNAME}:${env.PASSWORD} --upload-file app-policies.xml https://repo.adeo.no/repository/raw/${groupId}/${app}/${releaseVersion}/am/app-policies.xml"
+                sh "curl --fail -v -u ${env.USERNAME}:${env.PASSWORD} --upload-file not-enforced-urls.txt https://repo.adeo.no/repository/raw/${groupId}/${app}/${releaseVersion}/am/not-enforced-urls.txt"
             }
 
             slackSend([

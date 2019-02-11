@@ -52,7 +52,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
                             onChange={(uker) => this.setState({ ukerMor: uker })}
                         />
                     </Block>
-                    <Block>
+                    <Block visible={false}>
                         <Ukefordeling
                             foreldrepengerFørTermin={tilgjengeligeUker.ukerFørTermin}
                             modrekvote={tilgjengeligeUker.ukerForbeholdtMor - tilgjengeligeUker.ukerFørTermin}

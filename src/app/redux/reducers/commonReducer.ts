@@ -8,14 +8,12 @@ import {
     Forbruk,
     OmForeldre,
     Periodetype,
-    UttakFørTerminPeriode,
-    Forelder
+    UttakFørTerminPeriode
 } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { Dekningsgrad } from 'common/types';
 import { summerAntallDagerIKontoer, getPeriodeFørTermin } from '../../utils/kontoUtils';
-import { setStorage, getStorage } from '../../utils/storage';
-import { guid } from 'nav-frontend-js-utils';
+import { setStorage, getStorage, clearStorage } from '../../utils/storage';
 import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
 import { lagUttaksplan } from '../../utils/forslag/lagUttaksplan';
 
@@ -28,7 +26,7 @@ export interface ØnsketFordelingForeldrepenger {
 export interface CommonState {
     språkkode: Språkkode;
     perioder: Periode[];
-    periodeFørTermin: UttakFørTerminPeriode;
+    periodeFørTermin?: UttakFørTerminPeriode;
     nyPeriode: Periode | undefined;
     skjemadata?: SituasjonSkjemadata;
     familiehendelsesdato: Date;
@@ -61,12 +59,7 @@ export const getDefaultCommonState = (storage?: CommonState): CommonState => {
             kontoer: [],
             dager: 0
         },
-        periodeFørTermin: {
-            id: guid(),
-            type: Periodetype.UttakFørTermin,
-            forelder: Forelder.mor,
-            tidsperiode: { fom: new Date(), tom: new Date() }
-        },
+        periodeFørTermin: undefined,
         ønsketFordeling: {
             harValgtFordeling: false
         },
@@ -98,17 +91,17 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
             });
         case CommonActionKeys.SUBMIT_SKJEMADATA:
             const builder = getBuilder();
-            // builder.perioder = getMockPerioder(
-            //     action.data.antallBarn,
-            //     getAntallForeldreISituasjon(action.data.situasjon)
-            // );
             return updateStateAndStorage(state, {
                 skjemadata: action.data,
                 familiehendelsesdato: action.data.familiehendelsesdato,
                 perioder: builder.build().perioder,
                 periodeFørTermin: state.tilgjengeligeDager
-                    ? getPeriodeFørTermin(action.data.familiehendelsesdato, state.tilgjengeligeDager.dagerFørTermin)
-                    : getPeriodeFørTermin(action.data.familiehendelsesdato, 15) // TODO - mock
+                    ? getPeriodeFørTermin(
+                          action.data.situasjon,
+                          action.data.familiehendelsesdato,
+                          state.tilgjengeligeDager.dagerFørTermin
+                      )
+                    : getPeriodeFørTermin(action.data.situasjon, action.data.familiehendelsesdato, 15) // TODO - mock
             });
         case CommonActionKeys.SET_DEKNINGSGRAD:
             return updateStateAndStorage(state, {
@@ -195,6 +188,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                 perioder
             });
         case CommonActionKeys.RESET_APP:
+            clearStorage();
             return updateStateAndStorage(getDefaultCommonState(), {});
     }
     return state;

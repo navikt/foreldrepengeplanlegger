@@ -2,11 +2,11 @@ import {
     TilgjengeligStønadskonto,
     StønadskontoType,
     TilgjengeligeDager,
-    Periode,
     Forelder,
     Periodetype,
     UttakFørTerminPeriode,
-    TilgjengeligeUker
+    TilgjengeligeUker,
+    Situasjon
 } from '../types';
 import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from './uttaksinfo';
@@ -42,12 +42,27 @@ export const summerAntallDagerIKontoer = (kontoer: TilgjengeligStønadskonto[]):
     return kontoer.reduce((dager, konto) => konto.dager + dager, 0);
 };
 
-const getMorsStønadskontoer = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
-    kontoer.filter(
+export const skalForeldrepengerFørTerminVæreMed = (situasjon: Situasjon): boolean => {
+    switch (situasjon) {
+        case Situasjon.bareFar:
+        case Situasjon.farOgFar:
+            return false;
+        default:
+            return true;
+    }
+};
+
+const getMorsStønadskontoer = (
+    kontoer: TilgjengeligStønadskonto[],
+    situasjon: Situasjon
+): TilgjengeligStønadskonto[] => {
+    const fffSkalVæreMed = skalForeldrepengerFørTerminVæreMed(situasjon);
+    return kontoer.filter(
         (konto) =>
             konto.stønadskontoType === StønadskontoType.Mødrekvote ||
-            konto.stønadskontoType === StønadskontoType.ForeldrepengerFørFødsel
+            (fffSkalVæreMed && konto.stønadskontoType === StønadskontoType.ForeldrepengerFørFødsel)
     );
+};
 
 const getFarsStønadskontoer = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
     kontoer.filter((konto) => konto.stønadskontoType === StønadskontoType.Fedrekvote);
@@ -65,10 +80,13 @@ const getDagerFørTermin = (kontoer: TilgjengeligStønadskonto[]): number => {
     return konto ? konto.dager : 0;
 };
 
-export const getTilgjengeligeDager = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligeDager => {
+export const getTilgjengeligeDager = (
+    situasjon: Situasjon,
+    kontoer: TilgjengeligStønadskonto[]
+): TilgjengeligeDager => {
     return {
         dagerTotalt: summerAntallDagerIKontoer(kontoer),
-        dagerForbeholdtMor: summerAntallDagerIKontoer(getMorsStønadskontoer(kontoer)),
+        dagerForbeholdtMor: summerAntallDagerIKontoer(getMorsStønadskontoer(kontoer, situasjon)),
         dagerForbeholdtFar: summerAntallDagerIKontoer(getFarsStønadskontoer(kontoer)),
         dagerFelles: summerAntallDagerIKontoer(getFellesStønadskontoer(kontoer)),
         dagerFørTermin: getDagerFørTermin(kontoer),
@@ -87,17 +105,24 @@ export const getTilgjengeligeUker = (tilgjengeligeDager: TilgjengeligeDager): Ti
 };
 
 export const getPeriodeFørTermin = (
+    situasjon: Situasjon,
     familiehendelsesdato: Date,
     antallDagerFørTermin: number
-): UttakFørTerminPeriode => {
-    const tom = Uttaksdagen(familiehendelsesdato).forrige();
-    const fom = Uttaksdagen(tom).trekkFra(antallDagerFørTermin - 1);
-    const periode: Periode = {
-        type: Periodetype.UttakFørTermin,
-        id: guid(),
-        forelder: Forelder.mor,
-        tidsperiode: { fom, tom }
-    };
-    periode.uttaksinfo = getUttaksinfoForPeriode(periode);
-    return periode;
+): UttakFørTerminPeriode | undefined => {
+    switch (situasjon) {
+        case Situasjon.bareFar:
+        case Situasjon.farOgFar:
+            return undefined;
+        default:
+            const tom = Uttaksdagen(familiehendelsesdato).forrige();
+            const fom = Uttaksdagen(tom).trekkFra(antallDagerFørTermin - 1);
+            const periode: UttakFørTerminPeriode = {
+                type: Periodetype.UttakFørTermin,
+                id: guid(),
+                forelder: Forelder.mor,
+                tidsperiode: { fom, tom }
+            };
+            periode.uttaksinfo = getUttaksinfoForPeriode(periode);
+            return periode;
+    }
 };

@@ -11,3 +11,7 @@ export const getStorage = (): CommonState | undefined => {
 export const setStorage = (state: CommonState): void => {
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 };
+
+export const clearStorage = (): void => {
+    sessionStorage.removeItem(STORAGE_KEY);
+};

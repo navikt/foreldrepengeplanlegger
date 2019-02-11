@@ -17,6 +17,8 @@ export interface VarighetChangeEvent {
     dager?: number;
 }
 
+const AUTOCLOSE_MENY = false;
+
 type VarighetVariant = 'foreldrepengerFørTermin' | 'låstStartdato' | 'kunFomTom';
 
 interface OwnProps {
@@ -234,7 +236,13 @@ class VarighetMeny extends React.Component<Props, {}> {
     }
     handleTidsperiodeChange(tidsperiode: Tidsperiode) {
         this.props.onTidsperiodeChange(tidsperiode);
-        if (this.props.fom && tidsperiode.tom !== undefined && this.props.tom === undefined && this.dropdown) {
+        if (
+            AUTOCLOSE_MENY &&
+            this.props.fom &&
+            tidsperiode.tom !== undefined &&
+            this.props.tom === undefined &&
+            this.dropdown
+        ) {
             this.dropdown.closeMenu();
         }
     }

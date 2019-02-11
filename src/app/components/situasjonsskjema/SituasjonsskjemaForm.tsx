@@ -11,6 +11,7 @@ import VelgSituasjon from './parts/velgSituasjon/VelgSituasjon';
 import VelgForeldrenavn from './parts/VelgForeldrenavn';
 import { getAntallForeldreISituasjon, inputHasValue, getTermindatoAvgrensninger } from '../../utils/common';
 import LinkButton from 'common/components/linkButton/LinkButton';
+import VelgErMorEllerFar from './parts/VelgErMorEllerFar';
 
 interface OwnProps {
     formik: FormikProps<SituasjonSkjemadata>;
@@ -35,7 +36,11 @@ const visAntallBarnValg = (
 class SituasjonsskjemaForm extends React.Component<Props> {
     render() {
         const { formik, onReset } = this.props;
-        const { situasjon, antallBarn, familiehendelsesdato, navnFarMedmor, navnMor } = formik.values;
+        const { situasjon, antallBarn, familiehendelsesdato, navnFarMedmor, navnMor, erMor } = formik.values;
+        const visErMorEllerFarMedmor = situasjon === Situasjon.aleneomsorg;
+        const visNavn =
+            situasjon !== undefined &&
+            (visErMorEllerFarMedmor === false || (visErMorEllerFarMedmor === true && erMor !== undefined));
         const visAntallBarn = visAntallBarnValg(situasjon, navnFarMedmor, navnMor);
         const visTermindato = visAntallBarn && antallBarn !== undefined;
         const termindatoAvgrensninger = getTermindatoAvgrensninger();
@@ -49,7 +54,12 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                             valgtSituasjon={situasjon}
                         />
                     </Block>
-                    <Block visible={situasjon !== undefined} margin="none">
+
+                    <Block visible={visErMorEllerFarMedmor}>
+                        <VelgErMorEllerFar erMor={erMor} onChange={(em) => formik.setFieldValue('erMor', em)} />
+                    </Block>
+
+                    <Block visible={visNavn} margin="none">
                         <VelgForeldrenavn
                             situasjon={situasjon}
                             navnFarMedmor={navnFarMedmor}

@@ -23,6 +23,13 @@ const situasjonValidationSkjema = yup.object().shape({
         }
         return schema;
     }),
+    erMor: yup.string().when('situasjon', (situasjon: Situasjon, schema: yup.Schema<SituasjonSkjemadata>) => {
+        if (situasjon === Situasjon.aleneomsorg) {
+            return schema.required('Du må velge om du er mor eller far/medmor');
+        }
+        return schema;
+    }),
+
     antallBarn: yup.number().required('Antall barn er påkrevd!'),
     familiehendelsesdato: yup.date().required('familiehendelsesdato er påkrevd!')
 });

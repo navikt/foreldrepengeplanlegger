@@ -42,11 +42,13 @@ export const summerAntallDagerIKontoer = (kontoer: TilgjengeligStønadskonto[]):
     return kontoer.reduce((dager, konto) => konto.dager + dager, 0);
 };
 
-export const skalForeldrepengerFørTerminVæreMed = (situasjon: Situasjon): boolean => {
+export const skalForeldrepengerFørTerminVæreMed = (situasjon: Situasjon, erMor: boolean | undefined): boolean => {
     switch (situasjon) {
         case Situasjon.bareFar:
         case Situasjon.farOgFar:
             return false;
+        case Situasjon.aleneomsorg:
+            return erMor === true;
         default:
             return true;
     }
@@ -54,9 +56,10 @@ export const skalForeldrepengerFørTerminVæreMed = (situasjon: Situasjon): bool
 
 const getMorsStønadskontoer = (
     kontoer: TilgjengeligStønadskonto[],
-    situasjon: Situasjon
+    situasjon: Situasjon,
+    erMor: boolean | undefined
 ): TilgjengeligStønadskonto[] => {
-    const fffSkalVæreMed = skalForeldrepengerFørTerminVæreMed(situasjon);
+    const fffSkalVæreMed = skalForeldrepengerFørTerminVæreMed(situasjon, erMor);
     return kontoer.filter(
         (konto) =>
             konto.stønadskontoType === StønadskontoType.Mødrekvote ||
@@ -82,11 +85,12 @@ const getDagerFørTermin = (kontoer: TilgjengeligStønadskonto[]): number => {
 
 export const getTilgjengeligeDager = (
     situasjon: Situasjon,
-    kontoer: TilgjengeligStønadskonto[]
+    kontoer: TilgjengeligStønadskonto[],
+    erMor?: boolean
 ): TilgjengeligeDager => {
     return {
         dagerTotalt: summerAntallDagerIKontoer(kontoer),
-        dagerForbeholdtMor: summerAntallDagerIKontoer(getMorsStønadskontoer(kontoer, situasjon)),
+        dagerForbeholdtMor: summerAntallDagerIKontoer(getMorsStønadskontoer(kontoer, situasjon, erMor)),
         dagerForbeholdtFar: summerAntallDagerIKontoer(getFarsStønadskontoer(kontoer)),
         dagerFelles: summerAntallDagerIKontoer(getFellesStønadskontoer(kontoer)),
         dagerFørTermin: getDagerFørTermin(kontoer),
@@ -107,13 +111,17 @@ export const getTilgjengeligeUker = (tilgjengeligeDager: TilgjengeligeDager): Ti
 export const getPeriodeFørTermin = (
     situasjon: Situasjon,
     familiehendelsesdato: Date,
-    antallDagerFørTermin: number
+    antallDagerFørTermin: number,
+    erMor?: boolean
 ): UttakFørTerminPeriode | undefined => {
     switch (situasjon) {
         case Situasjon.bareFar:
         case Situasjon.farOgFar:
             return undefined;
         default:
+            if (situasjon === Situasjon.aleneomsorg && erMor === false) {
+                return undefined;
+            }
             const tom = Uttaksdagen(familiehendelsesdato).forrige();
             const fom = Uttaksdagen(tom).trekkFra(antallDagerFørTermin - 1);
             const periode: UttakFørTerminPeriode = {

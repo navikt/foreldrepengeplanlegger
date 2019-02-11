@@ -37,6 +37,7 @@ export interface SituasjonSkjemadata {
     navnFarMedmor?: string;
     antallBarn: number;
     familiehendelsesdato: Date;
+    erMor?: boolean;
 }
 
 export enum StønadskontoType {

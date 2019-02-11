@@ -100,6 +100,10 @@ export interface Fordeling {
         uttaksdager: number;
         pst: number;
     };
+    overforbruk?: {
+        uttaksdager: number;
+        pst: number;
+    };
 }
 
 export interface Forbruk {

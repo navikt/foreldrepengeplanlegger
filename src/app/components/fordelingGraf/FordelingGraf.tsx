@@ -27,7 +27,7 @@ const Tittel: React.StatelessComponent<{ navn: string; dager?: number; intl: Inj
                 <div className={bem.element('forbruk__navn')}>{navn}</div>
                 <div className={bem.element('forbruk__dager')}>
                     <HighlightContent watchValue={dager} invalid={dager < 0}>
-                        <Varighet dager={dager | 0} />
+                        <Varighet dager={Math.abs(dager | 0)} />
                     </HighlightContent>
                 </div>
             </div>
@@ -36,7 +36,7 @@ const Tittel: React.StatelessComponent<{ navn: string; dager?: number; intl: Inj
 };
 
 const FordelingGraf: React.StatelessComponent<Props> = ({ fordeling, omForeldre, intl }) => {
-    const { farMedmor, mor, dagerGjenstaende } = fordeling;
+    const { farMedmor, mor, dagerGjenstaende, overforbruk } = fordeling;
     return (
         <div className={bem.block}>
             <div className={bem.element('titler')}>
@@ -48,12 +48,22 @@ const FordelingGraf: React.StatelessComponent<Props> = ({ fordeling, omForeldre,
                         intl={intl}
                     />
                 )}
-                <Tittel navn="Gjenstående" dager={dagerGjenstaende} intl={intl} />
+                <Tittel
+                    navn={dagerGjenstaende >= 0 ? 'Gjenstående' : 'Dager for mye'}
+                    dager={dagerGjenstaende}
+                    intl={intl}
+                />
             </div>
             <div className={bem.element('graf')} role="presentation">
                 <div className={bem.element('graf__bar bkg-mor')} style={{ width: `${mor.pst}%` }} />
                 {farMedmor && (
                     <div className={bem.element('graf__bar bkg-farMedmor')} style={{ width: `${farMedmor.pst}%` }} />
+                )}
+                {overforbruk && (
+                    <div
+                        className={bem.element('graf__bar bkg-overforbruk')}
+                        style={{ width: `${overforbruk.pst}%` }}
+                    />
                 )}
             </div>
         </div>

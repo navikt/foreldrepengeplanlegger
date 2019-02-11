@@ -25,9 +25,11 @@ export const getForbruk = (perioder: Periode[], dagerTotalt: number): Forbruk =>
     const forbrukFarMedmor = getForbrukIPerioder(perioder.filter((p) => p.forelder === Forelder.farMedmor));
     const forbrukMor = getForbrukIPerioder(perioder.filter((p) => p.forelder === Forelder.mor));
 
-    const pst = 100 / dagerTotalt;
     const dagerGjenstaende =
         dagerTotalt - forbrukFarMedmor.brukteUttaksdager - (forbrukMor ? forbrukMor.brukteUttaksdager : 0);
+
+    const dagerForMye = dagerGjenstaende < 0 ? dagerGjenstaende * -1 : 0;
+    const pst = 100 / (dagerTotalt + dagerForMye);
 
     return {
         farMedmor: forbrukFarMedmor,
@@ -35,6 +37,12 @@ export const getForbruk = (perioder: Periode[], dagerTotalt: number): Forbruk =>
         fordeling: {
             dagerTotalt,
             dagerGjenstaende,
+            overforbruk: dagerForMye
+                ? {
+                      uttaksdager: dagerForMye,
+                      pst: pst * dagerForMye
+                  }
+                : undefined,
             farMedmor: forbrukFarMedmor
                 ? {
                       uttaksdager: forbrukFarMedmor.brukteUttaksdager,

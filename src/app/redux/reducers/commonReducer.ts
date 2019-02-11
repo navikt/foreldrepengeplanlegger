@@ -12,11 +12,9 @@ import {
     Forelder
 } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
-// import { getMockPerioder } from '../../mock/perioder_mock';
 import { Dekningsgrad } from 'common/types';
 import { summerAntallDagerIKontoer, getPeriodeFørTermin } from '../../utils/kontoUtils';
 import { setStorage, getStorage } from '../../utils/storage';
-// import { getAntallForeldreISituasjon } from '../../utils/common';
 import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
 import { lagUttaksplan } from '../../utils/forslag/lagUttaksplan';
@@ -31,6 +29,7 @@ export interface CommonState {
     språkkode: Språkkode;
     perioder: Periode[];
     periodeFørTermin: UttakFørTerminPeriode;
+    nyPeriode: Periode | undefined;
     skjemadata?: SituasjonSkjemadata;
     familiehendelsesdato: Date;
     dekningsgrad?: Dekningsgrad;
@@ -71,7 +70,8 @@ export const getDefaultCommonState = (storage?: CommonState): CommonState => {
         ønsketFordeling: {
             harValgtFordeling: false
         },
-        ...storage
+        ...storage,
+        nyPeriode: undefined // Skal ikke brukes dersom den er mellomlagret
     };
 };
 
@@ -114,6 +114,10 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
             return updateStateAndStorage(state, {
                 dekningsgrad: action.dekningsgrad
             });
+        case CommonActionKeys.NY_PERIODE_CHANGE:
+            return updateStateAndStorage(state, {
+                nyPeriode: action.periode
+            });
         case CommonActionKeys.UPDATE_OM_FORELDRE:
             return updateStateAndStorage(state, { omForeldre: action.omForeldre });
         case CommonActionKeys.SET_STØNADSKONTOER:
@@ -131,6 +135,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
             });
         case CommonActionKeys.ADD_PERIODE:
             return updateStateAndStorage(state, {
+                nyPeriode: undefined,
                 perioder: getBuilder()
                     .leggTilPeriode(action.periode)
                     .build()

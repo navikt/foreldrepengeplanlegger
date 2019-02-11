@@ -52,6 +52,7 @@ const ForelderMeny: React.StatelessComponent<Props> = (props) => {
     return (
         <DropdownForm
             disabled={erLåst}
+            disabledButtonClassName="forelderMenyDisabled"
             onSelection={(value) => onChange(value as Forelder)}
             contentClassName="forelderDialog"
             contentTitle="Hvem gjelder perioden?"

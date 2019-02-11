@@ -28,6 +28,7 @@ interface OwnProps {
     forbruk: Forbruk;
     uttaksdatoer: Uttaksdatoer;
     onResetApp: () => void;
+    onNyPeriodeChange?: (periode?: Periode) => void;
 }
 
 type Props = OwnProps & PeriodelisteProps;
@@ -38,6 +39,7 @@ class Uttaksplan extends React.Component<Props, State> {
         this.addPeriode = this.addPeriode.bind(this);
         this.visBekreftSlettDialog = this.visBekreftSlettDialog.bind(this);
         this.slettValgtPeriode = this.slettValgtPeriode.bind(this);
+        this.handleNyPeriodeChange = this.handleNyPeriodeChange.bind(this);
         this.state = {
             visSkjema: false,
             visBekreftSlettDialog: false
@@ -61,6 +63,13 @@ class Uttaksplan extends React.Component<Props, State> {
             visBekreftSlettDialog: false,
             valgtPeriode: undefined
         });
+    }
+
+    handleNyPeriodeChange(periode?: Periode) {
+        const { onNyPeriodeChange } = this.props;
+        if (onNyPeriodeChange) {
+            onNyPeriodeChange(periode);
+        }
     }
 
     render() {
@@ -94,6 +103,7 @@ class Uttaksplan extends React.Component<Props, State> {
                             <Periodeskjema
                                 omForeldre={omForeldre}
                                 onCancel={() => this.setState({ visSkjema: false })}
+                                onChange={this.handleNyPeriodeChange}
                                 onSubmit={(periode) => this.addPeriode(periode)}
                                 nesteUttaksdag={nesteUttaksdag}
                                 førsteUttaksdag={uttaksdatoer.førsteUttaksdag}

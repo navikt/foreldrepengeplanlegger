@@ -16,6 +16,11 @@ export const selectPeriodeFørTermin = createSelector(
     (state): Periode => state.common.periodeFørTermin
 );
 
+export const selectPeriodeSomSkalLeggesTil = createSelector(
+    [getState],
+    (state): Periode | undefined => state.common.nyPeriode
+);
+
 export const selectTilgjengeligeDager = createSelector(
     [getState],
     (state): TilgjengeligeDager | undefined =>
@@ -27,10 +32,14 @@ export const selectTilgjengeligeDager = createSelector(
 );
 
 export const selectForbruk = createSelector(
-    [selectPeriodeFørTermin, selectPerioder, selectTilgjengeligeDager],
-    (periodeFørTermin, perioder, tilgjengeligeDager): Forbruk | undefined => {
+    [selectPeriodeFørTermin, selectPerioder, selectTilgjengeligeDager, selectPeriodeSomSkalLeggesTil],
+    (periodeFørTermin, perioder, tilgjengeligeDager, nyPeriode): Forbruk | undefined => {
         if (periodeFørTermin && perioder && tilgjengeligeDager) {
-            return getForbruk([periodeFørTermin, ...perioder], tilgjengeligeDager.dagerTotalt);
+            const forbruksperioder = [periodeFørTermin, ...perioder];
+            if (nyPeriode) {
+                forbruksperioder.push(nyPeriode);
+            }
+            return getForbruk(forbruksperioder, tilgjengeligeDager.dagerTotalt);
         }
         return undefined;
     }

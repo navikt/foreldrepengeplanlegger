@@ -29,7 +29,8 @@ export enum CommonActionKeys {
     'UPDATE_OM_FORELDRE' = 'updateOmForeldre',
     'RESET_APP' = 'resetApp',
     'SET_UTTAKSDAGER_FØR_TERMIN' = 'setUttaksdagerFørTermin',
-    'SET_ØNSKET_FORDELING' = 'setØnsketFordeling'
+    'SET_ØNSKET_FORDELING' = 'setØnsketFordeling',
+    'NY_PERIODE_CHANGE' = 'nyPeriodeChange'
 }
 
 interface SetSpråk {
@@ -124,6 +125,11 @@ interface SetØnsketFordeling {
     ukerMor: number;
 }
 
+interface NyPeriodeChange {
+    type: CommonActionKeys.NY_PERIODE_CHANGE;
+    periode: Periode | undefined;
+}
+
 export type CommonActionTypes =
     | SetSpråk
     | SetPerioder
@@ -140,4 +146,5 @@ export type CommonActionTypes =
     | UpdateTilgjengeligeDager
     | UpdateOmForeldre
     | ResetApp
-    | SetØnsketFordeling;
+    | SetØnsketFordeling
+    | NyPeriodeChange;

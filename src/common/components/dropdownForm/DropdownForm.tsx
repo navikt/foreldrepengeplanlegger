@@ -19,6 +19,7 @@ interface Props {
     labelAlignment?: 'left' | 'center' | 'right';
     dropdownPlacement?: 'left' | 'right';
     buttonClassName?: string;
+    disabledButtonClassName?: string;
     contentClassName?: string;
     contentTitle?: string;
     buttonSize?: 'inline' | 'stretched';
@@ -52,7 +53,8 @@ class DropdownForm extends React.Component<Props> {
             buttonSize = 'stretched',
             contentTitle,
             renderCloseButton,
-            disabled
+            disabled,
+            disabledButtonClassName
         } = this.props;
 
         return (
@@ -61,7 +63,9 @@ class DropdownForm extends React.Component<Props> {
                 className={classNames(bem.block, buttonSize ? bem.modifier(buttonSize) : undefined)}
                 onSelection={onSelection}>
                 {disabled ? (
-                    <div className={bem.element('lockedValue')}>{labelRenderer()}</div>
+                    <div className={bem.classNames(bem.element('lockedValue'), disabledButtonClassName || undefined)}>
+                        {labelRenderer()}
+                    </div>
                 ) : (
                     <Button
                         className={classNames(

@@ -47,7 +47,8 @@ function* forbrukSaga() {
                 CommonActionKeys.ADD_PERIODE,
                 CommonActionKeys.UPDATE_PERIODE,
                 CommonActionKeys.REMOVE_PERIODE,
-                CommonActionKeys.MOVE_PERIODE
+                CommonActionKeys.MOVE_PERIODE,
+                CommonActionKeys.NY_PERIODE_CHANGE
             ],
             updateForbrukSaga
         )

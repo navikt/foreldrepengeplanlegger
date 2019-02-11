@@ -16,6 +16,7 @@ interface Props {
     sisteUttaksdag: Date;
     onSubmit: (periode: Periode) => void;
     onCancel: () => void;
+    onChange: (periode?: Periode) => void;
 }
 
 const periodeValidationSchema = yup.object().shape({
@@ -32,6 +33,33 @@ const periodeValidationSchema = yup.object().shape({
 class Periodeskjema extends React.Component<Props, {}> {
     constructor(props: Props) {
         super(props);
+        this.handleFormValuesChange = this.handleFormValuesChange.bind(this);
+        this.onCancel = this.onCancel.bind(this);
+    }
+
+    onCancel() {
+        this.props.onCancel();
+        this.handleFormValuesChange();
+    }
+
+    handleFormValuesChange(values: Partial<PeriodeskjemaFormValues> = {}) {
+        const { onChange } = this.props;
+        if (onChange) {
+            const { fom, forelder, gradering, periodetype, tom } = values;
+            if (fom && tom && forelder && periodetype) {
+                onChange(
+                    periodeskjemaUtils.createPeriodeFromValues({
+                        fom,
+                        tom,
+                        forelder,
+                        periodetype,
+                        gradering
+                    })
+                );
+            } else {
+                onChange();
+            }
+        }
     }
     render() {
         const {
@@ -41,8 +69,7 @@ class Periodeskjema extends React.Component<Props, {}> {
             førsteUttaksdagFørTermin,
             førsteUttaksdag,
             sisteUttaksdag,
-            onSubmit,
-            onCancel
+            onSubmit
         } = this.props;
         return (
             <Formik
@@ -53,7 +80,8 @@ class Periodeskjema extends React.Component<Props, {}> {
                 }
                 render={(props: FormikProps<PeriodeskjemaFormValues>) => (
                     <PeriodeskjemaForm
-                        onCancel={onCancel}
+                        onCancel={this.onCancel}
+                        onChange={this.handleFormValuesChange}
                         formik={props}
                         omForeldre={omForeldre}
                         nesteUttaksdag={nesteUttaksdag}

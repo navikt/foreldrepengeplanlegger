@@ -135,6 +135,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
             });
         case CommonActionKeys.ADD_PERIODE:
             return updateStateAndStorage(state, {
+                nyPeriode: undefined,
                 perioder: getBuilder()
                     .leggTilPeriode(action.periode)
                     .build()

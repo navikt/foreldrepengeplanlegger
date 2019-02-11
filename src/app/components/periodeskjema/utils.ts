@@ -1,6 +1,8 @@
 import { Periodetype, Periode, OmForeldre, Forelder } from '../../types';
 import { guid } from 'nav-frontend-js-utils';
 import { PeriodeskjemaFormValues } from './types';
+import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
+import { Tidsperioden } from '../../utils/Tidsperioden';
 
 const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
     switch (values.periodetype) {
@@ -86,9 +88,21 @@ const getInitialFormValuesFromPeriode = (
     };
 };
 
+const getBrukteUttaksdagerForNyPeriode = (values: PeriodeskjemaFormValues): number | undefined => {
+    const { fom, tom, periodetype } = values;
+    if (fom && tom && periodetype) {
+        const uttaksinfo = getUttaksinfoForPeriode(createPeriodeFromValues(values));
+        return uttaksinfo ? uttaksinfo.antallUttaksdagerBrukt : undefined;
+    } else if (fom && tom) {
+        return Tidsperioden({ fom, tom }).getAntallUttaksdager();
+    }
+    return undefined;
+};
+
 const periodeskjemaUtils = {
     createPeriodeFromValues,
-    getInitialFormValuesFromPeriode
+    getInitialFormValuesFromPeriode,
+    getBrukteUttaksdagerForNyPeriode
 };
 
 export default periodeskjemaUtils;

@@ -150,6 +150,21 @@ const VarighetValg: React.StatelessComponent<Props> = (props) => {
     return null;
 };
 
+const BrukteUttaksdagerInfo: React.StatelessComponent<{ dager: number | undefined }> = ({ dager }) => {
+    if (dager !== undefined && dager > 0) {
+        return (
+            <Block margin="xs">
+                Tidsperioden inneholder{' '}
+                <strong>
+                    <Varighet dager={dager} separator={' og '} />
+                </strong>{' '}
+                med foreldrepenger.
+            </Block>
+        );
+    }
+    return null;
+};
+
 const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
     const { onVarighetChange, ingenVarighet } = props;
     const variant = getVarighetVariant(props);
@@ -160,6 +175,7 @@ const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
         });
     };
 
+    const kanVelgeVarighet = onVarighetChange && variant !== 'foreldrepengerFørTermin';
     if (variant === 'låstStartdato' || variant === 'foreldrepengerFørTermin') {
         return (
             <>
@@ -175,13 +191,18 @@ const VarighetMenyInnhold: React.StatelessComponent<Props> = (props) => {
                         </Block>
                     )}
                 </Block>
-                {onVarighetChange && variant !== 'foreldrepengerFørTermin' && <VarighetValg {...props} />}
+                {kanVelgeVarighet ? (
+                    <VarighetValg {...props} />
+                ) : (
+                    <BrukteUttaksdagerInfo dager={props.brukteUttaksdager} />
+                )}
             </>
         );
     }
     return (
         <Block margin="xs">
             <DatoValg {...props} />
+            <BrukteUttaksdagerInfo dager={props.brukteUttaksdager} />
         </Block>
     );
 };

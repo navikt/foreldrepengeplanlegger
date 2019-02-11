@@ -17,6 +17,7 @@ import { Tidsperiode } from 'nav-datovelger';
 import PeriodelisteElement from '../periodeliste/periodelisteElement/PeriodelisteElement';
 import { Ingress } from 'nav-frontend-typografi';
 import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
+import periodeskjemaUtils from './utils';
 
 interface OwnProps {
     nesteUttaksdag: Date;
@@ -125,6 +126,9 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             tom={tom}
                                             dager={dager}
                                             minDager={1}
+                                            brukteUttaksdager={periodeskjemaUtils.getBrukteUttaksdagerForNyPeriode(
+                                                formik.values
+                                            )}
                                             førsteUttaksdag={førsteUttaksdag}
                                             sisteUttaksdag={sisteUttaksdag}
                                             visLukkKnapp={true /*fom !== undefined && tom !== undefined*/}

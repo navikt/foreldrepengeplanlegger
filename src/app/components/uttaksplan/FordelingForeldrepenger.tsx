@@ -41,7 +41,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
             <section>
                 <div className="periodelisteWrapper">
                     <Block margin="s">
-                        <Undertittel>Hvordan vil dere dele fellesperioden?</Undertittel>
+                        <Undertittel>Hvordan ønsker dere å dele fellesperioden?</Undertittel>
                     </Block>
                     <Block>
                         <SkjemaFordelingFellesperiode
@@ -64,7 +64,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
                         />
                     </Block>
                     <Knapperad>
-                        <Hovedknapp onClick={() => onChange(ukerMor)}>Vis plan</Hovedknapp>
+                        <Hovedknapp onClick={() => onChange(ukerMor)}>Lag forslag til plan</Hovedknapp>
                     </Knapperad>
                 </div>
             </section>

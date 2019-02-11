@@ -111,18 +111,20 @@ class UttaksplanSide extends React.Component<Props> {
                             dager80={dager80}
                         />
                     </Skjemablokk>
+                    {tilgjengeligeDager && (
+                        <Block>
+                            <TilgjengeligeDagerOversikt
+                                tilgjengeligeDager={tilgjengeligeDager}
+                                dekningsgrad={dekningsgrad!}
+                                visKontoliste={true}
+                                omForeldre={omForeldre}
+                            />
+                        </Block>
+                    )}
 
                     <Block visible={visInnhold}>
                         {tilgjengeligeDager !== undefined && omForeldre !== undefined && (
                             <>
-                                <Block visible={false}>
-                                    <TilgjengeligeDagerOversikt
-                                        tilgjengeligeDager={tilgjengeligeDager}
-                                        dekningsgrad={dekningsgrad!}
-                                        visKontoliste={true}
-                                        omForeldre={omForeldre}
-                                    />
-                                </Block>
                                 {ønsketFordeling.harValgtFordeling === false && omForeldre.antallForeldre === 2 ? (
                                     <FordelingForeldrepenger
                                         navnMor={omForeldre.mor.navn}

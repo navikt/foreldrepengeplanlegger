@@ -9,6 +9,7 @@ import './tilgjengeligeDagerOversikt.less';
 import { Systemtittel, Ingress, Undertittel } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
 import UtvidetInformasjon from 'common/components/utvidetInformasjon/UtvidetInformasjon';
+import HighlightContent from 'common/components/highlightContent/HighlightContent';
 
 interface OwnProps {
     tilgjengeligeDager: TilgjengeligeDager;
@@ -54,7 +55,10 @@ const Fordelingsliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, 
         <Ingress tag="p">
             {omForeldre.farMedmor!.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtFar, intl)}</strong> og{' '}
             {omForeldre.mor.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtMor, intl)}</strong>. Dere har{' '}
-            <strong>{getVarighetString(dagerFelles, intl)}</strong> som dere kan fordele som dere ønsker.
+            <HighlightContent watchValue={dagerFelles}>
+                <strong>{getVarighetString(dagerFelles, intl)}</strong>
+            </HighlightContent>{' '}
+            fellesperiode som dere kan fordele som dere ønsker.
         </Ingress>
     );
 };
@@ -63,8 +67,8 @@ const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = (props: Prop
     const { tilgjengeligeDager, intl, omForeldre } = props;
     return (
         <section className={bem.block}>
-            <Block visible={false}>
-                <Block margin="xxs">
+            <Block margin="none">
+                <Block margin="xxs" visible={false}>
                     <Systemtittel tag="h1">
                         {omForeldre.antallForeldre === 2 ? 'Dere' : 'Du '} har rett på{' '}
                         {getVarighetString(tilgjengeligeDager.dagerTotalt, intl)} med foreldrepenger
@@ -74,9 +78,11 @@ const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = (props: Prop
                     <Fordelingsliste {...props} />
                 </Block>
             </Block>
-            <UtvidetInformasjon erApen={false} apneLabel="Se detaljert fordeling" lukkLabel="Lukk informasjon">
-                <Kontoliste {...props} />
-            </UtvidetInformasjon>
+            <Block visible={false}>
+                <UtvidetInformasjon erApen={false} apneLabel="Se detaljert fordeling" lukkLabel="Lukk informasjon">
+                    <Kontoliste {...props} />
+                </UtvidetInformasjon>
+            </Block>
         </section>
     );
 };

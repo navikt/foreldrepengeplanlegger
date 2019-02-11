@@ -1,10 +1,18 @@
 import { all, put, select, takeLatest } from 'redux-saga/effects';
 import { AppState } from '../reducers/rootReducer';
-import { updateForbruk, updateTilgjengeligeDager, updateOmForeldre } from '../actions/common/commonActionCreators';
+import {
+    updateForbruk,
+    updateTilgjengeligeDager,
+    updateOmForeldre,
+    setUttaksplanValidering
+} from '../actions/common/commonActionCreators';
 import { CommonActionKeys } from '../actions/common/commonActionDefinitions';
 import { selectForbruk, selectTilgjengeligeDager } from '../selectors';
 import { getInformasjonOmForeldre } from '../../utils/common';
 import { ApiActionKeys } from '../actions/api/apiActionDefinitions';
+import { sjekkUttaksplanOppMotRegler } from '../../utils/regler';
+import { Regelgrunnlag } from '../../types';
+import { getUttaksdatoer } from '../../utils/uttaksdatoer';
 
 const stateSelector = (state: AppState) => state;
 
@@ -27,6 +35,25 @@ function* updateOmForeldreSaga() {
     if (skjemadata) {
         const omForeldre = getInformasjonOmForeldre(skjemadata.situasjon, skjemadata.navnMor, skjemadata.navnFarMedmor);
         yield put(updateOmForeldre(omForeldre));
+    }
+}
+
+function* validerUttaksplan() {
+    const appState: AppState = yield select(stateSelector);
+    const { common } = appState;
+    const { skjemadata, familiehendelsesdato, perioder, periodeFørTermin } = common;
+
+    if (skjemadata) {
+        const regelgrunnlag: Regelgrunnlag = {
+            erMor: skjemadata.erMor === true,
+            familiehendelsesdato,
+            periodeFørTermin,
+            perioder,
+            situasjon: skjemadata.situasjon,
+            uttaksdatoer: getUttaksdatoer(familiehendelsesdato)
+        };
+        const resultat = sjekkUttaksplanOppMotRegler(regelgrunnlag);
+        yield put(setUttaksplanValidering({ resultat }));
     }
 }
 
@@ -53,6 +80,22 @@ function* forbrukSaga() {
             updateForbrukSaga
         )
     ]);
+    yield all([
+        takeLatest(
+            [
+                CommonActionKeys.SET_STØNADSKONTOER,
+                CommonActionKeys.SET_ØNSKET_FORDELING,
+                CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER,
+                CommonActionKeys.SET_PERIODER,
+                CommonActionKeys.ADD_PERIODE,
+                CommonActionKeys.UPDATE_PERIODE,
+                CommonActionKeys.REMOVE_PERIODE,
+                CommonActionKeys.MOVE_PERIODE
+            ],
+            validerUttaksplan
+        )
+    ]);
+
     yield all([
         takeLatest(
             [CommonActionKeys.SUBMIT_SKJEMADATA, CommonActionKeys.APPLY_STORAGE, ApiActionKeys.UPDATE_API],

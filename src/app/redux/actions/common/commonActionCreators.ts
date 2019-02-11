@@ -1,6 +1,13 @@
 import { CommonActionKeys, CommonActionTypes, SetStønadskontoerKontoerPayload } from './commonActionDefinitions';
 import { Språkkode } from '../../../intl/types';
-import { Periode, SituasjonSkjemadata, Forbruk, TilgjengeligeDager, OmForeldre } from '../../../types';
+import {
+    Periode,
+    SituasjonSkjemadata,
+    Forbruk,
+    TilgjengeligeDager,
+    OmForeldre,
+    UttaksplanValidering
+} from '../../../types';
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
 import { CommonState } from '../../reducers/commonReducer';
@@ -122,6 +129,13 @@ export function nyPeriodeChange(periode: Periode | undefined): CommonActionTypes
     return {
         type: CommonActionKeys.NY_PERIODE_CHANGE,
         periode
+    };
+}
+
+export function setUttaksplanValidering(validering: UttaksplanValidering): CommonActionTypes {
+    return {
+        type: CommonActionKeys.SET_UTTAKSPLAN_VALIDERING,
+        validering
     };
 }
 

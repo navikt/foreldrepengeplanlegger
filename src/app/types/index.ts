@@ -1,4 +1,4 @@
-import { Periodetype } from './periodetyper';
+import { Periodetype, Periode } from './periodetyper';
 import { Situasjon, ForeldreparForelder } from 'common/components/foreldrepar/foreldreparTypes';
 import { Holiday } from 'date-holidays';
 export * from 'common/components/foreldrepar/foreldreparTypes';
@@ -142,4 +142,44 @@ export interface Uttaksdatoer {
         førsteUttaksdagEtterSeksUker: Date;
         sisteMuligeUttaksdag: Date;
     };
+}
+
+export interface Regelgrunnlag {
+    perioder: Periode[];
+    periodeFørTermin: Periode | undefined;
+    familiehendelsesdato: Date;
+    situasjon: Situasjon;
+    erMor: boolean;
+    uttaksdatoer: Uttaksdatoer;
+}
+
+export type RegelTest = (grunnlag: Regelgrunnlag) => RegelTestResultat;
+
+export interface Regel {
+    key: string;
+    test: (grunnlag: Regelgrunnlag) => RegelTestResultat;
+    skalSjekkes?: (grunnlag: Regelgrunnlag) => boolean;
+}
+
+export enum RegelAlvorlighet {
+    'ULOVLIG' = 'ulovlig',
+    'HAR_KRAV' = 'kreverInfo',
+    'TIL_INFO' = 'tilInformasjon'
+}
+
+export interface RegelTestResultat {
+    test: string;
+    passerer: boolean;
+    feil?: {
+        periode: Periode[] | Periode;
+        feilmelding: {
+            intlKey: string;
+            meta?: any;
+        };
+        alvorlighet: RegelAlvorlighet;
+    };
+}
+
+export interface UttaksplanValidering {
+    resultat: RegelTestResultat[];
 }

@@ -2,7 +2,15 @@ import * as React from 'react';
 import Uttaksplan from '../components/uttaksplan/Uttaksplan';
 import { RouteComponentProps, withRouter, Redirect, Link } from 'react-router-dom';
 import { DispatchProps } from '../redux/types';
-import { Periode, TilgjengeligeDager, SituasjonSkjemadata, Forbruk, OmForeldre, Uttaksdatoer } from '../types';
+import {
+    Periode,
+    TilgjengeligeDager,
+    SituasjonSkjemadata,
+    Forbruk,
+    OmForeldre,
+    Uttaksdatoer,
+    UttaksplanValidering
+} from '../types';
 import {
     addPeriode,
     updatePeriode,
@@ -45,6 +53,7 @@ interface StateProps {
     omForeldre?: OmForeldre;
     ønsketFordeling: ØnsketFordelingForeldrepenger;
     uttaksdatoer: Uttaksdatoer;
+    validering: UttaksplanValidering;
 }
 
 type Props = StateProps & DispatchProps & RouteComponentProps;
@@ -71,6 +80,7 @@ class UttaksplanSide extends React.Component<Props> {
             omForeldre,
             ønsketFordeling,
             uttaksdatoer,
+            validering,
             dispatch
         } = this.props;
 
@@ -154,6 +164,15 @@ class UttaksplanSide extends React.Component<Props> {
                             </>
                         )}
                     </Block>
+                    <Block>
+                        <ul>
+                            {validering.resultat.map((resultat, idx) => (
+                                <li key={idx}>
+                                    {resultat.test}: {resultat.passerer ? 'ok' : 'feiler'}
+                                </li>
+                            ))}
+                        </ul>
+                    </Block>
                 </LoadContainer>
             </>
         );
@@ -176,7 +195,8 @@ const mapStateToProps = (state: AppState): StateProps => {
         forbruk: state.common.forbruk,
         omForeldre: state.common.omForeldre,
         ønsketFordeling: state.common.ønsketFordeling,
-        uttaksdatoer: getUttaksdatoer(state.common.familiehendelsesdato)
+        uttaksdatoer: getUttaksdatoer(state.common.familiehendelsesdato),
+        validering: state.common.validering
     };
 };
 

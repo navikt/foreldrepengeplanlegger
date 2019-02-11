@@ -80,7 +80,7 @@ node {
                     System.setProperty("java.net.useSystemProxies", "true")
                     System.setProperty("http.nonProxyHosts", "*.adeo.no")
                     callback = "${env.BUILD_URL}input/Deploy/"
-                    def deploy = deployLib.deployNaisApp(app, releaseVersion, 't10', zone, 't10', callback, committer).key
+                    def deploy = deployLib.deployNaisApp(app, releaseVersion, 't10', zone, 't10', callback, committer, false).key
                     echo "Check status here:  https://jira.adeo.no/browse/${deploy}"
                     try {
                         timeout(time: 15, unit: 'MINUTES') {
@@ -108,7 +108,7 @@ node {
                     System.setProperty("java.net.useSystemProxies", "true")
                     System.setProperty("http.nonProxyHosts", "*.adeo.no")
                     callback = "${env.BUILD_URL}input/Deploy/"
-                    def deploy = deployLib.deployNaisApp(app, releaseVersion, 'q1', zone, namespace, callback, committer).key
+                    def deploy = deployLib.deployNaisApp(app, releaseVersion, 'q1', zone, namespace, callback, committer, false).key
                     echo "Check status here:  https://jira.adeo.no/browse/${deploy}"
                     try {
                         timeout(time: 15, unit: 'MINUTES') {

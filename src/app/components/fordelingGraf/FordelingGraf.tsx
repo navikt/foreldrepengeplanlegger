@@ -21,9 +21,14 @@ const Tittel: React.StatelessComponent<{ navn: string; dager?: number; intl: Inj
     if (dager === undefined) {
         return null;
     }
+    const dagerForMye: boolean = dager < 0;
     return (
         <div className={classNames(bem.element('tittel'), { [`${bem.element('tittel', 'error')}`]: dager < 0 })}>
-            <div className={bem.element('forbruk')}>
+            <div
+                className={bem.classNames(
+                    bem.element('forbruk'),
+                    dagerForMye ? bem.element('forbruk', 'formye') : undefined
+                )}>
                 <div className={bem.element('forbruk__navn')}>{navn}</div>
                 <div className={bem.element('forbruk__dager')}>
                     <HighlightContent watchValue={dager} invalid={dager < 0}>

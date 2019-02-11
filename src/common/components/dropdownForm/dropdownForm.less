@@ -18,7 +18,11 @@
         display: flex;
         align-items: center;
         flex: 1 1 0;
-        &__label  {
+        &[aria-expanded='true'] {
+            background-color: rgba(0, 103, 197, 0.2);
+            border: 1px solid rgba(0, 103, 197, 0.2);
+        }
+        &__label {
             flex: 2 1 0;
         }
         &__chevron {

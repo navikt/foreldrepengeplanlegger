@@ -8,7 +8,8 @@ import {
     Forbruk,
     OmForeldre,
     Periodetype,
-    UttakFørTerminPeriode
+    UttakFørTerminPeriode,
+    UttaksplanValidering
 } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { Dekningsgrad } from 'common/types';
@@ -43,6 +44,7 @@ export interface CommonState {
     };
     forbruk?: Forbruk;
     omForeldre?: OmForeldre;
+    validering: UttaksplanValidering;
 }
 
 export const getDefaultCommonState = (storage?: CommonState): CommonState => {
@@ -64,7 +66,10 @@ export const getDefaultCommonState = (storage?: CommonState): CommonState => {
             harValgtFordeling: false
         },
         ...storage,
-        nyPeriode: undefined // Skal ikke brukes dersom den er mellomlagret
+        nyPeriode: undefined, // Skal ikke brukes dersom den er mellomlagret
+        validering: {
+            resultat: []
+        }
     };
 };
 
@@ -193,6 +198,12 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                 },
                 perioder
             });
+        case CommonActionKeys.SET_UTTAKSPLAN_VALIDERING:
+            return {
+                ...state,
+                validering: action.validering
+            };
+
         case CommonActionKeys.RESET_APP:
             clearStorage();
             return updateStateAndStorage(getDefaultCommonState(), {});

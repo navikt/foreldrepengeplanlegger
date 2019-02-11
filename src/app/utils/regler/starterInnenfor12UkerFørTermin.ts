@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { Regelgrunnlag, RegelTest, RegelTestResultat, RegelAlvorlighet, Periode, Regel } from '../../types';
+import { REGLER } from '.';
 
 const starterInnenfor12UkerFørTermin: RegelTest = (grunnlag: Regelgrunnlag): RegelTestResultat => {
     const { periodeFørTermin, perioder, uttaksdatoer } = grunnlag;
@@ -10,20 +11,23 @@ const starterInnenfor12UkerFørTermin: RegelTest = (grunnlag: Regelgrunnlag): Re
         ...(periodeFørTermin ? [periodeFørTermin] : [])
     ];
 
-    const periode = perioderForSjekk.find((p) => moment(p.tidsperiode.fom).isSameOrAfter(førsteMuligeUttaksdag, 'day'));
-    if (periode) {
-        return {
-            passerer: false,
-            feil: {
-                periode,
-                alvorlighet: RegelAlvorlighet.ULOVLIG,
-                feilmelding: {
-                    intlKey: 'regel.feiler.starterInnenfor12UkerFørTermin'
-                }
-            }
-        };
-    }
-    return { passerer: true };
+    const periode = perioderForSjekk.find(
+        (p) => moment(p.tidsperiode.fom).isSameOrAfter(førsteMuligeUttaksdag, 'day') === false
+    );
+    return {
+        test: REGLER.starterInnenfor12UkerFørTermin,
+        passerer: periode === undefined,
+        feil:
+            periode === undefined
+                ? undefined
+                : {
+                      periode,
+                      alvorlighet: RegelAlvorlighet.ULOVLIG,
+                      feilmelding: {
+                          intlKey: 'regel.feiler.starterInnenfor12UkerFørTermin'
+                      }
+                  }
+    };
 };
 
 const starterInnenfor12UkerFørTerminRegel: Regel = {

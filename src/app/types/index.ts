@@ -168,6 +168,7 @@ export enum RegelAlvorlighet {
 }
 
 export interface RegelTestResultat {
+    test: string;
     passerer: boolean;
     feil?: {
         periode: Periode[] | Periode;
@@ -177,4 +178,8 @@ export interface RegelTestResultat {
         };
         alvorlighet: RegelAlvorlighet;
     };
+}
+
+export interface UttaksplanValidering {
+    resultat: RegelTestResultat[];
 }

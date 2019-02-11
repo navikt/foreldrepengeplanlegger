@@ -5,7 +5,8 @@ import {
     TilgjengeligStønadskonto,
     Forbruk,
     TilgjengeligeDager,
-    OmForeldre
+    OmForeldre,
+    UttaksplanValidering
 } from '../../../types';
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
@@ -30,10 +31,11 @@ export enum CommonActionKeys {
     'RESET_APP' = 'resetApp',
     'SET_UTTAKSDAGER_FØR_TERMIN' = 'setUttaksdagerFørTermin',
     'SET_ØNSKET_FORDELING' = 'setØnsketFordeling',
-    'NY_PERIODE_CHANGE' = 'nyPeriodeChange'
+    'NY_PERIODE_CHANGE' = 'nyPeriodeChange',
+    'SET_UTTAKSPLAN_VALIDERING' = 'setUttaksplanValidering'
 }
 
-interface SetSpråk {
+interface SetSpråkAction {
     type: CommonActionKeys.SET_SPRÅK;
     språkkode: Språkkode;
 }
@@ -59,92 +61,98 @@ export interface SetStønadskontoerAction {
     kontoer: SetStønadskontoerKontoerPayload;
 }
 
-export interface ApplyStorage {
+export interface ApplyStorageAction {
     type: CommonActionKeys.APPLY_STORAGE;
     storage: CommonState;
 }
 
-export interface UpdateForbruk {
+export interface UpdateForbrukAction {
     type: CommonActionKeys.UPDATE_FORBRUK;
     forbruk: Forbruk | undefined;
 }
 
-export interface UpdateTilgjengeligeDager {
+export interface UpdateTilgjengeligeDagerAction {
     type: CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER;
     tilgjengeligeDager: TilgjengeligeDager | undefined;
 }
 
-export interface UpdateOmForeldre {
+export interface UpdateOmForeldreAction {
     type: CommonActionKeys.UPDATE_OM_FORELDRE;
     omForeldre: OmForeldre;
 }
 
-export interface ResetApp {
+export interface ResetAppAction {
     type: CommonActionKeys.RESET_APP;
 }
 
-interface SetDekningsgrad {
+export interface SetUttaksplanValideringAction {
+    type: CommonActionKeys.SET_UTTAKSPLAN_VALIDERING;
+    validering: UttaksplanValidering;
+}
+
+interface SetDekningsgradAction {
     type: CommonActionKeys.SET_DEKNINGSGRAD;
     dekningsgrad: Dekningsgrad;
 }
 
-interface SetPerioder {
+interface SetPerioderAction {
     type: CommonActionKeys.SET_PERIODER;
     perioder: Periode[];
 }
 
-interface AddPeriode {
+interface AddPeriodeAction {
     type: CommonActionKeys.ADD_PERIODE;
     periode: Periode;
 }
 
-interface UpdatePeriode {
+interface UpdatePeriodeAction {
     type: CommonActionKeys.UPDATE_PERIODE;
     periode: Periode;
 }
 
-interface RemovePeriode {
+interface RemovePeriodeAction {
     type: CommonActionKeys.REMOVE_PERIODE;
     periode: Periode;
 }
 
-interface SlåSammenPerioder {
+interface SlåSammenPerioderAction {
     type: CommonActionKeys.SLÅ_SAMMEN_PERIODER;
     periode1: Periode;
     periode2: Periode;
 }
 
-interface MovePeriode {
+interface MovePeriodeAction {
     type: CommonActionKeys.MOVE_PERIODE;
     periode: Periode;
     toIndex: number;
 }
 
-interface SetØnsketFordeling {
+interface SetØnsketFordelingAction {
     type: CommonActionKeys.SET_ØNSKET_FORDELING;
     ukerMor: number;
 }
 
-interface NyPeriodeChange {
+interface NyPeriodeChangeAction {
     type: CommonActionKeys.NY_PERIODE_CHANGE;
     periode: Periode | undefined;
 }
 
 export type CommonActionTypes =
-    | SetSpråk
-    | SetPerioder
+    | SetSpråkAction
+    | SetPerioderAction
     | SetStønadskontoerAction
-    | SetDekningsgrad
-    | AddPeriode
-    | UpdatePeriode
-    | RemovePeriode
-    | SlåSammenPerioder
-    | MovePeriode
+    | SetDekningsgradAction
+    | AddPeriodeAction
+    | UpdatePeriodeAction
+    | RemovePeriodeAction
+    | SlåSammenPerioderAction
+    | MovePeriodeAction
     | SubmitSkjemadataAction
-    | ApplyStorage
-    | UpdateForbruk
-    | UpdateTilgjengeligeDager
-    | UpdateOmForeldre
-    | ResetApp
-    | SetØnsketFordeling
-    | NyPeriodeChange;
+    | ApplyStorageAction
+    | UpdateForbrukAction
+    | UpdateTilgjengeligeDagerAction
+    | UpdateOmForeldreAction
+    | ResetAppAction
+    | SetØnsketFordelingAction
+    | NyPeriodeChangeAction
+    | SetUttaksplanValideringAction;

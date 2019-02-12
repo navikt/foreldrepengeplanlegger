@@ -1,15 +1,12 @@
-import { Regel, Regelgrunnlag, RegelTestResultat } from '../../types';
+import starterInnenfor12UkerFørTermin from './tester/starterInnenfor12UkerFørTermin';
+import { Regel } from './types';
+import { RegelKey } from './regelKeys';
 
-import starterInnenfor12UkerFørTermin from './starterInnenfor12UkerFørTermin';
-
-const uttaksplanRegler: Regel[] = [starterInnenfor12UkerFørTermin];
-
-export const sjekkUttaksplanOppMotRegler = (regelgrunnlag: Regelgrunnlag): RegelTestResultat[] => {
-    return uttaksplanRegler.map((regel) => regel.test(regelgrunnlag));
-};
+const uttaksplanRegler: Regel[] = [
+    {
+        key: RegelKey.starterInnenfor12UkerFørTermin,
+        test: starterInnenfor12UkerFørTermin
+    }
+];
 
 export default uttaksplanRegler;
-
-export enum REGLER {
-    'starterInnenfor12UkerFørTermin' = 'starterInnenfor12UkerFørTermin'
-}

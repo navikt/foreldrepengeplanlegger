@@ -10,9 +10,10 @@ import { CommonActionKeys } from '../actions/common/commonActionDefinitions';
 import { selectForbruk, selectTilgjengeligeDager } from '../selectors';
 import { getInformasjonOmForeldre } from '../../utils/common';
 import { ApiActionKeys } from '../actions/api/apiActionDefinitions';
-import { sjekkUttaksplanOppMotRegler } from '../../utils/regler';
-import { Regelgrunnlag } from '../../types';
 import { getUttaksdatoer } from '../../utils/uttaksdatoer';
+import groupBy from 'lodash.groupby';
+import { Regelgrunnlag, RegelTestresultat } from '../../utils/regler/types';
+import { sjekkUttaksplanOppMotRegler } from '../../utils/regler/regelUtils';
 
 const stateSelector = (state: AppState) => state;
 
@@ -53,7 +54,9 @@ function* validerUttaksplan() {
             uttaksdatoer: getUttaksdatoer(familiehendelsesdato)
         };
         const resultat = sjekkUttaksplanOppMotRegler(regelgrunnlag);
-        yield put(setUttaksplanValidering({ resultat }));
+        const feil = resultat.filter((r) => r.passerer === false && r.feil && r.feil.periodeId !== undefined);
+        const resultatPerPeriode = groupBy(feil, (r: RegelTestresultat) => r.feil!.periodeId);
+        yield put(setUttaksplanValidering({ resultat, resultatPerPeriode }));
     }
 }
 
@@ -68,6 +71,7 @@ function* forbrukSaga() {
         takeLatest(
             [
                 CommonActionKeys.SET_STØNADSKONTOER,
+                CommonActionKeys.SET_UTTAKSDAGER_FØR_TERMIN,
                 CommonActionKeys.SET_ØNSKET_FORDELING,
                 CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER,
                 CommonActionKeys.SET_PERIODER,
@@ -84,6 +88,7 @@ function* forbrukSaga() {
         takeLatest(
             [
                 CommonActionKeys.SET_STØNADSKONTOER,
+                CommonActionKeys.SET_UTTAKSDAGER_FØR_TERMIN,
                 CommonActionKeys.SET_ØNSKET_FORDELING,
                 CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER,
                 CommonActionKeys.SET_PERIODER,

@@ -8,8 +8,7 @@ import {
     Forbruk,
     OmForeldre,
     Periodetype,
-    UttakFørTerminPeriode,
-    UttaksplanValidering
+    UttakFørTerminPeriode
 } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { Dekningsgrad } from 'common/types';
@@ -17,6 +16,7 @@ import { summerAntallDagerIKontoer, getPeriodeFørTermin } from '../../utils/kon
 import { setStorage, getStorage, clearStorage } from '../../utils/storage';
 import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
 import { lagUttaksplan } from '../../utils/forslag/lagUttaksplan';
+import { UttaksplanRegelTestresultat } from '../../utils/regler/types';
 
 export interface ØnsketFordelingForeldrepenger {
     harValgtFordeling: boolean;
@@ -44,7 +44,7 @@ export interface CommonState {
     };
     forbruk?: Forbruk;
     omForeldre?: OmForeldre;
-    validering: UttaksplanValidering;
+    regelResultat: UttaksplanRegelTestresultat;
 }
 
 export const getDefaultCommonState = (storage?: CommonState): CommonState => {
@@ -67,8 +67,9 @@ export const getDefaultCommonState = (storage?: CommonState): CommonState => {
         },
         ...storage,
         nyPeriode: undefined, // Skal ikke brukes dersom den er mellomlagret
-        validering: {
-            resultat: []
+        regelResultat: {
+            resultat: [],
+            resultatPerPeriode: {}
         }
     };
 };
@@ -201,7 +202,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
         case CommonActionKeys.SET_UTTAKSPLAN_VALIDERING:
             return {
                 ...state,
-                validering: action.validering
+                regelResultat: action.validering
             };
 
         case CommonActionKeys.RESET_APP:

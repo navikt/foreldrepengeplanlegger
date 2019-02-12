@@ -1,10 +1,12 @@
 import { Periode, OmForeldre, Uttaksdatoer } from '../../types';
+import { UttaksplanRegelTestresultat } from '../../utils/regler/types';
 
 interface PeriodelisteBaseProps {
     perioder: Periode[];
     periodeFørTermin?: Periode;
     omForeldre: OmForeldre;
     familiehendelsesdato: Date;
+    regelTestresultat: UttaksplanRegelTestresultat;
 }
 
 interface PeriodelisteElementBaseProps {

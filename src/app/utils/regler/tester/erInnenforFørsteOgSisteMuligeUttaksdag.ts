@@ -32,7 +32,7 @@ const erInnenforFørsteOgSisteMuligeUttaksdag: RegelTest = (
     const passerer = perioderUtenforGyldigTidsrom.length === 0;
 
     return {
-        test: key,
+        key,
         passerer,
         regelbrudd: passerer
             ? undefined
@@ -40,9 +40,10 @@ const erInnenforFørsteOgSisteMuligeUttaksdag: RegelTest = (
                   alvorlighet: RegelAlvorlighet.ULOVLIG,
                   key,
                   feilmelding: {
-                      intlKey: 'regel.feiler.starterInnenfor12UkerFørTermin',
+                      intlKey: `regel.feiler.${key}`,
                       values: {
-                          dato: formaterDatoUtenDag(førsteMuligeUttaksdag)
+                          fom: formaterDatoUtenDag(førsteMuligeUttaksdag),
+                          tom: formaterDatoUtenDag(sisteMuligeUttaksdag)
                       }
                   }
               }

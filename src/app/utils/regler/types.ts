@@ -24,7 +24,7 @@ export enum RegelAlvorlighet {
 }
 
 export interface RegelTestresultat {
-    test: string;
+    key: RegelKey;
     passerer: boolean;
     regelbrudd?: Regelbrudd;
 }
@@ -44,4 +44,5 @@ export type PeriodeRegelTestresultat = Dictionary<RegelTestresultat[]>;
 export interface UttaksplanRegelTestresultat {
     resultat: RegelTestresultat[];
     resultatPerPeriode: PeriodeRegelTestresultat;
+    regelbrudd: Regelbrudd[];
 }

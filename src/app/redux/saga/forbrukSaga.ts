@@ -13,7 +13,7 @@ import { ApiActionKeys } from '../actions/api/apiActionDefinitions';
 import { getUttaksdatoer } from '../../utils/uttaksdatoer';
 import groupBy from 'lodash.groupby';
 import { Regelgrunnlag, RegelTestresultat } from '../../utils/regler/types';
-import { sjekkUttaksplanOppMotRegler } from '../../utils/regler/regelUtils';
+import { sjekkUttaksplanOppMotRegler, getRegelbrudd } from '../../utils/regler/regelUtils';
 
 const stateSelector = (state: AppState) => state;
 
@@ -58,7 +58,8 @@ function* validerUttaksplan() {
             (r) => r.passerer === false && r.regelbrudd && r.regelbrudd.periodeId !== undefined
         );
         const resultatPerPeriode = groupBy(feil, (r: RegelTestresultat) => r.regelbrudd!.periodeId);
-        yield put(setUttaksplanValidering({ resultat, resultatPerPeriode }));
+        const regelbrudd = getRegelbrudd(resultat);
+        yield put(setUttaksplanValidering({ resultat, resultatPerPeriode, regelbrudd }));
     }
 }
 

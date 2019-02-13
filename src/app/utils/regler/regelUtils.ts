@@ -16,3 +16,10 @@ export const getRegelbruddForPeriode = (
     }
     return undefined;
 };
+
+export const getRegelbrudd = (resultat: RegelTestresultat[]): Regelbrudd[] => {
+    if (resultat) {
+        return resultat.filter((r) => r.passerer === false && r.regelbrudd !== undefined).map((r) => r.regelbrudd!);
+    }
+    return [];
+};

@@ -48,5 +48,6 @@
     "skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
 
     "uttaksplan.ferie.inneholderHelligdager": "Denne perioden inneholder {dager, plural, one {# helligdag} other {# helligdager}}. Disse blir regnet som dager med foreldrepenger.",
-    "regel.feiler.starterInnenfor12UkerFørTermin": "Permisjonen før termin kan startes tidligest 12 uker før termin ({dato})."
+    "regel.feiler.starterInnenfor12UkerFørTermin": "Permisjonen før termin kan startes tidligst 12 uker før termin ({dato}).",
+    "regel.feiler.erInnenforFørsteOgSisteMuligeUttaksdag": "En eller flere av periodene er utenfor lovlig periode med foreldrepenger. Første mulige dag er {fom}, og siste mulige dag er {tom}"
 }

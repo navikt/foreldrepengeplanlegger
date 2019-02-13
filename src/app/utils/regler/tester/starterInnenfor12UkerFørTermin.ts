@@ -1,5 +1,4 @@
 import moment from 'moment';
-
 import { RegelAlvorlighet, RegelTestresultat, Regelgrunnlag, RegelTest, Regel } from '../types';
 import { Periode } from '../../../types';
 import { RegelKey } from '../regelKeys';
@@ -17,8 +16,9 @@ const starterInnenfor12UkerFørTermin: RegelTest = (key: RegelKey, grunnlag: Reg
     const periode = perioderForSjekk.find(
         (p) => moment(p.tidsperiode.fom).isSameOrAfter(førsteMuligeUttaksdag, 'day') === false
     );
+
     return {
-        test: key,
+        key,
         passerer: periode === undefined,
         regelbrudd:
             periode === undefined
@@ -28,7 +28,7 @@ const starterInnenfor12UkerFørTermin: RegelTest = (key: RegelKey, grunnlag: Reg
                       periodeId: periode.id,
                       alvorlighet: RegelAlvorlighet.ULOVLIG,
                       feilmelding: {
-                          intlKey: 'regel.feiler.starterInnenfor12UkerFørTermin',
+                          intlKey: `regel.feiler.${key}`,
                           values: {
                               dato: formaterDatoUtenDag(førsteMuligeUttaksdag)
                           }

@@ -6,44 +6,25 @@ import { formaterDato } from 'common/utils/datoUtils';
 import HjerteIkon from '../periodeikon/ikoner/HjerteIkon';
 import BEMHelper from 'common/utils/bem';
 import IconText from 'common/components/iconText/IconText';
-import { Perioden } from '../../utils/Perioden';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import { Ingress } from 'nav-frontend-typografi';
+import SlåSammenPerioderValg from './parts/Sl\u00E5SammenPerioderValg';
+import periodelisteUtils from './periodelisteUtils';
 
 import './periodeliste.less';
+import { getRegelbruddForPeriode } from '../../utils/regler/regelUtils';
 
 const bem = BEMHelper('periodeliste');
 
-const erPeriodeLikForrigePeriode = (
-    perioder: Periode[],
-    periode: Periode,
-    index: number,
-    antallPerioder: number
-): boolean => {
-    if (index === 0 || index === antallPerioder) {
-        return false;
-    }
-    const forrigePeriode = perioder[index - 1];
-    return Perioden(forrigePeriode).erLik(periode);
-};
-
-const SlåSammenPeriodeValg: React.StatelessComponent<{
-    periode: Periode;
-    forrigePeriode: Periode;
-    onSamlePerioder: (periode1: Periode, periode2: Periode) => void;
-}> = ({ periode, forrigePeriode, onSamlePerioder }) => {
-    return (
-        <div className={bem.element('likePerioder')}>
-            Perioden over og under er like og kan{' '}
-            <LinkButton onClick={() => onSamlePerioder(periode, forrigePeriode)}>
-                slåes sammen til én periode
-            </LinkButton>{' '}
-        </div>
-    );
-};
-
 const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
-    const { perioder, periodeFørTermin, familiehendelsesdato, onSlåSammenPerioder, ...elementProps } = props;
+    const {
+        perioder,
+        periodeFørTermin,
+        familiehendelsesdato,
+        onSlåSammenPerioder,
+        regelTestresultat,
+        ...elementProps
+    } = props;
     const { onResetPlan } = elementProps;
     const antallPerioder = perioder.length;
     if (antallPerioder === 0) {
@@ -63,6 +44,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
                     <li className={bem.element('periode')} key={periodeFørTermin.id}>
                         <PeriodeElement
                             periode={periodeFørTermin}
+                            regelbrudd={getRegelbruddForPeriode(regelTestresultat, periodeFørTermin.id)}
                             typeErLåst={true}
                             forelderErLåst={true}
                             sluttdatoErLåst={true}
@@ -83,14 +65,19 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
                 return (
                     <li className="periodeliste__periode" key={periode.id}>
                         {onSlåSammenPerioder &&
-                            erPeriodeLikForrigePeriode(perioder, periode, index, antallPerioder) && (
-                                <SlåSammenPeriodeValg
+                            periodelisteUtils.erPeriodeLikForrigePeriode(perioder, periode, index, antallPerioder) && (
+                                <SlåSammenPerioderValg
                                     periode={periode}
                                     forrigePeriode={perioder[index - 1]}
                                     onSamlePerioder={onSlåSammenPerioder}
                                 />
                             )}
-                        <PeriodeElement periode={periode} {...elementProps} startdatoErLåst={true} />
+                        <PeriodeElement
+                            periode={periode}
+                            {...elementProps}
+                            startdatoErLåst={true}
+                            regelbrudd={getRegelbruddForPeriode(regelTestresultat, periode.id)}
+                        />
                     </li>
                 );
             })}

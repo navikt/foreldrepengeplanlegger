@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { KnappProps } from 'nav-frontend-knapper/lib/knapp';
-import AriaText from 'common/components/aria/AriaText';
 import TrashIkon from 'common/components/ikoner/TrashIkon';
-
-import './slettKnapp.less';
+import IkonKnapp from 'common/components/ikonKnapp/IkonKnapp';
 
 export interface SlettKnappProps extends KnappProps {
     ariaLabel: string;
@@ -11,18 +9,7 @@ export interface SlettKnappProps extends KnappProps {
 }
 
 const SlettKnapp: React.StatelessComponent<SlettKnappProps> = ({ onClick, ariaLabel }) => (
-    <button
-        type="button"
-        className="slettKnapp"
-        aria-label={ariaLabel}
-        title={ariaLabel}
-        onClick={(e) => {
-            e.stopPropagation();
-            onClick();
-        }}>
-        <TrashIkon />
-        <AriaText>{ariaLabel}</AriaText>
-    </button>
+    <IkonKnapp ikon={<TrashIkon />} ariaLabel={ariaLabel} onClick={onClick} />
 );
 
 export default SlettKnapp;

@@ -5,12 +5,12 @@ import {
     TilgjengeligStønadskonto,
     Forbruk,
     TilgjengeligeDager,
-    OmForeldre,
-    UttaksplanValidering
+    OmForeldre
 } from '../../../types';
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
 import { CommonState } from '../../reducers/commonReducer';
+import { UttaksplanRegelTestresultat } from '../../../utils/regler/types';
 
 export enum CommonActionKeys {
     'SET_SPRÅK' = 'setSpråk',
@@ -87,7 +87,7 @@ export interface ResetAppAction {
 
 export interface SetUttaksplanValideringAction {
     type: CommonActionKeys.SET_UTTAKSPLAN_VALIDERING;
-    validering: UttaksplanValidering;
+    validering: UttaksplanRegelTestresultat;
 }
 
 interface SetDekningsgradAction {

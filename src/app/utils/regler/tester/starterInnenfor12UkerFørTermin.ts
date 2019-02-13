@@ -1,8 +1,10 @@
 import moment from 'moment';
-import { Regelgrunnlag, RegelTest, RegelTestResultat, RegelAlvorlighet, Periode, Regel } from '../../types';
-import { REGLER } from '.';
 
-const starterInnenfor12UkerFørTermin: RegelTest = (grunnlag: Regelgrunnlag): RegelTestResultat => {
+import { RegelAlvorlighet, RegelTestresultat, Regelgrunnlag, RegelTest } from '../types';
+import { Periode } from '../../../types';
+import { RegelKey } from '../regelKeys';
+
+const starterInnenfor12UkerFørTermin: RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { periodeFørTermin, perioder, uttaksdatoer } = grunnlag;
     const { førsteMuligeUttaksdag } = uttaksdatoer.førFødsel;
 
@@ -15,13 +17,13 @@ const starterInnenfor12UkerFørTermin: RegelTest = (grunnlag: Regelgrunnlag): Re
         (p) => moment(p.tidsperiode.fom).isSameOrAfter(førsteMuligeUttaksdag, 'day') === false
     );
     return {
-        test: REGLER.starterInnenfor12UkerFørTermin,
+        test: key,
         passerer: periode === undefined,
-        feil:
+        regelbrudd:
             periode === undefined
                 ? undefined
                 : {
-                      periode,
+                      periodeId: periode.id,
                       alvorlighet: RegelAlvorlighet.ULOVLIG,
                       feilmelding: {
                           intlKey: 'regel.feiler.starterInnenfor12UkerFørTermin'
@@ -30,10 +32,4 @@ const starterInnenfor12UkerFørTermin: RegelTest = (grunnlag: Regelgrunnlag): Re
     };
 };
 
-const starterInnenfor12UkerFørTerminRegel: Regel = {
-    key: 'starterInnenfor12UkerFørTerminRegel',
-    test: starterInnenfor12UkerFørTermin,
-    skalSjekkes: () => true
-};
-
-export default starterInnenfor12UkerFørTerminRegel;
+export default starterInnenfor12UkerFørTermin;

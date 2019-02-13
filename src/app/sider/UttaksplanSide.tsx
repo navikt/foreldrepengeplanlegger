@@ -2,15 +2,7 @@ import * as React from 'react';
 import Uttaksplan from '../components/uttaksplan/Uttaksplan';
 import { RouteComponentProps, withRouter, Redirect, Link } from 'react-router-dom';
 import { DispatchProps } from '../redux/types';
-import {
-    Periode,
-    TilgjengeligeDager,
-    SituasjonSkjemadata,
-    Forbruk,
-    OmForeldre,
-    Uttaksdatoer,
-    UttaksplanValidering
-} from '../types';
+import { Periode, TilgjengeligeDager, SituasjonSkjemadata, Forbruk, OmForeldre, Uttaksdatoer } from '../types';
 import {
     addPeriode,
     updatePeriode,
@@ -37,6 +29,7 @@ import { ØnsketFordelingForeldrepenger } from '../redux/reducers/commonReducer'
 import FordelingForeldrepenger from '../components/uttaksplan/FordelingForeldrepenger';
 import { getTilgjengeligeUker } from '../utils/kontoUtils';
 import { getUttaksdatoer } from '../utils/uttaksdatoer';
+import { UttaksplanRegelTestresultat } from '../utils/regler/types';
 
 interface StateProps {
     periodeFørTermin?: Periode;
@@ -53,7 +46,7 @@ interface StateProps {
     omForeldre?: OmForeldre;
     ønsketFordeling: ØnsketFordelingForeldrepenger;
     uttaksdatoer: Uttaksdatoer;
-    validering: UttaksplanValidering;
+    regelTestresultat: UttaksplanRegelTestresultat;
 }
 
 type Props = StateProps & DispatchProps & RouteComponentProps;
@@ -80,7 +73,7 @@ class UttaksplanSide extends React.Component<Props> {
             omForeldre,
             ønsketFordeling,
             uttaksdatoer,
-            validering,
+            regelTestresultat,
             dispatch
         } = this.props;
 
@@ -159,6 +152,7 @@ class UttaksplanSide extends React.Component<Props> {
                                         onNyPeriodeChange={(periode) => dispatch(nyPeriodeChange(periode))}
                                         onSlåSammenPerioder={(p1, p2) => dispatch(slåSammenPerioder(p1, p2))}
                                         uttaksdatoer={uttaksdatoer}
+                                        regelTestresultat={regelTestresultat}
                                     />
                                 )}
                             </>
@@ -166,7 +160,7 @@ class UttaksplanSide extends React.Component<Props> {
                     </Block>
                     <Block>
                         <ul>
-                            {validering.resultat.map((resultat, idx) => (
+                            {regelTestresultat.resultat.map((resultat, idx) => (
                                 <li key={idx}>
                                     {resultat.test}: {resultat.passerer ? 'ok' : 'feiler'}
                                 </li>
@@ -196,7 +190,7 @@ const mapStateToProps = (state: AppState): StateProps => {
         omForeldre: state.common.omForeldre,
         ønsketFordeling: state.common.ønsketFordeling,
         uttaksdatoer: getUttaksdatoer(state.common.familiehendelsesdato),
-        validering: state.common.validering
+        regelTestresultat: state.common.regelTestresultat
     };
 };
 

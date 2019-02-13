@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import Block from 'common/components/block/Block';
-import AdvarselIkonÅpen from 'common/components/ikoner/AdvarselIkon\u00C5pen';
 import InfoIkon from 'common/components/ikoner/InfoIkon';
 import LukkInfoIkon from 'common/components/ikoner/LukkInfoIkon';
 import IkonKnapp from 'common/components/ikonKnapp/IkonKnapp';
@@ -9,10 +8,11 @@ import SlettKnapp from 'common/components/slett-knapp/SlettKnapp';
 import BEMHelper from 'common/utils/bem';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { guid } from 'nav-frontend-js-utils';
-// import { Element } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { Regelbrudd } from '../../../utils/regler/types';
 import './periodelisteElement.less';
+import { FormattedMessage } from 'react-intl';
+import AdvarselIkon from 'common/components/ikoner/AdvarselIkon';
 
 interface Props {
     menyer: PeriodeElementMeny[];
@@ -102,7 +102,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                                     {
                                         <IkonKnapp
                                             onClick={() => this.setState({ regelInfoVisible: !regelInfoVisible })}
-                                            ikon={<AdvarselIkonÅpen type="feil" />}
+                                            ikon={<AdvarselIkon type="feil" />}
                                             ariaLabel="Perioden har regelbrudd"
                                         />
                                     }
@@ -129,7 +129,10 @@ class PeriodelisteElement extends React.Component<Props, State> {
                                 <ul className={bem.element('regelbruddListe')}>
                                     {regelbrudd.map((brudd, idx) => (
                                         <li className={bem.element('regelbruddListe__brudd')} key={idx}>
-                                            {brudd.feilmelding.intlKey}
+                                            <FormattedMessage
+                                                id={brudd.feilmelding.intlKey}
+                                                values={brudd.feilmelding.values}
+                                            />
                                         </li>
                                     ))}
                                 </ul>

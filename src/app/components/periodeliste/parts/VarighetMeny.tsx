@@ -214,6 +214,9 @@ const VarighetMenyLabel: React.StatelessComponent<Props> = (props) => {
     if (!fom || !tom) {
         return <span>Velg tid</span>;
     }
+    if (ingenVarighet) {
+        return <span>-</span>;
+    }
     if (VIS_DATO) {
         return <DagMndPeriode fom={fom} tom={tom} />;
     } else {

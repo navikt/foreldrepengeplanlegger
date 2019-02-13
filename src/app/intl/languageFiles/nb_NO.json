@@ -47,5 +47,6 @@
     "uttaksplan.skjema.fordeling.øk.tooltip": "En uke mer",
     "skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
 
-    "uttaksplan.ferie.inneholderHelligdager": "Denne perioden inneholder {dager, plural, one {# helligdag} other {# helligdager}}. Disse blir regnet som dager med foreldrepenger."
+    "uttaksplan.ferie.inneholderHelligdager": "Denne perioden inneholder {dager, plural, one {# helligdag} other {# helligdager}}. Disse blir regnet som dager med foreldrepenger.",
+    "regel.feiler.starterInnenfor12UkerFørTermin": "Permisjonen før termin kan startes tidligest 12 uker før termin ({dato})."
 }

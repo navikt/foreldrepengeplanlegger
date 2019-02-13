@@ -2,18 +2,27 @@
 @import '../../styles/variables.less';
 
 .dropdownForm {
-    @buttonPadding: 1rem 0.75rem 1rem 1rem;
+    // @buttonPadding: 1rem 0.75rem 1rem 1rem;
+    @buttonPadding: 0.25rem 0.75rem;
     &__lockedValue {
         padding: @buttonPadding;
         border: 1px solid transparent;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        // justify-content: center;
+        // justify-items: center;
+        // width: 100%;
     }
 
     .dropdownForm__button {
         cursor: pointer;
         padding: @buttonPadding;
-        border-style: solid;
-        border-color: #dfdfdf;
-        min-height: 4.5rem;
+        // border-style: solid;
+        // border-color: #dfdfdf;
+        background-color: #f6f6f6;
+        border-color: transparent;
+        min-height: 4.25rem;
         transition: border-color 200ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
         display: flex;
         align-items: center;

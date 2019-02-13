@@ -8,6 +8,8 @@ import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/drop
 import DropdownForm from 'common/components/dropdownForm/DropdownForm';
 import Periodeikon from '../../periodeikon/Periodeikon';
 import IconText from 'common/components/iconText/IconText';
+import { isValidTidsperiode, Tidsperioden } from '../../../utils/Tidsperioden';
+import Varighet from '../../varighet/Varighet';
 
 interface OwnProps {
     type?: Periodetype;
@@ -16,6 +18,7 @@ interface OwnProps {
     flereForeldre: boolean;
     foreldernavn?: string;
     erLåst?: boolean;
+    brukteUttaksdager?: number;
     onChange: (periodetype: Periodetype) => void;
 }
 
@@ -43,18 +46,26 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
     forelder,
     flereForeldre,
     foreldernavn,
+    brukteUttaksdager,
     intl
 }) => {
+    const visForelder = false;
+    const visTidsperiode = false;
     return type ? (
-        <IconText icon={<Periodeikon periodetype={type} forelder={forelder} />}>
+        <IconText fullWidth={true} icon={<Periodeikon periodetype={type} forelder={forelder} />}>
             <div className="periodetypeMenyLabel">
                 <div className="periodetypeMenyLabel__type">{getPeriodetypeLabel(type, intl)}</div>
-                {/* {isValidTidsperiode(tidsperiode) && ( */}
                 <div className="periodetypeMenyLabel__tidsperiode">
-                    {flereForeldre && foreldernavn && <span>{foreldernavn}</span>}
-                    {/* {Tidsperioden(tidsperiode).formaterStringKort(intl)} */}
+                    {brukteUttaksdager !== undefined && (
+                        <span>
+                            <Varighet dager={brukteUttaksdager} /> med foreldrepenger
+                        </span>
+                    )}
+                    {visForelder && flereForeldre && foreldernavn && <span>{foreldernavn}</span>}
+                    {visTidsperiode &&
+                        isValidTidsperiode(tidsperiode) &&
+                        Tidsperioden(tidsperiode).formaterStringKort(intl)}
                 </div>
-                {/* )} */}
             </div>
         </IconText>
     ) : (

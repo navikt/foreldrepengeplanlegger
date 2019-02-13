@@ -7,7 +7,7 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { Systemtittel } from 'nav-frontend-typografi';
 
-import './bekreftDialog.less';
+import './dialog.less';
 import BEMHelper from 'common/utils/bem';
 
 export interface Props {

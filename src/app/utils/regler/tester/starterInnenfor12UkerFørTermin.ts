@@ -3,6 +3,7 @@ import moment from 'moment';
 import { RegelAlvorlighet, RegelTestresultat, Regelgrunnlag, RegelTest } from '../types';
 import { Periode } from '../../../types';
 import { RegelKey } from '../regelKeys';
+import { formaterDatoUtenDag } from 'common/utils/datoUtils';
 
 const starterInnenfor12UkerFørTermin: RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { periodeFørTermin, perioder, uttaksdatoer } = grunnlag;
@@ -10,7 +11,7 @@ const starterInnenfor12UkerFørTermin: RegelTest = (key: RegelKey, grunnlag: Reg
 
     const perioderForSjekk: Periode[] = [
         ...(perioder ? perioder : []),
-        ...(periodeFørTermin ? [periodeFørTermin] : [])
+        ...(periodeFørTermin && periodeFørTermin.skalIkkeHaUttakFørTermin !== true ? [periodeFørTermin] : [])
     ];
 
     const periode = perioderForSjekk.find(
@@ -26,7 +27,10 @@ const starterInnenfor12UkerFørTermin: RegelTest = (key: RegelKey, grunnlag: Reg
                       periodeId: periode.id,
                       alvorlighet: RegelAlvorlighet.ULOVLIG,
                       feilmelding: {
-                          intlKey: 'regel.feiler.starterInnenfor12UkerFørTermin'
+                          intlKey: 'regel.feiler.starterInnenfor12UkerFørTermin',
+                          values: {
+                              dato: formaterDatoUtenDag(førsteMuligeUttaksdag)
+                          }
                       }
                   }
     };

@@ -1,5 +1,6 @@
 import { Tidsperiode } from 'common/types';
 import { Forelder, Uttaksinfo } from '.';
+import { isValidTidsperiode } from '../utils/Tidsperioden';
 
 export enum Periodetype {
     'Uttak' = 'uttak',
@@ -55,6 +56,14 @@ export type Periode =
     | UbetaltPermisjon
     | Ferieperiode;
 
+export function isKomplettPeriode(periode: Partial<Periode> | undefined): periode is Periode {
+    return (
+        periode !== undefined &&
+        isValidTidsperiode(periode.tidsperiode) &&
+        periode.type !== undefined &&
+        periode.forelder !== undefined
+    );
+}
 export function isUttakOrGradertUttak(periode: Periode): periode is Uttaksperiode | GradertUttaksperiode {
     return periode.type === Periodetype.Uttak || periode.type === Periodetype.GradertUttak;
 }

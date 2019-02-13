@@ -19,7 +19,6 @@ import Regelbrudd from '../regelbrudd/Regelbrudd';
 import { Periodene } from '../../utils/Periodene';
 import AlertStripe from 'nav-frontend-alertstriper';
 import Varighet from '../varighet/Varighet';
-import { Perioden } from '../../utils/Perioden';
 
 interface State {
     visSkjema: boolean;
@@ -138,6 +137,7 @@ class Uttaksplan extends React.Component<Props, State> {
                         <Block visible={visSkjema}>
                             <Block margin={periodeSomVilBliSplittet || perioderSomVilBliFlyttetPå ? 'm' : 'none'}>
                                 <Periodeskjema
+                                    nyPeriode={nyPeriode}
                                     omForeldre={omForeldre}
                                     onCancel={() => this.setState({ visSkjema: false })}
                                     onChange={this.handleNyPeriodeChange}
@@ -155,7 +155,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                         Perioden {periodeSomVilBliSplittet.type} - {periodeSomVilBliSplittet.forelder}{' '}
                                         vil bli delt opp i to deler, og den nye perioden vil bli satt inn mellom de to
                                         delene. Perioder etter dennne perioden, vil bli forskjøvet{' '}
-                                        <Varighet dager={Perioden(periodeSomVilBliSplittet).getAntallUttaksdager()!} />
+                                        <Varighet dager={nyPeriode!.uttaksinfo!.antallUttaksdager!} />
                                     </AlertStripe>
                                 )}
                             </Block>
@@ -163,7 +163,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                 visible={
                                     periodeSomVilBliSplittet === undefined && perioderSomVilBliFlyttetPå !== undefined
                                 }>
-                                {perioderSomVilBliFlyttetPå && (
+                                {perioderSomVilBliFlyttetPå && perioderSomVilBliFlyttetPå.length > 0 && (
                                     <>
                                         <Element>Perioder som vil bli forskjøvet</Element>
                                         <ol>

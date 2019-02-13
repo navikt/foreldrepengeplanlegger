@@ -115,6 +115,7 @@
         "memoizee": "0.4.14",
         "moment": "2.24.0",
         "mustache-express": "1.2.8",
+        "nav-datovelger": "^3.4.0",
         "nav-frontend-alertstriper": "1.0.30",
         "nav-frontend-alertstriper-style": "0.2.51",
         "nav-frontend-chevron": "1.0.6",

@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import { RegelAlvorlighet, RegelTestresultat, Regelgrunnlag, RegelTest } from '../types';
+import { RegelAlvorlighet, RegelTestresultat, Regelgrunnlag, RegelTest, Regel } from '../types';
 import { Periode } from '../../../types';
 import { RegelKey } from '../regelKeys';
 import { formaterDatoUtenDag } from 'common/utils/datoUtils';
@@ -24,6 +24,7 @@ const starterInnenfor12UkerFørTermin: RegelTest = (key: RegelKey, grunnlag: Reg
             periode === undefined
                 ? undefined
                 : {
+                      key,
                       periodeId: periode.id,
                       alvorlighet: RegelAlvorlighet.ULOVLIG,
                       feilmelding: {
@@ -36,4 +37,7 @@ const starterInnenfor12UkerFørTermin: RegelTest = (key: RegelKey, grunnlag: Reg
     };
 };
 
-export default starterInnenfor12UkerFørTermin;
+export const starterInnenfor12UkerFørTerminRegel: Regel = {
+    key: RegelKey.starterInnenfor12UkerFørTermin,
+    test: starterInnenfor12UkerFørTermin
+};

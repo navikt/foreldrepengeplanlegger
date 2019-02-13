@@ -31,6 +31,7 @@ export interface RegelTestresultat {
 
 export interface Regelbrudd {
     periodeId?: string;
+    key: RegelKey;
     feilmelding: {
         intlKey: string;
         values?: any;

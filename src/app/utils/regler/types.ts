@@ -9,6 +9,8 @@ export interface Regelgrunnlag {
     situasjon: Situasjon;
     erMor: boolean;
     uttaksdatoer: Uttaksdatoer;
+    navnMor: string;
+    navnFarMedmor?: string;
 }
 
 export type RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag) => RegelTestresultat;
@@ -20,11 +22,11 @@ export interface Regel {
 
 export enum RegelAlvorlighet {
     'ULOVLIG' = 'ulovlig',
-    'TIL_INFO' = 'tilInformasjon'
+    'INFO' = 'info'
 }
 
 export interface RegelTestresultat {
-    test: string;
+    key: RegelKey;
     passerer: boolean;
     regelbrudd?: Regelbrudd;
 }
@@ -44,4 +46,5 @@ export type PeriodeRegelTestresultat = Dictionary<RegelTestresultat[]>;
 export interface UttaksplanRegelTestresultat {
     resultat: RegelTestresultat[];
     resultatPerPeriode: PeriodeRegelTestresultat;
+    regelbrudd: Regelbrudd[];
 }

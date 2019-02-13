@@ -158,15 +158,6 @@ class UttaksplanSide extends React.Component<Props> {
                             </>
                         )}
                     </Block>
-                    <Block>
-                        <ul>
-                            {regelTestresultat.resultat.map((resultat, idx) => (
-                                <li key={idx}>
-                                    {resultat.test}: {resultat.passerer ? 'ok' : 'feiler'}
-                                </li>
-                            ))}
-                        </ul>
-                    </Block>
                 </LoadContainer>
             </>
         );

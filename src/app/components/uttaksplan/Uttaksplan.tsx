@@ -15,6 +15,7 @@ import { isPeriodeFixed } from '../../utils/typeUtils';
 import { Uttaksdagen } from '../../utils/Uttaksdagen';
 import BekreftDialog from 'common/components/dialog/BekreftDialog';
 import InfoDialog from 'common/components/dialog/InfoDialog';
+import Regelbrudd from '../regelbrudd/Regelbrudd';
 
 interface State {
     visSkjema: boolean;
@@ -80,12 +81,23 @@ class Uttaksplan extends React.Component<Props, State> {
     }
 
     render() {
-        const { perioder, onAdd, onUpdate, onRemove, onResetPlan, forbruk, omForeldre, uttaksdatoer } = this.props;
+        const {
+            perioder,
+            onAdd,
+            onUpdate,
+            onRemove,
+            onResetPlan,
+            forbruk,
+            omForeldre,
+            uttaksdatoer,
+            regelTestresultat
+        } = this.props;
         const { visSkjema } = this.state;
         const nesteUttaksdag =
             perioder.length > 0
                 ? Uttaksdagen(perioder[perioder.length - 1].tidsperiode.tom).neste()
                 : uttaksdatoer.førsteUttaksdag;
+        const { regelbrudd } = regelTestresultat;
         return (
             <section>
                 <div className="periodelisteWrapper">
@@ -132,6 +144,9 @@ class Uttaksplan extends React.Component<Props, State> {
                             <FordelingGraf fordeling={forbruk.fordeling} omForeldre={omForeldre} />
                         )}
                     </Block>
+                    <Block visible={regelbrudd.length > 0}>
+                        <Regelbrudd regelbrudd={regelbrudd} />
+                    </Block>
                 </div>
 
                 <PeriodeDevBar
@@ -141,6 +156,7 @@ class Uttaksplan extends React.Component<Props, State> {
                     onChange={onUpdate}
                     onResetApp={this.props.onResetApp}
                 />
+
                 <BekreftDialog
                     tittel="Bekreft fjern periode"
                     isOpen={this.state.visBekreftSlettDialog}
@@ -150,6 +166,7 @@ class Uttaksplan extends React.Component<Props, State> {
                     onAvbryt={() => this.setState({ visBekreftSlettDialog: false, valgtPeriode: undefined })}>
                     Ønsker du å slette perioden?
                 </BekreftDialog>
+
                 <InfoDialog
                     størrelse="30"
                     tittel="Perioden kan ikke fjernes"

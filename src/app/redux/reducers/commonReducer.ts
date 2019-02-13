@@ -69,7 +69,8 @@ export const getDefaultCommonState = (storage?: CommonState): CommonState => {
         nyPeriode: undefined, // Skal ikke brukes dersom den er mellomlagret
         regelTestresultat: {
             resultat: [],
-            resultatPerPeriode: {}
+            resultatPerPeriode: {},
+            regelbrudd: []
         }
     };
 };

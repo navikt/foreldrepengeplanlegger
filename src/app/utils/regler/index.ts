@@ -1,12 +1,7 @@
-import starterInnenfor12UkerFørTermin from './tester/starterInnenfor12UkerFørTermin';
+import { starterInnenfor12UkerFørTerminRegel } from './tester/starterInnenfor12UkerFørTermin';
+import { erInnenforFørsteOgSisteMuligeUttaksdagRegel } from './tester/erInnenforFørsteOgSisteMuligeUttaksdag';
 import { Regel } from './types';
-import { RegelKey } from './regelKeys';
 
-const uttaksplanRegler: Regel[] = [
-    {
-        key: RegelKey.starterInnenfor12UkerFørTermin,
-        test: starterInnenfor12UkerFørTermin
-    }
-];
+const uttaksplanRegler: Regel[] = [starterInnenfor12UkerFørTerminRegel, erInnenforFørsteOgSisteMuligeUttaksdagRegel];
 
 export default uttaksplanRegler;

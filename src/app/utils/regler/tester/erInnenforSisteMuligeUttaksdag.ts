@@ -5,12 +5,8 @@ import { Periode } from '../../../types';
 import { RegelKey } from '../regelKeys';
 import { formaterDatoUtenDag } from 'common/utils/datoUtils';
 
-const erInnenforFørsteOgSisteMuligeUttaksdag: RegelTest = (
-    key: RegelKey,
-    grunnlag: Regelgrunnlag
-): RegelTestresultat => {
+const erInnenforSisteMuligeUttaksdag: RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { periodeFørTermin, perioder, uttaksdatoer } = grunnlag;
-    const { førsteMuligeUttaksdag } = uttaksdatoer.førFødsel;
     const { sisteMuligeUttaksdag } = uttaksdatoer.etterFødsel;
 
     const perioderForSjekk: Periode[] = [
@@ -19,11 +15,8 @@ const erInnenforFørsteOgSisteMuligeUttaksdag: RegelTest = (
     ];
 
     const perioderUtenforGyldigTidsrom = perioderForSjekk.filter((periode) => {
-        const { fom, tom } = periode.tidsperiode;
-        if (
-            moment(fom).isSameOrAfter(førsteMuligeUttaksdag, 'day') === false ||
-            moment(tom).isSameOrBefore(sisteMuligeUttaksdag, 'day') === false
-        ) {
+        const { tom } = periode.tidsperiode;
+        if (moment(tom).isSameOrBefore(sisteMuligeUttaksdag, 'day') === false) {
             return true;
         }
         return false;
@@ -42,7 +35,6 @@ const erInnenforFørsteOgSisteMuligeUttaksdag: RegelTest = (
                   feilmelding: {
                       intlKey: `regel.feiler.${key}`,
                       values: {
-                          fom: formaterDatoUtenDag(førsteMuligeUttaksdag),
                           tom: formaterDatoUtenDag(sisteMuligeUttaksdag)
                       }
                   }
@@ -50,7 +42,7 @@ const erInnenforFørsteOgSisteMuligeUttaksdag: RegelTest = (
     };
 };
 
-export const erInnenforFørsteOgSisteMuligeUttaksdagRegel: Regel = {
-    key: RegelKey.erInnenforFørsteOgSisteMuligeUttaksdag,
-    test: erInnenforFørsteOgSisteMuligeUttaksdag
+export const erInnenforSisteMuligeUttaksdagRegel: Regel = {
+    key: RegelKey.erInnenforSisteMuligeUttaksdag,
+    test: erInnenforSisteMuligeUttaksdag
 };

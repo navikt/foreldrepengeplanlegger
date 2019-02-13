@@ -1,4 +1,4 @@
 export enum RegelKey {
-    'erInnenforFørsteOgSisteMuligeUttaksdag' = 'erInnenforFørsteOgSisteMuligeUttaksdag',
+    'erInnenforSisteMuligeUttaksdag' = 'erInnenforSisteMuligeUttaksdag',
     'starterInnenfor12UkerFørTermin' = 'starterInnenfor12UkerFørTermin'
 }

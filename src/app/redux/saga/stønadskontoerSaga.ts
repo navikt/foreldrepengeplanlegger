@@ -1,11 +1,6 @@
 import { takeEvery, all, put, select, call } from 'redux-saga/effects';
 import api from '../../api';
-import {
-    GetStønadskontoerDTO,
-    GetTilgjengeligeStønadskontoerParams,
-    // StønadskontoDTO,
-    FPKontoServiceDTO
-} from '../../api/types';
+import { GetStønadskontoerDTO, GetTilgjengeligeStønadskontoerParams, FPKontoServiceDTO } from '../../api/types';
 import { getStønadskontoSortOrder } from '../../utils/kontoUtils';
 import { updateApi } from '../actions/api/apiActionCreators';
 import {
@@ -130,7 +125,8 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
         yield put(updateApi({ stønadskontoer: { pending: true, error: undefined, result: undefined } }));
         const response80 = yield call(api.getUttakskontoer, { ...params, dekningsgrad: '80' });
         const response100 = yield call(api.getUttakskontoer, { ...params, dekningsgrad: '100' });
-        const { dekning100, dekning80 } = getKontoerFromForeldrepengerDTO(response80, response100);
+        const { dekning100, dekning80 } = getKontoerFromForeldrepengerDTO(response80.data, response100.data);
+        yield put(setStønadskontoer({ dekning80, dekning100 }));
         yield put(
             updateApi({
                 stønadskontoer: {
@@ -139,7 +135,6 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
                 }
             })
         );
-        yield put(setStønadskontoer({ dekning80, dekning100 }));
     } catch (error) {
         const mock: GetStønadskontoerDTO =
             params.farHarAleneomsorg || params.morHarAleneomsorg
@@ -151,7 +146,7 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
         yield put(setStønadskontoer({ dekning80, dekning100 }));
         yield put(
             updateApi({
-                stønadskontoer: { pending: false, result: undefined, error, loaded: false }
+                stønadskontoer: { pending: false, result: undefined, error, loaded: true }
             })
         );
     }

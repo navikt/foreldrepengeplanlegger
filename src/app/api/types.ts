@@ -12,6 +12,11 @@ export interface GetTilgjengeligeStønadskontoerParams {
     dekningsgrad: Dekningsgrad;
 }
 
+export interface FPKontoServiceDTO {
+    kontoer: {
+        [key: string]: number;
+    };
+}
 export interface StønadskontoDTO {
     d80: number;
     d100: number;

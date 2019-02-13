@@ -12,7 +12,7 @@ const bem = BEMHelper('regelbrudd');
 
 const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
     const ulovlig = regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.ULOVLIG);
-    const info = regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.TIL_INFO);
+    const info = regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.INFO);
     return (
         <section className={bem.block}>
             {ulovlig.length > 0 && (

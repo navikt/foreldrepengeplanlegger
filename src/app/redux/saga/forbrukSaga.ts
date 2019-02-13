@@ -51,7 +51,9 @@ function* validerUttaksplan() {
             periodeFørTermin,
             perioder,
             situasjon: skjemadata.situasjon,
-            uttaksdatoer: getUttaksdatoer(familiehendelsesdato)
+            uttaksdatoer: getUttaksdatoer(familiehendelsesdato),
+            navnMor: skjemadata.navnMor,
+            navnFarMedmor: skjemadata.navnFarMedmor
         };
         const resultat = sjekkUttaksplanOppMotRegler(regelgrunnlag);
         const feil = resultat.filter(

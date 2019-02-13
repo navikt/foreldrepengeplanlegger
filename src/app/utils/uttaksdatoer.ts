@@ -3,13 +3,6 @@ import { Uttaksdagen } from './Uttaksdagen';
 import { getTidsperiode } from './Tidsperioden';
 import { Uttaksdatoer } from '../types';
 
-export const uttaksdatoer = (familiehendelsesdato: Date) => ({
-    førsteUttaksdagForeldrepengerFørFødsel: getFørsteUttaksdagForeldrepengerFørFødsel(familiehendelsesdato),
-    førsteUttaksdagPåEllerEtterFødsel: Uttaksdagen(familiehendelsesdato).denneEllerNeste(),
-    førsteMuligeUttaksdagFørTermin: getFørsteMuligeUttaksdag(familiehendelsesdato),
-    sisteMuligeUttaksdagEtterTermin: getSisteMuligeUttaksdag(familiehendelsesdato)
-});
-
 export const getUttaksdatoer = (familiehendelsesdato: Date): Uttaksdatoer => {
     const førsteUttaksdag = Uttaksdagen(familiehendelsesdato).denneEllerNeste();
 

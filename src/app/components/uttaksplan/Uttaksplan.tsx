@@ -9,13 +9,17 @@ import Knapperad from 'common/components/knapperad/Knapperad';
 import FordelingGraf from '../fordelingGraf/FordelingGraf';
 import { Forbruk, OmForeldre, Uttaksdatoer } from '../../types';
 import Periodeliste from '../periodeliste/Periodeliste';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Systemtittel, Element } from 'nav-frontend-typografi';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import { isPeriodeFixed } from '../../utils/typeUtils';
 import { Uttaksdagen } from '../../utils/Uttaksdagen';
 import BekreftDialog from 'common/components/dialog/BekreftDialog';
 import InfoDialog from 'common/components/dialog/InfoDialog';
 import Regelbrudd from '../regelbrudd/Regelbrudd';
+import { Periodene } from '../../utils/Periodene';
+import AlertStripe from 'nav-frontend-alertstriper';
+import Varighet from '../varighet/Varighet';
+import { Perioden } from '../../utils/Perioden';
 
 interface State {
     visSkjema: boolean;
@@ -30,6 +34,7 @@ interface OwnProps {
     omForeldre: OmForeldre;
     forbruk: Forbruk;
     uttaksdatoer: Uttaksdatoer;
+    nyPeriode: Partial<Periode> | undefined;
     onResetApp: () => void;
     onNyPeriodeChange?: (periode?: Periode) => void;
 }
@@ -90,7 +95,8 @@ class Uttaksplan extends React.Component<Props, State> {
             forbruk,
             omForeldre,
             uttaksdatoer,
-            regelTestresultat
+            regelTestresultat,
+            nyPeriode
         } = this.props;
         const { visSkjema } = this.state;
         const nesteUttaksdag =
@@ -98,6 +104,17 @@ class Uttaksplan extends React.Component<Props, State> {
                 ? Uttaksdagen(perioder[perioder.length - 1].tidsperiode.tom).neste()
                 : uttaksdatoer.førsteUttaksdag;
         const { regelbrudd } = regelTestresultat;
+
+        const perioderSomVilBliFlyttetPå =
+            nyPeriode && nyPeriode.tidsperiode && nyPeriode.tidsperiode.tom
+                ? Periodene(perioder).finnPerioderEtterDato(nyPeriode.tidsperiode.fom)
+                : undefined;
+
+        const periodeSomVilBliSplittet =
+            nyPeriode && nyPeriode.tidsperiode && nyPeriode.tidsperiode.tom
+                ? Periodene(perioder).finnPeriodeMedDato(nyPeriode.tidsperiode.fom)
+                : undefined;
+
         return (
             <section>
                 <div className="periodelisteWrapper">
@@ -119,16 +136,44 @@ class Uttaksplan extends React.Component<Props, State> {
                             <Periodeliste {...this.props} onRemove={this.handleRemovePeriode} />
                         </Block>
                         <Block visible={visSkjema}>
-                            <Periodeskjema
-                                omForeldre={omForeldre}
-                                onCancel={() => this.setState({ visSkjema: false })}
-                                onChange={this.handleNyPeriodeChange}
-                                onSubmit={(periode) => this.addPeriode(periode)}
-                                nesteUttaksdag={nesteUttaksdag}
-                                førsteUttaksdag={uttaksdatoer.førsteUttaksdag}
-                                sisteUttaksdag={uttaksdatoer.etterFødsel.sisteMuligeUttaksdag}
-                                førsteUttaksdagFørTermin={uttaksdatoer.førFødsel.førsteMuligeUttaksdag}
-                            />
+                            <Block margin={periodeSomVilBliSplittet || perioderSomVilBliFlyttetPå ? 'm' : 'none'}>
+                                <Periodeskjema
+                                    omForeldre={omForeldre}
+                                    onCancel={() => this.setState({ visSkjema: false })}
+                                    onChange={this.handleNyPeriodeChange}
+                                    onSubmit={(periode) => this.addPeriode(periode)}
+                                    nesteUttaksdag={nesteUttaksdag}
+                                    førsteUttaksdag={uttaksdatoer.førsteUttaksdag}
+                                    sisteUttaksdag={uttaksdatoer.etterFødsel.sisteMuligeUttaksdag}
+                                    førsteUttaksdagFørTermin={uttaksdatoer.førFødsel.førsteMuligeUttaksdag}
+                                />
+                            </Block>
+
+                            <Block visible={periodeSomVilBliSplittet !== undefined}>
+                                {periodeSomVilBliSplittet && (
+                                    <AlertStripe type="info">
+                                        Perioden {periodeSomVilBliSplittet.type} - {periodeSomVilBliSplittet.forelder}{' '}
+                                        vil bli delt opp i to deler, og den nye perioden vil bli satt inn mellom de to
+                                        delene. Perioder etter dennne perioden, vil bli forskjøvet{' '}
+                                        <Varighet dager={Perioden(periodeSomVilBliSplittet).getAntallUttaksdager()!} />
+                                    </AlertStripe>
+                                )}
+                            </Block>
+                            <Block
+                                visible={
+                                    periodeSomVilBliSplittet === undefined && perioderSomVilBliFlyttetPå !== undefined
+                                }>
+                                {perioderSomVilBliFlyttetPå && (
+                                    <>
+                                        <Element>Perioder som vil bli forskjøvet</Element>
+                                        <ol>
+                                            {perioderSomVilBliFlyttetPå.map((p) => (
+                                                <li key={p.id}>{p.type}</li>
+                                            ))}
+                                        </ol>
+                                    </>
+                                )}
+                            </Block>
                         </Block>
                         <Block visible={visSkjema !== true} margin="l">
                             <Knapperad align="center">

@@ -46,6 +46,7 @@ interface StateProps {
     omForeldre?: OmForeldre;
     ønsketFordeling: ØnsketFordelingForeldrepenger;
     uttaksdatoer: Uttaksdatoer;
+    nyPeriode: Partial<Periode> | undefined;
     regelTestresultat: UttaksplanRegelTestresultat;
 }
 
@@ -74,6 +75,7 @@ class UttaksplanSide extends React.Component<Props> {
             ønsketFordeling,
             uttaksdatoer,
             regelTestresultat,
+            nyPeriode,
             dispatch
         } = this.props;
 
@@ -143,6 +145,7 @@ class UttaksplanSide extends React.Component<Props> {
                                         periodeFørTermin={periodeFørTermin}
                                         perioder={perioder}
                                         forbruk={forbruk!}
+                                        nyPeriode={nyPeriode}
                                         onAdd={(periode) => dispatch(addPeriode(periode))}
                                         onUpdate={(periode) => periode.type === dispatch(updatePeriode(periode))}
                                         onRemove={(periode) => dispatch(removePeriode(periode))}
@@ -181,7 +184,8 @@ const mapStateToProps = (state: AppState): StateProps => {
         omForeldre: state.common.omForeldre,
         ønsketFordeling: state.common.ønsketFordeling,
         uttaksdatoer: getUttaksdatoer(state.common.familiehendelsesdato),
-        regelTestresultat: state.common.regelTestresultat
+        regelTestresultat: state.common.regelTestresultat,
+        nyPeriode: state.common.nyPeriode
     };
 };
 

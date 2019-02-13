@@ -12,10 +12,12 @@ import { setStønadskontoer } from '../actions/common/commonActionCreators';
 import { SituasjonSkjemadata, TilgjengeligStønadskonto, StønadskontoType } from '../../types';
 import { AppState } from '../reducers/rootReducer';
 import situasjonsregler from '../../utils/situasjonsregler';
+import { Dekningsgrad } from 'common/types';
 
 const getStønadskontoerRequestParams = (
     familiehendelsesdato: Date,
-    data: SituasjonSkjemadata
+    data: SituasjonSkjemadata,
+    dekningsgrad: Dekningsgrad
 ): GetTilgjengeligeStønadskontoerParams => {
     return {
         antallBarn: data.antallBarn,
@@ -25,7 +27,8 @@ const getStønadskontoerRequestParams = (
         farHarRett: situasjonsregler.harFarRett(data.situasjon),
         morHarAleneomsorg: situasjonsregler.harMorAleneomsorg(data.situasjon),
         morHarRett: situasjonsregler.harMorRett(data.situasjon),
-        startdatoUttak: new Date()
+        startdatoUttak: new Date(),
+        dekningsgrad
     };
 };
 
@@ -128,12 +131,13 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
 
 function* getStønadskontoerSaga(action: SubmitSkjemadataAction | GetStønadskontoerAction) {
     const appState: AppState = yield select(stateSelector);
-    const { skjemadata, familiehendelsesdato } = appState.common;
+    const { skjemadata, familiehendelsesdato, dekningsgrad } = appState.common;
 
-    if (skjemadata) {
+    if (skjemadata && dekningsgrad) {
         const params: GetTilgjengeligeStønadskontoerParams = getStønadskontoerRequestParams(
             familiehendelsesdato,
-            skjemadata
+            skjemadata,
+            dekningsgrad
         );
         try {
             yield call(getStønadskontoer, params);

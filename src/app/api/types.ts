@@ -1,3 +1,5 @@
+import { Dekningsgrad } from 'common/types';
+
 export interface GetTilgjengeligeStønadskontoerParams {
     antallBarn: number;
     morHarRett: boolean;
@@ -7,6 +9,7 @@ export interface GetTilgjengeligeStønadskontoerParams {
     morHarAleneomsorg?: boolean;
     farHarAleneomsorg?: boolean;
     startdatoUttak: Date;
+    dekningsgrad: Dekningsgrad;
 }
 
 export interface StønadskontoDTO {

@@ -8,13 +8,32 @@ import BEMHelper from 'common/utils/bem';
 import IconText from 'common/components/iconText/IconText';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import { Ingress } from 'nav-frontend-typografi';
-import SlåSammenPerioderValg from './parts/Sl\u00E5SammenPerioderValg';
+import SlåSammenPerioderValg from './parts/SlåSammenPerioderValg';
 import periodelisteUtils from './periodelisteUtils';
+import posed, { PoseGroup } from 'react-pose';
 
 import './periodeliste.less';
 import { getRegelbruddForPeriode } from '../../utils/regler/regelUtils';
 
 const bem = BEMHelper('periodeliste');
+
+const PosedLi = posed.li({
+    open: {
+        staggerChildren: 200
+    },
+    enter: {
+        opacity: 1,
+        delay: 250,
+        transform: { scale: 0 },
+        transition: { duration: 500, ease: 'easeInOut' }
+    },
+    exit: {
+        opacity: 0,
+        delay: 250,
+        transform: { scale: 0 },
+        transition: { duration: 750, ease: 'easeInOut' }
+    }
+});
 
 const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
     const {
@@ -38,7 +57,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
         );
     }
     return (
-        <ol className={bem.block}>
+        <div className={bem.block}>
             {periodeFørTermin ? (
                 <>
                     <li className={bem.element('periode')} key={periodeFørTermin.id}>
@@ -61,27 +80,34 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
             ) : (
                 undefined
             )}
-            {perioder.map((periode: Periode, index: number) => {
-                return (
-                    <li className="periodeliste__periode" key={periode.id}>
-                        {onSlåSammenPerioder &&
-                            periodelisteUtils.erPeriodeLikForrigePeriode(perioder, periode, index, antallPerioder) && (
-                                <SlåSammenPerioderValg
-                                    periode={periode}
-                                    forrigePeriode={perioder[index - 1]}
-                                    onSamlePerioder={onSlåSammenPerioder}
-                                />
-                            )}
-                        <PeriodeElement
-                            periode={periode}
-                            {...elementProps}
-                            startdatoErLåst={true}
-                            regelbrudd={getRegelbruddForPeriode(regelTestresultat, periode.id)}
-                        />
-                    </li>
-                );
-            })}
-        </ol>
+            <PoseGroup>
+                {perioder.map((periode: Periode, index: number) => {
+                    return (
+                        <PosedLi className="periodeliste__periode" key={periode.id}>
+                            {onSlåSammenPerioder &&
+                                periodelisteUtils.erPeriodeLikForrigePeriode(
+                                    perioder,
+                                    periode,
+                                    index,
+                                    antallPerioder
+                                ) && (
+                                    <SlåSammenPerioderValg
+                                        periode={periode}
+                                        forrigePeriode={perioder[index - 1]}
+                                        onSamlePerioder={onSlåSammenPerioder}
+                                    />
+                                )}
+                            <PeriodeElement
+                                periode={periode}
+                                {...elementProps}
+                                startdatoErLåst={true}
+                                regelbrudd={getRegelbruddForPeriode(regelTestresultat, periode.id)}
+                            />
+                        </PosedLi>
+                    );
+                })}
+            </PoseGroup>
+        </div>
     );
 };
 

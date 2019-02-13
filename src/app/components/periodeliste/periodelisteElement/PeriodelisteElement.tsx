@@ -9,10 +9,11 @@ import BEMHelper from 'common/utils/bem';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { guid } from 'nav-frontend-js-utils';
 import * as React from 'react';
-import { Regelbrudd } from '../../../utils/regler/types';
+import { Regelbrudd, RegelAlvorlighet } from '../../../utils/regler/types';
 import './periodelisteElement.less';
 import { FormattedMessage } from 'react-intl';
 import AdvarselIkon from 'common/components/ikoner/AdvarselIkon';
+import { getAlertstripeTypeFromRegelbrudd } from '../periodelisteUtils';
 
 interface Props {
     menyer: PeriodeElementMeny[];
@@ -97,12 +98,18 @@ class PeriodelisteElement extends React.Component<Props, State> {
                                     }
                                 </div>
                             )}
-                            {regelbrudd && (
+                            {regelbrudd && regelbrudd.length > 0 && (
                                 <div className={bem.element('tool')}>
                                     {
                                         <IkonKnapp
                                             onClick={() => this.setState({ regelInfoVisible: !regelInfoVisible })}
-                                            ikon={<AdvarselIkon type="feil" />}
+                                            ikon={
+                                                regelbrudd[0].alvorlighet === RegelAlvorlighet.ULOVLIG ? (
+                                                    <AdvarselIkon type="feil" />
+                                                ) : (
+                                                    <InfoIkon />
+                                                )
+                                            }
                                             ariaLabel="Perioden har regelbrudd"
                                         />
                                     }
@@ -125,7 +132,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                 {regelbrudd && regelbrudd.length > 0 && regelInfoVisible && (
                     <div className={bem.element('regelbrudd')} id={regelId}>
                         <Block visible={regelInfoVisible} animated={true} margin="none">
-                            <AlertStripe type="advarsel" solid={true}>
+                            <AlertStripe type={getAlertstripeTypeFromRegelbrudd(regelbrudd[0])} solid={true}>
                                 <ul className={bem.element('regelbruddListe')}>
                                     {regelbrudd.map((brudd, idx) => (
                                         <li className={bem.element('regelbruddListe__brudd')} key={idx}>

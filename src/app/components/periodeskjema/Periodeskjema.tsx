@@ -19,6 +19,7 @@ interface Props {
     onCancel: () => void;
     onChange: (periode?: Periode) => void;
 }
+export type PeriodeSkjemaProps = Props;
 
 const periodeValidationSchema = yup.object().shape({
     periodetype: yup.string().required('Du må velge periodetype'),

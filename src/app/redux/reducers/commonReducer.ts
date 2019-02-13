@@ -44,7 +44,7 @@ export interface CommonState {
     };
     forbruk?: Forbruk;
     omForeldre?: OmForeldre;
-    regelResultat: UttaksplanRegelTestresultat;
+    regelTestresultat: UttaksplanRegelTestresultat;
 }
 
 export const getDefaultCommonState = (storage?: CommonState): CommonState => {
@@ -67,7 +67,7 @@ export const getDefaultCommonState = (storage?: CommonState): CommonState => {
         },
         ...storage,
         nyPeriode: undefined, // Skal ikke brukes dersom den er mellomlagret
-        regelResultat: {
+        regelTestresultat: {
             resultat: [],
             resultatPerPeriode: {}
         }
@@ -202,7 +202,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
         case CommonActionKeys.SET_UTTAKSPLAN_VALIDERING:
             return {
                 ...state,
-                regelResultat: action.validering
+                regelTestresultat: action.validering
             };
 
         case CommonActionKeys.RESET_APP:

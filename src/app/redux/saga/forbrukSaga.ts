@@ -54,8 +54,10 @@ function* validerUttaksplan() {
             uttaksdatoer: getUttaksdatoer(familiehendelsesdato)
         };
         const resultat = sjekkUttaksplanOppMotRegler(regelgrunnlag);
-        const feil = resultat.filter((r) => r.passerer === false && r.feil && r.feil.periodeId !== undefined);
-        const resultatPerPeriode = groupBy(feil, (r: RegelTestresultat) => r.feil!.periodeId);
+        const feil = resultat.filter(
+            (r) => r.passerer === false && r.regelbrudd && r.regelbrudd.periodeId !== undefined
+        );
+        const resultatPerPeriode = groupBy(feil, (r: RegelTestresultat) => r.regelbrudd!.periodeId);
         yield put(setUttaksplanValidering({ resultat, resultatPerPeriode }));
     }
 }

@@ -19,7 +19,7 @@ const starterInnenfor12UkerFørTermin: RegelTest = (key: RegelKey, grunnlag: Reg
     return {
         test: key,
         passerer: periode === undefined,
-        feil:
+        regelbrudd:
             periode === undefined
                 ? undefined
                 : {

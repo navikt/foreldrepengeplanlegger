@@ -27,14 +27,16 @@ export enum RegelAlvorlighet {
 export interface RegelTestresultat {
     test: string;
     passerer: boolean;
-    feil?: {
-        periodeId?: string;
-        feilmelding: {
-            intlKey: string;
-            meta?: any;
-        };
-        alvorlighet: RegelAlvorlighet;
+    regelbrudd?: Regelbrudd;
+}
+
+export interface Regelbrudd {
+    periodeId?: string;
+    feilmelding: {
+        intlKey: string;
+        meta?: any;
     };
+    alvorlighet: RegelAlvorlighet;
 }
 
 export type PeriodeRegelTestresultat = Dictionary<RegelTestresultat[]>;

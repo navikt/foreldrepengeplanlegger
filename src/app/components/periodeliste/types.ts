@@ -1,5 +1,5 @@
 import { Periode, OmForeldre, Uttaksdatoer } from '../../types';
-import { UttaksplanRegelTestresultat } from '../../utils/regler/types';
+import { UttaksplanRegelTestresultat, Regelbrudd } from '../../utils/regler/types';
 
 interface PeriodelisteBaseProps {
     perioder: Periode[];
@@ -17,6 +17,7 @@ interface PeriodelisteElementBaseProps {
     startdatoErLåst?: boolean;
     sluttdatoErLåst?: boolean;
     slettErLåst?: boolean;
+    regelbrudd: Regelbrudd[] | undefined;
 }
 
 interface PeriodelisteDatoer {

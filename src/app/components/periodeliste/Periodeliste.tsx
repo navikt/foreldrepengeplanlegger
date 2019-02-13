@@ -12,11 +12,19 @@ import SlåSammenPerioderValg from './parts/Sl\u00E5SammenPerioderValg';
 import periodelisteUtils from './periodelisteUtils';
 
 import './periodeliste.less';
+import { getRegelbruddForPeriode } from '../../utils/regler/regelUtils';
 
 const bem = BEMHelper('periodeliste');
 
 const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
-    const { perioder, periodeFørTermin, familiehendelsesdato, onSlåSammenPerioder, ...elementProps } = props;
+    const {
+        perioder,
+        periodeFørTermin,
+        familiehendelsesdato,
+        onSlåSammenPerioder,
+        regelTestresultat,
+        ...elementProps
+    } = props;
     const { onResetPlan } = elementProps;
     const antallPerioder = perioder.length;
     if (antallPerioder === 0) {
@@ -36,6 +44,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
                     <li className={bem.element('periode')} key={periodeFørTermin.id}>
                         <PeriodeElement
                             periode={periodeFørTermin}
+                            regelbrudd={getRegelbruddForPeriode(regelTestresultat, periodeFørTermin.id)}
                             typeErLåst={true}
                             forelderErLåst={true}
                             sluttdatoErLåst={true}
@@ -63,7 +72,12 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
                                     onSamlePerioder={onSlåSammenPerioder}
                                 />
                             )}
-                        <PeriodeElement periode={periode} {...elementProps} startdatoErLåst={true} />
+                        <PeriodeElement
+                            periode={periode}
+                            {...elementProps}
+                            startdatoErLåst={true}
+                            regelbrudd={getRegelbruddForPeriode(regelTestresultat, periode.id)}
+                        />
                     </li>
                 );
             })}

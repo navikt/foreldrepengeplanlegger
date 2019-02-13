@@ -46,7 +46,7 @@ interface StateProps {
     omForeldre?: OmForeldre;
     ønsketFordeling: ØnsketFordelingForeldrepenger;
     uttaksdatoer: Uttaksdatoer;
-    validering: UttaksplanRegelTestresultat;
+    regelTestresultat: UttaksplanRegelTestresultat;
 }
 
 type Props = StateProps & DispatchProps & RouteComponentProps;
@@ -73,7 +73,7 @@ class UttaksplanSide extends React.Component<Props> {
             omForeldre,
             ønsketFordeling,
             uttaksdatoer,
-            validering,
+            regelTestresultat,
             dispatch
         } = this.props;
 
@@ -152,7 +152,7 @@ class UttaksplanSide extends React.Component<Props> {
                                         onNyPeriodeChange={(periode) => dispatch(nyPeriodeChange(periode))}
                                         onSlåSammenPerioder={(p1, p2) => dispatch(slåSammenPerioder(p1, p2))}
                                         uttaksdatoer={uttaksdatoer}
-                                        regelTestresultat={validering}
+                                        regelTestresultat={regelTestresultat}
                                     />
                                 )}
                             </>
@@ -160,7 +160,7 @@ class UttaksplanSide extends React.Component<Props> {
                     </Block>
                     <Block>
                         <ul>
-                            {validering.resultat.map((resultat, idx) => (
+                            {regelTestresultat.resultat.map((resultat, idx) => (
                                 <li key={idx}>
                                     {resultat.test}: {resultat.passerer ? 'ok' : 'feiler'}
                                 </li>
@@ -190,7 +190,7 @@ const mapStateToProps = (state: AppState): StateProps => {
         omForeldre: state.common.omForeldre,
         ønsketFordeling: state.common.ønsketFordeling,
         uttaksdatoer: getUttaksdatoer(state.common.familiehendelsesdato),
-        validering: state.common.regelResultat
+        regelTestresultat: state.common.regelTestresultat
     };
 };
 

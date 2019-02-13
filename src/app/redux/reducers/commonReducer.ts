@@ -8,7 +8,8 @@ import {
     Forbruk,
     OmForeldre,
     Periodetype,
-    UttakFørTerminPeriode
+    UttakFørTerminPeriode,
+    isKomplettPeriode
 } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { Dekningsgrad } from 'common/types';
@@ -122,7 +123,9 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
             });
         case CommonActionKeys.NY_PERIODE_CHANGE:
             return updateStateAndStorage(state, {
-                nyPeriode: action.periode
+                nyPeriode: isKomplettPeriode(action.periode)
+                    ? { ...action.periode, uttaksinfo: getUttaksinfoForPeriode(action.periode) }
+                    : undefined
             });
         case CommonActionKeys.UPDATE_OM_FORELDRE:
             return updateStateAndStorage(state, { omForeldre: action.omForeldre });

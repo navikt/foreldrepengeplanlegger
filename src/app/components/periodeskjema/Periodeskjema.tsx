@@ -9,6 +9,7 @@ import { OmForeldre } from '../../types';
 
 interface Props {
     periode?: Periode;
+    nyPeriode?: Partial<Periode>;
     omForeldre: OmForeldre;
     nesteUttaksdag: Date;
     førsteUttaksdagFørTermin: Date;
@@ -64,6 +65,7 @@ class Periodeskjema extends React.Component<Props, {}> {
     render() {
         const {
             periode,
+            nyPeriode,
             omForeldre,
             nesteUttaksdag,
             førsteUttaksdagFørTermin,
@@ -80,6 +82,7 @@ class Periodeskjema extends React.Component<Props, {}> {
                 }
                 render={(props: FormikProps<PeriodeskjemaFormValues>) => (
                     <PeriodeskjemaForm
+                        nyPeriode={nyPeriode}
                         onCancel={this.onCancel}
                         onChange={this.handleFormValuesChange}
                         formik={props}

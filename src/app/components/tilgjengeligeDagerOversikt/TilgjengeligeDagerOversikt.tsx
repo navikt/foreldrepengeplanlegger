@@ -47,7 +47,7 @@ const Kontoliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl 
 };
 
 const Fordelingsliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, omForeldre, intl }: Props) => {
-    const { dagerFelles, dagerForbeholdtFar, dagerForbeholdtMor } = tilgjengeligeDager;
+    const { dagerFelles, dagerForbeholdtFar, dagerForbeholdtMor, flerbarnsdager } = tilgjengeligeDager;
     if (omForeldre.mor === undefined) {
         return null;
     }
@@ -57,9 +57,12 @@ const Fordelingsliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, 
             {omForeldre.farMedmor!.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtFar, intl)}</strong>. Dere
             har{' '}
             <HighlightContent watchValue={dagerFelles}>
-                <strong>{getVarighetString(dagerFelles, intl)}</strong>
+                <strong>{getVarighetString(dagerFelles - flerbarnsdager, intl)}</strong>
             </HighlightContent>{' '}
             fellesperiode som dere kan fordele som dere ønsker.
+            {flerbarnsdager > 0 && (
+                <span> Av fellesperioden, er {getVarighetString(flerbarnsdager, intl)} flerbarnsdager.</span>
+            )}
         </Ingress>
     );
 };

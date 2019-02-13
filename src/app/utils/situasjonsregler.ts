@@ -5,13 +5,23 @@ const situasjonsregler = {
         return situasjon === Situasjon.aleneomsorg || situasjon === Situasjon.bareFar;
     },
     harFarRett: (situasjon: Situasjon): boolean => {
-        return situasjon === Situasjon.aleneomsorg || situasjon === Situasjon.bareFar;
+        return (
+            situasjon === Situasjon.aleneomsorg ||
+            situasjon === Situasjon.bareFar ||
+            situasjon === Situasjon.farOgMor ||
+            situasjon === Situasjon.farOgFar
+        );
     },
     harMorAleneomsorg: (situasjon: Situasjon): boolean => {
         return situasjon === Situasjon.aleneomsorg || situasjon === Situasjon.bareMor;
     },
     harMorRett: (situasjon: Situasjon): boolean => {
-        return situasjon === Situasjon.aleneomsorg || situasjon === Situasjon.bareMor;
+        return (
+            situasjon === Situasjon.aleneomsorg ||
+            situasjon === Situasjon.bareMor ||
+            situasjon === Situasjon.farOgMor ||
+            situasjon === Situasjon.morOgMedmor
+        );
     }
 };
 

@@ -70,12 +70,14 @@ const getMorsStønadskontoer = (
 const getFarsStønadskontoer = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
     kontoer.filter((konto) => konto.stønadskontoType === StønadskontoType.Fedrekvote);
 
+const getFlerbarnskonto = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
+    kontoer.filter((konto) => konto.stønadskontoType === StønadskontoType.Flerbarnsdager);
+
 const getFellesStønadskontoer = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
     kontoer.filter(
         (konto) =>
-            konto.stønadskontoType !== StønadskontoType.Fedrekvote &&
-            konto.stønadskontoType !== StønadskontoType.Mødrekvote &&
-            konto.stønadskontoType !== StønadskontoType.ForeldrepengerFørFødsel
+            konto.stønadskontoType === StønadskontoType.Fellesperiode ||
+            konto.stønadskontoType === StønadskontoType.Flerbarnsdager
     );
 
 const getDagerFørTermin = (kontoer: TilgjengeligStønadskonto[]): number => {
@@ -93,6 +95,7 @@ export const getTilgjengeligeDager = (
         dagerForbeholdtMor: summerAntallDagerIKontoer(getMorsStønadskontoer(kontoer, situasjon, erMor)),
         dagerForbeholdtFar: summerAntallDagerIKontoer(getFarsStønadskontoer(kontoer)),
         dagerFelles: summerAntallDagerIKontoer(getFellesStønadskontoer(kontoer)),
+        flerbarnsdager: summerAntallDagerIKontoer(getFlerbarnskonto(kontoer)),
         dagerFørTermin: getDagerFørTermin(kontoer),
         stønadskontoer: kontoer
     };

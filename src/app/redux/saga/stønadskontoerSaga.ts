@@ -1,6 +1,6 @@
 import { takeEvery, all, put, select, call } from 'redux-saga/effects';
 import api from '../../api';
-import { GetStønadskontoerDTO, GetTilgjengeligeStønadskontoerParams } from '../../api/types';
+import { GetStønadskontoerDTO, GetTilgjengeligeStønadskontoerParams, FPKontoServiceDTO } from '../../api/types';
 import { getStønadskontoSortOrder } from '../../utils/kontoUtils';
 import { updateApi } from '../actions/api/apiActionCreators';
 import {
@@ -12,10 +12,12 @@ import { setStønadskontoer } from '../actions/common/commonActionCreators';
 import { SituasjonSkjemadata, TilgjengeligStønadskonto, StønadskontoType } from '../../types';
 import { AppState } from '../reducers/rootReducer';
 import situasjonsregler from '../../utils/situasjonsregler';
+import { Dekningsgrad } from 'common/types';
 
 const getStønadskontoerRequestParams = (
     familiehendelsesdato: Date,
-    data: SituasjonSkjemadata
+    data: SituasjonSkjemadata,
+    dekningsgrad: Dekningsgrad
 ): GetTilgjengeligeStønadskontoerParams => {
     return {
         antallBarn: data.antallBarn,
@@ -25,16 +27,17 @@ const getStønadskontoerRequestParams = (
         farHarRett: situasjonsregler.harFarRett(data.situasjon),
         morHarAleneomsorg: situasjonsregler.harMorAleneomsorg(data.situasjon),
         morHarRett: situasjonsregler.harMorRett(data.situasjon),
-        startdatoUttak: new Date()
+        startdatoUttak: new Date(),
+        dekningsgrad
     };
 };
 
 const mockToForeldre: GetStønadskontoerDTO[] = [
     {
         kontoer: {
-            MØDREKVOTE: { d80: 75, d100: 75 },
-            FEDREKVOTE: { d80: 75, d100: 75 },
-            FELLESPERIODE: { d80: 130, d100: 80 },
+            FEDREKVOTE: { d80: 95, d100: 75 },
+            MØDREKVOTE: { d80: 95, d100: 75 },
+            FELLESPERIODE: { d80: 90, d100: 80 },
             FORELDREPENGER_FØR_FØDSEL: { d80: 15, d100: 15 }
         }
     },
@@ -92,24 +95,47 @@ const getKontoerFromDTO = (
     };
 };
 
+const getKontoerFromForeldrepengerDTO = (
+    kontoer80: FPKontoServiceDTO,
+    kontoer100: FPKontoServiceDTO
+): { dekning80: TilgjengeligStønadskonto[]; dekning100: TilgjengeligStønadskonto[] } => {
+    const dekning80: TilgjengeligStønadskonto[] = [];
+    const dekning100: TilgjengeligStønadskonto[] = [];
+
+    Object.keys(kontoer80.kontoer).forEach((konto) => {
+        dekning80.push({
+            dager: kontoer80.kontoer[konto],
+            stønadskontoType: konto as StønadskontoType
+        });
+        dekning100.push({
+            dager: kontoer100.kontoer[konto],
+            stønadskontoType: konto as StønadskontoType
+        });
+    });
+    dekning80.sort(sortStønadskonto);
+    dekning100.sort(sortStønadskonto);
+    return {
+        dekning100,
+        dekning80
+    };
+};
+
 function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
     try {
         yield put(updateApi({ stønadskontoer: { pending: true, error: undefined, result: undefined } }));
-        const response = yield call(api.getUttakskontoer, params);
-        const stønadskontoer: GetStønadskontoerDTO = response.data;
-        const { dekning100, dekning80 } = getKontoerFromDTO(stønadskontoer);
+        const response80 = yield call(api.getUttakskontoer, { ...params, dekningsgrad: '80' });
+        const response100 = yield call(api.getUttakskontoer, { ...params, dekningsgrad: '100' });
+        const { dekning100, dekning80 } = getKontoerFromForeldrepengerDTO(response80.data, response100.data);
+        yield put(setStønadskontoer({ dekning80, dekning100 }));
         yield put(
             updateApi({
                 stønadskontoer: {
                     loaded: true,
-                    pending: false,
-                    result: response.data
+                    pending: false
                 }
             })
         );
-        yield put(setStønadskontoer({ dekning80, dekning100 }));
     } catch (error) {
-        // Use mock
         const mock: GetStønadskontoerDTO =
             params.farHarAleneomsorg || params.morHarAleneomsorg
                 ? mockAleneomsorg[params.antallBarn - 1]
@@ -120,7 +146,7 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
         yield put(setStønadskontoer({ dekning80, dekning100 }));
         yield put(
             updateApi({
-                stønadskontoer: { pending: false, result: undefined, error, loaded: false }
+                stønadskontoer: { pending: false, result: undefined, error, loaded: true }
             })
         );
     }
@@ -128,12 +154,13 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
 
 function* getStønadskontoerSaga(action: SubmitSkjemadataAction | GetStønadskontoerAction) {
     const appState: AppState = yield select(stateSelector);
-    const { skjemadata, familiehendelsesdato } = appState.common;
+    const { skjemadata, familiehendelsesdato, dekningsgrad } = appState.common;
 
-    if (skjemadata) {
+    if (skjemadata && dekningsgrad) {
         const params: GetTilgjengeligeStønadskontoerParams = getStønadskontoerRequestParams(
             familiehendelsesdato,
-            skjemadata
+            skjemadata,
+            dekningsgrad
         );
         try {
             yield call(getStønadskontoer, params);

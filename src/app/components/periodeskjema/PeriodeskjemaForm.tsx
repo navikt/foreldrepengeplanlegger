@@ -4,14 +4,13 @@ import Block from 'common/components/block/Block';
 import { Knapp, Hovedknapp } from 'nav-frontend-knapper';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { PeriodeskjemaFormValues } from './types';
-import { OmForeldre, Periodetype } from '../../types';
+import { OmForeldre, Periodetype, Periode } from '../../types';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
 import PeriodetypeMeny from '../periodeliste/parts/PeriodetypeMeny';
 import BEMHelper from 'common/utils/bem';
 import GraderingMeny from '../periodeliste/parts/GraderingMeny';
 import { getForelderNavn } from '../../utils/common';
 import ForelderMeny from '../periodeliste/parts/ForelderMeny';
-import { Tidsperioden } from '../../utils/Tidsperioden';
 import VarighetMeny from '../periodeliste/parts/VarighetMeny';
 import { Tidsperiode } from 'nav-datovelger';
 import PeriodelisteElement from '../periodeliste/periodelisteElement/PeriodelisteElement';
@@ -25,6 +24,7 @@ interface OwnProps {
     førsteUttaksdag: Date;
     sisteUttaksdag: Date;
     omForeldre: OmForeldre;
+    nyPeriode?: Partial<Periode>;
     onCancel: () => void;
     onChange: (values: PeriodeskjemaFormValues) => void;
     formik: FormikProps<PeriodeskjemaFormValues>;
@@ -57,11 +57,12 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         }
     }
     render() {
-        const { formik, onCancel, omForeldre, nesteUttaksdag, førsteUttaksdag, sisteUttaksdag } = this.props;
+        const { formik, onCancel, omForeldre, nesteUttaksdag, førsteUttaksdag, sisteUttaksdag, nyPeriode } = this.props;
         const { fom, tom, periodetype, forelder, gradering } = formik.values;
         const forelderNavn = getForelderNavn(forelder, omForeldre);
         const harFlereForeldre = omForeldre.antallForeldre > 1;
-        const dager = Tidsperioden({ fom, tom }).getAntallUttaksdager();
+        const antallUttaksdagerBrukt =
+            nyPeriode && nyPeriode.uttaksinfo ? nyPeriode.uttaksinfo.antallUttaksdagerBrukt : undefined;
 
         return (
             <Form>
@@ -83,6 +84,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             tidsperiode={{ fom, tom }}
                                             foreldernavn={forelderNavn}
                                             dropdownStyle="border"
+                                            brukteUttaksdager={antallUttaksdagerBrukt}
                                             onChange={(type) => {
                                                 formik.setFieldValue('periodetype', type);
                                                 this.handleValueOnChange();
@@ -127,7 +129,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                         <VarighetMeny
                                             fom={fom || nesteUttaksdag}
                                             tom={tom}
-                                            dager={dager}
+                                            dager={antallUttaksdagerBrukt}
                                             minDager={1}
                                             brukteUttaksdager={periodeskjemaUtils.getBrukteUttaksdagerForNyPeriode(
                                                 formik.values

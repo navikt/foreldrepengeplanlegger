@@ -25,6 +25,8 @@ export const Periodene = (perioder: Periode[]) => ({
     finnOverlappendePerioder: (periode: Periode) => finnOverlappendePerioder(perioder, periode),
     finnPeriodeMedDato: (dato: Date) => finnPeriodeMedDato(perioder, dato),
     finnAlleForegåendePerioder: (periode: Periode) => finnPerioderFørPeriode(perioder, periode),
+    finnPerioderMedEllerEtterDato: (dato: Date) => finnPerioderMedEllerEtterDato(perioder, dato),
+    finnPerioderEtterDato: (dato: Date) => finnPerioderEtterDato(perioder, dato),
     finnAllePåfølgendePerioder: (periode: Periode) => finnPerioderEtterPeriode(perioder, periode),
     finnDenForegåendePerioden: (periode: Periode) => finnForrigePeriode(perioder, periode),
     finnPåfølgendePeriode: (periode: Periode) => finnPåfølgendePeriode(perioder, periode),
@@ -88,6 +90,20 @@ function datoErInnenforTidsperiode(dato: Date, tidsperiode: Tidsperiode): boolea
 function finnPeriodeMedDato(perioder: Periode[], dato: Date): Periode | undefined {
     return perioder.find((periode) => {
         return moment(dato).isBetween(periode.tidsperiode.fom, periode.tidsperiode.tom, 'day', '[]');
+    });
+}
+function finnPerioderMedEllerEtterDato(perioder: Periode[], dato: Date): Periode[] | undefined {
+    return perioder.filter((periode) => {
+        return (
+            moment(dato).isBetween(periode.tidsperiode.fom, periode.tidsperiode.tom, 'day', '[]') ||
+            moment(dato).isBefore(periode.tidsperiode.fom, 'day')
+        );
+    });
+}
+
+function finnPerioderEtterDato(perioder: Periode[], dato: Date): Periode[] | undefined {
+    return perioder.filter((periode) => {
+        return moment(dato).isBefore(periode.tidsperiode.fom, 'day');
     });
 }
 

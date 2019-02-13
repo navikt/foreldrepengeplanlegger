@@ -25,8 +25,6 @@ export const getAlertstripeTypeFromRegelbrudd = (brudd: Regelbrudd): 'info' | 'a
     switch (brudd.alvorlighet) {
         case RegelAlvorlighet.ULOVLIG:
             return 'stopp';
-        case RegelAlvorlighet.HAR_KRAV:
-            return 'advarsel';
         default:
             return 'info';
     }

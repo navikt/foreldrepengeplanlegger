@@ -6,7 +6,7 @@ import Varighet from '../../varighet/Varighet';
 import Block from 'common/components/block/Block';
 import FomTomValg from './FomTomValg';
 import { Checkbox } from 'nav-frontend-skjema';
-import DropdownForm from 'common/components/dropdownForm/DropdownForm';
+import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import DagMndPeriode from 'common/components/dagMnd/DagMndPeriode';
 import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
 import Alertstriper from 'nav-frontend-alertstriper';
@@ -37,6 +37,7 @@ interface OwnProps {
     sisteUttaksdag: Date;
     forelderNavn?: string;
     gradering?: number;
+    dropdownStyle?: DropdownFormStyle;
     onTidsperiodeChange: (tidsperiode: Tidsperiode) => void;
     onVarighetChange?: (evt: VarighetChangeEvent) => void;
 }
@@ -251,6 +252,7 @@ class VarighetMeny extends React.Component<Props, {}> {
     }
     render() {
         const variant = getVarighetVariant(this.props);
+        const { dropdownStyle = 'filled' } = this.props;
         return (
             <DropdownForm
                 ref={(c) => (this.dropdown = c)}
@@ -262,6 +264,7 @@ class VarighetMeny extends React.Component<Props, {}> {
                 contentClassName="varighetDialog"
                 contentTitle={getTittel(variant)}
                 renderCloseButton={this.props.visLukkKnapp}
+                style={dropdownStyle}
                 dropdownPlacement="right"
             />
         );

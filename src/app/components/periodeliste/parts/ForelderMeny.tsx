@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Forelder, Forelderinfo } from '../../../types';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
-import DropdownForm from 'common/components/dropdownForm/DropdownForm';
+import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
 import IconText from 'common/components/iconText/IconText';
 
@@ -10,6 +10,7 @@ interface Props {
     mor: Forelderinfo;
     farMedmor: Forelderinfo;
     erLåst?: boolean;
+    dropdownStyle?: DropdownFormStyle;
     onChange: (forelder: Forelder) => void;
 }
 
@@ -47,7 +48,7 @@ const renderLabel = (props: Props, options: DropdownFormMenuOption[]): React.Rea
 };
 
 const ForelderMeny: React.StatelessComponent<Props> = (props) => {
-    const { onChange, forelder, mor, farMedmor, erLåst } = props;
+    const { onChange, forelder, mor, farMedmor, erLåst, dropdownStyle = 'filled' } = props;
     const options = getForelderOptions(mor.navn, farMedmor!.navn);
     return (
         <DropdownForm
@@ -58,6 +59,7 @@ const ForelderMeny: React.StatelessComponent<Props> = (props) => {
             contentTitle="Hvem gjelder perioden?"
             labelRenderer={() => renderLabel(props, options)}
             labelAlignment="center"
+            style={dropdownStyle}
             contentRenderer={() => <DropdownFormMenu options={options} selectedValue={forelder} />}
             dropdownPlacement="right"
         />

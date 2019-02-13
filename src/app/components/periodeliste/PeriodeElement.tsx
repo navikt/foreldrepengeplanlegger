@@ -61,7 +61,6 @@ class PeriodeElement extends React.Component<Props> {
             forelderErLåst,
             startdatoErLåst,
             sluttdatoErLåst,
-            slettErLåst,
             omForeldre,
             onUpdate,
             onRemove,
@@ -95,6 +94,11 @@ class PeriodeElement extends React.Component<Props> {
                                     tidsperiode={this.props.periode.tidsperiode}
                                     foreldernavn={foreldernavn}
                                     erLåst={typeErLåst}
+                                    brukteUttaksdager={
+                                        this.props.periode.uttaksinfo
+                                            ? this.props.periode.uttaksinfo.antallUttaksdagerBrukt
+                                            : undefined
+                                    }
                                     onChange={(periodetype) =>
                                         onUpdate(changePeriodeType(this.props.periode, periodetype))
                                     }
@@ -175,14 +179,10 @@ class PeriodeElement extends React.Component<Props> {
                             )
                         }
                     ]}
-                    slett={
-                        slettErLåst !== true
-                            ? {
-                                  ariaLabel: 'Slett periode',
-                                  onRemove: () => onRemove(periode)
-                              }
-                            : undefined
-                    }
+                    slett={{
+                        ariaLabel: 'Slett periode',
+                        onRemove: () => onRemove(periode)
+                    }}
                     info={
                         periode.type === Periodetype.Ferie && uttaksinfo.antallUttaksdagerBrukt > 0
                             ? [

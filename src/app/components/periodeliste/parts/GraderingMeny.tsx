@@ -3,7 +3,7 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import SkjemaNumberStepper from 'common/components/skjema/skjemaNumberStepper/SkjemaNumberStepper';
 import AriaAlternative from 'common/components/aria/AriaAlternative';
 import WorkIkon from 'common/components/ikoner/WorkIkon';
-import DropdownForm from 'common/components/dropdownForm/DropdownForm';
+import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import IconText from 'common/components/iconText/IconText';
 import Block from 'common/components/block/Block';
 import Varighet from '../../varighet/Varighet';
@@ -12,6 +12,7 @@ interface OwnProps {
     gradering?: number;
     uttaksdagerBrukt?: number;
     foreldernavn?: string;
+    dropdownStyle?: DropdownFormStyle;
     onChange: (gradering: number | undefined) => void;
 }
 
@@ -24,7 +25,13 @@ const beregnGraderingUtFraArbeidsprosent = (arbeidsprosent: number | undefined):
     return undefined;
 };
 
-const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, foreldernavn, uttaksdagerBrukt, onChange }) => {
+const GraderingMeny: React.StatelessComponent<Props> = ({
+    gradering,
+    foreldernavn,
+    uttaksdagerBrukt,
+    onChange,
+    dropdownStyle = 'filled'
+}) => {
     const valgtGradering = gradering || 50;
     const label = `${100 - valgtGradering}%`;
     const arbeidsprosent = valgtGradering === undefined ? 100 : 100 - valgtGradering;
@@ -34,6 +41,7 @@ const GraderingMeny: React.StatelessComponent<Props> = ({ gradering, foreldernav
                 contentClassName="graderingDialog"
                 dropdownPlacement="right"
                 labelAlignment="center"
+                style={dropdownStyle}
                 labelRenderer={() => (
                     <div className="graderingLabel">
                         <IconText icon={<WorkIkon />} layout="vertical">

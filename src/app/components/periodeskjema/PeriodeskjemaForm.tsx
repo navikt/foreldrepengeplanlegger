@@ -82,6 +82,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             flereForeldre={harFlereForeldre}
                                             tidsperiode={{ fom, tom }}
                                             foreldernavn={forelderNavn}
+                                            dropdownStyle="border"
                                             onChange={(type) => {
                                                 formik.setFieldValue('periodetype', type);
                                                 this.handleValueOnChange();
@@ -96,6 +97,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                         <GraderingMeny
                                             foreldernavn={harFlereForeldre ? forelderNavn : 'du'}
                                             gradering={gradering}
+                                            dropdownStyle="border"
                                             onChange={(g) => formik.setFieldValue('gradering', g)}
                                         />
                                     ),
@@ -109,6 +111,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             forelder={forelder}
                                             mor={omForeldre.mor}
                                             farMedmor={omForeldre.farMedmor!}
+                                            dropdownStyle="border"
                                             onChange={(f) => {
                                                 formik.setFieldValue('forelder', f);
                                                 this.handleValueOnChange();
@@ -133,6 +136,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             sisteUttaksdag={sisteUttaksdag}
                                             visLukkKnapp={true /*fom !== undefined && tom !== undefined*/}
                                             onTidsperiodeChange={this.handleTidsperiodeChange}
+                                            dropdownStyle="border"
                                         />
                                     )
                                 }

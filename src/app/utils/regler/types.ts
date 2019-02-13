@@ -1,10 +1,10 @@
 import { Dictionary } from 'lodash';
-import { Periode, Situasjon, Uttaksdatoer } from '../../types';
+import { Periode, Situasjon, Uttaksdatoer, UttakFørTerminPeriode } from '../../types';
 import { RegelKey } from './regelKeys';
 
 export interface Regelgrunnlag {
     perioder: Periode[];
-    periodeFørTermin: Periode | undefined;
+    periodeFørTermin: UttakFørTerminPeriode | undefined;
     familiehendelsesdato: Date;
     situasjon: Situasjon;
     erMor: boolean;
@@ -20,7 +20,6 @@ export interface Regel {
 
 export enum RegelAlvorlighet {
     'ULOVLIG' = 'ulovlig',
-    'HAR_KRAV' = 'kreverInfo',
     'TIL_INFO' = 'tilInformasjon'
 }
 
@@ -34,7 +33,7 @@ export interface Regelbrudd {
     periodeId?: string;
     feilmelding: {
         intlKey: string;
-        meta?: any;
+        values?: any;
     };
     alvorlighet: RegelAlvorlighet;
 }

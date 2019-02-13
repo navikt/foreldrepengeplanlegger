@@ -1,7 +1,7 @@
 import * as React from 'react';
 import BEMHelper from 'common/utils/bem';
 import { EtikettLiten } from 'nav-frontend-typografi';
-import { måned3bokstaver, måned, år } from 'common/utils/datoUtils';
+import { måned3bokstaver, år } from 'common/utils/datoUtils';
 
 import './dagMnd.less';
 
@@ -20,7 +20,7 @@ const DagMnd: React.StatelessComponent<Props> = ({ dato, visÅr = true }) => {
             </span>
             {visÅr && (
                 <EtikettLiten tag="span" className={bem.element('aar')}>
-                    <abbr title={`${måned(dato)} ${år(dato)}`}>{år(dato)}</abbr>
+                    {år(dato)}
                 </EtikettLiten>
             )}
         </div>

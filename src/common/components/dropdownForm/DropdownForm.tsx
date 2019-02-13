@@ -12,6 +12,8 @@ import { NedChevron } from 'nav-frontend-chevron';
 
 const USE_CHEVRON = false;
 
+export type DropdownFormStyle = 'border' | 'filled';
+
 interface Props {
     labelRenderer: () => React.ReactNode;
     contentRenderer: () => React.ReactNode;
@@ -25,6 +27,7 @@ interface Props {
     buttonSize?: 'inline' | 'stretched';
     disabled?: boolean;
     wrapperId?: string;
+    style: DropdownFormStyle;
     renderCloseButton?: boolean;
 }
 
@@ -54,6 +57,7 @@ class DropdownForm extends React.Component<Props> {
             contentTitle,
             renderCloseButton,
             disabled,
+            style,
             disabledButtonClassName
         } = this.props;
 
@@ -72,7 +76,8 @@ class DropdownForm extends React.Component<Props> {
                             'inputPanel',
                             bem.element('button'),
                             buttonClassName,
-                            labelAlignment ? bem.element('button', labelAlignment) : undefined
+                            labelAlignment ? bem.element('button', labelAlignment) : undefined,
+                            bem.element('button', style || 'filled')
                         )}>
                         <div className={bem.element('button__label')}>{labelRenderer()}</div>
                         {USE_CHEVRON && (

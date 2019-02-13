@@ -10,6 +10,7 @@ interface Props {
     iconOnly?: boolean;
     layout?: 'horizontal' | 'vertical';
     align?: 'left' | 'right' | 'center';
+    fullWidth?: boolean;
     children: React.ReactNode;
 }
 
@@ -20,11 +21,13 @@ const IconText: React.StatelessComponent<Props> = ({
     iconOnly,
     align = 'left',
     layout = 'horizontal',
+    fullWidth,
     children
 }) => (
     <div
         className={classNames(bem.block, bem.modifier(layout), bem.modifier(align), {
-            [`${bem.block}--iconOnly`]: iconOnly
+            [`${bem.modifier('iconOnly')}`]: iconOnly,
+            [`${bem.modifier('fullWidth')}`]: fullWidth
         })}>
         {icon && <span className={bem.element('icon')}>{icon}</span>}
         {iconOnly ? <AriaText>{children}</AriaText> : <span className={bem.element('text')}>{children}</span>}

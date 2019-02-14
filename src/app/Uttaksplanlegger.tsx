@@ -29,7 +29,7 @@ class Uttaksplanlegger extends React.Component<Props> {
                             </Block>
                             <Switch>
                                 <Route exact={true} path={Pages.planPage} component={UttaksplanSide} />
-                                <Route path={Pages.startPage} component={Skjemaside} />
+                                <Route exact={true} path={Pages.startPage} component={Skjemaside} />
                                 <Redirect to={Pages.startPage} />
                             </Switch>
                         </div>

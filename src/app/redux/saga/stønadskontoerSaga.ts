@@ -12,8 +12,8 @@ import { setStønadskontoer } from '../actions/common/commonActionCreators';
 import { SituasjonSkjemadata, TilgjengeligStønadskonto, StønadskontoType } from '../../types';
 import { AppState } from '../reducers/rootReducer';
 import situasjonsregler from '../../utils/situasjonsregler';
-import { Dekningsgrad } from 'common/types';
 import { Pages } from '../../routes';
+import { Dekningsgrad } from 'common/types';
 
 const getStønadskontoerRequestParams = (
     familiehendelsesdato: Date,
@@ -121,11 +121,13 @@ const getKontoerFromForeldrepengerDTO = (
     };
 };
 
-function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
+function* getStønadskontoer(skjemadata: SituasjonSkjemadata, familiehendelsesdato: Date) {
+    const params80 = getStønadskontoerRequestParams(familiehendelsesdato, skjemadata, '80');
+    const params100 = getStønadskontoerRequestParams(familiehendelsesdato, skjemadata, '100');
     try {
         yield put(updateApi({ stønadskontoer: { pending: true, error: undefined, result: undefined } }));
-        const response80 = yield call(api.getUttakskontoer, { ...params, dekningsgrad: '80' });
-        const response100 = yield call(api.getUttakskontoer, { ...params, dekningsgrad: '100' });
+        const response80 = yield call(api.getUttakskontoer, params80);
+        const response100 = yield call(api.getUttakskontoer, params100);
         const { dekning100, dekning80 } = getKontoerFromForeldrepengerDTO(response80.data, response100.data);
         yield put(setStønadskontoer({ dekning80, dekning100 }));
         yield put(
@@ -138,9 +140,9 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
         );
     } catch (error) {
         const mock: GetStønadskontoerDTO =
-            params.farHarAleneomsorg || params.morHarAleneomsorg
-                ? mockAleneomsorg[params.antallBarn - 1]
-                : mockToForeldre[params.antallBarn - 1];
+            params80.farHarAleneomsorg || params80.morHarAleneomsorg
+                ? mockAleneomsorg[params80.antallBarn - 1]
+                : mockToForeldre[params80.antallBarn - 1];
 
         const { dekning100, dekning80 } = getKontoerFromDTO(mock);
 
@@ -155,16 +157,11 @@ function* getStønadskontoer(params: GetTilgjengeligeStønadskontoerParams) {
 
 function* getStønadskontoerSaga(action: SubmitSkjemadataAction | GetStønadskontoerAction) {
     const appState: AppState = yield select(stateSelector);
-    const { skjemadata, familiehendelsesdato, dekningsgrad } = appState.common;
+    const { skjemadata, familiehendelsesdato } = appState.common;
 
-    if (skjemadata && dekningsgrad) {
-        const params: GetTilgjengeligeStønadskontoerParams = getStønadskontoerRequestParams(
-            familiehendelsesdato,
-            skjemadata,
-            dekningsgrad
-        );
+    if (skjemadata) {
         try {
-            yield call(getStønadskontoer, params);
+            yield call(getStønadskontoer, skjemadata, familiehendelsesdato);
             if (action.type === CommonActionKeys.SUBMIT_SKJEMADATA) {
                 action.history.push(Pages.planPage);
             }

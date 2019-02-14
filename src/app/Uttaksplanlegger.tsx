@@ -2,13 +2,14 @@ import * as React from 'react';
 import BEMHelper from 'common/utils/bem';
 import Sidebanner from './components/sidebanner/Sidebanner';
 import Breadcrumbs from './components/breadcrumbs/Breadcrumbs';
-import { Route, Switch, withRouter, RouteComponentProps } from 'react-router-dom';
+import { Route, Switch, withRouter, RouteComponentProps, Redirect } from 'react-router-dom';
 import UttaksplanSide from './sider/UttaksplanSide';
 import Skjemaside from './sider/Skjemaside';
 import Block from 'common/components/block/Block';
 import VelkommenTekst from './components/content/VelkommenTekst';
 
 import 'common/styles/index.less';
+import { Pages } from './routes';
 
 const cls = BEMHelper('planlegger');
 
@@ -27,8 +28,9 @@ class Uttaksplanlegger extends React.Component<Props> {
                                 <VelkommenTekst />
                             </Block>
                             <Switch>
-                                <Route exact={true} path="/plan" component={UttaksplanSide} />
-                                <Route path="/" component={Skjemaside} />
+                                <Route exact={true} path={Pages.planPage} component={UttaksplanSide} />
+                                <Route path={Pages.startPage} component={Skjemaside} />
+                                <Redirect to={Pages.startPage} />
                             </Switch>
                         </div>
                     </div>

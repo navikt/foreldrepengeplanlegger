@@ -100,7 +100,7 @@ class UttaksplanSide extends React.Component<Props> {
                     />
                 </Block>
                 <Block align="center">
-                    <Link className="lenke" to="/">
+                    <Link className="lenke" to="/foreldrepengeplanlegger">
                         Tilbake til skjema
                     </Link>
                 </Block>

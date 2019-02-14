@@ -5,11 +5,13 @@ import { uttakForFarEllerMedmorFørsteSeksUkerInfoRegel } from './tester/uttakFo
 import { farMedmorsUttakErInnenforMaksAntallDagerRegel } from './tester/farMedmorsUttakErInnenforMaksAntallDager';
 import { morsUttakErInnenforMaksAntallDagerRegel } from './tester/morsUttakErInnenforMaksAntallDager';
 import { alleUttakErInnenforMaksAntallDagerRegel } from './tester/alleUttakErInnenforMaksAntallDager';
+import { ferieMedUttaksdagerInfoRegel } from './tester/ferieMedUttaksdagerInfo';
 
 const uttaksplanRegler: Regel[] = [
+    uttakForFarEllerMedmorFørsteSeksUkerInfoRegel,
+    ferieMedUttaksdagerInfoRegel,
     starterInnenfor12UkerFørTerminRegel,
     erInnenforSisteMuligeUttaksdagRegel,
-    uttakForFarEllerMedmorFørsteSeksUkerInfoRegel,
     farMedmorsUttakErInnenforMaksAntallDagerRegel,
     morsUttakErInnenforMaksAntallDagerRegel,
     alleUttakErInnenforMaksAntallDagerRegel

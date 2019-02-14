@@ -50,8 +50,10 @@
     "uttaksplan.ferie.inneholderHelligdager": "Denne perioden inneholder {dager, plural, one {# helligdag} other {# helligdager}}. Disse blir regnet som dager med foreldrepenger.",
     "regel.feiler.starterInnenfor12UkerFørTermin": "Foreldrepenger før fødsel kan starte tidligst 12 uker før termin. Første mulige dag er {dato}.",
     "regel.feiler.erInnenforSisteMuligeUttaksdag": "Planen går over lenger tid enn tillatt. Siste mulige uttaksdag er {tom}.",
-    "regel.info.uttakForFarEllerMedmorFørsteSeksUkerInfo": "Når {navnFarMedmor} skal ta ut foreldrepenger eller utsette de første seks ukene, må ...",
     "regel.feiler.morsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
     "regel.feiler.farMedmorsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
-    "regel.feiler.alleUttakErInnenforMaksAntallDager": "Det er registrert for mange uker til sammen. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig."
+    "regel.feiler.alleUttakErInnenforMaksAntallDager": "Det er registrert for mange uker til sammen. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig.",
+
+    "regel.info.uttakForFarEllerMedmorFørsteSeksUkerInfo": "Når {navnFarMedmor} skal ta ut foreldrepenger eller utsette de første seks ukene, må ...",
+    "regel.info.ferieMedUttaksdagerInfo": "Det er trukket {dager} med foreldrepenger fra ferie registrert i planen. Dette er fordi ferien inneholder helligdager, som en ikke kan registrere som ferie."
 }

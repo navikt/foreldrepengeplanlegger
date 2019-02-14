@@ -61,7 +61,8 @@ export function isKomplettPeriode(periode: Partial<Periode> | undefined): period
         periode !== undefined &&
         isValidTidsperiode(periode.tidsperiode) &&
         periode.type !== undefined &&
-        periode.forelder !== undefined
+        periode.forelder !== undefined &&
+        ((periode.type === Periodetype.GradertUttak && periode.gradering !== undefined) || true)
     );
 }
 export function isUttakOrGradertUttak(periode: Periode): periode is Uttaksperiode | GradertUttaksperiode {

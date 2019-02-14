@@ -7,7 +7,7 @@ import { Undertittel, Element } from 'nav-frontend-typografi';
 
 import './block.less';
 
-export type BlockPadding = 'xl' | 'l' | 'm' | 's' | 'xs' | 'xxs' | 'xxxs' | 'none';
+export type BlockPadding = 'xxl' | 'xl' | 'l' | 'ml' | 'm' | 's' | 'xs' | 'xxs' | 'xxs' | 'none';
 
 export interface BlockProps {
     title?: React.ReactNode;
@@ -25,7 +25,7 @@ const bem = BEMHelper('block');
 
 const Block: React.StatelessComponent<BlockProps> = ({
     visible,
-    margin = 'm',
+    margin = 'l',
     title,
     animated = false,
     children,

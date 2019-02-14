@@ -32,7 +32,8 @@ export enum CommonActionKeys {
     'SET_UTTAKSDAGER_FØR_TERMIN' = 'setUttaksdagerFørTermin',
     'SET_ØNSKET_FORDELING' = 'setØnsketFordeling',
     'NY_PERIODE_CHANGE' = 'nyPeriodeChange',
-    'SET_UTTAKSPLAN_VALIDERING' = 'setUttaksplanValidering'
+    'SET_UTTAKSPLAN_VALIDERING' = 'setUttaksplanValidering',
+    'VALIDER_UTTAKSPLAN' = 'validerUttaksplan'
 }
 
 interface SetSpråkAction {
@@ -88,6 +89,10 @@ export interface ResetAppAction {
 export interface SetUttaksplanValideringAction {
     type: CommonActionKeys.SET_UTTAKSPLAN_VALIDERING;
     validering: UttaksplanRegelTestresultat;
+}
+
+export interface ValiderUttaksplanAction {
+    type: CommonActionKeys.VALIDER_UTTAKSPLAN;
 }
 
 interface SetDekningsgradAction {
@@ -155,4 +160,5 @@ export type CommonActionTypes =
     | ResetAppAction
     | SetØnsketFordelingAction
     | NyPeriodeChangeAction
+    | ValiderUttaksplanAction
     | SetUttaksplanValideringAction;

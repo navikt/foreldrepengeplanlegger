@@ -19,7 +19,7 @@ interface BuilderSettings {
 
 const SETTINGS: BuilderSettings = {
     useFixedPerioder: false,
-    slåSammenPerioder: true
+    slåSammenPerioder: false
 };
 
 class Builder {

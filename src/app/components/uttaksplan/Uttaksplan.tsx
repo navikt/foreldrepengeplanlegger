@@ -117,7 +117,7 @@ class Uttaksplan extends React.Component<Props, State> {
         return (
             <section>
                 <div className="periodelisteWrapper">
-                    <Block animated={true}>
+                    <Block>
                         <Block margin="s">
                             <div className="periodeliste__header">
                                 <div className="periodeliste__title">

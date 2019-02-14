@@ -10,10 +10,11 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { guid } from 'nav-frontend-js-utils';
 import * as React from 'react';
 import { Regelbrudd, RegelAlvorlighet } from '../../../utils/regler/types';
-import './periodelisteElement.less';
-import { FormattedMessage } from 'react-intl';
 import AdvarselIkon from 'common/components/ikoner/AdvarselIkon';
 import { getAlertstripeTypeFromRegelbrudd } from '../periodelisteUtils';
+import RegelbruddFeilmelding from '../../regelbrudd/RegelbruddFeilmelding';
+
+import './periodelisteElement.less';
 
 interface Props {
     menyer: PeriodeElementMeny[];
@@ -136,10 +137,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                                 <ul className={bem.element('regelbruddListe')}>
                                     {regelbrudd.map((brudd, idx) => (
                                         <li className={bem.element('regelbruddListe__brudd')} key={idx}>
-                                            <FormattedMessage
-                                                id={brudd.feilmelding.intlKey}
-                                                values={brudd.feilmelding.values}
-                                            />
+                                            <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
                                         </li>
                                     ))}
                                 </ul>

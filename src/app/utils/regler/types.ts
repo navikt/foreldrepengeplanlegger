@@ -1,6 +1,7 @@
 import { Dictionary } from 'lodash';
-import { Periode, Situasjon, Uttaksdatoer, UttakFørTerminPeriode } from '../../types';
+import { Periode, Situasjon, Uttaksdatoer, UttakFørTerminPeriode, Forbruk, TilgjengeligeDager } from '../../types';
 import { RegelKey } from './regelKeys';
+import { InjectedIntl } from 'react-intl';
 
 export interface Regelgrunnlag {
     perioder: Periode[];
@@ -11,6 +12,8 @@ export interface Regelgrunnlag {
     uttaksdatoer: Uttaksdatoer;
     navnMor: string;
     navnFarMedmor?: string;
+    forbruk?: Forbruk;
+    tilgjengeligeDager?: TilgjengeligeDager;
 }
 
 export type RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag) => RegelTestresultat;
@@ -31,14 +34,23 @@ export interface RegelTestresultat {
     regelbrudd?: Regelbrudd;
 }
 
+type FeilIntlMessage = (intl: InjectedIntl) => string;
+
+export interface RegelbruddFeilmeldingValues {
+    [key: string]: RegelbruddFeilmeldingValue;
+}
+export type RegelbruddFeilmeldingValue = string | number | Date | FeilIntlMessage | undefined;
+
 export interface Regelbrudd {
     periodeId?: string;
     key: RegelKey;
-    feilmelding: {
-        intlKey: string;
-        values?: any;
-    };
+    feilmelding: RegelbruddFeil;
     alvorlighet: RegelAlvorlighet;
+}
+
+export interface RegelbruddFeil {
+    intlKey: string;
+    values?: RegelbruddFeilmeldingValues;
 }
 
 export type PeriodeRegelTestresultat = Dictionary<RegelTestresultat[]>;

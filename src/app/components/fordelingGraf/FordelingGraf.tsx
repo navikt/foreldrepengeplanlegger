@@ -41,7 +41,7 @@ const Tittel: React.StatelessComponent<{ navn: string; dager?: number; intl: Inj
 };
 
 const FordelingGraf: React.StatelessComponent<Props> = ({ fordeling, omForeldre, intl }) => {
-    const { farMedmor, mor, dagerGjenstaende, overforbruk } = fordeling;
+    const { farMedmor, mor, dagerGjenstående, overforbruk } = fordeling;
     return (
         <div className={bem.block}>
             <div className={bem.element('titler')}>
@@ -54,8 +54,8 @@ const FordelingGraf: React.StatelessComponent<Props> = ({ fordeling, omForeldre,
                     />
                 )}
                 <Tittel
-                    navn={dagerGjenstaende >= 0 ? 'Gjenstående' : 'Dager for mye'}
-                    dager={dagerGjenstaende}
+                    navn={dagerGjenstående >= 0 ? 'Gjenstående' : 'Dager for mye'}
+                    dager={dagerGjenstående}
                     intl={intl}
                 />
             </div>

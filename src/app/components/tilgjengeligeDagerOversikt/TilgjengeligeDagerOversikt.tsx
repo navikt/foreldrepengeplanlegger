@@ -57,7 +57,7 @@ const Fordelingsliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, 
             {omForeldre.farMedmor!.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtFar, intl)}</strong>. Dere
             har{' '}
             <HighlightContent watchValue={dagerFelles}>
-                <strong>{getVarighetString(dagerFelles - flerbarnsdager, intl)}</strong>
+                <strong>{getVarighetString(dagerFelles, intl)}</strong>
             </HighlightContent>{' '}
             fellesperiode som dere kan fordele som dere ønsker.
             {flerbarnsdager > 0 && (

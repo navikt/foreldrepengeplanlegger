@@ -1,17 +1,18 @@
 import { all, put, select, takeLatest } from 'redux-saga/effects';
 import { AppState } from '../reducers/rootReducer';
+import groupBy from 'lodash.groupby';
 import {
     updateForbruk,
     updateTilgjengeligeDager,
     updateOmForeldre,
-    setUttaksplanValidering
+    setUttaksplanValidering,
+    validerUttaksplan
 } from '../actions/common/commonActionCreators';
 import { CommonActionKeys } from '../actions/common/commonActionDefinitions';
 import { selectForbruk, selectTilgjengeligeDager } from '../selectors';
 import { getInformasjonOmForeldre } from '../../utils/common';
 import { ApiActionKeys } from '../actions/api/apiActionDefinitions';
 import { getUttaksdatoer } from '../../utils/uttaksdatoer';
-import groupBy from 'lodash.groupby';
 import { Regelgrunnlag, RegelTestresultat } from '../../utils/regler/types';
 import { sjekkUttaksplanOppMotRegler, getRegelbrudd } from '../../utils/regler/regelUtils';
 
@@ -22,6 +23,7 @@ function* updateForbrukSaga() {
     const { perioder, tilgjengeligeDager } = appState.common;
     if (perioder && tilgjengeligeDager) {
         yield put(updateForbruk(selectForbruk(appState)));
+        yield put(validerUttaksplan());
     }
 }
 
@@ -38,11 +40,10 @@ function* updateOmForeldreSaga() {
         yield put(updateOmForeldre(omForeldre));
     }
 }
-
-function* validerUttaksplan() {
+function* validerUttaksplanSaga() {
     const appState: AppState = yield select(stateSelector);
     const { common } = appState;
-    const { skjemadata, familiehendelsesdato, perioder, periodeFørTermin } = common;
+    const { skjemadata, familiehendelsesdato, perioder, periodeFørTermin, forbruk, tilgjengeligeDager } = common;
 
     if (skjemadata) {
         const regelgrunnlag: Regelgrunnlag = {
@@ -53,7 +54,9 @@ function* validerUttaksplan() {
             situasjon: skjemadata.situasjon,
             uttaksdatoer: getUttaksdatoer(familiehendelsesdato),
             navnMor: skjemadata.navnMor,
-            navnFarMedmor: skjemadata.navnFarMedmor
+            navnFarMedmor: skjemadata.navnFarMedmor,
+            forbruk,
+            tilgjengeligeDager
         };
         const resultat = sjekkUttaksplanOppMotRegler(regelgrunnlag);
         const feil = resultat.filter(
@@ -92,18 +95,19 @@ function* forbrukSaga() {
     yield all([
         takeLatest(
             [
-                CommonActionKeys.SET_STØNADSKONTOER,
-                CommonActionKeys.SET_UTTAKSDAGER_FØR_TERMIN,
-                CommonActionKeys.SET_ØNSKET_FORDELING,
-                CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER,
-                CommonActionKeys.SET_PERIODER,
-                CommonActionKeys.ADD_PERIODE,
-                CommonActionKeys.UPDATE_PERIODE,
-                CommonActionKeys.REMOVE_PERIODE,
-                CommonActionKeys.MOVE_PERIODE,
+                // CommonActionKeys.SET_STØNADSKONTOER,
+                // CommonActionKeys.SET_UTTAKSDAGER_FØR_TERMIN,
+                // CommonActionKeys.SET_ØNSKET_FORDELING,
+                // CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER,
+                // CommonActionKeys.SET_PERIODER,
+                // CommonActionKeys.ADD_PERIODE,
+                // CommonActionKeys.UPDATE_PERIODE,
+                // CommonActionKeys.REMOVE_PERIODE,
+                // CommonActionKeys.MOVE_PERIODE,
+                CommonActionKeys.VALIDER_UTTAKSPLAN,
                 CommonActionKeys.SET_DEKNINGSGRAD
             ],
-            validerUttaksplan
+            validerUttaksplanSaga
         )
     ]);
 

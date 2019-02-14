@@ -18,20 +18,19 @@ import { getRegelbruddForPeriode } from '../../utils/regler/regelUtils';
 const bem = BEMHelper('periodeliste');
 
 const PosedLi = posed.li({
-    open: {
-        staggerChildren: 200
-    },
     enter: {
         opacity: 1,
         delay: 250,
-        transform: { scale: 0 },
-        transition: { duration: 500, ease: 'easeInOut' }
+        transform: { scaleY: 1 },
+        transition: { duration: 500, ease: 'easeInOut' },
+        flip: true
     },
     exit: {
         opacity: 0,
-        delay: 250,
-        transform: { scale: 0 },
-        transition: { duration: 750, ease: 'easeInOut' }
+        delay: 125,
+        transform: { scaleY: 0 },
+        transition: { duration: 500, ease: 'easeInOut' },
+        flip: true
     }
 });
 

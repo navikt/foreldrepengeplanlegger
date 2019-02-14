@@ -15,6 +15,7 @@ interface Props {
     førsteUttaksdagFørTermin: Date;
     førsteUttaksdag: Date;
     sisteUttaksdag: Date;
+    nyPeriodeId: string;
     onSubmit: (periode: Periode) => void;
     onCancel: () => void;
     onChange: (periode?: Periode) => void;
@@ -45,18 +46,21 @@ class Periodeskjema extends React.Component<Props, {}> {
     }
 
     handleFormValuesChange(values: Partial<PeriodeskjemaFormValues> = {}) {
-        const { onChange } = this.props;
+        const { onChange, nyPeriodeId } = this.props;
         if (onChange) {
             const { fom, forelder, gradering, periodetype, tom } = values;
             if (fom && tom && forelder && periodetype) {
                 onChange(
-                    periodeskjemaUtils.createPeriodeFromValues({
-                        fom,
-                        tom,
-                        forelder,
-                        periodetype,
-                        gradering
-                    })
+                    periodeskjemaUtils.createPeriodeFromValues(
+                        {
+                            fom,
+                            tom,
+                            forelder,
+                            periodetype,
+                            gradering
+                        },
+                        nyPeriodeId
+                    )
                 );
             } else {
                 onChange();
@@ -72,6 +76,7 @@ class Periodeskjema extends React.Component<Props, {}> {
             førsteUttaksdagFørTermin,
             førsteUttaksdag,
             sisteUttaksdag,
+            nyPeriodeId,
             onSubmit
         } = this.props;
         return (
@@ -79,7 +84,7 @@ class Periodeskjema extends React.Component<Props, {}> {
                 isInitialValid={false}
                 initialValues={periodeskjemaUtils.getInitialFormValuesFromPeriode(periode, omForeldre)}
                 onSubmit={(values: PeriodeskjemaFormValues) =>
-                    onSubmit(periodeskjemaUtils.createPeriodeFromValues(values))
+                    onSubmit(periodeskjemaUtils.createPeriodeFromValues(values, nyPeriodeId))
                 }
                 render={(props: FormikProps<PeriodeskjemaFormValues>) => (
                     <PeriodeskjemaForm

@@ -1,15 +1,14 @@
 import { Periodetype, Periode, OmForeldre, Forelder } from '../../types';
-import { guid } from 'nav-frontend-js-utils';
 import { PeriodeskjemaFormValues } from './types';
 import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
 import { Tidsperioden } from '../../utils/Tidsperioden';
 
-const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
+const createPeriodeFromValues = (values: PeriodeskjemaFormValues, nyPeriodeId: string): Periode => {
     switch (values.periodetype) {
         case Periodetype.Ferie:
             return {
                 type: Periodetype.Ferie,
-                id: guid(),
+                id: nyPeriodeId,
                 tidsperiode: {
                     fom: values.fom,
                     tom: values.tom
@@ -19,7 +18,7 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
         case Periodetype.Arbeid:
             return {
                 type: Periodetype.Arbeid,
-                id: guid(),
+                id: nyPeriodeId,
                 tidsperiode: {
                     fom: values.fom,
                     tom: values.tom
@@ -29,7 +28,7 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
         case Periodetype.Uttak:
             return {
                 type: Periodetype.Uttak,
-                id: guid(),
+                id: nyPeriodeId,
                 tidsperiode: {
                     fom: values.fom,
                     tom: values.tom
@@ -39,7 +38,7 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
         case Periodetype.UttakFørTermin:
             return {
                 type: Periodetype.UttakFørTermin,
-                id: guid(),
+                id: nyPeriodeId,
                 tidsperiode: {
                     fom: values.fom,
                     tom: values.tom
@@ -49,7 +48,7 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
         case Periodetype.GradertUttak:
             return {
                 type: Periodetype.GradertUttak,
-                id: guid(),
+                id: nyPeriodeId,
                 tidsperiode: {
                     fom: values.fom,
                     tom: values.tom
@@ -60,7 +59,7 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues): Periode => {
         case Periodetype.UbetaltPermisjon:
             return {
                 type: Periodetype.UbetaltPermisjon,
-                id: guid(),
+                id: nyPeriodeId,
                 tidsperiode: {
                     fom: values.fom,
                     tom: values.tom
@@ -91,7 +90,7 @@ const getInitialFormValuesFromPeriode = (
 const getBrukteUttaksdagerForNyPeriode = (values: PeriodeskjemaFormValues): number | undefined => {
     const { fom, tom, periodetype } = values;
     if (fom && tom && periodetype) {
-        const uttaksinfo = getUttaksinfoForPeriode(createPeriodeFromValues(values));
+        const uttaksinfo = getUttaksinfoForPeriode(createPeriodeFromValues(values, ''));
         return uttaksinfo ? uttaksinfo.antallUttaksdagerBrukt : undefined;
     } else if (fom && tom) {
         return Tidsperioden({ fom, tom }).getAntallUttaksdager();

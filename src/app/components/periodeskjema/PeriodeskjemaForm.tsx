@@ -19,6 +19,8 @@ import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
 import periodeskjemaUtils from './utils';
 import { getTidsperiode, Tidsperioden } from '../../utils/Tidsperioden';
 
+import './periodeSkjema.less';
+
 interface OwnProps {
     nesteUttaksdag: Date;
     førsteUttaksdagFørTermin: Date;
@@ -78,7 +80,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         const brukteUttaksdager = periodeskjemaUtils.getBrukteUttaksdagerForNyPeriode(formik.values);
         const uttaksdager = fom && tom ? Tidsperioden({ fom, tom }).getAntallUttaksdager() : undefined;
         return (
-            <Form>
+            <Form className="periodeSkjema">
                 <Block margin="xs">
                     <Ingress>Legg til ny periode</Ingress>
                 </Block>

@@ -34,6 +34,7 @@ interface OwnProps {
     forbruk: Forbruk;
     uttaksdatoer: Uttaksdatoer;
     nyPeriode: Partial<Periode> | undefined;
+    nyPeriodeId: string;
     onResetApp: () => void;
     onNyPeriodeChange?: (periode?: Periode) => void;
 }
@@ -95,7 +96,8 @@ class Uttaksplan extends React.Component<Props, State> {
             omForeldre,
             uttaksdatoer,
             regelTestresultat,
-            nyPeriode
+            nyPeriode,
+            nyPeriodeId
         } = this.props;
         const { visSkjema } = this.state;
         const nesteUttaksdag =
@@ -132,23 +134,29 @@ class Uttaksplan extends React.Component<Props, State> {
                             </div>
                         </Block>
                         <Block margin="s">
-                            <Periodeliste {...this.props} onRemove={this.handleRemovePeriode} />
+                            <Periodeliste
+                                {...this.props}
+                                onRemove={this.handleRemovePeriode}
+                                nyPeriodeId={nyPeriodeId}
+                                nyPeriodeSkjema={
+                                    visSkjema && (
+                                        <Periodeskjema
+                                            nyPeriode={nyPeriode}
+                                            nyPeriodeId={nyPeriodeId}
+                                            omForeldre={omForeldre}
+                                            onCancel={() => this.setState({ visSkjema: false })}
+                                            onChange={this.handleNyPeriodeChange}
+                                            onSubmit={(periode) => this.addPeriode(periode)}
+                                            nesteUttaksdag={nesteUttaksdag}
+                                            førsteUttaksdag={uttaksdatoer.førsteUttaksdag}
+                                            sisteUttaksdag={uttaksdatoer.etterFødsel.sisteMuligeUttaksdag}
+                                            førsteUttaksdagFørTermin={uttaksdatoer.førFødsel.førsteMuligeUttaksdag}
+                                        />
+                                    )
+                                }
+                            />
                         </Block>
                         <Block visible={visSkjema}>
-                            <Block margin={periodeSomVilBliSplittet || perioderSomVilBliFlyttetPå ? 'm' : 'none'}>
-                                <Periodeskjema
-                                    nyPeriode={nyPeriode}
-                                    omForeldre={omForeldre}
-                                    onCancel={() => this.setState({ visSkjema: false })}
-                                    onChange={this.handleNyPeriodeChange}
-                                    onSubmit={(periode) => this.addPeriode(periode)}
-                                    nesteUttaksdag={nesteUttaksdag}
-                                    førsteUttaksdag={uttaksdatoer.førsteUttaksdag}
-                                    sisteUttaksdag={uttaksdatoer.etterFødsel.sisteMuligeUttaksdag}
-                                    førsteUttaksdagFørTermin={uttaksdatoer.førFødsel.førsteMuligeUttaksdag}
-                                />
-                            </Block>
-
                             <Block visible={periodeSomVilBliSplittet !== undefined}>
                                 {periodeSomVilBliSplittet && (
                                     <AlertStripe type="info">

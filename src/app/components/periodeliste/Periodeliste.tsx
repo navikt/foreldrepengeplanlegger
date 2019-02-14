@@ -11,9 +11,9 @@ import { Ingress } from 'nav-frontend-typografi';
 import SlåSammenPerioderValg from './parts/SlåSammenPerioderValg';
 import periodelisteUtils from './periodelisteUtils';
 import posed, { PoseGroup } from 'react-pose';
+import { getRegelbruddForPeriode } from '../../utils/regler/regelUtils';
 
 import './periodeliste.less';
-import { getRegelbruddForPeriode } from '../../utils/regler/regelUtils';
 
 const bem = BEMHelper('periodeliste');
 
@@ -22,7 +22,10 @@ const PosedLi = posed.li({
         opacity: 1,
         delay: 250,
         transform: { scaleY: 1 },
-        transition: { duration: 500, ease: 'easeInOut' },
+        transition: {
+            y: { type: 'spring', stiffness: 1000, damping: 15 },
+            default: { duration: 1300 }
+        },
         flip: true
     },
     exit: {
@@ -34,13 +37,20 @@ const PosedLi = posed.li({
     }
 });
 
-const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
+interface OwnProps {
+    nyPeriodeSkjema: React.ReactNode;
+    nyPeriodeId: string;
+}
+
+const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (props) => {
     const {
         perioder,
         periodeFørTermin,
         familiehendelsesdato,
         onSlåSammenPerioder,
         regelTestresultat,
+        nyPeriodeSkjema,
+        nyPeriodeId,
         ...elementProps
     } = props;
     const { onResetPlan } = elementProps;
@@ -55,6 +65,28 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
             </div>
         );
     }
+    const posedItems = perioder.map((periode: Periode, index: number) => {
+        return (
+            <PosedLi className="periodeliste__periode" key={periode.id}>
+                {onSlåSammenPerioder &&
+                    periodelisteUtils.erPeriodeLikForrigePeriode(perioder, periode, index, antallPerioder) && (
+                        <SlåSammenPerioderValg
+                            periode={periode}
+                            forrigePeriode={perioder[index - 1]}
+                            onSamlePerioder={onSlåSammenPerioder}
+                        />
+                    )}
+                <PeriodeElement
+                    periode={periode}
+                    {...elementProps}
+                    startdatoErLåst={true}
+                    regelbrudd={getRegelbruddForPeriode(regelTestresultat, periode.id)}
+                />
+            </PosedLi>
+        );
+    });
+    posedItems.push(<PosedLi key={nyPeriodeId}>{nyPeriodeSkjema}</PosedLi>);
+
     return (
         <div className={bem.block}>
             {periodeFørTermin ? (
@@ -79,33 +111,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
             ) : (
                 undefined
             )}
-            <PoseGroup>
-                {perioder.map((periode: Periode, index: number) => {
-                    return (
-                        <PosedLi className="periodeliste__periode" key={periode.id}>
-                            {onSlåSammenPerioder &&
-                                periodelisteUtils.erPeriodeLikForrigePeriode(
-                                    perioder,
-                                    periode,
-                                    index,
-                                    antallPerioder
-                                ) && (
-                                    <SlåSammenPerioderValg
-                                        periode={periode}
-                                        forrigePeriode={perioder[index - 1]}
-                                        onSamlePerioder={onSlåSammenPerioder}
-                                    />
-                                )}
-                            <PeriodeElement
-                                periode={periode}
-                                {...elementProps}
-                                startdatoErLåst={true}
-                                regelbrudd={getRegelbruddForPeriode(regelTestresultat, periode.id)}
-                            />
-                        </PosedLi>
-                    );
-                })}
-            </PoseGroup>
+            <PoseGroup>{posedItems}</PoseGroup>
         </div>
     );
 };

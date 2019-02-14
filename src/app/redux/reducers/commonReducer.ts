@@ -18,6 +18,7 @@ import { setStorage, getStorage, clearStorage } from '../../utils/storage';
 import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
 import { lagUttaksplan } from '../../utils/forslag/lagUttaksplan';
 import { UttaksplanRegelTestresultat } from '../../utils/regler/types';
+import { guid } from 'nav-frontend-js-utils';
 
 export interface ØnsketFordelingForeldrepenger {
     harValgtFordeling: boolean;
@@ -30,6 +31,7 @@ export interface CommonState {
     perioder: Periode[];
     periodeFørTermin?: UttakFørTerminPeriode;
     nyPeriode: Periode | undefined;
+    nyPeriodeId: string;
     skjemadata?: SituasjonSkjemadata;
     familiehendelsesdato: Date;
     dekningsgrad?: Dekningsgrad;
@@ -52,6 +54,7 @@ export const getDefaultCommonState = (storage?: CommonState): CommonState => {
     return {
         språkkode: 'nb',
         perioder: [],
+        nyPeriodeId: guid(),
         familiehendelsesdato: new Date(),
         dekningsgrad: undefined,
         stønadskontoer100: {
@@ -145,6 +148,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
         case CommonActionKeys.ADD_PERIODE:
             return updateStateAndStorage(state, {
                 nyPeriode: undefined,
+                nyPeriodeId: guid(),
                 perioder: getBuilder()
                     .leggTilPeriode(action.periode)
                     .build()

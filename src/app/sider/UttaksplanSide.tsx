@@ -47,6 +47,7 @@ interface StateProps {
     ønsketFordeling: ØnsketFordelingForeldrepenger;
     uttaksdatoer: Uttaksdatoer;
     nyPeriode: Partial<Periode> | undefined;
+    nyPeriodeId: string;
     regelTestresultat: UttaksplanRegelTestresultat;
 }
 
@@ -76,6 +77,7 @@ class UttaksplanSide extends React.Component<Props> {
             uttaksdatoer,
             regelTestresultat,
             nyPeriode,
+            nyPeriodeId,
             dispatch
         } = this.props;
 
@@ -140,6 +142,7 @@ class UttaksplanSide extends React.Component<Props> {
                                     />
                                 ) : (
                                     <Uttaksplan
+                                        nyPeriodeId={nyPeriodeId}
                                         familiehendelsesdato={familiehendelsesdato}
                                         omForeldre={omForeldre}
                                         periodeFørTermin={periodeFørTermin}
@@ -185,7 +188,8 @@ const mapStateToProps = (state: AppState): StateProps => {
         ønsketFordeling: state.common.ønsketFordeling,
         uttaksdatoer: getUttaksdatoer(state.common.familiehendelsesdato),
         regelTestresultat: state.common.regelTestresultat,
-        nyPeriode: state.common.nyPeriode
+        nyPeriode: state.common.nyPeriode,
+        nyPeriodeId: state.common.nyPeriodeId
     };
 };
 

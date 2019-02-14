@@ -1,7 +1,8 @@
 export enum RegelKey {
+    'uttakForFarEllerMedmorFørsteSeksUkerInfo' = 'uttakForFarEllerMedmorFørsteSeksUkerInfo',
+    'ferieMedUttaksdagerInfo' = 'ferieMedUttaksdagerInfo',
     'erInnenforSisteMuligeUttaksdag' = 'erInnenforSisteMuligeUttaksdag',
     'starterInnenfor12UkerFørTermin' = 'starterInnenfor12UkerFørTermin',
-    'uttakForFarEllerMedmorFørsteSeksUkerInfo' = 'uttakForFarEllerMedmorFørsteSeksUkerInfo',
     'farMedmorsUttakErInnenforMaksAntallDager' = 'farMedmorsUttakErInnenforMaksAntallDager',
     'morsUttakErInnenforMaksAntallDager' = 'morsUttakErInnenforMaksAntallDager',
     'alleUttakErInnenforMaksAntallDager' = 'alleUttakErInnenforMaksAntallDager'

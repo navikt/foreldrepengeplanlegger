@@ -24,6 +24,7 @@ const DropdownFormMenu: React.StatelessComponent<Props> = ({ options, selectedVa
                     <li key={option.value}>
                         <MenuItem value={option.value} className="radioPanel inputPanel dropdownFormMenu__menuItem">
                             <input
+                                readOnly={true}
                                 className="inputPanel__field"
                                 type="radio"
                                 name="example-1"

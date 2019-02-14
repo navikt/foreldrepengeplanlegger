@@ -184,6 +184,9 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps, State> {
                 </Block> */}
 
                 <DatoValg {...props} />
+
+                <VarighetValg {...props} />
+
                 {/* {this.state.plassering === 'inni' && (
                     <Alertstriper type="info">
                         Når du plasserer en periode inni mellom andre perioder, vil periodene etter den nye perioden bli

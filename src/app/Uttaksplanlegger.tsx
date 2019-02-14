@@ -7,9 +7,9 @@ import UttaksplanSide from './sider/UttaksplanSide';
 import Skjemaside from './sider/Skjemaside';
 import Block from 'common/components/block/Block';
 import VelkommenTekst from './components/content/VelkommenTekst';
+import { Pages } from './routes';
 
 import 'common/styles/index.less';
-import { Pages } from './routes';
 
 const cls = BEMHelper('planlegger');
 

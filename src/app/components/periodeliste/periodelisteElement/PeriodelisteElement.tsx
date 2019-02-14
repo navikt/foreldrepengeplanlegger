@@ -120,7 +120,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                     )}
                 </div>
                 {info && (
-                    <div className={bem.element('info')} id={infoId}>
+                    <div className={bem.element('info', infoVisible ? 'open' : undefined)} id={infoId}>
                         <Block visible={infoVisible} animated={true} style="info" margin="none">
                             {info.map((i, idx) => (
                                 <p key={idx} className={bem.element('infoText')}>
@@ -131,7 +131,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                     </div>
                 )}
                 {regelbrudd && regelbrudd.length > 0 && regelInfoVisible && (
-                    <div className={bem.element('regelbrudd')} id={regelId}>
+                    <div className={bem.element('regelbrudd', regelInfoVisible ? 'open' : undefined)} id={regelId}>
                         <Block visible={regelInfoVisible} animated={true} margin="none">
                             <AlertStripe type={getAlertstripeTypeFromRegelbrudd(regelbrudd[0])} solid={true}>
                                 <ul className={bem.element('regelbruddListe')}>

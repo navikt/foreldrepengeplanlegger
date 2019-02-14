@@ -6,6 +6,7 @@ import Block from 'common/components/block/Block';
 import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import DagMndPeriode from 'common/components/dagMnd/DagMndPeriode';
 import VarighetMenyInnhold from './VarighetMenyInnhold';
+import { Periodetype } from '../../../types';
 
 export interface VarighetChangeEvent {
     ingenVarighet?: boolean;
@@ -14,7 +15,7 @@ export interface VarighetChangeEvent {
 
 const AUTOCLOSE_MENY = false;
 
-type VarighetVariant = 'foreldrepengerFørTermin' | 'låstStartdato' | 'kunFomTom';
+type VarighetVariant = 'foreldrepengerFørTermin' | 'låstStartdato' | 'kunFomTom' | 'åpen';
 
 export interface OwnProps {
     dager?: number;
@@ -33,6 +34,7 @@ export interface OwnProps {
     forelderNavn?: string;
     gradering?: number;
     dropdownStyle?: DropdownFormStyle;
+    periodetype: Periodetype | undefined;
     onTidsperiodeChange: (tidsperiode: Tidsperiode) => void;
     onVarighetChange?: (evt: VarighetChangeEvent) => void;
 }
@@ -42,13 +44,15 @@ export type VarighetMenyProps = OwnProps & InjectedIntlProps;
 const VIS_DATO: boolean = true;
 
 export const getVarighetVariant = (props: VarighetMenyProps): VarighetVariant => {
-    const { sluttdatoErLåst, startdatoErLåst, onVarighetChange } = props;
+    const { sluttdatoErLåst, startdatoErLåst, onVarighetChange, periodetype } = props;
     if (startdatoErLåst === true && sluttdatoErLåst !== true) {
         return 'låstStartdato';
     } else if (onVarighetChange === undefined) {
         return 'kunFomTom';
+    } else if (periodetype === Periodetype.UttakFørTermin) {
+        return 'foreldrepengerFørTermin';
     }
-    return 'foreldrepengerFørTermin';
+    return 'åpen';
 };
 
 const getTittel = (variant: VarighetVariant): string => {

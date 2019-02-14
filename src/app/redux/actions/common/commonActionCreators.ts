@@ -133,6 +133,12 @@ export function setUttaksplanValidering(validering: UttaksplanRegelTestresultat)
     };
 }
 
+export function validerUttaksplan(): CommonActionTypes {
+    return {
+        type: CommonActionKeys.VALIDER_UTTAKSPLAN
+    };
+}
+
 export default {
     setSpråk
 };

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Regelbrudd, RegelAlvorlighet } from '../../utils/regler/types';
+import { Regelbrudd, RegelAlvorlighet, RegelbruddFeil } from '../../utils/regler/types';
 import BEMHelper from 'common/utils/bem';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, InjectedIntl, injectIntl, InjectedIntlProps } from 'react-intl';
 import { Undertittel } from 'nav-frontend-typografi';
 
 interface Props {
@@ -10,7 +10,27 @@ interface Props {
 
 const bem = BEMHelper('regelbrudd');
 
-const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
+const getRegelbruddFeilmeldingValue = (
+    intl: InjectedIntl,
+    feilmelding: RegelbruddFeil
+): { [key: string]: string } | undefined => {
+    const { values } = feilmelding;
+    if (values === undefined) {
+        return undefined;
+    }
+    const newValues: { [key: string]: string } = {};
+
+    Object.keys(values).forEach((key) => {
+        const value = values[key];
+        if (value) {
+            newValues[key] = typeof value === 'function' ? value(intl) : `${value}`;
+        }
+    });
+
+    return newValues;
+};
+
+const Regelbrudd: React.StatelessComponent<Props & InjectedIntlProps> = ({ regelbrudd, intl }) => {
     const ulovlig = regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.ULOVLIG);
     const info = regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.INFO);
     return (
@@ -21,7 +41,10 @@ const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
                     <ul>
                         {ulovlig.map((brudd, idx) => (
                             <li key={idx}>
-                                <FormattedMessage id={brudd.feilmelding.intlKey} values={brudd.feilmelding.values} />
+                                <FormattedMessage
+                                    id={brudd.feilmelding.intlKey}
+                                    values={getRegelbruddFeilmeldingValue(intl, brudd.feilmelding)}
+                                />
                             </li>
                         ))}
                     </ul>
@@ -33,7 +56,10 @@ const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
                     <ul>
                         {info.map((brudd, idx) => (
                             <li key={idx}>
-                                <FormattedMessage id={brudd.feilmelding.intlKey} values={brudd.feilmelding.values} />
+                                <FormattedMessage
+                                    id={brudd.feilmelding.intlKey}
+                                    values={getRegelbruddFeilmeldingValue(intl, brudd.feilmelding)}
+                                />
                             </li>
                         ))}
                     </ul>
@@ -43,4 +69,4 @@ const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
     );
 };
 
-export default Regelbrudd;
+export default injectIntl(Regelbrudd);

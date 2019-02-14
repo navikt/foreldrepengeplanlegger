@@ -93,7 +93,7 @@ export interface ForbrukPerPeriodetype {
 
 export interface Fordeling {
     dagerTotalt: number;
-    dagerGjenstaende: number;
+    dagerGjenstående: number;
     mor: {
         uttaksdager: number;
         pst: number;
@@ -109,8 +109,8 @@ export interface Fordeling {
 }
 
 export interface Forbruk {
-    farMedmor: ForelderForbruk;
-    mor?: ForelderForbruk;
+    mor: ForelderForbruk;
+    farMedmor?: ForelderForbruk;
     fordeling: Fordeling;
 }
 

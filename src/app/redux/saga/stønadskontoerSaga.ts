@@ -13,6 +13,7 @@ import { SituasjonSkjemadata, TilgjengeligStønadskonto, StønadskontoType } fro
 import { AppState } from '../reducers/rootReducer';
 import situasjonsregler from '../../utils/situasjonsregler';
 import { Dekningsgrad } from 'common/types';
+import { Pages } from '../../routes';
 
 const getStønadskontoerRequestParams = (
     familiehendelsesdato: Date,
@@ -165,13 +166,13 @@ function* getStønadskontoerSaga(action: SubmitSkjemadataAction | GetStønadskon
         try {
             yield call(getStønadskontoer, params);
             if (action.type === CommonActionKeys.SUBMIT_SKJEMADATA) {
-                action.history.push('/plan');
+                action.history.push(Pages.planPage);
             }
         } catch (error) {
-            action.history.replace('/');
+            action.history.replace(Pages.startPage);
         }
     } else {
-        action.history.replace('/');
+        action.history.replace(Pages.startPage);
     }
 }
 

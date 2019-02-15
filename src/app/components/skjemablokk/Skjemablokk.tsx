@@ -20,7 +20,7 @@ const Skjemablokk: React.StatelessComponent<Props> = ({
     feil,
     children,
     visible,
-    animated = true,
+    animated = false,
     margin = 'l'
 }) => (
     <div className="skjemablokkWrapper">

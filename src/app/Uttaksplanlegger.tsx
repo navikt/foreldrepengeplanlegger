@@ -10,6 +10,7 @@ import VelkommenTekst from './components/content/VelkommenTekst';
 import { Pages } from './routes';
 
 import 'common/styles/index.less';
+import DevSide from './sider/DevSide';
 
 const cls = BEMHelper('planlegger');
 
@@ -30,6 +31,7 @@ class Uttaksplanlegger extends React.Component<Props> {
                             <Switch>
                                 <Route exact={true} path={Pages.planPage} component={UttaksplanSide} />
                                 <Route exact={true} path={Pages.startPage} component={Skjemaside} />
+                                <Route exact={true} path={Pages.dev} component={DevSide} />
                                 <Redirect to={Pages.startPage} />
                             </Switch>
                         </div>

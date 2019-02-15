@@ -18,22 +18,32 @@ import './periodeliste.less';
 const bem = BEMHelper('periodeliste');
 
 const PosedLi = posed.li({
-    enter: {
-        opacity: 1,
-        delay: 250,
-        transform: { scaleY: 1 },
+    flip: {
+        y: 0,
         transition: {
-            y: { type: 'spring', stiffness: 1000, damping: 15 },
-            default: { duration: 1300 }
-        },
-        flip: true
+            y: { type: 'spring', stiffness: 500, damping: 100 },
+            default: {
+                type: 'tween',
+                ease: 'easeOut',
+                duration: 125
+            }
+        }
+    },
+    enter: {
+        x: 0,
+        opacity: 1,
+        transition: {
+            x: { type: 'spring', stiffness: 500, damping: 100 },
+            default: {
+                type: 'tween',
+                ease: 'easeOut',
+                duration: 250
+            }
+        }
     },
     exit: {
-        opacity: 0,
-        delay: 125,
-        transform: { scaleY: 0 },
-        transition: { duration: 500, ease: 'easeInOut' },
-        flip: true
+        x: '-100%',
+        opacity: 0
     }
 });
 

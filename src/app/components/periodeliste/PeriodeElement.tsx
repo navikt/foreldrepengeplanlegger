@@ -72,12 +72,9 @@ class PeriodeElement extends React.Component<Props> {
         const { uttaksinfo } = this.props.periode;
         const periode = this.props.periode;
 
-        // if (uttaksinfo === undefined) {
-        //     return <div>Ingen periodeinfo</div>;
-        // }
-        const { antallUttaksdagerBrukt, antallUttaksdager } = uttaksinfo! || {
-            antallUttaksdagerBrukt: -1,
-            antallUttaksdager: -1
+        const { antallUttaksdagerBrukt, antallUttaksdager } = uttaksinfo || {
+            antallUttaksdagerBrukt: 0,
+            antallUttaksdager: 0
         };
 
         const foreldernavn = getForelderNavn(periode.forelder, omForeldre);

@@ -23,6 +23,7 @@ const PosedLi = posed.li({
         transition: {
             y: { type: 'spring', stiffness: 500, damping: 100 },
             default: {
+                delay: 240,
                 type: 'tween',
                 ease: 'easeOut',
                 duration: 125
@@ -35,6 +36,7 @@ const PosedLi = posed.li({
         transition: {
             x: { type: 'spring', stiffness: 500, damping: 100 },
             default: {
+                delay: 240,
                 type: 'tween',
                 ease: 'easeOut',
                 duration: 250

@@ -57,7 +57,7 @@ const Block: React.StatelessComponent<BlockProps> = ({
             <div className={contentClass}>{children}</div>
         );
 
-    if (animated === true) {
+    if (animated === true && 1 + 1 === 2) {
         return (
             <Collapse isOpened={visible !== false} springConfig={collapseSpringConfig}>
                 {content}

@@ -72,9 +72,13 @@ class PeriodeElement extends React.Component<Props> {
         const { uttaksinfo } = this.props.periode;
         const periode = this.props.periode;
 
-        if (uttaksinfo === undefined) {
-            return <div>Ingen periodeinfo</div>;
-        }
+        // if (uttaksinfo === undefined) {
+        //     return <div>Ingen periodeinfo</div>;
+        // }
+        const { antallUttaksdagerBrukt, antallUttaksdager } = uttaksinfo! || {
+            antallUttaksdagerBrukt: -1,
+            antallUttaksdager: -1
+        };
 
         const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
         const harFlereForeldre = omForeldre.antallForeldre > 1;
@@ -94,11 +98,7 @@ class PeriodeElement extends React.Component<Props> {
                                     tidsperiode={this.props.periode.tidsperiode}
                                     foreldernavn={foreldernavn}
                                     erLåst={typeErLåst}
-                                    brukteUttaksdager={
-                                        this.props.periode.uttaksinfo
-                                            ? this.props.periode.uttaksinfo.antallUttaksdagerBrukt
-                                            : undefined
-                                    }
+                                    brukteUttaksdager={antallUttaksdagerBrukt}
                                     onChange={(periodetype) =>
                                         onUpdate(changePeriodeType(this.props.periode, periodetype))
                                     }
@@ -113,7 +113,7 @@ class PeriodeElement extends React.Component<Props> {
                                     foreldernavn={omForeldre.antallForeldre === 2 ? foreldernavn : 'du'}
                                     gradering={this.props.periode.gradering}
                                     onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
-                                    uttaksdagerBrukt={uttaksinfo.antallUttaksdagerBrukt}
+                                    uttaksdagerBrukt={antallUttaksdagerBrukt}
                                 />
                             ),
                             isVisibleCheck: () => periode.type === Periodetype.GradertUttak
@@ -146,8 +146,8 @@ class PeriodeElement extends React.Component<Props> {
                                     forelderNavn={foreldernavn}
                                     gradering={periode.gradering}
                                     gradert={periode.type === Periodetype.GradertUttak}
-                                    dager={uttaksinfo.antallUttaksdager}
-                                    brukteUttaksdager={uttaksinfo.antallUttaksdagerBrukt}
+                                    dager={antallUttaksdager}
+                                    brukteUttaksdager={antallUttaksdagerBrukt}
                                     førsteUttaksdag={
                                         periode.type === Periodetype.UttakFørTermin
                                             ? uttaksdatoer.førFødsel.førsteMuligeUttaksdag
@@ -185,10 +185,10 @@ class PeriodeElement extends React.Component<Props> {
                         onRemove: () => onRemove(periode)
                     }}
                     info={
-                        periode.type === Periodetype.Ferie && uttaksinfo.antallUttaksdagerBrukt > 0
+                        periode.type === Periodetype.Ferie && antallUttaksdagerBrukt > 0
                             ? [
                                   getMessage(intl, 'uttaksplan.ferie.inneholderHelligdager', {
-                                      dager: uttaksinfo.antallUttaksdagerBrukt
+                                      dager: antallUttaksdagerBrukt
                                   })
                               ]
                             : undefined

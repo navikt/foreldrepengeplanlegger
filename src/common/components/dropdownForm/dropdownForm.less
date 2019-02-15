@@ -80,6 +80,10 @@
     }
     &__dialogWrapper {
         position: absolute;
+        /** forhindre Chrome bug med at animert innhold legges over dropdown */
+        transform: translate3d();
+        will-change: transform;
+        /** / bugfix */
         z-index: @z-popup;
         top: 100%;
         margin-top: 0.25rem;

@@ -8,7 +8,8 @@ import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVe
 import { Element } from 'nav-frontend-typografi';
 import Varighet from '../../varighet/Varighet';
 import Alertstriper from 'nav-frontend-alertstriper';
-// import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
+import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
+import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
 
 const DatoValg: React.StatelessComponent<VarighetMenyProps> = (props) => {
     const {
@@ -161,11 +162,11 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps, State> {
             );
         }
         return (
-            <Block margin="xs">
-                {/* <Block margin="s">
+            <Block margin="none">
+                <Block>
                     <RadioGroup
                         name="plassering"
-                        legend="Ønsker du å legge til periode inne i planen, eller etter siste periode?"
+                        legend="Ønsker du å legge til ny periode inne i planen, eller på slutten?"
                         checked={this.state.plassering}
                         columns={2}
                         sameHeight={true}
@@ -181,18 +182,32 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps, State> {
                             }
                         ]}
                     />
-                </Block> */}
+                </Block>
 
-                <DatoValg {...props} />
-
-                <VarighetValg {...props} />
-
-                {/* {this.state.plassering === 'inni' && (
-                    <Alertstriper type="info">
-                        Når du plasserer en periode inni mellom andre perioder, vil periodene etter den nye perioden bli
-                        forskjøvet tilsvarende lengden på den nye perioden
-                    </Alertstriper>
-                )} */}
+                <Block visible={this.state.plassering !== undefined} margin="s">
+                    {this.state.plassering === 'etter' && (
+                        <>
+                            <Block>
+                                <DatoValg {...props} startdatoErLåst={true} />
+                            </Block>
+                            <VarighetValg {...props} />
+                        </>
+                    )}
+                    {this.state.plassering === 'inni' && (
+                        <>
+                            <Block margin="s">
+                                <Veilederinfo>
+                                    Når du plasserer en periode inne i planen, vil startdatoene forskyves for alle
+                                    perioder etter den nye perioden
+                                </Veilederinfo>
+                            </Block>
+                            <Block>
+                                <DatoValg {...props} />
+                            </Block>
+                            <VarighetValg {...props} />
+                        </>
+                    )}
+                </Block>
                 <BrukteUttaksdagerInfo dager={props.brukteUttaksdager} />
             </Block>
         );

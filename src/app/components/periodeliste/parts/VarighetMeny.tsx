@@ -15,7 +15,7 @@ export interface VarighetChangeEvent {
 
 const AUTOCLOSE_MENY = false;
 
-type VarighetVariant = 'foreldrepengerFørTermin' | 'låstStartdato' | 'kunFomTom' | 'åpen';
+type VarighetVariant = 'foreldrepengerFørTermin' | 'låstStartdato' | 'kunFomTom' | 'åpen' | 'nyPeriodePåSlutten';
 
 export interface OwnProps {
     dager?: number;
@@ -35,6 +35,7 @@ export interface OwnProps {
     gradering?: number;
     dropdownStyle?: DropdownFormStyle;
     periodetype: Periodetype | undefined;
+    erNyPeriode: boolean;
     onTidsperiodeChange: (tidsperiode: Tidsperiode) => void;
     onVarighetChange?: (evt: VarighetChangeEvent) => void;
 }
@@ -44,8 +45,10 @@ export type VarighetMenyProps = OwnProps & InjectedIntlProps;
 const VIS_DATO: boolean = true;
 
 export const getVarighetVariant = (props: VarighetMenyProps): VarighetVariant => {
-    const { sluttdatoErLåst, startdatoErLåst, onVarighetChange, periodetype } = props;
-    if (startdatoErLåst === true && sluttdatoErLåst !== true) {
+    const { sluttdatoErLåst, startdatoErLåst, onVarighetChange, periodetype, erNyPeriode } = props;
+    if (startdatoErLåst === true && erNyPeriode === true) {
+        return 'nyPeriodePåSlutten';
+    } else if (startdatoErLåst === true && sluttdatoErLåst !== true) {
         return 'låstStartdato';
     } else if (onVarighetChange === undefined) {
         return 'kunFomTom';

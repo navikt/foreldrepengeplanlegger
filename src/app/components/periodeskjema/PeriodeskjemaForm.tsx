@@ -145,6 +145,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                     className: bem.element('varighet', 'skjema'),
                                     render: () => (
                                         <VarighetMeny
+                                            erNyPeriode={true}
                                             dager={uttaksdager}
                                             periodetype={periodetype}
                                             fom={fom || nesteUttaksdag}

@@ -4,7 +4,7 @@ import Block from 'common/components/block/Block';
 import { Knapp, Hovedknapp } from 'nav-frontend-knapper';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { PeriodeskjemaFormValues } from './types';
-import { OmForeldre, Periodetype, Periode } from '../../types';
+import { OmForeldre, Periodetype, Periode, Forbruk } from '../../types';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
 import PeriodetypeMeny from '../periodeliste/parts/PeriodetypeMeny';
 import BEMHelper from 'common/utils/bem';
@@ -29,6 +29,7 @@ interface OwnProps {
     omForeldre: OmForeldre;
     nyPeriode?: Partial<Periode>;
     perioder: Periode[];
+    forbruk: Forbruk;
     onCancel: () => void;
     onChange: (values: PeriodeskjemaFormValues) => void;
     formik: FormikProps<PeriodeskjemaFormValues>;
@@ -74,7 +75,16 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         }
     }
     render() {
-        const { formik, onCancel, omForeldre, nesteUttaksdag, førsteUttaksdag, sisteUttaksdag, perioder } = this.props;
+        const {
+            formik,
+            onCancel,
+            omForeldre,
+            nesteUttaksdag,
+            førsteUttaksdag,
+            sisteUttaksdag,
+            perioder,
+            forbruk
+        } = this.props;
         const { fom, tom, periodetype, forelder, gradering } = formik.values;
         const forelderNavn = getForelderNavn(forelder, omForeldre);
         const harFlereForeldre = omForeldre.antallForeldre > 1;
@@ -146,6 +156,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                     className: bem.element('varighet', 'skjema'),
                                     render: () => (
                                         <VarighetMeny
+                                            gjenståendeDager={forbruk.fordeling.dagerGjenstående}
                                             omForeldre={omForeldre}
                                             perioder={perioder}
                                             erNyPeriode={true}

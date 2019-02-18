@@ -5,7 +5,7 @@ import PeriodeskjemaForm from './PeriodeskjemaForm';
 import { Periode, Periodetype } from '../../types/periodetyper';
 import periodeskjemaUtils from './utils';
 import { PeriodeskjemaFormValues } from './types';
-import { OmForeldre } from '../../types';
+import { OmForeldre, Forbruk } from '../../types';
 
 interface Props {
     periode?: Periode;
@@ -17,6 +17,7 @@ interface Props {
     sisteUttaksdag: Date;
     nyPeriodeId: string;
     perioder: Periode[];
+    forbruk: Forbruk;
     onSubmit: (periode: Periode) => void;
     onCancel: () => void;
     onChange: (periode?: Periode) => void;
@@ -79,6 +80,7 @@ class Periodeskjema extends React.Component<Props, {}> {
             sisteUttaksdag,
             nyPeriodeId,
             perioder,
+            forbruk,
             onSubmit
         } = this.props;
         return (
@@ -94,6 +96,7 @@ class Periodeskjema extends React.Component<Props, {}> {
                         nyPeriode={nyPeriode}
                         onCancel={this.onCancel}
                         onChange={this.handleFormValuesChange}
+                        forbruk={forbruk}
                         formik={props}
                         omForeldre={omForeldre}
                         nesteUttaksdag={nesteUttaksdag}

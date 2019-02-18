@@ -1,4 +1,5 @@
 import * as React from 'react';
+import moment from 'moment';
 import { VarighetMenyProps, getVarighetVariant } from './VarighetMeny';
 import Block from 'common/components/block/Block';
 import { Checkbox, Select } from 'nav-frontend-skjema';
@@ -8,11 +9,11 @@ import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVe
 import { Element } from 'nav-frontend-typografi';
 import Varighet from '../../varighet/Varighet';
 import Alertstriper from 'nav-frontend-alertstriper';
-import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
 import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { Uttaksdagen } from '../../../utils/Uttaksdagen';
 import { Forelder, Periode } from '../../../types';
+import LinkButton from 'common/components/linkButton/LinkButton';
 
 const DatoValg: React.StatelessComponent<VarighetMenyProps> = (props) => {
     const {
@@ -36,6 +37,7 @@ const DatoValg: React.StatelessComponent<VarighetMenyProps> = (props) => {
             låstTomDato={sluttdatoErLåst}
             disabled={ingenVarighet}
             footer={<Footer {...props} />}
+            skjulLåstVerdi={true}
             tomLabel={startdatoErLåst ? 'Velg sluttdato' : undefined}
             fomLabel={sluttdatoErLåst ? 'Velg startdato' : undefined}
         />
@@ -128,8 +130,17 @@ interface State {
 class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIntlProps, State> {
     constructor(props: VarighetMenyProps) {
         super(props);
+
+        let periodeFørValgtTom: Periode | undefined;
+        if (props.fom) {
+            periodeFørValgtTom = props.perioder.find((p) =>
+                moment(Uttaksdagen(p.tidsperiode.tom).neste()).isSame(props.fom, 'day')
+            );
+        }
         this.state = {
-            plassering: undefined
+            plassering: undefined,
+            egendefinert: props.tom !== undefined && periodeFørValgtTom === undefined,
+            etterPeriode: periodeFørValgtTom
         };
         this.setEtterPeriodeTom = this.setEtterPeriodeTom.bind(this);
     }
@@ -148,7 +159,7 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
     }
     render() {
         const props = this.props;
-        const { onVarighetChange, ingenVarighet, perioder, omForeldre, intl } = props;
+        const { onVarighetChange, ingenVarighet, perioder, omForeldre, gjenståendeDager, intl } = props;
         const variant = getVarighetVariant(props);
 
         const handleIngenVarighet = (ingenVarighetValgt: boolean) => {
@@ -207,27 +218,6 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
                         <option value={EgendefinertDatoValg}>Annen dato</option>
                     </Select>
                 </Block>
-                <Block visible={false}>
-                    <RadioGroup
-                        name="plassering"
-                        legend="Ønsker du å legge til ny periode inne i planen, eller på slutten?"
-                        checked={this.state.plassering}
-                        columns={2}
-                        sameHeight={true}
-                        onChange={(plassering) => this.setState({ plassering: plassering as NyPeriodePlassering })}
-                        options={[
-                            {
-                                label: 'Inne i planen',
-                                value: 'inni'
-                            },
-                            {
-                                label: 'Etter siste periode',
-                                value: 'etter'
-                            }
-                        ]}
-                    />
-                </Block>
-
                 <Block visible={this.state.egendefinert || this.state.etterPeriode !== undefined} margin="s">
                     {this.state.etterPeriode !== undefined && (
                         <>
@@ -235,6 +225,13 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
                                 <DatoValg {...props} startdatoErLåst={true} />
                             </Block>
                             <VarighetValg {...props} />
+                            {gjenståendeDager !== undefined && gjenståendeDager > 0 && onVarighetChange && (
+                                <div>
+                                    <LinkButton onClick={() => onVarighetChange({ dager: gjenståendeDager })}>
+                                        Bruk gjenstående dager
+                                    </LinkButton>
+                                </div>
+                            )}
                         </>
                     )}
                     {this.state.egendefinert && (

@@ -152,6 +152,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                             førsteUttaksdag={uttaksdatoer.førsteUttaksdag}
                                             sisteUttaksdag={uttaksdatoer.etterFødsel.sisteMuligeUttaksdag}
                                             førsteUttaksdagFørTermin={uttaksdatoer.førFødsel.førsteMuligeUttaksdag}
+                                            forbruk={forbruk}
                                         />
                                     )
                                 }

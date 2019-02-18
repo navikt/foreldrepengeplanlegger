@@ -9406,6 +9406,16 @@
             "integrity": "sha512-PWSfscmNMbrnXRcXQUgBquU5479bNmO/sw3IwML6s6K/qyEYggRvJdGCbBEYyxXmoeDDjXGd2tkIVy5gja387A==",
             "dev": true
         },
+        "nav-frontend-tabs": {
+            "version": "0.0.29",
+            "resolved": "https://registry.npmjs.org/nav-frontend-tabs/-/nav-frontend-tabs-0.0.29.tgz",
+            "integrity": "sha512-wDm/BbHT7kfqKMKpwei54lW3O8XgNCrbGLlW9s82oQ6Rl4+Tb/8qZt4LD2dzj/qvVIh/gKkc/lPcxMCK4SwllA=="
+        },
+        "nav-frontend-tabs-style": {
+            "version": "0.0.15",
+            "resolved": "https://registry.npmjs.org/nav-frontend-tabs-style/-/nav-frontend-tabs-style-0.0.15.tgz",
+            "integrity": "sha512-AXc985CiUgQ09OMIrO7Ru+53VNqQb/v9Ujym9+fF2X3nnhYgIxrTN719vwDXDOxtxJ0V7IZfQIxIS8q3Gk/RAg=="
+        },
         "nav-frontend-typografi": {
             "version": "2.0.8",
             "resolved": "https://registry.npmjs.org/nav-frontend-typografi/-/nav-frontend-typografi-2.0.8.tgz",

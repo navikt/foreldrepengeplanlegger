@@ -15,6 +15,7 @@ import { Uttaksdagen } from '../../../utils/Uttaksdagen';
 import { Forelder, Periode } from '../../../types';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import { getDagerGradert } from '../../../utils/forbrukUtils';
+import Tabs from 'nav-frontend-tabs';
 
 const DatoValg: React.StatelessComponent<VarighetMenyProps> = (props) => {
     const {
@@ -39,8 +40,8 @@ const DatoValg: React.StatelessComponent<VarighetMenyProps> = (props) => {
             disabled={ingenVarighet}
             footer={<Footer {...props} />}
             skjulLåstVerdi={true}
-            tomLabel={startdatoErLåst ? 'Velg sluttdato' : undefined}
-            fomLabel={sluttdatoErLåst ? 'Velg startdato' : undefined}
+            tomLabel={startdatoErLåst ? 'Sluttdato' : undefined}
+            fomLabel={sluttdatoErLåst ? 'Startdato' : undefined}
         />
     );
 };
@@ -62,7 +63,7 @@ const VarighetValg: React.StatelessComponent<VarighetMenyProps> = (props) => {
         return (
             <Block margin="s" visible={ingenVarighet !== true}>
                 <UkerOgDagerVelger
-                    tittel={'Velg varighet'}
+                    tittel={'Uker og dager'}
                     uker={ukerOgDager.uker}
                     dager={ukerOgDager.dager}
                     disabled={ingenVarighet}
@@ -126,6 +127,7 @@ interface State {
     plassering: NyPeriodePlassering;
     etterPeriode?: Periode;
     egendefinert?: boolean;
+    varighetEllerSluttdato: 'varighet' | 'sluttdato';
 }
 
 class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIntlProps, State> {
@@ -141,7 +143,8 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
         this.state = {
             plassering: undefined,
             egendefinert: props.tom !== undefined && periodeFørValgtTom === undefined,
-            etterPeriode: periodeFørValgtTom
+            etterPeriode: periodeFørValgtTom,
+            varighetEllerSluttdato: 'sluttdato'
         };
         this.setEtterPeriodeTom = this.setEtterPeriodeTom.bind(this);
     }
@@ -222,10 +225,23 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
                 <Block visible={this.state.egendefinert || this.state.etterPeriode !== undefined} margin="s">
                     {this.state.etterPeriode !== undefined && (
                         <>
-                            <Block>
+                            <Block margin="s">
+                                <Tabs
+                                    kompakt={false}
+                                    tabs={[{ label: 'Velg sluttdato' }, { label: 'Velg varighet' }]}
+                                    onChange={(evt, index: number) => {
+                                        this.setState({
+                                            varighetEllerSluttdato: index === 0 ? 'sluttdato' : 'varighet'
+                                        });
+                                    }}
+                                />
+                            </Block>
+                            <Block visible={this.state.varighetEllerSluttdato === 'sluttdato'}>
                                 <DatoValg {...props} startdatoErLåst={true} />
                             </Block>
-                            <VarighetValg {...props} />
+                            <Block visible={this.state.varighetEllerSluttdato === 'varighet'}>
+                                <VarighetValg {...props} />
+                            </Block>
                             {gjenståendeDager !== undefined && gjenståendeDager > 0 && onVarighetChange && (
                                 <div>
                                     <LinkButton

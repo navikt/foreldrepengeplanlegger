@@ -236,23 +236,21 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
                                     }}
                                 />
                             </Block>
-                            <Block visible={this.state.varighetEllerSluttdato === 'sluttdato'}>
+                            <Block visible={this.state.varighetEllerSluttdato === 'sluttdato'} margin="s">
                                 <DatoValg {...props} startdatoErLåst={true} />
                             </Block>
-                            <Block visible={this.state.varighetEllerSluttdato === 'varighet'}>
+                            <Block visible={this.state.varighetEllerSluttdato === 'varighet'} margin="none">
                                 <VarighetValg {...props} />
                             </Block>
                             {gjenståendeDager !== undefined && gjenståendeDager > 0 && onVarighetChange && (
-                                <div>
-                                    <LinkButton
-                                        onClick={() =>
-                                            onVarighetChange({
-                                                dager: getDagerGradert(gjenståendeDager, this.props.gradering)
-                                            })
-                                        }>
-                                        Bruk gjenstående dager
-                                    </LinkButton>
-                                </div>
+                                <LinkButton
+                                    onClick={() =>
+                                        onVarighetChange({
+                                            dager: getDagerGradert(gjenståendeDager, this.props.gradering)
+                                        })
+                                    }>
+                                    Bruk gjenstående dager
+                                </LinkButton>
                             )}
                         </>
                     )}

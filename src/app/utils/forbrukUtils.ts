@@ -56,3 +56,10 @@ export const getForbruk = (perioder: Periode[], dagerTotalt: number): Forbruk =>
         }
     };
 };
+
+export const getDagerGradert = (dager: number, gradering?: number): number => {
+    if (gradering && gradering > 0 && gradering < 100) {
+        return Math.ceil(dager * (100 / gradering));
+    }
+    return dager;
+};

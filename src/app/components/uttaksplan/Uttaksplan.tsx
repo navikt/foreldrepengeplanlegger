@@ -7,7 +7,7 @@ import PeriodeDevBar from '../../dev/PeriodeDevBar';
 import { PeriodelisteProps } from '../periodeliste/types';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import FordelingGraf from '../fordelingGraf/FordelingGraf';
-import { Forbruk, OmForeldre, Uttaksdatoer } from '../../types';
+import { Forbruk, OmForeldre, Uttaksdatoer, TilgjengeligeDager } from '../../types';
 import Periodeliste from '../periodeliste/Periodeliste';
 import { Systemtittel, Element } from 'nav-frontend-typografi';
 import LinkButton from 'common/components/linkButton/LinkButton';
@@ -19,6 +19,7 @@ import Regelbrudd from '../regelbrudd/Regelbrudd';
 import { Periodene } from '../../utils/Periodene';
 import AlertStripe from 'nav-frontend-alertstriper';
 import Varighet from '../varighet/Varighet';
+import { getForbruk } from '../../utils/forbrukUtils';
 
 interface State {
     visSkjema: boolean;
@@ -35,6 +36,7 @@ interface OwnProps {
     uttaksdatoer: Uttaksdatoer;
     nyPeriode: Partial<Periode> | undefined;
     nyPeriodeId: string;
+    tilgjengeligeDager: TilgjengeligeDager;
     onResetApp: () => void;
     onNyPeriodeChange?: (periode?: Periode) => void;
 }
@@ -97,6 +99,8 @@ class Uttaksplan extends React.Component<Props, State> {
             uttaksdatoer,
             regelTestresultat,
             nyPeriode,
+            periodeFørTermin,
+            tilgjengeligeDager,
             nyPeriodeId
         } = this.props;
         const { visSkjema } = this.state;
@@ -152,7 +156,10 @@ class Uttaksplan extends React.Component<Props, State> {
                                             førsteUttaksdag={uttaksdatoer.førsteUttaksdag}
                                             sisteUttaksdag={uttaksdatoer.etterFødsel.sisteMuligeUttaksdag}
                                             førsteUttaksdagFørTermin={uttaksdatoer.førFødsel.førsteMuligeUttaksdag}
-                                            forbruk={forbruk}
+                                            forbruk={getForbruk(
+                                                [...perioder, ...(periodeFørTermin ? [periodeFørTermin] : [])],
+                                                tilgjengeligeDager.dagerTotalt
+                                            )}
                                         />
                                     )
                                 }

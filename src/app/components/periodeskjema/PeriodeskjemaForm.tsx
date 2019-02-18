@@ -29,7 +29,7 @@ interface OwnProps {
     omForeldre: OmForeldre;
     nyPeriode?: Partial<Periode>;
     perioder: Periode[];
-    forbruk: Forbruk;
+    forbrukEksisterendePerioder: Forbruk;
     onCancel: () => void;
     onChange: (values: PeriodeskjemaFormValues) => void;
     formik: FormikProps<PeriodeskjemaFormValues>;
@@ -83,7 +83,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
             førsteUttaksdag,
             sisteUttaksdag,
             perioder,
-            forbruk
+            forbrukEksisterendePerioder
         } = this.props;
         const { fom, tom, periodetype, forelder, gradering } = formik.values;
         const forelderNavn = getForelderNavn(forelder, omForeldre);
@@ -113,6 +113,9 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             brukteUttaksdager={brukteUttaksdager}
                                             onChange={(type) => {
                                                 formik.setFieldValue('periodetype', type);
+                                                if (type === Periodetype.GradertUttak) {
+                                                    formik.setFieldValue('gradering', formik.values.gradering || 50);
+                                                }
                                                 this.handleValueOnChange();
                                             }}
                                         />
@@ -156,7 +159,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                     className: bem.element('varighet', 'skjema'),
                                     render: () => (
                                         <VarighetMeny
-                                            gjenståendeDager={forbruk.fordeling.dagerGjenstående}
+                                            gjenståendeDager={forbrukEksisterendePerioder.fordeling.dagerGjenstående}
                                             omForeldre={omForeldre}
                                             perioder={perioder}
                                             erNyPeriode={true}
@@ -165,6 +168,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             fom={fom || nesteUttaksdag}
                                             tom={tom}
                                             minDager={1}
+                                            gradering={gradering}
                                             brukteUttaksdager={brukteUttaksdager}
                                             førsteUttaksdag={førsteUttaksdag}
                                             sisteUttaksdag={sisteUttaksdag}

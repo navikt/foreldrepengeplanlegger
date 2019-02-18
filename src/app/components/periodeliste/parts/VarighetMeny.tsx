@@ -32,7 +32,7 @@ export interface OwnProps {
     førsteUttaksdag: Date;
     sisteUttaksdag: Date;
     forelderNavn?: string;
-    gradering?: number;
+    gradering: number | undefined;
     dropdownStyle?: DropdownFormStyle;
     periodetype: Periodetype | undefined;
     erNyPeriode: boolean;

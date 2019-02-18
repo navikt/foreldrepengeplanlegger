@@ -14,6 +14,7 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { Uttaksdagen } from '../../../utils/Uttaksdagen';
 import { Forelder, Periode } from '../../../types';
 import LinkButton from 'common/components/linkButton/LinkButton';
+import { getDagerGradert } from '../../../utils/forbrukUtils';
 
 const DatoValg: React.StatelessComponent<VarighetMenyProps> = (props) => {
     const {
@@ -227,7 +228,12 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
                             <VarighetValg {...props} />
                             {gjenståendeDager !== undefined && gjenståendeDager > 0 && onVarighetChange && (
                                 <div>
-                                    <LinkButton onClick={() => onVarighetChange({ dager: gjenståendeDager })}>
+                                    <LinkButton
+                                        onClick={() =>
+                                            onVarighetChange({
+                                                dager: getDagerGradert(gjenståendeDager, this.props.gradering)
+                                            })
+                                        }>
                                         Bruk gjenstående dager
                                     </LinkButton>
                                 </div>

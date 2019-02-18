@@ -96,7 +96,7 @@ class Periodeskjema extends React.Component<Props, {}> {
                         nyPeriode={nyPeriode}
                         onCancel={this.onCancel}
                         onChange={this.handleFormValuesChange}
-                        forbruk={forbruk}
+                        forbrukEksisterendePerioder={forbruk}
                         formik={props}
                         omForeldre={omForeldre}
                         nesteUttaksdag={nesteUttaksdag}

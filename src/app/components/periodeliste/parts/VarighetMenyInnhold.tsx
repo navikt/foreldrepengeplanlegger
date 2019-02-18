@@ -1,15 +1,18 @@
 import * as React from 'react';
 import { VarighetMenyProps, getVarighetVariant } from './VarighetMeny';
 import Block from 'common/components/block/Block';
-import { Checkbox } from 'nav-frontend-skjema';
+import { Checkbox, Select } from 'nav-frontend-skjema';
 import FomTomValg from './FomTomValg';
-import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
+import { getUkerOgDagerFromDager, formaterDatoTall } from 'common/utils/datoUtils';
 import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVelger';
 import { Element } from 'nav-frontend-typografi';
 import Varighet from '../../varighet/Varighet';
 import Alertstriper from 'nav-frontend-alertstriper';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
 import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { Uttaksdagen } from '../../../utils/Uttaksdagen';
+import { Forelder, Periode } from '../../../types';
 
 const DatoValg: React.StatelessComponent<VarighetMenyProps> = (props) => {
     const {
@@ -114,21 +117,38 @@ const Footer: React.StatelessComponent<VarighetMenyProps> = (props) => {
 };
 
 type NyPeriodePlassering = 'inni' | 'etter' | undefined;
+const EgendefinertDatoValg = 'egendefinert';
 
 interface State {
     plassering: NyPeriodePlassering;
+    etterPeriode?: Periode;
+    egendefinert?: boolean;
 }
 
-class VarighetMenyInnhold extends React.Component<VarighetMenyProps, State> {
+class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIntlProps, State> {
     constructor(props: VarighetMenyProps) {
         super(props);
         this.state = {
             plassering: undefined
         };
+        this.setEtterPeriodeTom = this.setEtterPeriodeTom.bind(this);
+    }
+
+    setEtterPeriodeTom(value: string) {
+        if (value === EgendefinertDatoValg) {
+            this.setState({ etterPeriode: undefined, egendefinert: true });
+        } else {
+            const { perioder } = this.props;
+            const periode = perioder.find((p) => p.id === value);
+            this.setState({ etterPeriode: periode, egendefinert: false });
+            if (periode) {
+                this.props.onTidsperiodeChange({ fom: Uttaksdagen(periode.tidsperiode.tom).neste() });
+            }
+        }
     }
     render() {
         const props = this.props;
-        const { onVarighetChange, ingenVarighet } = props;
+        const { onVarighetChange, ingenVarighet, perioder, omForeldre, intl } = props;
         const variant = getVarighetVariant(props);
 
         const handleIngenVarighet = (ingenVarighetValgt: boolean) => {
@@ -164,6 +184,30 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps, State> {
         return (
             <Block margin="none">
                 <Block>
+                    <Select
+                        label="Når skal perioden starte?"
+                        onChange={(evt) => this.setEtterPeriodeTom(evt.target.value)}
+                        value={
+                            this.state.egendefinert
+                                ? EgendefinertDatoValg
+                                : this.state.etterPeriode
+                                ? this.state.etterPeriode.id
+                                : undefined
+                        }>
+                        <option key="">Velg tidspunkt</option>
+                        {perioder.map((p) => (
+                            <option key={p.id} value={p.id}>
+                                {p.tidsperiode && `${formaterDatoTall(Uttaksdagen(p.tidsperiode.tom).neste())}`} - etter{' '}
+                                {intl.formatMessage({ id: `periodetype.${p.type}` })} -{' '}
+                                {omForeldre.antallForeldre === 2 && p.forelder === Forelder.mor
+                                    ? omForeldre.mor.navn
+                                    : omForeldre.farMedmor!.navn}
+                            </option>
+                        ))}
+                        <option value={EgendefinertDatoValg}>Annen dato</option>
+                    </Select>
+                </Block>
+                <Block visible={false}>
                     <RadioGroup
                         name="plassering"
                         legend="Ønsker du å legge til ny periode inne i planen, eller på slutten?"
@@ -184,8 +228,8 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps, State> {
                     />
                 </Block>
 
-                <Block visible={this.state.plassering !== undefined} margin="s">
-                    {this.state.plassering === 'etter' && (
+                <Block visible={this.state.egendefinert || this.state.etterPeriode !== undefined} margin="s">
+                    {this.state.etterPeriode !== undefined && (
                         <>
                             <Block>
                                 <DatoValg {...props} startdatoErLåst={true} />
@@ -193,7 +237,7 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps, State> {
                             <VarighetValg {...props} />
                         </>
                     )}
-                    {this.state.plassering === 'inni' && (
+                    {this.state.egendefinert && (
                         <>
                             <Block margin="s">
                                 <Veilederinfo>
@@ -213,4 +257,4 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps, State> {
         );
     }
 }
-export default VarighetMenyInnhold;
+export default injectIntl(VarighetMenyInnhold);

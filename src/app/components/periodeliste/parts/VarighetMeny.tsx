@@ -6,7 +6,7 @@ import Block from 'common/components/block/Block';
 import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import DagMndPeriode from 'common/components/dagMnd/DagMndPeriode';
 import VarighetMenyInnhold from './VarighetMenyInnhold';
-import { Periodetype } from '../../../types';
+import { Periodetype, Periode, OmForeldre } from '../../../types';
 
 export interface VarighetChangeEvent {
     ingenVarighet?: boolean;
@@ -36,7 +36,9 @@ export interface OwnProps {
     dropdownStyle?: DropdownFormStyle;
     periodetype: Periodetype | undefined;
     erNyPeriode: boolean;
-    onTidsperiodeChange: (tidsperiode: Tidsperiode) => void;
+    perioder: Periode[];
+    omForeldre: OmForeldre;
+    onTidsperiodeChange: (tidsperiode: Partial<Tidsperiode>) => void;
     onVarighetChange?: (evt: VarighetChangeEvent) => void;
 }
 
@@ -64,7 +66,7 @@ const getTittel = (variant: VarighetVariant): string => {
             return 'Når ønsker du å starte uttaket før termin?';
         default:
         case 'kunFomTom':
-            return 'Velg når perioden skal starte og slutte';
+            return 'Velg tid';
     }
 };
 

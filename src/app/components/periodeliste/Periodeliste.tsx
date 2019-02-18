@@ -88,6 +88,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
                     )}
                 <PeriodeElement
                     periode={periode}
+                    perioder={perioder}
                     {...elementProps}
                     startdatoErLåst={true}
                     regelbrudd={getRegelbruddForPeriode(regelTestresultat, periode.id)}
@@ -103,6 +104,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
                 <>
                     <li className={bem.element('periode')} key={periodeFørTermin.id}>
                         <PeriodeElement
+                            perioder={perioder}
                             periode={periodeFørTermin}
                             regelbrudd={getRegelbruddForPeriode(regelTestresultat, periodeFørTermin.id)}
                             typeErLåst={true}

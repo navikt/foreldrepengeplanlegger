@@ -28,6 +28,7 @@ interface OwnProps {
     sisteUttaksdag: Date;
     omForeldre: OmForeldre;
     nyPeriode?: Partial<Periode>;
+    perioder: Periode[];
     onCancel: () => void;
     onChange: (values: PeriodeskjemaFormValues) => void;
     formik: FormikProps<PeriodeskjemaFormValues>;
@@ -45,7 +46,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         this.handleChangeVarighet = this.handleChangeVarighet.bind(this);
     }
 
-    handleTidsperiodeChange(tidsperiode: Tidsperiode) {
+    handleTidsperiodeChange(tidsperiode: Partial<Tidsperiode>) {
         const { formik } = this.props;
         formik.setFieldValue('fom', tidsperiode.fom);
         formik.setFieldValue('tom', tidsperiode.tom);
@@ -73,7 +74,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         }
     }
     render() {
-        const { formik, onCancel, omForeldre, nesteUttaksdag, førsteUttaksdag, sisteUttaksdag } = this.props;
+        const { formik, onCancel, omForeldre, nesteUttaksdag, førsteUttaksdag, sisteUttaksdag, perioder } = this.props;
         const { fom, tom, periodetype, forelder, gradering } = formik.values;
         const forelderNavn = getForelderNavn(forelder, omForeldre);
         const harFlereForeldre = omForeldre.antallForeldre > 1;
@@ -145,6 +146,8 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                     className: bem.element('varighet', 'skjema'),
                                     render: () => (
                                         <VarighetMeny
+                                            omForeldre={omForeldre}
+                                            perioder={perioder}
                                             erNyPeriode={true}
                                             dager={uttaksdager}
                                             periodetype={periodetype}

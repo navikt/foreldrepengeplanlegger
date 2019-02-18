@@ -8,7 +8,7 @@ import { PeriodelisteElementProps } from './types';
 import GraderingMeny from './parts/GraderingMeny';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
 import { OmForeldre, Forelder, Periodetype, Periode } from '../../types';
-import { Tidsperioden } from '../../utils/Tidsperioden';
+import { Tidsperioden, isValidTidsperiode } from '../../utils/Tidsperioden';
 import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
 import PeriodelisteElement from './periodelisteElement/PeriodelisteElement';
 import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
@@ -66,6 +66,7 @@ class PeriodeElement extends React.Component<Props> {
             onRemove,
             uttaksdatoer,
             regelbrudd,
+            perioder,
             intl
         } = this.props;
 
@@ -139,6 +140,8 @@ class PeriodeElement extends React.Component<Props> {
                             className: bem.element('varighet'),
                             render: () => (
                                 <VarighetMeny
+                                    omForeldre={omForeldre}
+                                    perioder={perioder}
                                     erNyPeriode={false}
                                     periodetype={periode.type}
                                     forelderNavn={foreldernavn}
@@ -161,12 +164,14 @@ class PeriodeElement extends React.Component<Props> {
                                     fom={fom}
                                     tom={tom}
                                     minDager={periode.type === Periodetype.UttakFørTermin ? 0 : 1}
-                                    onTidsperiodeChange={(tidsperiode) => {
-                                        onUpdate({
-                                            ...this.props.periode,
-                                            tidsperiode
-                                        });
-                                    }}
+                                    onTidsperiodeChange={(tidsperiode) =>
+                                        isValidTidsperiode(tidsperiode)
+                                            ? onUpdate({
+                                                  ...this.props.periode,
+                                                  tidsperiode
+                                              })
+                                            : null
+                                    }
                                     visLukkKnapp={true}
                                     onVarighetChange={this.handleChangeVarighet}
                                     ingenVarighet={

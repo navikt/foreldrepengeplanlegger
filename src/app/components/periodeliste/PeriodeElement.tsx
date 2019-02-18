@@ -66,6 +66,7 @@ class PeriodeElement extends React.Component<Props> {
             onRemove,
             uttaksdatoer,
             regelbrudd,
+            perioder,
             intl
         } = this.props;
 
@@ -139,6 +140,8 @@ class PeriodeElement extends React.Component<Props> {
                             className: bem.element('varighet'),
                             render: () => (
                                 <VarighetMeny
+                                    omForeldre={omForeldre}
+                                    perioder={perioder}
                                     erNyPeriode={false}
                                     periodetype={periode.type}
                                     forelderNavn={foreldernavn}

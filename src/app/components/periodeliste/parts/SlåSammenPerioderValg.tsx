@@ -14,10 +14,10 @@ const bem = BEMHelper('periodeliste');
 const SlåSammenPerioderValg: React.StatelessComponent<Props> = ({ periode, forrigePeriode, onSamlePerioder }) => {
     return (
         <div className={bem.element('likePerioder')}>
-            Perioden over og under er like og kan{' '}
+            Perioden over og under har samme type og hører til samme person, så de kan{' '}
             <LinkButton onClick={() => onSamlePerioder(periode, forrigePeriode)}>
                 slåes sammen til én periode
-            </LinkButton>{' '}
+            </LinkButton>
         </div>
     );
 };

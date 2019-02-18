@@ -38,7 +38,7 @@ export interface OwnProps {
     erNyPeriode: boolean;
     perioder: Periode[];
     omForeldre: OmForeldre;
-    onTidsperiodeChange: (tidsperiode: Tidsperiode) => void;
+    onTidsperiodeChange: (tidsperiode: Partial<Tidsperiode>) => void;
     onVarighetChange?: (evt: VarighetChangeEvent) => void;
 }
 

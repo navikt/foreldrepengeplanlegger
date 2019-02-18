@@ -46,7 +46,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         this.handleChangeVarighet = this.handleChangeVarighet.bind(this);
     }
 
-    handleTidsperiodeChange(tidsperiode: Tidsperiode) {
+    handleTidsperiodeChange(tidsperiode: Partial<Tidsperiode>) {
         const { formik } = this.props;
         formik.setFieldValue('fom', tidsperiode.fom);
         formik.setFieldValue('tom', tidsperiode.tom);

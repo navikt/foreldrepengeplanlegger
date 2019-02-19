@@ -3,12 +3,33 @@
     margin-left: -1rem;
     margin-right: -1rem;
 }
+
 .skjemablokk {
     padding-left: 1rem;
     padding-right: 1rem;
-    > legend {
+
+    >legend {
         font-size: 1.25rem;
         font-weight: bold;
         margin-bottom: 1rem;
+        line-height: 1.5rem;
+    }
+
+    &__tittel {
+        display: inline-block;
+    }
+
+    &__infoToggler {
+        display: inline-block;
+        margin-left: .5rem;
+
+        svg {
+            line-height: 0;
+        }
+    }
+
+    &__info {
+        margin-top: -.5rem;
+        padding-bottom: 1rem;
     }
 }

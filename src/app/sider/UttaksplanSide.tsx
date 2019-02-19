@@ -109,9 +109,18 @@ class UttaksplanSide extends React.Component<Props> {
 
                 <LoadContainer loading={henterStønadskontoer} overlay={false}>
                     <Skjemablokk
-                        tittel={`TODO: Infoboks - Hvor lang periode med foreldrepenger ønsker ${
+                        tittel={`Hvor lang periode med foreldrepenger ønsker ${
                             omForeldre.antallForeldre === 2 ? 'dere' : 'du'
-                        }?`}>
+                        }?`}
+                        info={{
+                            title: 'Whoa',
+                            content: (
+                                <div>
+                                    Valget av antall uker gjelder dere begge. Den totale utbetalingen blir høyere ved å
+                                    velge 100 prosent.
+                                </div>
+                            )
+                        }}>
                         <DekningsgradValg
                             dekningsgrad={dekningsgrad}
                             onChange={(dg) => dispatch(setDekningsgrad(dg as Dekningsgrad))}

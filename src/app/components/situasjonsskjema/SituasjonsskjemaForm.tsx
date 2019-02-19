@@ -97,7 +97,9 @@ class SituasjonsskjemaForm extends React.Component<Props> {
 
                 {visTermindato && (
                     <Skjemablokk
-                        tittel={`Når er ${antallBarn === 1 ? 'barnet' : 'barna'} forventet?`}
+                        tittel={`Når er ${
+                            antallBarn === 1 ? 'barnet' : antallBarn === 2 ? 'tvillingene' : 'barna'
+                        } forventet?`}
                         visible={visTermindato}>
                         <DatoInput
                             id="familiehendelsesdato"

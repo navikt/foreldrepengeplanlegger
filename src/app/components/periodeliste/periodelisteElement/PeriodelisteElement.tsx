@@ -15,6 +15,7 @@ import { getAlertstripeTypeFromRegelbrudd } from '../periodelisteUtils';
 import RegelbruddFeilmelding from '../../regelbrudd/RegelbruddFeilmelding';
 
 import './periodelisteElement.less';
+import InfoIkonFylt from 'common/InfoIkonFylt';
 
 interface Props {
     menyer: PeriodeElementMeny[];
@@ -108,7 +109,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                                                 regelbrudd[0].alvorlighet === RegelAlvorlighet.ULOVLIG ? (
                                                     <AdvarselIkon type="feil" />
                                                 ) : (
-                                                    <InfoIkon />
+                                                    <InfoIkonFylt />
                                                 )
                                             }
                                             ariaLabel="Perioden har regelbrudd"

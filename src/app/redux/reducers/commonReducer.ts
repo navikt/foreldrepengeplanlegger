@@ -1,4 +1,4 @@
-import { CommonActionKeys, CommonActionTypes } from '../actions/common/commonActionDefinitions';
+import { CommonActionKeys, CommonActionTypes, SubmitSkjemadataAction } from '../actions/common/commonActionDefinitions';
 import { Språkkode } from '../../intl/types';
 import {
     Periode,
@@ -85,6 +85,37 @@ const updateStateAndStorage = (state: CommonState, updates: Partial<CommonState>
     return updatedState;
 };
 
+const updateStateWithNewSkjemadata = (state: CommonState, action: SubmitSkjemadataAction): CommonState => {
+    const resetUttaksplan = state.skjemadata && action.data.situasjon !== state.skjemadata.situasjon;
+    if (resetUttaksplan) {
+        return {
+            ...getDefaultCommonState(),
+            skjemadata: action.data,
+            periodeFørTermin: getPeriodeFørTermin(
+                action.data.situasjon,
+                action.data.familiehendelsesdato,
+                state.tilgjengeligeDager ? state.tilgjengeligeDager.dagerFørTermin : 15,
+                action.data.erMor
+            )
+        };
+    }
+
+    const builder = UttaksplanBuilder(state.perioder, state.familiehendelsesdato);
+    return updateStateAndStorage(state, {
+        skjemadata: action.data,
+        familiehendelsesdato: action.data.familiehendelsesdato,
+        perioder: builder.build().perioder,
+        periodeFørTermin: state.tilgjengeligeDager
+            ? getPeriodeFørTermin(
+                  action.data.situasjon,
+                  action.data.familiehendelsesdato,
+                  state.tilgjengeligeDager.dagerFørTermin,
+                  action.data.erMor
+              )
+            : getPeriodeFørTermin(action.data.situasjon, action.data.familiehendelsesdato, 15, action.data.erMor)
+    });
+};
+
 const commonReducer = (state = getDefaultCommonState(getStorage()), action: CommonActionTypes): CommonState => {
     const getBuilder = () => {
         return UttaksplanBuilder(state.perioder, state.familiehendelsesdato);
@@ -101,25 +132,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                 tilgjengeligeDager: action.tilgjengeligeDager
             });
         case CommonActionKeys.SUBMIT_SKJEMADATA:
-            const builder = getBuilder();
-            return updateStateAndStorage(state, {
-                skjemadata: action.data,
-                familiehendelsesdato: action.data.familiehendelsesdato,
-                perioder: builder.build().perioder,
-                periodeFørTermin: state.tilgjengeligeDager
-                    ? getPeriodeFørTermin(
-                          action.data.situasjon,
-                          action.data.familiehendelsesdato,
-                          state.tilgjengeligeDager.dagerFørTermin,
-                          action.data.erMor
-                      )
-                    : getPeriodeFørTermin(
-                          action.data.situasjon,
-                          action.data.familiehendelsesdato,
-                          15,
-                          action.data.erMor
-                      ) // TODO - mock
-            });
+            return updateStateWithNewSkjemadata(state, action);
         case CommonActionKeys.SET_DEKNINGSGRAD:
             return updateStateAndStorage(state, {
                 dekningsgrad: action.dekningsgrad

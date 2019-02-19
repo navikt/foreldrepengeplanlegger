@@ -9,7 +9,8 @@ const situasjonsregler = {
             situasjon === Situasjon.aleneomsorg ||
             situasjon === Situasjon.bareFar ||
             situasjon === Situasjon.farOgMor ||
-            situasjon === Situasjon.farOgFar
+            situasjon === Situasjon.farOgFar ||
+            situasjon === Situasjon.morOgMedmor
         );
     },
     harMorAleneomsorg: (situasjon: Situasjon): boolean => {
@@ -20,6 +21,7 @@ const situasjonsregler = {
             situasjon === Situasjon.aleneomsorg ||
             situasjon === Situasjon.bareMor ||
             situasjon === Situasjon.farOgMor ||
+            situasjon === Situasjon.farOgFar ||
             situasjon === Situasjon.morOgMedmor
         );
     }

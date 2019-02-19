@@ -4,7 +4,7 @@ import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/utils/intlUtils';
 
 const morsUttakErInnenforMaksAntallDager: RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag): RegelTestresultat => {
-    const { forbruk, tilgjengeligeDager, navnMor } = grunnlag;
+    const { forbruk, tilgjengeligeDager, navnMor, erAleneomsorg } = grunnlag;
 
     if (forbruk === undefined || tilgjengeligeDager === undefined) {
         return {
@@ -13,7 +13,9 @@ const morsUttakErInnenforMaksAntallDager: RegelTest = (key: RegelKey, grunnlag: 
         };
     }
 
-    const maksDagerTilMor = tilgjengeligeDager.dagerForbeholdtMor + tilgjengeligeDager.dagerFelles;
+    const maksDagerTilMor = erAleneomsorg
+        ? tilgjengeligeDager.dagerForeldrepenger
+        : tilgjengeligeDager.dagerForbeholdtMor + tilgjengeligeDager.dagerFelles;
     const dagerGjenstående = maksDagerTilMor - forbruk.mor.brukteUttaksdager;
     const passerer = dagerGjenstående >= 0;
 

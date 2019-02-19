@@ -10,7 +10,7 @@ import {
 } from '../actions/common/commonActionCreators';
 import { CommonActionKeys } from '../actions/common/commonActionDefinitions';
 import { selectForbruk, selectTilgjengeligeDager } from '../selectors';
-import { getInformasjonOmForeldre } from '../../utils/common';
+import { getInformasjonOmForeldre, getAntallForeldreISituasjon } from '../../utils/common';
 import { ApiActionKeys } from '../actions/api/apiActionDefinitions';
 import { getUttaksdatoer } from '../../utils/uttaksdatoer';
 import { Regelgrunnlag, RegelTestresultat } from '../../utils/regler/types';
@@ -48,6 +48,7 @@ function* validerUttaksplanSaga() {
     if (skjemadata) {
         const regelgrunnlag: Regelgrunnlag = {
             erMor: skjemadata.erMor === true,
+            erAleneomsorg: getAntallForeldreISituasjon(skjemadata.situasjon) === 1,
             familiehendelsesdato,
             periodeFørTermin,
             perioder,

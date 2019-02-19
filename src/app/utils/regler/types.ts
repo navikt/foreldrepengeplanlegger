@@ -9,6 +9,7 @@ export interface Regelgrunnlag {
     familiehendelsesdato: Date;
     situasjon: Situasjon;
     erMor: boolean;
+    erAleneomsorg: boolean;
     uttaksdatoer: Uttaksdatoer;
     navnMor: string;
     navnFarMedmor?: string;

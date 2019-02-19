@@ -70,6 +70,7 @@ export interface TilgjengeligeDager {
     flerbarnsdager: number;
     dagerFørTermin: number;
     stønadskontoer: TilgjengeligStønadskonto[];
+    dagerForeldrepenger: number;
 }
 
 export interface TilgjengeligeUker {

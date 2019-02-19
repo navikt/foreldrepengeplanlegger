@@ -153,8 +153,9 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
         if (value === EgendefinertDatoValg) {
             this.setState({ etterPeriode: undefined, egendefinert: true });
         } else {
-            const { perioder } = this.props;
-            const periode = perioder.find((p) => p.id === value);
+            const { perioder, periodeFørTermin } = this.props;
+            const allePerioder: Periode[] = [...perioder, ...(periodeFørTermin ? [periodeFørTermin] : [])];
+            const periode = allePerioder.find((p) => p.id === value);
             this.setState({ etterPeriode: periode, egendefinert: false });
             if (periode) {
                 this.props.onTidsperiodeChange({ fom: Uttaksdagen(periode.tidsperiode.tom).neste() });
@@ -163,7 +164,15 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
     }
     render() {
         const props = this.props;
-        const { onVarighetChange, ingenVarighet, perioder, omForeldre, gjenståendeDager, intl } = props;
+        const {
+            onVarighetChange,
+            ingenVarighet,
+            perioder,
+            periodeFørTermin,
+            omForeldre,
+            gjenståendeDager,
+            intl
+        } = props;
         const variant = getVarighetVariant(props);
 
         const handleIngenVarighet = (ingenVarighetValgt: boolean) => {
@@ -210,6 +219,13 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
                                 : undefined
                         }>
                         <option key="">Velg tidspunkt</option>
+                        {periodeFørTermin && (
+                            <option key="termin" value={periodeFørTermin.id}>
+                                {periodeFørTermin.tidsperiode &&
+                                    `${formaterDatoTall(Uttaksdagen(periodeFørTermin.tidsperiode.tom).neste())}`}{' '}
+                                Termin
+                            </option>
+                        )}
                         {perioder.map((p) => (
                             <option key={p.id} value={p.id}>
                                 {p.tidsperiode && `${formaterDatoTall(Uttaksdagen(p.tidsperiode.tom).neste())}`} - etter{' '}

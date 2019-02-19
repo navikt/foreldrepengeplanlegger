@@ -12,6 +12,7 @@ interface PeriodelisteBaseProps {
 interface PeriodelisteElementBaseProps {
     perioder: Periode[];
     periode: Periode;
+    periodeFørTermin?: Periode;
     omForeldre: OmForeldre;
     typeErLåst?: boolean;
     forelderErLåst?: boolean;

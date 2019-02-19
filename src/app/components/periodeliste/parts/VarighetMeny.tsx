@@ -37,6 +37,7 @@ export interface OwnProps {
     periodetype: Periodetype | undefined;
     erNyPeriode: boolean;
     perioder: Periode[];
+    periodeFørTermin?: Periode;
     omForeldre: OmForeldre;
     gjenståendeDager?: number;
     onTidsperiodeChange: (tidsperiode: Partial<Tidsperiode>) => void;

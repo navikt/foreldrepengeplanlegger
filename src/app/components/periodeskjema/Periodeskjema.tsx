@@ -17,6 +17,7 @@ interface Props {
     sisteUttaksdag: Date;
     nyPeriodeId: string;
     perioder: Periode[];
+    periodeFørTermin?: Periode;
     forbruk: Forbruk;
     onSubmit: (periode: Periode) => void;
     onCancel: () => void;
@@ -80,6 +81,7 @@ class Periodeskjema extends React.Component<Props, {}> {
             sisteUttaksdag,
             nyPeriodeId,
             perioder,
+            periodeFørTermin,
             forbruk,
             onSubmit
         } = this.props;
@@ -93,6 +95,7 @@ class Periodeskjema extends React.Component<Props, {}> {
                 render={(props: FormikProps<PeriodeskjemaFormValues>) => (
                     <PeriodeskjemaForm
                         perioder={perioder}
+                        periodeFørTermin={periodeFørTermin}
                         nyPeriode={nyPeriode}
                         onCancel={this.onCancel}
                         onChange={this.handleFormValuesChange}

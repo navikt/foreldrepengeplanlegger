@@ -146,6 +146,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                     visSkjema && (
                                         <Periodeskjema
                                             perioder={perioder}
+                                            periodeFørTermin={periodeFørTermin}
                                             nyPeriode={nyPeriode}
                                             nyPeriodeId={nyPeriodeId}
                                             omForeldre={omForeldre}

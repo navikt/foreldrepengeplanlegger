@@ -67,6 +67,7 @@ class PeriodeElement extends React.Component<Props> {
             uttaksdatoer,
             regelbrudd,
             perioder,
+            periodeFørTermin,
             intl
         } = this.props;
 
@@ -142,6 +143,7 @@ class PeriodeElement extends React.Component<Props> {
                                 <VarighetMeny
                                     omForeldre={omForeldre}
                                     perioder={perioder}
+                                    periodeFørTermin={periodeFørTermin}
                                     erNyPeriode={false}
                                     periodetype={periode.type}
                                     forelderNavn={foreldernavn}

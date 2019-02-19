@@ -65,7 +65,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
     } = props;
     const { onResetPlan } = elementProps;
     const antallPerioder = perioder.length;
-    if (antallPerioder === 0) {
+    if (antallPerioder === 0 && 1 + 1 === 3) {
         return (
             <div className={bem.element('tomListe')}>
                 <Ingress tag="p">
@@ -89,6 +89,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
                 <PeriodeElement
                     periode={periode}
                     perioder={perioder}
+                    periodeFørTermin={periodeFørTermin}
                     {...elementProps}
                     startdatoErLåst={true}
                     regelbrudd={getRegelbruddForPeriode(regelTestresultat, periode.id)}
@@ -106,6 +107,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
                         <PeriodeElement
                             perioder={perioder}
                             periode={periodeFørTermin}
+                            periodeFørTermin={periodeFørTermin}
                             regelbrudd={getRegelbruddForPeriode(regelTestresultat, periodeFørTermin.id)}
                             typeErLåst={true}
                             forelderErLåst={true}

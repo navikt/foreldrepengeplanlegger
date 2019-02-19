@@ -29,6 +29,7 @@ interface OwnProps {
     omForeldre: OmForeldre;
     nyPeriode?: Partial<Periode>;
     perioder: Periode[];
+    periodeFørTermin?: Periode;
     forbrukEksisterendePerioder: Forbruk;
     onCancel: () => void;
     onChange: (values: PeriodeskjemaFormValues) => void;
@@ -83,6 +84,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
             førsteUttaksdag,
             sisteUttaksdag,
             perioder,
+            periodeFørTermin,
             forbrukEksisterendePerioder
         } = this.props;
         const { fom, tom, periodetype, forelder, gradering } = formik.values;
@@ -161,6 +163,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                         <VarighetMeny
                                             gjenståendeDager={forbrukEksisterendePerioder.fordeling.dagerGjenstående}
                                             omForeldre={omForeldre}
+                                            periodeFørTermin={periodeFørTermin}
                                             perioder={perioder}
                                             erNyPeriode={true}
                                             dager={uttaksdager}

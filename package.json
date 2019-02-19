@@ -87,7 +87,6 @@
         "tslint-react": "3.6.0",
         "typescript": "3.1.6",
         "uglifyjs-webpack-plugin": "2.1.1",
-        "webpack": "4.29.0",
         "webpack-dev-server": "3.1.14"
     },
     "dependencies": {
@@ -154,6 +153,7 @@
         "redux": "4.0.1",
         "redux-saga": "1.0.0",
         "reselect": "4.0.0",
+        "webpack": "4.29.0",
         "yup": "0.26.7"
     }
 }

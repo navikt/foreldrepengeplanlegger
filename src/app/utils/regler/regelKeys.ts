@@ -5,5 +5,6 @@ export enum RegelKey {
     'starterInnenfor12UkerFørTermin' = 'starterInnenfor12UkerFørTermin',
     'farMedmorsUttakErInnenforMaksAntallDager' = 'farMedmorsUttakErInnenforMaksAntallDager',
     'morsUttakErInnenforMaksAntallDager' = 'morsUttakErInnenforMaksAntallDager',
-    'alleUttakErInnenforMaksAntallDager' = 'alleUttakErInnenforMaksAntallDager'
+    'alleUttakErInnenforMaksAntallDager' = 'alleUttakErInnenforMaksAntallDager',
+    'førstePeriodeErUttakAvForeldrepenger' = 'førstePeriodeErUttakAvForeldrepenger'
 }

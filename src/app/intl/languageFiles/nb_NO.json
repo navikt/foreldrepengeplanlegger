@@ -53,6 +53,7 @@
     "regel.feiler.morsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
     "regel.feiler.farMedmorsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
     "regel.feiler.alleUttakErInnenforMaksAntallDager": "Det er registrert for mange uker til sammen. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig. Du kan rette opp i dette ved å endre lengden på noen av periodene i planen.",
+    "regel.feiler.førstePeriodeErUttakAvForeldrepenger": "Planen kan ikke starte med {type}.",
 
     "regel.info.uttakForFarEllerMedmorFørsteSeksUkerInfo": "Når {navnFarMedmor} skal ta ut foreldrepenger eller utsette de første seks ukene, må ...",
     "regel.info.ferieMedUttaksdagerInfo": "Det er trukket {dager} med foreldrepenger fra ferie registrert i planen. Dette er fordi ferien inneholder helligdager, som en ikke kan registrere som ferie."

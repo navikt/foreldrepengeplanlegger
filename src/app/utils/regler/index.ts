@@ -6,6 +6,7 @@ import { farMedmorsUttakErInnenforMaksAntallDagerRegel } from './tester/farMedmo
 import { morsUttakErInnenforMaksAntallDagerRegel } from './tester/morsUttakErInnenforMaksAntallDager';
 import { alleUttakErInnenforMaksAntallDagerRegel } from './tester/alleUttakErInnenforMaksAntallDager';
 import { ferieMedUttaksdagerInfoRegel } from './tester/ferieMedUttaksdagerInfo';
+import { førstePeriodeErUttakAvForeldrepengerRegel } from './tester/førstePeriodeErUttakAvForeldrepenger';
 
 const uttaksplanRegler: Regel[] = [
     uttakForFarEllerMedmorFørsteSeksUkerInfoRegel,
@@ -14,7 +15,8 @@ const uttaksplanRegler: Regel[] = [
     erInnenforSisteMuligeUttaksdagRegel,
     farMedmorsUttakErInnenforMaksAntallDagerRegel,
     morsUttakErInnenforMaksAntallDagerRegel,
-    alleUttakErInnenforMaksAntallDagerRegel
+    alleUttakErInnenforMaksAntallDagerRegel,
+    førstePeriodeErUttakAvForeldrepengerRegel
 ];
 
 export default uttaksplanRegler;

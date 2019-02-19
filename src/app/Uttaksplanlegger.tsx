@@ -14,6 +14,10 @@ import DevSide from './sider/DevSide';
 
 const cls = BEMHelper('planlegger');
 
+/*
+TODO: vise oppsummering når kun fft er synlig
+*/
+
 type Props = RouteComponentProps<any>;
 
 class Uttaksplanlegger extends React.Component<Props> {

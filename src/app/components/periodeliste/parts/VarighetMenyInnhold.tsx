@@ -214,7 +214,7 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
             <Block margin="none">
                 <Block>
                     <Select
-                        label="Når skal perioden starte?"
+                        label="Hvor vil du legge inn den nye perioden?"
                         onChange={(evt) => this.setEtterPeriodeTom(evt.target.value)}
                         value={
                             this.state.egendefinert
@@ -227,11 +227,11 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
                         <option key="termin" value={TerminDatoValg}>
                             {formaterDatoTall(førsteUttaksdag)} Termin
                         </option>
-                        {perioder.map((p) => (
+                        {perioder.map((p, idx) => (
                             <option key={p.id} value={p.id}>
-                                {p.tidsperiode && `${formaterDatoTall(Uttaksdagen(p.tidsperiode.tom).neste())}`} - etter{' '}
+                                {p.tidsperiode && `${idx + 1} - `}
                                 {intl.formatMessage({ id: `periodetype.${p.type}` })} -{' '}
-                                {getForelderNavn(p.forelder, omForeldre)}
+                                {getForelderNavn(p.forelder, omForeldre)} ({formaterDatoTall(p.tidsperiode.tom)})
                             </option>
                         ))}
                         <option value={EgendefinertDatoValg}>Annen dato</option>

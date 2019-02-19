@@ -109,7 +109,7 @@ class UttaksplanSide extends React.Component<Props> {
 
                 <LoadContainer loading={henterStønadskontoer} overlay={false}>
                     <Skjemablokk
-                        tittel={`Hvor lang periode med foreldrepenger ønsker ${
+                        tittel={`TODO: Infoboks - Hvor lang periode med foreldrepenger ønsker ${
                             omForeldre.antallForeldre === 2 ? 'dere' : 'du'
                         }?`}>
                         <DekningsgradValg

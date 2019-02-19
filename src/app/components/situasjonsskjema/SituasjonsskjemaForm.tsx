@@ -12,6 +12,7 @@ import VelgForeldrenavn from './parts/VelgForeldrenavn';
 import { getAntallForeldreISituasjon, inputHasValue, getTermindatoAvgrensninger } from '../../utils/common';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import VelgErMorEllerFar from './parts/VelgErMorEllerFar';
+import Situasjonsinfo from './parts/velgSituasjon/SituasjonInfo';
 
 interface OwnProps {
     formik: FormikProps<SituasjonSkjemadata>;
@@ -47,7 +48,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
         const erToForeldre = getAntallForeldreISituasjon(situasjon) > 1;
         return (
             <Form>
-                <Skjemablokk tittel="Velg deres situasjon">
+                <Skjemablokk tittel="Velg deres situasjon" animated={true}>
                     <Block margin="s">
                         <VelgSituasjon
                             onChange={(s) => formik.setFieldValue('situasjon', s)}
@@ -58,6 +59,15 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                     <Block visible={visErMorEllerFarMedmor}>
                         <VelgErMorEllerFar erMor={erMor} onChange={(em) => formik.setFieldValue('erMor', em)} />
                     </Block>
+
+                    {situasjon && (visErMorEllerFarMedmor === false || erMor !== undefined) && (
+                        <Block>
+                            <Situasjonsinfo
+                                situasjon={situasjon}
+                                rolle={erMor !== undefined ? (erMor ? 'mor' : 'far') : undefined}
+                            />
+                        </Block>
+                    )}
 
                     <Block visible={visNavn} margin="none">
                         <VelgForeldrenavn
@@ -86,7 +96,9 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                 )}
 
                 {visTermindato && (
-                    <Skjemablokk tittel="Når er barnet forventet?" visible={visTermindato}>
+                    <Skjemablokk
+                        tittel={`Når er ${antallBarn === 1 ? 'barnet' : 'barna'} forventet?`}
+                        visible={visTermindato}>
                         <DatoInput
                             id="familiehendelsesdato"
                             name="familiehendelsesdato"

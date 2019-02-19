@@ -28,8 +28,6 @@ const VelgSituasjon: React.StatelessComponent<Props> = ({ valgtSituasjon, onChan
                 />
             ))}
         </div>
-        Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en
-        fellesperiode som dere kan dele.
     </>
 );
 

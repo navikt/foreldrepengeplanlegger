@@ -27,7 +27,7 @@ const uttakForFarEllerMedmorFørsteSeksUkerInfo: RegelTest = (
                 : {
                       periodeId: periode.id,
                       key,
-                      alvorlighet: RegelAlvorlighet.INFO,
+                      alvorlighet: RegelAlvorlighet.ULOVLIG,
                       feilmelding: {
                           intlKey: `regel.info.${key}`,
                           values: {

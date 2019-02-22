@@ -9,6 +9,10 @@ import { VarighetSkjemaType } from './VarighetMeny';
 import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
 import DropdownDialogTittel from '../../periodeliste/parts/DropdownDialogTittel';
 import Varighet from '../../varighet/Varighet';
+import { Periode } from '../../../types';
+import { Periodene } from '../../../utils/Periodene';
+import AlertStripe from 'nav-frontend-alertstriper';
+import LinkButton from 'common/components/linkButton/LinkButton';
 
 export interface VarighetChangeEvent {
     ingenVarighet?: boolean;
@@ -23,6 +27,9 @@ export interface VarighetSkjemaProps {
     antallBrukteUttaksdager?: number;
     skjematype: VarighetSkjemaType;
     ingenVarighet?: boolean;
+    perioder: Periode[];
+    erNyPeriode: boolean;
+    nesteUttaksdag: Date;
     onTidsperiodeChange: (tidsperiode: Partial<Tidsperiode>) => void;
     onVarighetChange: (evt: VarighetChangeEvent) => void;
 }
@@ -33,6 +40,19 @@ interface State {
     varighetEllerSluttdato: 'sluttdato' | 'varighet';
 }
 
+const getKonsekvensNyPeriodeInniPlan = (perioder: Periode[], dato: Date): React.ReactNode => {
+    const berørtPeriode = Periodene(perioder).finnPeriodeMedDato(dato);
+    if (berørtPeriode) {
+        return (
+            <AlertStripe type="info">
+                Dager etter <strong>{formaterDato(dato)}</strong> vil bli forskjøvet tilsvarende varigheten på denne
+                perioden
+            </AlertStripe>
+        );
+    }
+    return null;
+};
+
 const VarighetStartdato: React.StatelessComponent<Props> = ({
     onTidsperiodeChange,
     tidsperiode,
@@ -40,15 +60,17 @@ const VarighetStartdato: React.StatelessComponent<Props> = ({
     maksDato
 }) => {
     return (
-        <DatoInput
-            id="fom"
-            name="fom"
-            label="Når skal perioden starte?"
-            visÅrValger={true}
-            dato={tidsperiode.fom}
-            avgrensninger={{ minDato, maksDato, helgedagerIkkeTillatt: true }}
-            onChange={(dato) => onTidsperiodeChange({ fom: dato, tom: tidsperiode.tom })}
-        />
+        <>
+            <DatoInput
+                id="fom"
+                name="fom"
+                label="Når skal perioden starte?"
+                visÅrValger={true}
+                dato={tidsperiode.fom}
+                avgrensninger={{ minDato, maksDato, helgedagerIkkeTillatt: true }}
+                onChange={(dato) => onTidsperiodeChange({ fom: dato, tom: tidsperiode.tom })}
+            />
+        </>
     );
 };
 
@@ -76,7 +98,7 @@ const VarighetStartdatoFørTermin: React.StatelessComponent<Props> = (props) => 
     return (
         <div>
             <DropdownDialogTittel>Når ønsker du å starte uttaket før termin?</DropdownDialogTittel>
-            <Block margin="xxs">
+            <Block margin="xs">
                 <VarighetStartdato {...props} />
             </Block>
             <Checkbox
@@ -105,8 +127,18 @@ const BrukteUttaksdagerInfo: React.StatelessComponent<{ dager: number | undefine
 
 class VarighetSkjema extends React.Component<Props, State> {
     render() {
-        const { skjematype, onVarighetChange, antallDager, tidsperiode } = this.props;
+        const {
+            skjematype,
+            onVarighetChange,
+            antallDager,
+            tidsperiode,
+            onTidsperiodeChange,
+            nesteUttaksdag,
+            perioder,
+            erNyPeriode
+        } = this.props;
         const { uker, dager } = getUkerOgDagerFromDager(antallDager || 0);
+        const { fom } = tidsperiode;
         switch (skjematype) {
             case 'foreldrepengerFørFødsel':
                 return <VarighetStartdatoFørTermin {...this.props} />;
@@ -115,7 +147,21 @@ class VarighetSkjema extends React.Component<Props, State> {
                     <div>
                         <DropdownDialogTittel>Velg tid</DropdownDialogTittel>
                         <Block>
-                            <VarighetStartdato {...this.props} />
+                            <Block margin="xs">
+                                <VarighetStartdato {...this.props} />
+                            </Block>
+                            {fom === undefined && (
+                                <>
+                                    <span className="comment">Hurtigvalg:</span>{' '}
+                                    <LinkButton
+                                        onClick={() =>
+                                            onTidsperiodeChange({ fom: nesteUttaksdag, tom: tidsperiode.tom })
+                                        }>
+                                        Etter siste periode
+                                    </LinkButton>
+                                </>
+                            )}
+                            {fom && erNyPeriode && getKonsekvensNyPeriodeInniPlan(perioder, fom)}
                         </Block>
                         <Block visible={tidsperiode.fom !== undefined} margin="s">
                             <TabPanel

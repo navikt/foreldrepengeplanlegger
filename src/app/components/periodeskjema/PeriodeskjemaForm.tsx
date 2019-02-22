@@ -92,11 +92,11 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         const {
             formik,
             onCancel,
-            omForeldre
-            // nesteUttaksdag,
+            omForeldre,
+            nesteUttaksdag,
             // førsteUttaksdag,
             // sisteUttaksdag,
-            // perioder,
+            perioder
             // periodeFørTermin,
             // forbrukEksisterendePerioder
         } = this.props;
@@ -182,7 +182,10 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                                 minDato: this.getMinDato(),
                                                 maksDato: this.getMaksDato(),
                                                 onTidsperiodeChange: this.handleTidsperiodeChange,
-                                                onVarighetChange: this.handleChangeVarighet
+                                                onVarighetChange: this.handleChangeVarighet,
+                                                perioder,
+                                                nesteUttaksdag,
+                                                erNyPeriode: true
                                             }}
                                             dropdownStyle="border"
                                             // gjenståendeDager={forbrukEksisterendePerioder.fordeling.dagerGjenstående}

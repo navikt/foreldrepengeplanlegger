@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import moment from 'moment';
 import SkjemaInputElement from '../skjemaInputElement/SkjemaInputElement';
 import { Feil } from '../skjemaInputElement/types';
 import NavDatovelger from 'nav-datovelger';
@@ -66,7 +66,12 @@ class DatoInput extends React.Component<Props, {}> {
                                     name,
                                     ariaDescribedby: ariaDescriptionId
                                 }}
-                                onChange={(dato) => onChange(dato ? dato : undefined)}
+                                onChange={(dato) => {
+                                    if (moment(dato).isSame(this.props.dato, 'day')) {
+                                        return;
+                                    }
+                                    onChange(dato ? dato : undefined);
+                                }}
                             />
                         </FocusContainer>
                         {ariaDescriptionId && (

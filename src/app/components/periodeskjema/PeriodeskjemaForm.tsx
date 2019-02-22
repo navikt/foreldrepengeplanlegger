@@ -96,9 +96,9 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
             nesteUttaksdag,
             // førsteUttaksdag,
             // sisteUttaksdag,
-            perioder
+            perioder,
             // periodeFørTermin,
-            // forbrukEksisterendePerioder
+            forbrukEksisterendePerioder
         } = this.props;
         const { fom, tom, periodetype, forelder, gradering } = formik.values;
         const forelderNavn = getForelderNavn(forelder, omForeldre);
@@ -177,15 +177,19 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             skjemaProps={{
                                                 skjematype: 'åpen',
                                                 tidsperiode: { fom, tom },
-                                                antallDager: uttaksdager,
+                                                antallUttaksdager: uttaksdager,
                                                 antallBrukteUttaksdager: brukteUttaksdager,
                                                 minDato: this.getMinDato(),
                                                 maksDato: this.getMaksDato(),
                                                 onTidsperiodeChange: this.handleTidsperiodeChange,
                                                 onVarighetChange: this.handleChangeVarighet,
                                                 perioder,
+                                                periodetype,
                                                 nesteUttaksdag,
-                                                erNyPeriode: true
+                                                erNyPeriode: true,
+                                                gjenståendeDager:
+                                                    forbrukEksisterendePerioder.fordeling.dagerGjenstående,
+                                                gradering
                                             }}
                                             dropdownStyle="border"
                                             // gjenståendeDager={forbrukEksisterendePerioder.fordeling.dagerGjenstående}

@@ -70,7 +70,7 @@ const VarighetStartdato: React.StatelessComponent<Props> = ({
                 <DatoInput
                     id="fom"
                     name="fom"
-                    label="Når skal perioden starte?"
+                    label={låstStartdato ? 'Perioden starter:' : 'Når skal perioden starte?'}
                     visÅrValger={true}
                     dato={tidsperiode.fom}
                     disabled={låstStartdato}

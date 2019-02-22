@@ -51,7 +51,7 @@ class Uttaksplan extends React.Component<Props, State> {
         this.handleNyPeriodeChange = this.handleNyPeriodeChange.bind(this);
         this.handleRemovePeriode = this.handleRemovePeriode.bind(this);
         this.state = {
-            visSkjema: false,
+            visSkjema: props.perioder.length === 0,
             visBekreftSlettDialog: false,
             visInfoOmForeldrepengerFørTermin: false
         };
@@ -203,7 +203,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                 </div>
                             </Knapperad>
                         </Block>
-                        {forbruk.fordeling && perioder.length > 0 && (
+                        {forbruk.fordeling && (perioder.length > 0 || periodeFørTermin !== undefined) && (
                             <FordelingGraf fordeling={forbruk.fordeling} omForeldre={omForeldre} />
                         )}
                     </Block>

@@ -3,7 +3,7 @@ import BEMHelper from 'common/utils/bem';
 import ForelderMeny from './parts/ForelderMeny';
 import PeriodetypeMeny from './parts/PeriodetypeMeny';
 import { changePeriodeType } from '../../utils/typeUtils';
-import VarighetMeny, { VarighetChangeEvent } from './parts/VarighetMeny';
+import VarighetMenyOld, { VarighetChangeEvent } from './parts/VarighetMenyOld';
 import { PeriodelisteElementProps } from './types';
 import GraderingMeny from './parts/GraderingMeny';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
@@ -140,7 +140,7 @@ class PeriodeElement extends React.Component<Props> {
                             id: 'varighet',
                             className: bem.element('varighet'),
                             render: () => (
-                                <VarighetMeny
+                                <VarighetMenyOld
                                     omForeldre={omForeldre}
                                     perioder={perioder}
                                     periodeFørTermin={periodeFørTermin}

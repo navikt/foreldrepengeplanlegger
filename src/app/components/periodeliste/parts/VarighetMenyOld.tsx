@@ -5,7 +5,7 @@ import Varighet from '../../varighet/Varighet';
 import Block from 'common/components/block/Block';
 import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import DagMndPeriode from 'common/components/dagMnd/DagMndPeriode';
-import VarighetMenyInnhold from './VarighetMenyInnhold';
+import VarighetMenyInnhold from './VarighetMenyInnholdOld';
 import { Periodetype, Periode, OmForeldre } from '../../../types';
 
 export interface VarighetChangeEvent {
@@ -15,7 +15,7 @@ export interface VarighetChangeEvent {
 
 const AUTOCLOSE_MENY = false;
 
-type VarighetVariant = 'foreldrepengerFørTermin' | 'låstStartdato' | 'kunFomTom' | 'åpen' | 'nyPeriodePåSlutten';
+type VarighetVariantOld = 'foreldrepengerFørTermin' | 'låstStartdato' | 'kunFomTom' | 'åpen' | 'nyPeriodePåSlutten';
 
 export interface OwnProps {
     dager?: number;
@@ -48,7 +48,7 @@ export type VarighetMenyProps = OwnProps & InjectedIntlProps;
 
 const VIS_DATO: boolean = true;
 
-export const getVarighetVariant = (props: VarighetMenyProps): VarighetVariant => {
+export const getVarighetVariant = (props: VarighetMenyProps): VarighetVariantOld => {
     const { sluttdatoErLåst, startdatoErLåst, onVarighetChange, periodetype, erNyPeriode } = props;
     if (startdatoErLåst === true && erNyPeriode === true) {
         return 'nyPeriodePåSlutten';
@@ -62,7 +62,7 @@ export const getVarighetVariant = (props: VarighetMenyProps): VarighetVariant =>
     return 'åpen';
 };
 
-const getTittel = (variant: VarighetVariant): string => {
+const getTittel = (variant: VarighetVariantOld): string => {
     switch (variant) {
         case 'foreldrepengerFørTermin':
             return 'Når ønsker du å starte uttaket før termin?';
@@ -94,7 +94,7 @@ const VarighetMenyLabel: React.StatelessComponent<VarighetMenyProps> = (props) =
     }
 };
 
-class VarighetMeny extends React.Component<VarighetMenyProps, {}> {
+class VarighetMenyOld extends React.Component<VarighetMenyProps, {}> {
     dropdown: DropdownForm | null;
     constructor(props: VarighetMenyProps) {
         super(props);
@@ -133,4 +133,4 @@ class VarighetMeny extends React.Component<VarighetMenyProps, {}> {
     }
 }
 
-export default injectIntl(VarighetMeny);
+export default injectIntl(VarighetMenyOld);

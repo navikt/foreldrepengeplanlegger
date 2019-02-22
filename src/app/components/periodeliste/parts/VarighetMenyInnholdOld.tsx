@@ -1,6 +1,6 @@
 import * as React from 'react';
 import moment from 'moment';
-import { VarighetMenyProps, getVarighetVariant } from './VarighetMeny';
+import { VarighetMenyProps, getVarighetVariant } from './VarighetMenyOld';
 import Block from 'common/components/block/Block';
 import { Checkbox, Select } from 'nav-frontend-skjema';
 import FomTomValg from './FomTomValg';
@@ -47,7 +47,7 @@ const DatoValg: React.StatelessComponent<VarighetMenyProps> = (props) => {
     );
 };
 
-const VarighetValg: React.StatelessComponent<VarighetMenyProps> = (props) => {
+const VarighetValgOld: React.StatelessComponent<VarighetMenyProps> = (props) => {
     const {
         dager,
         minDager,
@@ -203,7 +203,7 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
                         )}
                     </Block>
                     {kanVelgeVarighet ? (
-                        <VarighetValg {...props} />
+                        <VarighetValgOld {...props} />
                     ) : (
                         <BrukteUttaksdagerInfo dager={props.brukteUttaksdager} />
                     )}
@@ -260,7 +260,7 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
                                 <BrukteUttaksdagerInfo dager={props.brukteUttaksdager} />
                             </Block>
                             <Block visible={this.state.varighetEllerSluttdato === 'varighet'} margin="none">
-                                <VarighetValg {...props} />
+                                <VarighetValgOld {...props} />
                             </Block>
                             {gjenståendeDager !== undefined && gjenståendeDager > 0 && onVarighetChange && (
                                 <LinkButton
@@ -285,7 +285,7 @@ class VarighetMenyInnhold extends React.Component<VarighetMenyProps & InjectedIn
                             <Block>
                                 <DatoValg {...props} />
                             </Block>
-                            <VarighetValg {...props} />
+                            <VarighetValgOld {...props} />
                         </>
                     )}
                 </Block>

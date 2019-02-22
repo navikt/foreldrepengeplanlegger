@@ -2,13 +2,13 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { Wrapper, Button, Menu, closeMenu } from 'react-aria-menubutton';
 import BEMHelper from 'common/utils/bem';
-import { Undertittel } from 'nav-frontend-typografi';
-
-import './dropdownForm.less';
 import { guid } from 'nav-frontend-js-utils';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { NedChevron } from 'nav-frontend-chevron';
+import DropdownDialogTittel from 'app/components/periodeliste/parts/DropdownDialogTittel';
+
+import './dropdownForm.less';
 
 const USE_CHEVRON = false;
 
@@ -94,11 +94,7 @@ class DropdownForm extends React.Component<Props> {
                         contentClassName
                     )}>
                     <section>
-                        {contentTitle && (
-                            <Undertittel tag="h1" className={bem.element('dialogTitle')}>
-                                {contentTitle}
-                            </Undertittel>
-                        )}
+                        {contentTitle && <DropdownDialogTittel>{contentTitle}</DropdownDialogTittel>}
                         {contentRenderer()}
                         {renderCloseButton && (
                             <Knapperad>

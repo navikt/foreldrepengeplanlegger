@@ -11,13 +11,14 @@ import BEMHelper from 'common/utils/bem';
 import GraderingMeny from '../periodeliste/parts/GraderingMeny';
 import { getForelderNavn } from '../../utils/common';
 import ForelderMeny from '../periodeliste/parts/ForelderMeny';
-import VarighetMeny, { VarighetChangeEvent } from '../periodeliste/parts/VarighetMeny';
 import { Tidsperiode } from 'nav-datovelger';
 import PeriodelisteElement from '../periodeliste/periodelisteElement/PeriodelisteElement';
 import { Ingress } from 'nav-frontend-typografi';
 import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
 import periodeskjemaUtils from './utils';
 import { getTidsperiode, Tidsperioden } from '../../utils/Tidsperioden';
+import { VarighetChangeEvent } from './varighet/VarighetSkjema';
+import VarighetMeny from './varighet/VarighetMeny';
 
 import './periodeSkjema.less';
 
@@ -46,6 +47,8 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         this.handleTidsperiodeChange = this.handleTidsperiodeChange.bind(this);
         this.handleValueOnChange = this.handleValueOnChange.bind(this);
         this.handleChangeVarighet = this.handleChangeVarighet.bind(this);
+        this.getMinDato = this.getMinDato.bind(this);
+        this.getMaksDato = this.getMaksDato.bind(this);
     }
 
     handleTidsperiodeChange(tidsperiode: Partial<Tidsperiode>) {
@@ -75,17 +78,27 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
             });
         }
     }
+    getMinDato() {
+        const { periodetype } = this.props.formik.values;
+        if (periodetype === Periodetype.UttakFørTermin) {
+            return this.props.førsteUttaksdagFørTermin;
+        }
+        return this.props.førsteUttaksdag;
+    }
+    getMaksDato() {
+        return this.props.sisteUttaksdag;
+    }
     render() {
         const {
             formik,
             onCancel,
-            omForeldre,
-            nesteUttaksdag,
-            førsteUttaksdag,
-            sisteUttaksdag,
-            perioder,
-            periodeFørTermin,
-            forbrukEksisterendePerioder
+            omForeldre
+            // nesteUttaksdag,
+            // førsteUttaksdag,
+            // sisteUttaksdag,
+            // perioder,
+            // periodeFørTermin,
+            // forbrukEksisterendePerioder
         } = this.props;
         const { fom, tom, periodetype, forelder, gradering } = formik.values;
         const forelderNavn = getForelderNavn(forelder, omForeldre);
@@ -161,24 +174,35 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                     className: bem.element('varighet', 'skjema'),
                                     render: () => (
                                         <VarighetMeny
-                                            gjenståendeDager={forbrukEksisterendePerioder.fordeling.dagerGjenstående}
-                                            omForeldre={omForeldre}
-                                            periodeFørTermin={periodeFørTermin}
-                                            perioder={perioder}
-                                            erNyPeriode={true}
-                                            dager={uttaksdager}
-                                            periodetype={periodetype}
-                                            fom={fom || nesteUttaksdag}
-                                            tom={tom}
-                                            minDager={1}
-                                            gradering={gradering}
-                                            brukteUttaksdager={brukteUttaksdager}
-                                            førsteUttaksdag={førsteUttaksdag}
-                                            sisteUttaksdag={sisteUttaksdag}
-                                            visLukkKnapp={true /*fom !== undefined && tom !== undefined*/}
-                                            onTidsperiodeChange={this.handleTidsperiodeChange}
-                                            onVarighetChange={this.handleChangeVarighet}
+                                            skjemaProps={{
+                                                skjematype: 'åpen',
+                                                tidsperiode: { fom, tom },
+                                                antallDager: uttaksdager,
+                                                antallBrukteUttaksdager: brukteUttaksdager,
+                                                minDato: this.getMinDato(),
+                                                maksDato: this.getMaksDato(),
+                                                onTidsperiodeChange: this.handleTidsperiodeChange,
+                                                onVarighetChange: this.handleChangeVarighet
+                                            }}
                                             dropdownStyle="border"
+                                            // gjenståendeDager={forbrukEksisterendePerioder.fordeling.dagerGjenstående}
+                                            // omForeldre={omForeldre}
+                                            // periodeFørTermin={periodeFørTermin}
+                                            // perioder={perioder}
+                                            // erNyPeriode={true}
+                                            // dager={uttaksdager}
+                                            // periodetype={periodetype}
+                                            // fom={fom || nesteUttaksdag}
+                                            // tom={tom}
+                                            // minDager={1}
+                                            // gradering={gradering}
+                                            // brukteUttaksdager={brukteUttaksdager}
+                                            // førsteUttaksdag={førsteUttaksdag}
+                                            // sisteUttaksdag={sisteUttaksdag}
+                                            // visLukkKnapp={true /*fom !== undefined && tom !== undefined*/}
+                                            // onTidsperiodeChange={this.handleTidsperiodeChange}
+                                            // onVarighetChange={this.handleChangeVarighet}
+                                            // dropdownStyle="border"
                                         />
                                     )
                                 }

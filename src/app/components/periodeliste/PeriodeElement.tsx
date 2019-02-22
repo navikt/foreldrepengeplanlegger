@@ -3,7 +3,6 @@ import BEMHelper from 'common/utils/bem';
 import ForelderMeny from './parts/ForelderMeny';
 import PeriodetypeMeny from './parts/PeriodetypeMeny';
 import { changePeriodeType } from '../../utils/typeUtils';
-import VarighetMenyOld, { VarighetChangeEvent } from './parts/VarighetMenyOld';
 import { PeriodelisteElementProps } from './types';
 import GraderingMeny from './parts/GraderingMeny';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
@@ -14,6 +13,8 @@ import PeriodelisteElement from './periodelisteElement/PeriodelisteElement';
 import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
 import getMessage from 'common/utils/i18nUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
+import VarighetMeny from '../periodeskjema/varighet/VarighetMeny';
+import { VarighetChangeEvent } from '../periodeskjema/varighet/VarighetSkjema';
 
 type Props = PeriodelisteElementProps & InjectedIntlProps;
 
@@ -59,15 +60,12 @@ class PeriodeElement extends React.Component<Props> {
         const {
             typeErLåst,
             forelderErLåst,
-            startdatoErLåst,
-            sluttdatoErLåst,
             omForeldre,
             onUpdate,
             onRemove,
             uttaksdatoer,
             regelbrudd,
             perioder,
-            periodeFørTermin,
             intl
         } = this.props;
 
@@ -140,47 +138,46 @@ class PeriodeElement extends React.Component<Props> {
                             id: 'varighet',
                             className: bem.element('varighet'),
                             render: () => (
-                                <VarighetMenyOld
-                                    omForeldre={omForeldre}
-                                    perioder={perioder}
-                                    periodeFørTermin={periodeFørTermin}
-                                    erNyPeriode={false}
-                                    periodetype={periode.type}
-                                    forelderNavn={foreldernavn}
-                                    gradering={periode.gradering}
-                                    gradert={periode.type === Periodetype.GradertUttak}
-                                    dager={antallUttaksdager}
-                                    brukteUttaksdager={antallUttaksdagerBrukt}
-                                    førsteUttaksdag={
-                                        periode.type === Periodetype.UttakFørTermin
-                                            ? uttaksdatoer.førFødsel.førsteMuligeUttaksdag
-                                            : uttaksdatoer.førsteUttaksdag
-                                    }
-                                    sisteUttaksdag={
-                                        periode.type === Periodetype.UttakFørTermin
-                                            ? uttaksdatoer.førFødsel.sisteUttaksdagFørFødsel
-                                            : uttaksdatoer.etterFødsel.sisteMuligeUttaksdag
-                                    }
-                                    startdatoErLåst={startdatoErLåst}
-                                    sluttdatoErLåst={sluttdatoErLåst}
-                                    fom={fom}
-                                    tom={tom}
-                                    minDager={periode.type === Periodetype.UttakFørTermin ? 0 : 1}
-                                    onTidsperiodeChange={(tidsperiode) =>
-                                        isValidTidsperiode(tidsperiode)
-                                            ? onUpdate({
-                                                  ...this.props.periode,
-                                                  tidsperiode
-                                              })
-                                            : null
-                                    }
-                                    visLukkKnapp={true}
-                                    onVarighetChange={this.handleChangeVarighet}
-                                    ingenVarighet={
-                                        this.props.periode.type === Periodetype.UttakFørTermin
-                                            ? this.props.periode.skalIkkeHaUttakFørTermin
-                                            : undefined
-                                    }
+                                <VarighetMeny
+                                    skjemaProps={{
+                                        // omForeldre={omForeldre}
+                                        perioder,
+                                        // periodeFørTermin={periodeFørTermin}
+                                        erNyPeriode: false,
+                                        periodetype: periode.type,
+                                        // forelderNavn={foreldernavn}
+                                        gradering: periode.gradering,
+                                        // gradert={periode.type === Periodetype.GradertUttak}
+                                        antallUttaksdager,
+                                        antallUttaksdagerBrukt,
+                                        // dager={antallUttaksdager}
+                                        minDato:
+                                            periode.type === Periodetype.UttakFørTermin
+                                                ? uttaksdatoer.førFødsel.førsteMuligeUttaksdag
+                                                : uttaksdatoer.førsteUttaksdag,
+                                        maksDato:
+                                            periode.type === Periodetype.UttakFørTermin
+                                                ? uttaksdatoer.førFødsel.sisteUttaksdagFørFødsel
+                                                : uttaksdatoer.etterFødsel.sisteMuligeUttaksdag,
+                                        tidsperiode: {
+                                            fom,
+                                            tom
+                                        },
+                                        // minDager={periode.type === Periodetype.UttakFørTermin ? 0 : 1}
+                                        onTidsperiodeChange: (tidsperiode) =>
+                                            isValidTidsperiode(tidsperiode)
+                                                ? onUpdate({
+                                                      ...this.props.periode,
+                                                      tidsperiode
+                                                  })
+                                                : null,
+                                        onVarighetChange: this.handleChangeVarighet,
+                                        ingenVarighet:
+                                            this.props.periode.type === Periodetype.UttakFørTermin
+                                                ? this.props.periode.skalIkkeHaUttakFørTermin
+                                                : undefined
+                                    }}
+                                    dropdownStyle="filled"
                                 />
                             )
                         }

@@ -175,10 +175,9 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                     render: () => (
                                         <VarighetMeny
                                             skjemaProps={{
-                                                skjematype: 'åpen',
                                                 tidsperiode: { fom, tom },
                                                 antallUttaksdager: uttaksdager,
-                                                antallBrukteUttaksdager: brukteUttaksdager,
+                                                antallUttaksdagerBrukt: brukteUttaksdager,
                                                 minDato: this.getMinDato(),
                                                 maksDato: this.getMaksDato(),
                                                 onTidsperiodeChange: this.handleTidsperiodeChange,

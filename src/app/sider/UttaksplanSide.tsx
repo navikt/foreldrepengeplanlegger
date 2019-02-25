@@ -129,7 +129,7 @@ class UttaksplanSide extends React.Component<Props> {
                         />
                     </Skjemablokk>
                     {tilgjengeligeDager && dekningsgrad !== undefined && (
-                        <Block>
+                        <Block visible={false}>
                             <TilgjengeligeDagerOversikt
                                 tilgjengeligeDager={tilgjengeligeDager}
                                 dekningsgrad={dekningsgrad!}

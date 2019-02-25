@@ -74,7 +74,7 @@ const VarighetValgOld: React.StatelessComponent<VarighetMenyProps> = (props) => 
                 {gradert && gradering !== undefined && brukteUttaksdager && brukteUttaksdager >= 0 && (
                     <Alertstriper type="nav-ansatt">
                         <Element>Foreldrepenger og arbeid</Element>
-                        På grunn av at {forelderNavn || 'du'} arbeider {100 - gradering} prosent, brukes{' '}
+                        På grunn av at {forelderNavn || 'du'} jobber {100 - gradering} prosent, brukes{' '}
                         <strong>
                             <Varighet dager={brukteUttaksdager} separator={' og '} />
                         </strong>{' '}

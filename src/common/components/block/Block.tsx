@@ -15,6 +15,7 @@ export interface BlockProps {
     visible?: boolean;
     animated?: boolean;
     margin?: BlockPadding;
+    marginTop?: BlockPadding;
     hasChildBlocks?: boolean;
     children: React.ReactNode;
     align?: undefined | 'left' | 'center' | 'right';
@@ -25,7 +26,8 @@ const bem = BEMHelper('block');
 
 const Block: React.StatelessComponent<BlockProps> = ({
     visible,
-    margin = 'l',
+    margin,
+    marginTop,
     title,
     animated = false,
     children,
@@ -37,7 +39,19 @@ const Block: React.StatelessComponent<BlockProps> = ({
     if (children === undefined || (animated !== true && visible === false)) {
         return null;
     }
-    const contentClass = classNames(bem.block, !hasChildBlocks ? bem.modifier(margin) : bem.modifier('none'), {
+    let bottomMargin: BlockPadding;
+    if (margin === undefined && marginTop === undefined) {
+        bottomMargin = 'l';
+    } else if (margin === undefined && marginTop !== undefined) {
+        bottomMargin = 'none';
+    } else if (margin !== undefined) {
+        bottomMargin = margin;
+    } else {
+        bottomMargin = 'l';
+    }
+
+    const contentClass = classNames(bem.block, !hasChildBlocks ? bem.modifier(bottomMargin) : bem.modifier('none'), {
+        [bem.modifier(`top-${marginTop}`)]: marginTop,
         [bem.modifier(`align-${align}`)]: align,
         [bem.modifier(`style-${style}`)]: style
     });

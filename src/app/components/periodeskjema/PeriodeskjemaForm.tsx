@@ -21,6 +21,7 @@ import { VarighetChangeEvent } from './varighet/VarighetSkjema';
 import VarighetMeny from './varighet/VarighetMeny';
 
 import './periodeSkjema.less';
+import EndringerVedNyPeriode from './EndringerVedNyPeriode';
 
 interface OwnProps {
     nesteUttaksdag: Date;
@@ -94,11 +95,9 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
             onCancel,
             omForeldre,
             nesteUttaksdag,
-            // førsteUttaksdag,
-            // sisteUttaksdag,
             perioder,
-            // periodeFørTermin,
-            forbrukEksisterendePerioder
+            forbrukEksisterendePerioder,
+            nyPeriode
         } = this.props;
         const { fom, tom, periodetype, forelder, gradering } = formik.values;
         const forelderNavn = getForelderNavn(forelder, omForeldre);
@@ -111,7 +110,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                     <Ingress>Legg til ny periode</Ingress>
                 </Block>
                 <PeriodeBlokk farge={getPeriodetypeFarge(periodetype, forelder)} nyPeriode={true}>
-                    <Block margin="xs">
+                    <Block margin="s">
                         <PeriodelisteElement
                             menyer={[
                                 {
@@ -191,30 +190,13 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                                 gradering
                                             }}
                                             dropdownStyle="border"
-                                            // gjenståendeDager={forbrukEksisterendePerioder.fordeling.dagerGjenstående}
-                                            // omForeldre={omForeldre}
-                                            // periodeFørTermin={periodeFørTermin}
-                                            // perioder={perioder}
-                                            // erNyPeriode={true}
-                                            // dager={uttaksdager}
-                                            // periodetype={periodetype}
-                                            // fom={fom || nesteUttaksdag}
-                                            // tom={tom}
-                                            // minDager={1}
-                                            // gradering={gradering}
-                                            // brukteUttaksdager={brukteUttaksdager}
-                                            // førsteUttaksdag={førsteUttaksdag}
-                                            // sisteUttaksdag={sisteUttaksdag}
-                                            // visLukkKnapp={true /*fom !== undefined && tom !== undefined*/}
-                                            // onTidsperiodeChange={this.handleTidsperiodeChange}
-                                            // onVarighetChange={this.handleChangeVarighet}
-                                            // dropdownStyle="border"
                                         />
                                     )
                                 }
                             ]}
                         />
                     </Block>
+                    <EndringerVedNyPeriode nyPeriode={nyPeriode} perioder={perioder} omForeldre={omForeldre} />
                     <Knapperad>
                         <Hovedknapp htmlType="submit" disabled={formik.isValid === false}>
                             Legg til

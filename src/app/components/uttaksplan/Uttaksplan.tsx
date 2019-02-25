@@ -9,16 +9,13 @@ import Knapperad from 'common/components/knapperad/Knapperad';
 import FordelingGraf from '../fordelingGraf/FordelingGraf';
 import { Forbruk, OmForeldre, Uttaksdatoer, TilgjengeligeDager } from '../../types';
 import Periodeliste from '../periodeliste/Periodeliste';
-import { Systemtittel, Element } from 'nav-frontend-typografi';
+import { Systemtittel } from 'nav-frontend-typografi';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import { isPeriodeFixed } from '../../utils/typeUtils';
 import { Uttaksdagen } from '../../utils/Uttaksdagen';
 import BekreftDialog from 'common/components/dialog/BekreftDialog';
 import InfoDialog from 'common/components/dialog/InfoDialog';
 import Regelbrudd from '../regelbrudd/Regelbrudd';
-import { Periodene } from '../../utils/Periodene';
-import AlertStripe from 'nav-frontend-alertstriper';
-import Varighet from '../varighet/Varighet';
 import { getForbruk } from '../../utils/forbrukUtils';
 
 interface State {
@@ -110,16 +107,6 @@ class Uttaksplan extends React.Component<Props, State> {
                 : uttaksdatoer.førsteUttaksdag;
         const { regelbrudd } = regelTestresultat;
 
-        const perioderSomVilBliFlyttetPå =
-            nyPeriode && nyPeriode.tidsperiode && nyPeriode.tidsperiode.tom
-                ? Periodene(perioder).finnPerioderEtterDato(nyPeriode.tidsperiode.fom)
-                : undefined;
-
-        const periodeSomVilBliSplittet =
-            nyPeriode && nyPeriode.tidsperiode && nyPeriode.tidsperiode.tom
-                ? Periodene(perioder).finnPeriodeMedDato(nyPeriode.tidsperiode.fom)
-                : undefined;
-
         return (
             <section>
                 <div className="periodelisteWrapper">
@@ -166,33 +153,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                 }
                             />
                         </Block>
-                        <Block visible={visSkjema}>
-                            <Block visible={periodeSomVilBliSplittet !== undefined}>
-                                {periodeSomVilBliSplittet && (
-                                    <AlertStripe type="info">
-                                        Perioden {periodeSomVilBliSplittet.type} - {periodeSomVilBliSplittet.forelder}{' '}
-                                        vil bli delt opp i to deler, og den nye perioden vil bli satt inn mellom de to
-                                        delene. Perioder etter dennne perioden, vil bli forskjøvet{' '}
-                                        <Varighet dager={nyPeriode!.uttaksinfo!.antallUttaksdager!} />
-                                    </AlertStripe>
-                                )}
-                            </Block>
-                            <Block
-                                visible={
-                                    periodeSomVilBliSplittet === undefined && perioderSomVilBliFlyttetPå !== undefined
-                                }>
-                                {perioderSomVilBliFlyttetPå && perioderSomVilBliFlyttetPå.length > 0 && (
-                                    <>
-                                        <Element>Perioder som vil bli forskjøvet</Element>
-                                        <ol>
-                                            {perioderSomVilBliFlyttetPå.map((p) => (
-                                                <li key={p.id}>{p.type}</li>
-                                            ))}
-                                        </ol>
-                                    </>
-                                )}
-                            </Block>
-                        </Block>
+
                         <Block visible={visSkjema !== true} margin="l">
                             <Knapperad align="center">
                                 <Knapp type="standard" onClick={() => this.setState({ visSkjema: true })}>

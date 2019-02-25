@@ -13,9 +13,8 @@ import { Regelbrudd, RegelAlvorlighet } from '../../../utils/regler/types';
 import AdvarselIkon from 'common/components/ikoner/AdvarselIkon';
 import { getAlertstripeTypeFromRegelbrudd } from '../periodelisteUtils';
 import RegelbruddFeilmelding from '../../regelbrudd/RegelbruddFeilmelding';
-
-import './periodelisteElement.less';
 import InfoIkonFylt from 'common/InfoIkonFylt';
+import './periodelisteElement.less';
 
 interface Props {
     menyer: PeriodeElementMeny[];

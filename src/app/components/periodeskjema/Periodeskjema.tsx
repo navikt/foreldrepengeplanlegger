@@ -86,30 +86,32 @@ class Periodeskjema extends React.Component<Props, {}> {
             onSubmit
         } = this.props;
         return (
-            <Formik
-                isInitialValid={false}
-                initialValues={periodeskjemaUtils.getInitialFormValuesFromPeriode(periode, omForeldre)}
-                onSubmit={(values: PeriodeskjemaFormValues) =>
-                    onSubmit(periodeskjemaUtils.createPeriodeFromValues(values, nyPeriodeId))
-                }
-                render={(props: FormikProps<PeriodeskjemaFormValues>) => (
-                    <PeriodeskjemaForm
-                        perioder={perioder}
-                        periodeFørTermin={periodeFørTermin}
-                        nyPeriode={nyPeriode}
-                        onCancel={this.onCancel}
-                        onChange={this.handleFormValuesChange}
-                        forbrukEksisterendePerioder={forbruk}
-                        formik={props}
-                        omForeldre={omForeldre}
-                        nesteUttaksdag={nesteUttaksdag}
-                        førsteUttaksdagFørTermin={førsteUttaksdagFørTermin}
-                        førsteUttaksdag={førsteUttaksdag}
-                        sisteUttaksdag={sisteUttaksdag}
-                    />
-                )}
-                validationSchema={periodeValidationSchema}
-            />
+            <>
+                <Formik
+                    isInitialValid={false}
+                    initialValues={periodeskjemaUtils.getInitialFormValuesFromPeriode(periode, omForeldre)}
+                    onSubmit={(values: PeriodeskjemaFormValues) =>
+                        onSubmit(periodeskjemaUtils.createPeriodeFromValues(values, nyPeriodeId))
+                    }
+                    render={(props: FormikProps<PeriodeskjemaFormValues>) => (
+                        <PeriodeskjemaForm
+                            perioder={perioder}
+                            periodeFørTermin={periodeFørTermin}
+                            nyPeriode={nyPeriode}
+                            onCancel={this.onCancel}
+                            onChange={this.handleFormValuesChange}
+                            forbrukEksisterendePerioder={forbruk}
+                            formik={props}
+                            omForeldre={omForeldre}
+                            nesteUttaksdag={nesteUttaksdag}
+                            førsteUttaksdagFørTermin={førsteUttaksdagFørTermin}
+                            førsteUttaksdag={førsteUttaksdag}
+                            sisteUttaksdag={sisteUttaksdag}
+                        />
+                    )}
+                    validationSchema={periodeValidationSchema}
+                />
+            </>
         );
     }
 }

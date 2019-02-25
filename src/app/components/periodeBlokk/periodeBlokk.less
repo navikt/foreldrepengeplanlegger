@@ -10,13 +10,21 @@
     padding: 0.5rem 0.5rem 0.5rem 1rem;
     background-color: white;
     border-radius: 0.5rem;
+
     &__content {
         width: 100%;
     }
+
     &--nyPeriode {
         background-color: rgba(255, 255, 255, 0.5);
         border: 1px dotted @c-border-gray;
+
+        .periodeBlokk__content {
+            padding-top: .5rem;
+            padding-bottom: 1rem;
+        }
     }
+
     &__fargestrek {
         position: absolute;
         left: 0;
@@ -29,25 +37,32 @@
 
         &--purple {
             background-color: @c-periodefarge-lilla;
+
             &--gradert {
                 .striped(@c-periodefarge-lilla, @c-periodefarge-lilla--gradert);
             }
         }
+
         &--green {
             background-color: @c-periodefarge-gronn;
+
             &--gradert {
                 .striped(@c-periodefarge-gronn, @c-periodefarge-gronn--gradert);
             }
         }
+
         &--blue {
             background-color: @c-periodefarge-blaa;
+
             &--gradert {
                 .striped(@c-periodefarge-blaa, @c-periodefarge-blaa--gradert);
             }
         }
+
         &--yellow {
             background-color: @c-periodefarge-yellow;
         }
+
         &--gray {
             background-color: @c-periodefarge-gray;
         }

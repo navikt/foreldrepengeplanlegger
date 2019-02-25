@@ -1,8 +1,7 @@
 {
-    "antallBarn.alternativ.ettbarn": "ett barn",
-    "antallBarn.alternativ.trebarn": "trillinger eller flere",
-    "antallBarn.alternativ.tobarn": "tvillinger",
-    "antallBarn.alternativ.tvillinger": "tvillinger",
+    "antallBarn.alternativ.ettbarn": "Ett barn",
+    "antallBarn.alternativ.trebarn": "Trillinger eller flere",
+    "antallBarn.alternativ.tobarn": "Tvillinger",
     "antallBarn.select.tekst.adopsjon": "Hvor mange barn adopterer du?",
     "antallBarn.select.tekst.fødsel": "Hvor mange barn fikk du?",
     "antallBarn.select.tekst.termin": "Hvor mange barn venter du?",

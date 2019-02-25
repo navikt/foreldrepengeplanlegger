@@ -229,8 +229,9 @@ class VarighetSkjema extends React.Component<Props, State> {
                                         )}
                                         {gjenståendeDager !== undefined &&
                                             gjenståendeDager > 0 &&
-                                            (antallUttaksdagerBrukt !== undefined &&
-                                                antallUttaksdagerBrukt !== gjenståendeDager) && (
+                                            (antallUttaksdager === undefined ||
+                                                (antallUttaksdagerBrukt !== undefined &&
+                                                    antallUttaksdagerBrukt !== gjenståendeDager)) && (
                                                 <LinkButton
                                                     onClick={() =>
                                                         onVarighetChange({

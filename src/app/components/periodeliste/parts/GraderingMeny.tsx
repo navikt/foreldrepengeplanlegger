@@ -45,7 +45,7 @@ const GraderingMeny: React.StatelessComponent<Props> = ({
                 labelRenderer={() => (
                     <div className="graderingLabel">
                         <IconText icon={<WorkIkon />} layout="vertical">
-                            <AriaAlternative ariaText={`Arbeider ${label}`} visibleText={label} />
+                            <AriaAlternative ariaText={`Jobber ${label}`} visibleText={label} />
                         </IconText>
                     </div>
                 )}
@@ -54,7 +54,7 @@ const GraderingMeny: React.StatelessComponent<Props> = ({
                     <>
                         <Block margin="xs">
                             <SkjemaNumberStepper
-                                tittel={`Hvor mange prosent skal ${foreldernavn ? foreldernavn : 'du'} arbeide?`}
+                                tittel={`Hvor mange prosent skal ${foreldernavn ? foreldernavn : 'du'} jobbe?`}
                                 min={1}
                                 max={99}
                                 stepSize={5}

@@ -25,7 +25,7 @@ const situasjonValidationSkjema = yup.object().shape({
     }),
     erMor: yup.string().when('situasjon', (situasjon: Situasjon, schema: yup.Schema<SituasjonSkjemadata>) => {
         if (situasjon === Situasjon.aleneomsorg) {
-            return schema.required('Du må velge om du er mor eller far/medmor');
+            return schema.required('Du må velge om du er mor, far eller medmor');
         }
         return schema;
     }),

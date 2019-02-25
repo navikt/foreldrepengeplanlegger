@@ -6,7 +6,7 @@ import { getVarighetString } from 'common/utils/intlUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 import './tilgjengeligeDagerOversikt.less';
-import { Systemtittel, Ingress, Undertittel } from 'nav-frontend-typografi';
+import { Systemtittel, Undertittel, Normaltekst } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
 import UtvidetInformasjon from 'common/components/utvidetInformasjon/UtvidetInformasjon';
 import HighlightContent from 'common/components/highlightContent/HighlightContent';
@@ -52,7 +52,7 @@ const Fordelingsliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, 
         return null;
     }
     return (
-        <Ingress tag="p">
+        <Normaltekst tag="p">
             {omForeldre.mor.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtMor, intl)}</strong> og{' '}
             {omForeldre.farMedmor!.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtFar, intl)}</strong>. Dere
             har{' '}
@@ -61,9 +61,9 @@ const Fordelingsliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, 
             </HighlightContent>{' '}
             fellesperiode som dere kan fordele som dere ønsker.
             {flerbarnsdager > 0 && (
-                <span> Av fellesperioden, er {getVarighetString(flerbarnsdager, intl)} flerbarnsdager.</span>
+                <span> Av fellesperioden er {getVarighetString(flerbarnsdager, intl)} flerbarnsdager.</span>
             )}
-        </Ingress>
+        </Normaltekst>
     );
 };
 

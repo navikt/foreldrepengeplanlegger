@@ -124,37 +124,39 @@ class Uttaksplan extends React.Component<Props, State> {
                                 )}
                             </div>
                         </Block>
-                        <Block margin="s">
+                        <Block>
                             <Periodeliste
                                 {...this.props}
                                 onRemove={this.handleRemovePeriode}
                                 nyPeriodeId={nyPeriodeId}
                                 nyPeriodeSkjema={
                                     visSkjema && (
-                                        <Periodeskjema
-                                            perioder={perioder}
-                                            periodeFørTermin={periodeFørTermin}
-                                            nyPeriode={nyPeriode}
-                                            nyPeriodeId={nyPeriodeId}
-                                            omForeldre={omForeldre}
-                                            onCancel={() => this.setState({ visSkjema: false })}
-                                            onChange={this.handleNyPeriodeChange}
-                                            onSubmit={(periode) => this.addPeriode(periode)}
-                                            nesteUttaksdag={nesteUttaksdag}
-                                            førsteUttaksdag={uttaksdatoer.førsteUttaksdag}
-                                            sisteUttaksdag={uttaksdatoer.etterFødsel.sisteMuligeUttaksdag}
-                                            førsteUttaksdagFørTermin={uttaksdatoer.førFødsel.førsteMuligeUttaksdag}
-                                            forbruk={getForbruk(
-                                                [...perioder, ...(periodeFørTermin ? [periodeFørTermin] : [])],
-                                                tilgjengeligeDager.dagerTotalt
-                                            )}
-                                        />
+                                        <Block margin="s">
+                                            <Periodeskjema
+                                                perioder={perioder}
+                                                periodeFørTermin={periodeFørTermin}
+                                                nyPeriode={nyPeriode}
+                                                nyPeriodeId={nyPeriodeId}
+                                                omForeldre={omForeldre}
+                                                onCancel={() => this.setState({ visSkjema: false })}
+                                                onChange={this.handleNyPeriodeChange}
+                                                onSubmit={(periode) => this.addPeriode(periode)}
+                                                nesteUttaksdag={nesteUttaksdag}
+                                                førsteUttaksdag={uttaksdatoer.førsteUttaksdag}
+                                                sisteUttaksdag={uttaksdatoer.etterFødsel.sisteMuligeUttaksdag}
+                                                førsteUttaksdagFørTermin={uttaksdatoer.førFødsel.førsteMuligeUttaksdag}
+                                                forbruk={getForbruk(
+                                                    [...perioder, ...(periodeFørTermin ? [periodeFørTermin] : [])],
+                                                    tilgjengeligeDager.dagerTotalt
+                                                )}
+                                            />
+                                        </Block>
                                     )
                                 }
                             />
                         </Block>
 
-                        <Block visible={visSkjema !== true} margin="l">
+                        <Block visible={visSkjema !== true} margin="xl">
                             <Knapperad align="center">
                                 <Knapp type="standard" onClick={() => this.setState({ visSkjema: true })}>
                                     Legg til ny periode

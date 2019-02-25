@@ -11,7 +11,7 @@ type Props = OwnProps & InjectedIntlProps;
 
 const VelgErMorEllerFar: React.StatelessComponent<Props> = ({ erMor, onChange, intl }) => (
     <RadioGroup
-        legend="Er du mor eller far/medmor?"
+        legend="Er du mor, far eller medmor?"
         name="aleneforelderErMor"
         onChange={(value) => onChange(value === 'true')}
         checked={erMor !== undefined ? (erMor ? 'true' : 'false') : undefined}
@@ -23,7 +23,7 @@ const VelgErMorEllerFar: React.StatelessComponent<Props> = ({ erMor, onChange, i
             },
             {
                 id: 'js-erFarMedmor',
-                label: 'Far/medmor',
+                label: 'Far eller medmor',
                 value: 'false'
             }
         ]}

@@ -74,7 +74,7 @@ const EndringerVedNyPeriode: React.StatelessComponent<Props & InjectedIntlProps>
     const { antallUttaksdager } = nyPeriode.uttaksinfo;
 
     const berørtePerioder = Periodene(perioder).finnPerioderMedEllerEtterDato(nyPeriode.tidsperiode.fom);
-    if (berørtePerioder === undefined) {
+    if (berørtePerioder === undefined || berørtePerioder.length === 0) {
         return null;
     }
 

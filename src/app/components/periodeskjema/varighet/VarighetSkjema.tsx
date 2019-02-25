@@ -110,9 +110,9 @@ const VarighetSluttdato: React.StatelessComponent<Props> = ({
 const VarighetStartdatoFørTermin: React.StatelessComponent<Props> = (props) => {
     const { ingenVarighet, onVarighetChange } = props;
     return (
-        <div>
+        <Block margin="s">
             <DropdownDialogTittel>Når ønsker du å starte uttaket før termin?</DropdownDialogTittel>
-            <Block margin="xs">
+            <Block margin="s">
                 <VarighetStartdato {...props} />
             </Block>
             <Checkbox
@@ -120,7 +120,7 @@ const VarighetStartdatoFørTermin: React.StatelessComponent<Props> = (props) => 
                 checked={ingenVarighet === true || false}
                 onChange={(evt) => onVarighetChange({ ingenVarighet: evt.target.checked })}
             />
-        </div>
+        </Block>
     );
 };
 
@@ -224,7 +224,8 @@ class VarighetSkjema extends React.Component<Props, State> {
                                         )}
                                         {gjenståendeDager !== undefined &&
                                             gjenståendeDager > 0 &&
-                                            (antallUttaksdagerBrukt && antallUttaksdagerBrukt !== gjenståendeDager) && (
+                                            (antallUttaksdagerBrukt !== undefined &&
+                                                antallUttaksdagerBrukt !== gjenståendeDager) && (
                                                 <LinkButton
                                                     onClick={() =>
                                                         onVarighetChange({

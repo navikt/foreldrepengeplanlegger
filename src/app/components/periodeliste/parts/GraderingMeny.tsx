@@ -45,7 +45,7 @@ const GraderingMeny: React.StatelessComponent<Props> = ({
                 labelRenderer={() => (
                     <div className="graderingLabel">
                         <IconText icon={<WorkIkon />} layout="vertical">
-                            <AriaAlternative ariaText={`Arbeider ${label}`} visibleText={label} />
+                            <AriaAlternative ariaText={`Jobber ${label}`} visibleText={label} />
                         </IconText>
                     </div>
                 )}

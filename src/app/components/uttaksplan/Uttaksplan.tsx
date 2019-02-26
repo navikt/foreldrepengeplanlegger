@@ -117,7 +117,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                     <Systemtittel>Deres plan</Systemtittel>
                                 </div>
 
-                                {onResetPlan && (
+                                {onResetPlan && perioder.length > 0 && (
                                     <div className="periodeliste__reset">
                                         <LinkButton onClick={() => onResetPlan()}>Tøm plan</LinkButton>
                                     </div>

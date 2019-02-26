@@ -3,33 +3,6 @@ import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/
 import VarighetSkjema, { VarighetSkjemaProps } from './VarighetSkjema';
 import DagMndPeriode from 'common/components/dagMnd/DagMndPeriode';
 
-// export interface OwnProps {
-//     dager?: number;
-//     brukteUttaksdager?: number;
-//     fom?: Date;
-//     tom?: Date;
-//     startdatoErLåst?: boolean;
-//     sluttdatoErLåst?: boolean;
-//     ingenVarighet?: boolean;
-//     gradert?: boolean;
-//     minDager?: number;
-//     visLukkKnapp?: boolean;
-//     lukkAutomatisk?: boolean;
-//     førsteUttaksdag: Date;
-//     sisteUttaksdag: Date;
-//     forelderNavn?: string;
-//     gradering: number | undefined;
-//     dropdownStyle?: DropdownFormStyle;
-//     periodetype: Periodetype | undefined;
-//     erNyPeriode: boolean;
-//     perioder: Periode[];
-//     periodeFørTermin?: Periode;
-//     omForeldre: OmForeldre;
-//     gjenståendeDager?: number;
-//     onTidsperiodeChange: (tidsperiode: Partial<Tidsperiode>) => void;
-//     onVarighetChange?: (evt: VarighetChangeEvent) => void;
-// }
-
 export type VarighetSkjemaType = 'låstStartdato' | 'foreldrepengerFørFødsel' | 'åpen';
 
 interface OwnProps {

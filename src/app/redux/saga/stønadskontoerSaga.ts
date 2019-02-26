@@ -96,6 +96,21 @@ const getKontoerFromDTO = (
     };
 };
 
+const trekkFlerbarnsdagerFraFellesperiode = (kontoerDTO: FPKontoServiceDTO): FPKontoServiceDTO => {
+    const flerbarnsdager = kontoerDTO.kontoer[StønadskontoType.Flerbarnsdager];
+    const fellesperiode = kontoerDTO.kontoer[StønadskontoType.Fellesperiode];
+    if (flerbarnsdager && fellesperiode) {
+        return {
+            ...kontoerDTO,
+            kontoer: {
+                ...kontoerDTO.kontoer,
+                [`${StønadskontoType.Fellesperiode}`]: fellesperiode - flerbarnsdager
+            }
+        };
+    }
+    return kontoerDTO;
+};
+
 const getKontoerFromForeldrepengerDTO = (
     kontoer80: FPKontoServiceDTO,
     kontoer100: FPKontoServiceDTO
@@ -103,13 +118,16 @@ const getKontoerFromForeldrepengerDTO = (
     const dekning80: TilgjengeligStønadskonto[] = [];
     const dekning100: TilgjengeligStønadskonto[] = [];
 
-    Object.keys(kontoer80.kontoer).forEach((konto) => {
+    const justerteKontoer80 = trekkFlerbarnsdagerFraFellesperiode(kontoer80);
+    const justerteKontoer100 = trekkFlerbarnsdagerFraFellesperiode(kontoer100);
+
+    Object.keys(justerteKontoer80.kontoer).forEach((konto) => {
         dekning80.push({
-            dager: kontoer80.kontoer[konto],
+            dager: justerteKontoer80.kontoer[konto],
             stønadskontoType: konto as StønadskontoType
         });
         dekning100.push({
-            dager: kontoer100.kontoer[konto],
+            dager: justerteKontoer100.kontoer[konto],
             stønadskontoType: konto as StønadskontoType
         });
     });

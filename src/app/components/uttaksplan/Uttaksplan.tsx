@@ -17,6 +17,7 @@ import BekreftDialog from 'common/components/dialog/BekreftDialog';
 import InfoDialog from 'common/components/dialog/InfoDialog';
 import Regelbrudd from '../regelbrudd/Regelbrudd';
 import { getForbruk } from '../../utils/forbrukUtils';
+import { ØnsketFordelingForeldrepenger } from '../../redux/reducers/commonReducer';
 
 interface State {
     visSkjema: boolean;
@@ -34,6 +35,7 @@ interface OwnProps {
     nyPeriode: Partial<Periode> | undefined;
     nyPeriodeId: string;
     tilgjengeligeDager: TilgjengeligeDager;
+    ønsketFordeling: ØnsketFordelingForeldrepenger;
     onResetApp: () => void;
     onNyPeriodeChange?: (periode?: Periode) => void;
 }
@@ -98,6 +100,7 @@ class Uttaksplan extends React.Component<Props, State> {
             nyPeriode,
             periodeFørTermin,
             tilgjengeligeDager,
+            ønsketFordeling,
             nyPeriodeId
         } = this.props;
         const { visSkjema } = this.state;
@@ -116,10 +119,16 @@ class Uttaksplan extends React.Component<Props, State> {
                                 <div className="periodeliste__title">
                                     <Systemtittel>Deres plan</Systemtittel>
                                 </div>
-
                                 {onResetPlan && perioder.length > 0 && (
                                     <div className="periodeliste__reset">
-                                        <LinkButton onClick={() => onResetPlan()}>Tøm plan</LinkButton>
+                                        <LinkButton onClick={() => onResetPlan()}>
+                                            Fjern alle perioder etter termin
+                                        </LinkButton>
+                                    </div>
+                                )}
+                                {onResetPlan && perioder.length === 0 && ønsketFordeling.harValgtFordeling === true && (
+                                    <div className="periodeliste__reset">
+                                        <LinkButton onClick={() => onResetPlan(true)}>Få nytt forslag</LinkButton>
                                     </div>
                                 )}
                             </div>

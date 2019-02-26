@@ -13,6 +13,7 @@ interface Props {
     navnMor: string;
     navnFarMedmor: string;
     onChange: (ukerMor: number) => void;
+    onSkipPlan: () => void;
 }
 
 interface State {
@@ -32,7 +33,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
         });
     }
     render() {
-        const { tilgjengeligeUker, navnMor, navnFarMedmor, onChange } = this.props;
+        const { tilgjengeligeUker, navnMor, navnFarMedmor, onChange, onSkipPlan } = this.props;
 
         const defaultUker = Math.round(tilgjengeligeUker.ukerFelles / 2);
         const ukerMor = this.state.ukerMor !== undefined ? this.state.ukerMor : defaultUker;
@@ -48,7 +49,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
                             <Varighet dager={tilgjengeligeUker.ukerFelles * 5} />
                         </strong>{' '}
                         som dere kan fordele mellom dere. Velg fordeling under og få et forslag til planen, eller velg å
-                        gå videre uten forslag.
+                        gå videre uten forslag. Fordelingen kan endres etterpå.
                     </Block>
                     <Block>
                         <Block margin="xs">
@@ -75,7 +76,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
                     </Block>
                     <Knapperad>
                         <Hovedknapp onClick={() => onChange(ukerMor)}>Lag forslag til plan</Hovedknapp>
-                        <Knapp>Vis plan uten forslag</Knapp>
+                        <Knapp onClick={() => onSkipPlan()}>Vis plan uten forslag</Knapp>
                     </Knapperad>
                 </div>
             </section>

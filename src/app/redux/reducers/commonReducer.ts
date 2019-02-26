@@ -198,13 +198,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
         case CommonActionKeys.SET_PERIODER:
             return updateStateAndStorage(state, {
                 perioder: action.perioder,
-                ønsketFordeling:
-                    action.perioder.length === 0
-                        ? {
-                              ...state.ønsketFordeling,
-                              harValgtFordeling: false
-                          }
-                        : state.ønsketFordeling
+                ønsketFordeling: action.resetØnsketFordeling ? { harValgtFordeling: false } : state.ønsketFordeling
             });
         case CommonActionKeys.SET_ØNSKET_FORDELING:
             const perioder = lagUttaksplan(
@@ -220,6 +214,13 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                 },
                 perioder
             });
+        case CommonActionKeys.SKIP_ØNSKET_FORDELING:
+            return updateStateAndStorage(state, {
+                ønsketFordeling: {
+                    harValgtFordeling: true
+                },
+                perioder: []
+            });
         case CommonActionKeys.SET_UTTAKSPLAN_VALIDERING:
             return {
                 ...state,
@@ -228,6 +229,14 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
 
         case CommonActionKeys.RESET_APP:
             clearStorage();
+            return updateStateAndStorage(getDefaultCommonState(), {});
+
+        case CommonActionKeys.RESET_PLAN:
+            return {
+                ...state,
+                ønsketFordeling: action.resetØnsketFordeling ? { harValgtFordeling: false } : state.ønsketFordeling,
+                perioder: []
+            };
             return updateStateAndStorage(getDefaultCommonState(), {});
     }
     return state;

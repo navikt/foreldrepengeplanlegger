@@ -117,7 +117,7 @@ class Uttaksplan extends React.Component<Props, State> {
         return (
             <section>
                 <div className="periodelisteWrapper">
-                    <Block>
+                    <Block margin="none">
                         <Block margin="s">
                             <div className="periodeliste__header">
                                 <div className="periodeliste__title">
@@ -128,7 +128,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                 {onResetPlan && perioder.length > 0 && (
                                     <div className="periodeliste__reset">
                                         <LinkButton onClick={() => onResetPlan()}>
-                                            Fjern alle perioder etter termin
+                                            Fjern alle perioder {periodeFørTermin ? 'etter termin' : undefined}
                                         </LinkButton>
                                     </div>
                                 )}

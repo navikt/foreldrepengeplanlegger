@@ -14,6 +14,18 @@ export const getAntallForeldreISituasjon = (situasjon: Situasjon) => {
     }
 };
 
+export const getForelderVedIkkeDeltPlan = (situasjon: Situasjon, erMor: boolean | undefined): Forelder | undefined => {
+    switch (situasjon) {
+        case Situasjon.bareMor:
+            return Forelder.mor;
+        case Situasjon.bareFar:
+            return Forelder.farMedmor;
+        case Situasjon.aleneomsorg:
+            return erMor === true ? Forelder.mor : Forelder.farMedmor;
+    }
+    return undefined;
+};
+
 export const getForelderNavn = (forelder: Forelder | undefined, omForeldre: OmForeldre): string | undefined => {
     if (forelder) {
         if (forelder === Forelder.mor) {
@@ -40,7 +52,12 @@ export const getTermindatoAvgrensninger = (): Avgrensninger => {
     };
 };
 
-export const getInformasjonOmForeldre = (situasjon: Situasjon, navnMor: string, navnFarMedmor?: string): OmForeldre => {
+export const getInformasjonOmForeldre = (
+    situasjon: Situasjon,
+    navnMor: string,
+    navnFarMedmor?: string,
+    erMor?: boolean
+): OmForeldre => {
     const info = getSituasjonForelderSvg(situasjon);
     const antallForeldre = getAntallForeldreISituasjon(situasjon);
     return {
@@ -55,6 +72,7 @@ export const getInformasjonOmForeldre = (situasjon: Situasjon, navnMor: string, 
                       navn: navnFarMedmor,
                       ikonRef: info.farMedmor
                   }
-                : undefined
+                : undefined,
+        forelderVedIkkeDeltPlan: getForelderVedIkkeDeltPlan(situasjon, erMor)
     };
 };

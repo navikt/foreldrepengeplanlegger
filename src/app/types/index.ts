@@ -130,6 +130,7 @@ export interface OmForeldre {
     antallForeldre: number;
     mor: Forelderinfo;
     farMedmor?: Forelderinfo;
+    forelderVedIkkeDeltPlan?: Forelder;
 }
 
 export interface Uttaksdatoer {

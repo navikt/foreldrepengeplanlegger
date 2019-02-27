@@ -8,7 +8,6 @@ import {
     updatePeriode,
     removePeriode,
     movePeriode,
-    setDekningsgrad,
     setPerioder,
     resetApp,
     setØnsketFordeling,
@@ -21,11 +20,8 @@ import { connect } from 'react-redux';
 import Block from 'common/components/block/Block';
 import { Dekningsgrad } from 'common/types';
 import { getStønadskontoer } from '../redux/actions/api/apiActionCreators';
-import TilgjengeligeDagerOversikt from '../components/tilgjengeligeDagerOversikt/TilgjengeligeDagerOversikt';
 import LoadContainer from 'common/components/loadContainer/LoadContainer';
-import DekningsgradValg from '../components/dekningsgradValg/DekningsgradValg';
 import Situasjonsoppsummering from '../components/situasjonOppsummering/SituasjonOppsummering';
-import Skjemablokk from '../components/skjemablokk/Skjemablokk';
 import { ØnsketFordelingForeldrepenger } from '../redux/reducers/commonReducer';
 import FordelingForeldrepenger from '../components/uttaksplan/FordelingForeldrepenger';
 import { getTilgjengeligeUker } from '../utils/kontoUtils';
@@ -69,8 +65,6 @@ class UttaksplanSide extends React.Component<Props> {
             tilgjengeligeDager,
             henterStønadskontoer,
             familiehendelsesdato,
-            dager100,
-            dager80,
             skjemadata,
             forbruk,
             omForeldre,
@@ -109,37 +103,6 @@ class UttaksplanSide extends React.Component<Props> {
                 </Block>
 
                 <LoadContainer loading={henterStønadskontoer} overlay={false}>
-                    <Skjemablokk
-                        tittel={`Hvor lang periode med foreldrepenger ønsker ${
-                            omForeldre.antallForeldre === 2 ? 'dere' : 'du'
-                        }?`}
-                        info={{
-                            title: 'Whoa',
-                            content: (
-                                <div>
-                                    Valget av antall uker gjelder dere begge. Den totale utbetalingen blir høyere ved å
-                                    velge 100 prosent.
-                                </div>
-                            )
-                        }}>
-                        <DekningsgradValg
-                            dekningsgrad={dekningsgrad}
-                            onChange={(dg) => dispatch(setDekningsgrad(dg as Dekningsgrad))}
-                            dager100={dager100}
-                            dager80={dager80}
-                        />
-                    </Skjemablokk>
-                    {tilgjengeligeDager && dekningsgrad !== undefined && (
-                        <Block visible={false}>
-                            <TilgjengeligeDagerOversikt
-                                tilgjengeligeDager={tilgjengeligeDager}
-                                dekningsgrad={dekningsgrad!}
-                                visKontoliste={true}
-                                omForeldre={omForeldre}
-                            />
-                        </Block>
-                    )}
-
                     <Block visible={visInnhold}>
                         {tilgjengeligeDager !== undefined && omForeldre !== undefined && (
                             <>

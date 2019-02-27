@@ -16,6 +16,7 @@ export enum CommonActionKeys {
     'SET_SPRÅK' = 'setSpråk',
     'SET_DEKNINGSGRAD' = 'setDekningsgrad',
     'SUBMIT_SKJEMADATA' = 'submitSkjemadata',
+    'LAG_FORSLAG_TIL_PLAN' = 'lagForslagTilPlan',
     'GET_STØNADSKONTOER' = 'getStonadskontoer',
     'SET_STØNADSKONTOER' = 'setStonadskontoer',
     'SET_PERIODER' = 'setPerioder',
@@ -102,6 +103,10 @@ export interface ValiderUttaksplanAction {
     type: CommonActionKeys.VALIDER_UTTAKSPLAN;
 }
 
+export interface LagForslagTilPlanAction {
+    type: CommonActionKeys.LAG_FORSLAG_TIL_PLAN;
+}
+
 interface SetDekningsgradAction {
     type: CommonActionKeys.SET_DEKNINGSGRAD;
     dekningsgrad: Dekningsgrad;
@@ -175,4 +180,5 @@ export type CommonActionTypes =
     | NyPeriodeChangeAction
     | ValiderUttaksplanAction
     | SetUttaksplanValideringAction
-    | SkipØnsketFordelingAction;
+    | SkipØnsketFordelingAction
+    | LagForslagTilPlanAction;

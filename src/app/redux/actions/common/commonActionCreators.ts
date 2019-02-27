@@ -153,6 +153,12 @@ export function validerUttaksplan(): CommonActionTypes {
     };
 }
 
+export function lagForslagTilPlan(): CommonActionTypes {
+    return {
+        type: CommonActionKeys.LAG_FORSLAG_TIL_PLAN
+    };
+}
+
 export default {
     setSpråk
 };

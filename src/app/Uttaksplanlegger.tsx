@@ -8,15 +8,11 @@ import Skjemaside from './sider/Skjemaside';
 import Block from 'common/components/block/Block';
 import VelkommenTekst from './components/content/VelkommenTekst';
 import { Pages } from './routes';
+import DekningsgradSide from './sider/DekningsgradSide';
 
 import 'common/styles/index.less';
-import DevSide from './sider/DevSide';
 
 const cls = BEMHelper('planlegger');
-
-/*
-TODO: vise oppsummering når kun fft er synlig
-*/
 
 type Props = RouteComponentProps<any>;
 
@@ -34,8 +30,8 @@ class Uttaksplanlegger extends React.Component<Props> {
                             </Block>
                             <Switch>
                                 <Route exact={true} path={Pages.planPage} component={UttaksplanSide} />
+                                <Route exact={true} path={Pages.dekningsgradPage} component={DekningsgradSide} />
                                 <Route exact={true} path={Pages.startPage} component={Skjemaside} />
-                                <Route exact={true} path={Pages.dev} component={DevSide} />
                                 <Redirect to={Pages.startPage} />
                             </Switch>
                         </div>

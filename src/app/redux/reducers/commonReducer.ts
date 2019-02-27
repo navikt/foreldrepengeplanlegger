@@ -87,40 +87,22 @@ const updateStateAndStorage = (state: CommonState, updates: Partial<CommonState>
 };
 
 const updateStateWithNewSkjemadata = (state: CommonState, action: SubmitSkjemadataAction): CommonState => {
-    const resetUttaksplan = state.skjemadata && action.data.situasjon !== state.skjemadata.situasjon;
-    if (resetUttaksplan) {
-        return {
-            ...getDefaultCommonState(),
-            skjemadata: action.data,
-            periodeFørTermin: getPeriodeFørTermin(
-                action.data.situasjon,
-                action.data.familiehendelsesdato,
-                state.tilgjengeligeDager ? state.tilgjengeligeDager.dagerFørTermin : 15,
-                action.data.erMor
-            ),
-            ønsketFordeling: {
-                harValgtFordeling: false,
-                ukerFarMedmor: undefined,
-                ukerMor: undefined
-            },
-            dekningsgrad: undefined
-        };
-    }
-
-    const builder = UttaksplanBuilder(state.perioder, state.familiehendelsesdato);
-    return updateStateAndStorage(state, {
+    return {
+        ...getDefaultCommonState(),
         skjemadata: action.data,
-        familiehendelsesdato: action.data.familiehendelsesdato,
-        perioder: builder.build().perioder,
-        periodeFørTermin: state.tilgjengeligeDager
-            ? getPeriodeFørTermin(
-                  action.data.situasjon,
-                  action.data.familiehendelsesdato,
-                  state.tilgjengeligeDager.dagerFørTermin,
-                  action.data.erMor
-              )
-            : getPeriodeFørTermin(action.data.situasjon, action.data.familiehendelsesdato, 15, action.data.erMor)
-    });
+        periodeFørTermin: getPeriodeFørTermin(
+            action.data.situasjon,
+            action.data.familiehendelsesdato,
+            state.tilgjengeligeDager ? state.tilgjengeligeDager.dagerFørTermin : 15,
+            action.data.erMor
+        ),
+        ønsketFordeling: {
+            harValgtFordeling: false,
+            ukerFarMedmor: undefined,
+            ukerMor: undefined
+        },
+        dekningsgrad: undefined
+    };
 };
 
 const updateStateOnDekningsgradChange = (state: CommonState, dekningsgrad: Dekningsgrad): CommonState => {

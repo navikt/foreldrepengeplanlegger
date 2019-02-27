@@ -5,6 +5,7 @@
     margin: 0 -2rem;
     border-radius: 0.5rem;
     background-color: #efefef;
+
     @media (max-width: @mobile-breakpoint) {
         padding: 1rem;
         margin: 0 -1rem;
@@ -16,15 +17,19 @@
     margin: 0;
     padding: 0;
     position: relative;
+
     &__periode {
         margin-bottom: 0.25rem;
     }
+
     &__header {
         display: flex;
     }
+
     &__title {
         flex: 3 1 0;
     }
+
     &__termin,
     &__likePerioder {
         padding: 1rem 0.5rem 1rem 2.25rem;
@@ -32,6 +37,7 @@
         background-color: #efefef;
         border-radius: 0.25rem;
     }
+
     &__tomListe {
         padding: 3rem 0;
         text-align: center;
@@ -42,11 +48,14 @@
     &__periode {
         flex: 3 1 0;
     }
+
     &__varighet {
         min-width: 9.5rem;
     }
+
     &__foreldre {
         min-width: 5rem;
+
         &--skjema {
             min-width: 6rem;
         }
@@ -56,25 +65,32 @@
 .periodetypeDialog {
     min-width: 20rem;
 }
+
 .periodetypeMeny--låst {
     padding: 1rem;
 }
+
 .periodetypeMenyLabel {
     line-height: initial;
+
     &__type {
         font-weight: bold;
     }
+
     &__tidsperiode {
         font-weight: normal;
         color: #7f756c;
+
         &::first-letter {
             text-transform: capitalize;
         }
     }
 }
+
 .graderingDialog {
     min-width: 22rem;
 }
+
 .varighetDialog {
     min-width: 25rem;
     top: 0;
@@ -82,12 +98,15 @@
     right: 100%;
     margin-right: 0.25rem;
 }
+
 .forelderMenyIkon {
     margin: -1rem;
+
     svg {
         zoom: 1.2;
     }
 }
+
 .forelderMenyDisabled {
     display: flex;
     width: 100%;

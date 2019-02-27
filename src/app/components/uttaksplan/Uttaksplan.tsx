@@ -17,6 +17,9 @@ import BekreftDialog from 'common/components/dialog/BekreftDialog';
 import InfoDialog from 'common/components/dialog/InfoDialog';
 import Regelbrudd from '../regelbrudd/Regelbrudd';
 import { getForbruk } from '../../utils/forbrukUtils';
+import BEMHelper from 'common/utils/bem';
+
+import './uttaksplan.less';
 
 interface State {
     visSkjema: boolean;
@@ -39,6 +42,8 @@ interface OwnProps {
 }
 
 type Props = OwnProps & PeriodelisteProps;
+
+const bem = BEMHelper('uttaksplan');
 
 class Uttaksplan extends React.Component<Props, State> {
     constructor(props: Props) {
@@ -109,7 +114,7 @@ class Uttaksplan extends React.Component<Props, State> {
         const visFordelingGraf = forbruk.fordeling && (perioder.length > 0 || periodeFørTermin !== undefined);
 
         return (
-            <section>
+            <section className={bem.classNames(bem.block, visSkjema ? bem.modifier('visSkjema') : undefined)}>
                 <div className="periodelisteWrapper">
                     <Block margin="none">
                         <Block margin="s">

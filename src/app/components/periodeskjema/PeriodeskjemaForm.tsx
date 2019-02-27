@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ReactDOM from 'react-dom';
 import { Form, FormikProps } from 'formik';
 import Block from 'common/components/block/Block';
 import { Knapp, Hovedknapp } from 'nav-frontend-knapper';
@@ -22,6 +23,7 @@ import VarighetMeny from './varighet/VarighetMeny';
 
 import './periodeSkjema.less';
 import EndringerVedNyPeriode from './EndringerVedNyPeriode';
+import { focusFirstElement } from '../../utils/focusUtils';
 
 interface OwnProps {
     nesteUttaksdag: Date;
@@ -50,6 +52,13 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         this.handleChangeVarighet = this.handleChangeVarighet.bind(this);
         this.getMinDato = this.getMinDato.bind(this);
         this.getMaksDato = this.getMaksDato.bind(this);
+    }
+
+    componentDidMount() {
+        const el = ReactDOM.findDOMNode(this);
+        if (el) {
+            focusFirstElement(el as Element);
+        }
     }
 
     handleTidsperiodeChange(tidsperiode: Partial<Tidsperiode>) {

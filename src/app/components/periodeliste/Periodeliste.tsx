@@ -100,7 +100,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
     posedItems.push(<PosedLi key={nyPeriodeId}>{nyPeriodeSkjema}</PosedLi>);
 
     return (
-        <div className={bem.block}>
+        <div className={bem.classNames(bem.block, nyPeriodeSkjema ? bem.modifier('medSkjema') : undefined)}>
             {periodeFørTermin ? (
                 <>
                     <li className={bem.element('periode')} key={periodeFørTermin.id}>

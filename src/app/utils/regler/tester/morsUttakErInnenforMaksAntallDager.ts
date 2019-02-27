@@ -14,7 +14,7 @@ const morsUttakErInnenforMaksAntallDager: RegelTest = (key: RegelKey, grunnlag: 
     }
 
     const maksDagerTilMor = erAleneomsorg
-        ? tilgjengeligeDager.dagerForeldrepenger
+        ? tilgjengeligeDager.dagerForeldrepenger + tilgjengeligeDager.dagerFørTermin
         : tilgjengeligeDager.dagerForbeholdtMor + tilgjengeligeDager.dagerFelles;
     const dagerGjenstående = maksDagerTilMor - forbruk.mor.brukteUttaksdager;
     const passerer = dagerGjenstående >= 0;
@@ -42,5 +42,6 @@ const morsUttakErInnenforMaksAntallDager: RegelTest = (key: RegelKey, grunnlag: 
 
 export const morsUttakErInnenforMaksAntallDagerRegel: Regel = {
     key: RegelKey.morsUttakErInnenforMaksAntallDager,
-    test: morsUttakErInnenforMaksAntallDager
+    test: morsUttakErInnenforMaksAntallDager,
+    erRelevant: ({ erAleneomsorg }) => (erAleneomsorg ? false : true)
 };

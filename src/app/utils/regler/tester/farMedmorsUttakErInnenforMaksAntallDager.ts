@@ -43,5 +43,5 @@ const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
 export const farMedmorsUttakErInnenforMaksAntallDagerRegel: Regel = {
     key: RegelKey.farMedmorsUttakErInnenforMaksAntallDager,
     test: farMedmorsUttakErInnenforMaksAntallDager,
-    erRelevant: ({ erAleneomsorg, erMor }) => (erAleneomsorg && erMor ? false : true)
+    erRelevant: ({ erAleneomsorg, erMor }) => ((erAleneomsorg && erMor === true) || erMor === false ? false : true)
 };

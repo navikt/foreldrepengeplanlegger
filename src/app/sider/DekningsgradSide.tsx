@@ -6,7 +6,8 @@ import {
     setDekningsgrad,
     setØnsketFordeling,
     skipØnsketFordeling,
-    navigerTilSide
+    navigerTilSide,
+    lagForslagTilPlan
 } from '../redux/actions/common/commonActionCreators';
 import { AppState } from '../redux/reducers/rootReducer';
 import { connect } from 'react-redux';
@@ -23,6 +24,8 @@ import FordelingForeldrepenger from '../components/uttaksplan/FordelingForeldrep
 import { getTilgjengeligeUker } from '../utils/kontoUtils';
 import { getUttaksdatoer } from '../utils/uttaksdatoer';
 import { Side } from '../routes';
+import Knapperad from 'common/components/knapperad/Knapperad';
+import { Hovedknapp } from 'nav-frontend-knapper';
 
 interface StateProps {
     dekningsgrad?: Dekningsgrad;
@@ -103,24 +106,39 @@ class UttaksplanSide extends React.Component<Props> {
                     </Skjemablokk>
                     {tilgjengeligeDager && dekningsgrad !== undefined && (
                         <>
-                            <Block visible={false}>
-                                <TilgjengeligeDagerOversikt
-                                    tilgjengeligeDager={tilgjengeligeDager}
-                                    dekningsgrad={dekningsgrad!}
-                                    visKontoliste={true}
-                                    omForeldre={omForeldre}
+                            {omForeldre.antallForeldre === 1 && (
+                                <>
+                                    <Block>
+                                        <TilgjengeligeDagerOversikt
+                                            tilgjengeligeDager={tilgjengeligeDager}
+                                            dekningsgrad={dekningsgrad!}
+                                            visKontoliste={true}
+                                            omForeldre={omForeldre}
+                                        />
+                                    </Block>
+                                    <Knapperad align="center">
+                                        <Hovedknapp
+                                            onClick={() => {
+                                                dispatch(lagForslagTilPlan());
+                                                dispatch(navigerTilSide(Side.UTTAKSPLAN, this.props.history));
+                                            }}>
+                                            Lag plan
+                                        </Hovedknapp>
+                                    </Knapperad>
+                                </>
+                            )}
+                            {omForeldre.antallForeldre === 2 && omForeldre.farMedmor && (
+                                <FordelingForeldrepenger
+                                    navnMor={omForeldre.mor.navn}
+                                    navnFarMedmor={omForeldre.farMedmor.navn}
+                                    tilgjengeligeUker={getTilgjengeligeUker(tilgjengeligeDager)}
+                                    onChange={(uker) => {
+                                        dispatch(setØnsketFordeling(uker));
+                                        dispatch(navigerTilSide(Side.UTTAKSPLAN, this.props.history));
+                                    }}
+                                    onSkipPlan={() => dispatch(skipØnsketFordeling())}
                                 />
-                            </Block>
-                            <FordelingForeldrepenger
-                                navnMor={omForeldre.mor.navn}
-                                navnFarMedmor={omForeldre.farMedmor!.navn}
-                                tilgjengeligeUker={getTilgjengeligeUker(tilgjengeligeDager)}
-                                onChange={(uker) => {
-                                    dispatch(setØnsketFordeling(uker));
-                                    dispatch(navigerTilSide(Side.UTTAKSPLAN, this.props.history));
-                                }}
-                                onSkipPlan={() => dispatch(skipØnsketFordeling())}
-                            />
+                            )}
                         </>
                     )}
                 </LoadContainer>

@@ -9,8 +9,6 @@ import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
 import DropdownDialogTittel from '../../periodeliste/parts/DropdownDialogTittel';
 import Varighet from '../../varighet/Varighet';
 import { Periode, Periodetype } from '../../../types';
-import { Periodene } from '../../../utils/Periodene';
-import AlertStripe from 'nav-frontend-alertstriper';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import { getDagerGradert } from '../../../utils/forbrukUtils';
 import { Element } from 'nav-frontend-typografi';
@@ -42,21 +40,6 @@ type Props = VarighetSkjemaProps;
 interface State {
     varighetEllerSluttdato: 'sluttdato' | 'varighet';
 }
-
-const getKonsekvensNyPeriodeInniPlan = (perioder: Periode[], dato: Date): React.ReactNode => {
-    const berørtPeriode = Periodene(perioder).finnPeriodeMedDato(dato);
-    if (berørtPeriode) {
-        return (
-            <Block marginTop="xs">
-                <AlertStripe type="info">
-                    Dager etter <strong>{formaterDato(dato)}</strong> vil bli forskjøvet tilsvarende varigheten på denne
-                    perioden
-                </AlertStripe>
-            </Block>
-        );
-    }
-    return null;
-};
 
 const VarighetStartdato: React.StatelessComponent<Props> = ({
     onTidsperiodeChange,
@@ -160,8 +143,6 @@ class VarighetSkjema extends React.Component<Props, State> {
             tidsperiode,
             onTidsperiodeChange,
             nesteUttaksdag,
-            perioder,
-            erNyPeriode,
             gjenståendeDager,
             periodetype,
             gradering
@@ -186,7 +167,6 @@ class VarighetSkjema extends React.Component<Props, State> {
                             </LinkButton>
                         </Block>
                     )}
-                    {fom && erNyPeriode && getKonsekvensNyPeriodeInniPlan(perioder, fom)}
                 </Block>
                 <Block visible={tidsperiode.fom !== undefined} margin="s">
                     <Block margin="xs">

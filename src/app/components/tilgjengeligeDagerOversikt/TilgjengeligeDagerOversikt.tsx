@@ -78,7 +78,7 @@ const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = (props: Prop
     return (
         <section className={bem.block}>
             <Block margin="none">
-                <Block margin="xxs" visible={false}>
+                <Block margin="xxs">
                     <Systemtittel tag="h1">
                         {omForeldre.antallForeldre === 2 ? 'Dere' : 'Du '} har rett på{' '}
                         {getVarighetString(tilgjengeligeDager.dagerTotalt, intl)} med foreldrepenger

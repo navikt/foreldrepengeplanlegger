@@ -2,21 +2,18 @@ import * as React from 'react';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
 import { Periodetype, Forelder } from '../../../types';
 import getMessage from 'common/utils/i18nUtils';
-import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
 import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import Periodeikon from '../../periodeikon/Periodeikon';
 import IconText from 'common/components/iconText/IconText';
-import { isValidTidsperiode, Tidsperioden } from '../../../utils/Tidsperioden';
 import Varighet from '../../varighet/Varighet';
 
 interface OwnProps {
     type?: Periodetype;
-    tidsperiode?: Tidsperiode;
     forelder?: Forelder;
-    flereForeldre: boolean;
     foreldernavn?: string;
     erLåst?: boolean;
+    uttaksdager?: number;
     brukteUttaksdager?: number;
     dropdownStyle?: DropdownFormStyle;
     onChange: (periodetype: Periodetype) => void;
@@ -42,29 +39,28 @@ const getPeriodetypeLabel = (type: Periodetype | undefined, intl: InjectedIntl):
 
 const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
     type,
-    tidsperiode,
     forelder,
-    flereForeldre,
-    foreldernavn,
+    uttaksdager,
     brukteUttaksdager,
     intl
 }) => {
-    const visForelder = false;
-    const visTidsperiode = false;
     return type ? (
         <IconText fullWidth={true} icon={<Periodeikon periodetype={type} forelder={forelder} />}>
             <div className="periodetypeMenyLabel">
                 <div className="periodetypeMenyLabel__type">{getPeriodetypeLabel(type, intl)}</div>
                 <div className="periodetypeMenyLabel__tidsperiode">
-                    {brukteUttaksdager !== undefined && (
+                    {type === Periodetype.Ferie && uttaksdager ? (
+                        <span>
+                            <Varighet dager={uttaksdager} separator=" og " />
+                        </span>
+                    ) : (
+                        undefined
+                    )}
+                    {type !== Periodetype.Ferie && brukteUttaksdager !== undefined && (
                         <span>
                             <Varighet dager={brukteUttaksdager} separator=" og " /> med foreldrepenger
                         </span>
                     )}
-                    {visForelder && flereForeldre && foreldernavn && <span>{foreldernavn}</span>}
-                    {visTidsperiode &&
-                        isValidTidsperiode(tidsperiode) &&
-                        Tidsperioden(tidsperiode).formaterStringKort(intl)}
                 </div>
             </div>
         </IconText>

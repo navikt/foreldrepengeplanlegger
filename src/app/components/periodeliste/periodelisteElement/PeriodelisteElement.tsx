@@ -1,9 +1,6 @@
 import classNames from 'classnames';
 import Block from 'common/components/block/Block';
-import InfoIkon from 'common/components/ikoner/InfoIkon';
-import LukkInfoIkon from 'common/components/ikoner/LukkInfoIkon';
 import IkonKnapp from 'common/components/ikonKnapp/IkonKnapp';
-import Sirkelknapp from 'common/components/sirkelknapp/Sirkelknapp';
 import SlettKnapp from 'common/components/slett-knapp/SlettKnapp';
 import BEMHelper from 'common/utils/bem';
 import AlertStripe from 'nav-frontend-alertstriper';
@@ -14,6 +11,7 @@ import AdvarselIkon from 'common/components/ikoner/AdvarselIkon';
 import { getAlertstripeTypeFromRegelbrudd } from '../periodelisteUtils';
 import RegelbruddFeilmelding from '../../regelbrudd/RegelbruddFeilmelding';
 import InfoIkonFylt from 'common/InfoIkonFylt';
+
 import './periodelisteElement.less';
 
 interface Props {
@@ -83,20 +81,6 @@ class PeriodelisteElement extends React.Component<Props, State> {
                                         ariaLabel={slett.ariaLabel}
                                         title={slett.ariaLabel}
                                     />
-                                </div>
-                            )}
-                            {info && (
-                                <div className={bem.element('tool')}>
-                                    {
-                                        <Sirkelknapp
-                                            ikon={infoVisible ? <LukkInfoIkon /> : <InfoIkon />}
-                                            stil="info"
-                                            toggle={{ pressed: infoVisible || false }}
-                                            ariaLabel="f"
-                                            onClick={() => this.setState({ infoVisible: !infoVisible })}
-                                            aria-describedby={infoId}
-                                        />
-                                    }
                                 </div>
                             )}
                             {regelbrudd && regelbrudd.length > 0 && (

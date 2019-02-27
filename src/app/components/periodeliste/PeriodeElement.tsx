@@ -91,11 +91,10 @@ class PeriodeElement extends React.Component<Props> {
                                 <PeriodetypeMeny
                                     type={this.props.periode.type}
                                     forelder={this.props.periode.forelder}
-                                    flereForeldre={harFlereForeldre}
-                                    tidsperiode={this.props.periode.tidsperiode}
                                     foreldernavn={foreldernavn}
                                     erLåst={typeErLåst}
                                     brukteUttaksdager={antallUttaksdagerBrukt}
+                                    uttaksdager={antallUttaksdager}
                                     onChange={(periodetype) =>
                                         onUpdate(changePeriodeType(this.props.periode, periodetype))
                                     }

@@ -224,6 +224,21 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                     perioder
                 });
             }
+        case CommonActionKeys.LAG_FORSLAG_TIL_PLAN:
+            if (state.skjemadata) {
+                if (getAntallForeldreISituasjon(state.skjemadata.situasjon)) {
+                    const perioder = lagUttaksplan(
+                        state.skjemadata.situasjon,
+                        state.familiehendelsesdato,
+                        state.dekningsgrad === '100' ? state.stønadskontoer100.kontoer : state.stønadskontoer80.kontoer
+                    );
+                    return updateStateAndStorage(state, {
+                        ønsketFordeling: { harValgtFordeling: true },
+                        perioder
+                    });
+                }
+            }
+            return state;
         case CommonActionKeys.SKIP_ØNSKET_FORDELING:
             return updateStateAndStorage(state, {
                 ønsketFordeling: {
@@ -247,7 +262,6 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                 ønsketFordeling: action.resetØnsketFordeling ? { harValgtFordeling: false } : state.ønsketFordeling,
                 perioder: []
             };
-            return updateStateAndStorage(getDefaultCommonState(), {});
     }
     return state;
 };

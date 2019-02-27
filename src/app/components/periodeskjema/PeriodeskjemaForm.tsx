@@ -120,11 +120,10 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                         <PeriodetypeMeny
                                             type={periodetype}
                                             forelder={forelder}
-                                            flereForeldre={harFlereForeldre}
-                                            tidsperiode={{ fom, tom }}
                                             foreldernavn={forelderNavn}
                                             dropdownStyle="border"
                                             brukteUttaksdager={brukteUttaksdager}
+                                            uttaksdager={uttaksdager}
                                             onChange={(type) => {
                                                 formik.setFieldValue('periodetype', type);
                                                 if (type === Periodetype.GradertUttak) {

@@ -11,6 +11,7 @@ import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
 import { CommonState } from '../../reducers/commonReducer';
 import { UttaksplanRegelTestresultat } from '../../../utils/regler/types';
+import { Side } from '../../../routes';
 
 export enum CommonActionKeys {
     'SET_SPRÅK' = 'setSpråk',
@@ -36,7 +37,8 @@ export enum CommonActionKeys {
     'SKIP_ØNSKET_FORDELING' = 'skipØnsketFordeling',
     'NY_PERIODE_CHANGE' = 'nyPeriodeChange',
     'SET_UTTAKSPLAN_VALIDERING' = 'setUttaksplanValidering',
-    'VALIDER_UTTAKSPLAN' = 'validerUttaksplan'
+    'VALIDER_UTTAKSPLAN' = 'validerUttaksplan',
+    'NAVIGER_TIL_SIDE' = 'navigerTilSide'
 }
 
 interface SetSpråkAction {
@@ -105,6 +107,16 @@ export interface ValiderUttaksplanAction {
 
 export interface LagForslagTilPlanAction {
     type: CommonActionKeys.LAG_FORSLAG_TIL_PLAN;
+}
+
+export interface LagForslagTilPlanAction {
+    type: CommonActionKeys.LAG_FORSLAG_TIL_PLAN;
+}
+
+export interface NavigerTilSideAction {
+    type: CommonActionKeys.NAVIGER_TIL_SIDE;
+    side: Side;
+    history: History;
 }
 
 interface SetDekningsgradAction {
@@ -181,4 +193,5 @@ export type CommonActionTypes =
     | ValiderUttaksplanAction
     | SetUttaksplanValideringAction
     | SkipØnsketFordelingAction
-    | LagForslagTilPlanAction;
+    | LagForslagTilPlanAction
+    | NavigerTilSideAction;

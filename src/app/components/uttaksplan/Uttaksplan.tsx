@@ -17,7 +17,6 @@ import BekreftDialog from 'common/components/dialog/BekreftDialog';
 import InfoDialog from 'common/components/dialog/InfoDialog';
 import Regelbrudd from '../regelbrudd/Regelbrudd';
 import { getForbruk } from '../../utils/forbrukUtils';
-import { ØnsketFordelingForeldrepenger } from '../../redux/reducers/commonReducer';
 
 interface State {
     visSkjema: boolean;
@@ -35,7 +34,6 @@ interface OwnProps {
     nyPeriode: Partial<Periode> | undefined;
     nyPeriodeId: string;
     tilgjengeligeDager: TilgjengeligeDager;
-    ønsketFordeling: ØnsketFordelingForeldrepenger;
     onResetApp: () => void;
     onNyPeriodeChange?: (periode?: Periode) => void;
 }
@@ -100,7 +98,6 @@ class Uttaksplan extends React.Component<Props, State> {
             nyPeriode,
             periodeFørTermin,
             tilgjengeligeDager,
-            ønsketFordeling,
             nyPeriodeId
         } = this.props;
         const { visSkjema } = this.state;
@@ -124,14 +121,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                 </div>
                                 {onResetPlan && perioder.length > 0 && (
                                     <div className="periodeliste__reset">
-                                        <LinkButton onClick={() => onResetPlan()}>
-                                            Fjern alle perioder {periodeFørTermin ? 'etter termin' : undefined}
-                                        </LinkButton>
-                                    </div>
-                                )}
-                                {onResetPlan && perioder.length === 0 && ønsketFordeling.harValgtFordeling === true && (
-                                    <div className="periodeliste__reset">
-                                        <LinkButton onClick={() => onResetPlan(true)}>Få nytt forslag</LinkButton>
+                                        <LinkButton onClick={() => onResetPlan()}>Tøm plan</LinkButton>
                                     </div>
                                 )}
                             </div>

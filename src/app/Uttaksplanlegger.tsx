@@ -7,7 +7,7 @@ import UttaksplanSide from './sider/UttaksplanSide';
 import Skjemaside from './sider/Skjemaside';
 import Block from 'common/components/block/Block';
 import VelkommenTekst from './components/content/VelkommenTekst';
-import { Pages } from './routes';
+import { AppRoutes } from './routes';
 import DekningsgradSide from './sider/DekningsgradSide';
 
 import 'common/styles/index.less';
@@ -29,10 +29,10 @@ class Uttaksplanlegger extends React.Component<Props> {
                                 <VelkommenTekst />
                             </Block>
                             <Switch>
-                                <Route exact={true} path={Pages.planPage} component={UttaksplanSide} />
-                                <Route exact={true} path={Pages.dekningsgradPage} component={DekningsgradSide} />
-                                <Route exact={true} path={Pages.startPage} component={Skjemaside} />
-                                <Redirect to={Pages.startPage} />
+                                <Route exact={true} path={AppRoutes.uttaksplanside} component={UttaksplanSide} />
+                                <Route exact={true} path={AppRoutes.dekningsgradside} component={DekningsgradSide} />
+                                <Route exact={true} path={AppRoutes.startside} component={Skjemaside} />
+                                <Redirect to={AppRoutes.startside} />
                             </Switch>
                         </div>
                     </div>

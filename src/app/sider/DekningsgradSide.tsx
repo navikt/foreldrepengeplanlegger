@@ -2,7 +2,12 @@ import * as React from 'react';
 import { RouteComponentProps, withRouter, Redirect, Link } from 'react-router-dom';
 import { DispatchProps } from '../redux/types';
 import { TilgjengeligeDager, SituasjonSkjemadata, OmForeldre, Uttaksdatoer } from '../types';
-import { setDekningsgrad, setØnsketFordeling, skipØnsketFordeling } from '../redux/actions/common/commonActionCreators';
+import {
+    setDekningsgrad,
+    setØnsketFordeling,
+    skipØnsketFordeling,
+    navigerTilSide
+} from '../redux/actions/common/commonActionCreators';
 import { AppState } from '../redux/reducers/rootReducer';
 import { connect } from 'react-redux';
 import Block from 'common/components/block/Block';
@@ -17,6 +22,7 @@ import { ØnsketFordelingForeldrepenger } from '../redux/reducers/commonReducer'
 import FordelingForeldrepenger from '../components/uttaksplan/FordelingForeldrepenger';
 import { getTilgjengeligeUker } from '../utils/kontoUtils';
 import { getUttaksdatoer } from '../utils/uttaksdatoer';
+import { Side } from '../routes';
 
 interface StateProps {
     dekningsgrad?: Dekningsgrad;
@@ -37,8 +43,8 @@ type Props = StateProps & DispatchProps & RouteComponentProps;
 class UttaksplanSide extends React.Component<Props> {
     constructor(props: Props) {
         super(props);
-        if (this.props.stønadskontoerLastet === false) {
-            this.props.dispatch(getStønadskontoer(this.props.history));
+        if (this.props.stønadskontoerLastet === false && this.props.henterStønadskontoer === false) {
+            this.props.dispatch(getStønadskontoer());
         }
     }
     render() {
@@ -109,7 +115,10 @@ class UttaksplanSide extends React.Component<Props> {
                                 navnMor={omForeldre.mor.navn}
                                 navnFarMedmor={omForeldre.farMedmor!.navn}
                                 tilgjengeligeUker={getTilgjengeligeUker(tilgjengeligeDager)}
-                                onChange={(uker) => dispatch(setØnsketFordeling(uker))}
+                                onChange={(uker) => {
+                                    dispatch(setØnsketFordeling(uker));
+                                    dispatch(navigerTilSide(Side.UTTAKSPLAN, this.props.history));
+                                }}
                                 onSkipPlan={() => dispatch(skipØnsketFordeling())}
                             />
                         </>

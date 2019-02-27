@@ -53,8 +53,8 @@ type Props = StateProps & DispatchProps & RouteComponentProps;
 class UttaksplanSide extends React.Component<Props> {
     constructor(props: Props) {
         super(props);
-        if (this.props.stønadskontoerLastet === false) {
-            this.props.dispatch(getStønadskontoer(this.props.history));
+        if (this.props.stønadskontoerLastet === false && this.props.henterStønadskontoer === false) {
+            this.props.dispatch(getStønadskontoer());
         }
     }
     render() {
@@ -132,7 +132,6 @@ class UttaksplanSide extends React.Component<Props> {
                                             dispatch(setPerioder([], resetØnsketFordeling))
                                         }
                                         onResetApp={() => dispatch(resetApp())}
-                                        ønsketFordeling={ønsketFordeling}
                                         onNyPeriodeChange={(periode) => dispatch(nyPeriodeChange(periode))}
                                         onSlåSammenPerioder={(p1, p2) => dispatch(slåSammenPerioder(p1, p2))}
                                         uttaksdatoer={uttaksdatoer}

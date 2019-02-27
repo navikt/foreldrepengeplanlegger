@@ -5,6 +5,7 @@ import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
 import { CommonState } from '../../reducers/commonReducer';
 import { UttaksplanRegelTestresultat } from '../../../utils/regler/types';
+import { Side } from '../../../routes';
 
 export function setSpråk(språkkode: Språkkode): CommonActionTypes {
     return {
@@ -156,6 +157,14 @@ export function validerUttaksplan(): CommonActionTypes {
 export function lagForslagTilPlan(): CommonActionTypes {
     return {
         type: CommonActionKeys.LAG_FORSLAG_TIL_PLAN
+    };
+}
+
+export function navigerTilSide(side: Side, history: History): CommonActionTypes {
+    return {
+        type: CommonActionKeys.NAVIGER_TIL_SIDE,
+        side,
+        history
     };
 }
 

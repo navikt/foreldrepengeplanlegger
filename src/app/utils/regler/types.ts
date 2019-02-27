@@ -22,6 +22,7 @@ export type RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag) => RegelTestres
 export interface Regel {
     key: RegelKey;
     test: (key: RegelKey, grunnlag: Regelgrunnlag) => RegelTestresultat;
+    erRelevant?: (grunnlag: Regelgrunnlag) => boolean;
 }
 
 export enum RegelAlvorlighet {

@@ -1,13 +1,13 @@
 import moment from 'moment';
 import { RegelAlvorlighet, RegelTestresultat, Regelgrunnlag, RegelTest, Regel } from '../types';
 import { RegelKey } from '../regelKeys';
-import { Forelder } from '../../../types';
+import { Forelder, Situasjon } from '../../../types';
 
 const uttakForFarEllerMedmorFørsteSeksUkerInfo: RegelTest = (
     key: RegelKey,
     grunnlag: Regelgrunnlag
 ): RegelTestresultat => {
-    const { perioder, uttaksdatoer, navnFarMedmor } = grunnlag;
+    const { perioder, uttaksdatoer, navnFarMedmor, situasjon } = grunnlag;
     const { førsteUttaksdagEtterSeksUker } = uttaksdatoer.etterFødsel;
 
     const periode = perioder
@@ -20,7 +20,7 @@ const uttakForFarEllerMedmorFørsteSeksUkerInfo: RegelTest = (
 
     return {
         key,
-        passerer: periode === undefined,
+        passerer: periode === undefined || (situasjon === Situasjon.bareFar || situasjon === Situasjon.aleneomsorg),
         regelbrudd:
             periode === undefined
                 ? undefined

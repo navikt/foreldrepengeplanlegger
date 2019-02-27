@@ -8,7 +8,6 @@ const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
     grunnlag: Regelgrunnlag
 ): RegelTestresultat => {
     const { forbruk, tilgjengeligeDager, navnFarMedmor } = grunnlag;
-
     if (forbruk === undefined || tilgjengeligeDager === undefined || forbruk.farMedmor === undefined) {
         return {
             key,
@@ -43,5 +42,6 @@ const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
 
 export const farMedmorsUttakErInnenforMaksAntallDagerRegel: Regel = {
     key: RegelKey.farMedmorsUttakErInnenforMaksAntallDager,
-    test: farMedmorsUttakErInnenforMaksAntallDager
+    test: farMedmorsUttakErInnenforMaksAntallDager,
+    erRelevant: ({ erAleneomsorg, erMor }) => (erAleneomsorg && erMor ? false : true)
 };

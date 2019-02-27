@@ -2,7 +2,9 @@ import { Regelgrunnlag, RegelTestresultat, UttaksplanRegelTestresultat, Regelbru
 import uttaksplanRegler from '.';
 
 export const sjekkUttaksplanOppMotRegler = (regelgrunnlag: Regelgrunnlag): RegelTestresultat[] => {
-    return uttaksplanRegler.map((regel) => regel.test(regel.key, regelgrunnlag));
+    return uttaksplanRegler
+        .filter((regel) => (regel.erRelevant ? regel.erRelevant(regelgrunnlag) : true))
+        .map((regel) => regel.test(regel.key, regelgrunnlag));
 };
 
 export const getRegelbruddForPeriode = (

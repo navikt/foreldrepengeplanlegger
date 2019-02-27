@@ -109,6 +109,10 @@ class Uttaksplan extends React.Component<Props, State> {
                 ? Uttaksdagen(perioder[perioder.length - 1].tidsperiode.tom).neste()
                 : uttaksdatoer.førsteUttaksdag;
         const { regelbrudd } = regelTestresultat;
+        const visFordelingGraf =
+            forbruk.fordeling &&
+            (perioder.length > 0 || periodeFørTermin !== undefined) &&
+            omForeldre.antallForeldre === 2;
 
         return (
             <section>
@@ -117,7 +121,9 @@ class Uttaksplan extends React.Component<Props, State> {
                         <Block margin="s">
                             <div className="periodeliste__header">
                                 <div className="periodeliste__title">
-                                    <Systemtittel>Deres plan</Systemtittel>
+                                    <Systemtittel>
+                                        {omForeldre.antallForeldre === 2 ? 'Deres plan' : 'Din plan'}
+                                    </Systemtittel>
                                 </div>
                                 {onResetPlan && perioder.length > 0 && (
                                     <div className="periodeliste__reset">
@@ -175,9 +181,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                 </div>
                             </Knapperad>
                         </Block>
-                        {forbruk.fordeling && (perioder.length > 0 || periodeFørTermin !== undefined) && (
-                            <FordelingGraf fordeling={forbruk.fordeling} omForeldre={omForeldre} />
-                        )}
+                        {visFordelingGraf && <FordelingGraf fordeling={forbruk.fordeling} omForeldre={omForeldre} />}
                     </Block>
                     <Block visible={regelbrudd.length > 0}>
                         <Regelbrudd regelbrudd={regelbrudd} />

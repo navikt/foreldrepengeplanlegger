@@ -4,14 +4,16 @@ import { Undertittel, Systemtittel } from 'nav-frontend-typografi';
 import Ukefordeling from '../ukefordeling/Ukefordeling';
 import { TilgjengeligeUker } from '../../types';
 import Knapperad from 'common/components/knapperad/Knapperad';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import SkjemaFordelingFellesperiode from '../ukefordeling/SkjemaFordelingFellesperiode';
+import Varighet from '../varighet/Varighet';
 
 interface Props {
     tilgjengeligeUker: TilgjengeligeUker;
     navnMor: string;
     navnFarMedmor: string;
     onChange: (ukerMor: number) => void;
+    onSkipPlan: () => void;
 }
 
 interface State {
@@ -31,7 +33,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
         });
     }
     render() {
-        const { tilgjengeligeUker, navnMor, navnFarMedmor, onChange } = this.props;
+        const { tilgjengeligeUker, navnMor, navnFarMedmor, onChange, onSkipPlan } = this.props;
 
         const defaultUker = Math.round(tilgjengeligeUker.ukerFelles / 2);
         const ukerMor = this.state.ukerMor !== undefined ? this.state.ukerMor : defaultUker;
@@ -40,13 +42,19 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
         return (
             <section>
                 <div className="periodelisteWrapper">
-                    <Block margin="s">
-                        <Systemtittel>Planen deres - få forslag til plan</Systemtittel>
-                    </Block>
-                    <Block margin="s">
-                        <Undertittel>Hvordan ønsker dere å dele fellesperioden?</Undertittel>
+                    <Systemtittel>Få forslag til deres plan</Systemtittel>
+                    <Block marginTop="s" margin="l">
+                        Dere har{' '}
+                        <strong>
+                            <Varighet dager={tilgjengeligeUker.ukerFelles * 5} />
+                        </strong>{' '}
+                        som dere kan fordele mellom dere. Velg fordeling under og få et forslag til planen, eller velg å
+                        gå videre uten forslag. Fordelingen kan endres etterpå.
                     </Block>
                     <Block>
+                        <Block margin="xs">
+                            <Undertittel>Hvordan ønsker dere å dele fellesperioden?</Undertittel>
+                        </Block>
                         <SkjemaFordelingFellesperiode
                             navnFarMedmor={navnFarMedmor}
                             navnMor={navnMor}
@@ -68,6 +76,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
                     </Block>
                     <Knapperad>
                         <Hovedknapp onClick={() => onChange(ukerMor)}>Lag forslag til plan</Hovedknapp>
+                        <Knapp onClick={() => onSkipPlan()}>Vis plan uten forslag</Knapp>
                     </Knapperad>
                 </div>
             </section>

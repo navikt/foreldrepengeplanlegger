@@ -3,7 +3,7 @@ import { TilgjengeligeDager, OmForeldre } from '../../types';
 import BEMHelper from 'common/utils/bem';
 import { Dekningsgrad } from 'common/types';
 import { getVarighetString } from 'common/utils/intlUtils';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
 
 import './tilgjengeligeDagerOversikt.less';
 import { Systemtittel, Undertittel, Normaltekst } from 'nav-frontend-typografi';
@@ -46,7 +46,13 @@ const Kontoliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl 
     );
 };
 
-const Fordelingsliste: React.StatelessComponent<Props> = ({ tilgjengeligeDager, omForeldre, intl }: Props) => {
+interface FordelingslisteProps {
+    tilgjengeligeDager: TilgjengeligeDager;
+    omForeldre: OmForeldre;
+    intl: InjectedIntl;
+}
+
+const Fordelingsliste: React.StatelessComponent<FordelingslisteProps> = ({ tilgjengeligeDager, omForeldre, intl }) => {
     const { dagerFelles, dagerForbeholdtFar, dagerForbeholdtMor, flerbarnsdager } = tilgjengeligeDager;
     if (omForeldre.mor === undefined) {
         return null;
@@ -79,7 +85,7 @@ const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = (props: Prop
                     </Systemtittel>
                 </Block>
                 <Block margin="xs" visible={omForeldre.antallForeldre === 2}>
-                    <Fordelingsliste {...props} />
+                    <Fordelingsliste tilgjengeligeDager={tilgjengeligeDager} intl={intl} omForeldre={omForeldre} />
                 </Block>
             </Block>
             <Block visible={false}>

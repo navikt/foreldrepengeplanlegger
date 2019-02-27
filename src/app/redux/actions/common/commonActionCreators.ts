@@ -35,10 +35,11 @@ export function setStønadskontoer(kontoer: SetStønadskontoerKontoerPayload): C
     };
 }
 
-export function setPerioder(perioder: Periode[]): CommonActionTypes {
+export function setPerioder(perioder: Periode[], resetØnsketFordeling?: boolean): CommonActionTypes {
     return {
         type: CommonActionKeys.SET_PERIODER,
-        perioder
+        perioder,
+        resetØnsketFordeling
     };
 }
 
@@ -65,6 +66,13 @@ export function removePeriode(periode: Periode): CommonActionTypes {
 export function resetApp(): CommonActionTypes {
     return {
         type: CommonActionKeys.RESET_APP
+    };
+}
+
+export function resetPlan(resetØnsketFordeling?: boolean): CommonActionTypes {
+    return {
+        type: CommonActionKeys.RESET_PLAN,
+        resetØnsketFordeling
     };
 }
 
@@ -108,6 +116,12 @@ export function setØnsketFordeling(ukerMor: number): CommonActionTypes {
     return {
         type: CommonActionKeys.SET_ØNSKET_FORDELING,
         ukerMor
+    };
+}
+
+export function skipØnsketFordeling(): CommonActionTypes {
+    return {
+        type: CommonActionKeys.SKIP_ØNSKET_FORDELING
     };
 }
 

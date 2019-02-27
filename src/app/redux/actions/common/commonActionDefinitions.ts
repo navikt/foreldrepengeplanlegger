@@ -29,8 +29,10 @@ export enum CommonActionKeys {
     'UPDATE_TILGJENGELIGE_DAGER' = 'updateTilgjengeligeDager',
     'UPDATE_OM_FORELDRE' = 'updateOmForeldre',
     'RESET_APP' = 'resetApp',
+    'RESET_PLAN' = 'resetPlan',
     'SET_UTTAKSDAGER_FØR_TERMIN' = 'setUttaksdagerFørTermin',
     'SET_ØNSKET_FORDELING' = 'setØnsketFordeling',
+    'SKIP_ØNSKET_FORDELING' = 'skipØnsketFordeling',
     'NY_PERIODE_CHANGE' = 'nyPeriodeChange',
     'SET_UTTAKSPLAN_VALIDERING' = 'setUttaksplanValidering',
     'VALIDER_UTTAKSPLAN' = 'validerUttaksplan'
@@ -86,6 +88,11 @@ export interface ResetAppAction {
     type: CommonActionKeys.RESET_APP;
 }
 
+export interface ResetPlanAction {
+    type: CommonActionKeys.RESET_PLAN;
+    resetØnsketFordeling?: boolean;
+}
+
 export interface SetUttaksplanValideringAction {
     type: CommonActionKeys.SET_UTTAKSPLAN_VALIDERING;
     validering: UttaksplanRegelTestresultat;
@@ -103,6 +110,7 @@ interface SetDekningsgradAction {
 interface SetPerioderAction {
     type: CommonActionKeys.SET_PERIODER;
     perioder: Periode[];
+    resetØnsketFordeling?: boolean;
 }
 
 interface AddPeriodeAction {
@@ -137,6 +145,10 @@ interface SetØnsketFordelingAction {
     ukerMor: number;
 }
 
+interface SkipØnsketFordelingAction {
+    type: CommonActionKeys.SKIP_ØNSKET_FORDELING;
+}
+
 interface NyPeriodeChangeAction {
     type: CommonActionKeys.NY_PERIODE_CHANGE;
     periode: Periode | undefined;
@@ -158,7 +170,9 @@ export type CommonActionTypes =
     | UpdateTilgjengeligeDagerAction
     | UpdateOmForeldreAction
     | ResetAppAction
+    | ResetPlanAction
     | SetØnsketFordelingAction
     | NyPeriodeChangeAction
     | ValiderUttaksplanAction
-    | SetUttaksplanValideringAction;
+    | SetUttaksplanValideringAction
+    | SkipØnsketFordelingAction;

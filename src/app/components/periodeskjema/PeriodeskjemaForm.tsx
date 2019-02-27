@@ -115,10 +115,10 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         const uttaksdager = fom && tom ? Tidsperioden({ fom, tom }).getAntallUttaksdager() : undefined;
         return (
             <Form className="periodeSkjema">
-                <Block margin="xs">
-                    <Ingress>Legg til ny periode</Ingress>
-                </Block>
                 <PeriodeBlokk farge={getPeriodetypeFarge(periodetype, forelder)} nyPeriode={true}>
+                    <Block margin="s">
+                        <Ingress>Legg til ny periode</Ingress>
+                    </Block>
                     <Block margin="s">
                         <PeriodelisteElement
                             menyer={[

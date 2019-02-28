@@ -4,66 +4,79 @@
     &__titler {
         display: flex;
     }
-    &__tittel  {
+
+    &__tittel {
+        display: flex;
         flex: 1 1 0;
-        &:first-child {
-            text-align: left;
+
+        &__ikon {
+            padding-left: .5rem;
+            padding-right: .5rem;
+            flex-grow: 0;
         }
+
+        &:first-child,
         &:nth-child(2) {
-            text-align: center;
+            min-width: 38%;
         }
+
         &:last-child {
-            text-align: right;
+            min-width: 24%;
         }
     }
+
     &__forbruk {
-        text-align: center;
-        margin-bottom: 1rem;
         &__navn {
             text-transform: uppercase;
             color: #3e3832;
             margin-bottom: 0.25rem;
             font-size: 0.875rem;
         }
+
         .varighet__value {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 500;
             margin-right: 0.25rem;
         }
+
         .varighet__separator {
             width: 0.75rem;
             display: inline-block;
             text-align: left;
         }
+
         .varighet__title {
             font-size: 0.875rem;
             text-transform: uppercase;
+
             &--error {
                 color: @redError;
             }
         }
+
         &--formye {
             * {
                 color: @redError;
             }
         }
     }
+
     &__graf {
         background-color: #d9d6d1;
         display: flex;
+
         &__bar {
-            // transition: all 0.25s ease-in-out;
-            // will-change: transform;
-            // transform: translate3d();
             background-color: gray;
             height: 2.5rem;
             display: block;
             margin: 0;
             border-right: 1px solid white;
+
             &:first-child {
                 border-top-left-radius: 0.25rem;
                 border-bottom-left-radius: 0.25rem;
             }
+
             &:last-child {
                 border-right: none;
                 border-top-right-radius: 0.25rem;
@@ -71,12 +84,15 @@
             }
         }
     }
+
     .bkg-farMedmor {
         background-color: @c-periodefarge-blaa;
     }
+
     .bkg-mor {
         background-color: @c-periodefarge-lilla;
     }
+
     .bkg-overforbruk {
         background-color: @redError;
     }

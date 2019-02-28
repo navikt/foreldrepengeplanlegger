@@ -7,11 +7,17 @@
         align-content: stretch;
         flex-wrap: nowrap;
     }
+
     &__menyWrapper {
         margin-right: 0.5rem;
         min-width: 5rem;
         position: relative;
+
+        &:last-child {
+            margin-right: 0;
+        }
     }
+
     &__tools {
         padding-left: 0.25rem;
         display: flex;
@@ -21,21 +27,25 @@
         flex-wrap: wrap;
         padding-top: 0.25rem;
     }
+
     &__tool {
         &:last-child {
             margin-bottom: 0;
         }
     }
+
     &__info,
     &__regelbrudd {
         &--open {
             margin-top: 0.5rem;
         }
     }
+
     &__regelbruddListe {
         list-style: none;
         margin: 0;
         padding: 0;
+
         &__brudd {
             margin: 0.25rem 0 0.25rem 0;
             position: relative;

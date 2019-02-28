@@ -58,7 +58,7 @@ class Skjemablokk extends React.Component<Props, State> {
                             </legend>
                             {info && (
                                 <div className="skjemablokk__info">
-                                    <Block visible={this.state.åpen} animated={true} style="info" margin="s">
+                                    <Block visible={this.state.åpen} style="info" margin="s">
                                         {info.content}
                                     </Block>
                                 </div>

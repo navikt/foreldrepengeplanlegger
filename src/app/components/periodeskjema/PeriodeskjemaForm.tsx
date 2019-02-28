@@ -24,6 +24,8 @@ import VarighetMeny from './varighet/VarighetMeny';
 import './periodeSkjema.less';
 import EndringerVedNyPeriode from './EndringerVedNyPeriode';
 import { focusFirstElement } from '../../utils/focusUtils';
+import getMessage from 'common/utils/i18nUtils';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 interface OwnProps {
     nesteUttaksdag: Date;
@@ -40,7 +42,7 @@ interface OwnProps {
     formik: FormikProps<PeriodeskjemaFormValues>;
 }
 
-type Props = OwnProps;
+type Props = OwnProps & InjectedIntlProps;
 
 const bem = BEMHelper('periodeElement');
 
@@ -106,12 +108,13 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
             nesteUttaksdag,
             perioder,
             forbrukEksisterendePerioder,
+            intl,
             nyPeriode
         } = this.props;
         const { fom, tom, periodetype, forelder, gradering } = formik.values;
         const forelderNavn = getForelderNavn(forelder, omForeldre);
         const harFlereForeldre = omForeldre.antallForeldre > 1;
-        const brukteUttaksdager = periodeskjemaUtils.getBrukteUttaksdagerForNyPeriode(formik.values);
+        const antallUttaksdagerBrukt = periodeskjemaUtils.getBrukteUttaksdagerForNyPeriode(formik.values);
         const uttaksdager = fom && tom ? Tidsperioden({ fom, tom }).getAntallUttaksdager() : undefined;
         return (
             <Form className="periodeSkjema">
@@ -131,7 +134,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             forelder={forelder}
                                             foreldernavn={forelderNavn}
                                             dropdownStyle="border"
-                                            brukteUttaksdager={brukteUttaksdager}
+                                            brukteUttaksdager={antallUttaksdagerBrukt}
                                             uttaksdager={uttaksdager}
                                             onChange={(type) => {
                                                 formik.setFieldValue('periodetype', type);
@@ -184,7 +187,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             skjemaProps={{
                                                 tidsperiode: { fom, tom },
                                                 antallUttaksdager: uttaksdager,
-                                                antallUttaksdagerBrukt: brukteUttaksdager,
+                                                antallUttaksdagerBrukt,
                                                 minDato: this.getMinDato(),
                                                 maksDato: this.getMaksDato(),
                                                 onTidsperiodeChange: this.handleTidsperiodeChange,
@@ -202,6 +205,17 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                     )
                                 }
                             ]}
+                            info={
+                                periodetype === Periodetype.Ferie &&
+                                antallUttaksdagerBrukt &&
+                                antallUttaksdagerBrukt > 0
+                                    ? [
+                                          getMessage(intl, 'uttaksplan.ferie.inneholderHelligdager', {
+                                              dager: antallUttaksdagerBrukt
+                                          })
+                                      ]
+                                    : undefined
+                            }
                         />
                     </Block>
                     <EndringerVedNyPeriode nyPeriode={nyPeriode} perioder={perioder} omForeldre={omForeldre} />
@@ -218,4 +232,4 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         );
     }
 }
-export default PeriodeskjemaForm;
+export default injectIntl(PeriodeskjemaForm);

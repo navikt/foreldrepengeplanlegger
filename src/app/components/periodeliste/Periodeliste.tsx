@@ -19,21 +19,13 @@ const bem = BEMHelper('periodeliste');
 
 const PosedLi = posed.li({
     flip: {
-        y: 0,
-        transition: {
-            y: { type: 'spring', stiffness: 500, damping: 100 },
-            default: {
-                type: 'tween',
-                ease: 'easeOut',
-                duration: 125
-            }
-        }
+        y: 0
     },
     enter: {
-        x: 0,
+        y: 0,
         opacity: 1,
+        scaleY: 1,
         transition: {
-            x: { type: 'spring', stiffness: 500, damping: 100 },
             default: {
                 type: 'tween',
                 ease: 'easeOut',
@@ -42,13 +34,23 @@ const PosedLi = posed.li({
         }
     },
     exit: {
-        y: '-200',
-        opacity: 0
+        y: -75,
+        opacity: 0,
+        scaleY: 0,
+        transition: {
+            scale: { duration: 350 },
+            default: {
+                type: 'tween',
+                ease: 'easeOut',
+                duration: 250
+            }
+        }
     }
 });
 
 interface OwnProps {
     nyPeriodeSkjema: React.ReactNode;
+    visSkjema: boolean;
     nyPeriodeId: string;
 }
 
@@ -60,6 +62,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
         onSlåSammenPerioder,
         regelTestresultat,
         nyPeriodeSkjema,
+        visSkjema,
         nyPeriodeId,
         ...elementProps
     } = props;
@@ -97,7 +100,9 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
             </PosedLi>
         );
     });
-    posedItems.push(<PosedLi key={nyPeriodeId}>{nyPeriodeSkjema}</PosedLi>);
+    if (visSkjema) {
+        posedItems.push(<PosedLi key={nyPeriodeId}>{nyPeriodeSkjema}</PosedLi>);
+    }
 
     return (
         <div className={bem.classNames(bem.block, nyPeriodeSkjema ? bem.modifier('medSkjema') : undefined)}>

@@ -1,33 +1,37 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import BEMHelper from 'common/utils/bem';
-import { Fordeling, OmForeldre } from '../../types';
-import { InjectedIntl, injectIntl, InjectedIntlProps } from 'react-intl';
+import { Fordeling, OmForeldre, TilgjengeligeDager } from '../../types';
 import Varighet from '../varighet/Varighet';
+import HighlightContent from 'common/components/highlightContent/HighlightContent';
 
 import './fordelingGraf.less';
-import HighlightContent from 'common/components/highlightContent/HighlightContent';
 
 interface OwnProps {
     fordeling: Fordeling;
+    tilgjengeligeDager: TilgjengeligeDager;
     omForeldre: OmForeldre;
 }
 
-type Props = OwnProps & InjectedIntlProps;
+type Props = OwnProps;
 
 const bem = BEMHelper('fordelingGraf');
 
-const Tittel: React.StatelessComponent<{ navn: string; dager?: number; intl: InjectedIntl }> = ({ navn, dager }) => {
+const Tittel: React.StatelessComponent<{ navn: string; dager?: number; maksDager?: number }> = ({
+    navn,
+    dager,
+    maksDager
+}) => {
     if (dager === undefined) {
         return null;
     }
-    const dagerForMye: boolean = dager < 0;
+    const forMangeDager = maksDager && maksDager < dager;
     return (
         <div className={classNames(bem.element('tittel'), { [`${bem.element('tittel', 'error')}`]: dager < 0 })}>
             <div
                 className={bem.classNames(
                     bem.element('forbruk'),
-                    dagerForMye ? bem.element('forbruk', 'formye') : undefined
+                    forMangeDager ? bem.element('forbruk', 'formye') : undefined
                 )}>
                 <div className={bem.element('forbruk__navn')}>{navn}</div>
                 <div className={bem.element('forbruk__dager')}>
@@ -40,24 +44,28 @@ const Tittel: React.StatelessComponent<{ navn: string; dager?: number; intl: Inj
     );
 };
 
-const FordelingGraf: React.StatelessComponent<Props> = ({ fordeling, omForeldre, intl }) => {
-    const { farMedmor, mor, dagerGjenstående, overforbruk } = fordeling;
+const FordelingGraf: React.StatelessComponent<Props> = ({ fordeling, omForeldre, tilgjengeligeDager }) => {
+    const { farMedmor, mor, dagerTotalt, overforbruk } = fordeling;
+    const dagerTotaltMedOverforbruk = dagerTotalt + (overforbruk ? overforbruk.uttaksdager : 0);
+    if (!tilgjengeligeDager) {
+        return null;
+    }
     return (
         <div className={bem.block}>
             <div className={bem.element('titler')}>
-                <Tittel navn={omForeldre.mor ? omForeldre.mor.navn : 'Brukt'} dager={mor.uttaksdager} intl={intl} />
+                <Tittel
+                    navn={omForeldre.mor ? omForeldre.mor.navn : 'Brukt'}
+                    dager={mor.uttaksdager}
+                    maksDager={tilgjengeligeDager.maksDagerTilgjengeligMor}
+                />
                 {omForeldre.farMedmor && (
                     <Tittel
                         navn={omForeldre.farMedmor.navn}
                         dager={farMedmor ? farMedmor.uttaksdager : undefined}
-                        intl={intl}
+                        maksDager={tilgjengeligeDager.maksDagerTilgjengeligFar}
                     />
                 )}
-                <Tittel
-                    navn={dagerGjenstående >= 0 ? 'Gjenstående' : 'Dager for mye'}
-                    dager={dagerGjenstående}
-                    intl={intl}
-                />
+                <Tittel navn="Totalt registrert" dager={dagerTotaltMedOverforbruk} maksDager={dagerTotalt} />
             </div>
             <div className={bem.element('graf')} role="presentation">
                 <div className={bem.element('graf__bar bkg-mor')} style={{ width: `${mor.pst}%` }} />
@@ -75,4 +83,4 @@ const FordelingGraf: React.StatelessComponent<Props> = ({ fordeling, omForeldre,
     );
 };
 
-export default injectIntl(FordelingGraf);
+export default FordelingGraf;

@@ -5,12 +5,12 @@ import {
     Forelder,
     Periodetype,
     UttakFørTerminPeriode,
-    TilgjengeligeUker,
     Situasjon
 } from '../types';
 import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from './uttaksinfo';
 import { Uttaksdagen } from './Uttaksdagen';
+import { getAntallForeldreISituasjon } from './common';
 
 export const getVelgbareStønadskontotyper = (stønadskontoTyper: TilgjengeligStønadskonto[]): StønadskontoType[] =>
     stønadskontoTyper
@@ -88,30 +88,41 @@ const getDagerFørTermin = (kontoer: TilgjengeligStønadskonto[]): number => {
     return konto ? konto.dager : 0;
 };
 
+const getErAleneomsorg = (situasjon: Situasjon): boolean => {
+    return getAntallForeldreISituasjon(situasjon) === 1;
+};
+
 export const getTilgjengeligeDager = (
     situasjon: Situasjon,
     kontoer: TilgjengeligStønadskonto[],
     erMor?: boolean
 ): TilgjengeligeDager => {
-    return {
-        dagerForeldrepenger: summerAntallDagerIKontoer(getForeldrepengeKontoer(kontoer)),
-        dagerTotalt: summerAntallDagerIKontoer(kontoer),
-        dagerForbeholdtMor: summerAntallDagerIKontoer(getMorsStønadskontoer(kontoer, situasjon, erMor)),
-        dagerForbeholdtFar: summerAntallDagerIKontoer(getFarsStønadskontoer(kontoer)),
-        dagerFelles: summerAntallDagerIKontoer(getFellesStønadskontoer(kontoer)),
-        flerbarnsdager: summerAntallDagerIKontoer(getFlerbarnskonto(kontoer)),
-        dagerFørTermin: getDagerFørTermin(kontoer),
-        stønadskontoer: kontoer
-    };
-};
+    const erAleneomsorg = getErAleneomsorg(situasjon);
 
-export const getTilgjengeligeUker = (tilgjengeligeDager: TilgjengeligeDager): TilgjengeligeUker => {
+    const dagerForeldrepenger = summerAntallDagerIKontoer(getForeldrepengeKontoer(kontoer));
+    const dagerTotalt = summerAntallDagerIKontoer(kontoer);
+    const dagerForbeholdtMor = summerAntallDagerIKontoer(getMorsStønadskontoer(kontoer, situasjon, erMor));
+    const dagerForbeholdtFar = summerAntallDagerIKontoer(getFarsStønadskontoer(kontoer));
+    const dagerFelles = summerAntallDagerIKontoer(getFellesStønadskontoer(kontoer));
+    const flerbarnsdager = summerAntallDagerIKontoer(getFlerbarnskonto(kontoer));
+    const dagerFørTermin = getDagerFørTermin(kontoer);
+
+    const maksDagerTilgjengeligFar = dagerForbeholdtFar + dagerFelles;
+    const maksDagerTilgjengeligMor = erAleneomsorg
+        ? dagerForeldrepenger + dagerFørTermin
+        : dagerForbeholdtMor + dagerFelles;
+
     return {
-        ukerTotalt: tilgjengeligeDager.dagerTotalt / 5,
-        ukerForbeholdtMor: tilgjengeligeDager.dagerForbeholdtMor / 5,
-        ukerForbeholdtFar: tilgjengeligeDager.dagerForbeholdtFar / 5,
-        ukerFelles: tilgjengeligeDager.dagerFelles / 5,
-        ukerFørTermin: tilgjengeligeDager.dagerFørTermin / 5
+        dagerForeldrepenger,
+        dagerTotalt,
+        dagerForbeholdtMor,
+        dagerForbeholdtFar,
+        dagerFelles,
+        flerbarnsdager,
+        dagerFørTermin,
+        stønadskontoer: kontoer,
+        maksDagerTilgjengeligFar,
+        maksDagerTilgjengeligMor
     };
 };
 

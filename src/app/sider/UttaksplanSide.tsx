@@ -24,7 +24,6 @@ import LoadContainer from 'common/components/loadContainer/LoadContainer';
 import Situasjonsoppsummering from '../components/situasjonOppsummering/SituasjonOppsummering';
 import { ØnsketFordelingForeldrepenger } from '../redux/reducers/commonReducer';
 import FordelingForeldrepenger from '../components/uttaksplan/FordelingForeldrepenger';
-import { getTilgjengeligeUker } from '../utils/kontoUtils';
 import { getUttaksdatoer } from '../utils/uttaksdatoer';
 import { UttaksplanRegelTestresultat } from '../utils/regler/types';
 
@@ -110,7 +109,7 @@ class UttaksplanSide extends React.Component<Props> {
                                     <FordelingForeldrepenger
                                         navnMor={omForeldre.mor.navn}
                                         navnFarMedmor={omForeldre.farMedmor!.navn}
-                                        tilgjengeligeUker={getTilgjengeligeUker(tilgjengeligeDager)}
+                                        tilgjengeligeDager={tilgjengeligeDager}
                                         onChange={(uker) => dispatch(setØnsketFordeling(uker))}
                                         onSkipPlan={() => dispatch(skipØnsketFordeling())}
                                     />

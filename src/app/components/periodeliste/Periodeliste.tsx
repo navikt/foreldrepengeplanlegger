@@ -29,7 +29,7 @@ const PosedLi = posed.li({
             default: {
                 type: 'tween',
                 ease: 'easeOut',
-                duration: 250
+                duration: 150
             }
         }
     },
@@ -38,11 +38,9 @@ const PosedLi = posed.li({
         opacity: 0,
         scaleY: 0,
         transition: {
-            scale: { duration: 350 },
             default: {
                 type: 'tween',
-                ease: 'easeOut',
-                duration: 250
+                duration: 150
             }
         }
     }

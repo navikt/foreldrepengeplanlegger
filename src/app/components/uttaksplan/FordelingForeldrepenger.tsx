@@ -2,14 +2,15 @@ import * as React from 'react';
 import Block from 'common/components/block/Block';
 import { Undertittel, Systemtittel } from 'nav-frontend-typografi';
 import Ukefordeling from '../ukefordeling/Ukefordeling';
-import { TilgjengeligeUker } from '../../types';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import SkjemaFordelingFellesperiode from '../ukefordeling/SkjemaFordelingFellesperiode';
 import Varighet from '../varighet/Varighet';
+import { TilgjengeligeDager } from '../../types';
+import { dagerTilUker } from '../../utils/common';
 
 interface Props {
-    tilgjengeligeUker: TilgjengeligeUker;
+    tilgjengeligeDager: TilgjengeligeDager;
     navnMor: string;
     navnFarMedmor: string;
     onChange: (ukerMor: number) => void;
@@ -32,12 +33,18 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
             ukerMor
         });
     }
-    render() {
-        const { tilgjengeligeUker, navnMor, navnFarMedmor, onChange, onSkipPlan } = this.props;
 
-        const defaultUker = Math.round(tilgjengeligeUker.ukerFelles / 2);
+    render() {
+        const { tilgjengeligeDager, navnMor, navnFarMedmor, onChange, onSkipPlan } = this.props;
+
+        const defaultUker = Math.round(dagerTilUker(tilgjengeligeDager.dagerFelles) / 2);
         const ukerMor = this.state.ukerMor !== undefined ? this.state.ukerMor : defaultUker;
-        const ukerFarMedmor = tilgjengeligeUker.ukerFelles - ukerMor;
+        const ukerFarMedmor = dagerTilUker(tilgjengeligeDager.dagerFelles) - ukerMor;
+
+        const ukerFelles = dagerTilUker(tilgjengeligeDager.dagerFelles);
+        const ukerFørTermin = dagerTilUker(tilgjengeligeDager.dagerFørTermin);
+        const ukerForbeholdtMor = dagerTilUker(tilgjengeligeDager.dagerForbeholdtMor);
+        const ukerForbeholdtFar = dagerTilUker(tilgjengeligeDager.dagerForbeholdtFar);
 
         return (
             <section>
@@ -46,7 +53,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
                     <Block marginTop="s" margin="l">
                         Dere har{' '}
                         <strong>
-                            <Varighet dager={tilgjengeligeUker.ukerFelles * 5} />
+                            <Varighet dager={tilgjengeligeDager.dagerFelles} />
                         </strong>{' '}
                         som dere kan fordele mellom dere. Velg fordeling under og få et forslag til planen, eller velg å
                         gå videre uten forslag. Fordelingen kan endres etterpå.
@@ -58,16 +65,16 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
                         <SkjemaFordelingFellesperiode
                             navnFarMedmor={navnFarMedmor}
                             navnMor={navnMor}
-                            ukerTotalt={tilgjengeligeUker.ukerFelles}
+                            ukerTotalt={ukerFelles}
                             ukerMor={ukerMor}
                             onChange={(uker) => this.setState({ ukerMor: uker })}
                         />
                     </Block>
                     <Block visible={false}>
                         <Ukefordeling
-                            foreldrepengerFørTermin={tilgjengeligeUker.ukerFørTermin}
-                            modrekvote={tilgjengeligeUker.ukerForbeholdtMor - tilgjengeligeUker.ukerFørTermin}
-                            fedrekvote={tilgjengeligeUker.ukerForbeholdtFar}
+                            foreldrepengerFørTermin={ukerFørTermin}
+                            modrekvote={ukerForbeholdtMor - ukerFørTermin}
+                            fedrekvote={ukerForbeholdtFar}
                             fellesukerMor={ukerMor}
                             fellesukerFarMedmor={ukerFarMedmor}
                             navnMor={`Uker totalt for ${navnMor}`}

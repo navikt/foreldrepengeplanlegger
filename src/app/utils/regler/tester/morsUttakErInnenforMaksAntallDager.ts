@@ -4,7 +4,7 @@ import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/utils/intlUtils';
 
 const morsUttakErInnenforMaksAntallDager: RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag): RegelTestresultat => {
-    const { forbruk, tilgjengeligeDager, navnMor, erAleneomsorg } = grunnlag;
+    const { forbruk, tilgjengeligeDager, navnMor } = grunnlag;
 
     if (forbruk === undefined || tilgjengeligeDager === undefined) {
         return {
@@ -13,10 +13,8 @@ const morsUttakErInnenforMaksAntallDager: RegelTest = (key: RegelKey, grunnlag: 
         };
     }
 
-    const maksDagerTilMor = erAleneomsorg
-        ? tilgjengeligeDager.dagerForeldrepenger + tilgjengeligeDager.dagerFørTermin
-        : tilgjengeligeDager.dagerForbeholdtMor + tilgjengeligeDager.dagerFelles;
-    const dagerGjenstående = maksDagerTilMor - forbruk.mor.brukteUttaksdager;
+    const { maksDagerTilgjengeligMor } = tilgjengeligeDager;
+    const dagerGjenstående = maksDagerTilgjengeligMor - forbruk.mor.brukteUttaksdager;
     const passerer = dagerGjenstående >= 0;
 
     return {
@@ -31,7 +29,7 @@ const morsUttakErInnenforMaksAntallDager: RegelTest = (key: RegelKey, grunnlag: 
                       intlKey: `regel.feiler.${key}`,
                       values: {
                           navn: navnMor,
-                          dagerTilgjengelig: (intl: InjectedIntl) => getVarighetString(maksDagerTilMor, intl),
+                          dagerTilgjengelig: (intl: InjectedIntl) => getVarighetString(maksDagerTilgjengeligMor, intl),
                           dagerRegistrert: (intl: InjectedIntl) =>
                               getVarighetString(Math.abs(forbruk.mor.brukteUttaksdager), intl)
                       }

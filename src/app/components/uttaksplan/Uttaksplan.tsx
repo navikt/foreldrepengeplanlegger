@@ -172,7 +172,13 @@ class Uttaksplan extends React.Component<Props, State> {
                                 </div>
                             </Knapperad>
                         </Block>
-                        {visFordelingGraf && <FordelingGraf fordeling={forbruk.fordeling} omForeldre={omForeldre} />}
+                        {visFordelingGraf && (
+                            <FordelingGraf
+                                fordeling={forbruk.fordeling}
+                                omForeldre={omForeldre}
+                                tilgjengeligeDager={tilgjengeligeDager}
+                            />
+                        )}
                     </Block>
                     <Block visible={regelbrudd.length > 0} marginTop="l">
                         <Regelbrudd regelbrudd={regelbrudd} />

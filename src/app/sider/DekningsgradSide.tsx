@@ -21,7 +21,6 @@ import Situasjonsoppsummering from '../components/situasjonOppsummering/Situasjo
 import Skjemablokk from '../components/skjemablokk/Skjemablokk';
 import { ØnsketFordelingForeldrepenger } from '../redux/reducers/commonReducer';
 import FordelingForeldrepenger from '../components/uttaksplan/FordelingForeldrepenger';
-import { getTilgjengeligeUker } from '../utils/kontoUtils';
 import { getUttaksdatoer } from '../utils/uttaksdatoer';
 import { Side } from '../routes';
 import Knapperad from 'common/components/knapperad/Knapperad';
@@ -131,7 +130,7 @@ class UttaksplanSide extends React.Component<Props> {
                                 <FordelingForeldrepenger
                                     navnMor={omForeldre.mor.navn}
                                     navnFarMedmor={omForeldre.farMedmor.navn}
-                                    tilgjengeligeUker={getTilgjengeligeUker(tilgjengeligeDager)}
+                                    tilgjengeligeDager={tilgjengeligeDager}
                                     onChange={(uker) => {
                                         dispatch(setØnsketFordeling(uker));
                                         dispatch(navigerTilSide(Side.UTTAKSPLAN, this.props.history));

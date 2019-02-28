@@ -15,8 +15,8 @@ const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
         };
     }
 
-    const maksDagerTilFarMedmor = tilgjengeligeDager.dagerForbeholdtFar + tilgjengeligeDager.dagerFelles;
-    const dagerGjenstående = maksDagerTilFarMedmor - forbruk.farMedmor.brukteUttaksdager;
+    const { maksDagerTilgjengeligFar } = tilgjengeligeDager;
+    const dagerGjenstående = maksDagerTilgjengeligFar - forbruk.farMedmor.brukteUttaksdager;
     const passerer = dagerGjenstående >= 0;
 
     return {
@@ -31,7 +31,7 @@ const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
                       intlKey: `regel.feiler.${key}`,
                       values: {
                           navn: navnFarMedmor,
-                          dagerTilgjengelig: (intl: InjectedIntl) => getVarighetString(maksDagerTilFarMedmor, intl),
+                          dagerTilgjengelig: (intl: InjectedIntl) => getVarighetString(maksDagerTilgjengeligFar, intl),
                           dagerRegistrert: (intl: InjectedIntl) =>
                               getVarighetString(Math.abs(forbruk.farMedmor!.brukteUttaksdager), intl)
                       }

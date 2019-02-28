@@ -66,19 +66,13 @@ export interface TilgjengeligeDager {
     dagerTotalt: number;
     dagerForbeholdtMor: number;
     dagerForbeholdtFar: number;
+    maksDagerTilgjengeligFar: number;
+    maksDagerTilgjengeligMor: number;
     dagerFelles: number;
     flerbarnsdager: number;
     dagerFørTermin: number;
     stønadskontoer: TilgjengeligStønadskonto[];
     dagerForeldrepenger: number;
-}
-
-export interface TilgjengeligeUker {
-    ukerTotalt: number;
-    ukerForbeholdtMor: number;
-    ukerForbeholdtFar: number;
-    ukerFelles: number;
-    ukerFørTermin: number;
 }
 
 export interface ForelderForbruk {

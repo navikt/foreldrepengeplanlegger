@@ -76,3 +76,5 @@ export const getInformasjonOmForeldre = (
         forelderVedIkkeDeltPlan: getForelderVedIkkeDeltPlan(situasjon, erMor)
     };
 };
+
+export const dagerTilUker = (dager: number): number => dager / 5;

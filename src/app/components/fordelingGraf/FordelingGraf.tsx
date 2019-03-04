@@ -3,12 +3,12 @@ import BEMHelper from 'common/utils/bem';
 import { Fordeling, OmForeldre, TilgjengeligeDager } from '../../types';
 import Varighet from '../varighet/Varighet';
 import HighlightContent from 'common/components/highlightContent/HighlightContent';
-
-import './fordelingGraf.less';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
 import Block from 'common/components/block/Block';
 import { Ingress } from 'nav-frontend-typografi';
 import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
+
+import './fordelingGraf.less';
 
 interface OwnProps {
     fordeling: Fordeling;

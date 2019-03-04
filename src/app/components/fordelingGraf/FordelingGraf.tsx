@@ -8,6 +8,7 @@ import './fordelingGraf.less';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
 import Block from 'common/components/block/Block';
 import { Ingress } from 'nav-frontend-typografi';
+import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
 
 interface OwnProps {
     fordeling: Fordeling;
@@ -54,21 +55,29 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ fordeling, omForeldr
         mor.uttaksdager + (farMedmor ? farMedmor.uttaksdager : 0) + (overforbruk ? overforbruk.uttaksdager : 0);
     return (
         <div className={bem.element('titler')}>
-            <Tittel
-                navn={omForeldre.mor.navn}
-                ikon={<ForelderIkon forelder={omForeldre.mor.ikonRef} />}
-                dager={mor.uttaksdager}
-                maksDager={tilgjengeligeDager.maksDagerTilgjengeligMor}
-            />
-            {omForeldre.farMedmor && (
+            <PeriodeBlokk farge="purple" transparent={true}>
                 <Tittel
-                    navn={omForeldre.farMedmor.navn}
-                    ikon={<ForelderIkon forelder={omForeldre.farMedmor.ikonRef} />}
-                    dager={farMedmor ? farMedmor.uttaksdager : undefined}
-                    maksDager={tilgjengeligeDager.maksDagerTilgjengeligFar}
+                    navn={omForeldre.mor.navn}
+                    ikon={<ForelderIkon forelder={omForeldre.mor.ikonRef} />}
+                    dager={mor.uttaksdager}
+                    maksDager={tilgjengeligeDager.maksDagerTilgjengeligMor}
                 />
+            </PeriodeBlokk>
+            {omForeldre.farMedmor && (
+                <PeriodeBlokk farge="blue" transparent={true}>
+                    <Tittel
+                        navn={omForeldre.farMedmor.navn}
+                        ikon={<ForelderIkon forelder={omForeldre.farMedmor.ikonRef} />}
+                        dager={farMedmor ? farMedmor.uttaksdager : undefined}
+                        maksDager={tilgjengeligeDager.maksDagerTilgjengeligFar}
+                    />
+                </PeriodeBlokk>
             )}
-            <Tittel navn="Totalt" dager={dagerTotalt} maksDager={dagerTotalt} />
+            <PeriodeBlokk farge="gray" transparent={true}>
+                <div className={bem.child('tittel').modifier('total')}>
+                    <Tittel navn="Totalt" dager={dagerTotalt} maksDager={dagerTotalt} />
+                </div>
+            </PeriodeBlokk>
         </div>
     );
 };
@@ -98,7 +107,7 @@ const FordelingGraf: React.StatelessComponent<Props> = (props) => {
             <Block margin="xs">
                 <Ingress>Deres fordeling</Ingress>
             </Block>
-            <Block margin="m">
+            <Block margin="s">
                 <FordelingBars {...props} />
             </Block>
             <FordelingTitler {...props} />

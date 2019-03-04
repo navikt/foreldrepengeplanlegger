@@ -3,25 +3,28 @@
 .fordelingGraf {
     &__titler {
         display: flex;
+
+        >* {
+            flex: 1 1 0;
+            margin-right: .5rem;
+
+            &:last-child {
+                max-width: 30%;
+                margin: 0;
+            }
+        }
     }
 
     &__tittel {
         display: flex;
-        flex: 1 1 0;
 
         &__ikon {
-            padding-left: .5rem;
             padding-right: .5rem;
             flex-grow: 0;
         }
 
-        &:first-child,
-        &:nth-child(2) {
-            min-width: 38%;
-        }
-
-        &:last-child {
-            min-width: 24%;
+        &--total {
+            padding-left: 1rem;
         }
     }
 
@@ -29,7 +32,7 @@
         &__navn {
             text-transform: uppercase;
             color: #3e3832;
-            margin-bottom: 0.25rem;
+            // margin-bottom: 0.25rem;
             font-size: 0.875rem;
         }
 

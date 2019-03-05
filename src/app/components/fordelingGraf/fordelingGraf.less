@@ -1,97 +1,88 @@
 @import '../../styles/variables.less';
 
 .fordelingGraf {
-    &__titler {
-        display: flex;
-
-        >* {
-            flex: 1 1 0;
-            margin-right: .5rem;
-
-            &:last-child {
-                max-width: 30%;
-                margin: 0;
-            }
-        }
-    }
-
-    &__tittel {
-        display: flex;
-
-        &__ikon {
-            padding-right: .5rem;
-            flex-grow: 0;
-        }
-
-        &--total {
-            padding-left: 1rem;
-        }
-    }
-
-    &__forbruk {
-        &__navn {
-            text-transform: uppercase;
-            color: #3e3832;
-            // margin-bottom: 0.25rem;
-            font-size: 0.875rem;
-        }
-
-        .varighet__value {
-            font-size: 1.25rem;
-            font-weight: 500;
-            margin-right: 0.25rem;
-        }
-
-        .varighet__separator {
-            width: 0.75rem;
-            display: inline-block;
-            text-align: left;
-        }
-
-        .varighet__title {
-            font-size: 0.875rem;
-            text-transform: uppercase;
-
-            &--error {
-                color: @redError;
-            }
-        }
-
-        &--formye {
-            * {
-                color: @redError;
-            }
-        }
-    }
-
     &__graf {
-        // background-color: #d9d6d1;
         display: flex;
-
-        &__forelder1 {
-            width: 30%;
-        }
 
         &__felles {
             padding: 0 .25rem;
-            width: 40%;
         }
+    }
 
-        &__forelder2 {
-            width: 30%;
+    &__statusHeader {
+        display: flex;
+
+        &__ikon {
+            border-right: 1px solid @c-border-gray;
+            padding: .5rem 1rem;
+            flex-grow: 0;
+            margin-right: 1rem;
+            line-height: 0;
         }
-
     }
 
-    .bkg-farMedmor {
-        background-color: @c-periodefarge-blaa;
-    }
+    // &__titler {
+    //     display: flex;
 
-    .bkg-mor {
-        background-color: @c-periodefarge-lilla;
-    }
+    //     >* {
+    //         flex: 1 1 0;
+    //         margin-right: .5rem;
 
-    .bkg-overforbruk {
-        background-color: @redError;
-    }
+    //         &:last-child {
+    //             max-width: 30%;
+    //             margin: 0;
+    //         }
+    //     }
+    // }
+
+    // &__tittel {
+    //     display: flex;
+
+    //     &__ikon {
+    //         padding-right: .5rem;
+    //         flex-grow: 0;
+    //     }
+
+    //     &--total {
+    //         padding-left: 1rem;
+    //     }
+    // }
+
+    // &__forbruk {
+    //     &__navn {
+    //         text-transform: uppercase;
+    //         color: #3e3832;
+    //         // margin-bottom: 0.25rem;
+    //         font-size: 0.875rem;
+    //     }
+
+    //     .varighet__value {
+    //         font-size: 1.25rem;
+    //         font-weight: 500;
+    //         margin-right: 0.25rem;
+    //     }
+
+    //     .varighet__separator {
+    //         width: 0.75rem;
+    //         display: inline-block;
+    //         text-align: left;
+    //     }
+
+    //     .varighet__title {
+    //         font-size: 0.875rem;
+    //         text-transform: uppercase;
+
+    //         &--error {
+    //             color: @redError;
+    //         }
+    //     }
+
+    //     &--formye {
+    //         * {
+    //             color: @redError;
+    //         }
+    //     }
+    // }
+
+
 }

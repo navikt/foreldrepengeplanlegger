@@ -12,7 +12,7 @@ interface Props {
     borderColor: string;
     leftBar?: BarProps;
     rightBar?: BarProps;
-    overflowBar?: BarProps;
+    centerBar?: BarProps;
 }
 
 const bem = BEMHelper('multibar');
@@ -24,7 +24,7 @@ const getBarStyle = ({ width, color }: BarProps): React.CSSProperties => {
     };
 };
 
-const Multibar: React.StatelessComponent<Props> = ({ leftBar, rightBar, overflowBar, borderColor }) => {
+const Multibar: React.StatelessComponent<Props> = ({ leftBar, rightBar, centerBar, borderColor }) => {
     const style: React.CSSProperties = {
         borderColor
     };
@@ -35,10 +35,10 @@ const Multibar: React.StatelessComponent<Props> = ({ leftBar, rightBar, overflow
                 {leftBar && leftBar.width > 0 && (
                     <div className={bem.element('bar', 'left')} style={getBarStyle(leftBar)} />
                 )}
-                {overflowBar && (
+                {centerBar && (
                     <div
-                        className={bem.element('bar', 'overflow')}
-                        style={{ ...getBarStyle(overflowBar), left: leftBar ? `${leftBar.width}%` : undefined }}
+                        className={bem.element('bar', 'center')}
+                        style={{ ...getBarStyle(centerBar), left: leftBar ? `${leftBar.width}%` : undefined }}
                     />
                 )}
                 {rightBar && rightBar.width > 0 && (

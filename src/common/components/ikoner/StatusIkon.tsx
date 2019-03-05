@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface OwnProps {
-    status: 'advarsel' | 'feil' | 'ok';
+    status: 'advarsel' | 'feil' | 'suksess';
     title?: string;
     size?: number;
 }
@@ -64,7 +64,7 @@ const OkSirkelFyll: React.StatelessComponent<Props> = (props) => {
 const StatusIkon = (props: Props) => {
     const { size = 24 } = props;
     switch (props.status) {
-        case 'ok':
+        case 'suksess':
             return <OkSirkelFyll {...props} size={size} />;
         case 'feil':
             return <FeilSirkelFyll {...props} size={size} />;

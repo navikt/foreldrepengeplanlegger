@@ -1,18 +1,20 @@
 import * as React from 'react';
 import BEMHelper from 'common/utils/bem';
 import { Fordeling, OmForeldre, TilgjengeligeDager } from '../../types';
-// import Varighet from '../varighet/Varighet';
-// import HighlightContent from 'common/components/highlightContent/HighlightContent';
-// import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
+import Varighet from '../varighet/Varighet';
+import HighlightContent from 'common/components/highlightContent/HighlightContent';
+import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
 import Block from 'common/components/block/Block';
 import { EtikettLiten, Undertittel } from 'nav-frontend-typografi';
 import Multibar from '../multibar/Multibar';
 import { UttaksplanHexFarge } from 'common/utils/colors';
 import { getFordelingStatus } from '../../utils/fordelingStatusUtils';
-import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
+import { FormattedMessage, injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
+import StatusIkon from 'common/components/ikoner/StatusIkon';
 
 import './fordelingGraf.less';
-import StatusIkon from 'common/components/ikoner/StatusIkon';
+import { getVarighetString } from 'common/utils/intlUtils';
+import getMessage from 'common/utils/i18nUtils';
 
 interface OwnProps {
     fordeling: Fordeling;
@@ -24,67 +26,87 @@ type Props = OwnProps & InjectedIntlProps;
 
 const bem = BEMHelper('fordelingGraf');
 
-// interface TittelProps {
-//     navn: string;
-//     ikon?: React.ReactNode;
-//     dager?: number;
-//     maksDager?: number;
-// }
-// const Tittel: React.StatelessComponent<TittelProps> = ({ navn, ikon, dager, maksDager }) => {
-//     if (dager === undefined) {
-//         return null;
-//     }
-//     const forMangeDager = maksDager && maksDager < dager;
-//     const tittelBem = bem.child('tittel');
-//     const forbrukBem = bem.child('forbruk');
-//     return (
-//         <div className={bem.classNames(tittelBem.block, { [`${tittelBem.modifier('error')}`]: dager < 0 })}>
-//             {ikon && <div className={bem.child('tittel').element('ikon')}>{ikon}</div>}
-//             <div
-//                 className={bem.classNames(forbrukBem.block, forMangeDager ? forbrukBem.modifier('formye') : undefined)}>
-//                 <div className={forbrukBem.element('navn')}>{navn}</div>
-//                 <div className={forbrukBem.element('dager')}>
-//                     <HighlightContent watchValue={dager} invalid={dager < 0}>
-//                         <Varighet dager={Math.abs(dager | 0)} />
-//                     </HighlightContent>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
+interface TittelProps {
+    navn: string;
+    ikon: React.ReactNode;
+    dager: number;
+    maksDager: number;
+    minDager: number;
+    invertert?: boolean;
+    intl: InjectedIntl;
+}
+const Tittel: React.StatelessComponent<TittelProps> = ({ navn, ikon, dager, maksDager, minDager, invertert, intl }) => {
+    const forMangeDager = maksDager && maksDager < dager;
+    const tittelBem = bem.child('tittel');
 
-// const FordelingTitler: React.StatelessComponent<Props> = ({ fordeling, omForeldre, tilgjengeligeDager }) => {
-//     const { farMedmor, mor, overforbruk } = fordeling;
-//     const dagerTotalt =
-//         mor.uttaksdager + (farMedmor ? farMedmor.uttaksdager : 0) + (overforbruk ? overforbruk.uttaksdager : 0);
-//     return (
-//         <div className={bem.element('titler')}>
-//             <PeriodeBlokk farge="lilla" transparent={true}>
-//                 <Tittel
-//                     navn={omForeldre.mor.navn}
-//                     ikon={<ForelderIkon forelder={omForeldre.mor.ikonRef} />}
-//                     dager={mor.uttaksdager}
-//                     maksDager={tilgjengeligeDager.maksDagerTilgjengeligMor}
-//                 />
-//             </PeriodeBlokk>
-//             {omForeldre.farMedmor && (
-//                 <PeriodeBlokk farge="blaa" transparent={true}>
-//                     <Tittel
-//                         navn={omForeldre.farMedmor.navn}
-//                         ikon={<ForelderIkon forelder={omForeldre.farMedmor.ikonRef} />}
-//                         dager={farMedmor ? farMedmor.uttaksdager : undefined}
-//                         maksDager={tilgjengeligeDager.maksDagerTilgjengeligFar}
-//                     />
-//                 </PeriodeBlokk>
-//             )}
-//             <PeriodeBlokk farge="graa" transparent={true}>
-//                 <div className={bem.child('tittel').modifier('total')}>
-//                     <Tittel navn="Totalt" dager={dagerTotalt} maksDager={dagerTotalt} />
-//                 </div>
-//             </PeriodeBlokk>
-//         </div>
-//     );
-// };
+    const getTittelVarighet = (): React.ReactNode => {
+        if (dager < minDager) {
+            return (
+                <FormattedMessage
+                    id="fordeling.status.dagerIkkeBruktPerson"
+                    values={{ navn, dager: getVarighetString(minDager - dager, intl, 'full') }}
+                />
+            );
+        }
+        if (dager > maksDager) {
+            return (
+                <FormattedMessage
+                    id="fordeling.status.dagerForMyePerson"
+                    values={{ navn, dager: getVarighetString(maksDager - dager, intl, 'full') }}
+                />
+            );
+        }
+        return <Varighet dager={Math.abs(dager | 0)} separator={` ${getMessage(intl, 'common.varighet.og')} `} />;
+    };
+
+    return (
+        <div
+            className={tittelBem.classNames(
+                tittelBem.block,
+                tittelBem.modifierConditional('invertert', invertert === true)
+            )}>
+            {ikon && <div className={bem.child('tittel').element('ikon')}>{ikon}</div>}
+            <div
+                className={bem.classNames(
+                    tittelBem.child('forbruk').block,
+                    tittelBem.child('forbruk').modifierConditional('formangedager', forMangeDager === true)
+                )}>
+                <EtikettLiten>{navn}</EtikettLiten>
+                <div className={tittelBem.child('forbruk').element('dager')}>
+                    <HighlightContent watchValue={dager} invalid={dager < 0}>
+                        {getTittelVarighet()}
+                    </HighlightContent>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const FordelingTitler: React.StatelessComponent<Props> = ({ fordeling, omForeldre, tilgjengeligeDager, intl }) => {
+    return (
+        <div className={bem.element('titler')}>
+            <Tittel
+                navn={omForeldre.mor.navn}
+                ikon={<ForelderIkon forelder={omForeldre.mor.ikonRef} />}
+                dager={fordeling.mor.uttaksdager}
+                maksDager={tilgjengeligeDager.maksDagerTilgjengeligMor}
+                minDager={tilgjengeligeDager.dagerForbeholdtMor}
+                intl={intl}
+            />
+            {omForeldre.farMedmor && fordeling.farMedmor !== undefined && (
+                <Tittel
+                    navn={omForeldre.farMedmor.navn}
+                    ikon={<ForelderIkon forelder={omForeldre.farMedmor.ikonRef} />}
+                    dager={fordeling.farMedmor.uttaksdager}
+                    maksDager={tilgjengeligeDager.maksDagerTilgjengeligFar}
+                    invertert={true}
+                    minDager={tilgjengeligeDager.dagerForbeholdtFar}
+                    intl={intl}
+                />
+            )}
+        </div>
+    );
+};
 
 const BarFellesdager: React.StatelessComponent<{ dagerFelles: number; dagerMor: number; dagerFar: number }> = ({
     dagerFelles,
@@ -205,9 +227,10 @@ const FordelingGraf: React.StatelessComponent<Props> = (props) => {
             <Block margin="s">
                 <FordelingStatusHeader {...props} />
             </Block>
-            <Block margin="xs">
+            <Block margin="s">
                 <GrafDeltOmsorg {...props} />
             </Block>
+            <FordelingTitler {...props} />
         </section>
     );
 };

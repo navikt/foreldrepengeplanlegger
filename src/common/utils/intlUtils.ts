@@ -1,7 +1,7 @@
 import { InjectedIntl } from 'react-intl';
 import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
 
-type VarighetFormat = 'full' | 'normal';
+export type VarighetFormat = 'full' | 'normal';
 
 export const getVarighetString = (antallDager: number, intl: InjectedIntl, format: VarighetFormat = 'full'): string => {
     const { uker, dager } = getUkerOgDagerFromDager(Math.abs(antallDager));

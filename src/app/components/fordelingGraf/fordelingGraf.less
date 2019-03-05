@@ -21,68 +21,50 @@
         }
     }
 
-    // &__titler {
-    //     display: flex;
+    &__titler {
+        display: flex;
 
-    //     >* {
-    //         flex: 1 1 0;
-    //         margin-right: .5rem;
+        >* {
+            flex: 1 1 50%;
+            margin-right: .5rem;
 
-    //         &:last-child {
-    //             max-width: 30%;
-    //             margin: 0;
-    //         }
-    //     }
-    // }
+            &:last-child {
+                margin: 0;
+            }
+        }
+    }
 
-    // &__tittel {
-    //     display: flex;
+    &__tittel {
+        display: flex;
+        flex-basis: 50%;
 
-    //     &__ikon {
-    //         padding-right: .5rem;
-    //         flex-grow: 0;
-    //     }
+        &__ikon {
+            padding-right: .5rem;
+            flex-grow: 0;
+        }
 
-    //     &--total {
-    //         padding-left: 1rem;
-    //     }
-    // }
+        &__forbruk__dager {
+            font-weight: bold;
+        }
 
-    // &__forbruk {
-    //     &__navn {
-    //         text-transform: uppercase;
-    //         color: #3e3832;
-    //         // margin-bottom: 0.25rem;
-    //         font-size: 0.875rem;
-    //     }
 
-    //     .varighet__value {
-    //         font-size: 1.25rem;
-    //         font-weight: 500;
-    //         margin-right: 0.25rem;
-    //     }
+        &--invertert {
+            text-align: right;
+            justify-content: flex-end;
 
-    //     .varighet__separator {
-    //         width: 0.75rem;
-    //         display: inline-block;
-    //         text-align: left;
-    //     }
+            .fordelingGraf__tittel {
+                &__ikon {
+                    order: 2;
+                    padding-right: 0;
+                    padding-left: .5rem;
+                }
 
-    //     .varighet__title {
-    //         font-size: 0.875rem;
-    //         text-transform: uppercase;
-
-    //         &--error {
-    //             color: @redError;
-    //         }
-    //     }
-
-    //     &--formye {
-    //         * {
-    //             color: @redError;
-    //         }
-    //     }
-    // }
-
+                &__forbruk {
+                    order: 1;
+                    text-align: right;
+                }
+            }
+        }
+    }
 
 }

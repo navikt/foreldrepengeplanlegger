@@ -2,7 +2,7 @@ import { Fordeling, TilgjengeligeDager, OmForeldre } from '../types';
 import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/utils/intlUtils';
 
-export type FordelingStatusVerdi = 'ok' | 'advarsel' | 'feil';
+export type FordelingStatusVerdi = 'suksess' | 'advarsel' | 'feil';
 
 interface FordelingStatus {
     status: FordelingStatusVerdi;
@@ -34,7 +34,7 @@ const advarsel = (key: string, values?: {}): FordelingStatus => {
 
 const ok = (key: string, values?: {}): FordelingStatus => {
     return {
-        status: 'ok',
+        status: 'suksess',
         tittel: {
             key: `fordeling.status.${key}`,
             values
@@ -88,7 +88,10 @@ export function getFordelingStatus(
                 });
             }
             if (dagerForLiteFar > 0) {
-                return advarsel('dagerIkkeBruktPerson', { navn: omForeldre.farMedmor.navn, dager: dagerForLiteFar });
+                return advarsel('dagerIkkeBruktPerson', {
+                    navn: omForeldre.farMedmor.navn,
+                    dager: getVarighetString(dagerForLiteFar, intl)
+                });
             }
             return advarsel('dagerIkkeBrukt', { dager: getVarighetString(dagerGjenstående, intl) });
         }
@@ -101,7 +104,10 @@ export function getFordelingStatus(
             });
         }
         if (dagerForLiteMor > 0) {
-            return advarsel('dagerIkkeBruktPerson', { navn: omForeldre.mor.navn, dager: dagerForLiteMor });
+            return advarsel('dagerIkkeBruktPerson', {
+                navn: omForeldre.mor.navn,
+                dager: getVarighetString(dagerForLiteMor, intl)
+            });
         }
     }
     if (morErOk) {
@@ -112,7 +118,10 @@ export function getFordelingStatus(
             });
         }
         if (dagerForLiteFar > 0) {
-            return advarsel('dagerIkkeBruktPerson', { navn: omForeldre.farMedmor.navn, dager: dagerForLiteFar });
+            return advarsel('dagerIkkeBruktPerson', {
+                navn: omForeldre.farMedmor.navn,
+                dager: getVarighetString(dagerForLiteFar, intl)
+            });
         }
     }
 

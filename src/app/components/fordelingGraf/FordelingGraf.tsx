@@ -110,7 +110,7 @@ const BarFellesdager: React.StatelessComponent<{ dagerFelles: number; dagerMor: 
 
     return (
         <Multibar
-            borderColor={UttaksplanHexFarge.rammeGraa}
+            borderColor={UttaksplanHexFarge.graa}
             leftBar={{
                 width: dagerMor * pst,
                 color: UttaksplanHexFarge.lilla
@@ -161,7 +161,7 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ fordeling, tilgjengel
         <div className={childBem.block}>
             <div className={childBem.element('forelder1')} style={{ width: `${pstForbeholdtMor}%` }}>
                 <Multibar
-                    borderColor={UttaksplanHexFarge.rammeGraa}
+                    borderColor={UttaksplanHexFarge.lilla}
                     leftBar={{
                         width: morsForbrukAvEgenKvote,
                         color: UttaksplanHexFarge.lilla
@@ -177,7 +177,7 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ fordeling, tilgjengel
             </div>
             <div className={childBem.element('forelder2')} style={{ width: `${pstForbeholdtFar}%` }}>
                 <Multibar
-                    borderColor={UttaksplanHexFarge.rammeGraa}
+                    borderColor={UttaksplanHexFarge.blaa}
                     rightBar={{
                         width: farsForbrukAvEgenKvote,
                         color: UttaksplanHexFarge.blaa

@@ -31,14 +31,20 @@ const Multibar: React.StatelessComponent<Props> = ({ leftBar, rightBar, overflow
 
     return (
         <div className={bem.block}>
-            {leftBar && <div className={bem.element('bar', 'left')} style={getBarStyle(leftBar)} />}
-            {overflowBar && (
-                <div
-                    className={bem.element('bar', 'overflow')}
-                    style={{ ...getBarStyle(overflowBar), left: leftBar ? `${leftBar.width}%` : undefined }}
-                />
-            )}
-            {rightBar && <div className={bem.element('bar', 'right')} style={getBarStyle(rightBar)} />}
+            <div className={bem.element('bars')}>
+                {leftBar && leftBar.width > 0 && (
+                    <div className={bem.element('bar', 'left')} style={getBarStyle(leftBar)} />
+                )}
+                {overflowBar && (
+                    <div
+                        className={bem.element('bar', 'overflow')}
+                        style={{ ...getBarStyle(overflowBar), left: leftBar ? `${leftBar.width}%` : undefined }}
+                    />
+                )}
+                {rightBar && rightBar.width > 0 && (
+                    <div className={bem.element('bar', 'right')} style={getBarStyle(rightBar)} />
+                )}
+            </div>
             <div className={bem.element('background')} style={style} />
         </div>
     );

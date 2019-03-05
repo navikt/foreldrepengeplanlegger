@@ -11,7 +11,7 @@
     &__background {
         background-color: transparent;
         border-radius: @borderRadius;
-        border: @borderWidth dotted transparent;
+        border: @borderWidth dashed transparent;
         height: @height;
         width: 100%;
         z-index: 1;
@@ -25,9 +25,36 @@
         height: @height;
         border-radius: @borderRadius;
 
+        &--left {
+            &:not(:last-child) {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+
         &--right {
+            &:not(:first-child) {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
             right: 0;
             left: auto;
+        }
+
+        &--overflow {
+            border-right: 1px solid white;
+            border-left: 1px solid white;
+
+            &:not(:last-child) {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+            &:not(:first-child) {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
         }
     }
 

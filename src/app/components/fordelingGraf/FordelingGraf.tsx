@@ -9,6 +9,8 @@ import { Ingress } from 'nav-frontend-typografi';
 import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
 
 import './fordelingGraf.less';
+import Multibar from './Multibar';
+import { UttaksplanHexFarge } from 'common/utils/colors';
 
 interface OwnProps {
     fordeling: Fordeling;
@@ -55,7 +57,7 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ fordeling, omForeldr
         mor.uttaksdager + (farMedmor ? farMedmor.uttaksdager : 0) + (overforbruk ? overforbruk.uttaksdager : 0);
     return (
         <div className={bem.element('titler')}>
-            <PeriodeBlokk farge="purple" transparent={true}>
+            <PeriodeBlokk farge="lilla" transparent={true}>
                 <Tittel
                     navn={omForeldre.mor.navn}
                     ikon={<ForelderIkon forelder={omForeldre.mor.ikonRef} />}
@@ -64,7 +66,7 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ fordeling, omForeldr
                 />
             </PeriodeBlokk>
             {omForeldre.farMedmor && (
-                <PeriodeBlokk farge="blue" transparent={true}>
+                <PeriodeBlokk farge="blaa" transparent={true}>
                     <Tittel
                         navn={omForeldre.farMedmor.navn}
                         ikon={<ForelderIkon forelder={omForeldre.farMedmor.ikonRef} />}
@@ -73,7 +75,7 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ fordeling, omForeldr
                     />
                 </PeriodeBlokk>
             )}
-            <PeriodeBlokk farge="gray" transparent={true}>
+            <PeriodeBlokk farge="graa" transparent={true}>
                 <div className={bem.child('tittel').modifier('total')}>
                     <Tittel navn="Totalt" dager={dagerTotalt} maksDager={dagerTotalt} />
                 </div>
@@ -104,6 +106,19 @@ const FordelingGraf: React.StatelessComponent<Props> = (props) => {
     }
     return (
         <div className={bem.block}>
+            <Block margin="xs">
+                <Multibar
+                    borderColor={UttaksplanHexFarge.rammeGraa}
+                    leftBar={{
+                        width: 30,
+                        color: UttaksplanHexFarge.lilla
+                    }}
+                    rightBar={{
+                        width: 10,
+                        color: UttaksplanHexFarge.blaa
+                    }}
+                />
+            </Block>
             <Block margin="xs">
                 <Ingress>Deres fordeling</Ingress>
             </Block>

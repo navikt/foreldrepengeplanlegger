@@ -13,43 +13,49 @@
     align-items: center;
     position: relative;
     overflow: hidden;
-    &--green {
+
+    &--gronn {
         background-color: @c-periodefarge-gronn;
+
         &--striped {
             .striped(@c-periodefarge-gronn, @c-periodefarge-gronn--gradert);
         }
     }
-    &--blue {
+
+    &--blaa {
         background-color: @c-periodefarge-blaa;
+
         &--striped {
             .striped(@c-periodefarge-blaa, @c-periodefarge-blaa--gradert);
         }
     }
-    &--gray {
-        background-color: @c-periodefarge-gray;
+
+    &--graa {
+        background-color: @c-periodefarge-graa;
     }
-    &--purple {
+
+    &--lilla {
         background-color: @c-periodefarge-lilla;
+
         &--striped {
             .striped(@c-periodefarge-lilla, @c-periodefarge-lilla--gradert);
         }
     }
-    &--purpleBlue {
-        background: repeating-linear-gradient(
-            -45deg,
+
+    &--lillaBlaa {
+        background: repeating-linear-gradient(-45deg,
             @c-periodefarge-blaa,
             @c-periodefarge-blaa 50%,
             @c-periodefarge-lilla 50%,
-            @c-periodefarge-lilla 100%
-        );
+            @c-periodefarge-lilla 100%);
+
         &--striped {
-            background: repeating-linear-gradient(
-                -45deg,
+            background: repeating-linear-gradient(-45deg,
                 @c-periodefarge-blaa,
                 @c-periodefarge-blaa 50%,
                 @c-periodefarge-lilla 50%,
-                @c-periodefarge-lilla 100%
-            );
+                @c-periodefarge-lilla 100%);
+
             &:before {
                 position: absolute;
                 content: '';

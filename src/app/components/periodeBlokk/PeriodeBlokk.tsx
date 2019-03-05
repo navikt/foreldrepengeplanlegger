@@ -1,12 +1,12 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { UttaksplanColor } from '../../types';
+import { UttaksplanFarge } from '../../types';
 import BEMHelper from 'common/utils/bem';
 
 import './periodeBlokk.less';
 
 interface Props {
-    farge?: UttaksplanColor;
+    farge?: UttaksplanFarge;
     transparent?: boolean;
     nyPeriode?: boolean;
     children: React.ReactNode;
@@ -14,7 +14,7 @@ interface Props {
 
 const bem = BEMHelper('periodeBlokk');
 
-const PeriodeFargestrek: React.StatelessComponent<{ farge: UttaksplanColor; gradert?: boolean }> = ({
+const PeriodeFargestrek: React.StatelessComponent<{ farge: UttaksplanFarge; gradert?: boolean }> = ({
     farge,
     gradert
 }) => {
@@ -37,7 +37,7 @@ const PeriodeBlokk: React.StatelessComponent<Props> = ({ farge, nyPeriode, child
             bem.modifierConditional('nyPeriode', nyPeriode),
             bem.modifierConditional('transparent', transparent)
         )}>
-        <PeriodeFargestrek farge={farge || 'yellow'} />
+        <PeriodeFargestrek farge={farge || 'gul'} />
         <div className={bem.element('content')}>{children}</div>
     </div>
 );

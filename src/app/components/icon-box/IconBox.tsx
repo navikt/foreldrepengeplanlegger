@@ -1,12 +1,12 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { UttaksplanColor } from '../../types';
+import { UttaksplanFarge } from '../../types';
 import BEMHelper from 'common/utils/bem';
 
 import './iconBox.less';
 
 export interface Props {
-    color: UttaksplanColor;
+    color: UttaksplanFarge;
     stripes?: boolean;
 }
 

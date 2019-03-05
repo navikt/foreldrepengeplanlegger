@@ -29,7 +29,7 @@ export interface Uttaksinfo {
     fridager: Holiday[];
 }
 
-export type UttaksplanColor = 'purple' | 'blue' | 'green' | 'purpleBlue' | 'yellow' | 'gray';
+export type UttaksplanFarge = 'lilla' | 'blaa' | 'gronn' | 'lillaBlaa' | 'gul' | 'graa';
 
 export interface SituasjonSkjemadata {
     situasjon: Situasjon;

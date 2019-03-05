@@ -84,7 +84,7 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ fordeling, omForeldr
     );
 };
 
-const FordelingBars: React.StatelessComponent<Props> = ({ fordeling }) => {
+const FordelingBarsPlain: React.StatelessComponent<Props> = ({ fordeling }) => {
     const { farMedmor, mor, overforbruk } = fordeling;
     return (
         <div className={bem.element('graf')} role="presentation">
@@ -99,6 +99,95 @@ const FordelingBars: React.StatelessComponent<Props> = ({ fordeling }) => {
     );
 };
 
+const BarFellesdager: React.StatelessComponent<{ dagerFelles: number; dagerMor: number; dagerFar: number }> = ({
+    dagerFelles,
+    dagerMor,
+    dagerFar
+}) => {
+    const maksDager = Math.max(dagerFelles, dagerFar + dagerMor);
+    const dagerForMye = maksDager > dagerFelles ? maksDager - dagerFelles : 0;
+    const pst = 100 / (maksDager + dagerForMye);
+
+    return (
+        <Multibar
+            borderColor={UttaksplanHexFarge.rammeGraa}
+            leftBar={{
+                width: dagerMor * pst,
+                color: UttaksplanHexFarge.lilla
+            }}
+            rightBar={{
+                width: dagerFar * pst,
+                color: UttaksplanHexFarge.blaa
+            }}
+            overflowBar={
+                dagerForMye > 0
+                    ? {
+                          width: dagerForMye * pst,
+                          color: UttaksplanHexFarge.rod
+                      }
+                    : undefined
+            }
+        />
+    );
+};
+
+const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ fordeling, tilgjengeligeDager }) => {
+    const childBem = bem.child('graf');
+
+    if (!fordeling.farMedmor) {
+        return null;
+    }
+    const { dagerTotalt, dagerForbeholdtFar, dagerForbeholdtMor, dagerFelles } = tilgjengeligeDager;
+
+    const morsBrukteDager = fordeling.mor.uttaksdager;
+    const farsBrukteDager = fordeling.farMedmor.uttaksdager;
+
+    const totaltAntallDagerUtenForeldrepengerFørTermin = dagerTotalt;
+    const pstMultiplikator = 100 / totaltAntallDagerUtenForeldrepengerFørTermin;
+
+    const pstForbeholdtMor = pstMultiplikator * dagerForbeholdtMor;
+    const pstForbeholdtFar = pstMultiplikator * dagerForbeholdtFar;
+    const pstFelles = pstMultiplikator * dagerFelles;
+
+    const morsDagerAvFellesdel = Math.max(0, morsBrukteDager - dagerForbeholdtMor);
+    const farsDagerAvFellesdel = Math.max(0, farsBrukteDager - dagerForbeholdtFar);
+
+    const morsForbrukAvEgenKvote =
+        morsBrukteDager >= dagerForbeholdtMor ? 100 : (100 / dagerForbeholdtMor) * morsBrukteDager;
+    const farsForbrukAvEgenKvote =
+        farsBrukteDager >= dagerForbeholdtFar ? 100 : (100 / dagerForbeholdtFar) * farsBrukteDager;
+
+    return (
+        <div className={childBem.block}>
+            <div className={childBem.element('forelder1')} style={{ width: `${pstForbeholdtMor}%` }}>
+                <Multibar
+                    borderColor={UttaksplanHexFarge.rammeGraa}
+                    leftBar={{
+                        width: morsForbrukAvEgenKvote,
+                        color: UttaksplanHexFarge.lilla
+                    }}
+                />
+            </div>
+            <div className={childBem.element('felles')} style={{ width: `${pstFelles}%` }}>
+                <BarFellesdager
+                    dagerFelles={dagerFelles}
+                    dagerMor={morsDagerAvFellesdel}
+                    dagerFar={farsDagerAvFellesdel}
+                />
+            </div>
+            <div className={childBem.element('forelder2')} style={{ width: `${pstForbeholdtFar}%` }}>
+                <Multibar
+                    borderColor={UttaksplanHexFarge.rammeGraa}
+                    rightBar={{
+                        width: farsForbrukAvEgenKvote,
+                        color: UttaksplanHexFarge.blaa
+                    }}
+                />
+            </div>
+        </div>
+    );
+};
+
 const FordelingGraf: React.StatelessComponent<Props> = (props) => {
     const { tilgjengeligeDager } = props;
     if (!tilgjengeligeDager) {
@@ -107,23 +196,13 @@ const FordelingGraf: React.StatelessComponent<Props> = (props) => {
     return (
         <div className={bem.block}>
             <Block margin="xs">
-                <Multibar
-                    borderColor={UttaksplanHexFarge.rammeGraa}
-                    leftBar={{
-                        width: 30,
-                        color: UttaksplanHexFarge.lilla
-                    }}
-                    rightBar={{
-                        width: 10,
-                        color: UttaksplanHexFarge.blaa
-                    }}
-                />
+                <GrafDeltOmsorg {...props} />
             </Block>
             <Block margin="xs">
                 <Ingress>Deres fordeling</Ingress>
             </Block>
             <Block margin="s">
-                <FordelingBars {...props} />
+                <FordelingBarsPlain {...props} />
             </Block>
             <FordelingTitler {...props} />
         </div>

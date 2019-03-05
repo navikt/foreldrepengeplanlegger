@@ -1,47 +1,60 @@
 import { Fordeling, TilgjengeligeDager, OmForeldre } from '../types';
+import { InjectedIntl } from 'react-intl';
+import { getVarighetString } from 'common/utils/intlUtils';
 
 export type FordelingStatusVerdi = 'ok' | 'advarsel' | 'feil';
 
 interface FordelingStatus {
     status: FordelingStatusVerdi;
-    tittel: string;
+    tittel: {
+        key: string;
+        values?: any;
+    };
 }
 
-const getFordelingAleneomsorg = (): FordelingStatus => {
-    return {
-        status: 'ok',
-        tittel: 'Yau'
-    };
-};
-
-const feil = (tittel: string): FordelingStatus => {
+const feil = (key: string, values?: {}): FordelingStatus => {
     return {
         status: 'feil',
-        tittel
+        tittel: {
+            key: `fordeling.status.${key}`,
+            values
+        }
     };
 };
 
-const advarsel = (tittel: string): FordelingStatus => {
+const advarsel = (key: string, values?: {}): FordelingStatus => {
     return {
         status: 'advarsel',
-        tittel
+        tittel: {
+            key: `fordeling.status.${key}`,
+            values
+        }
     };
 };
 
-const ok = (tittel: string): FordelingStatus => {
+const ok = (key: string, values?: {}): FordelingStatus => {
     return {
         status: 'ok',
-        tittel
+        tittel: {
+            key: `fordeling.status.${key}`,
+            values
+        }
     };
 };
 
 export function getFordelingStatus(
     fordeling: Fordeling,
     tilgjengeligeDager: TilgjengeligeDager,
-    omForeldre: OmForeldre
+    omForeldre: OmForeldre,
+    intl: InjectedIntl
 ): FordelingStatus {
-    if (fordeling.farMedmor === undefined) {
-        return getFordelingAleneomsorg();
+    if (fordeling.farMedmor === undefined || omForeldre.farMedmor === undefined) {
+        return {
+            status: 'advarsel',
+            tittel: {
+                key: 'Todo: Aleneomsorg'
+            }
+        };
     }
 
     const { dagerForbeholdtFar, dagerForbeholdtMor, dagerFelles } = tilgjengeligeDager;
@@ -52,46 +65,53 @@ export function getFordelingStatus(
     const totalOk = dagerGjenstående === 0;
     const forMangeDagerTotalt = dagerGjenstående < 0;
     const forFåDagerTotalt = dagerGjenstående > 0;
-    const morHarForMye = mor.uttaksdager > dagerForbeholdtMor + dagerFelles;
-    const farHarForMye = farMedmor.uttaksdager > dagerForbeholdtFar + dagerFelles;
-    const morHarForLite = mor.uttaksdager < dagerForbeholdtMor;
-    const farHarForLite = farMedmor.uttaksdager < dagerForbeholdtFar;
+    const dagerForMyeMor = mor.uttaksdager - (dagerForbeholdtMor + dagerFelles);
+    const dagerForMyeFar = farMedmor.uttaksdager - (dagerForbeholdtFar + dagerFelles);
+    const dagerForLiteMor = dagerForbeholdtMor - mor.uttaksdager;
+    const dagerForLiteFar = dagerForbeholdtFar - farMedmor.uttaksdager;
 
     if (morErOk && farErOk) {
         if (totalOk) {
-            return ok('Planen deres er ferdig');
+            return ok('altOk');
         }
         if (forMangeDagerTotalt) {
-            return feil('For mange dager til sammen');
+            return feil('forMangeDagerTotalt', { dager: getVarighetString(Math.abs(dagerGjenstående), intl) });
         }
         if (forFåDagerTotalt) {
-            if (morHarForLite && farHarForLite) {
-                return advarsel('Ikke alle dager er brukt');
+            if (dagerForLiteMor > 0) {
+                return advarsel('dagerIkkeBruktPerson', {
+                    navn: omForeldre.mor.navn,
+                    dager: getVarighetString(dagerForLiteMor, intl)
+                });
             }
-            if (morHarForLite) {
-                return advarsel(`${omForeldre.mor.navn} har ikke brukt alle dagene`);
+            if (dagerForLiteFar > 0) {
+                return advarsel('dagerIkkeBruktPerson', { navn: omForeldre.farMedmor.navn, dager: dagerForLiteFar });
             }
-            if (farHarForLite) {
-                return advarsel(`${omForeldre.farMedmor!.navn} har ikke brukt alle dagene`);
-            }
+            return advarsel('dagerIkkeBrukt', { dager: getVarighetString(dagerGjenstående, intl) });
         }
     }
     if (farErOk) {
-        if (morHarForMye) {
-            return advarsel(`${omForeldre.mor.navn} har brukt for mange dager`);
+        if (dagerForMyeMor > 0) {
+            return advarsel('dagerForMyePerson', {
+                navn: omForeldre.mor.navn,
+                dager: getVarighetString(dagerForMyeMor, intl)
+            });
         }
-        if (morHarForLite) {
-            return advarsel(`${omForeldre.mor.navn} har ikke brukt alle dagene`);
+        if (dagerForLiteMor > 0) {
+            return advarsel('dagerIkkeBruktPerson', { navn: omForeldre.mor.navn, dager: dagerForLiteMor });
         }
     }
     if (morErOk) {
-        if (farHarForMye) {
-            return advarsel(`${omForeldre.farMedmor!.navn} har brukt for mange dager`);
+        if (dagerForMyeFar > 0) {
+            return advarsel('dagerForMyePerson', {
+                navn: omForeldre.farMedmor.navn,
+                dager: getVarighetString(dagerForMyeFar, intl)
+            });
         }
-        if (farHarForLite) {
-            return advarsel(`${omForeldre.farMedmor!.navn} har ikke brukt alle dagene`);
+        if (dagerForLiteFar > 0) {
+            return advarsel('dagerIkkeBruktPerson', { navn: omForeldre.farMedmor.navn, dager: dagerForLiteFar });
         }
     }
 
-    return advarsel('Hva vet jeg');
+    return advarsel('Dine dager');
 }

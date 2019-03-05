@@ -9,7 +9,7 @@ import { EtikettLiten, Undertittel } from 'nav-frontend-typografi';
 import Multibar from '../multibar/Multibar';
 import { UttaksplanHexFarge } from 'common/utils/colors';
 import { getFordelingStatus } from '../../utils/fordelingStatusUtils';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
 
 import './fordelingGraf.less';
 import StatusIkon from 'common/components/ikoner/StatusIkon';
@@ -20,7 +20,7 @@ interface OwnProps {
     omForeldre: OmForeldre;
 }
 
-type Props = OwnProps;
+type Props = OwnProps & InjectedIntlProps;
 
 const bem = BEMHelper('fordelingGraf');
 
@@ -177,7 +177,7 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ fordeling, tilgjengel
 
 const FordelingStatusHeader: React.StatelessComponent<Props> = (props) => {
     const bemHeader = bem.child('statusHeader');
-    const fordelingStatus = getFordelingStatus(props.fordeling, props.tilgjengeligeDager, props.omForeldre);
+    const fordelingStatus = getFordelingStatus(props.fordeling, props.tilgjengeligeDager, props.omForeldre, props.intl);
     return (
         <div className={bemHeader.block}>
             <div className={bemHeader.element('ikon')}>
@@ -188,7 +188,7 @@ const FordelingStatusHeader: React.StatelessComponent<Props> = (props) => {
                     Deres plan
                 </EtikettLiten>
                 <Undertittel className={bemHeader.element('statusTekst')} tag="h1">
-                    <FormattedMessage id={fordelingStatus.tittel} />
+                    <FormattedMessage id={fordelingStatus.tittel.key} values={fordelingStatus.tittel.values} />
                 </Undertittel>
             </div>
         </div>
@@ -212,4 +212,4 @@ const FordelingGraf: React.StatelessComponent<Props> = (props) => {
     );
 };
 
-export default FordelingGraf;
+export default injectIntl(FordelingGraf);

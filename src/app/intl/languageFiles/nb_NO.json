@@ -65,5 +65,12 @@
     "situasjon.info.aleneomsorg.far.tittel": "Alene som far",
     "situasjon.info.aleneomsorg.far.tekst": "Når du er alene om omsorgen for barnet får du hele foreldrepengeperioden, unntatt de tre ukene som var satt av til mor før fødselen.",
     "situasjon.info.farOgFar": "Hvordan foreldrepengeperioden er delt mellom dere, kommer an på om dere får barn ved surrogati og den andre stebarnsadopterer, eller om dere begge er adoptivforeldre til samme barn.",
-    "situasjon.info.morOgMedmor": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, medmorkvoten og en fellesperiode som dere kan dele."
+    "situasjon.info.morOgMedmor": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, medmorkvoten og en fellesperiode som dere kan dele.",
+
+
+    "fordeling.status.altOk": "Planen er ok",
+    "fordeling.status.forMangeDagerTotalt": "{dager} for mye",
+    "fordeling.status.dagerIkkeBrukt": "{dager} ikke brukt",
+    "fordeling.status.dagerIkkeBruktPerson": "{dager} for lite til {navn}",
+    "fordeling.status.dagerForMyePerson": "{navn} mangler {dager}"
 }

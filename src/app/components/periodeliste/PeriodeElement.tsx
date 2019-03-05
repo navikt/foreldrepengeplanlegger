@@ -189,7 +189,8 @@ class PeriodeElement extends React.Component<Props> {
                         periode.type === Periodetype.Ferie && antallUttaksdagerBrukt > 0
                             ? [
                                   getMessage(intl, 'uttaksplan.ferie.inneholderHelligdager', {
-                                      dager: antallUttaksdagerBrukt
+                                      dager: antallUttaksdagerBrukt,
+                                      navn: foreldernavn
                                   })
                               ]
                             : undefined

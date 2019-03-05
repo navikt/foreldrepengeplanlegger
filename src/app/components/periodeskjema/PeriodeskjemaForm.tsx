@@ -211,14 +211,17 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                 antallUttaksdagerBrukt > 0
                                     ? [
                                           getMessage(intl, 'uttaksplan.ferie.inneholderHelligdager', {
-                                              dager: antallUttaksdagerBrukt
+                                              dager: antallUttaksdagerBrukt,
+                                              navn: forelderNavn
                                           })
                                       ]
                                     : undefined
                             }
                         />
                     </Block>
-                    <EndringerVedNyPeriode nyPeriode={nyPeriode} perioder={perioder} omForeldre={omForeldre} />
+                    <Block visible={false}>
+                        <EndringerVedNyPeriode nyPeriode={nyPeriode} perioder={perioder} omForeldre={omForeldre} />
+                    </Block>
                     <Knapperad>
                         <Hovedknapp htmlType="submit" disabled={formik.isValid === false}>
                             Legg til

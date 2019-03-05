@@ -78,6 +78,9 @@ export function getFordelingStatus(
             return feil('forMangeDagerTotalt', { dager: getVarighetString(Math.abs(dagerGjenstående), intl) });
         }
         if (forFåDagerTotalt) {
+            if (dagerForLiteMor > 0 && dagerForLiteFar > 0) {
+                return advarsel('dagerIkkeBrukt', { dager: getVarighetString(dagerGjenstående, intl) });
+            }
             if (dagerForLiteMor > 0) {
                 return advarsel('dagerIkkeBruktPerson', {
                     navn: omForeldre.mor.navn,

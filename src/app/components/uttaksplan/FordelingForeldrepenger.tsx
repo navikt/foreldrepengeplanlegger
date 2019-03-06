@@ -42,7 +42,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
         const ukerFarMedmor = dagerTilUker(tilgjengeligeDager.dagerFelles) - ukerMor;
 
         const ukerFelles = dagerTilUker(tilgjengeligeDager.dagerFelles);
-        const ukerFørTermin = dagerTilUker(tilgjengeligeDager.dagerFørTermin);
+        const ukerFørTermin = dagerTilUker(tilgjengeligeDager.dagerForeldrepengerFørFødsel);
         const ukerForbeholdtMor = dagerTilUker(tilgjengeligeDager.dagerMor);
         const ukerForbeholdtFar = dagerTilUker(tilgjengeligeDager.dagerFar);
 

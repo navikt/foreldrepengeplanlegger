@@ -73,6 +73,10 @@ export function isUttak(periode: Periode): periode is Uttaksperiode {
     return periode.type === Periodetype.Uttak;
 }
 
+export function isUttakFørTermin(periode: Periode): periode is UttakFørTerminPeriode {
+    return periode.type === Periodetype.UttakFørTermin;
+}
+
 export function isGradertUttak(periode: Periode): periode is GradertUttaksperiode {
     return periode.type === Periodetype.GradertUttak;
 }

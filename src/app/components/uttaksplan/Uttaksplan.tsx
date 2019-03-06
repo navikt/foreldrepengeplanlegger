@@ -154,7 +154,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                             førsteUttaksdagFørTermin={uttaksdatoer.førFødsel.førsteMuligeUttaksdag}
                                             forbruk={getForbruk(
                                                 [...perioder, ...(periodeFørTermin ? [periodeFørTermin] : [])],
-                                                tilgjengeligeDager.dagerEtterTermin
+                                                tilgjengeligeDager
                                             )}
                                         />
                                     </Block>
@@ -174,7 +174,7 @@ class Uttaksplan extends React.Component<Props, State> {
                         </Block>
                         {visFordelingGraf && (
                             <FordelingGraf
-                                fordeling={forbruk.fordeling}
+                                forbruk={forbruk}
                                 omForeldre={omForeldre}
                                 tilgjengeligeDager={tilgjengeligeDager}
                             />

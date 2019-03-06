@@ -196,8 +196,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                                 periodetype,
                                                 nesteUttaksdag,
                                                 erNyPeriode: true,
-                                                gjenståendeDager:
-                                                    forbrukEksisterendePerioder.fordeling.dagerGjenstående,
+                                                gjenståendeDager: forbrukEksisterendePerioder.dagerGjenstående,
                                                 gradering
                                             }}
                                             dropdownStyle="border"

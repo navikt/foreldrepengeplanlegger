@@ -1,4 +1,4 @@
-import { Fordeling, TilgjengeligeDager, OmForeldre } from '../types';
+import { TilgjengeligeDager, OmForeldre, Forbruk } from '../types';
 import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/utils/intlUtils';
 
@@ -43,11 +43,12 @@ const ok = (key: string, values?: {}): FordelingStatus => {
 };
 
 export function getFordelingStatus(
-    fordeling: Fordeling,
+    forbruk: Forbruk,
     tilgjengeligeDager: TilgjengeligeDager,
     omForeldre: OmForeldre,
     intl: InjectedIntl
 ): FordelingStatus {
+    const { dagerGjenstående, fordeling } = forbruk;
     if (fordeling.farMedmor === undefined || omForeldre.farMedmor === undefined) {
         return {
             status: 'advarsel',
@@ -58,7 +59,7 @@ export function getFordelingStatus(
     }
 
     const { dagerFar, dagerMor, dagerFelles } = tilgjengeligeDager;
-    const { mor, farMedmor, dagerGjenstående } = fordeling;
+    const { mor, farMedmor } = fordeling;
 
     const morErOk = mor.uttaksdager <= dagerMor + dagerFelles;
     const farErOk = farMedmor.uttaksdager <= dagerFar + dagerFelles;

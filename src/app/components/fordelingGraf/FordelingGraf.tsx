@@ -1,6 +1,6 @@
 import * as React from 'react';
 import BEMHelper from 'common/utils/bem';
-import { Fordeling, OmForeldre, TilgjengeligeDager } from '../../types';
+import { OmForeldre, TilgjengeligeDager, Forbruk } from '../../types';
 import Varighet from '../varighet/Varighet';
 import HighlightContent from 'common/components/highlightContent/HighlightContent';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
@@ -17,7 +17,7 @@ import { getVarighetString } from 'common/utils/intlUtils';
 import getMessage from 'common/utils/i18nUtils';
 
 interface OwnProps {
-    fordeling: Fordeling;
+    forbruk: Forbruk;
     tilgjengeligeDager: TilgjengeligeDager;
     omForeldre: OmForeldre;
 }
@@ -82,7 +82,8 @@ const Tittel: React.StatelessComponent<TittelProps> = ({ navn, ikon, dager, maks
     );
 };
 
-const FordelingTitler: React.StatelessComponent<Props> = ({ fordeling, omForeldre, tilgjengeligeDager, intl }) => {
+const FordelingTitler: React.StatelessComponent<Props> = ({ forbruk, omForeldre, tilgjengeligeDager, intl }) => {
+    const { fordeling } = forbruk;
     return (
         <div className={bem.element('titler')}>
             <Tittel
@@ -140,8 +141,9 @@ const BarFellesdager: React.StatelessComponent<{ dagerFelles: number; dagerMor: 
     );
 };
 
-const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ fordeling, tilgjengeligeDager }) => {
+const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengeligeDager }) => {
     const childBem = bem.child('graf');
+    const { fordeling } = forbruk;
 
     if (!fordeling.farMedmor) {
         return null;
@@ -197,7 +199,7 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ fordeling, tilgjengel
 
 const FordelingStatusHeader: React.StatelessComponent<Props> = (props) => {
     const bemHeader = bem.child('statusHeader');
-    const fordelingStatus = getFordelingStatus(props.fordeling, props.tilgjengeligeDager, props.omForeldre, props.intl);
+    const fordelingStatus = getFordelingStatus(props.forbruk, props.tilgjengeligeDager, props.omForeldre, props.intl);
     return (
         <div className={bemHeader.block}>
             <div className={bemHeader.element('ikon')}>

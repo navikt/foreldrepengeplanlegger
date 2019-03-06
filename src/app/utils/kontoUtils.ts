@@ -64,7 +64,8 @@ export const getTilgjengeligeDager = (
     const erAleneomsorg = getAntallForeldreISituasjon(situasjon) === 1;
     const kontoerEtterTermin = kontoer.filter(kontoErEtterTermin);
 
-    const dagerFørTermin = summerAntallDagerIKontoer(kontoer.filter(kontoErFørTermin));
+    const dagerTotalt = summerAntallDagerIKontoer(kontoer);
+    const dagerForeldrepengerFørFødsel = summerAntallDagerIKontoer(kontoer.filter(kontoErFørTermin));
     const dagerEtterTermin = summerAntallDagerIKontoer(kontoerEtterTermin);
     const dagerForeldrepenger = summerAntallDagerIKontoer(getForeldrepengeKontoer(kontoerEtterTermin));
     const dagerMor = summerAntallDagerIKontoer(getMorsStønadskontoer(kontoerEtterTermin));
@@ -76,7 +77,8 @@ export const getTilgjengeligeDager = (
     const maksDagerMor = erAleneomsorg ? dagerForeldrepenger : dagerMor + dagerFelles;
 
     return {
-        dagerFørTermin,
+        dagerTotalt,
+        dagerForeldrepengerFørFødsel,
         dagerEtterTermin,
         dagerForeldrepenger,
         dagerMor,

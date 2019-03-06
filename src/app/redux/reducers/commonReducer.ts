@@ -93,7 +93,7 @@ const updateStateWithNewSkjemadata = (state: CommonState, action: SubmitSkjemada
         periodeFørTermin: getPeriodeFørTermin(
             action.data.situasjon,
             action.data.familiehendelsesdato,
-            state.tilgjengeligeDager ? state.tilgjengeligeDager.dagerFørTermin : 15,
+            state.tilgjengeligeDager ? state.tilgjengeligeDager.dagerForeldrepengerFørFødsel : 15,
             action.data.erMor
         ),
         ønsketFordeling: {

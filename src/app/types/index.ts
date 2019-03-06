@@ -63,21 +63,14 @@ export interface TilgjengeligStønadskonto {
 }
 
 export interface TilgjengeligeDager {
-    /** Dager som er tilgjengelig totalt etter termin */
+    dagerTotalt: number;
+    dagerForeldrepengerFørFødsel: number;
     dagerEtterTermin: number;
-    /** Dager som er tilgjengelig før termin */
-    dagerFørTermin: number;
-    /** Mors dager etter termin */
     dagerMor: number;
-    /** Fars dager etter termin */
     dagerFar: number;
-    /** Dager mor og far kan dele  */
     dagerFelles: number;
-    /** Dager som kommer ekstra ved tvillinger eller flere barn */
     flerbarnsdager: number;
-    /** Maks uttak mor kan ta etter termin */
     maksDagerMor: number;
-    /** Maks uttak far kan ta etter termin */
     maksDagerFar: number;
     stønadskontoer: TilgjengeligStønadskonto[];
     dagerForeldrepenger: number;
@@ -90,27 +83,29 @@ export interface ForbrukPerPeriodetype {
 }
 
 export interface Fordeling {
-    dagerTotalt: number;
-    dagerGjenstående: number;
     mor: {
         uttaksdager: number;
-        pst: number;
     };
     farMedmor?: {
         uttaksdager: number;
-        pst: number;
     };
 }
 
 export interface Forbruk {
+    ekstradagerFørTermin: number;
+    dagerEtterTermin: number;
+    dagerForeldrepengerFørFødsel: number;
+    dagerGjenstående: number;
     mor: ForelderForbruk;
     farMedmor?: ForelderForbruk;
     fordeling: Fordeling;
 }
 
 export interface ForelderForbruk {
-    dagerFørTermin: number;
+    dagerTotalt: number;
     dagerEtterTermin: number;
+    ekstradagerFørTermin: number;
+    dagerForeldrepengerFørFødsel: number;
 }
 
 export interface Forelderinfo {

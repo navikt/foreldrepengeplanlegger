@@ -74,5 +74,5 @@
     "fordeling.status.dagerIkkeBruktPerson": "{dager} for lite til {navn}",
     "fordeling.status.dagerForMyePerson": "{navn} har {dager} for mye",
     "fordeling.status.person.forMye": "{dager} for mye",
-    "fordeling.status.person.forLite": "{navn} ikke brukt"
+    "fordeling.status.person.forLite": "{dager} ikke brukt"
 }

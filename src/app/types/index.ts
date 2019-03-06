@@ -93,13 +93,17 @@ export interface Forbruk {
 }
 
 export interface ForelderForbruk {
+    dagerForMye: number;
+    dagerForLite: number;
     dagerTotalt: number;
+    dagerErOk: boolean;
 }
 
 export interface MorsForbruk extends ForelderForbruk {
     ekstradagerFørTermin: number;
     dagerForeldrepengerFørFødsel: number;
     dagerEtterTermin: number;
+    dagerUtenForeldrepengerFørFødsel: number;
 }
 
 export interface Forelderinfo {

@@ -30,29 +30,36 @@ interface TittelProps {
     navn: string;
     ikon: React.ReactNode;
     dager: number;
-    maksDager: number;
-    minDager: number;
+    dagerForMye: number;
+    dagerForLite: number;
     invertert?: boolean;
     intl: InjectedIntl;
 }
-const Tittel: React.StatelessComponent<TittelProps> = ({ navn, ikon, dager, maksDager, minDager, invertert, intl }) => {
-    const forMangeDager = maksDager && maksDager < dager;
+const Tittel: React.StatelessComponent<TittelProps> = ({
+    navn,
+    ikon,
+    dager,
+    dagerForLite,
+    dagerForMye,
+    invertert,
+    intl
+}) => {
     const tittelBem = bem.child('tittel');
 
     const getTittelVarighet = (): React.ReactNode => {
-        if (dager < minDager) {
+        if (dagerForLite > 0) {
             return (
                 <FormattedMessage
-                    id="fordeling.status.dagerIkkeBruktPerson"
-                    values={{ navn, dager: getVarighetString(minDager - dager, intl, 'full') }}
+                    id="fordeling.status.person.forLite"
+                    values={{ dager: getVarighetString(dagerForLite, intl, 'full') }}
                 />
             );
         }
-        if (dager > maksDager) {
+        if (dagerForMye) {
             return (
                 <FormattedMessage
-                    id="fordeling.status.dagerForMyePerson"
-                    values={{ navn, dager: getVarighetString(maksDager - dager, intl, 'full') }}
+                    id="fordeling.status.person.forMye"
+                    values={{ dager: getVarighetString(dagerForMye, intl, 'full') }}
                 />
             );
         }
@@ -69,7 +76,7 @@ const Tittel: React.StatelessComponent<TittelProps> = ({ navn, ikon, dager, maks
             <div
                 className={bem.classNames(
                     tittelBem.child('forbruk').block,
-                    tittelBem.child('forbruk').modifierConditional('formangedager', forMangeDager === true)
+                    tittelBem.child('forbruk').modifierConditional('formangedager', dagerForMye > 0)
                 )}>
                 <EtikettLiten>{navn}</EtikettLiten>
                 <div className={tittelBem.child('forbruk').element('dager')}>
@@ -90,8 +97,8 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ forbruk, omForeldre,
                 navn={omForeldre.mor.navn}
                 ikon={<ForelderIkon forelder={omForeldre.mor.ikonRef} />}
                 dager={mor.dagerTotalt}
-                maksDager={tilgjengeligeDager.maksDagerMor}
-                minDager={tilgjengeligeDager.dagerMor}
+                dagerForLite={mor.dagerForLite}
+                dagerForMye={mor.dagerForMye}
                 intl={intl}
             />
             {omForeldre.farMedmor && farMedmor !== undefined && (
@@ -99,9 +106,9 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ forbruk, omForeldre,
                     navn={omForeldre.farMedmor.navn}
                     ikon={<ForelderIkon forelder={omForeldre.farMedmor.ikonRef} />}
                     dager={farMedmor.dagerTotalt}
-                    maksDager={tilgjengeligeDager.maksDagerFar}
+                    dagerForLite={farMedmor.dagerForLite}
+                    dagerForMye={farMedmor.dagerForMye}
                     invertert={true}
-                    minDager={tilgjengeligeDager.dagerFar}
                     intl={intl}
                 />
             )}
@@ -200,7 +207,7 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengelig
 
 const FordelingStatusHeader: React.StatelessComponent<Props> = (props) => {
     const bemHeader = bem.child('statusHeader');
-    const fordelingStatus = getFordelingStatus(props.forbruk, props.tilgjengeligeDager, props.omForeldre, props.intl);
+    const fordelingStatus = getFordelingStatus(props.forbruk, props.omForeldre, props.intl);
     return (
         <div className={bemHeader.block}>
             <div className={bemHeader.element('ikon')}>

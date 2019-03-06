@@ -30,23 +30,39 @@ export const getMorsForbruk = (allePerioder: Periode[], tilgjengeligeDager: Tilg
     const ekstradagerFørTermin = Math.max(0, dagerFørTermin - tilgjengeligeDager.dagerForeldrepengerFørFødsel);
     const dagerEtterTermin = Periodene(perioderEtterTermin).getBrukteUttaksdager();
     const dagerTotalt = Periodene(morsPerioder).getBrukteUttaksdager();
+    const dagerUtenForeldrepengerFørFødsel = dagerEtterTermin + ekstradagerFørTermin;
+
+    const dagerForLite = Math.max(0, tilgjengeligeDager.dagerMor - dagerUtenForeldrepengerFørFødsel);
+    const dagerForMye = Math.max(0, dagerUtenForeldrepengerFørFødsel - tilgjengeligeDager.maksDagerMor);
+    const dagerErOk = dagerForLite === 0 && dagerForMye === 0;
+
     return {
         dagerEtterTermin,
         dagerForeldrepengerFørFødsel: dagerFørTermin - ekstradagerFørTermin,
         ekstradagerFørTermin,
-        dagerTotalt
+        dagerTotalt,
+        dagerUtenForeldrepengerFørFødsel,
+        dagerForLite,
+        dagerForMye,
+        dagerErOk
     };
 };
-export const getFarsForbruk = (perioder: Periode[]): ForelderForbruk => {
+export const getFarsForbruk = (perioder: Periode[], tilgjengeligeDager: TilgjengeligeDager): ForelderForbruk => {
     const dagerTotalt = Periodene(perioder.filter(farsPerioderFilter)).getBrukteUttaksdager();
+    const dagerForLite = Math.max(0, tilgjengeligeDager.dagerFar - dagerTotalt);
+    const dagerForMye = Math.max(0, dagerTotalt - tilgjengeligeDager.maksDagerFar);
+    const dagerErOk = dagerForLite === 0 && dagerForMye === 0;
     return {
-        dagerTotalt
+        dagerTotalt,
+        dagerForLite,
+        dagerForMye,
+        dagerErOk
     };
 };
 
 export const getForbruk = (perioder: Periode[], tilgjengeligeDager: TilgjengeligeDager): Forbruk => {
     const forbrukMor = getMorsForbruk(perioder, tilgjengeligeDager);
-    const forbrukFarMedmor = getFarsForbruk(perioder);
+    const forbrukFarMedmor = getFarsForbruk(perioder, tilgjengeligeDager);
     const skalHaForeldrepengerFørFødsel = forbrukMor.dagerForeldrepengerFørFødsel > 0;
     const dagerForeldrepengerFørFødsel = forbrukMor.dagerForeldrepengerFørFødsel - forbrukMor.ekstradagerFørTermin;
     const ekstradagerFørTermin = forbrukMor.ekstradagerFørTermin;

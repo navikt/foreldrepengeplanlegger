@@ -51,7 +51,7 @@
     "regel.feiler.erInnenforSisteMuligeUttaksdag": "Planen går over lenger tid enn tillatt. Siste mulige uttaksdag er {tom}.",
     "regel.feiler.morsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
     "regel.feiler.farMedmorsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
-    "regel.feiler.alleUttakErInnenforMaksAntallDager": "Det er registrert for mange uker til sammen. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig. Du kan rette opp i dette ved å endre lengden på noen av periodene i planen.",
+    "regel.feiler.alleUttakErInnenforMaksAntallDager": "Det er registrert {dagerForMye} for mye til sammen. Maks antall dager med foreldrepenger er {dagerTilgjengelig}. Du kan rette opp i dette ved å endre lengden på noen av periodene i planen.",
     "regel.feiler.førstePeriodeErUttakAvForeldrepenger": "Planen kan ikke starte med {type}.",
 
     "regel.info.uttakForFarEllerMedmorFørsteSeksUkerInfo": "Når {navnFarMedmor} skal ta ut foreldrepenger eller utsette de første seks ukene, må ...",

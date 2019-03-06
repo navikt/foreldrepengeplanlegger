@@ -94,22 +94,7 @@ function* forbrukSaga() {
         )
     ]);
     yield all([
-        takeLatest(
-            [
-                // CommonActionKeys.SET_STØNADSKONTOER,
-                // CommonActionKeys.SET_UTTAKSDAGER_FØR_TERMIN,
-                // CommonActionKeys.SET_ØNSKET_FORDELING,
-                // CommonActionKeys.UPDATE_TILGJENGELIGE_DAGER,
-                // CommonActionKeys.SET_PERIODER,
-                // CommonActionKeys.ADD_PERIODE,
-                // CommonActionKeys.UPDATE_PERIODE,
-                // CommonActionKeys.REMOVE_PERIODE,
-                // CommonActionKeys.MOVE_PERIODE,
-                CommonActionKeys.VALIDER_UTTAKSPLAN,
-                CommonActionKeys.SET_DEKNINGSGRAD
-            ],
-            validerUttaksplanSaga
-        )
+        takeLatest([CommonActionKeys.VALIDER_UTTAKSPLAN, CommonActionKeys.SET_DEKNINGSGRAD], validerUttaksplanSaga)
     ]);
 
     yield all([

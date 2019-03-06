@@ -83,22 +83,22 @@ const Tittel: React.StatelessComponent<TittelProps> = ({ navn, ikon, dager, maks
 };
 
 const FordelingTitler: React.StatelessComponent<Props> = ({ forbruk, omForeldre, tilgjengeligeDager, intl }) => {
-    const { fordeling } = forbruk;
+    const { mor, farMedmor } = forbruk;
     return (
         <div className={bem.element('titler')}>
             <Tittel
                 navn={omForeldre.mor.navn}
                 ikon={<ForelderIkon forelder={omForeldre.mor.ikonRef} />}
-                dager={fordeling.mor.uttaksdager}
+                dager={mor.dagerTotalt}
                 maksDager={tilgjengeligeDager.maksDagerMor}
                 minDager={tilgjengeligeDager.dagerMor}
                 intl={intl}
             />
-            {omForeldre.farMedmor && fordeling.farMedmor !== undefined && (
+            {omForeldre.farMedmor && farMedmor !== undefined && (
                 <Tittel
                     navn={omForeldre.farMedmor.navn}
                     ikon={<ForelderIkon forelder={omForeldre.farMedmor.ikonRef} />}
-                    dager={fordeling.farMedmor.uttaksdager}
+                    dager={farMedmor.dagerTotalt}
                     maksDager={tilgjengeligeDager.maksDagerFar}
                     invertert={true}
                     minDager={tilgjengeligeDager.dagerFar}
@@ -143,15 +143,16 @@ const BarFellesdager: React.StatelessComponent<{ dagerFelles: number; dagerMor: 
 
 const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengeligeDager }) => {
     const childBem = bem.child('graf');
-    const { fordeling } = forbruk;
 
-    if (!fordeling.farMedmor) {
+    const { dagerEtterTermin, dagerFar, dagerMor, dagerFelles } = tilgjengeligeDager;
+    const { farMedmor, mor } = forbruk;
+
+    if (!farMedmor) {
         return null;
     }
-    const { dagerEtterTermin, dagerFar, dagerMor, dagerFelles } = tilgjengeligeDager;
 
-    const morsBrukteDager = fordeling.mor.uttaksdager;
-    const farsBrukteDager = fordeling.farMedmor.uttaksdager;
+    const morsBrukteDager = mor.dagerTotalt;
+    const farsBrukteDager = farMedmor.dagerTotalt;
 
     const totaltAntallDagerUtenForeldrepengerFørTermin = dagerEtterTermin;
     const pstMultiplikator = 100 / totaltAntallDagerUtenForeldrepengerFørTermin;

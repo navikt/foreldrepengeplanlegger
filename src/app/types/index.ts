@@ -82,15 +82,6 @@ export interface ForbrukPerPeriodetype {
     fridagerIPeriodene: number;
 }
 
-export interface Fordeling {
-    mor: {
-        uttaksdager: number;
-    };
-    farMedmor?: {
-        uttaksdager: number;
-    };
-}
-
 export interface Forbruk {
     skalHaForeldrepengerFørFødsel: boolean;
     ekstradagerFørTermin: number;
@@ -99,7 +90,6 @@ export interface Forbruk {
     dagerGjenstående: number;
     mor: ForelderForbruk;
     farMedmor?: ForelderForbruk;
-    fordeling: Fordeling;
 }
 
 export interface ForelderForbruk {

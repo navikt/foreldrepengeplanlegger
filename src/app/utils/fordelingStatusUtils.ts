@@ -48,8 +48,8 @@ export function getFordelingStatus(
     omForeldre: OmForeldre,
     intl: InjectedIntl
 ): FordelingStatus {
-    const { dagerGjenstående, fordeling } = forbruk;
-    if (fordeling.farMedmor === undefined || omForeldre.farMedmor === undefined) {
+    const { dagerGjenstående, mor, farMedmor } = forbruk;
+    if (farMedmor === undefined || omForeldre.farMedmor === undefined) {
         return {
             status: 'advarsel',
             tittel: {
@@ -59,17 +59,16 @@ export function getFordelingStatus(
     }
 
     const { dagerFar, dagerMor, dagerFelles } = tilgjengeligeDager;
-    const { mor, farMedmor } = fordeling;
 
-    const morErOk = mor.uttaksdager <= dagerMor + dagerFelles;
-    const farErOk = farMedmor.uttaksdager <= dagerFar + dagerFelles;
+    const morErOk = mor.dagerTotalt <= dagerMor + dagerFelles;
+    const farErOk = farMedmor.dagerTotalt <= dagerFar + dagerFelles;
     const totalOk = dagerGjenstående === 0;
     const forMangeDagerTotalt = dagerGjenstående < 0;
     const forFåDagerTotalt = dagerGjenstående > 0;
-    const dagerForMyeMor = mor.uttaksdager - (dagerMor + dagerFelles);
-    const dagerForMyeFar = farMedmor.uttaksdager - (dagerFar + dagerFelles);
-    const dagerForLiteMor = dagerMor - mor.uttaksdager;
-    const dagerForLiteFar = dagerFar - farMedmor.uttaksdager;
+    const dagerForMyeMor = mor.dagerTotalt - (dagerMor + dagerFelles);
+    const dagerForMyeFar = farMedmor.dagerTotalt - (dagerFar + dagerFelles);
+    const dagerForLiteMor = dagerMor - mor.dagerTotalt;
+    const dagerForLiteFar = dagerFar - farMedmor.dagerTotalt;
 
     if (morErOk && farErOk) {
         if (totalOk) {

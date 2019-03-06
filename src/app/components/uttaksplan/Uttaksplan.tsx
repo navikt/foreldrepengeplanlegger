@@ -111,7 +111,8 @@ class Uttaksplan extends React.Component<Props, State> {
                 ? Uttaksdagen(perioder[perioder.length - 1].tidsperiode.tom).neste()
                 : uttaksdatoer.førsteUttaksdag;
         const { regelbrudd } = regelTestresultat;
-        const visFordelingGraf = forbruk.fordeling && (perioder.length > 0 || periodeFørTermin !== undefined);
+
+        const visFordelingGraf = perioder.length > 0 || periodeFørTermin !== undefined;
 
         return (
             <section className={bem.classNames(bem.block, visSkjema ? bem.modifier('visSkjema') : undefined)}>

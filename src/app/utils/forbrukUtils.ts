@@ -54,15 +54,7 @@ export const getForbruk = (perioder: Periode[], tilgjengeligeDager: Tilgjengelig
         ekstradagerFørTermin,
         dagerEtterTermin,
         dagerForeldrepengerFørFødsel,
-        dagerGjenstående,
-        fordeling: {
-            farMedmor: {
-                uttaksdager: forbrukFarMedmor.dagerEtterTermin
-            },
-            mor: {
-                uttaksdager: forbrukMor.dagerEtterTermin
-            }
-        }
+        dagerGjenstående
     };
 };
 

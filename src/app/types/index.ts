@@ -92,9 +92,10 @@ export interface Fordeling {
 }
 
 export interface Forbruk {
+    skalHaForeldrepengerFørFødsel: boolean;
     ekstradagerFørTermin: number;
-    dagerEtterTermin: number;
     dagerForeldrepengerFørFødsel: number;
+    dagerEtterTermin: number;
     dagerGjenstående: number;
     mor: ForelderForbruk;
     farMedmor?: ForelderForbruk;

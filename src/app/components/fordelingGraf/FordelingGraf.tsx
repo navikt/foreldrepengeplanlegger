@@ -11,10 +11,10 @@ import { UttaksplanHexFarge } from 'common/utils/colors';
 import { getFordelingStatus } from '../../utils/fordelingStatusUtils';
 import { FormattedMessage, injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
 import StatusIkon from 'common/components/ikoner/StatusIkon';
-
-import './fordelingGraf.less';
 import { getVarighetString } from 'common/utils/intlUtils';
 import getMessage from 'common/utils/i18nUtils';
+
+import './fordelingGraf.less';
 
 interface OwnProps {
     forbruk: Forbruk;
@@ -73,13 +73,13 @@ const Tittel: React.StatelessComponent<TittelProps> = ({
                 tittelBem.modifierConditional('invertert', invertert === true)
             )}>
             {ikon && <div className={bem.child('tittel').element('ikon')}>{ikon}</div>}
-            <div
-                className={bem.classNames(
-                    tittelBem.child('forbruk').block,
-                    tittelBem.child('forbruk').modifierConditional('formangedager', dagerForMye > 0)
-                )}>
+            <div className={tittelBem.child('forbruk').block}>
                 <EtikettLiten>{navn}</EtikettLiten>
-                <div className={tittelBem.child('forbruk').element('dager')}>
+                <div
+                    className={tittelBem.classNames(
+                        tittelBem.child('forbruk').element('dager'),
+                        tittelBem.modifierConditional('formangedager', dagerForMye > 0)
+                    )}>
                     <HighlightContent watchValue={dager} invalid={dager < 0}>
                         {getTittelVarighet()}
                     </HighlightContent>
@@ -150,29 +150,27 @@ const BarFellesdager: React.StatelessComponent<{ dagerFelles: number; dagerMor: 
 
 const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengeligeDager }) => {
     const childBem = bem.child('graf');
+    const tg = tilgjengeligeDager;
 
-    const { dagerEtterTermin, dagerFar, dagerMor, dagerFelles } = tilgjengeligeDager;
-    const { farMedmor, mor } = forbruk;
-
-    if (!farMedmor) {
+    if (!forbruk.farMedmor) {
         return null;
     }
 
-    const morsBrukteDager = mor.dagerEtterTermin + mor.ekstradagerFørTermin;
-    const farsBrukteDager = farMedmor.dagerTotalt;
+    const morsBrukteDager = forbruk.mor.dagerEtterTermin + forbruk.mor.ekstradagerFørTermin;
+    const farsBrukteDager = forbruk.farMedmor.dagerTotalt;
 
-    const totaltAntallDagerUtenForeldrepengerFørTermin = dagerEtterTermin;
+    const totaltAntallDagerUtenForeldrepengerFørTermin = tg.dagerEtterTermin;
     const pstMultiplikator = 100 / totaltAntallDagerUtenForeldrepengerFørTermin;
 
-    const pstForbeholdtMor = pstMultiplikator * dagerMor;
-    const pstForbeholdtFar = pstMultiplikator * dagerFar;
-    const pstFelles = pstMultiplikator * dagerFelles;
+    const pstForbeholdtMor = pstMultiplikator * tg.dagerMor;
+    const pstForbeholdtFar = pstMultiplikator * tg.dagerFar;
+    const pstFelles = pstMultiplikator * tg.dagerFelles;
 
-    const morsDagerAvFellesdel = Math.max(0, morsBrukteDager - dagerMor);
-    const farsDagerAvFellesdel = Math.max(0, farsBrukteDager - dagerFar);
+    const morsDagerAvFellesdel = Math.max(0, morsBrukteDager - tg.dagerMor);
+    const farsDagerAvFellesdel = Math.max(0, farsBrukteDager - tg.dagerFar);
 
-    const morsForbrukAvEgenKvote = morsBrukteDager >= dagerMor ? 100 : (100 / dagerMor) * morsBrukteDager;
-    const farsForbrukAvEgenKvote = farsBrukteDager >= dagerFar ? 100 : (100 / dagerFar) * farsBrukteDager;
+    const morsForbrukAvEgenKvote = morsBrukteDager >= tg.dagerMor ? 100 : (100 / tg.dagerMor) * morsBrukteDager;
+    const farsForbrukAvEgenKvote = farsBrukteDager >= tg.dagerFar ? 100 : (100 / tg.dagerFar) * farsBrukteDager;
 
     return (
         <div className={childBem.block}>
@@ -187,7 +185,7 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengelig
             </div>
             <div className={childBem.element('felles')} style={{ width: `${pstFelles}%` }}>
                 <BarFellesdager
-                    dagerFelles={dagerFelles}
+                    dagerFelles={tg.dagerFelles}
                     dagerMor={morsDagerAvFellesdel}
                     dagerFar={farsDagerAvFellesdel}
                 />

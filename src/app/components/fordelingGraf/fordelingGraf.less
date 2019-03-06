@@ -38,15 +38,20 @@
         display: flex;
         flex-basis: 50%;
 
+        &--formangedager {
+            color: @c-color-red;
+        }
+
         &__ikon {
             padding-right: .5rem;
             flex-grow: 0;
         }
 
-        &__forbruk__dager {
-            font-weight: bold;
+        &__forbruk {
+            &__dager {
+                font-weight: bold;
+            }
         }
-
 
         &--invertert {
             text-align: right;

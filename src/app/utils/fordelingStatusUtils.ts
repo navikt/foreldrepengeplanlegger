@@ -62,7 +62,21 @@ export function getFordelingStatus(forbruk: Forbruk, omForeldre: OmForeldre, int
     }
 
     if (forMangeDagerTotalt) {
-        return feil('forMangeDagerTotalt', { dager: getVarighetString(Math.abs(dagerGjenstående), intl) });
+        if (mor.dagerForMye > 0 && farMedmor.dagerForMye > 0) {
+            return feil('forMangeDagerTotalt', { dager: getVarighetString(Math.abs(dagerGjenstående), intl) });
+        }
+        if (mor.dagerForMye > 0) {
+            return advarsel('dagerForMyePerson', {
+                navn: omForeldre.mor.navn,
+                dager: getVarighetString(mor.dagerForMye, intl)
+            });
+        }
+        if (farMedmor.dagerForMye > 0) {
+            return advarsel('dagerForMyePerson', {
+                navn: omForeldre.farMedmor.navn,
+                dager: getVarighetString(farMedmor.dagerForMye, intl)
+            });
+        }
     }
 
     if (

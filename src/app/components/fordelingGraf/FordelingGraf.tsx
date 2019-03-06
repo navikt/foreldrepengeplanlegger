@@ -89,8 +89,8 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ fordeling, omForeldr
                 navn={omForeldre.mor.navn}
                 ikon={<ForelderIkon forelder={omForeldre.mor.ikonRef} />}
                 dager={fordeling.mor.uttaksdager}
-                maksDager={tilgjengeligeDager.maksDagerTilgjengeligMor}
-                minDager={tilgjengeligeDager.dagerForbeholdtMor}
+                maksDager={tilgjengeligeDager.maksDagerMor}
+                minDager={tilgjengeligeDager.dagerMor}
                 intl={intl}
             />
             {omForeldre.farMedmor && fordeling.farMedmor !== undefined && (
@@ -98,9 +98,9 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ fordeling, omForeldr
                     navn={omForeldre.farMedmor.navn}
                     ikon={<ForelderIkon forelder={omForeldre.farMedmor.ikonRef} />}
                     dager={fordeling.farMedmor.uttaksdager}
-                    maksDager={tilgjengeligeDager.maksDagerTilgjengeligFar}
+                    maksDager={tilgjengeligeDager.maksDagerFar}
                     invertert={true}
-                    minDager={tilgjengeligeDager.dagerForbeholdtFar}
+                    minDager={tilgjengeligeDager.dagerFar}
                     intl={intl}
                 />
             )}
@@ -146,25 +146,23 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ fordeling, tilgjengel
     if (!fordeling.farMedmor) {
         return null;
     }
-    const { dagerTotalt, dagerForbeholdtFar, dagerForbeholdtMor, dagerFelles } = tilgjengeligeDager;
+    const { dagerEtterTermin, dagerFar, dagerMor, dagerFelles } = tilgjengeligeDager;
 
     const morsBrukteDager = fordeling.mor.uttaksdager;
     const farsBrukteDager = fordeling.farMedmor.uttaksdager;
 
-    const totaltAntallDagerUtenForeldrepengerFørTermin = dagerTotalt;
+    const totaltAntallDagerUtenForeldrepengerFørTermin = dagerEtterTermin;
     const pstMultiplikator = 100 / totaltAntallDagerUtenForeldrepengerFørTermin;
 
-    const pstForbeholdtMor = pstMultiplikator * dagerForbeholdtMor;
-    const pstForbeholdtFar = pstMultiplikator * dagerForbeholdtFar;
+    const pstForbeholdtMor = pstMultiplikator * dagerMor;
+    const pstForbeholdtFar = pstMultiplikator * dagerFar;
     const pstFelles = pstMultiplikator * dagerFelles;
 
-    const morsDagerAvFellesdel = Math.max(0, morsBrukteDager - dagerForbeholdtMor);
-    const farsDagerAvFellesdel = Math.max(0, farsBrukteDager - dagerForbeholdtFar);
+    const morsDagerAvFellesdel = Math.max(0, morsBrukteDager - dagerMor);
+    const farsDagerAvFellesdel = Math.max(0, farsBrukteDager - dagerFar);
 
-    const morsForbrukAvEgenKvote =
-        morsBrukteDager >= dagerForbeholdtMor ? 100 : (100 / dagerForbeholdtMor) * morsBrukteDager;
-    const farsForbrukAvEgenKvote =
-        farsBrukteDager >= dagerForbeholdtFar ? 100 : (100 / dagerForbeholdtFar) * farsBrukteDager;
+    const morsForbrukAvEgenKvote = morsBrukteDager >= dagerMor ? 100 : (100 / dagerMor) * morsBrukteDager;
+    const farsForbrukAvEgenKvote = farsBrukteDager >= dagerFar ? 100 : (100 / dagerFar) * farsBrukteDager;
 
     return (
         <div className={childBem.block}>

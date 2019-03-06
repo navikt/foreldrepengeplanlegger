@@ -52,7 +52,7 @@ export const selectForbruk = createSelector(
             if (periodeFørTermin) {
                 forbruksperioder.push(periodeFørTermin);
             }
-            return getForbruk(forbruksperioder, tilgjengeligeDager.dagerTotalt);
+            return getForbruk(forbruksperioder, tilgjengeligeDager.dagerEtterTermin);
         }
         return undefined;
     }

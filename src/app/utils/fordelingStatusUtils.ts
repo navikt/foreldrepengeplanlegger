@@ -57,18 +57,18 @@ export function getFordelingStatus(
         };
     }
 
-    const { dagerForbeholdtFar, dagerForbeholdtMor, dagerFelles } = tilgjengeligeDager;
+    const { dagerFar, dagerMor, dagerFelles } = tilgjengeligeDager;
     const { mor, farMedmor, dagerGjenstående } = fordeling;
 
-    const morErOk = mor.uttaksdager <= dagerForbeholdtMor + dagerFelles;
-    const farErOk = farMedmor.uttaksdager <= dagerForbeholdtFar + dagerFelles;
+    const morErOk = mor.uttaksdager <= dagerMor + dagerFelles;
+    const farErOk = farMedmor.uttaksdager <= dagerFar + dagerFelles;
     const totalOk = dagerGjenstående === 0;
     const forMangeDagerTotalt = dagerGjenstående < 0;
     const forFåDagerTotalt = dagerGjenstående > 0;
-    const dagerForMyeMor = mor.uttaksdager - (dagerForbeholdtMor + dagerFelles);
-    const dagerForMyeFar = farMedmor.uttaksdager - (dagerForbeholdtFar + dagerFelles);
-    const dagerForLiteMor = dagerForbeholdtMor - mor.uttaksdager;
-    const dagerForLiteFar = dagerForbeholdtFar - farMedmor.uttaksdager;
+    const dagerForMyeMor = mor.uttaksdager - (dagerMor + dagerFelles);
+    const dagerForMyeFar = farMedmor.uttaksdager - (dagerFar + dagerFelles);
+    const dagerForLiteMor = dagerMor - mor.uttaksdager;
+    const dagerForLiteFar = dagerFar - farMedmor.uttaksdager;
 
     if (morErOk && farErOk) {
         if (totalOk) {

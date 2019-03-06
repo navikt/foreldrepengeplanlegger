@@ -53,15 +53,14 @@ interface FordelingslisteProps {
 }
 
 const Fordelingsliste: React.StatelessComponent<FordelingslisteProps> = ({ tilgjengeligeDager, omForeldre, intl }) => {
-    const { dagerFelles, dagerForbeholdtFar, dagerForbeholdtMor, flerbarnsdager } = tilgjengeligeDager;
+    const { dagerFelles, dagerFar, dagerMor, flerbarnsdager } = tilgjengeligeDager;
     if (omForeldre.mor === undefined) {
         return null;
     }
     return (
         <Normaltekst tag="p">
-            {omForeldre.mor.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtMor, intl)}</strong> og{' '}
-            {omForeldre.farMedmor!.navn} må ta ut <strong>{getVarighetString(dagerForbeholdtFar, intl)}</strong>. Dere
-            har{' '}
+            {omForeldre.mor.navn} må ta ut <strong>{getVarighetString(dagerMor, intl)}</strong> og{' '}
+            {omForeldre.farMedmor!.navn} må ta ut <strong>{getVarighetString(dagerFar, intl)}</strong>. Dere har{' '}
             <HighlightContent watchValue={dagerFelles}>
                 <strong>{getVarighetString(dagerFelles, intl)}</strong>
             </HighlightContent>{' '}
@@ -81,7 +80,7 @@ const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = (props: Prop
                 <Block margin="xxs">
                     <Systemtittel tag="h1">
                         {omForeldre.antallForeldre === 2 ? 'Dere' : 'Du '} har rett på{' '}
-                        {getVarighetString(tilgjengeligeDager.dagerTotalt, intl)} med foreldrepenger
+                        {getVarighetString(tilgjengeligeDager.dagerEtterTermin, intl)} med foreldrepenger
                     </Systemtittel>
                 </Block>
                 <Block margin="xs" visible={omForeldre.antallForeldre === 2}>

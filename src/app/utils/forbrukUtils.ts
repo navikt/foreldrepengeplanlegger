@@ -1,35 +1,22 @@
-import { Forelder, Periode, Periodetype, ForbrukPerPeriodetype, ForelderForbruk, Forbruk } from '../types';
-import groupby from 'lodash.groupby';
+import { Forelder, Periode, ForelderForbruk, Forbruk, Periodetype } from '../types';
 import { Periodene } from './Periodene';
+import { Perioden } from './Perioden';
 
-export const getForbrukIPerioder = (perioder: Periode[]): ForelderForbruk => {
-    const perioderGruppertPåType = groupby(perioder, (periode) => periode.type);
-    const forbrukPerPeriodetype: ForbrukPerPeriodetype[] = [];
-    Object.keys(perioderGruppertPåType).forEach((key) => {
-        const periodetype = key as Periodetype;
-        const uttaksdagerIPeriodene = Periodene(perioderGruppertPåType[key]).getBrukteUttaksdager();
-        const fridagerIPeriodene = Periodene(perioderGruppertPåType[key]).getAntallFeriedager();
-        forbrukPerPeriodetype.push({
-            periodetype,
-            uttaksdagerIPeriodene,
-            fridagerIPeriodene
-        });
-    });
+export const getForelderForbruk = (perioder: Periode[]): ForelderForbruk => {
+    const periodeFørTermin = perioder.find((p) => p.type === Periodetype.UttakFørTermin);
+    const perioderEtterTermin = perioder.filter((p) => p.type !== Periodetype.UttakFørTermin);
     return {
-        forbrukPerPeriodetype,
-        brukteUttaksdager: Periodene(perioder).getBrukteUttaksdager()
+        dagerFørTermin: periodeFørTermin ? Perioden(periodeFørTermin).getAntallUttaksdager() : 0,
+        dagerEtterTermin: Periodene(perioderEtterTermin).getBrukteUttaksdager()
     };
 };
 
 export const getForbruk = (perioder: Periode[], dagerTotalt: number): Forbruk => {
-    const forbrukFarMedmor = getForbrukIPerioder(perioder.filter((p) => p.forelder === Forelder.farMedmor));
-    const forbrukMor = getForbrukIPerioder(perioder.filter((p) => p.forelder === Forelder.mor));
-
-    const dagerGjenstående =
-        dagerTotalt - forbrukFarMedmor.brukteUttaksdager - (forbrukMor ? forbrukMor.brukteUttaksdager : 0);
-
+    const forbrukMor = getForelderForbruk(perioder.filter((p) => p.forelder === Forelder.mor));
+    const forbrukFarMedmor = getForelderForbruk(perioder.filter((p) => p.forelder === Forelder.farMedmor));
+    const dagerGjenstående = dagerTotalt - forbrukFarMedmor.dagerEtterTermin - forbrukMor.dagerEtterTermin;
     const dagerForMye = dagerGjenstående < 0 ? dagerGjenstående * -1 : 0;
-    const pst = 100 / (dagerTotalt + dagerForMye);
+    const dagPst = 100 / (dagerTotalt + dagerForMye);
 
     return {
         farMedmor: forbrukFarMedmor,
@@ -37,21 +24,13 @@ export const getForbruk = (perioder: Periode[], dagerTotalt: number): Forbruk =>
         fordeling: {
             dagerTotalt,
             dagerGjenstående,
-            overforbruk: dagerForMye
-                ? {
-                      uttaksdager: dagerForMye,
-                      pst: pst * dagerForMye
-                  }
-                : undefined,
-            farMedmor: forbrukFarMedmor
-                ? {
-                      uttaksdager: forbrukFarMedmor.brukteUttaksdager,
-                      pst: pst * forbrukFarMedmor.brukteUttaksdager
-                  }
-                : undefined,
+            farMedmor: {
+                uttaksdager: forbrukFarMedmor.dagerEtterTermin,
+                pst: dagPst * forbrukFarMedmor.dagerEtterTermin
+            },
             mor: {
-                uttaksdager: forbrukMor.brukteUttaksdager,
-                pst: pst * forbrukMor.brukteUttaksdager
+                uttaksdager: forbrukMor.dagerEtterTermin,
+                pst: dagPst * forbrukMor.dagerEtterTermin
             }
         }
     };

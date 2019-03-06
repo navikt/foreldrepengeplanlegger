@@ -63,21 +63,24 @@ export interface TilgjengeligStønadskonto {
 }
 
 export interface TilgjengeligeDager {
-    dagerTotalt: number;
-    dagerForbeholdtMor: number;
-    dagerForbeholdtFar: number;
-    maksDagerTilgjengeligFar: number;
-    maksDagerTilgjengeligMor: number;
-    dagerFelles: number;
-    flerbarnsdager: number;
+    /** Dager som er tilgjengelig totalt etter termin */
+    dagerEtterTermin: number;
+    /** Dager som er tilgjengelig før termin */
     dagerFørTermin: number;
+    /** Mors dager etter termin */
+    dagerMor: number;
+    /** Fars dager etter termin */
+    dagerFar: number;
+    /** Dager mor og far kan dele  */
+    dagerFelles: number;
+    /** Dager som kommer ekstra ved tvillinger eller flere barn */
+    flerbarnsdager: number;
+    /** Maks uttak mor kan ta etter termin */
+    maksDagerMor: number;
+    /** Maks uttak far kan ta etter termin */
+    maksDagerFar: number;
     stønadskontoer: TilgjengeligStønadskonto[];
     dagerForeldrepenger: number;
-}
-
-export interface ForelderForbruk {
-    brukteUttaksdager: number;
-    forbrukPerPeriodetype: ForbrukPerPeriodetype[];
 }
 
 export interface ForbrukPerPeriodetype {
@@ -97,10 +100,6 @@ export interface Fordeling {
         uttaksdager: number;
         pst: number;
     };
-    overforbruk?: {
-        uttaksdager: number;
-        pst: number;
-    };
 }
 
 export interface Forbruk {
@@ -109,10 +108,9 @@ export interface Forbruk {
     fordeling: Fordeling;
 }
 
-export interface SvgIkonProps {
-    title: string;
-    width?: number;
-    height?: number;
+export interface ForelderForbruk {
+    dagerFørTermin: number;
+    dagerEtterTermin: number;
 }
 
 export interface Forelderinfo {
@@ -139,4 +137,10 @@ export interface Uttaksdatoer {
         førsteUttaksdagEtterSeksUker: Date;
         sisteMuligeUttaksdag: Date;
     };
+}
+
+export interface SvgIkonProps {
+    title: string;
+    width?: number;
+    height?: number;
 }

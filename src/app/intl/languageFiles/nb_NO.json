@@ -71,7 +71,7 @@
     "fordeling.status.altOk": "Planen er ok",
     "fordeling.status.forMangeDagerTotalt": "{dager} for mye",
     "fordeling.status.dagerIkkeBrukt": "{dager} ikke brukt",
-    "fordeling.status.dagerIkkeBruktPerson": "{dager} for lite til {navn}",
+    "fordeling.status.dagerIkkeBruktPerson": "{navn} har {dager} ubrukt",
     "fordeling.status.dagerForMyePerson": "{navn} har {dager} for mye",
     "fordeling.status.person.forMye": "{dager} for mye",
     "fordeling.status.person.forLite": "{dager} ikke brukt"

@@ -101,7 +101,8 @@ const updateStateWithNewSkjemadata = (state: CommonState, action: SubmitSkjemada
             ukerFarMedmor: undefined,
             ukerMor: undefined
         },
-        dekningsgrad: undefined
+        dekningsgrad: undefined,
+        familiehendelsesdato: action.data.familiehendelsesdato
     };
 };
 

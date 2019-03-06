@@ -14,7 +14,7 @@ const morsUttakErInnenforMaksAntallDager: RegelTest = (key: RegelKey, grunnlag: 
     }
 
     const { maksDagerMor } = tilgjengeligeDager;
-    const dagerGjenstående = maksDagerMor - forbruk.mor.dagerEtterTermin;
+    const dagerGjenstående = maksDagerMor - forbruk.mor.dagerTotalt;
     const passerer = dagerGjenstående >= 0;
 
     return {
@@ -31,7 +31,7 @@ const morsUttakErInnenforMaksAntallDager: RegelTest = (key: RegelKey, grunnlag: 
                           navn: navnMor,
                           dagerTilgjengelig: (intl: InjectedIntl) => getVarighetString(maksDagerMor, intl),
                           dagerRegistrert: (intl: InjectedIntl) =>
-                              getVarighetString(Math.abs(forbruk.mor.dagerEtterTermin), intl)
+                              getVarighetString(Math.abs(forbruk.mor.dagerTotalt), intl)
                       }
                   }
               }

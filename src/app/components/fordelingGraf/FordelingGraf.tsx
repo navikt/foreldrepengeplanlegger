@@ -89,7 +89,7 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ forbruk, omForeldre,
             <Tittel
                 navn={omForeldre.mor.navn}
                 ikon={<ForelderIkon forelder={omForeldre.mor.ikonRef} />}
-                dager={mor.dagerEtterTermin + mor.ekstradagerFørTermin + mor.dagerForeldrepengerFørFødsel}
+                dager={mor.dagerTotalt}
                 maksDager={tilgjengeligeDager.maksDagerMor}
                 minDager={tilgjengeligeDager.dagerMor}
                 intl={intl}
@@ -98,7 +98,7 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ forbruk, omForeldre,
                 <Tittel
                     navn={omForeldre.farMedmor.navn}
                     ikon={<ForelderIkon forelder={omForeldre.farMedmor.ikonRef} />}
-                    dager={farMedmor.dagerEtterTermin}
+                    dager={farMedmor.dagerTotalt}
                     maksDager={tilgjengeligeDager.maksDagerFar}
                     invertert={true}
                     minDager={tilgjengeligeDager.dagerFar}
@@ -152,7 +152,7 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengelig
     }
 
     const morsBrukteDager = mor.dagerEtterTermin + mor.ekstradagerFørTermin;
-    const farsBrukteDager = farMedmor.dagerEtterTermin;
+    const farsBrukteDager = farMedmor.dagerTotalt;
 
     const totaltAntallDagerUtenForeldrepengerFørTermin = dagerEtterTermin;
     const pstMultiplikator = 100 / totaltAntallDagerUtenForeldrepengerFørTermin;

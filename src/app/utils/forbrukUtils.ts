@@ -19,25 +19,28 @@ const getAlleDagerFørTermin = (periode: UttakFørTerminPeriode | undefined): nu
     return 0;
 };
 
+const morsPerioderFilter = (p: Periode) => p.forelder === Forelder.mor;
+const farsPerioderFilter = (p: Periode) => p.forelder === Forelder.farMedmor;
+
 export const getMorsForbruk = (allePerioder: Periode[], tilgjengeligeDager: TilgjengeligeDager): MorsForbruk => {
-    const perioder = allePerioder.filter((p) => p.forelder === Forelder.mor);
-    const periodeFørTermin = perioder.find(isUttakFørTermin);
-    const perioderEtterTermin = perioder.filter((p) => p.type !== Periodetype.UttakFørTermin);
+    const morsPerioder = allePerioder.filter(morsPerioderFilter);
+    const periodeFørTermin = morsPerioder.find(isUttakFørTermin);
+    const perioderEtterTermin = morsPerioder.filter((p) => p.type !== Periodetype.UttakFørTermin);
     const dagerFørTermin = getAlleDagerFørTermin(periodeFørTermin);
     const ekstradagerFørTermin = Math.max(0, dagerFørTermin - tilgjengeligeDager.dagerForeldrepengerFørFødsel);
     const dagerEtterTermin = Periodene(perioderEtterTermin).getBrukteUttaksdager();
+    const dagerTotalt = Periodene(morsPerioder).getBrukteUttaksdager();
     return {
+        dagerEtterTermin,
         dagerForeldrepengerFørFødsel: dagerFørTermin - ekstradagerFørTermin,
         ekstradagerFørTermin,
-        dagerEtterTermin
+        dagerTotalt
     };
 };
-export const getFarsForbruk = (allePerioder: Periode[]): ForelderForbruk => {
-    const perioder = allePerioder.filter((p) => p.forelder === Forelder.farMedmor);
-    const perioderEtterTermin = perioder.filter((p) => p.type !== Periodetype.UttakFørTermin);
-    const dagerEtterTermin = Periodene(perioderEtterTermin).getBrukteUttaksdager();
+export const getFarsForbruk = (perioder: Periode[]): ForelderForbruk => {
+    const dagerTotalt = Periodene(perioder.filter(farsPerioderFilter)).getBrukteUttaksdager();
     return {
-        dagerEtterTermin
+        dagerTotalt
     };
 };
 
@@ -47,9 +50,9 @@ export const getForbruk = (perioder: Periode[], tilgjengeligeDager: Tilgjengelig
     const skalHaForeldrepengerFørFødsel = forbrukMor.dagerForeldrepengerFørFødsel > 0;
     const dagerForeldrepengerFørFødsel = forbrukMor.dagerForeldrepengerFørFødsel - forbrukMor.ekstradagerFørTermin;
     const ekstradagerFørTermin = forbrukMor.ekstradagerFørTermin;
-    const dagerEtterTermin = forbrukFarMedmor.dagerEtterTermin + forbrukMor.dagerEtterTermin;
+    const dagerEtterTermin = forbrukFarMedmor.dagerTotalt + forbrukMor.dagerTotalt;
     const dagerGjenstående =
-        dagerEtterTermin - forbrukFarMedmor.dagerEtterTermin - forbrukMor.dagerEtterTermin - ekstradagerFørTermin;
+        dagerEtterTermin - forbrukFarMedmor.dagerTotalt - forbrukMor.dagerTotalt - ekstradagerFørTermin;
 
     return {
         farMedmor: forbrukFarMedmor,

@@ -88,13 +88,15 @@ export interface Forbruk {
     dagerForeldrepengerFørFødsel: number;
     dagerEtterTermin: number;
     dagerGjenstående: number;
-    mor: ForelderForbruk;
+    mor: MorsForbruk;
     farMedmor?: ForelderForbruk;
 }
 
 export interface ForelderForbruk {
-    dagerTotalt: number;
     dagerEtterTermin: number;
+}
+
+export interface MorsForbruk extends ForelderForbruk {
     ekstradagerFørTermin: number;
     dagerForeldrepengerFørFødsel: number;
 }

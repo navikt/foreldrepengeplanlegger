@@ -58,17 +58,18 @@ export function getFordelingStatus(
         };
     }
 
-    const { dagerFar, dagerMor, dagerFelles } = tilgjengeligeDager;
+    const td = tilgjengeligeDager;
+    const morsDager = mor.dagerEtterTermin + mor.ekstradagerFørTermin;
 
-    const morErOk = mor.dagerTotalt <= dagerMor + dagerFelles;
-    const farErOk = farMedmor.dagerTotalt <= dagerFar + dagerFelles;
+    const morErOk = morsDager <= td.dagerMor + td.dagerFelles;
+    const farErOk = farMedmor.dagerEtterTermin <= td.dagerFar + td.dagerFelles;
     const totalOk = dagerGjenstående === 0;
     const forMangeDagerTotalt = dagerGjenstående < 0;
     const forFåDagerTotalt = dagerGjenstående > 0;
-    const dagerForMyeMor = mor.dagerTotalt - (dagerMor + dagerFelles);
-    const dagerForMyeFar = farMedmor.dagerTotalt - (dagerFar + dagerFelles);
-    const dagerForLiteMor = dagerMor - mor.dagerTotalt;
-    const dagerForLiteFar = dagerFar - farMedmor.dagerTotalt;
+    const dagerForMyeMor = morsDager - (td.dagerMor + td.dagerFelles);
+    const dagerForMyeFar = farMedmor.dagerEtterTermin - (td.dagerFar + td.dagerFelles);
+    const dagerForLiteMor = td.dagerMor - morsDager;
+    const dagerForLiteFar = td.dagerFar - farMedmor.dagerEtterTermin;
 
     if (morErOk && farErOk) {
         if (totalOk) {

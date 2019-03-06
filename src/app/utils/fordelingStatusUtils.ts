@@ -77,6 +77,7 @@ export function getFordelingStatus(forbruk: Forbruk, omForeldre: OmForeldre, int
                 dager: getVarighetString(farMedmor.dagerForMye, intl)
             });
         }
+        return feil('forMangeDagerTotalt', { dager: getVarighetString(Math.abs(dagerGjenstående), intl) });
     }
 
     if (

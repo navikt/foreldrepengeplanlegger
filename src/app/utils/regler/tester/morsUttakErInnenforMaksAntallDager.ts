@@ -13,13 +13,14 @@ const morsUttakErInnenforMaksAntallDager: RegelTest = (key: RegelKey, grunnlag: 
         };
     }
 
-    const { maksDagerMor } = tilgjengeligeDager;
-    const dagerGjenstående = maksDagerMor - forbruk.mor.dagerTotalt;
-    const passerer = dagerGjenstående >= 0;
+    const passerer = forbruk.mor.dagerErOk;
+    const maksDager =
+        tilgjengeligeDager.maksDagerMor +
+        (forbruk.skalHaForeldrepengerFørFødsel ? forbruk.mor.dagerForeldrepengerFørFødsel : 0);
 
     return {
         key,
-        passerer,
+        passerer: forbruk.mor.dagerErOk,
         regelbrudd: passerer
             ? undefined
             : {
@@ -29,7 +30,7 @@ const morsUttakErInnenforMaksAntallDager: RegelTest = (key: RegelKey, grunnlag: 
                       intlKey: `regel.feiler.${key}`,
                       values: {
                           navn: navnMor,
-                          dagerTilgjengelig: (intl: InjectedIntl) => getVarighetString(maksDagerMor, intl),
+                          dagerTilgjengelig: (intl: InjectedIntl) => getVarighetString(maksDager, intl),
                           dagerRegistrert: (intl: InjectedIntl) =>
                               getVarighetString(Math.abs(forbruk.mor.dagerTotalt), intl)
                       }

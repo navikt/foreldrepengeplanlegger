@@ -83,6 +83,7 @@ export interface ForbrukPerPeriodetype {
 }
 
 export interface Forbruk {
+    dagerTotalt: number;
     skalHaForeldrepengerFørFødsel: boolean;
     ekstradagerFørTermin: number;
     dagerForeldrepengerFørFødsel: number;

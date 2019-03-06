@@ -68,8 +68,10 @@ export const getForbruk = (perioder: Periode[], tilgjengeligeDager: Tilgjengelig
     const ekstradagerFørTermin = forbrukMor.ekstradagerFørTermin;
     const dagerEtterTermin = forbrukFarMedmor.dagerTotalt + forbrukMor.dagerEtterTermin;
     const dagerGjenstående = tilgjengeligeDager.dagerEtterTermin - dagerEtterTermin - ekstradagerFørTermin;
+    const dagerTotalt = dagerEtterTermin + dagerForeldrepengerFørFødsel + ekstradagerFørTermin;
 
     return {
+        dagerTotalt,
         farMedmor: forbrukFarMedmor,
         mor: forbrukMor,
         skalHaForeldrepengerFørFødsel,

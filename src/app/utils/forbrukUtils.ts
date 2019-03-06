@@ -50,9 +50,8 @@ export const getForbruk = (perioder: Periode[], tilgjengeligeDager: Tilgjengelig
     const skalHaForeldrepengerFørFødsel = forbrukMor.dagerForeldrepengerFørFødsel > 0;
     const dagerForeldrepengerFørFødsel = forbrukMor.dagerForeldrepengerFørFødsel - forbrukMor.ekstradagerFørTermin;
     const ekstradagerFørTermin = forbrukMor.ekstradagerFørTermin;
-    const dagerEtterTermin = forbrukFarMedmor.dagerTotalt + forbrukMor.dagerTotalt;
-    const dagerGjenstående =
-        dagerEtterTermin - forbrukFarMedmor.dagerTotalt - forbrukMor.dagerTotalt - ekstradagerFørTermin;
+    const dagerEtterTermin = forbrukFarMedmor.dagerTotalt + forbrukMor.dagerEtterTermin;
+    const dagerGjenstående = tilgjengeligeDager.dagerEtterTermin - dagerEtterTermin - ekstradagerFørTermin;
 
     return {
         farMedmor: forbrukFarMedmor,

@@ -16,6 +16,7 @@ import getMessage from 'common/utils/i18nUtils';
 import Personkort from '../personkort/Personkort';
 
 import './fordelingGraf.less';
+import { getProsentFordeling } from '../../utils/tilgjengeligeDagerUtils';
 
 interface OwnProps {
     forbruk: Forbruk;
@@ -152,12 +153,7 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengelig
     const morsBrukteDager = forbruk.mor.dagerEtterTermin + forbruk.mor.ekstradagerFørTermin;
     const farsBrukteDager = forbruk.farMedmor.dagerTotalt;
 
-    const totaltAntallDagerUtenForeldrepengerFørTermin = tg.dagerEtterTermin;
-    const pstMultiplikator = 100 / totaltAntallDagerUtenForeldrepengerFørTermin;
-
-    const pstForbeholdtMor = pstMultiplikator * tg.dagerMor;
-    const pstForbeholdtFar = pstMultiplikator * tg.dagerFar;
-    const pstFelles = pstMultiplikator * tg.dagerFelles;
+    const { pstMor, pstFarMedmor, pstFelles } = getProsentFordeling(tilgjengeligeDager, false);
 
     const morsDagerAvFellesdel = Math.max(0, morsBrukteDager - tg.dagerMor);
     const farsDagerAvFellesdel = Math.max(0, farsBrukteDager - tg.dagerFar);
@@ -167,7 +163,7 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengelig
 
     return (
         <div className={childBem.block}>
-            <div className={childBem.element('forelder1')} style={{ width: `${pstForbeholdtMor}%` }}>
+            <div className={childBem.element('forelder1')} style={{ width: `${pstMor}%` }}>
                 <Multibar
                     borderColor={UttaksplanHexFarge.lilla}
                     leftBar={{
@@ -183,7 +179,7 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengelig
                     dagerFar={farsDagerAvFellesdel}
                 />
             </div>
-            <div className={childBem.element('forelder2')} style={{ width: `${pstForbeholdtFar}%` }}>
+            <div className={childBem.element('forelder2')} style={{ width: `${pstFarMedmor}%` }}>
                 <Multibar
                     borderColor={UttaksplanHexFarge.blaa}
                     rightBar={{

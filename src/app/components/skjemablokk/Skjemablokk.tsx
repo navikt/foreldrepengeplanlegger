@@ -6,6 +6,7 @@ import Sirkelknapp from 'common/components/sirkelknapp/Sirkelknapp';
 import { guid } from 'nav-frontend-js-utils';
 import LukkInfoIkon from 'common/components/ikoner/LukkInfoIkon';
 import InfoIkon from 'common/components/ikoner/InfoIkon';
+import { Undertittel } from 'nav-frontend-typografi';
 
 import './skjemablokk.less';
 
@@ -43,7 +44,7 @@ class Skjemablokk extends React.Component<Props, State> {
                     <SkjemaGruppe feil={feil}>
                         <fieldset className="skjema__fieldset skjemablokk">
                             <legend className="skjema__legend">
-                                <span className="skjemablokk__tittel">{tittel}</span>
+                                <Undertittel className="skjemablokk__tittel">{tittel}</Undertittel>
                                 {info && (
                                     <span className="skjemablokk__infoToggler">
                                         <Sirkelknapp

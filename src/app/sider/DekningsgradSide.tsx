@@ -97,7 +97,11 @@ class UttaksplanSide extends React.Component<Props> {
                     {tilgjengeligeDager && dekningsgrad !== undefined && (
                         <>
                             <Block>
-                                <DekningsgradInfo dekningsgrad={dekningsgrad} />
+                                <DekningsgradInfo
+                                    dekningsgrad={dekningsgrad}
+                                    tilgjengeligeDager={tilgjengeligeDager}
+                                    omForeldre={omForeldre}
+                                />
                             </Block>
                             {omForeldre.antallForeldre === 1 && (
                                 <>

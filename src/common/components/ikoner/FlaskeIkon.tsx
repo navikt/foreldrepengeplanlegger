@@ -4,7 +4,7 @@ export interface OwnProps {
     size?: number;
 }
 
-const FlaskeIkon = (props: any) => (
+const FlaskeIkon = (props: OwnProps) => (
     <svg viewBox="0 0 48 48" width={props.size} height={props.size}>
         <g fill="none" fillRule="evenodd">
             <path

@@ -4,7 +4,7 @@ export interface OwnProps {
     size?: number;
 }
 
-const HuskestativIkon = (props: any) => {
+const HuskestativIkon = (props: OwnProps) => {
     const ratio = 66 / 65;
     return (
         <svg viewBox="0 0 65 66" width={props.size} height={props.size ? props.size * ratio : undefined}>

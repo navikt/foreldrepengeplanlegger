@@ -5,7 +5,7 @@ import { getStønadskontoSortOrder } from '../../utils/kontoUtils';
 import { updateApi } from '../actions/api/apiActionCreators';
 import { CommonActionKeys, GetStønadskontoerAction } from '../actions/common/commonActionDefinitions';
 import { setStønadskontoer } from '../actions/common/commonActionCreators';
-import { SituasjonSkjemadata, TilgjengeligStønadskonto, StønadskontoType } from '../../types';
+import { SituasjonSkjemadata, TilgjengeligStønadskonto, StønadskontoType, Situasjon } from '../../types';
 import { AppState } from '../reducers/rootReducer';
 import situasjonsregler from '../../utils/situasjonsregler';
 import { Dekningsgrad } from 'common/types';
@@ -47,15 +47,32 @@ const trekkFlerbarnsdagerFraFellesperiode = (kontoerDTO: FPKontoServiceDTO): FPK
     return kontoerDTO;
 };
 
+const fjernForeldrepengerFørFødselToFedre = (
+    kontoerDTO: FPKontoServiceDTO,
+    situasjon: Situasjon
+): FPKontoServiceDTO => {
+    if (situasjon === Situasjon.farOgFar) {
+        const { FORELDREPENGER_FØR_FØDSEL, ...rest } = kontoerDTO.kontoer;
+        return { kontoer: rest };
+    }
+    return kontoerDTO;
+};
 const getKontoerFromForeldrepengerDTO = (
     kontoer80: FPKontoServiceDTO,
-    kontoer100: FPKontoServiceDTO
+    kontoer100: FPKontoServiceDTO,
+    situasjon: Situasjon
 ): { dekning80: TilgjengeligStønadskonto[]; dekning100: TilgjengeligStønadskonto[] } => {
     const dekning80: TilgjengeligStønadskonto[] = [];
     const dekning100: TilgjengeligStønadskonto[] = [];
 
-    const justerteKontoer80 = trekkFlerbarnsdagerFraFellesperiode(kontoer80);
-    const justerteKontoer100 = trekkFlerbarnsdagerFraFellesperiode(kontoer100);
+    const justerteKontoer80 = fjernForeldrepengerFørFødselToFedre(
+        trekkFlerbarnsdagerFraFellesperiode(kontoer80),
+        situasjon
+    );
+    const justerteKontoer100 = fjernForeldrepengerFørFødselToFedre(
+        trekkFlerbarnsdagerFraFellesperiode(kontoer100),
+        situasjon
+    );
 
     Object.keys(justerteKontoer80.kontoer).forEach((konto) => {
         dekning80.push({
@@ -87,7 +104,11 @@ function* getStønadskontoerSaga(action: GetStønadskontoerAction) {
         yield put(updateApi({ stønadskontoer: { pending: true, error: undefined, result: undefined } }));
         const response80 = yield call(api.getUttakskontoer, params80);
         const response100 = yield call(api.getUttakskontoer, params100);
-        const { dekning100, dekning80 } = getKontoerFromForeldrepengerDTO(response80.data, response100.data);
+        const { dekning100, dekning80 } = getKontoerFromForeldrepengerDTO(
+            response80.data,
+            response100.data,
+            skjemadata.situasjon
+        );
         yield put(setStønadskontoer({ dekning80, dekning100 }));
         yield put(
             updateApi({

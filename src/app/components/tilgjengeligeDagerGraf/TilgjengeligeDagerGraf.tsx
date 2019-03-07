@@ -20,7 +20,10 @@ const bem = BEMHelper('tilgjengeligeDagerGraf');
 
 const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl }) => {
     const fordeling = getProsentFordeling(tilgjengeligeDager, true);
-    const txtMor = `${tilgjengeligeDager.dagerMor / 5} + ${tilgjengeligeDager.dagerForeldrepengerFørFødsel / 5} uker`;
+    const txtMor =
+        tilgjengeligeDager.dagerForeldrepengerFørFødsel > 0
+            ? `${tilgjengeligeDager.dagerMor / 5} + ${tilgjengeligeDager.dagerForeldrepengerFørFødsel / 5} uker`
+            : getVarighetString(tilgjengeligeDager.dagerMor, intl);
     return (
         <div className={bem.block}>
             <div className={bem.element('forelder1')} style={{ width: `${fordeling.pstMor}%` }}>

@@ -11,11 +11,12 @@ export const getProsentFordeling = (
     const pstMultiplikator =
         100 / (inkluderForeldrepengerFørTermin ? tilgjengeligeDager.dagerTotalt : tilgjengeligeDager.dagerEtterTermin);
 
-    const pstMor =
+    const pstMor = Math.round(
         pstMultiplikator * tilgjengeligeDager.dagerMor +
-        (inkluderForeldrepengerFørTermin ? tilgjengeligeDager.dagerForeldrepengerFørFødsel : 0);
-    const pstFarMedmor = pstMultiplikator * tilgjengeligeDager.dagerFar;
-    const pstFelles = pstMultiplikator * tilgjengeligeDager.dagerFelles;
+            (inkluderForeldrepengerFørTermin ? tilgjengeligeDager.dagerForeldrepengerFørFødsel : 0)
+    );
+    const pstFarMedmor = Math.round(pstMultiplikator * tilgjengeligeDager.dagerFar);
+    const pstFelles = 100 - pstMor - pstFarMedmor;
 
     return {
         pstMor,

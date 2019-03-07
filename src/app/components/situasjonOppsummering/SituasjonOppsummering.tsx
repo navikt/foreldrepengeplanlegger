@@ -4,8 +4,11 @@ import BEMHelper from 'common/utils/bem';
 import OppsummeringBlokk from '../oppsummeringBlokk/OppsummeringBlokk';
 import AntallBarnSirkel from './antallBarnSirkel/AntallBarnSirkel';
 
-import './situasjonOppsummering.less';
 import SituasjonSirkel from './situasjonSirkel/SituasjonSirkel';
+import SpebarnSirkel from './spebarnSirkel/SpebarnSirkel';
+import { formaterDato } from 'common/utils/datoUtils';
+
+import './situasjonOppsummering.less';
 
 interface Props {
     situasjon: Situasjon;
@@ -17,19 +20,6 @@ interface Props {
 }
 
 const bem = BEMHelper('situasjonOppsummering');
-
-const OppsummeringFamiliehendelsesdato: React.StatelessComponent<Props> = (props) => {
-    const cBem = bem.child('familiehendelsesdato');
-    return (
-        <div className={cBem.block}>
-            <div>
-                <span className="kalenderdag__dag">23</span>
-                <span className="kalenderdag__mnd">jan. 2019</span>
-            </div>
-            <div className={cBem.element('tittel')}>Termin</div>
-        </div>
-    );
-};
 
 const Situasjonsoppsummering: React.StatelessComponent<Props> = (props) => (
     <OppsummeringBlokk onRequestChange={props.onRequestChange} tittel="Dere og barnet">
@@ -46,7 +36,8 @@ const Situasjonsoppsummering: React.StatelessComponent<Props> = (props) => (
                 <div className={bem.element('verdi')}>{props.antallBarn} barn</div>
             </div>
             <div className={bem.element('oppsummering')}>
-                <OppsummeringFamiliehendelsesdato {...props} />
+                <SpebarnSirkel />
+                <div className={bem.element('verdi')}>{formaterDato(props.familiehendelsesdato)}</div>
             </div>
         </div>
     </OppsummeringBlokk>

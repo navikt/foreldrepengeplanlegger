@@ -1,9 +1,9 @@
 import * as React from 'react';
 import BEMHelper from 'common/utils/bem';
-import FlaskeIkon from 'common/components/ikoner/FlaskeIkon';
 import Sirkelmaske from '../../oppsummeringBlokk/Sirkelmaske';
 
 import './antallBarnSirkel.less';
+import TåteflaskeIkon from 'common/components/ikoner/T\u00E5teflaskeIkon';
 
 interface Props {
     antallBarn: number;
@@ -14,7 +14,7 @@ const bem = BEMHelper('antallBarnSirkel');
 const renderBarn = (antall: number) => {
     const barn: React.ReactNode[] = [];
     while (barn.length < antall) {
-        barn.push(<FlaskeIkon key={barn.length} />);
+        barn.push(<TåteflaskeIkon key={barn.length} />);
     }
     return barn;
 };

@@ -5,9 +5,9 @@ import { Undertittel, Ingress } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
 import { TilgjengeligeDager, OmForeldre } from '../../types';
 import TilgjengeligeDagerGraf from '../tilgjengeligeDagerGraf/TilgjengeligeDagerGraf';
+import PengerIkon from 'common/components/ikoner/PengerIkon';
 
 import './dekningsgradInfo.less';
-import PengerIkon from 'common/components/ikoner/PengerIkon';
 
 interface Props {
     dekningsgrad: Dekningsgrad;

@@ -1,6 +1,15 @@
 .tilgjengeligeDagerGraf {
+
     &__felles {
         margin: 0 .25rem;
+    }
+
+    &__felles,
+    &__forelder1,
+    &__forelder2 {
+        transform: translate3d();
+        transition: width .2s ease-out;
+        will-change: width;
     }
 
     &__barTekst {

@@ -25,7 +25,7 @@ const getBarStyle = ({ width, color }: BarProps): React.CSSProperties => {
 };
 
 const Multibar: React.StatelessComponent<Props> = ({ leftBar, rightBar, centerBar, borderColor }) => {
-    const style: React.CSSProperties = {
+    const backgroundStyle: React.CSSProperties = {
         borderColor
     };
 
@@ -45,7 +45,7 @@ const Multibar: React.StatelessComponent<Props> = ({ leftBar, rightBar, centerBa
                     <div className={bem.element('bar', 'right')} style={getBarStyle(rightBar)} />
                 )}
             </div>
-            <div className={bem.element('background')} style={style} />
+            <div className={bem.element('background')} style={backgroundStyle} />
         </div>
     );
 };

@@ -5,7 +5,7 @@ import Varighet from '../varighet/Varighet';
 import HighlightContent from 'common/components/highlightContent/HighlightContent';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
 import Block from 'common/components/block/Block';
-import { EtikettLiten, Undertittel } from 'nav-frontend-typografi';
+import { Undertittel, Normaltekst } from 'nav-frontend-typografi';
 import Multibar from '../multibar/Multibar';
 import { UttaksplanHexFarge } from 'common/utils/colors';
 import { getFordelingStatus } from '../../utils/fordelingStatusUtils';
@@ -74,7 +74,7 @@ const Tittel: React.StatelessComponent<TittelProps> = ({
             )}>
             {ikon && <div className={bem.child('tittel').element('ikon')}>{ikon}</div>}
             <div className={tittelBem.child('forbruk').block}>
-                <EtikettLiten>{navn}</EtikettLiten>
+                <Normaltekst className="c-label">{navn}</Normaltekst>
                 <div
                     className={tittelBem.classNames(
                         tittelBem.child('forbruk').element('dager'),
@@ -212,9 +212,9 @@ const FordelingStatusHeader: React.StatelessComponent<Props> = (props) => {
                 <StatusIkon status={fordelingStatus.status} size={32} />
             </div>
             <div className={bemHeader.element('statusBlokk')}>
-                <EtikettLiten className={bemHeader.element('tittel')} tag="strong">
+                <Normaltekst className={bemHeader.classNames(bemHeader.element('tittel'), 'c-label')} tag="strong">
                     Deres plan
-                </EtikettLiten>
+                </Normaltekst>
                 <Undertittel className={bemHeader.element('statusTekst')} tag="h1">
                     <FormattedMessage id={fordelingStatus.tittel.key} values={fordelingStatus.tittel.values} />
                 </Undertittel>

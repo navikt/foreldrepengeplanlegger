@@ -18,17 +18,17 @@ const VelgAntallBarn: React.StatelessComponent<Props> = ({ antallBarn, onChange,
         options={[
             {
                 id: 'js-ettBarn',
-                label: getMessage(intl, 'antallBarn.alternativ.ettbarn'),
+                label: getMessage(intl, 'antallBarn.alternativ.barn-1'),
                 value: '1'
             },
             {
                 id: 'js-tvillinger',
-                label: getMessage(intl, 'antallBarn.alternativ.tobarn'),
+                label: getMessage(intl, 'antallBarn.alternativ.barn-2'),
                 value: '2'
             },
             {
                 id: 'js-flereBarn',
-                label: getMessage(intl, 'antallBarn.alternativ.trebarn'),
+                label: getMessage(intl, 'antallBarn.alternativ.barn-3'),
                 value: '3'
             }
         ]}

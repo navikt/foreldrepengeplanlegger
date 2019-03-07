@@ -86,16 +86,14 @@ class UttaksplanSide extends React.Component<Props> {
         }
         return (
             <>
-                <Block visible={false}>
-                    <Situasjonsoppsummering
-                        familiehendelsesdato={familiehendelsesdato}
-                        antallBarn={skjemadata.antallBarn}
-                        navnMor={skjemadata.navnMor}
-                        navnFarMedmor={skjemadata.navnFarMedmor}
-                        situasjon={skjemadata.situasjon}
-                        onRequestChange={() => null}
-                    />
-                </Block>
+                <Situasjonsoppsummering
+                    familiehendelsesdato={familiehendelsesdato}
+                    antallBarn={skjemadata.antallBarn}
+                    navnMor={skjemadata.navnMor}
+                    navnFarMedmor={skjemadata.navnFarMedmor}
+                    situasjon={skjemadata.situasjon}
+                    onRequestChange={() => null}
+                />
                 <Block align="center">
                     <Link className="lenke" to="/foreldrepengeplanlegger">
                         Tilbake til skjema

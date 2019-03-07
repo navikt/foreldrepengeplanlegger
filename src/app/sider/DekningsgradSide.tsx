@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RouteComponentProps, withRouter, Redirect, Link } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
 import { DispatchProps } from '../redux/types';
 import { TilgjengeligeDager, SituasjonSkjemadata, OmForeldre, Uttaksdatoer } from '../types';
 import {
@@ -59,6 +59,7 @@ class UttaksplanSide extends React.Component<Props> {
             dager80,
             skjemadata,
             omForeldre,
+            history,
             dispatch
         } = this.props;
 
@@ -67,20 +68,15 @@ class UttaksplanSide extends React.Component<Props> {
         }
         return (
             <>
-                <Block visible={true}>
+                <Block>
                     <Situasjonsoppsummering
                         familiehendelsesdato={familiehendelsesdato}
                         antallBarn={skjemadata.antallBarn}
                         navnMor={skjemadata.navnMor}
                         navnFarMedmor={skjemadata.navnFarMedmor}
                         situasjon={skjemadata.situasjon}
-                        onRequestChange={() => null}
+                        onRequestChange={() => dispatch(navigerTilSide(Side.START, history))}
                     />
-                </Block>
-                <Block align="center">
-                    <Link className="lenke" to="/foreldrepengeplanlegger">
-                        Tilbake til skjema
-                    </Link>
                 </Block>
 
                 <LoadContainer loading={henterStønadskontoer} overlay={false}>
@@ -88,15 +84,8 @@ class UttaksplanSide extends React.Component<Props> {
                         tittel={`Hvor lang periode med foreldrepenger ønsker ${
                             omForeldre.antallForeldre === 2 ? 'dere' : 'du'
                         }?`}
-                        info={{
-                            title: 'Whoa',
-                            content: (
-                                <div>
-                                    Valget av antall uker gjelder dere begge. Den totale utbetalingen blir høyere ved å
-                                    velge 100 prosent.
-                                </div>
-                            )
-                        }}>
+                        beskrivelse="Valget vil gjelde for dere begge. Den totale utbetalingensummen blir høyere ved å velge 100
+                        prosent.">
                         <DekningsgradValg
                             dekningsgrad={dekningsgrad}
                             onChange={(dg) => dispatch(setDekningsgrad(dg as Dekningsgrad))}

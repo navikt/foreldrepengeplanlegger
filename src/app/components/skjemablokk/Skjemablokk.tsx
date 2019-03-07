@@ -11,6 +11,7 @@ import './skjemablokk.less';
 
 interface Props {
     tittel: string;
+    beskrivelse?: React.ReactNode;
     feil?: Feil;
     children: React.ReactNode;
     margin?: BlockPadding;
@@ -34,7 +35,7 @@ class Skjemablokk extends React.Component<Props, State> {
         };
     }
     render() {
-        const { tittel, feil, info, children, visible, animated = false, margin = 'l' } = this.props;
+        const { tittel, feil, info, children, visible, beskrivelse, animated = false, margin = 'l' } = this.props;
         const infoId = guid();
         return (
             <div className="skjemablokkWrapper">
@@ -56,6 +57,7 @@ class Skjemablokk extends React.Component<Props, State> {
                                     </span>
                                 )}
                             </legend>
+                            {beskrivelse && <div className="skjemablokk__beskrivelse">{beskrivelse}</div>}
                             {info && (
                                 <div className="skjemablokk__info">
                                     <Block visible={this.state.åpen} style="info" margin="s">

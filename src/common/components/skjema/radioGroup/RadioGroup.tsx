@@ -26,12 +26,11 @@ type Props = OwnProps;
 class RadioGroup extends React.Component<Props> {
     render() {
         const { columns = 3, legend, checked, name, options, sameHeight, onChange } = this.props;
-
         const wrapperCls = classNames('radioPanelWrapper', `radioPanelWrapper--columns-${columns}`, {
             'radioPanelWrapper--sameHeight': sameHeight
         });
         const content = (
-            <div className="radioPanelGruppe--responsive">
+            <div className={`radioPanelGruppe--responsive radioPanelGruppe--columns-${columns}`}>
                 {options.map((option) => {
                     return (
                         <div className={wrapperCls} key={option.value}>

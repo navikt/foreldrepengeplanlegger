@@ -6,9 +6,11 @@ import AntallBarnSirkel from './antallBarnSirkel/AntallBarnSirkel';
 
 import SituasjonSirkel from './situasjonSirkel/SituasjonSirkel';
 import SpebarnSirkel from './spebarnSirkel/SpebarnSirkel';
-import { formaterDato } from 'common/utils/datoUtils';
+import { formaterDatoUtenDag } from 'common/utils/datoUtils';
 
 import './situasjonOppsummering.less';
+import getMessage from 'common/utils/i18nUtils';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 interface Props {
     situasjon: Situasjon;
@@ -21,7 +23,7 @@ interface Props {
 
 const bem = BEMHelper('situasjonOppsummering');
 
-const Situasjonsoppsummering: React.StatelessComponent<Props> = (props) => (
+const Situasjonsoppsummering: React.StatelessComponent<Props & InjectedIntlProps> = (props) => (
     <OppsummeringBlokk onRequestChange={props.onRequestChange} tittel="Dere og barnet">
         <div className={bem.block}>
             <div className={bem.element('oppsummering')}>
@@ -33,14 +35,19 @@ const Situasjonsoppsummering: React.StatelessComponent<Props> = (props) => (
             </div>
             <div className={bem.element('oppsummering')}>
                 <AntallBarnSirkel antallBarn={props.antallBarn} />
-                <div className={bem.element('verdi')}>{props.antallBarn} barn</div>
+                <div className={bem.element('verdi')}>
+                    {getMessage(props.intl, `antallBarn.alternativ.barn-${props.antallBarn}`)}
+                </div>
             </div>
             <div className={bem.element('oppsummering')}>
                 <SpebarnSirkel />
-                <div className={bem.element('verdi')}>{formaterDato(props.familiehendelsesdato)}</div>
+                <div className={bem.element('verdi')}>
+                    <div>Termin</div>
+                    {formaterDatoUtenDag(props.familiehendelsesdato)}
+                </div>
             </div>
         </div>
     </OppsummeringBlokk>
 );
 
-export default Situasjonsoppsummering;
+export default injectIntl(Situasjonsoppsummering);

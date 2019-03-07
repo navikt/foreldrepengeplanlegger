@@ -42,35 +42,11 @@
             color: @c-color-red;
         }
 
-        &__ikon {
-            padding-right: .5rem;
-            flex-grow: 0;
+        &__dager {
+            font-weight: bold;
+            font-size: 1.25rem;
         }
 
-        &__forbruk {
-            &__dager {
-                font-weight: bold;
-                font-size: 1.25rem;
-            }
-        }
-
-        &--invertert {
-            text-align: right;
-            justify-content: flex-end;
-
-            .fordelingGraf__tittel {
-                &__ikon {
-                    order: 2;
-                    padding-right: 0;
-                    padding-left: .5rem;
-                }
-
-                &__forbruk {
-                    order: 1;
-                    text-align: right;
-                }
-            }
-        }
     }
 
 }

@@ -1,0 +1,27 @@
+.personkort {
+    display: flex;
+    flex-basis: 50%;
+
+    &__ikon {
+        padding-right: .5rem;
+        flex-grow: 0;
+    }
+
+    &--invertert {
+        text-align: right;
+        justify-content: flex-end;
+
+        .personkort {
+            &__ikon {
+                order: 2;
+                padding-right: 0;
+                padding-left: .5rem;
+            }
+
+            &__innhold {
+                order: 1;
+                text-align: right;
+            }
+        }
+    }
+}

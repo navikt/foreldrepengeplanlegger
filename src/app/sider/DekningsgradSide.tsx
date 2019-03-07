@@ -25,6 +25,7 @@ import { getUttaksdatoer } from '../utils/uttaksdatoer';
 import { Side } from '../routes';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import DekningsgradInfo from '../components/content/DekningsgradInfo';
 
 interface StateProps {
     dekningsgrad?: Dekningsgrad;
@@ -68,18 +69,17 @@ class UttaksplanSide extends React.Component<Props> {
         }
         return (
             <>
-                <Block>
-                    <Situasjonsoppsummering
-                        familiehendelsesdato={familiehendelsesdato}
-                        antallBarn={skjemadata.antallBarn}
-                        navnMor={skjemadata.navnMor}
-                        navnFarMedmor={skjemadata.navnFarMedmor}
-                        situasjon={skjemadata.situasjon}
-                        onRequestChange={() => dispatch(navigerTilSide(Side.START, history))}
-                    />
-                </Block>
-
                 <LoadContainer loading={henterStønadskontoer} overlay={false}>
+                    <Block>
+                        <Situasjonsoppsummering
+                            familiehendelsesdato={familiehendelsesdato}
+                            antallBarn={skjemadata.antallBarn}
+                            navnMor={skjemadata.navnMor}
+                            navnFarMedmor={skjemadata.navnFarMedmor}
+                            situasjon={skjemadata.situasjon}
+                            onRequestChange={() => dispatch(navigerTilSide(Side.START, history))}
+                        />
+                    </Block>
                     <Skjemablokk
                         tittel={`Hvor lang periode med foreldrepenger ønsker ${
                             omForeldre.antallForeldre === 2 ? 'dere' : 'du'
@@ -93,8 +93,12 @@ class UttaksplanSide extends React.Component<Props> {
                             dager80={dager80}
                         />
                     </Skjemablokk>
+
                     {tilgjengeligeDager && dekningsgrad !== undefined && (
                         <>
+                            <Block>
+                                <DekningsgradInfo dekningsgrad={dekningsgrad} />
+                            </Block>
                             {omForeldre.antallForeldre === 1 && (
                                 <>
                                     <Block>

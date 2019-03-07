@@ -13,6 +13,7 @@ import { FormattedMessage, injectIntl, InjectedIntlProps, InjectedIntl } from 'r
 import StatusIkon from 'common/components/ikoner/StatusIkon';
 import { getVarighetString } from 'common/utils/intlUtils';
 import getMessage from 'common/utils/i18nUtils';
+import Personkort from '../personkort/Personkort';
 
 import './fordelingGraf.less';
 
@@ -67,25 +68,17 @@ const Tittel: React.StatelessComponent<TittelProps> = ({
     };
 
     return (
-        <div
-            className={tittelBem.classNames(
-                tittelBem.block,
-                tittelBem.modifierConditional('invertert', invertert === true)
-            )}>
-            {ikon && <div className={bem.child('tittel').element('ikon')}>{ikon}</div>}
-            <div className={tittelBem.child('forbruk').block}>
-                <Normaltekst>{navn}</Normaltekst>
-                <div
-                    className={tittelBem.classNames(
-                        tittelBem.child('forbruk').element('dager'),
-                        tittelBem.modifierConditional('formangedager', dagerForMye > 0)
-                    )}>
-                    <HighlightContent watchValue={dager} invalid={dager < 0}>
-                        {getTittelVarighet()}
-                    </HighlightContent>
-                </div>
+        <Personkort ikon={ikon} tittel={navn} invertert={invertert}>
+            <div
+                className={tittelBem.classNames(
+                    tittelBem.element('dager'),
+                    tittelBem.modifierConditional('formangedager', dagerForMye > 0)
+                )}>
+                <HighlightContent watchValue={dager} invalid={dager < 0}>
+                    {getTittelVarighet()}
+                </HighlightContent>
             </div>
-        </div>
+        </Personkort>
     );
 };
 

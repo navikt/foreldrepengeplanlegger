@@ -1,39 +1,35 @@
 import * as React from 'react';
 import { FlexibleSvg } from '../customSvg/CustomSVG';
-import classNames from 'classnames';
 import BEMHelper from 'common/utils/bem';
 import { ForeldreparForelder, ForeldreparIllustrasjonsvariant } from 'common/components/foreldrepar/foreldreparTypes';
 
 import './foreldrepar.less';
 
 interface Props {
-    firstParent: ForeldreparForelder;
-    secondParent?: ForeldreparForelder;
+    forelder1: ForeldreparForelder;
+    forelder2?: ForeldreparForelder;
     variant?: ForeldreparIllustrasjonsvariant;
+    kompakt?: boolean;
 }
 
-const cls = BEMHelper('foreldrepar');
+const bem = BEMHelper('foreldrepar');
 
-const Foreldrepar: React.StatelessComponent<Props> = ({ firstParent, secondParent, variant }) => {
-    const firstSvg = require(`./assets/${firstParent}.svg`).default;
-    const secondSvg = secondParent ? require(`./assets/${secondParent}.svg`).default : undefined;
+const Foreldrepar: React.StatelessComponent<Props> = ({ forelder1, forelder2, variant, kompakt }) => {
+    const firstSvg = require(`./assets/${forelder1}.svg`).default;
+    const secondSvg = forelder2 ? require(`./assets/${forelder2}.svg`).default : undefined;
 
     return (
-        <div
-            role="presentation"
-            className={classNames(cls.block, {
-                [cls.element('closerParents')]: variant && variant === 'foreldreNærmere'
-            })}>
+        <div role="presentation" className={bem.classNames(bem.block, bem.modifierConditional('kompakt', kompakt))}>
             <Forelder
-                className={cls.element('firstParent')}
+                className={bem.element('firstParent')}
                 svg={firstSvg}
                 lessOpacity={variant === 'førsteForelderHalvtSynlig'}
             />
             {secondSvg && (
                 <>
-                    {variant && variant === 'foreldreSeparert' && <span className={cls.element('parentSeparator')} />}
+                    {variant && variant === 'foreldreSeparert' && <span className={bem.element('parentSeparator')} />}
                     <Forelder
-                        className={cls.element('secondParent')}
+                        className={bem.element('secondParent')}
                         svg={secondSvg}
                         lessOpacity={variant === 'andreForelderHalvtSynlig'}
                     />
@@ -46,7 +42,7 @@ const Foreldrepar: React.StatelessComponent<Props> = ({ firstParent, secondParen
 const Forelder = ({ className, svg, lessOpacity }: { className: string; svg: any; lessOpacity?: boolean }) => {
     const svgToRender = (
         <FlexibleSvg
-            className={classNames(className, { [cls.element('halfOpacity')]: lessOpacity })}
+            className={bem.classNames(className, bem.modifierConditional('halfOpacity', lessOpacity))}
             iconRef={svg}
             width={31}
             height={45}

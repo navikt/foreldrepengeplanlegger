@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Situasjon } from '../../types';
+import { Situasjon, Forelder } from '../../types';
 import BEMHelper from 'common/utils/bem';
 import OppsummeringBlokk from '../oppsummeringBlokk/OppsummeringBlokk';
 import AntallBarnSirkel from './antallBarnSirkel/AntallBarnSirkel';
@@ -18,6 +18,7 @@ interface Props {
     familiehendelsesdato: Date;
     navnMor: string;
     navnFarMedmor?: string;
+    valgtForelder?: Forelder;
     onRequestChange: () => void;
 }
 

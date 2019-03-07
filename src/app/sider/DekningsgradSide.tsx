@@ -77,6 +77,7 @@ class UttaksplanSide extends React.Component<Props> {
                             navnMor={skjemadata.navnMor}
                             navnFarMedmor={skjemadata.navnFarMedmor}
                             situasjon={skjemadata.situasjon}
+                            valgtForelder={omForeldre.forelderVedIkkeDeltPlan}
                             onRequestChange={() => dispatch(navigerTilSide(Side.START, history))}
                         />
                     </Block>

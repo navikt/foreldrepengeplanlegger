@@ -4,9 +4,9 @@ import BEMHelper from 'common/utils/bem';
 import { Undertittel } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
 import { TilgjengeligeDager, OmForeldre } from '../../types';
+import TilgjengeligeDagerGraf from '../tilgjengeligeDagerGraf/TilgjengeligeDagerGraf';
 
 import './dekningsgradInfo.less';
-import TilgjengeligeDagerGraf from '../tilgjengeligeDagerGraf/TilgjengeligeDagerGraf';
 
 interface Props {
     dekningsgrad: Dekningsgrad;
@@ -27,6 +27,12 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({ omForeldre, tilgjen
             </p>
 
             <TilgjengeligeDagerGraf omForeldre={omForeldre} tilgjengeligeDager={tilgjengeligeDager} />
+            {tilgjengeligeDager.dagerForeldrepengerFørFødsel > 0 && (
+                <Block marginTop="xs">
+                    <sup>*</sup> {omForeldre.mor.navn} får tre uker med foreldrepenger før termin i tilegg til sin egen
+                    kvote.
+                </Block>
+            )}
         </section>
     );
 };

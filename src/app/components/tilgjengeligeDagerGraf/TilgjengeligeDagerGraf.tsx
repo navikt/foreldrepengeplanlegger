@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TilgjengeligeDager, OmForeldre } from '../../types';
+import { TilgjengeligeDager, OmForeldre, Forelder } from '../../types';
 import BEMHelper from 'common/utils/bem';
 import { getProsentFordeling } from '../../utils/tilgjengeligeDagerUtils';
 import Multibar from '../multibar/Multibar';
@@ -16,9 +16,9 @@ interface OwnProps {
 
 type Props = OwnProps & InjectedIntlProps;
 
-const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl }) => {
-    const bem = BEMHelper('tilgjengeligeDagerGraf');
+const bem = BEMHelper('tilgjengeligeDagerGraf');
 
+const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl }) => {
     const fordeling = getProsentFordeling(tilgjengeligeDager, true);
     const txtMor = `${tilgjengeligeDager.dagerMor / 5} + ${tilgjengeligeDager.dagerForeldrepengerFørFødsel / 5} uker`;
     return (
@@ -49,7 +49,6 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, i
                 />
             </div>
             <div className={bem.element('forelder2')} style={{ width: `${fordeling.pstFarMedmor}%` }}>
-                {' '}
                 <Multibar
                     borderColor={UttaksplanHexFarge.graa}
                     leftBar={{
@@ -67,8 +66,30 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, i
     );
 };
 
+const AleneomsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, omForeldre, intl }) => {
+    const txt =
+        tilgjengeligeDager.dagerForeldrepengerFørFødsel > 0
+            ? `${tilgjengeligeDager.dagerForeldrepenger / 5} + ${tilgjengeligeDager.dagerForeldrepengerFørFødsel /
+                  5} uker`
+            : getVarighetString(tilgjengeligeDager.dagerEtterTermin, intl);
+    return (
+        <div className={bem.block}>
+            <Multibar
+                borderColor={UttaksplanHexFarge.graa}
+                leftBar={{
+                    color:
+                        omForeldre.forelderVedIkkeDeltPlan === Forelder.farMedmor
+                            ? UttaksplanHexFarge.blaa
+                            : UttaksplanHexFarge.lilla,
+                    width: 100,
+                    text: <div className={bem.element('barTekst')}>{txt}</div>
+                }}
+            />
+        </div>
+    );
+};
 const TilgjengeligeDagerGraf: React.StatelessComponent<Props> = (props) => {
-    return props.omForeldre.antallForeldre === 2 ? <DeltOmsorgGraf {...props} /> : <div>aleneomsorg</div>;
+    return props.omForeldre.antallForeldre === 2 ? <DeltOmsorgGraf {...props} /> : <AleneomsorgGraf {...props} />;
 };
 
 export default injectIntl(TilgjengeligeDagerGraf);

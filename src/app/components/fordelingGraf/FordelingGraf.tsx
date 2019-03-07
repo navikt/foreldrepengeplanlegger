@@ -74,7 +74,7 @@ const Tittel: React.StatelessComponent<TittelProps> = ({
             )}>
             {ikon && <div className={bem.child('tittel').element('ikon')}>{ikon}</div>}
             <div className={tittelBem.child('forbruk').block}>
-                <Normaltekst className="c-label">{navn}</Normaltekst>
+                <Normaltekst>{navn}</Normaltekst>
                 <div
                     className={tittelBem.classNames(
                         tittelBem.child('forbruk').element('dager'),
@@ -212,7 +212,7 @@ const FordelingStatusHeader: React.StatelessComponent<Props> = (props) => {
                 <StatusIkon status={fordelingStatus.status} size={32} />
             </div>
             <div className={bemHeader.element('statusBlokk')}>
-                <Normaltekst className={bemHeader.classNames(bemHeader.element('tittel'), 'c-label')} tag="strong">
+                <Normaltekst className={bemHeader.element('tittel')} tag="strong">
                     Deres plan
                 </Normaltekst>
                 <Undertittel className={bemHeader.element('statusTekst')} tag="h1">

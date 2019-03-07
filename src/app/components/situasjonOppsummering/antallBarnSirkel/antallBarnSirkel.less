@@ -1,0 +1,51 @@
+.antallBarnSirkel {
+    &__svgs {
+        position: relative;
+        display: flex;
+
+        &--antall-1 {
+            svg {
+                width: 48px;
+                height: 48px;
+                margin-top: .125rem;
+                margin-left: -.125rem;
+            }
+        }
+
+        &--antall-2 {
+            svg {
+                width: 40px;
+                height: 40px;
+                margin-top: .125rem;
+
+                &:nth-child(1) {
+                    margin-right: -.35rem;
+                }
+
+                &:nth-child(2) {
+                    margin-left: -.25rem;
+                }
+            }
+        }
+
+        &--antall-3 {
+            svg {
+                width: 28px;
+                height: 28px;
+
+                &:nth-child(1) {
+                    margin-right: -.25rem;
+                }
+
+                &:nth-child(2) {
+                    margin-right: -.25rem;
+                    margin-left: -.25rem;
+                }
+
+                &:nth-child(3) {
+                    margin-left: -.25rem;
+                }
+            }
+        }
+    }
+}

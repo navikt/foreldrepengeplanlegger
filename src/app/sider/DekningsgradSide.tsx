@@ -67,13 +67,14 @@ class UttaksplanSide extends React.Component<Props> {
         }
         return (
             <>
-                <Block visible={false}>
+                <Block visible={true}>
                     <Situasjonsoppsummering
                         familiehendelsesdato={familiehendelsesdato}
                         antallBarn={skjemadata.antallBarn}
                         navnMor={skjemadata.navnMor}
                         navnFarMedmor={skjemadata.navnFarMedmor}
                         situasjon={skjemadata.situasjon}
+                        onRequestChange={() => null}
                     />
                 </Block>
                 <Block align="center">

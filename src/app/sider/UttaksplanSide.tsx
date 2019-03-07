@@ -93,6 +93,7 @@ class UttaksplanSide extends React.Component<Props> {
                         navnMor={skjemadata.navnMor}
                         navnFarMedmor={skjemadata.navnFarMedmor}
                         situasjon={skjemadata.situasjon}
+                        onRequestChange={() => null}
                     />
                 </Block>
                 <Block align="center">

@@ -1,82 +1,16 @@
 .situasjonOppsummering {
-    position: relative;
-    padding: 2rem;
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
     width: 100%;
-    margin-bottom: 2rem;
-    font-size: 1.2rem;
     justify-items: stretch;
-    &:after  {
-        @width: 10rem;
-        content: '';
-        display: block;
-        position: absolute;
-        background-color: #ccc;
-        height: 2px;
-        width: @width;
-        left: 50%;
-        top: 100%;
-        transform: translateX(-1 * (@width / 2));
-    }
-    &__situasjon {
-        padding-right: 2rem;
-        flex: 1 1 0;
-        &__ikon {
-            zoom: 1.5;
-            margin-bottom: 0.5rem;
-        }
-        text-align: center;
-    }
-    &__foreldre {
-        text-align: center;
-    }
-    &__barn {
-        flex: 1 1 0;
-        text-align: center;
-        padding-right: 2rem;
-        &__ikon {
-            zoom: 1.5;
-            margin-bottom: 0.5rem;
-        }
-    }
-    &__familiehendelsesdato {
-        flex: 1 1 0;
-        text-align: center;
-        width: 5rem;
-        .kalenderdag {
-            margin: 0 auto 0.5rem auto;
-        }
-    }
-    &__tools {
-        display: flex;
-        align-items: center;
-        flex: 1 1 0;
-        text-align: right;
-    }
-}
-
-.kalenderdag  {
-    width: 5rem;
-    background-color: white;
-    padding: 0.75rem 0.25rem 0.5rem 0.25rem;
     text-align: center;
-    border-radius: 0.25rem;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
-    position: relative;
-    &__hjerte {
-        position: absolute;
-        top: 0.25rem;
-        right: 0.25rem;
-        zoom: 0.75;
+
+    &__oppsummering {
+        max-width: 25%;
+        margin: 1rem;
     }
-    &__dag {
-        display: block;
-        font-size: 1.5rem;
-        padding: 0;
-    }
-    &__mnd {
-        font-size: 14px;
-        text-transform: uppercase;
+
+    &__verdi {
+        margin-top: .5rem;
     }
 }

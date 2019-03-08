@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Uttaksplan from '../components/uttaksplan/Uttaksplan';
-import { RouteComponentProps, withRouter, Redirect, Link } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
 import { DispatchProps } from '../redux/types';
 import { Periode, TilgjengeligeDager, SituasjonSkjemadata, Forbruk, OmForeldre, Uttaksdatoer } from '../types';
 import {
@@ -10,10 +10,8 @@ import {
     movePeriode,
     setPerioder,
     resetApp,
-    setØnsketFordeling,
     slåSammenPerioder,
     nyPeriodeChange,
-    skipØnsketFordeling,
     navigerTilSide
 } from '../redux/actions/common/commonActionCreators';
 import { AppState } from '../redux/reducers/rootReducer';
@@ -23,7 +21,6 @@ import { Dekningsgrad } from 'common/types';
 import { getStønadskontoer } from '../redux/actions/api/apiActionCreators';
 import LoadContainer from 'common/components/loadContainer/LoadContainer';
 import { ØnsketFordelingForeldrepenger } from '../redux/reducers/commonReducer';
-import FordelingForeldrepenger from '../components/uttaksplan/FordelingForeldrepenger';
 import { getUttaksdatoer } from '../utils/uttaksdatoer';
 import { UttaksplanRegelTestresultat } from '../utils/regler/types';
 import Oppsummering from '../components/oppsummering/Oppsummering';
@@ -69,7 +66,6 @@ class UttaksplanSide extends React.Component<Props> {
             skjemadata,
             forbruk,
             omForeldre,
-            ønsketFordeling,
             uttaksdatoer,
             regelTestresultat,
             nyPeriode,
@@ -109,44 +105,28 @@ class UttaksplanSide extends React.Component<Props> {
                             />
                         </Block>
 
-                        <Block align="center">
-                            <Link className="lenke" to="/foreldrepengeplanlegger">
-                                Tilbake til skjema
-                            </Link>
-                        </Block>
-
-                        {ønsketFordeling.harValgtFordeling === false && omForeldre.antallForeldre === 2 ? (
-                            <FordelingForeldrepenger
-                                navnMor={omForeldre.mor.navn}
-                                navnFarMedmor={omForeldre.farMedmor!.navn}
-                                tilgjengeligeDager={tilgjengeligeDager}
-                                onChange={(uker) => dispatch(setØnsketFordeling(uker))}
-                                onSkipPlan={() => dispatch(skipØnsketFordeling())}
-                            />
-                        ) : (
-                            <Uttaksplan
-                                nyPeriodeId={nyPeriodeId}
-                                familiehendelsesdato={familiehendelsesdato}
-                                omForeldre={omForeldre}
-                                periodeFørTermin={periodeFørTermin}
-                                perioder={perioder}
-                                forbruk={forbruk!}
-                                nyPeriode={nyPeriode}
-                                tilgjengeligeDager={tilgjengeligeDager}
-                                onAdd={(periode) => dispatch(addPeriode(periode))}
-                                onUpdate={(periode) => periode.type === dispatch(updatePeriode(periode))}
-                                onRemove={(periode) => dispatch(removePeriode(periode))}
-                                onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
-                                onResetPlan={(resetØnsketFordeling: boolean) =>
-                                    dispatch(setPerioder([], resetØnsketFordeling))
-                                }
-                                onResetApp={() => dispatch(resetApp())}
-                                onNyPeriodeChange={(periode) => dispatch(nyPeriodeChange(periode))}
-                                onSlåSammenPerioder={(p1, p2) => dispatch(slåSammenPerioder(p1, p2))}
-                                uttaksdatoer={uttaksdatoer}
-                                regelTestresultat={regelTestresultat}
-                            />
-                        )}
+                        <Uttaksplan
+                            nyPeriodeId={nyPeriodeId}
+                            familiehendelsesdato={familiehendelsesdato}
+                            omForeldre={omForeldre}
+                            periodeFørTermin={periodeFørTermin}
+                            perioder={perioder}
+                            forbruk={forbruk!}
+                            nyPeriode={nyPeriode}
+                            tilgjengeligeDager={tilgjengeligeDager}
+                            onAdd={(periode) => dispatch(addPeriode(periode))}
+                            onUpdate={(periode) => periode.type === dispatch(updatePeriode(periode))}
+                            onRemove={(periode) => dispatch(removePeriode(periode))}
+                            onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
+                            onResetPlan={(resetØnsketFordeling: boolean) =>
+                                dispatch(setPerioder([], resetØnsketFordeling))
+                            }
+                            onResetApp={() => dispatch(resetApp())}
+                            onNyPeriodeChange={(periode) => dispatch(nyPeriodeChange(periode))}
+                            onSlåSammenPerioder={(p1, p2) => dispatch(slåSammenPerioder(p1, p2))}
+                            uttaksdatoer={uttaksdatoer}
+                            regelTestresultat={regelTestresultat}
+                        />
                     </>
                 )}
             </LoadContainer>

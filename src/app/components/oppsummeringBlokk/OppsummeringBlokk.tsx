@@ -13,7 +13,7 @@ interface Props {
 const bem = BEMHelper('oppsummeringBlokk');
 
 const OppsummeringBlokk: React.StatelessComponent<Props> = ({ tittel, onRequestChange, children }) => (
-    <section className={bem.block}>
+    <section className={bem.classNames(bem.block, 'negativHorisontalMargin')}>
         <header>
             <Systemtittel className={bem.element('tittel')}>{tittel}</Systemtittel>
             <LinkButton onClick={onRequestChange}>Endre</LinkButton>

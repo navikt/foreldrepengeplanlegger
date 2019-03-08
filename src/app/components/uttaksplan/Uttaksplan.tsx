@@ -115,7 +115,7 @@ class Uttaksplan extends React.Component<Props, State> {
         const visFordelingGraf = perioder.length > 0 || periodeFørTermin !== undefined;
 
         return (
-            <section className={bem.classNames(bem.block, visSkjema ? bem.modifier('visSkjema') : undefined)}>
+            <section className={bem.classNames(bem.block, bem.modifierConditional('visSkjema', visSkjema))}>
                 <div className="periodelisteWrapper">
                     <Block margin="none">
                         <Block margin="s">

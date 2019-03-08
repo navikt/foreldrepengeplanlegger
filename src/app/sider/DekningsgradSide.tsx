@@ -17,7 +17,6 @@ import { getStønadskontoer } from '../redux/actions/api/apiActionCreators';
 import TilgjengeligeDagerOversikt from '../components/tilgjengeligeDagerOversikt/TilgjengeligeDagerOversikt';
 import LoadContainer from 'common/components/loadContainer/LoadContainer';
 import DekningsgradValg from '../components/dekningsgradValg/DekningsgradValg';
-import Situasjonsoppsummering from '../components/situasjonOppsummering/SituasjonOppsummering';
 import Skjemablokk from '../components/skjemablokk/Skjemablokk';
 import { ØnsketFordelingForeldrepenger } from '../redux/reducers/commonReducer';
 import FordelingForeldrepenger from '../components/uttaksplan/FordelingForeldrepenger';
@@ -26,6 +25,7 @@ import { Side } from '../routes';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import DekningsgradInfo from '../components/content/DekningsgradInfo';
+import Oppsummering from '../components/oppsummering/Oppsummering';
 
 interface StateProps {
     dekningsgrad?: Dekningsgrad;
@@ -71,14 +71,15 @@ class UttaksplanSide extends React.Component<Props> {
             <>
                 <LoadContainer loading={henterStønadskontoer} overlay={false}>
                     <Block>
-                        <Situasjonsoppsummering
-                            familiehendelsesdato={familiehendelsesdato}
-                            antallBarn={skjemadata.antallBarn}
-                            navnMor={skjemadata.navnMor}
-                            navnFarMedmor={skjemadata.navnFarMedmor}
-                            situasjon={skjemadata.situasjon}
-                            valgtForelder={omForeldre.forelderVedIkkeDeltPlan}
-                            onRequestChange={() => dispatch(navigerTilSide(Side.START, history))}
+                        <Oppsummering
+                            situasjonProps={{
+                                familiehendelsesdato,
+                                antallBarn: skjemadata.antallBarn,
+                                navnMor: skjemadata.navnMor,
+                                navnFarMedmor: skjemadata.navnFarMedmor,
+                                situasjon: skjemadata.situasjon,
+                                onRequestChange: () => dispatch(navigerTilSide(Side.START, history))
+                            }}
                         />
                     </Block>
                     <Skjemablokk

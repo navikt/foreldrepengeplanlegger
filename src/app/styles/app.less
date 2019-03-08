@@ -4,6 +4,7 @@
 @import './variables.less';
 @import './nav-frontend-override.less';
 @import '../dev/dev.less';
+@import '../../common/styles/mixins.less';
 
 #app {
     background-color: #efefef;
@@ -52,4 +53,8 @@ p {
 
 .comment {
     color: #7f756c;
+}
+
+.grayBlock {
+    .grayBlock();
 }

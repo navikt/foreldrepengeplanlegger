@@ -1,6 +1,6 @@
 import * as React from 'react';
 import BEMHelper from 'common/utils/bem';
-import Sirkelmaske from '../../oppsummeringBlokk/Sirkelmaske';
+import Sirkelmaske from '../../sirkelmaske/Sirkelmaske';
 import SpebarnIkon from 'common/components/ikoner/SpebarnIkon';
 
 import './spebarnSirkel.less';

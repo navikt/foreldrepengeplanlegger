@@ -7,12 +7,10 @@ import AntallBarnSirkel from './antallBarnSirkel/AntallBarnSirkel';
 import SituasjonSirkel from './situasjonSirkel/SituasjonSirkel';
 import SpebarnSirkel from './spebarnSirkel/SpebarnSirkel';
 import { formaterDatoUtenDag } from 'common/utils/datoUtils';
-
-import './situasjonOppsummering.less';
 import getMessage from 'common/utils/i18nUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 
-interface Props {
+export interface SituasjonsoppsummeringProps {
     situasjon: Situasjon;
     antallBarn: number;
     familiehendelsesdato: Date;
@@ -22,25 +20,25 @@ interface Props {
     onRequestChange: () => void;
 }
 
-const bem = BEMHelper('situasjonOppsummering');
+const bem = BEMHelper('oppsummering');
 
-const Situasjonsoppsummering: React.StatelessComponent<Props & InjectedIntlProps> = (props) => (
+const Situasjonsoppsummering: React.StatelessComponent<SituasjonsoppsummeringProps & InjectedIntlProps> = (props) => (
     <OppsummeringBlokk onRequestChange={props.onRequestChange} tittel="Dere og barnet">
         <div className={bem.block}>
-            <div className={bem.element('oppsummering')}>
+            <div className={bem.element('deloppsummering')}>
                 <SituasjonSirkel {...props} />
                 <div className={bem.element('verdi')}>
                     <span className={bem.element('navn')}>{props.navnMor}</span>
                     {props.navnFarMedmor && <span className={bem.element('navn')}> og {props.navnFarMedmor}</span>}
                 </div>
             </div>
-            <div className={bem.element('oppsummering')}>
+            <div className={bem.element('deloppsummering')}>
                 <AntallBarnSirkel antallBarn={props.antallBarn} />
                 <div className={bem.element('verdi')}>
                     {getMessage(props.intl, `antallBarn.alternativ.barn-${props.antallBarn}`)}
                 </div>
             </div>
-            <div className={bem.element('oppsummering')}>
+            <div className={bem.element('deloppsummering')}>
                 <SpebarnSirkel />
                 <div className={bem.element('verdi')}>
                     <div>Termin</div>

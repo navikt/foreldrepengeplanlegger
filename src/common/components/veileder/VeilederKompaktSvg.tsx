@@ -2,6 +2,7 @@ import * as React from 'react';
 
 export interface Props {
     svgProps: any;
+    hideBackground?: boolean;
 }
 
 // tslint:disable max-line-length
@@ -19,7 +20,7 @@ const VeilederKompakt: React.StatelessComponent<Props> = ({ svgProps }) => (
             />
         </defs>
         <g id="Icons/employee/medium-animation" fill="none" fillRule="evenodd">
-            <circle id="Background" fill="#C1B5D0" cx={48} cy={48} r={48} />
+            <circle id="Background-veileder" fill="#C1B5D0" cx={48} cy={48} r={48} />
             <g id="Head" transform="translate(10 5)">
                 <use id="Hair" fill="#D2654C" xlinkHref="#veileder-a" />
                 <path

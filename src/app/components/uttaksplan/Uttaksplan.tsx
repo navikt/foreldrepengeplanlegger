@@ -15,7 +15,6 @@ import { isPeriodeFixed } from '../../utils/typeUtils';
 import { Uttaksdagen } from '../../utils/Uttaksdagen';
 import BekreftDialog from 'common/components/dialog/BekreftDialog';
 import InfoDialog from 'common/components/dialog/InfoDialog';
-import Regelbrudd from '../regelbrudd/Regelbrudd';
 import { getForbruk } from '../../utils/forbrukUtils';
 import BEMHelper from 'common/utils/bem';
 
@@ -99,7 +98,6 @@ class Uttaksplan extends React.Component<Props, State> {
             forbruk,
             omForeldre,
             uttaksdatoer,
-            regelTestresultat,
             nyPeriode,
             periodeFørTermin,
             tilgjengeligeDager,
@@ -110,7 +108,6 @@ class Uttaksplan extends React.Component<Props, State> {
             perioder.length > 0
                 ? Uttaksdagen(perioder[perioder.length - 1].tidsperiode.tom).neste()
                 : uttaksdatoer.førsteUttaksdag;
-        const { regelbrudd } = regelTestresultat;
 
         const visFordelingGraf = perioder.length > 0 || periodeFørTermin !== undefined;
 
@@ -180,9 +177,6 @@ class Uttaksplan extends React.Component<Props, State> {
                                 tilgjengeligeDager={tilgjengeligeDager}
                             />
                         )}
-                    </Block>
-                    <Block visible={regelbrudd.length > 0} marginTop="l">
-                        <Regelbrudd regelbrudd={regelbrudd} />
                     </Block>
                 </div>
 

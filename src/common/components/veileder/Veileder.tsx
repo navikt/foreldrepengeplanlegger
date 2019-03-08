@@ -10,8 +10,8 @@ export type Ansiktstype = 'glad' | 'undrende' | 'skeptisk';
 
 export interface VeilederProps {
     ansikt?: 'glad' | 'undrende' | 'skeptisk';
-    farge?: 'lilla' | 'gronn' | 'bla';
-    stil?: 'normal' | 'kompakt';
+    farge?: 'lilla' | 'gronn' | 'bla' | 'transparent';
+    stil?: 'normal' | 'kompakt' | 'iNavVeilederPanel';
 }
 
 interface OwnProps {
@@ -31,11 +31,11 @@ const Veileder = (props: Props) => {
             'veileder',
             `veileder--tema-${farge}`,
             `veileder--${ansikt}`,
-            `veileder--${stil}`,
+            `veileder--stil-${stil}`,
             props.className
         )
     };
-    return stil === 'normal' ? <VeilederNormal svgProps={svgProps} /> : <VeilederKompakt svgProps={svgProps} />;
+    return stil !== 'kompakt' ? <VeilederNormal svgProps={svgProps} /> : <VeilederKompakt svgProps={svgProps} />;
 };
 
 export default Veileder;

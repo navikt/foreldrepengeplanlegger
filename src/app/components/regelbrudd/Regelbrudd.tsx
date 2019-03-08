@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Regelbrudd, RegelAlvorlighet } from '../../utils/regler/types';
 import BEMHelper from 'common/utils/bem';
-import { Undertittel } from 'nav-frontend-typografi';
 import RegelbruddFeilmelding from './RegelbruddFeilmelding';
+import Veilederpanel from 'nav-frontend-veilederpanel';
+import Veileder from 'common/components/veileder/Veileder';
+import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 interface Props {
     regelbrudd: Regelbrudd[];
@@ -13,33 +15,34 @@ const bem = BEMHelper('regelbrudd');
 const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
     const ulovlig = regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.ULOVLIG);
     const info = regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.INFO);
+    const harFeil = ulovlig.length > 0;
     return (
-        <section className={bem.block}>
-            {ulovlig.length > 0 && (
-                <>
-                    <Undertittel>Ugyldige perioder</Undertittel>
-                    <ul>
-                        {ulovlig.map((brudd, idx) => (
-                            <li key={idx}>
+        <Veilederpanel
+            kompakt={true}
+            fargetema={harFeil ? 'feilmelding' : 'normal'}
+            svg={<Veileder farge="transparent" stil="iNavVeilederPanel" ansikt={harFeil ? 'skeptisk' : 'undrende'} />}
+            type="plakat">
+            <section className={bem.block}>
+                {ulovlig.length > 0 && (
+                    <>
+                        {ulovlig.map((brudd) => (
+                            <AlertStripeAdvarsel key={brudd.key} className={'alertstripe--noBorder'}>
                                 <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
-                            </li>
+                            </AlertStripeAdvarsel>
                         ))}
-                    </ul>
-                </>
-            )}
-            {info.length > 0 && (
-                <>
-                    <Undertittel>Ekstrainformasjon</Undertittel>
-                    <ul>
-                        {info.map((brudd, idx) => (
-                            <li key={idx}>
+                    </>
+                )}
+                {info.length > 0 && (
+                    <>
+                        {info.map((brudd) => (
+                            <AlertStripeInfo key={brudd.key} className={'alertstripe--noBorder'}>
                                 <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
-                            </li>
+                            </AlertStripeInfo>
                         ))}
-                    </ul>
-                </>
-            )}
-        </section>
+                    </>
+                )}
+            </section>
+        </Veilederpanel>
     );
 };
 

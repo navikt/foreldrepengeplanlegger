@@ -66,13 +66,13 @@ export function getFordelingStatus(forbruk: Forbruk, omForeldre: OmForeldre, int
             return feil('forMangeDagerTotalt', { dager: getVarighetString(Math.abs(dagerGjenstående), intl) });
         }
         if (mor.dagerForMye > 0) {
-            return advarsel('dagerForMyePerson', {
+            return feil('dagerForMyePerson', {
                 navn: omForeldre.mor.navn,
                 dager: getVarighetString(mor.dagerForMye, intl)
             });
         }
         if (farMedmor.dagerForMye > 0) {
-            return advarsel('dagerForMyePerson', {
+            return feil('dagerForMyePerson', {
                 navn: omForeldre.farMedmor.navn,
                 dager: getVarighetString(farMedmor.dagerForMye, intl)
             });
@@ -90,7 +90,7 @@ export function getFordelingStatus(forbruk: Forbruk, omForeldre: OmForeldre, int
     if (mor.dagerForMye > 0 || farMedmor.dagerForMye > 0) {
         const erMor = mor.dagerForMye > 0;
         const { dagerForMye } = erMor ? mor : farMedmor;
-        return advarsel('dagerForMyePerson', {
+        return feil('dagerForMyePerson', {
             navn: erMor ? omForeldre.mor.navn : omForeldre.farMedmor.navn,
             dager: getVarighetString(dagerForMye, intl)
         });

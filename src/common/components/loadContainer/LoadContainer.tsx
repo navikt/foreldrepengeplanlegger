@@ -14,30 +14,30 @@ import './loadContainer.less';
 
 const bem = BEMHelper('loadContainer');
 
-const LoadContainer: React.StatelessComponent<Props> = ({ loading, overlay, children }) => {
+const LoadContainer: React.StatelessComponent<Props> = ({ loading, overlay = true, children }) => {
     if (loading !== true) {
         return <>{children}</>;
     }
-    // if (overlay) {
-    return (
-        <div className={classNames(bem.block, { [bem.modifier('overlay')]: overlay })}>
-            {overlay && (
-                <>
-                    <div className={bem.element('content')}>{children}</div>
-                    <Overlay active={true} />
-                </>
-            )}
-            <div className={bem.element('spinner')}>
-                <Spinner type="XXL" />
+    if (overlay) {
+        return (
+            <div className={classNames(bem.block, { [bem.modifier('overlay')]: overlay })}>
+                {overlay && (
+                    <>
+                        <div className={bem.element('content')}>{children}</div>
+                        <Overlay active={true} />
+                    </>
+                )}
+                <div className={bem.element('spinner')}>
+                    <Spinner type="XXL" />
+                </div>
             </div>
+        );
+    }
+    return (
+        <div className={bem.block}>
+            <Spinner className={bem.element('spinner')} type="L" negativ={true} />
         </div>
     );
-    // }
-    // return (
-    //     <div className={bem.block}>
-    //         <Spinner className={bem.element('spinner')} type="L" negativ={true} />
-    //     </div>
-    // );
 };
 
 export default LoadContainer;

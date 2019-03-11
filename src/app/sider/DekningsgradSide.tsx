@@ -69,7 +69,7 @@ class UttaksplanSide extends React.Component<Props> {
         }
         return (
             <>
-                <LoadContainer loading={henterStønadskontoer} overlay={false}>
+                <LoadContainer loading={henterStønadskontoer}>
                     <Block>
                         <Oppsummering
                             situasjonProps={{

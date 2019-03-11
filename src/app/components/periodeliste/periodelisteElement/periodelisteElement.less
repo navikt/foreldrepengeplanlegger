@@ -6,6 +6,10 @@
         justify-content: stretch;
         align-content: stretch;
         flex-wrap: nowrap;
+
+        @media (max-width: @mobile-breakpoint) {
+            flex-wrap: wrap;
+        }
     }
 
     &__menyWrapper {
@@ -26,6 +30,10 @@
         justify-content: flex-start;
         flex-wrap: wrap;
         padding-top: 0.25rem;
+
+        @media (max-width: @mobile-breakpoint) {
+            order: 10;
+        }
     }
 
     &__tool {

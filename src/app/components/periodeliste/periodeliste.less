@@ -54,6 +54,28 @@
             min-width: 6rem;
         }
     }
+
+    @media (max-width: @mobile-breakpoint) {
+        &__periode {
+            min-width: 70%;
+            order: 1;
+            margin-bottom: .5rem;
+        }
+
+        &__foreldre {
+            order: 2;
+            margin-right: 0;
+            margin-bottom: .5rem;
+        }
+
+        &__gradering {
+            order: 3;
+        }
+
+        &__varighet {
+            order: 4;
+        }
+    }
 }
 
 .periodetypeDialog {

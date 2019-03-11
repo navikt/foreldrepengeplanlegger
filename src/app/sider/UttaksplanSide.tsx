@@ -79,7 +79,7 @@ class UttaksplanSide extends React.Component<Props> {
             return <Redirect to="/" />;
         }
         return (
-            <LoadContainer loading={henterStønadskontoer} overlay={false}>
+            <LoadContainer loading={henterStønadskontoer}>
                 {dekningsgrad && tilgjengeligeDager && (
                     <>
                         <Block>

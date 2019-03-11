@@ -105,6 +105,11 @@
 
 .graderingDialog {
     min-width: 22rem;
+
+    @media (max-width: @mobile-breakpoint) {
+        left: 0;
+        right: auto;
+    }
 }
 
 .varighetDialog {
@@ -113,6 +118,17 @@
     margin-top: 0;
     right: 100%;
     margin-right: 0.25rem;
+
+    @media (max-width: @mobile-breakpoint) {
+        left: 0;
+        right: auto;
+        top: calc(100% + .25rem);
+
+        .periodeElement__gradering+.periodeElement__foreldre+.periodeElement__varighet & {
+            left: -5rem;
+        }
+    }
+
 }
 
 .forelderMenyIkon {

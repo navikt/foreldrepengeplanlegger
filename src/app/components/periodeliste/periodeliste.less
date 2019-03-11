@@ -44,7 +44,7 @@
     }
 
     &__varighet {
-        min-width: 9.5rem;
+        min-width: 7.5rem;
     }
 
     &__foreldre {
@@ -57,29 +57,24 @@
 
     @media (max-width: @mobile-breakpoint) {
         &__periode {
-            min-width: 70%;
-            order: 1;
+            min-width: 100%;
             margin-bottom: .5rem;
-        }
-
-        &__foreldre {
-            order: 2;
-            margin-right: 0;
-            margin-bottom: .5rem;
-        }
-
-        &__gradering {
-            order: 3;
         }
 
         &__varighet {
-            order: 4;
+            flex: 3 1 0;
         }
+
     }
 }
 
 .periodetypeDialog {
     min-width: 20rem;
+
+    @media (max-width: @mobile-breakpoint) {
+        left: 0;
+        right: 0;
+    }
 }
 
 .periodetypeMeny--låst {
@@ -120,13 +115,11 @@
     margin-right: 0.25rem;
 
     @media (max-width: @mobile-breakpoint) {
-        left: 0;
-        right: auto;
+        right: 0;
+        left: auto;
         top: calc(100% + .25rem);
-
-        .periodeElement__gradering+.periodeElement__foreldre+.periodeElement__varighet & {
-            left: -5rem;
-        }
+        min-width: 20rem;
+        flex: 3 1 0;
     }
 
 }

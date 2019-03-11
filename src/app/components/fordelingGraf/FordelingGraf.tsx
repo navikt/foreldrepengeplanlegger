@@ -158,8 +158,13 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengelig
     const morsDagerAvFellesdel = Math.max(0, morsBrukteDager - tg.dagerMor);
     const farsDagerAvFellesdel = Math.max(0, farsBrukteDager - tg.dagerFar);
 
-    const morsForbrukAvEgenKvote = morsBrukteDager >= tg.dagerMor ? 100 : (100 / tg.dagerMor) * morsBrukteDager;
     const farsForbrukAvEgenKvote = farsBrukteDager >= tg.dagerFar ? 100 : (100 / tg.dagerFar) * farsBrukteDager;
+
+    const maksMorsKvoteBar = tg.dagerMor + forbruk.dagerForeldrepengerFørFødsel;
+    const morsBarIPst = Math.min(
+        100,
+        (100 / maksMorsKvoteBar) * (morsBrukteDager + forbruk.dagerForeldrepengerFørFødsel)
+    );
 
     return (
         <div className={childBem.block}>
@@ -167,7 +172,7 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengelig
                 <Multibar
                     borderColor={UttaksplanHexFarge.lilla}
                     leftBar={{
-                        width: morsForbrukAvEgenKvote,
+                        width: morsBarIPst,
                         color: UttaksplanHexFarge.lilla
                     }}
                 />

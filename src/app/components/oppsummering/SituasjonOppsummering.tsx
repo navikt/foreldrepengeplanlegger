@@ -9,6 +9,7 @@ import SpebarnSirkel from './spebarnSirkel/SpebarnSirkel';
 import { formaterDatoUtenDag } from 'common/utils/datoUtils';
 import getMessage from 'common/utils/i18nUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { getAntallForeldreISituasjon } from '../../utils/common';
 
 export interface SituasjonsoppsummeringProps {
     situasjon: Situasjon;
@@ -22,8 +23,14 @@ export interface SituasjonsoppsummeringProps {
 
 const bem = BEMHelper('oppsummering');
 
+const getOppsummeringTittel = (antallForeldre: number, antallBarn: number): string => {
+    return `${antallForeldre === 1 ? 'Du' : 'Dere'} og ${antallBarn === 1 ? 'barnet' : 'barna'}`;
+};
+
 const Situasjonsoppsummering: React.StatelessComponent<SituasjonsoppsummeringProps & InjectedIntlProps> = (props) => (
-    <OppsummeringBlokk onRequestChange={props.onRequestChange} tittel="Dere og barnet">
+    <OppsummeringBlokk
+        onRequestChange={props.onRequestChange}
+        tittel={getOppsummeringTittel(getAntallForeldreISituasjon(props.situasjon), props.antallBarn)}>
         <div className={bem.block}>
             <div className={bem.element('deloppsummering')}>
                 <SituasjonSirkel {...props} />

@@ -12,7 +12,6 @@ import VelgForeldrenavn from './parts/VelgForeldrenavn';
 import { getAntallForeldreISituasjon, inputHasValue, getTermindatoAvgrensninger } from '../../utils/common';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import VelgErMorEllerFar from './parts/VelgErMorEllerFar';
-import Situasjonsinfo from './parts/velgSituasjon/SituasjonInfo';
 
 interface OwnProps {
     formik: FormikProps<SituasjonSkjemadata>;
@@ -59,15 +58,6 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                     <Block visible={visErMorEllerFarMedmor}>
                         <VelgErMorEllerFar erMor={erMor} onChange={(em) => formik.setFieldValue('erMor', em)} />
                     </Block>
-
-                    {situasjon && (visErMorEllerFarMedmor === false || erMor !== undefined) && (
-                        <Block>
-                            <Situasjonsinfo
-                                situasjon={situasjon}
-                                rolle={erMor !== undefined ? (erMor ? 'mor' : 'far') : undefined}
-                            />
-                        </Block>
-                    )}
 
                     <Block visible={visNavn} margin="none">
                         <VelgForeldrenavn
@@ -120,7 +110,6 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                         <LinkButton
                             onClick={() => {
                                 onReset();
-                                // formik.setTouched("situasjon");
                                 formik.resetForm();
                             }}>
                             Start på ny

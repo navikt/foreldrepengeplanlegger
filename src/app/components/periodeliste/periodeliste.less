@@ -77,9 +77,9 @@
     }
 }
 
-.periodetypeMeny--låst {
-    padding: 1rem;
-}
+// .periodetypeMeny--låst {
+//     padding: 1rem;
+// }
 
 .periodetypeMenyLabel {
     line-height: initial;
@@ -107,8 +107,16 @@
     }
 }
 
+.forelderDialog {
+    @media (max-width: @mobile-breakpoint) {
+        left: 0;
+        right: auto;
+        min-width: 17rem;
+    }
+}
+
 .varighetDialog {
-    min-width: 25rem;
+    min-width: 21rem;
     top: 0;
     margin-top: 0;
     right: 100%;
@@ -118,6 +126,7 @@
         right: 0;
         left: auto;
         top: calc(100% + .25rem);
+        margin-right: 0;
         min-width: 20rem;
         flex: 3 1 0;
     }

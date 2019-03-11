@@ -175,17 +175,6 @@ class VarighetSkjema extends React.Component<Props, State> {
                     <TabPanel
                         tabs={[
                             {
-                                label: 'Velg sluttdato',
-                                contentRenderer: () => (
-                                    <>
-                                        <Block margin="s">
-                                            <VarighetSluttdato {...this.props} />
-                                        </Block>
-                                        <UttaksdagerInfo {...this.props} />
-                                    </>
-                                )
-                            },
-                            {
                                 label: 'Velg varighet',
                                 contentRenderer: () => (
                                     <>
@@ -221,6 +210,17 @@ class VarighetSkjema extends React.Component<Props, State> {
                                                     Bruk gjenstående dager
                                                 </LinkButton>
                                             )}
+                                    </>
+                                )
+                            },
+                            {
+                                label: 'Velg sluttdato',
+                                contentRenderer: () => (
+                                    <>
+                                        <Block margin="s">
+                                            <VarighetSluttdato {...this.props} />
+                                        </Block>
+                                        <UttaksdagerInfo {...this.props} />
                                     </>
                                 )
                             }

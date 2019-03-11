@@ -13,7 +13,7 @@ const morsUttakErInnenforMaksAntallDager: RegelTest = (key: RegelKey, grunnlag: 
         };
     }
 
-    const passerer = forbruk.mor.dagerErOk;
+    const passerer = forbruk.mor.dagerForMye <= 0;
     const maksDager =
         tilgjengeligeDager.maksDagerMor +
         (forbruk.skalHaForeldrepengerFørFødsel ? forbruk.mor.dagerForeldrepengerFørFødsel : 0);

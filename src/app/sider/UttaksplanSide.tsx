@@ -8,11 +8,11 @@ import {
     updatePeriode,
     removePeriode,
     movePeriode,
-    setPerioder,
     resetApp,
     slåSammenPerioder,
     nyPeriodeChange,
-    navigerTilSide
+    navigerTilSide,
+    resetPlan
 } from '../redux/actions/common/commonActionCreators';
 import { AppState } from '../redux/reducers/rootReducer';
 import { connect } from 'react-redux';
@@ -119,9 +119,7 @@ class UttaksplanSide extends React.Component<Props> {
                             onUpdate={(periode) => periode.type === dispatch(updatePeriode(periode))}
                             onRemove={(periode) => dispatch(removePeriode(periode))}
                             onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
-                            onResetPlan={(resetØnsketFordeling: boolean) =>
-                                dispatch(setPerioder([], resetØnsketFordeling))
-                            }
+                            onResetPlan={() => dispatch(resetPlan())}
                             onResetApp={() => dispatch(resetApp())}
                             onNyPeriodeChange={(periode) => dispatch(nyPeriodeChange(periode))}
                             onSlåSammenPerioder={(p1, p2) => dispatch(slåSammenPerioder(p1, p2))}

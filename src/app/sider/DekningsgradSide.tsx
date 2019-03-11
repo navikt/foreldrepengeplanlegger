@@ -14,7 +14,6 @@ import { connect } from 'react-redux';
 import Block from 'common/components/block/Block';
 import { Dekningsgrad } from 'common/types';
 import { getStønadskontoer } from '../redux/actions/api/apiActionCreators';
-import TilgjengeligeDagerOversikt from '../components/tilgjengeligeDagerOversikt/TilgjengeligeDagerOversikt';
 import LoadContainer from 'common/components/loadContainer/LoadContainer';
 import DekningsgradValg from '../components/dekningsgradValg/DekningsgradValg';
 import Skjemablokk from '../components/skjemablokk/Skjemablokk';
@@ -100,31 +99,22 @@ class UttaksplanSide extends React.Component<Props> {
                         <>
                             <Block>
                                 <DekningsgradInfo
+                                    situasjon={skjemadata.situasjon}
                                     dekningsgrad={dekningsgrad}
                                     tilgjengeligeDager={tilgjengeligeDager}
                                     omForeldre={omForeldre}
                                 />
                             </Block>
                             {omForeldre.antallForeldre === 1 && (
-                                <>
-                                    <Block>
-                                        <TilgjengeligeDagerOversikt
-                                            tilgjengeligeDager={tilgjengeligeDager}
-                                            dekningsgrad={dekningsgrad!}
-                                            visKontoliste={true}
-                                            omForeldre={omForeldre}
-                                        />
-                                    </Block>
-                                    <Knapperad align="center">
-                                        <Hovedknapp
-                                            onClick={() => {
-                                                dispatch(lagForslagTilPlan());
-                                                dispatch(navigerTilSide(Side.UTTAKSPLAN, this.props.history));
-                                            }}>
-                                            Lag plan
-                                        </Hovedknapp>
-                                    </Knapperad>
-                                </>
+                                <Knapperad align="center">
+                                    <Hovedknapp
+                                        onClick={() => {
+                                            dispatch(lagForslagTilPlan());
+                                            dispatch(navigerTilSide(Side.UTTAKSPLAN, this.props.history));
+                                        }}>
+                                        Lag forslag til plan
+                                    </Hovedknapp>
+                                </Knapperad>
                             )}
                             {omForeldre.antallForeldre === 2 && omForeldre.farMedmor && (
                                 <FordelingForeldrepenger

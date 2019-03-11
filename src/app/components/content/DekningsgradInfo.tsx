@@ -3,30 +3,40 @@ import { Dekningsgrad } from 'common/types';
 import BEMHelper from 'common/utils/bem';
 import { Undertittel, Ingress } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
-import { TilgjengeligeDager, OmForeldre } from '../../types';
+import { TilgjengeligeDager, OmForeldre, Situasjon, Forelder } from '../../types';
 import TilgjengeligeDagerGraf from '../tilgjengeligeDagerGraf/TilgjengeligeDagerGraf';
 import PengerIkon from 'common/components/ikoner/PengerIkon';
 
 import './dekningsgradInfo.less';
+import Situasjonsinfo from '../situasjonsskjema/parts/velgSituasjon/SituasjonInfo';
 
 interface Props {
+    situasjon: Situasjon;
     dekningsgrad: Dekningsgrad;
     tilgjengeligeDager: TilgjengeligeDager;
     omForeldre: OmForeldre;
 }
 
-const DekningsgradInfo: React.StatelessComponent<Props> = ({ omForeldre, tilgjengeligeDager, dekningsgrad }) => {
+const DekningsgradInfo: React.StatelessComponent<Props> = ({
+    omForeldre,
+    tilgjengeligeDager,
+    dekningsgrad,
+    situasjon
+}) => {
     const bem = BEMHelper('dekningsgradInfo');
     const dekningsSum = dekningsgrad === '100' ? '22 000' : '17 600';
+    const erMor = omForeldre.forelderVedIkkeDeltPlan && omForeldre.forelderVedIkkeDeltPlan === Forelder.mor;
     return (
         <section className={bem.block}>
             <Block margin="xs">
                 <Undertittel tag="h1">49 uker med 100 prosent foreldrepenger</Undertittel>
             </Block>
-            <p>
-                Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten,
-                fedrekvoten og en fellesperiode som dere kan dele.
-            </p>
+            <Block margin="s">
+                <Situasjonsinfo
+                    situasjon={situasjon}
+                    rolle={erMor !== undefined ? (erMor ? 'mor' : 'far') : undefined}
+                />
+            </Block>
 
             <Block margin="m">
                 <TilgjengeligeDagerGraf omForeldre={omForeldre} tilgjengeligeDager={tilgjengeligeDager} />
@@ -37,7 +47,7 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({ omForeldre, tilgjen
                     </Block>
                 )}
             </Block>
-            <Block>
+            <Block margin="none">
                 <div className={bem.element('utbetaling')}>
                     <div className={bem.child('utbetaling').element('ikon')}>
                         <PengerIkon />

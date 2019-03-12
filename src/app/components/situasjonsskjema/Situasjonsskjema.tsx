@@ -15,14 +15,38 @@ const situasjonValidationSkjema = yup.object().shape({
     situasjon: yup.string().required('Du må velge situasjon'),
     navnMor: yup
         .string()
-        .min(1, 'Må være minst ett tegn')
-        .required('Navn på foreldre er påkrevd'),
-    navnFarMedmor: yup.string().when('situasjon', (situasjon: Situasjon, schema: yup.Schema<SituasjonSkjemadata>) => {
-        if (getAntallForeldreISituasjon(situasjon) === 2) {
-            return schema.required('Navn på foreldre er påkrevd');
-        }
-        return schema;
-    }),
+        .when(
+            ['situasjon', 'erMor'],
+            (situasjon: Situasjon, erMor: string | undefined, schema: yup.Schema<SituasjonSkjemadata>) => {
+                if (getAntallForeldreISituasjon(situasjon) === 2) {
+                    return schema.required('Navn på foreldre er påkrevd');
+                }
+                if (situasjon === Situasjon.bareMor) {
+                    return schema.required('Navn på foreldre er påkrevd');
+                }
+                if (situasjon === Situasjon.aleneomsorg && erMor === 'true') {
+                    return schema.required('Navn på foreldre er påkrevd');
+                }
+                return schema;
+            }
+        ),
+    navnFarMedmor: yup
+        .string()
+        .when(
+            ['situasjon', 'erMor'],
+            (situasjon: Situasjon, erMor: string | undefined, schema: yup.Schema<SituasjonSkjemadata>) => {
+                if (getAntallForeldreISituasjon(situasjon) === 2) {
+                    return schema.required('Navn på foreldre er påkrevd');
+                }
+                if (situasjon === Situasjon.bareFar) {
+                    return schema.required('Navn på foreldre er påkrevd');
+                }
+                if (situasjon === Situasjon.aleneomsorg && erMor !== 'true') {
+                    return schema.required('Navn på foreldre er påkrevd');
+                }
+                return schema;
+            }
+        ),
     erMor: yup.string().when('situasjon', (situasjon: Situasjon, schema: yup.Schema<SituasjonSkjemadata>) => {
         if (situasjon === Situasjon.aleneomsorg) {
             return schema.required('Du må velge om du er mor, far eller medmor');

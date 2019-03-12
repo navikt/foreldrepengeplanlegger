@@ -6,6 +6,7 @@ import { getAntallForeldreISituasjon } from '../../../utils/common';
 
 interface Props {
     situasjon: Situasjon;
+    erMor?: boolean;
     navnFarMedmor?: string;
     navnMor?: string;
     onChangeFarMedmor: (navn: string) => void;
@@ -39,23 +40,29 @@ const getMorLabel = (situasjon: Situasjon): string => {
 
 const VelgForeldrenavn: React.StatelessComponent<Props> = ({
     situasjon,
+    erMor,
     navnFarMedmor = '',
     navnMor = '',
     onChangeFarMedmor,
     onChangeMor
 }) => {
     const toForeldre = getAntallForeldreISituasjon(situasjon) === 2;
+    const visMorInput = toForeldre || situasjon === Situasjon.bareMor || (situasjon === Situasjon.aleneomsorg && erMor);
+    const visFarInput =
+        toForeldre || situasjon === Situasjon.bareFar || (situasjon === Situasjon.aleneomsorg && erMor !== true);
     return (
         <Row>
-            <Column xs="6">
-                <Input
-                    label={getMorLabel(situasjon)}
-                    value={navnMor}
-                    name="navnMor"
-                    onChange={(evt: React.ChangeEvent<HTMLInputElement>) => onChangeMor(evt.target.value)}
-                />
-            </Column>
-            {toForeldre && (
+            {visMorInput && (
+                <Column xs="6">
+                    <Input
+                        label={getMorLabel(situasjon)}
+                        value={navnMor}
+                        name="navnMor"
+                        onChange={(evt: React.ChangeEvent<HTMLInputElement>) => onChangeMor(evt.target.value)}
+                    />
+                </Column>
+            )}
+            {visFarInput && (
                 <Column xs="6">
                     <Input
                         label={getFarMedmorLabel(situasjon)}

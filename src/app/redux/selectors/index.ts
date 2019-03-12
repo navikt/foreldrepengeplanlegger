@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { AppState } from '../reducers/rootReducer';
-import { Forbruk, TilgjengeligeDager, Periode, SituasjonSkjemadata } from '../../types';
+import { Forbruk, TilgjengeligeDager, Periode, SituasjonSkjemadata, OmForeldre } from '../../types';
 import { getForbruk } from '../../utils/forbrukUtils';
 import { getTilgjengeligeDager } from '../../utils/kontoUtils';
 
@@ -26,6 +26,11 @@ export const selectSkjemadata = createSelector(
     (state): SituasjonSkjemadata | undefined => state.common.skjemadata
 );
 
+export const selectOmForelder = createSelector(
+    [getState],
+    (state): OmForeldre | undefined => state.common.omForeldre
+);
+
 export const selectTilgjengeligeDager = createSelector(
     [getState, selectSkjemadata],
     (state, skjemadata): TilgjengeligeDager | undefined => {
@@ -42,9 +47,9 @@ export const selectTilgjengeligeDager = createSelector(
 );
 
 export const selectForbruk = createSelector(
-    [selectPeriodeFørTermin, selectPerioder, selectTilgjengeligeDager, selectPeriodeSomSkalLeggesTil],
-    (periodeFørTermin, perioder, tilgjengeligeDager, nyPeriode): Forbruk | undefined => {
-        if (perioder && tilgjengeligeDager) {
+    [selectPeriodeFørTermin, selectPerioder, selectTilgjengeligeDager, selectPeriodeSomSkalLeggesTil, selectOmForelder],
+    (periodeFørTermin, perioder, tilgjengeligeDager, nyPeriode, omForeldre): Forbruk | undefined => {
+        if (perioder && tilgjengeligeDager && omForeldre) {
             const forbruksperioder = [...perioder];
             if (nyPeriode) {
                 forbruksperioder.push(nyPeriode);
@@ -52,7 +57,7 @@ export const selectForbruk = createSelector(
             if (periodeFørTermin) {
                 forbruksperioder.push(periodeFørTermin);
             }
-            return getForbruk(forbruksperioder, tilgjengeligeDager);
+            return getForbruk(forbruksperioder, tilgjengeligeDager, omForeldre);
         }
         return undefined;
     }

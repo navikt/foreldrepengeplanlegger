@@ -25,7 +25,7 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({
 }) => {
     const bem = BEMHelper('dekningsgradInfo');
     const dekningsSum = dekningsgrad === '100' ? '22 000' : '17 600';
-    const erMor = omForeldre.forelderVedIkkeDeltPlan && omForeldre.forelderVedIkkeDeltPlan === Forelder.mor;
+    const erMor = omForeldre.rolle && omForeldre.rolle === Forelder.mor;
     return (
         <section className={bem.block}>
             <Block margin="xs">

@@ -10,7 +10,7 @@ import {
 } from '../actions/common/commonActionCreators';
 import { CommonActionKeys } from '../actions/common/commonActionDefinitions';
 import { selectForbruk, selectTilgjengeligeDager } from '../selectors';
-import { getInformasjonOmForeldre, getAntallForeldreISituasjon } from '../../utils/common';
+import { getOmForeldre, getAntallForeldreISituasjon } from '../../utils/common';
 import { ApiActionKeys } from '../actions/api/apiActionDefinitions';
 import { getUttaksdatoer } from '../../utils/uttaksdatoer';
 import { Regelgrunnlag, RegelTestresultat } from '../../utils/regler/types';
@@ -36,7 +36,7 @@ function* updateOmForeldreSaga() {
     const appState: AppState = yield select(stateSelector);
     const { skjemadata } = appState.common;
     if (skjemadata) {
-        const omForeldre = getInformasjonOmForeldre(skjemadata.situasjon, skjemadata.navnMor, skjemadata.navnFarMedmor);
+        const omForeldre = getOmForeldre(skjemadata.situasjon, skjemadata.navnMor, skjemadata.navnFarMedmor);
         yield put(updateOmForeldre(omForeldre));
     }
 }
@@ -90,7 +90,8 @@ function* forbrukSaga() {
                 CommonActionKeys.REMOVE_PERIODE,
                 CommonActionKeys.MOVE_PERIODE,
                 CommonActionKeys.NY_PERIODE_CHANGE,
-                CommonActionKeys.RESET_PLAN
+                CommonActionKeys.RESET_PLAN,
+                CommonActionKeys.LAG_FORSLAG_TIL_PLAN
             ],
             updateForbrukSaga
         )

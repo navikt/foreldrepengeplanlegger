@@ -117,7 +117,9 @@ export interface OmForeldre {
     antallForeldre: number;
     mor: Forelderinfo;
     farMedmor?: Forelderinfo;
-    forelderVedIkkeDeltPlan?: Forelder;
+    rolle?: Forelder;
+    erAleneomsorgMor: boolean;
+    erAleneomsorgFarMedmor: boolean;
 }
 
 export interface Uttaksdatoer {

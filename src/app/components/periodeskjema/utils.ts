@@ -75,10 +75,7 @@ const getInitialFormValuesFromPeriode = (
 ): PeriodeskjemaFormValues | {} => {
     if (!periode) {
         return {
-            forelder:
-                omForeldre.antallForeldre === 1 && omForeldre.forelderVedIkkeDeltPlan
-                    ? omForeldre.forelderVedIkkeDeltPlan
-                    : undefined
+            forelder: omForeldre.antallForeldre === 1 && omForeldre.rolle ? omForeldre.rolle : undefined
         };
     }
     return {

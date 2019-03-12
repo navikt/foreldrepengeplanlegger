@@ -1,4 +1,4 @@
-import { OmForeldre, Forbruk } from '../types';
+import { OmForeldre, Forbruk, MorsForbruk, ForelderForbruk } from '../types';
 import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/utils/intlUtils';
 
@@ -42,17 +42,14 @@ const ok = (key: string, values?: {}): FordelingStatus => {
     };
 };
 
-export function getFordelingStatus(forbruk: Forbruk, omForeldre: OmForeldre, intl: InjectedIntl): FordelingStatus {
-    const { dagerGjenstående, mor, farMedmor } = forbruk;
-    if (farMedmor === undefined || omForeldre.farMedmor === undefined) {
-        return {
-            status: 'advarsel',
-            tittel: {
-                key: 'Todo: Aleneomsorg'
-            }
-        };
-    }
-
+function getFordelingStatusDeltOmsorg(
+    dagerGjenstående: number,
+    mor: MorsForbruk,
+    farMedmor: ForelderForbruk,
+    navnMor: string,
+    navnFarMedmor: string,
+    intl: InjectedIntl
+): FordelingStatus {
     const totalOk = dagerGjenstående === 0;
     const forMangeDagerTotalt = dagerGjenstående < 0;
     const forFåDagerTotalt = dagerGjenstående > 0;
@@ -67,13 +64,13 @@ export function getFordelingStatus(forbruk: Forbruk, omForeldre: OmForeldre, int
         }
         if (mor.dagerForMye > 0) {
             return feil('dagerForMyePerson', {
-                navn: omForeldre.mor.navn,
+                navn: navnMor,
                 dager: getVarighetString(mor.dagerForMye, intl)
             });
         }
         if (farMedmor.dagerForMye > 0) {
             return feil('dagerForMyePerson', {
-                navn: omForeldre.farMedmor.navn,
+                navn: navnFarMedmor,
                 dager: getVarighetString(farMedmor.dagerForMye, intl)
             });
         }
@@ -91,7 +88,7 @@ export function getFordelingStatus(forbruk: Forbruk, omForeldre: OmForeldre, int
         const erMor = mor.dagerForMye > 0;
         const { dagerForMye } = erMor ? mor : farMedmor;
         return feil('dagerForMyePerson', {
-            navn: erMor ? omForeldre.mor.navn : omForeldre.farMedmor.navn,
+            navn: erMor ? navnMor : navnFarMedmor,
             dager: getVarighetString(dagerForMye, intl)
         });
     }
@@ -100,10 +97,39 @@ export function getFordelingStatus(forbruk: Forbruk, omForeldre: OmForeldre, int
         const erMor = mor.dagerForLite > 0;
         const { dagerForLite } = erMor ? mor : farMedmor;
         return advarsel('dagerIkkeBruktPerson', {
-            navn: erMor ? omForeldre.mor.navn : omForeldre.farMedmor.navn,
+            navn: erMor ? navnMor : navnFarMedmor,
             dager: getVarighetString(dagerForLite, intl)
         });
     }
 
     return advarsel('Dine dager');
+}
+
+function getFordelingStatusAleneomsorg(forbruk: Forbruk, omForeldre: OmForeldre, intl: InjectedIntl): FordelingStatus {
+    const { dagerGjenstående } = forbruk;
+    const forMangeDagerTotalt = dagerGjenstående < 0;
+    const forFåDagerTotalt = dagerGjenstående > 0;
+
+    if (forMangeDagerTotalt) {
+        return feil('forMangeDagerTotalt', { dager: getVarighetString(Math.abs(dagerGjenstående), intl) });
+    }
+    if (forFåDagerTotalt) {
+        return advarsel('dagerIkkeBrukt', { dager: getVarighetString(dagerGjenstående, intl) });
+    }
+    return ok('altOk');
+}
+
+export function getFordelingStatus(forbruk: Forbruk, omForeldre: OmForeldre, intl: InjectedIntl): FordelingStatus {
+    const { dagerGjenstående, mor, farMedmor } = forbruk;
+    if (omForeldre.antallForeldre === 2 && omForeldre.farMedmor && farMedmor && forbruk.farMedmor) {
+        return getFordelingStatusDeltOmsorg(
+            dagerGjenstående,
+            mor,
+            farMedmor,
+            omForeldre.mor.navn,
+            omForeldre.farMedmor.navn,
+            intl
+        );
+    }
+    return getFordelingStatusAleneomsorg(forbruk, omForeldre, intl);
 }

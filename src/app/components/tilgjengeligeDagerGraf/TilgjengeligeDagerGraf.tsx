@@ -80,10 +80,7 @@ const AleneomsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, 
             <Multibar
                 borderColor={UttaksplanHexFarge.graa}
                 leftBar={{
-                    color:
-                        omForeldre.forelderVedIkkeDeltPlan === Forelder.farMedmor
-                            ? UttaksplanHexFarge.blaa
-                            : UttaksplanHexFarge.lilla,
+                    color: omForeldre.rolle === Forelder.farMedmor ? UttaksplanHexFarge.blaa : UttaksplanHexFarge.lilla,
                     width: 100,
                     text: <div className={bem.element('barTekst')}>{txt}</div>
                 }}

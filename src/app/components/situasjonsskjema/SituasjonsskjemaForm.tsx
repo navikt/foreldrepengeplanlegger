@@ -22,13 +22,23 @@ type Props = OwnProps & InjectedIntlProps;
 const visAntallBarnValg = (
     situasjon: Situasjon | undefined,
     navnFarMedmor: string | undefined,
-    navnMor: string | undefined
+    navnMor: string | undefined,
+    erMor: boolean | undefined
 ): boolean => {
     if (situasjon === undefined) {
         return false;
     }
     if (getAntallForeldreISituasjon(situasjon) === 1) {
-        return inputHasValue(navnMor);
+        if (situasjon === Situasjon.bareFar) {
+            return inputHasValue(navnFarMedmor);
+        }
+        if (situasjon === Situasjon.bareMor) {
+            return inputHasValue(navnMor);
+        }
+        if (situasjon === Situasjon.aleneomsorg && erMor !== undefined) {
+            return erMor ? inputHasValue(navnMor) : inputHasValue(navnFarMedmor);
+        }
+        return false;
     }
     return inputHasValue(navnMor) && inputHasValue(navnFarMedmor);
 };
@@ -41,7 +51,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
         const visNavn =
             situasjon !== undefined &&
             (visErMorEllerFarMedmor === false || (visErMorEllerFarMedmor === true && erMor !== undefined));
-        const visAntallBarn = visAntallBarnValg(situasjon, navnFarMedmor, navnMor);
+        const visAntallBarn = visAntallBarnValg(situasjon, navnFarMedmor, navnMor, erMor);
         const visTermindato = visAntallBarn && antallBarn !== undefined;
         const termindatoAvgrensninger = getTermindatoAvgrensninger();
         const erToForeldre = getAntallForeldreISituasjon(situasjon) > 1;
@@ -50,7 +60,10 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                 <Skjemablokk tittel="Velg deres situasjon" animated={true}>
                     <Block margin="s">
                         <VelgSituasjon
-                            onChange={(s) => formik.setFieldValue('situasjon', s)}
+                            onChange={(s) => {
+                                formik.setFieldValue('situasjon', s);
+                                formik.setFieldValue('erMor', undefined);
+                            }}
                             valgtSituasjon={situasjon}
                         />
                     </Block>
@@ -62,6 +75,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                     <Block visible={visNavn} margin="none">
                         <VelgForeldrenavn
                             situasjon={situasjon}
+                            erMor={erMor}
                             navnFarMedmor={navnFarMedmor}
                             navnMor={navnMor}
                             onChangeFarMedmor={(navn) => {

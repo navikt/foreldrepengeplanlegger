@@ -36,6 +36,8 @@ export const getMorsForbruk = (allePerioder: Periode[], tilgjengeligeDager: Tilg
     const dagerForMye = Math.max(0, dagerUtenForeldrepengerFørFødsel - tilgjengeligeDager.maksDagerMor);
     const dagerErOk = dagerForLite === 0 && dagerForMye === 0;
 
+    const dagerAvFellesperiode = Math.max(0, dagerUtenForeldrepengerFørFødsel - tilgjengeligeDager.dagerMor);
+
     return {
         dagerEtterTermin,
         dagerForeldrepengerFørFødsel: dagerFørTermin - ekstradagerFørTermin,
@@ -44,7 +46,8 @@ export const getMorsForbruk = (allePerioder: Periode[], tilgjengeligeDager: Tilg
         dagerUtenForeldrepengerFørFødsel,
         dagerForLite,
         dagerForMye,
-        dagerErOk
+        dagerErOk,
+        dagerAvFellesperiode
     };
 };
 export const getFarsForbruk = (perioder: Periode[], tilgjengeligeDager: TilgjengeligeDager): ForelderForbruk => {
@@ -52,11 +55,13 @@ export const getFarsForbruk = (perioder: Periode[], tilgjengeligeDager: Tilgjeng
     const dagerForLite = Math.max(0, tilgjengeligeDager.dagerFar - dagerTotalt);
     const dagerForMye = Math.max(0, dagerTotalt - tilgjengeligeDager.maksDagerFar);
     const dagerErOk = dagerForLite === 0 && dagerForMye === 0;
+    const dagerAvFellesperiode = Math.max(0, dagerTotalt - tilgjengeligeDager.dagerFar);
     return {
         dagerTotalt,
         dagerForLite,
         dagerForMye,
-        dagerErOk
+        dagerErOk,
+        dagerAvFellesperiode
     };
 };
 

@@ -98,6 +98,7 @@ export interface ForelderForbruk {
     dagerForLite: number;
     dagerTotalt: number;
     dagerErOk: boolean;
+    dagerAvFellesperiode: number;
 }
 
 export interface MorsForbruk extends ForelderForbruk {

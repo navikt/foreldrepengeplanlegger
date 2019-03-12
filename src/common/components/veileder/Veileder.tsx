@@ -6,10 +6,10 @@ import VeilederKompakt from './VeilederKompaktSvg';
 
 import './veileder.less';
 
-export type Ansiktstype = 'glad' | 'undrende' | 'skeptisk';
+export type VeilederAnsiktstype = 'glad' | 'undrende' | 'skeptisk';
 
 export interface VeilederProps {
-    ansikt?: 'glad' | 'undrende' | 'skeptisk';
+    ansikt?: VeilederAnsiktstype;
     farge?: 'lilla' | 'gronn' | 'bla' | 'transparent';
     stil?: 'normal' | 'kompakt' | 'iNavVeilederPanel';
 }

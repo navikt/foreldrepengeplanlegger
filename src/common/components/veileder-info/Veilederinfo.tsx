@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import Veileder, { Ansiktstype } from '../veileder/Veileder';
+import Veileder, { VeilederAnsiktstype } from '../veileder/Veileder';
 
 import './veilederinfo.less';
 
@@ -13,7 +13,7 @@ export interface VeilederInfoProps {
     maxWidth?: '30' | '45';
 }
 
-const getAnsiktFromType = (type: Infotype): Ansiktstype => {
+const getAnsiktFromType = (type: Infotype): VeilederAnsiktstype => {
     switch (type) {
         case 'advarsel':
             return 'undrende';

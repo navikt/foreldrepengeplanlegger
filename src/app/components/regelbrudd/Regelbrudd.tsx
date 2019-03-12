@@ -3,7 +3,7 @@ import { Regelbrudd, RegelAlvorlighet } from '../../utils/regler/types';
 import BEMHelper from 'common/utils/bem';
 import RegelbruddFeilmelding from './RegelbruddFeilmelding';
 import Veilederpanel from 'nav-frontend-veilederpanel';
-import Veileder from 'common/components/veileder/Veileder';
+import Veileder, { VeilederAnsiktstype } from 'common/components/veileder/Veileder';
 import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 interface Props {
@@ -14,13 +14,24 @@ const bem = BEMHelper('regelbrudd');
 
 const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
     const ulovlig = regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.ULOVLIG);
+    const viktig = regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.VIKTIG);
     const info = regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.INFO);
     const harFeil = ulovlig.length > 0;
+
+    let ansikt: VeilederAnsiktstype;
+    if (ulovlig.length > 0) {
+        ansikt = 'skeptisk';
+    } else if (viktig.length > 0) {
+        ansikt = 'undrende';
+    } else {
+        ansikt = 'glad';
+    }
+
     return (
         <Veilederpanel
             kompakt={true}
             fargetema={harFeil ? 'feilmelding' : 'normal'}
-            svg={<Veileder farge="transparent" stil="iNavVeilederPanel" ansikt={harFeil ? 'skeptisk' : 'undrende'} />}
+            svg={<Veileder farge="transparent" stil="iNavVeilederPanel" ansikt={ansikt} />}
             type="plakat">
             <section className={bem.block}>
                 {ulovlig.length > 0 && (
@@ -29,6 +40,15 @@ const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
                             <AlertStripeAdvarsel key={brudd.key} className={'alertstripe--noBorder'}>
                                 <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
                             </AlertStripeAdvarsel>
+                        ))}
+                    </>
+                )}
+                {viktig.length > 0 && (
+                    <>
+                        {viktig.map((brudd) => (
+                            <AlertStripeInfo key={brudd.key} className={'alertstripe--noBorder'}>
+                                <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
+                            </AlertStripeInfo>
                         ))}
                     </>
                 )}

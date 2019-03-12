@@ -7,6 +7,9 @@ import { morsUttakErInnenforMaksAntallDagerRegel } from './tester/morsUttakErInn
 import { alleUttakErInnenforMaksAntallDagerRegel } from './tester/alleUttakErInnenforMaksAntallDager';
 import { ferieMedUttaksdagerInfoRegel } from './tester/ferieMedUttaksdagerInfo';
 import { førstePeriodeErUttakAvForeldrepengerRegel } from './tester/førstePeriodeErUttakAvForeldrepenger';
+import { farMedmorBrukerFellesperiodeInfoRegel } from './tester/farMedmorBrukerFellesperiodeInfo';
+import { morUtsetterPgaArbeidInfoRegel } from './tester/morUtsetterPgaArbeidInfo';
+import { farMedmorUtsetterPgaArbeidInfoRegel } from './tester/farMedmorUtsetterPgaArbeidInfo';
 
 const uttaksplanRegler: Regel[] = [
     uttakForFarEllerMedmorFørsteSeksUkerInfoRegel,
@@ -16,7 +19,10 @@ const uttaksplanRegler: Regel[] = [
     farMedmorsUttakErInnenforMaksAntallDagerRegel,
     morsUttakErInnenforMaksAntallDagerRegel,
     alleUttakErInnenforMaksAntallDagerRegel,
-    førstePeriodeErUttakAvForeldrepengerRegel
+    førstePeriodeErUttakAvForeldrepengerRegel,
+    farMedmorBrukerFellesperiodeInfoRegel,
+    morUtsetterPgaArbeidInfoRegel,
+    farMedmorUtsetterPgaArbeidInfoRegel
 ];
 
 export default uttaksplanRegler;

@@ -28,6 +28,7 @@ export interface Regel {
 
 export enum RegelAlvorlighet {
     'ULOVLIG' = 'ulovlig',
+    'VIKTIG' = 'viktig',
     'INFO' = 'info'
 }
 

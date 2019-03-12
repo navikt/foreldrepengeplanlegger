@@ -55,6 +55,7 @@ const GraderingMeny: React.StatelessComponent<Props> = ({
                         <Block margin="xs">
                             <SkjemaNumberStepper
                                 tittel={`Hvor mange prosent skal ${foreldernavn ? foreldernavn : 'du'} jobbe?`}
+                                inputAriaLabel={'Prosent arbeid'}
                                 min={1}
                                 max={99}
                                 stepSize={5}

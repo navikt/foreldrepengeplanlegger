@@ -2,16 +2,13 @@ import * as React from 'react';
 import DatoInput from 'common/components/skjema/datoInput/DatoInput';
 import { Checkbox } from 'nav-frontend-skjema';
 import Block from 'common/components/block/Block';
-import TabPanel from 'common/components/tabPanel/TabPanel';
 import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVelger';
 import { getUkerOgDagerFromDager, formaterDato, formaterDatoUtenDag } from 'common/utils/datoUtils';
 import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
-import DropdownDialogTittel from '../../periodeliste/parts/DropdownDialogTittel';
-import Varighet from '../../varighet/Varighet';
 import { Periode, Periodetype } from '../../../types';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import { getDagerGradert } from '../../../utils/forbrukUtils';
-import { Element } from 'nav-frontend-typografi';
+import { Ingress, Undertittel } from 'nav-frontend-typografi';
 
 export interface VarighetChangeEvent {
     ingenVarighet?: boolean;
@@ -52,23 +49,36 @@ const VarighetStartdato: React.StatelessComponent<Props> = ({
     const låstStartdato = periodetype !== Periodetype.UttakFørTermin && erNyPeriode === false;
     return (
         <>
-            <Block margin={låstStartdato ? 's' : 'none'}>
+            {låstStartdato && tidsperiode.fom && (
+                <>
+                    <Block margin="xs">
+                        <Undertittel>Startdato</Undertittel>
+                    </Block>
+                    <Block margin="xs">
+                        <Ingress tag="div" className="capitalizeFirstLetter">
+                            {formaterDato(tidsperiode.fom)}
+                        </Ingress>
+                    </Block>
+                    <div className="comment">
+                        Startdato bestemmes ut fra når foregående periode slutter. For å endre denne periodens
+                        startdato, må du endre sluttdatoen på den foregående.
+                    </div>
+                </>
+            )}
+            {låstStartdato === false && (
                 <DatoInput
                     id="fom"
                     name="fom"
-                    label={låstStartdato ? 'Perioden starter:' : 'Når skal perioden starte?'}
+                    label={{
+                        label: <Undertittel className="blokk-xxs">Startdato</Undertittel>,
+                        ariaLabel: 'Startdato'
+                    }}
                     visÅrValger={true}
                     dato={tidsperiode.fom}
                     disabled={låstStartdato}
                     avgrensninger={{ minDato, maksDato, helgedagerIkkeTillatt: true }}
                     onChange={(dato) => onTidsperiodeChange({ fom: dato, tom: tidsperiode.tom })}
                 />
-            </Block>
-            {låstStartdato && (
-                <div className="comment">
-                    Startdato bestemmes ut fra når foregående periode slutter. For å endre denne periodens startdato, må
-                    du endre sluttdatoen på den foregående.
-                </div>
             )}
         </>
     );
@@ -84,7 +94,7 @@ const VarighetSluttdato: React.StatelessComponent<Props> = ({
         <DatoInput
             id="tom"
             name="tom"
-            label="Sluttdato"
+            label={{ label: <Undertittel className="blokk-xxs">Sluttdato</Undertittel>, ariaLabel: 'Sluttdato' }}
             visÅrValger={true}
             dato={tidsperiode.tom}
             avgrensninger={{ minDato: tidsperiode.fom || minDato, maksDato, helgedagerIkkeTillatt: true }}
@@ -97,7 +107,6 @@ const VarighetStartdatoFørTermin: React.StatelessComponent<Props> = (props) => 
     const { ingenVarighet, onVarighetChange } = props;
     return (
         <Block margin="s">
-            <DropdownDialogTittel>Når ønsker du å starte uttaket før termin?</DropdownDialogTittel>
             <Block margin="s">
                 <VarighetStartdato {...props} />
             </Block>
@@ -108,30 +117,6 @@ const VarighetStartdatoFørTermin: React.StatelessComponent<Props> = (props) => 
             />
         </Block>
     );
-};
-
-const UttaksdagerInfo: React.StatelessComponent<Props> = ({ antallUttaksdager, antallUttaksdagerBrukt }) => {
-    if (antallUttaksdager !== undefined && antallUttaksdager > 0) {
-        return (
-            <Block margin="xs">
-                Varighet:{' '}
-                <strong>
-                    <Varighet dager={antallUttaksdager} separator={' og '} />
-                </strong>
-                .{' '}
-                {antallUttaksdagerBrukt && antallUttaksdagerBrukt !== antallUttaksdager && (
-                    <>
-                        Dager med foreldrepenger:{' '}
-                        <strong>
-                            <Varighet dager={antallUttaksdagerBrukt} separator={' og '} />
-                        </strong>
-                        .
-                    </>
-                )}
-            </Block>
-        );
-    }
-    return null;
 };
 
 class VarighetSkjema extends React.Component<Props, State> {
@@ -155,7 +140,6 @@ class VarighetSkjema extends React.Component<Props, State> {
         }
         return (
             <div>
-                <DropdownDialogTittel>Velg tid</DropdownDialogTittel>
                 <Block>
                     <VarighetStartdato {...this.props} />
                     {fom === undefined && nesteUttaksdag !== undefined && (
@@ -168,64 +152,37 @@ class VarighetSkjema extends React.Component<Props, State> {
                         </Block>
                     )}
                 </Block>
-                <Block visible={tidsperiode.fom !== undefined} margin="s">
-                    <Block margin="xs">
-                        <Element>Når skal perioden slutte?</Element>
+                <Block visible={tidsperiode.fom !== undefined} margin="none">
+                    <Block margin="s">
+                        <VarighetSluttdato {...this.props} />
                     </Block>
-                    <TabPanel
-                        tabs={[
-                            {
-                                label: 'Velg varighet',
-                                contentRenderer: () => (
-                                    <>
-                                        <Block margin="s">
-                                            <UkerOgDagerVelger
-                                                tittel="Varighet"
-                                                dager={dager}
-                                                uker={uker}
-                                                minDager={1}
-                                                onChange={(ukerOgDager) =>
-                                                    onVarighetChange({
-                                                        dager: ukerOgDager.dager + ukerOgDager.uker * 5
-                                                    })
-                                                }
-                                            />
-                                        </Block>
-                                        {tidsperiode.tom && (
-                                            <Block margin="xs">
-                                                Siste dag blir <strong>{formaterDato(tidsperiode.tom)}</strong>.
-                                            </Block>
-                                        )}
-                                        {gjenståendeDager !== undefined &&
-                                            gjenståendeDager > 0 &&
-                                            (antallUttaksdager === undefined ||
-                                                (antallUttaksdagerBrukt !== undefined &&
-                                                    antallUttaksdagerBrukt !== gjenståendeDager)) && (
-                                                <LinkButton
-                                                    onClick={() =>
-                                                        onVarighetChange({
-                                                            dager: getDagerGradert(gjenståendeDager, gradering)
-                                                        })
-                                                    }>
-                                                    Bruk gjenstående dager
-                                                </LinkButton>
-                                            )}
-                                    </>
-                                )
-                            },
-                            {
-                                label: 'Velg sluttdato',
-                                contentRenderer: () => (
-                                    <>
-                                        <Block margin="s">
-                                            <VarighetSluttdato {...this.props} />
-                                        </Block>
-                                        <UttaksdagerInfo {...this.props} />
-                                    </>
-                                )
+
+                    <Block margin="s">
+                        <UkerOgDagerVelger
+                            tittel="Lengde"
+                            dager={dager}
+                            uker={uker}
+                            minDager={1}
+                            onChange={(ukerOgDager) =>
+                                onVarighetChange({
+                                    dager: ukerOgDager.dager + ukerOgDager.uker * 5
+                                })
                             }
-                        ]}
-                    />
+                        />
+                    </Block>
+                    {gjenståendeDager !== undefined &&
+                        gjenståendeDager > 0 &&
+                        (antallUttaksdager === undefined ||
+                            (antallUttaksdagerBrukt !== undefined && antallUttaksdagerBrukt !== gjenståendeDager)) && (
+                            <LinkButton
+                                onClick={() =>
+                                    onVarighetChange({
+                                        dager: getDagerGradert(gjenståendeDager, gradering)
+                                    })
+                                }>
+                                Bruk gjenstående dager
+                            </LinkButton>
+                        )}
                 </Block>
             </div>
         );

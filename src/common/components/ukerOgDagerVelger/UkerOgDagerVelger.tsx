@@ -35,6 +35,7 @@ const UkerOgDagerVelger: React.StatelessComponent<Props> = ({
                     <div className={bem.element('uker')}>
                         <SkjemaNumberStepper
                             tittel="Uker"
+                            inputAriaLabel="Uker"
                             min={0}
                             value={uker}
                             disabled={disabled}
@@ -44,6 +45,7 @@ const UkerOgDagerVelger: React.StatelessComponent<Props> = ({
                     <div className={bem.element('dager')}>
                         <SkjemaNumberStepper
                             tittel="Dager"
+                            inputAriaLabel="Dager"
                             min={uker !== undefined && uker > 0 ? -1 : minDager}
                             value={dager}
                             disabled={disabled}

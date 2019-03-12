@@ -3,6 +3,8 @@ import { SkjemaGruppe, Fieldset } from 'nav-frontend-skjema';
 import NumberStepper, { Props as NumberStepperProps } from 'common/components/numberStepper/NumberStepper';
 import { Feil } from 'common/components/skjema/skjemaInputElement/types';
 
+import './skjemaNumberStepper.less';
+
 interface Props extends NumberStepperProps {
     tittel: string;
     feil?: Feil;
@@ -11,7 +13,7 @@ interface Props extends NumberStepperProps {
 const SkjemaNumberStepper: React.StatelessComponent<Props> = (props) => {
     const { tittel, feil, ...stepperProps } = props;
     return (
-        <SkjemaGruppe feil={feil}>
+        <SkjemaGruppe feil={feil} className="skjemaNumberStepper">
             <Fieldset legend={tittel}>
                 <NumberStepper {...stepperProps} />
             </Fieldset>

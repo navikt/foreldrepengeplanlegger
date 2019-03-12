@@ -58,3 +58,19 @@ p {
 .grayBlock {
     .grayBlock();
 }
+
+.capitalizeFirstLetter {
+    &::first-letter {
+        text-transform: capitalize;
+    }
+}
+
+.fieldset__legendBelowContent {
+    position: relative;
+
+    legend {
+        position: absolute;
+        top: calc(100% + .5rem);
+
+    }
+}

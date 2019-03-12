@@ -8,13 +8,18 @@ import { DatovelgerCommonProps } from 'nav-datovelger/dist/datovelger/Datovelger
 import AriaText from 'common/components/aria/AriaText';
 import BEMHelper from 'common/utils/bem';
 import { getAvgrensningerDescriptionForInput } from './datoInputDescription';
+import FocusContainer from 'common/components/focusContainer/FocusContainer';
 
 import './datoInput.less';
-import FocusContainer from 'common/components/focusContainer/FocusContainer';
+
+interface ComponentWithAriaLabel {
+    label: React.ReactNode;
+    ariaLabel: string;
+}
 
 export interface DatoInputProps extends DatovelgerCommonProps {
     name: string;
-    label: React.ReactNode;
+    label: string | ComponentWithAriaLabel;
     dato?: Date;
     postfix?: string;
     feil?: Feil;
@@ -45,10 +50,12 @@ class DatoInput extends React.Component<Props, {}> {
         const avgrensningerTekst = this.props.avgrensninger
             ? getAvgrensningerDescriptionForInput(intl, this.props.avgrensninger)
             : undefined;
+
         const ariaDescriptionId = avgrensningerTekst ? `${id}_ariaDesc` : undefined;
+        const compLabel = typeof label === 'string' ? undefined : (label as ComponentWithAriaLabel);
 
         return (
-            <SkjemaInputElement id={this.props.id} feil={feil} label={label}>
+            <SkjemaInputElement id={this.props.id} feil={feil} label={compLabel ? compLabel.label : label}>
                 <div className={bem.block}>
                     <div className={bem.element('datovelger')}>
                         <FocusContainer
@@ -64,7 +71,8 @@ class DatoInput extends React.Component<Props, {}> {
                                     id,
                                     placeholder: 'dd.mm.åååå',
                                     name,
-                                    ariaDescribedby: ariaDescriptionId
+                                    ariaDescribedby: ariaDescriptionId,
+                                    ariaLabel: compLabel ? compLabel.ariaLabel : undefined
                                 }}
                                 onChange={(dato) => {
                                     if (moment(dato).isSame(this.props.dato, 'day')) {

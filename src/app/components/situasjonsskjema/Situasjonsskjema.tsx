@@ -64,12 +64,7 @@ class Situasjonsskjema extends React.Component<Props> {
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
     }
     handleOnSubmit(skjemadata: SituasjonSkjemadata) {
-        const antallForeldre = getAntallForeldreISituasjon(skjemadata.situasjon);
-        const data: SituasjonSkjemadata = {
-            ...skjemadata,
-            navnFarMedmor: antallForeldre === 2 ? skjemadata.navnFarMedmor : undefined
-        };
-        this.props.onSubmit(data);
+        this.props.onSubmit(skjemadata);
     }
     render() {
         const { skjemadata, onReset } = this.props;

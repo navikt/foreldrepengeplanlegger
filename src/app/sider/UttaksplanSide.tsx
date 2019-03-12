@@ -87,8 +87,7 @@ class UttaksplanSide extends React.Component<Props> {
                                 situasjonProps={{
                                     familiehendelsesdato,
                                     antallBarn: skjemadata.antallBarn,
-                                    navnMor: skjemadata.navnMor,
-                                    navnFarMedmor: skjemadata.navnFarMedmor,
+                                    omForeldre,
                                     situasjon: skjemadata.situasjon,
                                     onRequestChange: () => dispatch(navigerTilSide(Side.START, history))
                                 }}

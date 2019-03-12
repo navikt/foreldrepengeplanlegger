@@ -29,7 +29,9 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({
     return (
         <section className={bem.block}>
             <Block margin="xs">
-                <Undertittel tag="h1">49 uker med 100 prosent foreldrepenger</Undertittel>
+                <Undertittel tag="h1">
+                    {tilgjengeligeDager.dagerTotalt / 5} uker med {dekningsgrad} prosent foreldrepenger
+                </Undertittel>
             </Block>
             <Block margin="s">
                 <Situasjonsinfo

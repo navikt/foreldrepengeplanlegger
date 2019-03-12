@@ -3,7 +3,7 @@ import DatoInput from 'common/components/skjema/datoInput/DatoInput';
 import { Checkbox } from 'nav-frontend-skjema';
 import Block from 'common/components/block/Block';
 import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVelger';
-import { getUkerOgDagerFromDager, formaterDato, formaterDatoUtenDag } from 'common/utils/datoUtils';
+import { getUkerOgDagerFromDager, formaterDatoUtenDag } from 'common/utils/datoUtils';
 import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
 import { Periode, Periodetype } from '../../../types';
 import LinkButton from 'common/components/linkButton/LinkButton';

@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import getMessage from 'common/utils/i18nUtils';
 
 import './infoboks.less';
+import { Normaltekst } from 'nav-frontend-typografi';
 
 interface InfoboksProps {
     tekst: string | React.ReactNode;
@@ -62,7 +63,7 @@ class Infoboks extends React.Component<Props, InfoboksState> {
                     })}
                     isOpened={isExpanded}
                     springConfig={{ stiffness: 250, damping: 30 }}>
-                    {isExpanded ? <div className="infoboks__wrapper">{tekst}</div> : <span />}
+                    {isExpanded ? <Normaltekst className="infoboks__wrapper">{tekst}</Normaltekst> : <span />}
                 </Collapse>
             </React.Fragment>
         );

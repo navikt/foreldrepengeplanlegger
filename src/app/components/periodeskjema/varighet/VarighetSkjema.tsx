@@ -8,7 +8,8 @@ import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
 import { Periode, Periodetype } from '../../../types';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import { getDagerGradert } from '../../../utils/forbrukUtils';
-import { Ingress, Undertittel } from 'nav-frontend-typografi';
+import { Undertittel, Element } from 'nav-frontend-typografi';
+import Tittel from 'common/components/tittel/Tittel';
 
 export interface VarighetChangeEvent {
     ingenVarighet?: boolean;
@@ -54,15 +55,13 @@ const VarighetStartdato: React.StatelessComponent<Props> = ({
                     <Block margin="xs">
                         <Undertittel>Startdato</Undertittel>
                     </Block>
-                    <Block margin="xs">
-                        <Ingress tag="div" className="capitalizeFirstLetter">
-                            {formaterDato(tidsperiode.fom)}
-                        </Ingress>
-                    </Block>
-                    <div className="comment">
-                        Startdato bestemmes ut fra når foregående periode slutter. For å endre denne periodens
-                        startdato, må du endre sluttdatoen på den foregående.
-                    </div>
+                    <Tittel
+                        tittel={<Element className="capitalizeFirstLetter">{formaterDato(tidsperiode.fom)}</Element>}
+                        info={{
+                            tekst:
+                                'Startdato bestemmes ut fra når foregående periode slutter. For å endre denne periodens startdato, må du endre sluttdatoen på den foregående.'
+                        }}
+                    />
                 </>
             )}
             {låstStartdato === false && (

@@ -8,13 +8,13 @@ export const lagUttaksplan = (
     situasjon: Situasjon,
     famDato: Date,
     tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[],
-    fellesperiodeukerMor?: number
+    fellesperiodedagerMor?: number
 ): Periode[] => {
     const antallForelder = getAntallForeldreISituasjon(situasjon);
     let plan: Periode[] = [];
     plan =
-        antallForelder === 2 && fellesperiodeukerMor !== undefined
-            ? deltUttakFødselForslag(famDato, tilgjengeligeStønadskontoer, fellesperiodeukerMor)
+        antallForelder === 2 && fellesperiodedagerMor !== undefined
+            ? deltUttakFødselForslag(famDato, tilgjengeligeStønadskontoer, fellesperiodedagerMor)
             : ikkeDeltUttakForslag(famDato, tilgjengeligeStønadskontoer);
 
     return plan ? plan.map((p) => ({ ...p, uttaksinfo: getUttaksinfoForPeriode(p) })) : [];

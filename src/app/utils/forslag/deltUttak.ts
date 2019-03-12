@@ -6,12 +6,15 @@ import { Uttaksdagen } from '../Uttaksdagen';
 export const deltUttakFødselForslag = (
     famDato: Date,
     tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[],
-    fellesperiodeukerMor: number
+    fellesperiodedagerMor: number
 ): Periode[] => {
     const førsteUttaksdag = Uttaksdagen(famDato).denneEllerNeste();
     const perioder: Periode[] = [];
     const fellesKonto: TilgjengeligStønadskonto | undefined = tilgjengeligeStønadskontoer.find(
         (konto) => konto.stønadskontoType === StønadskontoType.Fellesperiode
+    );
+    const flerbarnsKonto: TilgjengeligStønadskonto | undefined = tilgjengeligeStønadskontoer.find(
+        (konto) => konto.stønadskontoType === StønadskontoType.Flerbarnsdager
     );
     const mkKonto: TilgjengeligStønadskonto | undefined = tilgjengeligeStønadskontoer.find(
         (konto) => konto.stønadskontoType === StønadskontoType.Mødrekvote
@@ -19,11 +22,14 @@ export const deltUttakFødselForslag = (
     const fkKonto: TilgjengeligStønadskonto | undefined = tilgjengeligeStønadskontoer.find(
         (konto) => konto.stønadskontoType === StønadskontoType.Fedrekvote
     );
-    const fellesperiodeUkerTotalt = fellesKonto!.dager / 5;
+
+    const fellesperiodedagerTotalt =
+        (fellesKonto ? fellesKonto.dager : 0) + (flerbarnsKonto ? flerbarnsKonto.dager : 0);
+
     let currentTomDate: Date = førsteUttaksdag;
 
     if (mkKonto !== undefined) {
-        const dagerTilMor = fellesperiodeukerMor * 5 + mkKonto.dager;
+        const dagerTilMor = fellesperiodedagerMor + mkKonto.dager;
         const periodeMor: Periode = {
             id: guid(),
             type: Periodetype.Uttak,
@@ -34,7 +40,7 @@ export const deltUttakFødselForslag = (
         perioder.push(periodeMor);
     }
     if (fkKonto !== undefined) {
-        const dagerTilFar = (fellesperiodeUkerTotalt - fellesperiodeukerMor) * 5 + fkKonto.dager;
+        const dagerTilFar = fellesperiodedagerTotalt - fellesperiodedagerMor + fkKonto.dager;
         const periodeFar: Periode = {
             id: guid(),
             type: Periodetype.Uttak,

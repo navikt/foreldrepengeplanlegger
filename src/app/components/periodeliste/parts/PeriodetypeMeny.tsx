@@ -44,19 +44,20 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
     brukteUttaksdager,
     intl
 }) => {
+    const erArbeidEllerFerie = type === Periodetype.Ferie || type === Periodetype.Arbeid;
     return type ? (
         <IconText fullWidth={true} icon={<Periodeikon periodetype={type} forelder={forelder} />}>
             <div className="periodetypeMenyLabel">
                 <div className="periodetypeMenyLabel__type">{getPeriodetypeLabel(type, intl)}</div>
                 <div className="periodetypeMenyLabel__tidsperiode">
-                    {type === Periodetype.Ferie && uttaksdager ? (
+                    {erArbeidEllerFerie && uttaksdager ? (
                         <span>
                             <Varighet dager={uttaksdager} separator=" og " />
                         </span>
                     ) : (
                         undefined
                     )}
-                    {type !== Periodetype.Ferie && brukteUttaksdager !== undefined && (
+                    {!erArbeidEllerFerie && brukteUttaksdager !== undefined && (
                         <span>
                             <Varighet dager={brukteUttaksdager} separator=" og " /> med foreldrepenger
                         </span>

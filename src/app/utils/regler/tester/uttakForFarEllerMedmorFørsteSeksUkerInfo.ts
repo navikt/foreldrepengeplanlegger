@@ -7,7 +7,7 @@ const uttakForFarEllerMedmorFørsteSeksUkerInfo: RegelTest = (
     key: RegelKey,
     grunnlag: Regelgrunnlag
 ): RegelTestresultat => {
-    const { perioder, uttaksdatoer, navnFarMedmor, situasjon } = grunnlag;
+    const { perioder, uttaksdatoer, navnFarMedmor, situasjon, navnMor } = grunnlag;
     const { førsteUttaksdagEtterSeksUker } = uttaksdatoer.etterFødsel;
 
     const periode = perioder
@@ -31,7 +31,8 @@ const uttakForFarEllerMedmorFørsteSeksUkerInfo: RegelTest = (
                       feilmelding: {
                           intlKey: `regel.info.${key}`,
                           values: {
-                              navnFarMedmor
+                              navnFarMedmor,
+                              navnMor
                           }
                       }
                   }

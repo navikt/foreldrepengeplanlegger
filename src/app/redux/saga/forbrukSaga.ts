@@ -57,7 +57,8 @@ function* validerUttaksplanSaga() {
             navnMor: skjemadata.navnMor,
             navnFarMedmor: skjemadata.navnFarMedmor,
             forbruk,
-            tilgjengeligeDager
+            tilgjengeligeDager,
+            antallBarn: skjemadata.antallBarn
         };
         const resultat = sjekkUttaksplanOppMotRegler(regelgrunnlag);
         const feil = resultat.filter(

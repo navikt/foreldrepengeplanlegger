@@ -15,6 +15,7 @@ export interface Regelgrunnlag {
     navnFarMedmor?: string;
     forbruk?: Forbruk;
     tilgjengeligeDager?: TilgjengeligeDager;
+    antallBarn: number;
 }
 
 export type RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag) => RegelTestresultat;

@@ -5,7 +5,6 @@ import { TilgjengeligeDager, SituasjonSkjemadata, OmForeldre, Uttaksdatoer } fro
 import {
     setDekningsgrad,
     setØnsketFordeling,
-    skipØnsketFordeling,
     navigerTilSide,
     lagForslagTilPlan
 } from '../redux/actions/common/commonActionCreators';
@@ -82,7 +81,7 @@ class UttaksplanSide extends React.Component<Props> {
                     </Block>
                     <Skjemablokk
                         tittel={`Hvor lang periode med foreldrepenger ønsker ${
-                            omForeldre.antallForeldre === 2 ? 'dere' : 'du'
+                            omForeldre.erDeltOmsorg ? 'dere' : 'du'
                         }?`}
                         beskrivelse="Valget vil gjelde for dere begge. Den totale utbetalingensummen blir høyere ved å velge 100
                         prosent.">
@@ -104,7 +103,7 @@ class UttaksplanSide extends React.Component<Props> {
                                     omForeldre={omForeldre}
                                 />
                             </Block>
-                            {omForeldre.antallForeldre === 1 && (
+                            {omForeldre.erDeltOmsorg === false && (
                                 <Knapperad align="center">
                                     <Hovedknapp
                                         onClick={() => {
@@ -115,7 +114,7 @@ class UttaksplanSide extends React.Component<Props> {
                                     </Hovedknapp>
                                 </Knapperad>
                             )}
-                            {omForeldre.antallForeldre === 2 && omForeldre.farMedmor && (
+                            {omForeldre.erDeltOmsorg && omForeldre.farMedmor && (
                                 <FordelingForeldrepenger
                                     navnMor={omForeldre.mor.navn}
                                     navnFarMedmor={omForeldre.farMedmor.navn}
@@ -124,7 +123,6 @@ class UttaksplanSide extends React.Component<Props> {
                                         dispatch(setØnsketFordeling(uker));
                                         dispatch(navigerTilSide(Side.UTTAKSPLAN, this.props.history));
                                     }}
-                                    onSkipPlan={() => dispatch(skipØnsketFordeling())}
                                 />
                             )}
                         </>

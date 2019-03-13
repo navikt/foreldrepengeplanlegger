@@ -120,12 +120,6 @@ export function setØnsketFordeling(ukerMor: number): CommonActionTypes {
     };
 }
 
-export function skipØnsketFordeling(): CommonActionTypes {
-    return {
-        type: CommonActionKeys.SKIP_ØNSKET_FORDELING
-    };
-}
-
 export function slåSammenPerioder(periode1: Periode, periode2: Periode): CommonActionTypes {
     return {
         type: CommonActionKeys.SLÅ_SAMMEN_PERIODER,

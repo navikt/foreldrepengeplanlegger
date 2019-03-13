@@ -25,7 +25,7 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({
 }) => {
     const bem = BEMHelper('dekningsgradInfo');
     const dekningsSum = dekningsgrad === '100' ? '22 000' : '17 600';
-    const erMor = omForeldre.aleneomsorgForelder && omForeldre.aleneomsorgForelder === Forelder.mor;
+    const rolle = omForeldre.erDeltOmsorg ? undefined : omForeldre.erAleneomsorgMor ? Forelder.mor : Forelder.farMedmor;
     return (
         <section className={bem.block}>
             <Block margin="xs">
@@ -34,10 +34,7 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({
                 </Undertittel>
             </Block>
             <Block margin="s">
-                <Situasjonsinfo
-                    situasjon={situasjon}
-                    rolle={erMor !== undefined ? (erMor ? 'mor' : 'far') : undefined}
-                />
+                <Situasjonsinfo situasjon={situasjon} forelder={rolle} />
             </Block>
 
             <Block margin="m">

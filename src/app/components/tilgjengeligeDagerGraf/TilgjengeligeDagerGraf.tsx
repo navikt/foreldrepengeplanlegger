@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TilgjengeligeDager, OmForeldre, Forelder } from '../../types';
+import { TilgjengeligeDager, OmForeldre } from '../../types';
 import BEMHelper from 'common/utils/bem';
 import { getProsentFordeling } from '../../utils/tilgjengeligeDagerUtils';
 import Multibar from '../multibar/Multibar';
@@ -80,10 +80,7 @@ const AleneomsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, 
             <Multibar
                 borderColor={UttaksplanHexFarge.graa}
                 leftBar={{
-                    color:
-                        omForeldre.aleneomsorgForelder === Forelder.farMedmor
-                            ? UttaksplanHexFarge.blaa
-                            : UttaksplanHexFarge.lilla,
+                    color: omForeldre.erAleneomsorgFarMedmor ? UttaksplanHexFarge.blaa : UttaksplanHexFarge.lilla,
                     width: 100,
                     text: <div className={bem.element('barTekst')}>{txt}</div>
                 }}
@@ -92,7 +89,7 @@ const AleneomsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, 
     );
 };
 const TilgjengeligeDagerGraf: React.StatelessComponent<Props> = (props) => {
-    return props.omForeldre.antallForeldre === 2 ? <DeltOmsorgGraf {...props} /> : <AleneomsorgGraf {...props} />;
+    return props.omForeldre.erDeltOmsorg ? <DeltOmsorgGraf {...props} /> : <AleneomsorgGraf {...props} />;
 };
 
 export default injectIntl(TilgjengeligeDagerGraf);

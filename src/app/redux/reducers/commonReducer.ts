@@ -9,8 +9,7 @@ import {
     OmForeldre,
     Periodetype,
     UttakFørTerminPeriode,
-    isKomplettPeriode,
-    Forelder
+    isKomplettPeriode
 } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { Dekningsgrad } from 'common/types';
@@ -20,7 +19,6 @@ import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
 import { lagUttaksplan } from '../../utils/forslag/lagUttaksplan';
 import { UttaksplanRegelTestresultat } from '../../utils/regler/types';
 import { guid } from 'nav-frontend-js-utils';
-import { getAntallForeldreISituasjon } from '../../utils/common';
 
 export interface ØnsketFordelingForeldrepenger {
     harValgtFordeling: boolean;
@@ -91,12 +89,6 @@ const updateStateWithNewSkjemadata = (state: CommonState, action: SubmitSkjemada
     return {
         ...getDefaultCommonState(),
         skjemadata: action.data,
-        periodeFørTermin: getPeriodeFørTermin(
-            action.data.situasjon,
-            action.data.familiehendelsesdato,
-            state.tilgjengeligeDager ? state.tilgjengeligeDager.dagerForeldrepengerFørFødsel : 15,
-            action.data.aleneomsorgForelder === Forelder.mor
-        ),
         ønsketFordeling: {
             harValgtFordeling: false,
             ukerFarMedmor: undefined,
@@ -105,26 +97,6 @@ const updateStateWithNewSkjemadata = (state: CommonState, action: SubmitSkjemada
         dekningsgrad: undefined,
         familiehendelsesdato: action.data.familiehendelsesdato
     };
-};
-
-const updateStateOnDekningsgradChange = (state: CommonState, dekningsgrad: Dekningsgrad): CommonState => {
-    if (state.skjemadata) {
-        const skalOppretteUttaksplanVedIkkeDeltUttak =
-            getAntallForeldreISituasjon(state.skjemadata.situasjon) === 1 && state.perioder.length === 0;
-        const perioder: Periode[] = skalOppretteUttaksplanVedIkkeDeltUttak
-            ? lagUttaksplan(
-                  state.skjemadata.situasjon,
-                  state.familiehendelsesdato,
-                  dekningsgrad === '100' ? state.stønadskontoer100.kontoer : state.stønadskontoer80.kontoer
-              )
-            : state.perioder;
-
-        return updateStateAndStorage(state, {
-            dekningsgrad,
-            perioder
-        });
-    }
-    return state;
 };
 
 const commonReducer = (state = getDefaultCommonState(getStorage()), action: CommonActionTypes): CommonState => {
@@ -145,7 +117,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
         case CommonActionKeys.SUBMIT_SKJEMADATA:
             return updateStateWithNewSkjemadata(state, action);
         case CommonActionKeys.SET_DEKNINGSGRAD:
-            return updateStateOnDekningsgradChange(state, action.dekningsgrad);
+            return updateStateAndStorage(state, { dekningsgrad: action.dekningsgrad });
         case CommonActionKeys.NY_PERIODE_CHANGE:
             return updateStateAndStorage(state, {
                 nyPeriode: isKomplettPeriode(action.periode)
@@ -210,42 +182,33 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                 ønsketFordeling: action.resetØnsketFordeling ? { harValgtFordeling: false } : state.ønsketFordeling
             });
         case CommonActionKeys.SET_ØNSKET_FORDELING:
-            if (state.skjemadata) {
-                const perioder = lagUttaksplan(
-                    state.skjemadata.situasjon,
-                    state.familiehendelsesdato,
-                    state.dekningsgrad === '100' ? state.stønadskontoer100.kontoer : state.stønadskontoer80.kontoer,
-                    action.ukerMor * 5
-                );
+            if (state.skjemadata && state.tilgjengeligeDager) {
                 return updateStateAndStorage(state, {
                     ønsketFordeling: {
                         harValgtFordeling: true,
                         ukerMor: action.ukerMor,
-                        ukerFarMedmor: state.tilgjengeligeDager!.dagerFelles - action.ukerMor
-                    },
-                    perioder
+                        ukerFarMedmor: state.tilgjengeligeDager.dagerFelles - action.ukerMor
+                    }
                 });
             }
         case CommonActionKeys.LAG_FORSLAG_TIL_PLAN:
-            if (state.skjemadata) {
+            if (state.skjemadata && state.omForeldre && state.tilgjengeligeDager) {
                 const perioder = lagUttaksplan(
                     state.skjemadata.situasjon,
                     state.familiehendelsesdato,
                     state.dekningsgrad === '100' ? state.stønadskontoer100.kontoer : state.stønadskontoer80.kontoer
                 );
                 return updateStateAndStorage(state, {
-                    ønsketFordeling: { harValgtFordeling: true },
+                    periodeFørTermin: getPeriodeFørTermin(
+                        state.skjemadata.situasjon,
+                        state.familiehendelsesdato,
+                        state.tilgjengeligeDager.dagerForeldrepengerFørFødsel,
+                        state.omForeldre.erAleneomsorgMor
+                    ),
                     perioder
                 });
             }
             return state;
-        case CommonActionKeys.SKIP_ØNSKET_FORDELING:
-            return updateStateAndStorage(state, {
-                ønsketFordeling: {
-                    harValgtFordeling: true
-                },
-                perioder: []
-            });
         case CommonActionKeys.SET_UTTAKSPLAN_VALIDERING:
             return {
                 ...state,

@@ -59,12 +59,8 @@ class SituasjonsskjemaForm extends React.Component<Props> {
             situasjon !== undefined &&
             (visErMorEllerFarMedmor === false ||
                 (visErMorEllerFarMedmor === true && aleneomsorgForelder !== undefined));
-        const visAntallBarn = visAntallBarnValg(
-            situasjon,
-            navnFarMedmor,
-            navnMor,
-            aleneomsorgForelder === Forelder.mor
-        );
+        const visAntallBarn =
+            visNavn && visAntallBarnValg(situasjon, navnFarMedmor, navnMor, aleneomsorgForelder === Forelder.mor);
         const visTermindato = visAntallBarn && antallBarn !== undefined;
         const termindatoAvgrensninger = getTermindatoAvgrensninger();
         const erToForeldre = getAntallForeldreISituasjon(situasjon) > 1;
@@ -75,7 +71,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                         <VelgSituasjon
                             onChange={(s) => {
                                 formik.setFieldValue('situasjon', s);
-                                formik.setFieldValue('erMor', undefined);
+                                formik.setFieldValue('aleneomsorgForelder', undefined);
                             }}
                             valgtSituasjon={situasjon}
                         />

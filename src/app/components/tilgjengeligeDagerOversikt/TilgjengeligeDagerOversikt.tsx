@@ -79,11 +79,11 @@ const TilgjengeligeDagerOversikt: React.StatelessComponent<Props> = (props: Prop
             <Block margin="none">
                 <Block margin="xxs">
                     <Systemtittel tag="h1">
-                        {omForeldre.antallForeldre === 2 ? 'Dere' : 'Du '} har rett på{' '}
+                        {omForeldre.erDeltOmsorg ? 'Dere' : 'Du '} har rett på{' '}
                         {getVarighetString(tilgjengeligeDager.dagerEtterTermin, intl)} med foreldrepenger
                     </Systemtittel>
                 </Block>
-                <Block margin="xs" visible={omForeldre.antallForeldre === 2}>
+                <Block margin="xs" visible={omForeldre.erDeltOmsorg}>
                     <Fordelingsliste tilgjengeligeDager={tilgjengeligeDager} intl={intl} omForeldre={omForeldre} />
                 </Block>
             </Block>

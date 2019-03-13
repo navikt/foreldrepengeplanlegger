@@ -1,4 +1,4 @@
-import { Periodetype, Periode, OmForeldre } from '../../types';
+import { Periodetype, Periode, OmForeldre, Forelder } from '../../types';
 import { PeriodeskjemaFormValues } from './types';
 import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
 import { Tidsperioden } from '../../utils/Tidsperioden';
@@ -73,12 +73,18 @@ const getInitialFormValuesFromPeriode = (
     periode: Periode | undefined,
     omForeldre: OmForeldre
 ): PeriodeskjemaFormValues | {} => {
+    const getDefaultForelder = (): Forelder | undefined => {
+        if (omForeldre.erAleneomsorgMor) {
+            return Forelder.mor;
+        }
+        if (omForeldre.erAleneomsorgFarMedmor) {
+            return Forelder.farMedmor;
+        }
+        return undefined;
+    };
     if (!periode) {
         return {
-            forelder:
-                omForeldre.antallForeldre === 1 && omForeldre.aleneomsorgForelder
-                    ? omForeldre.aleneomsorgForelder
-                    : undefined
+            forelder: getDefaultForelder()
         };
     }
     return {

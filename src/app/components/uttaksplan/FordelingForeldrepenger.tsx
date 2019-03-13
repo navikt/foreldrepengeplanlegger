@@ -12,7 +12,6 @@ interface Props {
     navnMor: string;
     navnFarMedmor: string;
     onChange: (ukerMor: number) => void;
-    onSkipPlan: () => void;
 }
 
 interface State {

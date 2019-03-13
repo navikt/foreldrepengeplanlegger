@@ -298,7 +298,7 @@ const FordelingGraf: React.StatelessComponent<Props> = (props) => {
                 <FordelingStatusHeader {...props} />
             </Block>
             <Block margin="s">
-                {props.omForeldre.antallForeldre === 2 && <GrafDeltOmsorg {...props} />}
+                {props.omForeldre.erDeltOmsorg && <GrafDeltOmsorg {...props} />}
                 {props.omForeldre.erAleneomsorgMor && <GrafAleneomsorgMor {...props} />}
                 {props.omForeldre.erAleneomsorgFarMedmor && <GrafAleneomsorgFarMedmor {...props} />}
             </Block>

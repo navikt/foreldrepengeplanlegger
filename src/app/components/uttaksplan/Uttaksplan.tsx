@@ -118,9 +118,7 @@ class Uttaksplan extends React.Component<Props, State> {
                         <Block margin="s">
                             <div className="periodeliste__header">
                                 <div className="periodeliste__title">
-                                    <Systemtittel>
-                                        {omForeldre.antallForeldre === 2 ? 'Deres plan' : 'Din plan'}
-                                    </Systemtittel>
+                                    <Systemtittel>{omForeldre.erDeltOmsorg ? 'Deres plan' : 'Din plan'}</Systemtittel>
                                 </div>
                                 {onResetPlan && perioder.length > 0 && (
                                     <div className="periodeliste__reset">

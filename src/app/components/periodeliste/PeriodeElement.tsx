@@ -78,7 +78,6 @@ class PeriodeElement extends React.Component<Props> {
         };
 
         const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
-        const harFlereForeldre = omForeldre.antallForeldre > 1;
         const { fom, tom } = this.props.periode.tidsperiode;
         return (
             <PeriodeBlokk farge={getPeriodetypeFarge(this.props.periode.type, this.props.periode.forelder)}>
@@ -106,7 +105,7 @@ class PeriodeElement extends React.Component<Props> {
                             className: bem.element('gradering'),
                             render: () => (
                                 <GraderingMeny
-                                    foreldernavn={omForeldre.antallForeldre === 2 ? foreldernavn : 'du'}
+                                    foreldernavn={omForeldre.erDeltOmsorg ? foreldernavn : 'du'}
                                     gradering={this.props.periode.gradering}
                                     onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
                                     uttaksdagerBrukt={antallUttaksdagerBrukt}
@@ -131,7 +130,7 @@ class PeriodeElement extends React.Component<Props> {
                                     }
                                 />
                             ),
-                            isVisibleCheck: () => harFlereForeldre
+                            isVisibleCheck: () => omForeldre.erDeltOmsorg
                         },
                         {
                             id: 'varighet',

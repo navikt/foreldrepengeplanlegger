@@ -113,7 +113,6 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         } = this.props;
         const { fom, tom, periodetype, forelder, gradering } = formik.values;
         const forelderNavn = getForelderNavn(forelder, omForeldre);
-        const harFlereForeldre = omForeldre.antallForeldre > 1;
         const antallUttaksdagerBrukt = periodeskjemaUtils.getBrukteUttaksdagerForNyPeriode(formik.values);
         const uttaksdager = fom && tom ? Tidsperioden({ fom, tom }).getAntallUttaksdager() : undefined;
         return (
@@ -151,7 +150,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                     className: bem.element('gradering'),
                                     render: () => (
                                         <GraderingMeny
-                                            foreldernavn={harFlereForeldre ? forelderNavn : 'du'}
+                                            foreldernavn={omForeldre.erDeltOmsorg ? forelderNavn : 'du'}
                                             gradering={gradering}
                                             dropdownStyle="border"
                                             onChange={(g) => {
@@ -177,7 +176,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             }}
                                         />
                                     ),
-                                    isVisibleCheck: () => harFlereForeldre
+                                    isVisibleCheck: () => omForeldre.erDeltOmsorg
                                 },
                                 {
                                     id: 'varighet',

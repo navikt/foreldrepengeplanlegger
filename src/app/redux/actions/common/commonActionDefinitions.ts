@@ -34,7 +34,6 @@ export enum CommonActionKeys {
     'RESET_PLAN' = 'resetPlan',
     'SET_UTTAKSDAGER_FØR_TERMIN' = 'setUttaksdagerFørTermin',
     'SET_ØNSKET_FORDELING' = 'setØnsketFordeling',
-    'SKIP_ØNSKET_FORDELING' = 'skipØnsketFordeling',
     'NY_PERIODE_CHANGE' = 'nyPeriodeChange',
     'SET_UTTAKSPLAN_VALIDERING' = 'setUttaksplanValidering',
     'VALIDER_UTTAKSPLAN' = 'validerUttaksplan',
@@ -162,10 +161,6 @@ interface SetØnsketFordelingAction {
     ukerMor: number;
 }
 
-interface SkipØnsketFordelingAction {
-    type: CommonActionKeys.SKIP_ØNSKET_FORDELING;
-}
-
 interface NyPeriodeChangeAction {
     type: CommonActionKeys.NY_PERIODE_CHANGE;
     periode: Periode | undefined;
@@ -192,6 +187,5 @@ export type CommonActionTypes =
     | NyPeriodeChangeAction
     | ValiderUttaksplanAction
     | SetUttaksplanValideringAction
-    | SkipØnsketFordelingAction
     | LagForslagTilPlanAction
     | NavigerTilSideAction;

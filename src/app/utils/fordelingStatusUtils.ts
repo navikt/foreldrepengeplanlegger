@@ -121,7 +121,7 @@ function getFordelingStatusAleneomsorg(forbruk: Forbruk, omForeldre: OmForeldre,
 
 export function getFordelingStatus(forbruk: Forbruk, omForeldre: OmForeldre, intl: InjectedIntl): FordelingStatus {
     const { dagerGjenstående, mor, farMedmor } = forbruk;
-    if (omForeldre.antallForeldre === 2 && omForeldre.farMedmor && farMedmor && forbruk.farMedmor) {
+    if (omForeldre.erDeltOmsorg && omForeldre.farMedmor && farMedmor && forbruk.farMedmor) {
         return getFordelingStatusDeltOmsorg(
             dagerGjenstående,
             mor,

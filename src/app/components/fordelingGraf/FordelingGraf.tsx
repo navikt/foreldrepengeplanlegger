@@ -104,7 +104,7 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ forbruk, omForeldre,
                     dager={farMedmor.dagerTotalt}
                     dagerForLite={farMedmor.dagerForLite}
                     dagerForMye={farMedmor.dagerForMye}
-                    invertert={true}
+                    invertert={!omForeldre.erAleneomsorgFarMedmor}
                     intl={intl}
                 />
             )}

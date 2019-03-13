@@ -55,7 +55,7 @@
     "regel.feiler.førstePeriodeErUttakAvForeldrepenger": "Planen kan ikke starte med {type}.",
 
     "regel.info.uttakForFarEllerMedmorFørsteSeksUkerInfo": "{navnFarMedmor} kan kun ta ut foreldrepenger de seks første ukene om {navnMor} er for syk til å ta seg av barnet eller hvis mor er innlagt i helseinstitusjon.",
-    "regel.info.ferieMedUttaksdagerInfo": "Det er trukket {dager} med foreldrepenger fra ferie registrert i planen. Dette er fordi ferien inneholder helligdager, som en ikke kan registrere som ferie.",
+    "regel.info.ferieMedUttaksdagerInfo": "En kan ikke ta ut ferie på en helligdag, dette teller som en vanlig dag med foreldrepenger.",
     "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker dager fra fellesperioden, og må legge ved dokumentasjon av aktivitetskravet til {navnMor}.",
     "regel.info.morUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnMor} må bekrefte avtalt arbeid i inntektsmelding som sendes til NAV.",
     "regel.info.farMedmorUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnFarMedmor} må bekrefte avtalt arbeid i inntektsmelding som sendes til NAV.",

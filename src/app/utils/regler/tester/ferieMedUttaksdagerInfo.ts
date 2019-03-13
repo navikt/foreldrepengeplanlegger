@@ -8,7 +8,7 @@ const ferieMedUttaksdagerInfo: RegelTest = (key: RegelKey, grunnlag: Regelgrunnl
     const { perioder } = grunnlag;
     const dager = perioder
         .filter((p) => p.type === Periodetype.Ferie)
-        .map((p) => p.uttaksinfo!.antallUttaksdagerBrukt)
+        .map((p) => (p.uttaksinfo ? p.uttaksinfo.antallUttaksdagerBrukt : 0))
         .reduce((d, nyeDager) => nyeDager + d, 0);
 
     return {

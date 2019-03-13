@@ -21,8 +21,8 @@ export interface UkerOgDager {
 }
 
 export interface Uttaksinfo {
-    antallUttaksdager?: number;
-    antallFridager?: number;
+    antallUttaksdager: number;
+    antallFridager: number;
     ukerOgDager: UkerOgDager;
     ukerOgDagerBrukt: UkerOgDager;
     antallUttaksdagerBrukt: number;

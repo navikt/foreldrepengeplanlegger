@@ -9,7 +9,7 @@ export enum RegelKey {
     'farUsetterFørsteSeksUker' = 'førstePeriodeErUttakAvForeldrepenger',
     'farMedmorBrukerFellesperiodeInfo' = 'farMedmorBrukerFellesperiodeInfo',
     'morUtsetterPgaArbeidInfo' = 'morUtsetterPgaArbeidInfo',
-    'morUsetterFørsteSeksUker' = 'morUsetterFørsteSeksUker',
-    'farMedmorUsetterFørsteSeksUker' = 'farMedmorUsetterFørsteSeksUker',
-    'farMedmorUtsetterPgaArbeidInfo' = 'farMedmorUtsetterPgaArbeidInfo'
+    'usetterFørsteSeksUker' = 'usetterFørsteSeksUker',
+    'farMedmorUtsetterPgaArbeidInfo' = 'farMedmorUtsetterPgaArbeidInfo',
+    'forMangeFeriedager' = 'forMangeFeriedager'
 }

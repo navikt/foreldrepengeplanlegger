@@ -13,6 +13,7 @@ import {
     morUsetterFørsteSeksUkerRegel,
     farMedmormorUsetterFørsteSeksUkerRegel
 } from './tester/utsettelseFørsteSeksUker';
+import { forMangeFeriedagerMor, forMangeFeriedagerFarMedmor } from './tester/forMangeFeriedager';
 
 const uttaksplanRegler: Regel[] = [
     uttakForFarEllerMedmorFørsteSeksUkerInfoRegel,
@@ -26,7 +27,9 @@ const uttaksplanRegler: Regel[] = [
     morUtsetterPgaArbeidInfoRegel,
     farMedmorUtsetterPgaArbeidInfoRegel,
     morUsetterFørsteSeksUkerRegel,
-    farMedmormorUsetterFørsteSeksUkerRegel
+    farMedmormorUsetterFørsteSeksUkerRegel,
+    forMangeFeriedagerMor,
+    forMangeFeriedagerFarMedmor
 ];
 
 export default uttaksplanRegler;

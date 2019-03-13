@@ -43,11 +43,11 @@ const utsettelseFørsteSeksUker = (forelder: Forelder, key: RegelKey, grunnlag: 
 };
 
 export const morUsetterFørsteSeksUkerRegel: Regel = {
-    key: RegelKey.morUsetterFørsteSeksUker,
+    key: RegelKey.usetterFørsteSeksUker,
     test: (key: RegelKey, grunnlag: Regelgrunnlag) => utsettelseFørsteSeksUker(Forelder.mor, key, grunnlag)
 };
 
 export const farMedmormorUsetterFørsteSeksUkerRegel: Regel = {
-    key: RegelKey.farMedmorUsetterFørsteSeksUker,
+    key: RegelKey.usetterFørsteSeksUker,
     test: (key: RegelKey, grunnlag: Regelgrunnlag) => utsettelseFørsteSeksUker(Forelder.farMedmor, key, grunnlag)
 };

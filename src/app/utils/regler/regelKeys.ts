@@ -1,15 +1,15 @@
 export enum RegelKey {
+    'alleUttakErInnenforMaksAntallDager' = 'alleUttakErInnenforMaksAntallDager',
     'uttakForFarEllerMedmorFørsteSeksUkerInfo' = 'uttakForFarEllerMedmorFørsteSeksUkerInfo',
     'ferieMedUttaksdagerInfo' = 'ferieMedUttaksdagerInfo',
     'erInnenforSisteMuligeUttaksdag' = 'erInnenforSisteMuligeUttaksdag',
     'starterInnenfor12UkerFørTermin' = 'starterInnenfor12UkerFørTermin',
-    'farMedmorsUttakErInnenforMaksAntallDager' = 'farMedmorsUttakErInnenforMaksAntallDager',
     'morsUttakErInnenforMaksAntallDager' = 'morsUttakErInnenforMaksAntallDager',
-    'alleUttakErInnenforMaksAntallDager' = 'alleUttakErInnenforMaksAntallDager',
+    'morUtsetterPgaArbeidInfo' = 'morUtsetterPgaArbeidInfo',
+    'farMedmorsUttakErInnenforMaksAntallDager' = 'farMedmorsUttakErInnenforMaksAntallDager',
     'farUsetterFørsteSeksUker' = 'førstePeriodeErUttakAvForeldrepenger',
     'farMedmorBrukerFellesperiodeInfo' = 'farMedmorBrukerFellesperiodeInfo',
-    'morUtsetterPgaArbeidInfo' = 'morUtsetterPgaArbeidInfo',
-    'usetterFørsteSeksUker' = 'usetterFørsteSeksUker',
     'farMedmorUtsetterPgaArbeidInfo' = 'farMedmorUtsetterPgaArbeidInfo',
+    'usetterFørsteSeksUker' = 'usetterFørsteSeksUker',
     'forMangeFeriedager' = 'forMangeFeriedager'
 }

@@ -53,6 +53,8 @@
     "regel.feiler.farMedmorsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
     "regel.feiler.alleUttakErInnenforMaksAntallDager": "Det er registrert {dagerForMye} for mye til sammen. Maks antall dager med foreldrepenger er {dagerTilgjengelig}. Du kan rette opp i dette ved å endre lengden på noen av periodene i planen.",
     "regel.feiler.førstePeriodeErUttakAvForeldrepenger": "Planen kan ikke starte med {type}.",
+    "regel.feiler.morUsetterFørsteSeksUker": "{navn} kan ikke utsette eller kombinere foreldrepenger og arbeid de første seks ukene.",
+    "regel.feiler.farMedmorUsetterFørsteSeksUker": "{navn} kan ikke utsette eller kombinere foreldrepenger og arbeid de første seks ukene.",
 
     "regel.info.uttakForFarEllerMedmorFørsteSeksUkerInfo": "{navnFarMedmor} kan kun ta ut foreldrepenger de seks første ukene om {navnMor} er for syk til å ta seg av barnet eller hvis mor er innlagt i helseinstitusjon.",
     "regel.info.ferieMedUttaksdagerInfo": "En kan ikke ta ut ferie på en helligdag, dette teller som en vanlig dag med foreldrepenger.",

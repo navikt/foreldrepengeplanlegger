@@ -6,8 +6,10 @@ export enum RegelKey {
     'farMedmorsUttakErInnenforMaksAntallDager' = 'farMedmorsUttakErInnenforMaksAntallDager',
     'morsUttakErInnenforMaksAntallDager' = 'morsUttakErInnenforMaksAntallDager',
     'alleUttakErInnenforMaksAntallDager' = 'alleUttakErInnenforMaksAntallDager',
-    'førstePeriodeErUttakAvForeldrepenger' = 'førstePeriodeErUttakAvForeldrepenger',
+    'farUsetterFørsteSeksUker' = 'førstePeriodeErUttakAvForeldrepenger',
     'farMedmorBrukerFellesperiodeInfo' = 'farMedmorBrukerFellesperiodeInfo',
     'morUtsetterPgaArbeidInfo' = 'morUtsetterPgaArbeidInfo',
+    'morUsetterFørsteSeksUker' = 'morUsetterFørsteSeksUker',
+    'farMedmorUsetterFørsteSeksUker' = 'farMedmorUsetterFørsteSeksUker',
     'farMedmorUtsetterPgaArbeidInfo' = 'farMedmorUtsetterPgaArbeidInfo'
 }

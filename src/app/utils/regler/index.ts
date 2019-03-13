@@ -6,10 +6,13 @@ import { farMedmorsUttakErInnenforMaksAntallDagerRegel } from './tester/farMedmo
 import { morsUttakErInnenforMaksAntallDagerRegel } from './tester/morsUttakErInnenforMaksAntallDager';
 import { alleUttakErInnenforMaksAntallDagerRegel } from './tester/alleUttakErInnenforMaksAntallDager';
 import { ferieMedUttaksdagerInfoRegel } from './tester/ferieMedUttaksdagerInfo';
-import { førstePeriodeErUttakAvForeldrepengerRegel } from './tester/førstePeriodeErUttakAvForeldrepenger';
 import { farMedmorBrukerFellesperiodeInfoRegel } from './tester/farMedmorBrukerFellesperiodeInfo';
 import { morUtsetterPgaArbeidInfoRegel } from './tester/morUtsetterPgaArbeidInfo';
 import { farMedmorUtsetterPgaArbeidInfoRegel } from './tester/farMedmorUtsetterPgaArbeidInfo';
+import {
+    morUsetterFørsteSeksUkerRegel,
+    farMedmormorUsetterFørsteSeksUkerRegel
+} from './tester/utsettelseFørsteSeksUker';
 
 const uttaksplanRegler: Regel[] = [
     uttakForFarEllerMedmorFørsteSeksUkerInfoRegel,
@@ -19,10 +22,11 @@ const uttaksplanRegler: Regel[] = [
     farMedmorsUttakErInnenforMaksAntallDagerRegel,
     morsUttakErInnenforMaksAntallDagerRegel,
     alleUttakErInnenforMaksAntallDagerRegel,
-    førstePeriodeErUttakAvForeldrepengerRegel,
     farMedmorBrukerFellesperiodeInfoRegel,
     morUtsetterPgaArbeidInfoRegel,
-    farMedmorUtsetterPgaArbeidInfoRegel
+    farMedmorUtsetterPgaArbeidInfoRegel,
+    morUsetterFørsteSeksUkerRegel,
+    farMedmormorUsetterFørsteSeksUkerRegel
 ];
 
 export default uttaksplanRegler;

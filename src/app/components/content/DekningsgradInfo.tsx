@@ -55,7 +55,7 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({
                         {dekningsSum} kroner per måned
                     </Ingress>
                 </div>
-                <em>Eksempel på utbetaling med fast inntekt på 22 000 kroner per måned</em>
+                Eksempel på utbetaling med fast inntekt på 22 000 kroner per måned
             </Block>
         </section>
     );

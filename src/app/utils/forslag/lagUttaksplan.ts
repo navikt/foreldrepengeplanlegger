@@ -8,7 +8,7 @@ export const lagUttaksplan = (
     situasjon: Situasjon,
     famDato: Date,
     tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[],
-    fellesperiodedagerMor?: number
+    fellesperiodedagerMor: number | undefined
 ): Periode[] => {
     const antallForelder = getAntallForeldreISituasjon(situasjon);
     let plan: Periode[] = [];

@@ -3,7 +3,7 @@ import { FormikProps, Form } from 'formik';
 import Block from 'common/components/block/Block';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import DatoInput from 'common/components/skjema/datoInput/DatoInput';
-import { SituasjonSkjemadata, Situasjon } from '../../types';
+import { SituasjonSkjemadata, Situasjon, Forelder } from '../../types';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import VelgAntallBarn from './parts/VelgAntallBarn';
 import Skjemablokk from '../skjemablokk/Skjemablokk';
@@ -46,12 +46,25 @@ const visAntallBarnValg = (
 class SituasjonsskjemaForm extends React.Component<Props> {
     render() {
         const { formik, onReset } = this.props;
-        const { situasjon, antallBarn, familiehendelsesdato, navnFarMedmor, navnMor, erMor } = formik.values;
+        const {
+            situasjon,
+            antallBarn,
+            familiehendelsesdato,
+            navnFarMedmor,
+            navnMor,
+            aleneomsorgForelder
+        } = formik.values;
         const visErMorEllerFarMedmor = situasjon === Situasjon.aleneomsorg;
         const visNavn =
             situasjon !== undefined &&
-            (visErMorEllerFarMedmor === false || (visErMorEllerFarMedmor === true && erMor !== undefined));
-        const visAntallBarn = visAntallBarnValg(situasjon, navnFarMedmor, navnMor, erMor);
+            (visErMorEllerFarMedmor === false ||
+                (visErMorEllerFarMedmor === true && aleneomsorgForelder !== undefined));
+        const visAntallBarn = visAntallBarnValg(
+            situasjon,
+            navnFarMedmor,
+            navnMor,
+            aleneomsorgForelder === Forelder.mor
+        );
         const visTermindato = visAntallBarn && antallBarn !== undefined;
         const termindatoAvgrensninger = getTermindatoAvgrensninger();
         const erToForeldre = getAntallForeldreISituasjon(situasjon) > 1;
@@ -69,13 +82,16 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                     </Block>
 
                     <Block visible={visErMorEllerFarMedmor}>
-                        <VelgErMorEllerFar erMor={erMor} onChange={(em) => formik.setFieldValue('erMor', em)} />
+                        <VelgErMorEllerFar
+                            forelder={aleneomsorgForelder}
+                            onChange={(em) => formik.setFieldValue('aleneomsorgForelder', em)}
+                        />
                     </Block>
 
                     <Block visible={visNavn} margin="none">
                         <VelgForeldrenavn
                             situasjon={situasjon}
-                            erMor={erMor}
+                            aleneomsorgForelder={aleneomsorgForelder}
                             navnFarMedmor={navnFarMedmor}
                             navnMor={navnMor}
                             onChangeFarMedmor={(navn) => {

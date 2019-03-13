@@ -56,13 +56,12 @@ export const getOmForeldre = (
     situasjon: Situasjon,
     navnMor: string,
     navnFarMedmor?: string,
-    erMor?: boolean
+    aleneomsorgForelder?: Forelder
 ): OmForeldre => {
     const info = getSituasjonForelderSvg(situasjon);
     const antallForeldre = getAntallForeldreISituasjon(situasjon);
-    const rolle = getRolleVedIkkeDeltPlan(situasjon, erMor);
-    const erAleneomsorgMor = antallForeldre === 1 && rolle === Forelder.mor;
-    const erAleneomsorgFarMedmor = antallForeldre === 1 && rolle === Forelder.farMedmor;
+    const erAleneomsorgMor = antallForeldre === 1 && aleneomsorgForelder === Forelder.mor;
+    const erAleneomsorgFarMedmor = antallForeldre === 1 && aleneomsorgForelder === Forelder.farMedmor;
     return {
         antallForeldre,
         mor: {
@@ -76,7 +75,7 @@ export const getOmForeldre = (
                       ikonRef: info.farMedmor
                   }
                 : undefined,
-        rolle,
+        aleneomsorgForelder,
         erAleneomsorgMor,
         erAleneomsorgFarMedmor
     };

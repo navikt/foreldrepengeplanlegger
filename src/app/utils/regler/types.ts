@@ -1,5 +1,13 @@
 import { Dictionary } from 'lodash';
-import { Periode, Situasjon, Uttaksdatoer, UttakFørTerminPeriode, Forbruk, TilgjengeligeDager } from '../../types';
+import {
+    Periode,
+    Situasjon,
+    Uttaksdatoer,
+    UttakFørTerminPeriode,
+    Forbruk,
+    TilgjengeligeDager,
+    Forelder
+} from '../../types';
 import { RegelKey } from './regelKeys';
 import { InjectedIntl } from 'react-intl';
 
@@ -8,7 +16,7 @@ export interface Regelgrunnlag {
     periodeFørTermin: UttakFørTerminPeriode | undefined;
     familiehendelsesdato: Date;
     situasjon: Situasjon;
-    erMor: boolean;
+    aleneomsorgForelder?: Forelder;
     erAleneomsorg: boolean;
     uttaksdatoer: Uttaksdatoer;
     navnMor: string;

@@ -2,6 +2,7 @@ import { RegelTestresultat, Regelgrunnlag, RegelTest, Regel, RegelAlvorlighet } 
 import { RegelKey } from '../regelKeys';
 import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/utils/intlUtils';
+import { Forelder } from '../../../types';
 
 const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
     key: RegelKey,
@@ -43,5 +44,6 @@ const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
 export const farMedmorsUttakErInnenforMaksAntallDagerRegel: Regel = {
     key: RegelKey.farMedmorsUttakErInnenforMaksAntallDager,
     test: farMedmorsUttakErInnenforMaksAntallDager,
-    erRelevant: ({ erAleneomsorg, erMor }) => ((erAleneomsorg && erMor === true) || erMor === false ? false : true)
+    erRelevant: ({ erAleneomsorg, aleneomsorgForelder }) =>
+        (erAleneomsorg && aleneomsorgForelder === Forelder.farMedmor) || erAleneomsorg === false
 };

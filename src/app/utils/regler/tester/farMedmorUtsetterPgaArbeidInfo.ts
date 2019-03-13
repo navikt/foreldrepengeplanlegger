@@ -33,6 +33,5 @@ const farMedmorUtsetterPgaArbeidInfo: RegelTest = (key: RegelKey, grunnlag: Rege
 
 export const farMedmorUtsetterPgaArbeidInfoRegel: Regel = {
     key: RegelKey.farMedmorUtsetterPgaArbeidInfo,
-    test: farMedmorUtsetterPgaArbeidInfo,
-    erRelevant: (grunnlag) => grunnlag.erMor === false
+    test: farMedmorUtsetterPgaArbeidInfo
 };

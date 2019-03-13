@@ -36,7 +36,12 @@ function* updateOmForeldreSaga() {
     const appState: AppState = yield select(stateSelector);
     const { skjemadata } = appState.common;
     if (skjemadata) {
-        const omForeldre = getOmForeldre(skjemadata.situasjon, skjemadata.navnMor, skjemadata.navnFarMedmor);
+        const omForeldre = getOmForeldre(
+            skjemadata.situasjon,
+            skjemadata.navnMor,
+            skjemadata.navnFarMedmor,
+            skjemadata.aleneomsorgForelder
+        );
         yield put(updateOmForeldre(omForeldre));
     }
 }
@@ -47,8 +52,8 @@ function* validerUttaksplanSaga() {
 
     if (skjemadata) {
         const regelgrunnlag: Regelgrunnlag = {
-            erMor: skjemadata.erMor === true,
             erAleneomsorg: getAntallForeldreISituasjon(skjemadata.situasjon) === 1,
+            aleneomsorgForelder: skjemadata.aleneomsorgForelder,
             familiehendelsesdato,
             periodeFørTermin,
             perioder,

@@ -37,7 +37,7 @@ export interface SituasjonSkjemadata {
     navnFarMedmor?: string;
     antallBarn: number;
     familiehendelsesdato: Date;
-    erMor?: boolean;
+    aleneomsorgForelder?: Forelder;
 }
 
 export enum StønadskontoType {
@@ -117,7 +117,7 @@ export interface OmForeldre {
     antallForeldre: number;
     mor: Forelderinfo;
     farMedmor?: Forelderinfo;
-    rolle?: Forelder;
+    aleneomsorgForelder?: Forelder;
     erAleneomsorgMor: boolean;
     erAleneomsorgFarMedmor: boolean;
 }

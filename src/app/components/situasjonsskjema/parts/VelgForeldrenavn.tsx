@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Row, Column } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
-import { Situasjon } from '../../../types';
+import { Situasjon, Forelder } from '../../../types';
 import { getAntallForeldreISituasjon } from '../../../utils/common';
 
 interface Props {
     situasjon: Situasjon;
-    erMor?: boolean;
+    aleneomsorgForelder?: Forelder;
     navnFarMedmor?: string;
     navnMor?: string;
     onChangeFarMedmor: (navn: string) => void;
@@ -40,16 +40,21 @@ const getMorLabel = (situasjon: Situasjon): string => {
 
 const VelgForeldrenavn: React.StatelessComponent<Props> = ({
     situasjon,
-    erMor,
+    aleneomsorgForelder,
     navnFarMedmor = '',
     navnMor = '',
     onChangeFarMedmor,
     onChangeMor
 }) => {
     const toForeldre = getAntallForeldreISituasjon(situasjon) === 2;
-    const visMorInput = toForeldre || situasjon === Situasjon.bareMor || (situasjon === Situasjon.aleneomsorg && erMor);
+    const visMorInput =
+        toForeldre ||
+        situasjon === Situasjon.bareMor ||
+        (situasjon === Situasjon.aleneomsorg && aleneomsorgForelder === Forelder.mor);
     const visFarInput =
-        toForeldre || situasjon === Situasjon.bareFar || (situasjon === Situasjon.aleneomsorg && erMor !== true);
+        toForeldre ||
+        situasjon === Situasjon.bareFar ||
+        (situasjon === Situasjon.aleneomsorg && aleneomsorgForelder === Forelder.farMedmor);
     return (
         <Row>
             {visMorInput && (

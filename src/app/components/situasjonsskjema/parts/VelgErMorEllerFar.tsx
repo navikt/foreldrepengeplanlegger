@@ -1,30 +1,31 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
+import { Forelder } from '../../../types';
 
 interface OwnProps {
-    erMor?: boolean;
-    onChange: (erMor: boolean) => void;
+    forelder?: Forelder;
+    onChange: (forelder: Forelder) => void;
 }
 
 type Props = OwnProps & InjectedIntlProps;
 
-const VelgErMorEllerFar: React.StatelessComponent<Props> = ({ erMor, onChange, intl }) => (
+const VelgErMorEllerFar: React.StatelessComponent<Props> = ({ forelder, onChange, intl }) => (
     <RadioGroup
         legend="Er du mor eller far?"
         name="aleneforelderErMor"
-        onChange={(value) => onChange(value === 'true')}
-        checked={erMor !== undefined ? (erMor ? 'true' : 'false') : undefined}
+        onChange={(value) => onChange(value as Forelder)}
+        checked={forelder}
         options={[
             {
                 id: 'js-erMor',
                 label: 'Mor',
-                value: 'true'
+                value: Forelder.mor
             },
             {
                 id: 'js-erFar',
                 label: 'Far',
-                value: 'false'
+                value: Forelder.farMedmor
             }
         ]}
     />

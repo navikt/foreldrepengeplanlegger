@@ -9,7 +9,8 @@ import {
     OmForeldre,
     Periodetype,
     UttakFørTerminPeriode,
-    isKomplettPeriode
+    isKomplettPeriode,
+    Forelder
 } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { Dekningsgrad } from 'common/types';
@@ -94,7 +95,7 @@ const updateStateWithNewSkjemadata = (state: CommonState, action: SubmitSkjemada
             action.data.situasjon,
             action.data.familiehendelsesdato,
             state.tilgjengeligeDager ? state.tilgjengeligeDager.dagerForeldrepengerFørFødsel : 15,
-            action.data.erMor
+            action.data.aleneomsorgForelder === Forelder.mor
         ),
         ønsketFordeling: {
             harValgtFordeling: false,

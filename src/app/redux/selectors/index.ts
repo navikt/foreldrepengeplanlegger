@@ -39,8 +39,7 @@ export const selectTilgjengeligeDager = createSelector(
                   skjemadata.situasjon,
                   state.common.dekningsgrad === '100'
                       ? state.common.stønadskontoer100.kontoer
-                      : state.common.stønadskontoer80.kontoer,
-                  skjemadata.erMor
+                      : state.common.stønadskontoer80.kontoer
               )
             : undefined;
     }

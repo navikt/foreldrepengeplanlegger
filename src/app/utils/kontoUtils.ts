@@ -58,8 +58,7 @@ const kontoErEtterTermin = (konto: TilgjengeligStønadskonto): boolean => {
 
 export const getTilgjengeligeDager = (
     situasjon: Situasjon,
-    kontoer: TilgjengeligStønadskonto[],
-    erMor?: boolean
+    kontoer: TilgjengeligStønadskonto[]
 ): TilgjengeligeDager => {
     const erAleneomsorg = getAntallForeldreISituasjon(situasjon) === 1;
     const kontoerEtterTermin = kontoer.filter(kontoErEtterTermin);

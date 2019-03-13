@@ -35,7 +35,7 @@ const Situasjonsoppsummering: React.StatelessComponent<SituasjonsoppsummeringPro
             tittel={getOppsummeringTittel(getAntallForeldreISituasjon(situasjon), antallBarn)}>
             <div className={bem.block}>
                 <div className={bem.element('deloppsummering')}>
-                    <SituasjonSirkel {...props} valgtForelder={omForeldre.rolle} />
+                    <SituasjonSirkel {...props} valgtForelder={omForeldre.aleneomsorgForelder} />
                     <div className={bem.element('verdi')}>
                         {antallForeldre === 1 && (
                             <span className={bem.element('navn')}>

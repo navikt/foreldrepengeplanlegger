@@ -8,7 +8,7 @@ const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
     key: RegelKey,
     grunnlag: Regelgrunnlag
 ): RegelTestresultat => {
-    const { forbruk, tilgjengeligeDager, navnFarMedmor } = grunnlag;
+    const { forbruk, tilgjengeligeDager, navnFarMedmor, erAleneomsorg } = grunnlag;
     if (forbruk === undefined || tilgjengeligeDager === undefined || forbruk.farMedmor === undefined) {
         return {
             key,
@@ -16,8 +16,8 @@ const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
         };
     }
 
-    const { maksDagerFar } = tilgjengeligeDager;
-    const dagerGjenstående = maksDagerFar - forbruk.farMedmor.dagerTotalt;
+    const maksDager = erAleneomsorg ? tilgjengeligeDager.dagerForeldrepenger : tilgjengeligeDager.maksDagerFar;
+    const dagerGjenstående = maksDager - forbruk.farMedmor.dagerTotalt;
     const passerer = dagerGjenstående >= 0;
 
     return {
@@ -32,7 +32,7 @@ const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
                       intlKey: `regel.feiler.${key}`,
                       values: {
                           navn: navnFarMedmor,
-                          dagerTilgjengelig: (intl: InjectedIntl) => getVarighetString(maksDagerFar, intl),
+                          dagerTilgjengelig: (intl: InjectedIntl) => getVarighetString(maksDager, intl),
                           dagerRegistrert: (intl: InjectedIntl) =>
                               getVarighetString(Math.abs(forbruk.farMedmor!.dagerTotalt), intl)
                       }

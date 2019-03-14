@@ -47,6 +47,10 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({
                 )}
             </Block>
             <Block margin="none">
+                <Block margin="xs">
+                    <Undertittel>Eksempel på utbetaling</Undertittel>
+                </Block>
+                <p>Eksempel på utbetaling med fast inntekt på 22 000 kroner per måned før skatt</p>
                 <div className={bem.element('utbetaling')}>
                     <div className={bem.child('utbetaling').element('ikon')}>
                         <PengerIkon />
@@ -55,7 +59,6 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({
                         {dekningsSum} kroner per måned før skatt
                     </Ingress>
                 </div>
-                Eksempel på utbetaling med fast inntekt på 22 000 kroner per måned før skatt
             </Block>
         </div>
     );

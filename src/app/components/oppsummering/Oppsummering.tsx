@@ -4,6 +4,7 @@ import DekningOppsummering, { DekningOppsummeringProps } from './DekningOppsumme
 import Block from 'common/components/block/Block';
 
 import './oppsummering.less';
+import AriaText from 'common/components/aria/AriaText';
 
 interface Props {
     situasjonProps?: SituasjonsoppsummeringProps;
@@ -13,6 +14,7 @@ interface Props {
 const Oppsummering: React.StatelessComponent<Props> = ({ situasjonProps, dekningProps }) => {
     return (
         <div className="grayBlock">
+            <AriaText tag="h2">Oppsummering</AriaText>
             {situasjonProps && <SituasjonOppsummering {...situasjonProps} />}
             {dekningProps && (
                 <Block marginTop="l">

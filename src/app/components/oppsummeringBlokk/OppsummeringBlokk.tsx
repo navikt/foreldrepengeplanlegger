@@ -13,13 +13,15 @@ interface Props {
 const bem = BEMHelper('oppsummeringBlokk');
 
 const OppsummeringBlokk: React.StatelessComponent<Props> = ({ tittel, onRequestChange, children }) => (
-    <section className={bem.classNames(bem.block)}>
+    <div className={bem.classNames(bem.block)}>
         <header>
-            <Systemtittel className={bem.element('tittel')}>{tittel}</Systemtittel>
+            <Systemtittel tag="h3" className={bem.element('tittel')}>
+                {tittel}
+            </Systemtittel>
             <LinkButton onClick={onRequestChange}>Endre</LinkButton>
         </header>
         <div className={bem.element('content')}>{children}</div>
-    </section>
+    </div>
 );
 
 export default OppsummeringBlokk;

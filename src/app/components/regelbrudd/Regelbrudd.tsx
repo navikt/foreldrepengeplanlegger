@@ -6,6 +6,7 @@ import Veilederpanel from 'nav-frontend-veilederpanel';
 import Veileder, { VeilederAnsiktstype } from 'common/components/veileder/Veileder';
 import { AlertStripeAdvarsel, AlertStripeInfo, AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { trimRelaterteRegelbrudd } from '../../utils/regler/regelUtils';
+import AriaText from 'common/components/aria/AriaText';
 
 interface Props {
     regelbrudd: Regelbrudd[];
@@ -29,41 +30,44 @@ const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
     }
 
     return (
-        <Veilederpanel
-            kompakt={true}
-            fargetema={harFeil ? 'feilmelding' : 'normal'}
-            svg={<Veileder farge="transparent" stil="iNavVeilederPanel" ansikt={ansikt} />}
-            type="plakat">
-            <section className={bem.block}>
-                {ulovlig.length > 0 && (
-                    <>
-                        {ulovlig.map((brudd) => (
-                            <AlertStripeFeil key={brudd.key} className={'alertstripe--noBorder'}>
-                                <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
-                            </AlertStripeFeil>
-                        ))}
-                    </>
-                )}
-                {viktig.length > 0 && (
-                    <>
-                        {viktig.map((brudd) => (
-                            <AlertStripeAdvarsel key={brudd.key} className={'alertstripe--noBorder'}>
-                                <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
-                            </AlertStripeAdvarsel>
-                        ))}
-                    </>
-                )}
-                {info.length > 0 && (
-                    <>
-                        {info.map((brudd) => (
-                            <AlertStripeInfo key={brudd.key} className={'alertstripe--noBorder'}>
-                                <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
-                            </AlertStripeInfo>
-                        ))}
-                    </>
-                )}
-            </section>
-        </Veilederpanel>
+        <div>
+            <AriaText tag="h2">Detaljer om planen</AriaText>
+            <Veilederpanel
+                kompakt={true}
+                fargetema={harFeil ? 'feilmelding' : 'normal'}
+                svg={<Veileder farge="transparent" stil="iNavVeilederPanel" ansikt={ansikt} />}
+                type="plakat">
+                <div className={bem.block}>
+                    {ulovlig.length > 0 && (
+                        <>
+                            {ulovlig.map((brudd) => (
+                                <AlertStripeFeil key={brudd.key} className={'alertstripe--noBorder'}>
+                                    <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
+                                </AlertStripeFeil>
+                            ))}
+                        </>
+                    )}
+                    {viktig.length > 0 && (
+                        <>
+                            {viktig.map((brudd) => (
+                                <AlertStripeAdvarsel key={brudd.key} className={'alertstripe--noBorder'}>
+                                    <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
+                                </AlertStripeAdvarsel>
+                            ))}
+                        </>
+                    )}
+                    {info.length > 0 && (
+                        <>
+                            {info.map((brudd) => (
+                                <AlertStripeInfo key={brudd.key} className={'alertstripe--noBorder'}>
+                                    <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
+                                </AlertStripeInfo>
+                            ))}
+                        </>
+                    )}
+                </div>
+            </Veilederpanel>
+        </div>
     );
 };
 

@@ -17,6 +17,7 @@ import Personkort from '../personkort/Personkort';
 
 import './fordelingGraf.less';
 import { getProsentFordeling } from '../../utils/tilgjengeligeDagerUtils';
+import AriaText from 'common/components/aria/AriaText';
 
 interface OwnProps {
     forbruk: Forbruk;
@@ -272,6 +273,7 @@ const FordelingStatusHeader: React.StatelessComponent<Props> = (props) => {
     const fordelingStatus = getFordelingStatus(props.forbruk, props.omForeldre, props.intl);
     return (
         <div className={bemHeader.block}>
+            <AriaText tag="h2">Status på planen</AriaText>
             <div className={bemHeader.element('ikon')}>
                 <StatusIkon status={fordelingStatus.status} size={32} />
             </div>
@@ -279,7 +281,7 @@ const FordelingStatusHeader: React.StatelessComponent<Props> = (props) => {
                 <Normaltekst className={bemHeader.element('tittel')} tag="strong">
                     Deres plan
                 </Normaltekst>
-                <Undertittel className={bemHeader.element('statusTekst')} tag="h1">
+                <Undertittel className={bemHeader.element('statusTekst')} tag="h3">
                     <FormattedMessage id={fordelingStatus.tittel.key} values={fordelingStatus.tittel.values} />
                 </Undertittel>
             </div>

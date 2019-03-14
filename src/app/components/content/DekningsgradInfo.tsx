@@ -27,9 +27,9 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({
     const dekningsSum = dekningsgrad === '100' ? '22 000' : '17 600';
     const rolle = omForeldre.erDeltOmsorg ? undefined : omForeldre.erAleneomsorgMor ? Forelder.mor : Forelder.farMedmor;
     return (
-        <section className={bem.block}>
+        <div className={bem.block}>
             <Block margin="xs">
-                <Undertittel tag="h1">
+                <Undertittel tag="h3">
                     {tilgjengeligeDager.dagerTotalt / 5} uker med {dekningsgrad} prosent foreldrepenger
                 </Undertittel>
             </Block>
@@ -57,7 +57,7 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({
                 </div>
                 Eksempel på utbetaling med fast inntekt på 22 000 kroner per måned
             </Block>
-        </section>
+        </div>
     );
 };
 

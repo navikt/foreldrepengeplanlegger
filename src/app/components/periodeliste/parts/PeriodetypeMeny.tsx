@@ -66,7 +66,7 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
             </div>
         </IconText>
     ) : (
-        <span>Velg type periode</span>
+        <span>Velg type</span>
     );
 };
 
@@ -78,7 +78,7 @@ const PeriodetypeMeny: React.StatelessComponent<Props> = (props) => {
             onSelection={onChange}
             labelRenderer={() => <PeriodetypeMenyLabel {...props} />}
             contentClassName="periodetypeDialog"
-            contentTitle="Velg type periode"
+            contentTitle="Velg type"
             style={dropdownStyle}
             contentRenderer={() => <DropdownFormMenu options={getOptions(intl)} selectedValue={type} />}
         />

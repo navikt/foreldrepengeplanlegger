@@ -9,7 +9,7 @@ const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
     grunnlag: Regelgrunnlag,
     forelderRegel: RegelKey
 ): RegelTestresultat => {
-    const { forbruk, tilgjengeligeDager, navnFarMedmor, erAleneomsorg } = grunnlag;
+    const { forbruk, tilgjengeligeDager, navnFarMedmor, erDeltOmsorg } = grunnlag;
     if (forbruk === undefined || tilgjengeligeDager === undefined || forbruk.farMedmor === undefined) {
         return {
             key,
@@ -17,7 +17,7 @@ const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
         };
     }
 
-    const maksDager = erAleneomsorg ? tilgjengeligeDager.dagerForeldrepenger : tilgjengeligeDager.maksDagerFar;
+    const maksDager = erDeltOmsorg === false ? tilgjengeligeDager.dagerForeldrepenger : tilgjengeligeDager.maksDagerFar;
     const dagerGjenstående = maksDager - forbruk.farMedmor.dagerTotalt;
     const passerer = dagerGjenstående >= 0;
 
@@ -46,7 +46,7 @@ const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
 export const farMedmorsUttakErInnenforMaksAntallDagerRegel: Regel = {
     key: RegelKey.farMedmorsUttakErInnenforMaksAntallDager,
     test: farMedmorsUttakErInnenforMaksAntallDager,
-    erRelevant: ({ erAleneomsorg, aleneomsorgForelder }) =>
-        (erAleneomsorg && aleneomsorgForelder === Forelder.farMedmor) || erAleneomsorg === false,
+    erRelevant: ({ erDeltOmsorg, aleneomsorgForelder }) =>
+        (erDeltOmsorg === false && aleneomsorgForelder === Forelder.farMedmor) || erDeltOmsorg === true,
     forelderRegel: RegelKey.alleUttakErInnenforMaksAntallDager
 };

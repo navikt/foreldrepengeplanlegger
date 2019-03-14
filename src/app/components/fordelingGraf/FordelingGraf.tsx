@@ -88,7 +88,7 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ forbruk, omForeldre,
     const { mor, farMedmor } = forbruk;
     return (
         <div className={bem.element('titler')}>
-            {!omForeldre.erAleneomsorgFarMedmor && (
+            {!omForeldre.bareFar && (
                 <Tittel
                     navn={omForeldre.mor.navn}
                     ikon={<ForelderIkon forelder={omForeldre.mor.ikonRef} />}
@@ -105,7 +105,7 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ forbruk, omForeldre,
                     dager={farMedmor.dagerTotalt}
                     dagerForLite={farMedmor.dagerForLite}
                     dagerForMye={farMedmor.dagerForMye}
-                    invertert={!omForeldre.erAleneomsorgFarMedmor}
+                    invertert={!omForeldre.bareFar}
                     intl={intl}
                 />
             )}
@@ -301,8 +301,8 @@ const FordelingGraf: React.StatelessComponent<Props> = (props) => {
             </Block>
             <Block margin="s">
                 {props.omForeldre.erDeltOmsorg && <GrafDeltOmsorg {...props} />}
-                {props.omForeldre.erAleneomsorgMor && <GrafAleneomsorgMor {...props} />}
-                {props.omForeldre.erAleneomsorgFarMedmor && <GrafAleneomsorgFarMedmor {...props} />}
+                {props.omForeldre.bareMor && <GrafAleneomsorgMor {...props} />}
+                {props.omForeldre.bareFar && <GrafAleneomsorgFarMedmor {...props} />}
             </Block>
             <FordelingTitler {...props} />
         </section>

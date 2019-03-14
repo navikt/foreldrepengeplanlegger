@@ -13,11 +13,12 @@ interface Props {
     onChangeMor: (navn: string) => void;
 }
 
-const getFarMedmorLabel = (situasjon: Situasjon): string => {
+const getMorLabel = (situasjon: Situasjon): string => {
     switch (situasjon) {
         case Situasjon.farOgFar:
+            return 'Fornavn far én';
         case Situasjon.farOgMor:
-            return 'Fornavn far';
+            return 'Fornavn mor';
         case Situasjon.morOgMedmor:
             return 'Fornavn mor';
         default:
@@ -25,12 +26,12 @@ const getFarMedmorLabel = (situasjon: Situasjon): string => {
     }
 };
 
-const getMorLabel = (situasjon: Situasjon): string => {
+const getFarMedmorLabel = (situasjon: Situasjon): string => {
     switch (situasjon) {
         case Situasjon.farOgFar:
-            return 'Fornavn far';
+            return 'Fornavn far to';
         case Situasjon.farOgMor:
-            return 'Fornavn mor';
+            return 'Fornavn far';
         case Situasjon.morOgMedmor:
             return 'Fornavn medmor';
         default:

@@ -74,10 +74,10 @@ const getInitialFormValuesFromPeriode = (
     omForeldre: OmForeldre
 ): PeriodeskjemaFormValues | {} => {
     const getDefaultForelder = (): Forelder | undefined => {
-        if (omForeldre.erAleneomsorgMor) {
+        if (omForeldre.bareMor) {
             return Forelder.mor;
         }
-        if (omForeldre.erAleneomsorgFarMedmor) {
+        if (omForeldre.bareFar) {
             return Forelder.farMedmor;
         }
         return undefined;

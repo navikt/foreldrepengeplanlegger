@@ -122,7 +122,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                 </div>
                                 {onResetPlan && perioder.length > 0 && (
                                     <div className="periodeliste__reset">
-                                        <LinkButton onClick={() => onResetPlan()}>Tøm plan</LinkButton>
+                                        <LinkButton onClick={() => onResetPlan()}>Slett plan</LinkButton>
                                     </div>
                                 )}
                             </div>
@@ -162,7 +162,7 @@ class Uttaksplan extends React.Component<Props, State> {
                         <Block visible={visSkjema !== true} margin="xl">
                             <Knapperad align="center">
                                 <Knapp type="standard" onClick={() => this.setState({ visSkjema: true })}>
-                                    Legg til ny periode
+                                    Legg til eller utsett
                                 </Knapp>
                                 <div className="dev">
                                     {onResetPlan && <Flatknapp onClick={() => onResetPlan()}>Reset</Flatknapp>}

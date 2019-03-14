@@ -112,11 +112,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                 )}
 
                 {visTermindato && (
-                    <Skjemablokk
-                        tittel={`Når er ${
-                            antallBarn === 1 ? 'barnet' : antallBarn === 2 ? 'tvillingene' : 'barna'
-                        } forventet?`}
-                        visible={visTermindato}>
+                    <Skjemablokk tittel={`Når er termindato?`} visible={visTermindato}>
                         <DatoInput
                             id="familiehendelsesdato"
                             name="familiehendelsesdato"
@@ -132,7 +128,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                     <Block>
                         <Hovedknapp htmlType="submit">Gå videre</Hovedknapp>
                     </Block>
-                    {onReset && (
+                    {onReset && 1 + 1 === 3 && (
                         <LinkButton
                             onClick={() => {
                                 onReset();

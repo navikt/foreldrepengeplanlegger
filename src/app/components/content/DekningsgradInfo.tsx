@@ -25,7 +25,7 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({
 }) => {
     const bem = BEMHelper('dekningsgradInfo');
     const dekningsSum = dekningsgrad === '100' ? '22 000' : '17 600';
-    const rolle = omForeldre.erDeltOmsorg ? undefined : omForeldre.erAleneomsorgMor ? Forelder.mor : Forelder.farMedmor;
+    const rolle = omForeldre.erDeltOmsorg ? undefined : omForeldre.bareMor ? Forelder.mor : Forelder.farMedmor;
     return (
         <div className={bem.block}>
             <Block margin="xs">
@@ -41,8 +41,8 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({
                 <TilgjengeligeDagerGraf omForeldre={omForeldre} tilgjengeligeDager={tilgjengeligeDager} />
                 {tilgjengeligeDager.dagerForeldrepengerFørFødsel > 0 && (
                     <Block marginTop="xs">
-                        <sup>*</sup> {omForeldre.mor.navn} får tre uker med foreldrepenger før termin i tilegg til sin
-                        egen kvote.
+                        {omForeldre.erDeltOmsorg ? omForeldre.mor.navn : 'Du'} får tre uker med foreldrepenger som må
+                        tas ut før termin.
                     </Block>
                 )}
             </Block>
@@ -52,10 +52,10 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({
                         <PengerIkon />
                     </div>
                     <Ingress tag="p" className={bem.child('utbetaling').element('tekst')}>
-                        {dekningsSum} kroner per måned
+                        {dekningsSum} kroner per måned før skatt
                     </Ingress>
                 </div>
-                Eksempel på utbetaling med fast inntekt på 22 000 kroner per måned
+                Eksempel på utbetaling med fast inntekt på 22 000 kroner per måned før skatt
             </Block>
         </div>
     );

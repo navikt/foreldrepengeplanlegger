@@ -31,7 +31,7 @@ const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
 
     return (
         <div>
-            <AriaText tag="h2">Detaljer om planen</AriaText>
+            <AriaText tag="h2">Viktig informasjon om planen</AriaText>
             <Veilederpanel
                 kompakt={true}
                 fargetema={harFeil ? 'feilmelding' : 'normal'}

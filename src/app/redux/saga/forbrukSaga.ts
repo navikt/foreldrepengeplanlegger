@@ -52,7 +52,7 @@ function* validerUttaksplanSaga() {
 
     if (skjemadata) {
         const regelgrunnlag: Regelgrunnlag = {
-            erAleneomsorg: getAntallForeldreISituasjon(skjemadata.situasjon) === 1,
+            erDeltOmsorg: getAntallForeldreISituasjon(skjemadata.situasjon) === 2,
             aleneomsorgForelder: skjemadata.aleneomsorgForelder,
             familiehendelsesdato,
             periodeFørTermin,

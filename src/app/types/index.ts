@@ -117,9 +117,9 @@ export interface OmForeldre {
     mor: Forelderinfo;
     farMedmor?: Forelderinfo;
     erDeltOmsorg: boolean;
-    erAleneomsorgMor: boolean;
-    erAleneomsorgFarMedmor: boolean;
-    aleneomsorgForelder?: Forelder;
+    bareMor: boolean;
+    bareFar: boolean;
+    forelderVedAleneomsorg?: Forelder;
 }
 
 export interface Uttaksdatoer {

@@ -112,7 +112,7 @@ const lagForslagTilPlan = (state: CommonState): CommonState => {
                 state.skjemadata.situasjon,
                 state.familiehendelsesdato,
                 state.tilgjengeligeDager.dagerForeldrepengerFørFødsel,
-                state.omForeldre.erAleneomsorgMor
+                state.omForeldre.bareMor
             ),
             perioder
         });

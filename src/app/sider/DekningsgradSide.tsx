@@ -83,8 +83,10 @@ class UttaksplanSide extends React.Component<Props> {
                         tittel={`Hvor lang periode med foreldrepenger ønsker ${
                             omForeldre.erDeltOmsorg ? 'dere' : 'du'
                         }?`}
-                        beskrivelse="Valget vil gjelde for dere begge. Den totale utbetalingensummen blir høyere ved å velge 100
-                        prosent.">
+                        beskrivelse={`${
+                            omForeldre.erDeltOmsorg ? 'Valget vil gjelde for dere begge. ' : ''
+                        }Den totale utbetalingensummen blir høyere ved å velge 100
+                        prosent.`}>
                         <DekningsgradValg
                             dekningsgrad={dekningsgrad}
                             onChange={(dg) => dispatch(setDekningsgrad(dg as Dekningsgrad))}

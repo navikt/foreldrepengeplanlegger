@@ -60,9 +60,8 @@ export const getOmForeldre = (
 ): OmForeldre => {
     const info = getSituasjonForelderSvg(situasjon);
     const erDeltOmsorg = getAntallForeldreISituasjon(situasjon) === 2;
-    const erAleneomsorgMor =
-        situasjon === Situasjon.bareMor || (!erDeltOmsorg && valgForelderVedAleneomsorg === Forelder.mor);
-    const erAleneomsorgFarMedmor =
+    const bareMor = situasjon === Situasjon.bareMor || (!erDeltOmsorg && valgForelderVedAleneomsorg === Forelder.mor);
+    const bareFar =
         situasjon === Situasjon.bareFar || (!erDeltOmsorg && valgForelderVedAleneomsorg === Forelder.farMedmor);
     return {
         mor: {
@@ -70,16 +69,16 @@ export const getOmForeldre = (
             ikonRef: info.mor
         },
         farMedmor:
-            erAleneomsorgMor === false && navnFarMedmor && info.farMedmor
+            bareMor === false && navnFarMedmor && info.farMedmor
                 ? {
                       navn: navnFarMedmor,
                       ikonRef: info.farMedmor
                   }
                 : undefined,
         erDeltOmsorg,
-        erAleneomsorgMor,
-        erAleneomsorgFarMedmor,
-        aleneomsorgForelder: erDeltOmsorg ? undefined : erAleneomsorgMor ? Forelder.mor : Forelder.farMedmor
+        bareMor,
+        bareFar,
+        forelderVedAleneomsorg: erDeltOmsorg ? undefined : bareMor ? Forelder.mor : Forelder.farMedmor
     };
 };
 

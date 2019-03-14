@@ -17,7 +17,7 @@ export interface Regelgrunnlag {
     familiehendelsesdato: Date;
     situasjon: Situasjon;
     aleneomsorgForelder?: Forelder;
-    erAleneomsorg: boolean;
+    erDeltOmsorg: boolean;
     uttaksdatoer: Uttaksdatoer;
     navnMor: string;
     navnFarMedmor?: string;

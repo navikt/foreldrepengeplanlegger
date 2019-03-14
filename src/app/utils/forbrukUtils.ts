@@ -28,7 +28,7 @@ export const getMorsForbruk = (
     tilgjengeligeDager: TilgjengeligeDager,
     omForeldre: OmForeldre
 ): MorsForbruk => {
-    if (omForeldre.erAleneomsorgFarMedmor) {
+    if (omForeldre.bareFar) {
         return {
             dagerEtterTermin: 0,
             dagerForeldrepengerFørFødsel: 0,
@@ -73,7 +73,7 @@ export const getFarsForbruk = (
     tilgjengeligeDager: TilgjengeligeDager,
     omForeldre: OmForeldre
 ): ForelderForbruk => {
-    if (omForeldre.erAleneomsorgMor) {
+    if (omForeldre.bareMor) {
         return {
             dagerTotalt: 0,
             dagerForLite: 0,
@@ -82,7 +82,7 @@ export const getFarsForbruk = (
             dagerAvFellesperiode: 0
         };
     }
-    if (omForeldre.erAleneomsorgFarMedmor) {
+    if (omForeldre.bareFar) {
         return getForelderForbrukAleneomsorg(perioder, tilgjengeligeDager);
     }
 

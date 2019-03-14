@@ -22,7 +22,7 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, i
     const fordeling = getProsentFordeling(tilgjengeligeDager, true);
     const txtMor =
         tilgjengeligeDager.dagerForeldrepengerFørFødsel > 0
-            ? `${tilgjengeligeDager.dagerMor / 5} + ${tilgjengeligeDager.dagerForeldrepengerFørFødsel / 5} uker`
+            ? `${tilgjengeligeDager.dagerForeldrepengerFørFødsel / 5} + ${tilgjengeligeDager.dagerMor / 5} uker`
             : getVarighetString(tilgjengeligeDager.dagerMor, intl);
     return (
         <div className={bem.block}>
@@ -72,7 +72,7 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, i
 const AleneomsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, omForeldre, intl }) => {
     const txt =
         tilgjengeligeDager.dagerForeldrepengerFørFødsel > 0
-            ? `${tilgjengeligeDager.dagerForeldrepenger / 5} + ${tilgjengeligeDager.dagerForeldrepengerFørFødsel /
+            ? `${tilgjengeligeDager.dagerForeldrepengerFørFødsel / 5} + ${tilgjengeligeDager.dagerForeldrepenger /
                   5} uker`
             : getVarighetString(tilgjengeligeDager.dagerEtterTermin, intl);
     return (
@@ -80,7 +80,7 @@ const AleneomsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, 
             <Multibar
                 borderColor={UttaksplanHexFarge.graa}
                 leftBar={{
-                    color: omForeldre.erAleneomsorgFarMedmor ? UttaksplanHexFarge.blaa : UttaksplanHexFarge.lilla,
+                    color: omForeldre.bareFar ? UttaksplanHexFarge.blaa : UttaksplanHexFarge.lilla,
                     width: 100,
                     text: <div className={bem.element('barTekst')}>{txt}</div>
                 }}

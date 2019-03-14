@@ -41,5 +41,6 @@ const uttakForFarEllerMedmorFørsteSeksUkerInfo: RegelTest = (
 
 export const uttakForFarEllerMedmorFørsteSeksUkerInfoRegel: Regel = {
     key: RegelKey.uttakForFarEllerMedmorFørsteSeksUkerInfo,
-    test: uttakForFarEllerMedmorFørsteSeksUkerInfo
+    test: uttakForFarEllerMedmorFørsteSeksUkerInfo,
+    erRelevant: (grunnlag: Regelgrunnlag) => grunnlag.situasjon !== Situasjon.farOgFar
 };

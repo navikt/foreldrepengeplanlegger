@@ -27,7 +27,7 @@ const getOppsummeringTittel = (antallForeldre: number, antallBarn: number): stri
 
 const Situasjonsoppsummering: React.StatelessComponent<SituasjonsoppsummeringProps & InjectedIntlProps> = (props) => {
     const { antallBarn, familiehendelsesdato, omForeldre, onRequestChange, situasjon, intl } = props;
-    const { erAleneomsorgFarMedmor, farMedmor, mor, erDeltOmsorg } = omForeldre;
+    const { bareFar, farMedmor, mor, erDeltOmsorg } = omForeldre;
 
     return (
         <OppsummeringBlokk
@@ -35,11 +35,11 @@ const Situasjonsoppsummering: React.StatelessComponent<SituasjonsoppsummeringPro
             tittel={getOppsummeringTittel(getAntallForeldreISituasjon(situasjon), antallBarn)}>
             <div className={bem.block}>
                 <div className={bem.element('deloppsummering')}>
-                    <SituasjonSirkel {...props} valgtForelder={omForeldre.aleneomsorgForelder} />
+                    <SituasjonSirkel {...props} valgtForelder={omForeldre.forelderVedAleneomsorg} />
                     <div className={bem.element('verdi')}>
                         {erDeltOmsorg === false && (
                             <span className={bem.element('navn')}>
-                                {erAleneomsorgFarMedmor && farMedmor ? farMedmor.navn : mor.navn}
+                                {bareFar && farMedmor ? farMedmor.navn : mor.navn}
                             </span>
                         )}
                         {erDeltOmsorg && farMedmor && (

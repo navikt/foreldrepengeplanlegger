@@ -1,10 +1,12 @@
 import { RegelAlvorlighet, RegelTestresultat, Regelgrunnlag, RegelTest, Regel } from '../types';
 import { RegelKey } from '../regelKeys';
+import { getVarighetString } from 'common/utils/intlUtils';
 
 const farMedmorBrukerFellesperiodeInfo: RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { forbruk } = grunnlag;
     if (forbruk && forbruk.farMedmor && forbruk.farMedmor) {
-        if (forbruk.farMedmor.dagerAvFellesperiode > 0) {
+        const { dagerAvFellesperiode } = forbruk.farMedmor;
+        if (dagerAvFellesperiode > 0) {
             const { navnMor, navnFarMedmor } = grunnlag;
             return {
                 key,
@@ -16,7 +18,8 @@ const farMedmorBrukerFellesperiodeInfo: RegelTest = (key: RegelKey, grunnlag: Re
                         intlKey: `regel.info.${key}`,
                         values: {
                             navnFarMedmor,
-                            navnMor
+                            navnMor,
+                            dager: (intl) => getVarighetString(dagerAvFellesperiode, intl)
                         }
                     }
                 }

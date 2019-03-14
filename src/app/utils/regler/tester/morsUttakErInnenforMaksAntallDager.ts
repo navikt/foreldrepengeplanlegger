@@ -47,6 +47,6 @@ const morsUttakErInnenforMaksAntallDager: RegelTest = (
 export const morsUttakErInnenforMaksAntallDagerRegel: Regel = {
     key: RegelKey.morsUttakErInnenforMaksAntallDager,
     test: morsUttakErInnenforMaksAntallDager,
-    erRelevant: ({ erAleneomsorg }) => (erAleneomsorg ? false : true),
+    erRelevant: ({ erDeltOmsorg }) => erDeltOmsorg,
     forelderRegel: RegelKey.alleUttakErInnenforMaksAntallDager
 };

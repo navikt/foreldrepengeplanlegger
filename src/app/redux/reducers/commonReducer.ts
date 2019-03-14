@@ -105,7 +105,7 @@ const lagForslagTilPlan = (state: CommonState): CommonState => {
             state.skjemadata.situasjon,
             state.familiehendelsesdato,
             state.dekningsgrad === '100' ? state.stønadskontoer100.kontoer : state.stønadskontoer80.kontoer,
-            state.ønsketFordeling.ukerMor
+            state.ønsketFordeling.ukerMor ? state.ønsketFordeling.ukerMor * 5 : undefined
         );
         return updateStateAndStorage(state, {
             periodeFørTermin: getPeriodeFørTermin(
@@ -209,7 +209,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                     ønsketFordeling: {
                         harValgtFordeling: true,
                         ukerMor: action.ukerMor,
-                        ukerFarMedmor: state.tilgjengeligeDager.dagerFelles - action.ukerMor
+                        ukerFarMedmor: state.tilgjengeligeDager.dagerFelles / 5 - action.ukerMor
                     }
                 });
             }

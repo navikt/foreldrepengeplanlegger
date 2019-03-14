@@ -6,7 +6,8 @@ import { Forelder } from '../../../types';
 
 const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
     key: RegelKey,
-    grunnlag: Regelgrunnlag
+    grunnlag: Regelgrunnlag,
+    forelderRegel: RegelKey
 ): RegelTestresultat => {
     const { forbruk, tilgjengeligeDager, navnFarMedmor, erAleneomsorg } = grunnlag;
     if (forbruk === undefined || tilgjengeligeDager === undefined || forbruk.farMedmor === undefined) {
@@ -36,7 +37,8 @@ const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
                           dagerRegistrert: (intl: InjectedIntl) =>
                               getVarighetString(Math.abs(forbruk.farMedmor!.dagerTotalt), intl)
                       }
-                  }
+                  },
+                  forelderRegel
               }
     };
 };
@@ -45,5 +47,6 @@ export const farMedmorsUttakErInnenforMaksAntallDagerRegel: Regel = {
     key: RegelKey.farMedmorsUttakErInnenforMaksAntallDager,
     test: farMedmorsUttakErInnenforMaksAntallDager,
     erRelevant: ({ erAleneomsorg, aleneomsorgForelder }) =>
-        (erAleneomsorg && aleneomsorgForelder === Forelder.farMedmor) || erAleneomsorg === false
+        (erAleneomsorg && aleneomsorgForelder === Forelder.farMedmor) || erAleneomsorg === false,
+    forelderRegel: RegelKey.alleUttakErInnenforMaksAntallDager
 };

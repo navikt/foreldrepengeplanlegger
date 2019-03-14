@@ -4,7 +4,8 @@ import BEMHelper from 'common/utils/bem';
 import RegelbruddFeilmelding from './RegelbruddFeilmelding';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Veileder, { VeilederAnsiktstype } from 'common/components/veileder/Veileder';
-import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel, AlertStripeInfo, AlertStripeFeil } from 'nav-frontend-alertstriper';
+import { trimRelaterteRegelbrudd } from '../../utils/regler/regelUtils';
 
 interface Props {
     regelbrudd: Regelbrudd[];
@@ -13,9 +14,9 @@ interface Props {
 const bem = BEMHelper('regelbrudd');
 
 const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
-    const ulovlig = regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.ULOVLIG);
-    const viktig = regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.VIKTIG);
-    const info = regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.INFO);
+    const ulovlig = trimRelaterteRegelbrudd(regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.ULOVLIG));
+    const viktig = trimRelaterteRegelbrudd(regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.VIKTIG));
+    const info = trimRelaterteRegelbrudd(regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.INFO));
     const harFeil = ulovlig.length > 0;
 
     let ansikt: VeilederAnsiktstype;
@@ -37,18 +38,18 @@ const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
                 {ulovlig.length > 0 && (
                     <>
                         {ulovlig.map((brudd) => (
-                            <AlertStripeAdvarsel key={brudd.key} className={'alertstripe--noBorder'}>
+                            <AlertStripeFeil key={brudd.key} className={'alertstripe--noBorder'}>
                                 <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
-                            </AlertStripeAdvarsel>
+                            </AlertStripeFeil>
                         ))}
                     </>
                 )}
                 {viktig.length > 0 && (
                     <>
                         {viktig.map((brudd) => (
-                            <AlertStripeInfo key={brudd.key} className={'alertstripe--noBorder'}>
+                            <AlertStripeAdvarsel key={brudd.key} className={'alertstripe--noBorder'}>
                                 <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
-                            </AlertStripeInfo>
+                            </AlertStripeAdvarsel>
                         ))}
                     </>
                 )}

@@ -48,7 +48,7 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, o
                     />
                 </div>
                 <div className={bem.element('felles')} style={{ width: `${fordeling.pstFelles}%` }}>
-                    <div className={bem.element('barTitle')}>Fellesdager</div>
+                    <div className={bem.element('barTitle')}>Fellesperiode</div>
                     <Multibar
                         borderColor={UttaksplanHexFarge.graa}
                         leftBar={{

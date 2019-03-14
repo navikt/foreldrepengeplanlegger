@@ -112,7 +112,7 @@ const VarighetStartdatoFørTermin: React.StatelessComponent<Props> = (props) => 
                 <VarighetStartdato {...props} />
             </Block>
             <Checkbox
-                label="Jeg skal ikke ha uttak før termin"
+                label="Jeg skal ikke ha foreldrepenger før termin"
                 checked={ingenVarighet === true || false}
                 onChange={(evt) => onVarighetChange({ ingenVarighet: evt.target.checked })}
             />

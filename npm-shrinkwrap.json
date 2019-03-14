@@ -9171,14 +9171,14 @@
             "integrity": "sha512-d9aOUnIREijWV1454WwHLnz4bz3qD1qAPKrH2xQDruBFkKJRoyidzW+aLTMABKe9OeCpEIq2HOkMPbB2v6mpEw=="
         },
         "nav-frontend-knapper": {
-            "version": "1.0.22",
-            "resolved": "https://registry.npmjs.org/nav-frontend-knapper/-/nav-frontend-knapper-1.0.22.tgz",
-            "integrity": "sha512-WHycLg+Ia4XtJUg+/a8x5f4cS3HYQsuD9x07ikXp/lgYOt0/V/j/XCfdrj49ymNKKZkeiGEXavsnuNlOKZJT0Q=="
+            "version": "1.0.27",
+            "resolved": "https://registry.npmjs.org/nav-frontend-knapper/-/nav-frontend-knapper-1.0.27.tgz",
+            "integrity": "sha512-TvvDlMasRiEM3kxFK1DPghobZiFYwXX8kBLUg47X2asK2KPwZXhlxiXCUcR7SHW6DxQjBr1/YQGSElIr3PNdSw=="
         },
         "nav-frontend-knapper-style": {
-            "version": "0.3.20",
-            "resolved": "https://registry.npmjs.org/nav-frontend-knapper-style/-/nav-frontend-knapper-style-0.3.20.tgz",
-            "integrity": "sha512-sq3/1QbXFL2+OvYVxIZdFcZnka8bP5IMnArhupwX1vMFva8PP3AGZ6LQCV1aVZJdhX2a8xYFedjzesUv5p7IJA==",
+            "version": "0.3.23",
+            "resolved": "https://registry.npmjs.org/nav-frontend-knapper-style/-/nav-frontend-knapper-style-0.3.23.tgz",
+            "integrity": "sha512-gAQ9z55qL9qt/HAJhY8zcpd36EkfXv/jAL/Jp9+ilgFepR6psI4J+0Se5lESsGM1ugL+sVDazdgvQMm9ZzFkug==",
             "dev": true
         },
         "nav-frontend-lenker": {

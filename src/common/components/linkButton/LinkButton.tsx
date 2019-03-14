@@ -6,7 +6,7 @@ import './linkButton.less';
 
 export interface LinkButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
-    color?: 'default' | 'white';
+    color?: 'default' | 'white' | 'red';
 }
 
 const bem = BEMHelper('linkButton');

@@ -18,7 +18,7 @@ interface PeriodelisteElementBaseProps {
     forelderErLåst?: boolean;
     startdatoErLåst?: boolean;
     sluttdatoErLåst?: boolean;
-    slettErLåst?: boolean;
+    kanSlettes?: boolean;
     regelbrudd: Regelbrudd[] | undefined;
 }
 

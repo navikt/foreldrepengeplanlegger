@@ -1,9 +1,18 @@
 @import '../../styles/variables.less';
+@import '../../styles/mixins.less';
 @import '../../../../node_modules/nav-frontend-knapper-style/src/mixins.less';
+
 .ikonKnapp {
-    .knappbase-mixin(inherit);
+    .knappflat-mixin(@navBla, @navDypBla, @white);
+
+    &:focus {
+        .buttonFocus();
+    }
+
+    cursor: pointer;
+    // border: 2px solid transparent;
     padding: 0;
-    border: none;
     background: none;
     line-height: 1em;
+    outline: none
 }

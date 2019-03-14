@@ -14,7 +14,6 @@ import LinkButton from 'common/components/linkButton/LinkButton';
 import { isPeriodeFixed } from '../../utils/typeUtils';
 import { Uttaksdagen } from '../../utils/Uttaksdagen';
 import BekreftDialog from 'common/components/dialog/BekreftDialog';
-import InfoDialog from 'common/components/dialog/InfoDialog';
 import { getForbruk } from '../../utils/forbrukUtils';
 import BEMHelper from 'common/utils/bem';
 
@@ -22,8 +21,8 @@ import './uttaksplan.less';
 
 interface State {
     visSkjema: boolean;
-    visBekreftSlettDialog: boolean;
-    visInfoOmForeldrepengerFørTermin: boolean;
+    visBekreftSlettPeriodeDialog: boolean;
+    visBekreftSlettPlanDialog: boolean;
     valgtPeriode?: Periode;
 }
 
@@ -53,8 +52,8 @@ class Uttaksplan extends React.Component<Props, State> {
         this.handleRemovePeriode = this.handleRemovePeriode.bind(this);
         this.state = {
             visSkjema: props.perioder.length === 0,
-            visBekreftSlettDialog: false,
-            visInfoOmForeldrepengerFørTermin: false
+            visBekreftSlettPeriodeDialog: false,
+            visBekreftSlettPlanDialog: false
         };
     }
 
@@ -68,7 +67,7 @@ class Uttaksplan extends React.Component<Props, State> {
             this.props.onRemove(this.state.valgtPeriode);
         }
         this.setState({
-            visBekreftSlettDialog: false,
+            visBekreftSlettPeriodeDialog: false,
             valgtPeriode: undefined
         });
     }
@@ -81,11 +80,13 @@ class Uttaksplan extends React.Component<Props, State> {
     }
 
     handleRemovePeriode(periode: Periode) {
-        if (periode.type === Periodetype.UttakFørTermin) {
-            this.setState({ visInfoOmForeldrepengerFørTermin: true, valgtPeriode: periode });
-        } else {
-            this.setState({ visBekreftSlettDialog: true, valgtPeriode: periode });
+        if (periode.type !== Periodetype.UttakFørTermin) {
+            this.setState({ visBekreftSlettPeriodeDialog: true, valgtPeriode: periode });
         }
+    }
+
+    handleSlettPlan() {
+        this.setState({ visBekreftSlettPlanDialog: true });
     }
 
     render() {
@@ -122,7 +123,9 @@ class Uttaksplan extends React.Component<Props, State> {
                                 </div>
                                 {onResetPlan && perioder.length > 0 && (
                                     <div className="periodeliste__reset">
-                                        <LinkButton onClick={() => onResetPlan()}>Slett plan</LinkButton>
+                                        <LinkButton color="red" onClick={() => this.handleSlettPlan()}>
+                                            Slett plan
+                                        </LinkButton>
                                     </div>
                                 )}
                             </div>
@@ -189,23 +192,28 @@ class Uttaksplan extends React.Component<Props, State> {
 
                 <BekreftDialog
                     tittel="Bekreft fjern periode"
-                    isOpen={this.state.visBekreftSlettDialog}
+                    isOpen={this.state.visBekreftSlettPeriodeDialog}
                     avbrytLabel="Avbryt"
-                    bekreftLabel="Fjern periode"
+                    bekreftLabel="Ja, fjern periode"
                     onBekreft={() => this.slettValgtPeriode()}
-                    onAvbryt={() => this.setState({ visBekreftSlettDialog: false, valgtPeriode: undefined })}>
+                    onAvbryt={() => this.setState({ visBekreftSlettPeriodeDialog: false, valgtPeriode: undefined })}>
                     Ønsker du å slette perioden?
                 </BekreftDialog>
 
-                <InfoDialog
-                    størrelse="30"
-                    tittel="Perioden kan ikke fjernes"
-                    isOpen={this.state.visInfoOmForeldrepengerFørTermin}
-                    okLabel="Ok"
-                    onOk={() => this.setState({ visInfoOmForeldrepengerFørTermin: false, valgtPeriode: undefined })}>
-                    Foreldrepenger før fødsel kan ikke fjernes, men du kan velge at en ikke ønsker å ta ut
-                    foreldrepenger før termin, under dato valget for perioden.
-                </InfoDialog>
+                {onResetPlan && (
+                    <BekreftDialog
+                        tittel="Bekreft slett plan"
+                        isOpen={this.state.visBekreftSlettPlanDialog}
+                        avbrytLabel="Avbryt"
+                        bekreftLabel="Ja, slett plan"
+                        onBekreft={() => {
+                            onResetPlan();
+                            this.setState({ visBekreftSlettPlanDialog: false });
+                        }}
+                        onAvbryt={() => this.setState({ visBekreftSlettPlanDialog: false })}>
+                        Ønsker du å slette planen? Alle perioder etter termin vil bli fjernet.
+                    </BekreftDialog>
+                )}
             </section>
         );
     }

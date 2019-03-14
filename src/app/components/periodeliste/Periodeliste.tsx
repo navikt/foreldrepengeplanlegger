@@ -115,7 +115,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
                             typeErLåst={true}
                             forelderErLåst={true}
                             sluttdatoErLåst={true}
-                            slettErLåst={true}
+                            kanSlettes={false}
                             {...elementProps}
                         />
                     </li>

@@ -66,6 +66,7 @@ class PeriodeElement extends React.Component<Props> {
             uttaksdatoer,
             regelbrudd,
             perioder,
+            kanSlettes = true,
             intl
         } = this.props;
 
@@ -180,10 +181,14 @@ class PeriodeElement extends React.Component<Props> {
                             )
                         }
                     ]}
-                    slett={{
-                        ariaLabel: 'Slett periode',
-                        onRemove: () => onRemove(periode)
-                    }}
+                    slett={
+                        kanSlettes
+                            ? {
+                                  ariaLabel: 'Slett periode',
+                                  onRemove: () => onRemove(periode)
+                              }
+                            : undefined
+                    }
                     info={
                         periode.type === Periodetype.Ferie && antallUttaksdagerBrukt > 0
                             ? [

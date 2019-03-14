@@ -1,7 +1,43 @@
 .tilgjengeligeDagerGraf {
 
-    &__felles {
-        margin: 0 .25rem;
+    &__bars {
+        position: relative;
+        width: 100%;
+        display: flex;
+    }
+
+    padding-top: 5rem;
+
+    &__barTitle {
+        position: absolute;
+        bottom: calc(100% + .25rem);
+        margin-bottom: .25rem;
+
+        .tilgjengeligeDagerGraf__felles & {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    &__titles {
+        display: flex;
+
+        &__left {
+            flex: 1 1 100%/3;
+        }
+
+        &__center {
+            flex: 1 1 100%/3;
+            align-self: flex-end;
+            justify-self: center;
+            text-align: center;
+            padding-bottom: .25rem;
+        }
+
+        &__right {
+            flex: 1 1 100%/3;
+            justify-items: flex-end;
+        }
     }
 
     &__felles,
@@ -10,6 +46,18 @@
         transform: translate3d();
         transition: width .2s ease-out;
         will-change: width;
+    }
+
+    &__felles {
+        margin: 0 .25rem;
+        position: relative;
+    }
+
+
+    &__forelder2 {
+        .tilgjengeligeDagerGraf__barTitle {
+            right: 0;
+        }
     }
 
     &__barTekst {

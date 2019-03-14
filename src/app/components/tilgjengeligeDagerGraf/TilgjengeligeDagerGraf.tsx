@@ -8,6 +8,8 @@ import { UttaksplanHexFarge } from 'common/utils/colors';
 import './tilgjengeligeDagerGraf.less';
 import { getVarighetString } from 'common/utils/intlUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
+import Personkort from '../personkort/Personkort';
+import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
 
 interface OwnProps {
     tilgjengeligeDager: TilgjengeligeDager;
@@ -18,7 +20,7 @@ type Props = OwnProps & InjectedIntlProps;
 
 const bem = BEMHelper('tilgjengeligeDagerGraf');
 
-const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, intl }) => {
+const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, omForeldre, intl }) => {
     const fordeling = getProsentFordeling(tilgjengeligeDager, true);
     const txtMor =
         tilgjengeligeDager.dagerForeldrepengerFørFødsel > 0
@@ -26,44 +28,66 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, i
             : getVarighetString(tilgjengeligeDager.dagerMor, intl);
     return (
         <div className={bem.block}>
-            <div className={bem.element('forelder1')} style={{ width: `${fordeling.pstMor}%` }}>
-                <Multibar
-                    borderColor={UttaksplanHexFarge.graa}
-                    leftBar={{
-                        color: UttaksplanHexFarge.lilla,
-                        width: 100,
-                        text: <div className={bem.element('barTekst')}>{txtMor}</div>
-                    }}
-                />
-            </div>
-            <div className={bem.element('felles')} style={{ width: `${fordeling.pstFelles}%` }}>
-                <Multibar
-                    borderColor={UttaksplanHexFarge.graa}
-                    leftBar={{
-                        color: UttaksplanHexFarge.lilla,
-                        color2: UttaksplanHexFarge.blaa,
-                        width: 100,
-                        text: (
-                            <div className={bem.element('barTekst')}>
-                                {getVarighetString(tilgjengeligeDager.dagerFelles, intl)}
-                            </div>
-                        )
-                    }}
-                />
-            </div>
-            <div className={bem.element('forelder2')} style={{ width: `${fordeling.pstFarMedmor}%` }}>
-                <Multibar
-                    borderColor={UttaksplanHexFarge.graa}
-                    leftBar={{
-                        color: UttaksplanHexFarge.blaa,
-                        width: 100,
-                        text: (
-                            <div className={bem.element('barTekst')}>
-                                {getVarighetString(tilgjengeligeDager.dagerFar, intl)}
-                            </div>
-                        )
-                    }}
-                />
+            <div className={bem.element('bars')}>
+                <div className={bem.element('forelder1')} style={{ width: `${fordeling.pstMor}%` }}>
+                    <div className={bem.element('barTitle')}>
+                        <Personkort
+                            ikon={<ForelderIkon forelder={omForeldre.mor.ikonRef} width={35} />}
+                            textValign="bottom">
+                            {omForeldre.mor.navn}
+                            <br /> sin del
+                        </Personkort>
+                    </div>
+                    <Multibar
+                        borderColor={UttaksplanHexFarge.graa}
+                        leftBar={{
+                            color: UttaksplanHexFarge.lilla,
+                            width: 100,
+                            text: <div className={bem.element('barTekst')}>{txtMor}</div>
+                        }}
+                    />
+                </div>
+                <div className={bem.element('felles')} style={{ width: `${fordeling.pstFelles}%` }}>
+                    <div className={bem.element('barTitle')}>Fellesdager</div>
+                    <Multibar
+                        borderColor={UttaksplanHexFarge.graa}
+                        leftBar={{
+                            color: UttaksplanHexFarge.lilla,
+                            color2: UttaksplanHexFarge.blaa,
+                            width: 100,
+                            text: (
+                                <div className={bem.element('barTekst')}>
+                                    {getVarighetString(tilgjengeligeDager.dagerFelles, intl)}
+                                </div>
+                            )
+                        }}
+                    />
+                </div>
+                {omForeldre.farMedmor && (
+                    <div className={bem.element('forelder2')} style={{ width: `${fordeling.pstFarMedmor}%` }}>
+                        <div className={bem.element('barTitle')}>
+                            <Personkort
+                                ikon={<ForelderIkon forelder={omForeldre.farMedmor.ikonRef} width={35} />}
+                                invertert={true}
+                                textValign="bottom">
+                                {omForeldre.farMedmor.navn}
+                                <br /> sin del
+                            </Personkort>
+                        </div>
+                        <Multibar
+                            borderColor={UttaksplanHexFarge.graa}
+                            leftBar={{
+                                color: UttaksplanHexFarge.blaa,
+                                width: 100,
+                                text: (
+                                    <div className={bem.element('barTekst')}>
+                                        {getVarighetString(tilgjengeligeDager.dagerFar, intl)}
+                                    </div>
+                                )
+                            }}
+                        />
+                    </div>
+                )}
             </div>
         </div>
     );

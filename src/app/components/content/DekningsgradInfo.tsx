@@ -6,9 +6,9 @@ import Block from 'common/components/block/Block';
 import { TilgjengeligeDager, OmForeldre, Situasjon, Forelder } from '../../types';
 import TilgjengeligeDagerGraf from '../tilgjengeligeDagerGraf/TilgjengeligeDagerGraf';
 import PengerIkon from 'common/components/ikoner/PengerIkon';
+import Situasjonsinfo from '../situasjonsskjema/parts/velgSituasjon/SituasjonInfo';
 
 import './dekningsgradInfo.less';
-import Situasjonsinfo from '../situasjonsskjema/parts/velgSituasjon/SituasjonInfo';
 
 interface Props {
     situasjon: Situasjon;

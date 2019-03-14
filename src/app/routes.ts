@@ -9,6 +9,6 @@ export enum Side {
 export const AppRoutes = {
     startside: `${AppRoot}`,
     uttaksplanside: `${AppRoot}/plan`,
-    dekningsgradside: `${AppRoot}/dekning`,
+    dekningsgradside: `${AppRoot}/antalluker`,
     dev: `${AppRoot}/dev`
 };

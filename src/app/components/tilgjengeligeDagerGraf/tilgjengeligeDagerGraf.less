@@ -1,4 +1,7 @@
+@import '../../styles/variables.less';
+
 .tilgjengeligeDagerGraf {
+    padding-top: 5rem;
 
     &__bars {
         position: relative;
@@ -6,7 +9,6 @@
         display: flex;
     }
 
-    padding-top: 5rem;
 
     &__barTitle {
         position: absolute;
@@ -16,27 +18,6 @@
         .tilgjengeligeDagerGraf__felles & {
             width: 100%;
             text-align: center;
-        }
-    }
-
-    &__titles {
-        display: flex;
-
-        &__left {
-            flex: 1 1 100%/3;
-        }
-
-        &__center {
-            flex: 1 1 100%/3;
-            align-self: flex-end;
-            justify-self: center;
-            text-align: center;
-            padding-bottom: .25rem;
-        }
-
-        &__right {
-            flex: 1 1 100%/3;
-            justify-items: flex-end;
         }
     }
 
@@ -76,4 +57,41 @@
     .multibar__background {
         border: none;
     }
+
+    @media (max-width: @mobile-breakpoint) {
+        padding-top: 0rem;
+
+        &__bars {
+            flex-wrap: wrap;
+            flex-direction: column;
+        }
+
+        &__felles,
+        &__forelder1,
+        &__forelder2 {
+            width: 100% !important;
+            margin-bottom: 1rem;
+        }
+
+        &__forelder1 {
+            order: 1;
+        }
+
+        &__forelder2 {
+            order: 2;
+        }
+
+        &__felles {
+            order: 3;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        &__barTitle {
+            position: relative;
+            text-align: left !important;
+        }
+    }
+
+
 }

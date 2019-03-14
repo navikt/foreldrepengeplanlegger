@@ -1,3 +1,5 @@
+@import '../../styles/variables.less';
+
 .personkort {
     display: flex;
     flex-basis: 50%;
@@ -30,20 +32,22 @@
         }
     }
 
-    &--invertert {
-        text-align: right;
-        justify-content: flex-end;
+    @media (min-width: @mobile-breakpoint) {
+        &--invertert {
+            text-align: right;
+            justify-content: flex-end;
 
-        .personkort {
-            &__ikon {
-                order: 2;
-                padding-right: 0;
-                padding-left: .5rem;
-            }
+            .personkort {
+                &__ikon {
+                    order: 2;
+                    padding-right: 0;
+                    padding-left: .5rem;
+                }
 
-            &__innhold {
-                order: 1;
-                text-align: right;
+                &__innhold {
+                    order: 1;
+                    text-align: right;
+                }
             }
         }
     }

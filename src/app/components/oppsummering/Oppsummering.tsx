@@ -12,13 +12,14 @@ interface Props {
 }
 
 const Oppsummering: React.StatelessComponent<Props> = ({ situasjonProps, dekningProps }) => {
+    const kompakt = true;
     return (
         <div className="grayBlock">
             <AriaText tag="h2">Oppsummering</AriaText>
-            {situasjonProps && <SituasjonOppsummering {...situasjonProps} />}
+            {situasjonProps && <SituasjonOppsummering {...situasjonProps} kompakt={kompakt} />}
             {dekningProps && (
                 <Block marginTop="l">
-                    <DekningOppsummering {...dekningProps} />
+                    <DekningOppsummering {...dekningProps} kompakt={kompakt} />
                 </Block>
             )}
         </div>

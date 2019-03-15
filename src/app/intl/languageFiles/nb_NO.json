@@ -1,7 +1,10 @@
 {
-    "antallBarn.alternativ.barn-1": "Ett barn",
-    "antallBarn.alternativ.barn-2": "Tvillinger",
-    "antallBarn.alternativ.barn-3": "Trillinger eller flere",
+    "antallBarn.alternativ.Barn-1": "Ett barn",
+    "antallBarn.alternativ.Barn-2": "Tvillinger",
+    "antallBarn.alternativ.Barn-3": "Trillinger eller flere",
+    "antallBarn.alternativ.barn-1": "ett barn",
+    "antallBarn.alternativ.barn-2": "tvillinger",
+    "antallBarn.alternativ.barn-3": "trillinger eller flere",
     "antallBarn.select.tekst.adopsjon": "Hvor mange barn adopterer du?",
     "antallBarn.select.tekst.fødsel": "Hvor mange barn fikk du?",
     "antallBarn.select.tekst.termin": "Hvor mange barn venter du?",
@@ -16,7 +19,6 @@
     "situasjon.morOgMedmor": "Mor og  medmor",
     "situasjon.farOgFar": "Far og far",
     "uttaksplan.mor": "mor",
-    "uttaksplan.far": "far",
 
     "stønadskontotype.AKTIVITETSFRI_FLERBARNSDAGER": "Flerbarnsuker uten aktivitetskrav",
     "stønadskontotype.AKTIVITETSFRI_KVOTE": "Foreldrepenger uten aktivitetskrav",
@@ -79,5 +81,7 @@
     "fordeling.status.dagerIkkeBruktPerson": "{navn} har {dager} ubrukt",
     "fordeling.status.dagerForMyePerson": "{navn} har {dager} for mye",
     "fordeling.status.person.forMye": "{dager} for mye",
-    "fordeling.status.person.forLite": "{dager} ikke brukt"
+    "fordeling.status.person.forLite": "{dager} ikke brukt",
+
+    "oppsummering.situasjon.html": "<strong>{foreldre}</strong> venter <strong>{barn}</strong> med termin den <strong>{termin}</strong>."
 }

@@ -95,7 +95,7 @@ class UttaksplanSide extends React.Component<Props> {
                                     dekningsgrad
                                         ? {
                                               dekningsgrad,
-                                              situasjon: skjemadata.situasjon,
+                                              omForeldre,
                                               tilgjengeligeDager,
                                               onRequestChange: () =>
                                                   dispatch(navigerTilSide(Side.DEKNINGSGRAD, history))

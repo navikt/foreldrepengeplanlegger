@@ -17,7 +17,8 @@ const bareFarHarRettFlerbarnsukerAktivitetskravMorInfo: RegelTest = (
                 alvorlighet: RegelAlvorlighet.INFO,
                 feilmelding: {
                     intlKey: `regel.info.${key}`
-                }
+                },
+                overstyrerRegler: regel.overstyrerRegler
             }
         };
     }

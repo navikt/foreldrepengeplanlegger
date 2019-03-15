@@ -26,16 +26,23 @@ export const getRegelbrudd = (resultat: RegelTestresultat[]): Regelbrudd[] => {
     return [];
 };
 
-const eksluderteRegelbruddFilter = (brudd: Regelbrudd, idx: number, regelbrudd: Regelbrudd[]): boolean => {
+const overstyresAvFilter = (brudd: Regelbrudd, idx: number, regelbrudd: Regelbrudd[]): boolean => {
     return (
         brudd.overstyresAvRegel === undefined && regelbrudd.some((b2) => b2.key === brudd.overstyresAvRegel) === false
     );
 };
 
-const overstyrteRegelbruddFilter = (brudd: Regelbrudd, idx: number, regelbrudd: Regelbrudd[]): boolean => {
-    return true;
+const overstyrerAndreFilter = (brudd: Regelbrudd, idx: number, regelbrudd: Regelbrudd[]): boolean => {
+    const overstyresAvAndre = regelbrudd.some((rb) =>
+        rb.overstyrerRegler
+            ? rb.overstyrerRegler.some((rbo) => {
+                  return rbo === brudd.key;
+              })
+            : false
+    );
+    return overstyresAvAndre === false;
 };
 
 export const trimRelaterteRegelbrudd = (brudd: Regelbrudd[]): Regelbrudd[] => {
-    return brudd.filter(eksluderteRegelbruddFilter).filter(overstyrteRegelbruddFilter);
+    return brudd.filter(overstyresAvFilter).filter(overstyrerAndreFilter);
 };

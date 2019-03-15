@@ -11,6 +11,7 @@ import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from './uttaksinfo';
 import { Uttaksdagen } from './Uttaksdagen';
 import { getAntallForeldreISituasjon } from './common';
+import situasjonsregler from './situasjonsregler';
 
 export const stønadskontoSortOrder = {
     [StønadskontoType.ForeldrepengerFørFødsel]: 1,
@@ -58,9 +59,10 @@ const kontoErEtterTermin = (konto: TilgjengeligStønadskonto): boolean => {
 
 export const getTilgjengeligeDager = (
     situasjon: Situasjon,
-    kontoer: TilgjengeligStønadskonto[]
+    kontoer: TilgjengeligStønadskonto[],
+    forelderVedAleneomsorg: Forelder | undefined
 ): TilgjengeligeDager => {
-    const erAleneomsorg = getAntallForeldreISituasjon(situasjon) === 1;
+    const erDeltOmsorg = getAntallForeldreISituasjon(situasjon) === 2;
     const kontoerEtterTermin = kontoer.filter(kontoErEtterTermin);
 
     const dagerTotalt = summerAntallDagerIKontoer(kontoer);
@@ -72,8 +74,17 @@ export const getTilgjengeligeDager = (
     const dagerFelles = summerAntallDagerIKontoer(getFellesStønadskontoer(kontoerEtterTermin));
     const flerbarnsdager = summerAntallDagerIKontoer(getFlerbarnskonto(kontoerEtterTermin));
 
-    const maksDagerFar = dagerFar + dagerFelles;
-    const maksDagerMor = erAleneomsorg ? dagerForeldrepenger : dagerMor + dagerFelles;
+    const dagerKunTilMor =
+        erDeltOmsorg === false &&
+        (situasjonsregler.harMorAleneomsorg(situasjon, forelderVedAleneomsorg) ||
+            situasjonsregler.harMorRett(situasjon));
+    const dagerKunTilFar =
+        erDeltOmsorg === false &&
+        (situasjonsregler.harFarAleneomsorg(situasjon, forelderVedAleneomsorg) ||
+            situasjonsregler.harFarRett(situasjon));
+
+    const maksDagerFar = dagerKunTilFar ? dagerForeldrepenger : dagerFar + dagerFelles;
+    const maksDagerMor = dagerKunTilMor ? dagerForeldrepenger : dagerMor + dagerFelles;
 
     return {
         dagerTotalt,

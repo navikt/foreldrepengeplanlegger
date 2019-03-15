@@ -20,9 +20,9 @@ const getStønadskontoerRequestParams = (
         erFødsel: true,
         familiehendelsesdato,
         farHarAleneomsorg: situasjonsregler.harFarAleneomsorg(data.situasjon, data.aleneomsorgForelder),
-        farHarRett: situasjonsregler.harFarRett(data.situasjon, data.aleneomsorgForelder),
-        morHarAleneomsorg: situasjonsregler.harMorAleneomsorg(data.situasjon),
-        morHarRett: situasjonsregler.harMorRett(data.situasjon, data.aleneomsorgForelder),
+        farHarRett: situasjonsregler.harFarRett(data.situasjon),
+        morHarAleneomsorg: situasjonsregler.harMorAleneomsorg(data.situasjon, data.aleneomsorgForelder),
+        morHarRett: situasjonsregler.harMorRett(data.situasjon),
         startdatoUttak: new Date(),
         dekningsgrad
     };

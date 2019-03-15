@@ -37,7 +37,21 @@ const Situasjonsoppsummering: React.StatelessComponent<SituasjonsoppsummeringPro
     return (
         <OppsummeringBlokk
             onRequestChange={onRequestChange}
-            tittel={getOppsummeringTittel(getAntallForeldreISituasjon(situasjon), antallBarn)}>
+            tittel={getOppsummeringTittel(getAntallForeldreISituasjon(situasjon), antallBarn)}
+            illustrasjoner={
+                kompakt ? (
+                    <div className={bem.classNames(bem.element('deler', 'illustrasjoner'))}>
+                        <div className={bem.element('illustrasjon')}>
+                            <AntallBarnSirkel antallBarn={antallBarn} />
+                        </div>
+                        <div className={bem.element('illustrasjon')}>
+                            <SituasjonSirkel {...props} valgtForelder={omForeldre.forelderVedAleneomsorg} />
+                        </div>
+                    </div>
+                ) : (
+                    undefined
+                )
+            }>
             {kompakt ? (
                 <FormattedHTMLMessage
                     id="oppsummering.situasjon.html"
@@ -49,33 +63,35 @@ const Situasjonsoppsummering: React.StatelessComponent<SituasjonsoppsummeringPro
                 />
             ) : (
                 <div className={bem.block}>
-                    <div className={bem.element('deloppsummering')}>
-                        <SituasjonSirkel {...props} valgtForelder={omForeldre.forelderVedAleneomsorg} />
-                        <div className={bem.element('verdi')}>
-                            {erDeltOmsorg === false && (
-                                <span className={bem.element('navn')}>
-                                    {bareFar && farMedmor ? farMedmor.navn : mor.navn}
-                                </span>
-                            )}
-                            {erDeltOmsorg && farMedmor && (
-                                <>
-                                    <span className={bem.element('navn')}>{mor.navn}</span>
-                                    <span className={bem.element('navn')}> og {farMedmor.navn}</span>
-                                </>
-                            )}
+                    <div className={bem.element('deler')}>
+                        <div className={bem.element('deloppsummering')}>
+                            <SituasjonSirkel {...props} valgtForelder={omForeldre.forelderVedAleneomsorg} />
+                            <div className={bem.element('verdi')}>
+                                {erDeltOmsorg === false && (
+                                    <span className={bem.element('navn')}>
+                                        {bareFar && farMedmor ? farMedmor.navn : mor.navn}
+                                    </span>
+                                )}
+                                {erDeltOmsorg && farMedmor && (
+                                    <>
+                                        <span className={bem.element('navn')}>{mor.navn}</span>
+                                        <span className={bem.element('navn')}> og {farMedmor.navn}</span>
+                                    </>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                    <div className={bem.element('deloppsummering')}>
-                        <AntallBarnSirkel antallBarn={antallBarn} />
-                        <div className={bem.element('verdi')}>
-                            {getMessage(intl, `antallBarn.alternativ.Barn-${antallBarn}`)}
+                        <div className={bem.element('deloppsummering')}>
+                            <AntallBarnSirkel antallBarn={antallBarn} />
+                            <div className={bem.element('verdi')}>
+                                {getMessage(intl, `antallBarn.alternativ.Barn-${antallBarn}`)}
+                            </div>
                         </div>
-                    </div>
-                    <div className={bem.element('deloppsummering')}>
-                        <SpebarnSirkel />
-                        <div className={bem.element('verdi')}>
-                            <div>Termin</div>
-                            {formaterDatoUtenDag(familiehendelsesdato)}
+                        <div className={bem.element('deloppsummering')}>
+                            <SpebarnSirkel />
+                            <div className={bem.element('verdi')}>
+                                <div>Termin</div>
+                                {formaterDatoUtenDag(familiehendelsesdato)}
+                            </div>
                         </div>
                     </div>
                 </div>

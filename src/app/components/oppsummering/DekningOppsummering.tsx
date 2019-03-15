@@ -27,7 +27,20 @@ const DekningOppsummering: React.StatelessComponent<DekningOppsummeringProps & I
 }) => {
     const uker = tilgjengeligeDager.dagerTotalt / 5;
     return (
-        <OppsummeringBlokk onRequestChange={onRequestChange} tittel="Deres foreldrepengeperiode">
+        <OppsummeringBlokk
+            onRequestChange={onRequestChange}
+            tittel="Deres foreldrepengeperiode"
+            illustrasjoner={
+                kompakt ? (
+                    <div className={bem.classNames(bem.element('deler', 'illustrasjoner'))}>
+                        <div className={bem.element('illustrasjon')}>
+                            <UkerSirkel uker={uker} />
+                        </div>
+                    </div>
+                ) : (
+                    undefined
+                )
+            }>
             {kompakt ? (
                 <div>
                     {omForeldre.erDeltOmsorg ? 'Dere' : 'Du'} har valgt{' '}

@@ -5,13 +5,14 @@ import { UttaksplanHexFarge } from 'common/utils/colors';
 import './sirkelmaske.less';
 
 interface Props {
+    aktiv?: boolean;
     farge?: UttaksplanHexFarge;
     diameter: string;
 }
 
 const bem = BEMHelper('sirkelmaske');
 
-const Sirkelmaske: React.StatelessComponent<Props> = ({ farge, diameter, children }) => {
+const Sirkelmaske: React.StatelessComponent<Props> = ({ farge, diameter, aktiv = true, children }) => {
     const style: Partial<CSSProperties> = {
         backgroundColor: farge
     };
@@ -20,7 +21,7 @@ const Sirkelmaske: React.StatelessComponent<Props> = ({ farge, diameter, childre
         style.height = diameter;
     }
     return (
-        <div className={bem.block} style={style}>
+        <div className={bem.classNames(bem.block, bem.modifierConditional('inaktiv', aktiv === false))} style={style}>
             <div className={bem.element('content')}>{children}</div>
         </div>
     );

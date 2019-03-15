@@ -1,20 +1,21 @@
 import { Regel } from './types';
 import { starterInnenfor12UkerFørTerminRegel } from './tester/starterInnenfor12UkerFørTermin';
 import { erInnenforSisteMuligeUttaksdagRegel } from './tester/erInnenforSisteMuligeUttaksdag';
-import { uttakForFarEllerMedmorFørsteSeksUkerInfoRegel } from './tester/uttakForFarEllerMedmorF\u00F8rsteSeksUkerInfo';
+import { uttakForFarEllerMedmorFørsteSeksUkerInfoRegel } from './info/uttakForFarEllerMedmorFørsteSeksUkerInfo';
 import { farMedmorsUttakErInnenforMaksAntallDagerRegel } from './tester/farMedmorsUttakErInnenforMaksAntallDager';
 import { morsUttakErInnenforMaksAntallDagerRegel } from './tester/morsUttakErInnenforMaksAntallDager';
 import { alleUttakErInnenforMaksAntallDagerRegel } from './tester/alleUttakErInnenforMaksAntallDager';
-import { ferieMedUttaksdagerInfoRegel } from './tester/ferieMedUttaksdagerInfo';
-import { farMedmorBrukerFellesperiodeInfoRegel } from './tester/farMedmorBrukerFellesperiodeInfo';
-import { morUtsetterPgaArbeidInfoRegel } from './tester/morUtsetterPgaArbeidInfo';
-import { farMedmorUtsetterPgaArbeidInfoRegel } from './tester/farMedmorUtsetterPgaArbeidInfo';
+import { ferieMedUttaksdagerInfoRegel } from './info/ferieMedUttaksdagerInfo';
+import { farMedmorBrukerFellesperiodeInfoRegel } from './info/farMedmorBrukerFellesperiodeInfo';
+import { morUtsetterPgaArbeidInfoRegel } from './info/morUtsetterPgaArbeidInfo';
+import { farMedmorUtsetterPgaArbeidInfoRegel } from './info/farMedmorUtsetterPgaArbeidInfo';
 import {
     morUsetterFørsteSeksUkerRegel,
     farMedmormorUsetterFørsteSeksUkerRegel
 } from './tester/utsettelseFørsteSeksUker';
 import { forMangeFeriedagerMor, forMangeFeriedagerFarMedmor } from './tester/forMangeFeriedager';
-import { bareFarHarRettAktivitetskravMorInfoRegel } from './info/bareFarHarRettAktivitetskravMorInfo';
+import { bareFarHarRettEttBarnAktivitetskravMorInfoRegel } from './info/bareFarHarRettEttBarnAktivitetskravMorInfo';
+import { bareFarHarRettFlerbarnsukerAktivitetskravMorInfoRegel } from './info/bareFarHarRettFlerbarnsukerAktivitetskravMorInfo';
 
 const uttaksplanRegler: Regel[] = [
     uttakForFarEllerMedmorFørsteSeksUkerInfoRegel,
@@ -31,7 +32,8 @@ const uttaksplanRegler: Regel[] = [
     farMedmormorUsetterFørsteSeksUkerRegel,
     forMangeFeriedagerMor,
     forMangeFeriedagerFarMedmor,
-    bareFarHarRettAktivitetskravMorInfoRegel
+    bareFarHarRettEttBarnAktivitetskravMorInfoRegel,
+    bareFarHarRettFlerbarnsukerAktivitetskravMorInfoRegel
 ];
 
 export default uttaksplanRegler;

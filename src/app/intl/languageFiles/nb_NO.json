@@ -63,7 +63,8 @@
     "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker {dager} fra fellesperioden, og må legge ved dokumentasjon av aktivitetskravet til {navnMor} for disse dagene.",
     "regel.info.morUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnMor} må bekrefte avtalt arbeid i inntektsmelding som sendes til NAV.",
     "regel.info.farMedmorUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnFarMedmor} må bekrefte avtalt arbeid i inntektsmelding som sendes til NAV.",
-    "regel.info.bareFarHarRettAktivitetskravMorInfo": "Det er aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
+    "regel.info.bareFarHarRettEttBarnAktivitetskravMorInfo": "Det er aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
+    "regel.info.bareFarHarRettFlerbarnsukerAktivitetskravMorInfo": "Dersom du tar ut mer enn flerbarnsukene, er det aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
 
     "situasjon.info.farOgMor": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en fellesperiode som dere kan dele.",
     "situasjon.info.farOgMor.flerbarn": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en fellesperiode som dere kan dele. Dere får <strong>{flerbarnsuker}</strong> med flerbarnsuker, disse ukene kan dere ta ut når som helst i foreldrepengeperioden. Dere kan ta de ut samtidig, eller hver for dere.",

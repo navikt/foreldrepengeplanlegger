@@ -3,8 +3,9 @@ import { RegelKey } from '../regelKeys';
 import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/utils/intlUtils';
 
-const alleUttakErInnenforMaksAntallDager: RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag): RegelTestresultat => {
+const alleUttakErInnenforMaksAntallDager: RegelTest = (regel: Regel, grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { forbruk, tilgjengeligeDager, navnMor } = grunnlag;
+    const { key } = regel;
 
     if (forbruk === undefined || tilgjengeligeDager === undefined) {
         return {

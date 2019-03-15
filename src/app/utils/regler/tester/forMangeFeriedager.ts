@@ -4,8 +4,9 @@ import { Forelder, Periodetype } from '../../../types';
 
 const maksFeriedagerMedOverføring = 52;
 
-const forMangeFeriedager = (forelder: Forelder, key: RegelKey, grunnlag: Regelgrunnlag): RegelTestresultat => {
+const forMangeFeriedager = (forelder: Forelder, regel: Regel, grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { perioder } = grunnlag;
+    const { key } = regel;
 
     const antallFeriedager = perioder
         .filter((p) => p.type === Periodetype.Ferie && p.forelder === forelder)
@@ -38,10 +39,10 @@ const forMangeFeriedager = (forelder: Forelder, key: RegelKey, grunnlag: Regelgr
 
 export const forMangeFeriedagerMor: Regel = {
     key: RegelKey.forMangeFeriedager,
-    test: (key: RegelKey, grunnlag: Regelgrunnlag) => forMangeFeriedager(Forelder.mor, key, grunnlag)
+    test: (regel: Regel, grunnlag: Regelgrunnlag) => forMangeFeriedager(Forelder.mor, regel, grunnlag)
 };
 
 export const forMangeFeriedagerFarMedmor: Regel = {
     key: RegelKey.forMangeFeriedager,
-    test: (key: RegelKey, grunnlag: Regelgrunnlag) => forMangeFeriedager(Forelder.farMedmor, key, grunnlag)
+    test: (regel: Regel, grunnlag: Regelgrunnlag) => forMangeFeriedager(Forelder.farMedmor, regel, grunnlag)
 };

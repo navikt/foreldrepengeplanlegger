@@ -2,8 +2,12 @@ import { RegelAlvorlighet, RegelTestresultat, Regelgrunnlag, RegelTest, Regel } 
 import { RegelKey } from '../regelKeys';
 import { Situasjon } from '../../../types';
 
-const bareFarHarRettAktivitetskravMorInfo: RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag): RegelTestresultat => {
+const bareFarHarRettEttBarnAktivitetskravMorInfo: RegelTest = (
+    regel: Regel,
+    grunnlag: Regelgrunnlag
+): RegelTestresultat => {
     const { situasjon } = grunnlag;
+    const { key } = regel;
     if (situasjon === Situasjon.bareFar) {
         return {
             key,
@@ -23,7 +27,7 @@ const bareFarHarRettAktivitetskravMorInfo: RegelTest = (key: RegelKey, grunnlag:
     };
 };
 
-export const bareFarHarRettAktivitetskravMorInfoRegel: Regel = {
-    key: RegelKey.bareFarHarRettAktivitetskravMorInfo,
-    test: bareFarHarRettAktivitetskravMorInfo
+export const bareFarHarRettEttBarnAktivitetskravMorInfoRegel: Regel = {
+    key: RegelKey.bareFarHarRettEttBarnAktivitetskravMorInfo,
+    test: bareFarHarRettEttBarnAktivitetskravMorInfo
 };

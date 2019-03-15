@@ -4,11 +4,12 @@ import { RegelKey } from '../regelKeys';
 import { Forelder, Situasjon } from '../../../types';
 
 const uttakForFarEllerMedmorFørsteSeksUkerInfo: RegelTest = (
-    key: RegelKey,
+    regel: Regel,
     grunnlag: Regelgrunnlag
 ): RegelTestresultat => {
     const { perioder, uttaksdatoer, navnFarMedmor, situasjon, navnMor } = grunnlag;
     const { førsteUttaksdagEtterSeksUker } = uttaksdatoer.etterFødsel;
+    const { key } = regel;
 
     const periode = perioder
         .filter(

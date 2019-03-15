@@ -5,11 +5,11 @@ import { getVarighetString } from 'common/utils/intlUtils';
 import { Forelder } from '../../../types';
 
 const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
-    key: RegelKey,
-    grunnlag: Regelgrunnlag,
-    forelderRegel: RegelKey
+    regel: Regel,
+    grunnlag: Regelgrunnlag
 ): RegelTestresultat => {
     const { forbruk, tilgjengeligeDager, navnFarMedmor, erDeltOmsorg } = grunnlag;
+    const { key, overstyresAvRegel } = regel;
     if (forbruk === undefined || tilgjengeligeDager === undefined || forbruk.farMedmor === undefined) {
         return {
             key,
@@ -38,7 +38,7 @@ const farMedmorsUttakErInnenforMaksAntallDager: RegelTest = (
                               getVarighetString(Math.abs(forbruk.farMedmor!.dagerTotalt), intl)
                       }
                   },
-                  forelderRegel
+                  overstyresAvRegel
               }
     };
 };
@@ -48,5 +48,5 @@ export const farMedmorsUttakErInnenforMaksAntallDagerRegel: Regel = {
     test: farMedmorsUttakErInnenforMaksAntallDager,
     erRelevant: ({ erDeltOmsorg, forelderVedAleneomsorg }) =>
         (erDeltOmsorg === false && forelderVedAleneomsorg === Forelder.farMedmor) || erDeltOmsorg === true,
-    forelderRegel: RegelKey.alleUttakErInnenforMaksAntallDager
+    overstyresAvRegel: RegelKey.alleUttakErInnenforMaksAntallDager
 };

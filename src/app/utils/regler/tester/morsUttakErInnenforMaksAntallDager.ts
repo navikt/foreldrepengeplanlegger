@@ -3,12 +3,9 @@ import { RegelKey } from '../regelKeys';
 import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/utils/intlUtils';
 
-const morsUttakErInnenforMaksAntallDager: RegelTest = (
-    key: RegelKey,
-    grunnlag: Regelgrunnlag,
-    forelderRegel: RegelKey
-): RegelTestresultat => {
+const morsUttakErInnenforMaksAntallDager: RegelTest = (regel: Regel, grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { forbruk, tilgjengeligeDager, navnMor } = grunnlag;
+    const { key, overstyresAvRegel } = regel;
 
     if (forbruk === undefined || tilgjengeligeDager === undefined) {
         return {
@@ -39,7 +36,7 @@ const morsUttakErInnenforMaksAntallDager: RegelTest = (
                               getVarighetString(Math.abs(forbruk.mor.dagerTotalt), intl)
                       }
                   },
-                  forelderRegel
+                  overstyresAvRegel
               }
     };
 };
@@ -48,5 +45,5 @@ export const morsUttakErInnenforMaksAntallDagerRegel: Regel = {
     key: RegelKey.morsUttakErInnenforMaksAntallDager,
     test: morsUttakErInnenforMaksAntallDager,
     erRelevant: ({ erDeltOmsorg }) => erDeltOmsorg,
-    forelderRegel: RegelKey.alleUttakErInnenforMaksAntallDager
+    overstyresAvRegel: RegelKey.alleUttakErInnenforMaksAntallDager
 };

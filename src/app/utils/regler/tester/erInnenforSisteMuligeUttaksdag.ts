@@ -5,7 +5,8 @@ import { Periode } from '../../../types';
 import { RegelKey } from '../regelKeys';
 import { formaterDatoUtenDag } from 'common/utils/datoUtils';
 
-const erInnenforSisteMuligeUttaksdag: RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag): RegelTestresultat => {
+const erInnenforSisteMuligeUttaksdag: RegelTest = (regel: Regel, grunnlag: Regelgrunnlag): RegelTestresultat => {
+    const { key } = regel;
     const { periodeFørTermin, perioder, uttaksdatoer } = grunnlag;
     const { sisteMuligeUttaksdag } = uttaksdatoer.etterFødsel;
 

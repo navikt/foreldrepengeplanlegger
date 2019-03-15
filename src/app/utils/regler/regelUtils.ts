@@ -4,7 +4,7 @@ import uttaksplanRegler from '.';
 export const sjekkUttaksplanOppMotRegler = (regelgrunnlag: Regelgrunnlag): RegelTestresultat[] => {
     return uttaksplanRegler
         .filter((regel) => (regel.erRelevant ? regel.erRelevant(regelgrunnlag) : true))
-        .map((regel) => regel.test(regel.key, regelgrunnlag, regel.forelderRegel));
+        .map((regel) => regel.test(regel, regelgrunnlag));
 };
 
 export const getRegelbruddForPeriode = (
@@ -26,12 +26,16 @@ export const getRegelbrudd = (resultat: RegelTestresultat[]): Regelbrudd[] => {
     return [];
 };
 
+const eksluderteRegelbruddFilter = (brudd: Regelbrudd, idx: number, regelbrudd: Regelbrudd[]): boolean => {
+    return (
+        brudd.overstyresAvRegel === undefined && regelbrudd.some((b2) => b2.key === brudd.overstyresAvRegel) === false
+    );
+};
+
+const overstyrteRegelbruddFilter = (brudd: Regelbrudd, idx: number, regelbrudd: Regelbrudd[]): boolean => {
+    return true;
+};
+
 export const trimRelaterteRegelbrudd = (brudd: Regelbrudd[]): Regelbrudd[] => {
-    const regelbrudd: Regelbrudd[] = [];
-    brudd.forEach((b) => {
-        if (b.forelderRegel === undefined && brudd.some((b2) => b2.key === b.forelderRegel) === false) {
-            regelbrudd.push(b);
-        }
-    });
-    return regelbrudd;
+    return brudd.filter(eksluderteRegelbruddFilter).filter(overstyrteRegelbruddFilter);
 };

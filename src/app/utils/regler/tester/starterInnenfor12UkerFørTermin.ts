@@ -4,7 +4,8 @@ import { Periode } from '../../../types';
 import { RegelKey } from '../regelKeys';
 import { formaterDatoUtenDag } from 'common/utils/datoUtils';
 
-const starterInnenfor12UkerFørTermin: RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag): RegelTestresultat => {
+const starterInnenfor12UkerFørTermin: RegelTest = (regel: Regel, grunnlag: Regelgrunnlag): RegelTestresultat => {
+    const { key } = regel;
     const { periodeFørTermin, perioder, uttaksdatoer } = grunnlag;
     const { førsteMuligeUttaksdag } = uttaksdatoer.førFødsel;
 

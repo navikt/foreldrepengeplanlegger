@@ -4,8 +4,9 @@ import { Periodetype } from '../../../types';
 import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/utils/intlUtils';
 
-const ferieMedUttaksdagerInfo: RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag): RegelTestresultat => {
+const ferieMedUttaksdagerInfo: RegelTest = (regel: Regel, grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { perioder } = grunnlag;
+    const { key } = regel;
     const dager = perioder
         .filter((p) => p.type === Periodetype.Ferie)
         .map((p) => (p.uttaksinfo ? p.uttaksinfo.antallUttaksdagerBrukt : 0))

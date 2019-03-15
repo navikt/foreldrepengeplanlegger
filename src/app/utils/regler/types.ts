@@ -26,13 +26,14 @@ export interface Regelgrunnlag {
     antallBarn: number;
 }
 
-export type RegelTest = (key: RegelKey, grunnlag: Regelgrunnlag, forelderRegel?: RegelKey) => RegelTestresultat;
+export type RegelTest = (regel: Regel, grunnlag: Regelgrunnlag) => RegelTestresultat;
 
 export interface Regel {
     key: RegelKey;
-    test: (key: RegelKey, grunnlag: Regelgrunnlag, forelderRegel?: RegelKey) => RegelTestresultat;
+    test: (regel: Regel, grunnlag: Regelgrunnlag) => RegelTestresultat;
     erRelevant?: (grunnlag: Regelgrunnlag) => boolean;
-    forelderRegel?: RegelKey;
+    overstyresAvRegel?: RegelKey;
+    overstyrerRegler?: RegelKey[];
 }
 
 export enum RegelAlvorlighet {
@@ -59,7 +60,8 @@ export interface Regelbrudd {
     key: RegelKey;
     feilmelding: RegelbruddFeil;
     alvorlighet: RegelAlvorlighet;
-    forelderRegel?: RegelKey;
+    overstyresAvRegel?: RegelKey;
+    overstyrerRegler?: RegelKey[];
 }
 
 export interface RegelbruddFeil {

@@ -6,8 +6,9 @@ import moment from 'moment';
 const erUtsettelse = (type: Periodetype): boolean =>
     type === Periodetype.Arbeid || type === Periodetype.GradertUttak || type === Periodetype.Ferie;
 
-const utsettelseFørsteSeksUker = (forelder: Forelder, key: RegelKey, grunnlag: Regelgrunnlag): RegelTestresultat => {
+const utsettelseFørsteSeksUker = (forelder: Forelder, regel: Regel, grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { perioder } = grunnlag;
+    const { key } = regel;
 
     const utsettelser = perioder.filter(
         (p) =>
@@ -44,10 +45,10 @@ const utsettelseFørsteSeksUker = (forelder: Forelder, key: RegelKey, grunnlag: 
 
 export const morUsetterFørsteSeksUkerRegel: Regel = {
     key: RegelKey.usetterFørsteSeksUker,
-    test: (key: RegelKey, grunnlag: Regelgrunnlag) => utsettelseFørsteSeksUker(Forelder.mor, key, grunnlag)
+    test: (regel: Regel, grunnlag: Regelgrunnlag) => utsettelseFørsteSeksUker(Forelder.mor, regel, grunnlag)
 };
 
 export const farMedmormorUsetterFørsteSeksUkerRegel: Regel = {
     key: RegelKey.usetterFørsteSeksUker,
-    test: (key: RegelKey, grunnlag: Regelgrunnlag) => utsettelseFørsteSeksUker(Forelder.farMedmor, key, grunnlag)
+    test: (regel: Regel, grunnlag: Regelgrunnlag) => utsettelseFørsteSeksUker(Forelder.farMedmor, regel, grunnlag)
 };

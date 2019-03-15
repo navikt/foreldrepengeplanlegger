@@ -27,7 +27,7 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, o
             ? `${tilgjengeligeDager.dagerForeldrepengerFørFødsel / 5} + ${tilgjengeligeDager.dagerMor / 5} uker`
             : getVarighetString(tilgjengeligeDager.dagerMor, intl);
     return (
-        <div className={bem.block}>
+        <div className={bem.classNames(bem.block, bem.modifier('flereForeldre'))}>
             <div className={bem.element('bars')}>
                 <div className={bem.element('forelder1')} style={{ width: `${fordeling.pstMor}%` }}>
                     <div className={bem.element('barTitle')}>

@@ -11,5 +11,6 @@ export enum RegelKey {
     'farMedmorBrukerFellesperiodeInfo' = 'farMedmorBrukerFellesperiodeInfo',
     'farMedmorUtsetterPgaArbeidInfo' = 'farMedmorUtsetterPgaArbeidInfo',
     'usetterFørsteSeksUker' = 'usetterFørsteSeksUker',
-    'forMangeFeriedager' = 'forMangeFeriedager'
+    'forMangeFeriedager' = 'forMangeFeriedager',
+    'bareFarHarRettAktivitetskravMorInfo' = 'bareFarHarRettAktivitetskravMorInfo'
 }

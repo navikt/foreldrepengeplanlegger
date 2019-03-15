@@ -61,7 +61,7 @@ const VarighetStartdato: React.StatelessComponent<Props> = ({
                         }
                         info={{
                             tekst:
-                                'Startdato bestemmes ut fra når foregående periode slutter. For å endre denne periodens startdato, må du endre sluttdatoen på den foregående.'
+                                'Startdatoen bestemmes ut fra når den forrige perioden slutter. Du kan endre denne perioden sin startdato ved å endre sluttdatoen på den forrige perioden'
                         }}
                     />
                 </>

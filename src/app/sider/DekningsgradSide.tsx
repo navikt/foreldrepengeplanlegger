@@ -103,6 +103,7 @@ class UttaksplanSide extends React.Component<Props> {
                                     dekningsgrad={dekningsgrad}
                                     tilgjengeligeDager={tilgjengeligeDager}
                                     omForeldre={omForeldre}
+                                    flerbarnsdager={tilgjengeligeDager.flerbarnsdager}
                                 />
                             </Block>
                             {omForeldre.erDeltOmsorg === false && (

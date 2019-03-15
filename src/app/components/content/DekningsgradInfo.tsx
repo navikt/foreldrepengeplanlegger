@@ -15,13 +15,15 @@ interface Props {
     dekningsgrad: Dekningsgrad;
     tilgjengeligeDager: TilgjengeligeDager;
     omForeldre: OmForeldre;
+    flerbarnsdager: number;
 }
 
 const DekningsgradInfo: React.StatelessComponent<Props> = ({
     omForeldre,
     tilgjengeligeDager,
     dekningsgrad,
-    situasjon
+    situasjon,
+    flerbarnsdager
 }) => {
     const bem = BEMHelper('dekningsgradInfo');
     const dekningsSum = dekningsgrad === '100' ? '22 000' : '17 600';
@@ -34,7 +36,7 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({
                 </Undertittel>
             </Block>
             <Block margin="s">
-                <Situasjonsinfo situasjon={situasjon} forelder={rolle} />
+                <Situasjonsinfo situasjon={situasjon} forelder={rolle} flerbarnsdager={flerbarnsdager} />
             </Block>
 
             <Block margin="m">

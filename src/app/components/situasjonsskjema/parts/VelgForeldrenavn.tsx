@@ -16,7 +16,7 @@ interface Props {
 const getMorLabel = (situasjon: Situasjon): string => {
     switch (situasjon) {
         case Situasjon.farOgFar:
-            return 'Fornavn far én';
+            return 'Fornavn far 1';
         case Situasjon.farOgMor:
             return 'Fornavn mor';
         case Situasjon.morOgMedmor:
@@ -29,7 +29,7 @@ const getMorLabel = (situasjon: Situasjon): string => {
 const getFarMedmorLabel = (situasjon: Situasjon): string => {
     switch (situasjon) {
         case Situasjon.farOgFar:
-            return 'Fornavn far to';
+            return 'Fornavn far 2';
         case Situasjon.farOgMor:
             return 'Fornavn far';
         case Situasjon.morOgMedmor:

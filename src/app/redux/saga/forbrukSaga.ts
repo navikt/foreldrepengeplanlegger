@@ -40,7 +40,7 @@ function* updateOmForeldreSaga() {
             skjemadata.situasjon,
             skjemadata.navnMor,
             skjemadata.navnFarMedmor,
-            skjemadata.aleneomsorgForelder
+            skjemadata.forelderVedAleneomsorg
         );
         yield put(updateOmForeldre(omForeldre));
     }
@@ -53,7 +53,7 @@ function* validerUttaksplanSaga() {
     if (skjemadata) {
         const regelgrunnlag: Regelgrunnlag = {
             erDeltOmsorg: getAntallForeldreISituasjon(skjemadata.situasjon) === 2,
-            aleneomsorgForelder: skjemadata.aleneomsorgForelder,
+            forelderVedAleneomsorg: skjemadata.forelderVedAleneomsorg,
             familiehendelsesdato,
             periodeFørTermin,
             perioder,

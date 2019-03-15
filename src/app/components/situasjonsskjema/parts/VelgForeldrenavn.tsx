@@ -6,7 +6,7 @@ import { getAntallForeldreISituasjon } from '../../../utils/common';
 
 interface Props {
     situasjon: Situasjon;
-    aleneomsorgForelder?: Forelder;
+    forelderVedAleneomsorg?: Forelder;
     navnFarMedmor?: string;
     navnMor?: string;
     onChangeFarMedmor: (navn: string) => void;
@@ -41,7 +41,7 @@ const getFarMedmorLabel = (situasjon: Situasjon): string => {
 
 const VelgForeldrenavn: React.StatelessComponent<Props> = ({
     situasjon,
-    aleneomsorgForelder,
+    forelderVedAleneomsorg,
     navnFarMedmor = '',
     navnMor = '',
     onChangeFarMedmor,
@@ -51,11 +51,11 @@ const VelgForeldrenavn: React.StatelessComponent<Props> = ({
     const visMorInput =
         toForeldre ||
         situasjon === Situasjon.bareMor ||
-        (situasjon === Situasjon.aleneomsorg && aleneomsorgForelder === Forelder.mor);
+        (situasjon === Situasjon.aleneomsorg && forelderVedAleneomsorg === Forelder.mor);
     const visFarInput =
         toForeldre ||
         situasjon === Situasjon.bareFar ||
-        (situasjon === Situasjon.aleneomsorg && aleneomsorgForelder === Forelder.farMedmor);
+        (situasjon === Situasjon.aleneomsorg && forelderVedAleneomsorg === Forelder.farMedmor);
     return (
         <Row>
             {visMorInput && (

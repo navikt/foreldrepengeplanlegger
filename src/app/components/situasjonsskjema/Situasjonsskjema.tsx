@@ -16,10 +16,10 @@ const situasjonValidationSkjema = yup.object().shape({
     navnMor: yup
         .string()
         .when(
-            ['situasjon', 'aleneomsorgForelder'],
+            ['situasjon', 'forelderVedAleneomsorg'],
             (
                 situasjon: Situasjon,
-                aleneomsorgForelder: Forelder | undefined,
+                forelderVedAleneomsorg: Forelder | undefined,
                 schema: yup.Schema<SituasjonSkjemadata>
             ) => {
                 if (getAntallForeldreISituasjon(situasjon) === 2) {
@@ -28,7 +28,7 @@ const situasjonValidationSkjema = yup.object().shape({
                 if (situasjon === Situasjon.bareMor) {
                     return schema.required('Navn på foreldre er påkrevd');
                 }
-                if (situasjon === Situasjon.aleneomsorg && aleneomsorgForelder === Forelder.mor) {
+                if (situasjon === Situasjon.aleneomsorg && forelderVedAleneomsorg === Forelder.mor) {
                     return schema.required('Navn på foreldre er påkrevd');
                 }
                 return schema;
@@ -37,10 +37,10 @@ const situasjonValidationSkjema = yup.object().shape({
     navnFarMedmor: yup
         .string()
         .when(
-            ['situasjon', 'aleneomsorgForelder'],
+            ['situasjon', 'forelderVedAleneomsorg'],
             (
                 situasjon: Situasjon,
-                aleneomsorgForelder: Forelder | undefined,
+                forelderVedAleneomsorg: Forelder | undefined,
                 schema: yup.Schema<SituasjonSkjemadata>
             ) => {
                 if (getAntallForeldreISituasjon(situasjon) === 2) {
@@ -49,13 +49,13 @@ const situasjonValidationSkjema = yup.object().shape({
                 if (situasjon === Situasjon.bareFar) {
                     return schema.required('Navn på foreldre er påkrevd');
                 }
-                if (situasjon === Situasjon.aleneomsorg && aleneomsorgForelder === Forelder.farMedmor) {
+                if (situasjon === Situasjon.aleneomsorg && forelderVedAleneomsorg === Forelder.farMedmor) {
                     return schema.required('Navn på foreldre er påkrevd');
                 }
                 return schema;
             }
         ),
-    aleneomsorgForelder: yup
+    forelderVedAleneomsorg: yup
         .string()
         .when('situasjon', (situasjon: Situasjon, schema: yup.Schema<SituasjonSkjemadata>) => {
             if (situasjon === Situasjon.aleneomsorg) {

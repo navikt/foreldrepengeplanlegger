@@ -16,7 +16,7 @@ export interface Regelgrunnlag {
     periodeFørTermin: UttakFørTerminPeriode | undefined;
     familiehendelsesdato: Date;
     situasjon: Situasjon;
-    aleneomsorgForelder?: Forelder;
+    forelderVedAleneomsorg?: Forelder;
     erDeltOmsorg: boolean;
     uttaksdatoer: Uttaksdatoer;
     navnMor: string;

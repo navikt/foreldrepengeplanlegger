@@ -40,7 +40,7 @@ export const selectTilgjengeligeDager = createSelector(
                   state.common.dekningsgrad === '100'
                       ? state.common.stønadskontoer100.kontoer
                       : state.common.stønadskontoer80.kontoer,
-                  skjemadata.aleneomsorgForelder
+                  skjemadata.forelderVedAleneomsorg
               )
             : undefined;
     }

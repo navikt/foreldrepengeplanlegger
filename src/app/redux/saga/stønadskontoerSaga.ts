@@ -19,9 +19,9 @@ const getStønadskontoerRequestParams = (
         antallBarn: data.antallBarn,
         erFødsel: true,
         familiehendelsesdato,
-        farHarAleneomsorg: situasjonsregler.harFarAleneomsorg(data.situasjon, data.aleneomsorgForelder),
+        farHarAleneomsorg: situasjonsregler.harFarAleneomsorg(data.situasjon, data.forelderVedAleneomsorg),
         farHarRett: situasjonsregler.harFarRett(data.situasjon),
-        morHarAleneomsorg: situasjonsregler.harMorAleneomsorg(data.situasjon, data.aleneomsorgForelder),
+        morHarAleneomsorg: situasjonsregler.harMorAleneomsorg(data.situasjon, data.forelderVedAleneomsorg),
         morHarRett: situasjonsregler.harMorRett(data.situasjon),
         startdatoUttak: new Date(),
         dekningsgrad

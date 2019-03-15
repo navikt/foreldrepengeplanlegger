@@ -52,15 +52,15 @@ class SituasjonsskjemaForm extends React.Component<Props> {
             familiehendelsesdato,
             navnFarMedmor,
             navnMor,
-            aleneomsorgForelder
+            forelderVedAleneomsorg
         } = formik.values;
         const visErMorEllerFarMedmor = situasjon === Situasjon.aleneomsorg;
         const visNavn =
             situasjon !== undefined &&
             (visErMorEllerFarMedmor === false ||
-                (visErMorEllerFarMedmor === true && aleneomsorgForelder !== undefined));
+                (visErMorEllerFarMedmor === true && forelderVedAleneomsorg !== undefined));
         const visAntallBarn =
-            visNavn && visAntallBarnValg(situasjon, navnFarMedmor, navnMor, aleneomsorgForelder === Forelder.mor);
+            visNavn && visAntallBarnValg(situasjon, navnFarMedmor, navnMor, forelderVedAleneomsorg === Forelder.mor);
         const visTermindato = visAntallBarn && antallBarn !== undefined;
         const termindatoAvgrensninger = getTermindatoAvgrensninger();
         const erToForeldre = getAntallForeldreISituasjon(situasjon) > 1;
@@ -71,7 +71,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                         <VelgSituasjon
                             onChange={(s) => {
                                 formik.setFieldValue('situasjon', s);
-                                formik.setFieldValue('aleneomsorgForelder', undefined);
+                                formik.setFieldValue('forelderVedAleneomsorg', undefined);
                             }}
                             valgtSituasjon={situasjon}
                         />
@@ -79,15 +79,15 @@ class SituasjonsskjemaForm extends React.Component<Props> {
 
                     <Block visible={visErMorEllerFarMedmor}>
                         <VelgErMorEllerFar
-                            forelder={aleneomsorgForelder}
-                            onChange={(em) => formik.setFieldValue('aleneomsorgForelder', em)}
+                            forelder={forelderVedAleneomsorg}
+                            onChange={(em) => formik.setFieldValue('forelderVedAleneomsorg', em)}
                         />
                     </Block>
 
                     <Block visible={visNavn} margin="none">
                         <VelgForeldrenavn
                             situasjon={situasjon}
-                            aleneomsorgForelder={aleneomsorgForelder}
+                            forelderVedAleneomsorg={forelderVedAleneomsorg}
                             navnFarMedmor={navnFarMedmor}
                             navnMor={navnMor}
                             onChangeFarMedmor={(navn) => {
@@ -128,14 +128,16 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                     <Block>
                         <Hovedknapp htmlType="submit">Gå videre</Hovedknapp>
                     </Block>
-                    {onReset && 1 + 1 === 3 && (
-                        <LinkButton
-                            onClick={() => {
-                                onReset();
-                                formik.resetForm();
-                            }}>
-                            Start på ny
-                        </LinkButton>
+                    {onReset && (
+                        <Block visible={false}>
+                            <LinkButton
+                                onClick={() => {
+                                    onReset();
+                                    formik.resetForm();
+                                }}>
+                                Start på ny
+                            </LinkButton>
+                        </Block>
                     )}
                 </Block>
             </Form>

@@ -39,9 +39,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
         const ukerFelles = dagerTilUker(tilgjengeligeDager.dagerFelles);
 
         return (
-            <Skjemablokk
-                tittel="Hvordan vil dere dele fellesperioden?"
-                beskrivelse="Fordelingen kan endres etterpå i planen.">
+            <Skjemablokk tittel="Hvordan vil dere dele fellesperioden?" beskrivelse="Planen kan endres på neste side.">
                 <Block>
                     <SkjemaFordelingFellesperiode
                         navnFarMedmor={navnFarMedmor}

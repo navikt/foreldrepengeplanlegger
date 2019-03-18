@@ -3,7 +3,6 @@ import { Periode } from '../../types';
 import PeriodeElement from './PeriodeElement';
 import { PeriodelisteProps } from './types';
 import { formaterDato } from 'common/utils/datoUtils';
-import HjerteIkon from '../periodeikon/ikoner/HjerteIkon';
 import BEMHelper from 'common/utils/bem';
 import IconText from 'common/components/iconText/IconText';
 import LinkButton from 'common/components/linkButton/LinkButton';
@@ -12,6 +11,7 @@ import SlåSammenPerioderValg from './parts/SlåSammenPerioderValg';
 import periodelisteUtils from './periodelisteUtils';
 import posed, { PoseGroup } from 'react-pose';
 import { getRegelbruddForPeriode } from '../../utils/regler/regelUtils';
+import HjerteIkon from './parts/HjerteIkon';
 
 import './periodeliste.less';
 

@@ -139,17 +139,12 @@ class PeriodeElement extends React.Component<Props> {
                             render: () => (
                                 <VarighetMeny
                                     skjemaProps={{
-                                        // omForeldre={omForeldre}
                                         perioder,
-                                        // periodeFørTermin={periodeFørTermin}
                                         erNyPeriode: false,
                                         periodetype: periode.type,
-                                        // forelderNavn={foreldernavn}
                                         gradering: periode.gradering,
-                                        // gradert={periode.type === Periodetype.GradertUttak}
                                         antallUttaksdager,
                                         antallUttaksdagerBrukt,
-                                        // dager={antallUttaksdager}
                                         minDato:
                                             periode.type === Periodetype.UttakFørTermin
                                                 ? uttaksdatoer.førFødsel.førsteMuligeUttaksdag
@@ -162,7 +157,6 @@ class PeriodeElement extends React.Component<Props> {
                                             fom,
                                             tom
                                         },
-                                        // minDager={periode.type === Periodetype.UttakFørTermin ? 0 : 1}
                                         onTidsperiodeChange: (tidsperiode) =>
                                             isValidTidsperiode(tidsperiode)
                                                 ? onUpdate({

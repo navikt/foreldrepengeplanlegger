@@ -1,0 +1,35 @@
+@import '../../styles/variables.less';
+
+.periodeikon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.6rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+
+    &--gronn {
+        background-color: @c-periodefarge-gronn;
+    }
+
+    &--blaa {
+        background-color: @c-periodefarge-blaa;
+    }
+
+    &--graa {
+        background-color: @c-periodefarge-graa;
+    }
+
+    &--lilla {
+        background-color: @c-periodefarge-lilla;
+    }
+
+    &--lillaBlaa {
+        background: repeating-linear-gradient(-45deg,
+            @c-periodefarge-blaa,
+            @c-periodefarge-blaa 50%,
+            @c-periodefarge-lilla 50%,
+            @c-periodefarge-lilla 100%);
+    }
+}

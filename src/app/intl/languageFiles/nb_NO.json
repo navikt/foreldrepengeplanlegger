@@ -152,8 +152,24 @@
     "periodeskjema.tid.skalIkkeHaDagerFørTermin": "Jeg skal ikke ha foreldrepenger før termin",
     "periodeskjema.tid.nesteDag": "Neste dag:",
     "periodeskjema.tid.brukGjenståendeDager": "Bruk gjenstående dager",
-    "periodeskjema.tid.lengde": "Lengde"
+    "periodeskjema.tid.lengde": "Lengde",
 
+    "regelbrudd.ariaTittel": "Viktig informasjon om planen",
 
+    "situasjonskjema.validering.situasjon": "Du må velge situasjon",
+    "situasjonskjema.validering.foreldernavn": "Du må fylle ut feltet for navn",
+    "situasjonskjema.validering.forelderVedAleneomsorg": "Du må velge om du er mor eller far",
+    "situasjonskjema.validering.antallBarn": "Du må velge antall barn",
+    "situasjonskjema.validering.termindato": "Du må velge termindato",
+    "situasjonskjema.fornavn.label": "Fornavn",
+    "situasjonskjema.fornavn.mor.farOgFar.label": "Fornavn far 1",
+    "situasjonskjema.fornavn.mor.farOgMor.label": "Fornavn mor",
+    "situasjonskjema.fornavn.mor.morOgMedmor.label": "Fornavn mor",
+    "situasjonskjema.fornavn.far.farOgFar.label": "Fornavn far 2",
+    "situasjonskjema.fornavn.far.farOgMor.label": "Fornavn far",
+    "situasjonskjema.fornavn.far.morOgMedmor.label": "Fornavn medmor",
+    "situasjonskjema.morEllerFar.label": "Er du mor eller far?",
+    "situasjonskjema.morEllerFar.mor.label": "Mor",
+    "situasjonskjema.morEllerFar.far.label": "Far"
 
 }

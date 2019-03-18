@@ -7,6 +7,7 @@ import Veileder, { VeilederAnsiktstype } from 'common/components/veileder/Veiled
 import { AlertStripeAdvarsel, AlertStripeInfo, AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { trimRelaterteRegelbrudd } from '../../utils/regler/regelUtils';
 import AriaText from 'common/components/aria/AriaText';
+import { FormattedMessage } from 'react-intl';
 
 interface Props {
     regelbrudd: Regelbrudd[];
@@ -31,7 +32,9 @@ const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
 
     return (
         <div>
-            <AriaText tag="h2">Viktig informasjon om planen</AriaText>
+            <AriaText tag="h2">
+                <FormattedMessage id="regelbrudd.ariaTittel" />
+            </AriaText>
             <Veilederpanel
                 kompakt={true}
                 fargetema={harFeil ? 'feilmelding' : 'normal'}

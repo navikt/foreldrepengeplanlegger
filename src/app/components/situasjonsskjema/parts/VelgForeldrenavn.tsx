@@ -3,8 +3,10 @@ import { Row, Column } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
 import { Situasjon, Forelder } from '../../../types';
 import { getAntallForeldreISituasjon } from '../../../utils/common';
+import { InjectedIntlProps, injectIntl, InjectedIntl } from 'react-intl';
+import getMessage from 'common/utils/i18nUtils';
 
-interface Props {
+interface OwnProps {
     situasjon: Situasjon;
     forelderVedAleneomsorg?: Forelder;
     navnFarMedmor?: string;
@@ -13,29 +15,27 @@ interface Props {
     onChangeMor: (navn: string) => void;
 }
 
-const getMorLabel = (situasjon: Situasjon): string => {
+type Props = OwnProps & InjectedIntlProps;
+
+const getMorLabel = (situasjon: Situasjon, intl: InjectedIntl): string => {
     switch (situasjon) {
         case Situasjon.farOgFar:
-            return 'Fornavn far 1';
         case Situasjon.farOgMor:
-            return 'Fornavn mor';
         case Situasjon.morOgMedmor:
-            return 'Fornavn mor';
+            return getMessage(intl, `situasjonskjema.fornavn.mor.${situasjon}.label`);
         default:
-            return 'Fornavn';
+            return getMessage(intl, 'situasjonskjema.fornavn.label');
     }
 };
 
-const getFarMedmorLabel = (situasjon: Situasjon): string => {
+const getFarMedmorLabel = (situasjon: Situasjon, intl: InjectedIntl): string => {
     switch (situasjon) {
         case Situasjon.farOgFar:
-            return 'Fornavn far 2';
         case Situasjon.farOgMor:
-            return 'Fornavn far';
         case Situasjon.morOgMedmor:
-            return 'Fornavn medmor';
+            return getMessage(intl, `situasjonskjema.fornavn.far.${situasjon}.label`);
         default:
-            return 'Fornavn';
+            return getMessage(intl, 'situasjonskjema.fornavn.label');
     }
 };
 
@@ -45,7 +45,8 @@ const VelgForeldrenavn: React.StatelessComponent<Props> = ({
     navnFarMedmor = '',
     navnMor = '',
     onChangeFarMedmor,
-    onChangeMor
+    onChangeMor,
+    intl
 }) => {
     const toForeldre = getAntallForeldreISituasjon(situasjon) === 2;
     const visMorInput =
@@ -61,7 +62,7 @@ const VelgForeldrenavn: React.StatelessComponent<Props> = ({
             {visMorInput && (
                 <Column xs="6">
                     <Input
-                        label={getMorLabel(situasjon)}
+                        label={getMorLabel(situasjon, intl)}
                         value={navnMor}
                         name="navnMor"
                         onChange={(evt: React.ChangeEvent<HTMLInputElement>) => onChangeMor(evt.target.value)}
@@ -71,7 +72,7 @@ const VelgForeldrenavn: React.StatelessComponent<Props> = ({
             {visFarInput && (
                 <Column xs="6">
                     <Input
-                        label={getFarMedmorLabel(situasjon)}
+                        label={getFarMedmorLabel(situasjon, intl)}
                         value={navnFarMedmor}
                         name="navnFarMedmor"
                         onChange={(evt: React.ChangeEvent<HTMLInputElement>) => onChangeFarMedmor(evt.target.value)}
@@ -82,4 +83,4 @@ const VelgForeldrenavn: React.StatelessComponent<Props> = ({
     );
 };
 
-export default VelgForeldrenavn;
+export default injectIntl(VelgForeldrenavn);

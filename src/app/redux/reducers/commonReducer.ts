@@ -23,7 +23,6 @@ import { guid } from 'nav-frontend-js-utils';
 export interface ØnsketFordelingForeldrepenger {
     harValgtFordeling: boolean;
     ukerMor?: number;
-    ukerFarMedmor?: number;
 }
 
 export interface CommonState {
@@ -91,7 +90,6 @@ const updateStateWithNewSkjemadata = (state: CommonState, action: SubmitSkjemada
         skjemadata: action.data,
         ønsketFordeling: {
             harValgtFordeling: false,
-            ukerFarMedmor: undefined,
             ukerMor: undefined
         },
         dekningsgrad: undefined,
@@ -208,8 +206,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
                     ...state,
                     ønsketFordeling: {
                         harValgtFordeling: true,
-                        ukerMor: action.ukerMor,
-                        ukerFarMedmor: state.tilgjengeligeDager.dagerFelles / 5 - action.ukerMor
+                        ukerMor: action.ukerMor
                     }
                 });
             }

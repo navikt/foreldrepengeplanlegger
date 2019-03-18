@@ -9,13 +9,13 @@ import { ferieMedUttaksdagerInfoRegel } from './info/ferieMedUttaksdagerInfo';
 import { farMedmorBrukerFellesperiodeInfoRegel } from './info/farMedmorBrukerFellesperiodeInfo';
 import { morUtsetterPgaArbeidInfoRegel } from './info/morUtsetterPgaArbeidInfo';
 import { farMedmorUtsetterPgaArbeidInfoRegel } from './info/farMedmorUtsetterPgaArbeidInfo';
+import { forMangeFeriedagerMor, forMangeFeriedagerFarMedmor } from './tester/forMangeFeriedager';
+import { bareFarHarRettEttBarnAktivitetskravMorInfoRegel } from './info/bareFarHarRettEttBarnAktivitetskravMorInfo';
+import { bareFarHarRettFlerbarnsukerAktivitetskravMorInfoRegel } from './info/bareFarHarRettFlerbarnsukerAktivitetskravMorInfo';
 import {
     morUsetterFørsteSeksUkerRegel,
     farMedmormorUsetterFørsteSeksUkerRegel
 } from './tester/utsettelseFørsteSeksUker';
-import { forMangeFeriedagerMor, forMangeFeriedagerFarMedmor } from './tester/forMangeFeriedager';
-import { bareFarHarRettEttBarnAktivitetskravMorInfoRegel } from './info/bareFarHarRettEttBarnAktivitetskravMorInfo';
-import { bareFarHarRettFlerbarnsukerAktivitetskravMorInfoRegel } from './info/bareFarHarRettFlerbarnsukerAktivitetskravMorInfo';
 
 const uttaksplanRegler: Regel[] = [
     uttakForFarEllerMedmorFørsteSeksUkerInfoRegel,

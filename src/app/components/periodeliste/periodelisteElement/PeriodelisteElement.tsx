@@ -99,7 +99,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                                                     <InfoIkonFylt />
                                                 )
                                             }
-                                            ariaLabel={getMessage(intl, 'periodeliste.ariaTekst.periodenHarRegelbrudd')}
+                                            ariaLabel={getMessage(intl, 'periodeliste.ariatekst.periodenHarRegelbrudd')}
                                         />
                                     }
                                 </div>

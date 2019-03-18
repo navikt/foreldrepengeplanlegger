@@ -11,6 +11,20 @@ import {
 import { RegelKey } from './regelKeys';
 import { InjectedIntl } from 'react-intl';
 
+type FeilIntlMessage = (intl: InjectedIntl) => string;
+
+export enum RegelAlvorlighet {
+    'ULOVLIG' = 'ulovlig',
+    'VIKTIG' = 'viktig',
+    'INFO' = 'info'
+}
+
+export interface UttaksplanRegelTestresultat {
+    resultat: RegelTestresultat[];
+    resultatPerPeriode: Dictionary<RegelTestresultat[]>;
+    regelbrudd: Regelbrudd[];
+}
+
 export interface Regelgrunnlag {
     perioder: Periode[];
     periodeFørTermin: UttakFørTerminPeriode | undefined;
@@ -26,21 +40,15 @@ export interface Regelgrunnlag {
     antallBarn: number;
 }
 
-export type RegelTest = (regel: Regel, grunnlag: Regelgrunnlag) => RegelTestresultat;
-
 export interface Regel {
     key: RegelKey;
-    test: (regel: Regel, grunnlag: Regelgrunnlag) => RegelTestresultat;
+    test: RegelTest;
     erRelevant?: (grunnlag: Regelgrunnlag) => boolean;
     overstyresAvRegel?: RegelKey;
     overstyrerRegler?: RegelKey[];
 }
 
-export enum RegelAlvorlighet {
-    'ULOVLIG' = 'ulovlig',
-    'VIKTIG' = 'viktig',
-    'INFO' = 'info'
-}
+export type RegelTest = (regel: Regel, grunnlag: Regelgrunnlag) => RegelTestresultat;
 
 export interface RegelTestresultat {
     key: RegelKey;
@@ -48,31 +56,16 @@ export interface RegelTestresultat {
     regelbrudd?: Regelbrudd;
 }
 
-type FeilIntlMessage = (intl: InjectedIntl) => string;
-
-export interface RegelbruddFeilmeldingValues {
-    [key: string]: RegelbruddFeilmeldingValue;
-}
-export type RegelbruddFeilmeldingValue = string | number | Date | FeilIntlMessage | undefined;
-
 export interface Regelbrudd {
     periodeId?: string;
     key: RegelKey;
-    feilmelding: RegelbruddFeil;
+    feilmelding: RegelbruddIntlFeilmelding;
     alvorlighet: RegelAlvorlighet;
     overstyresAvRegel?: RegelKey;
     overstyrerRegler?: RegelKey[];
 }
 
-export interface RegelbruddFeil {
+export interface RegelbruddIntlFeilmelding {
     intlKey: string;
-    values?: RegelbruddFeilmeldingValues;
-}
-
-export type PeriodeRegelTestresultat = Dictionary<RegelTestresultat[]>;
-
-export interface UttaksplanRegelTestresultat {
-    resultat: RegelTestresultat[];
-    resultatPerPeriode: PeriodeRegelTestresultat;
-    regelbrudd: Regelbrudd[];
+    values?: { [key: string]: string | number | Date | FeilIntlMessage | undefined };
 }

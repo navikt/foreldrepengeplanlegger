@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { RegelbruddFeil } from '../../utils/regler/types';
+import { RegelbruddIntlFeilmelding } from '../../utils/regler/types';
 import { FormattedMessage, injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
 
 interface Props {
-    feilmelding: RegelbruddFeil;
+    feilmelding: RegelbruddIntlFeilmelding;
 }
 
 export const getRegelbruddFeilmeldingValue = (
     intl: InjectedIntl,
-    feilmelding: RegelbruddFeil
+    feilmelding: RegelbruddIntlFeilmelding
 ): { [key: string]: string } | undefined => {
     const { values } = feilmelding;
     if (values === undefined) {

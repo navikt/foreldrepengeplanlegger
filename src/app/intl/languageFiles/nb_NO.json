@@ -147,7 +147,7 @@
     "periodeskjema.melding.oppdeltPeriode": "{navn} sin periode ({tidsperiode}), vil bli delt opp i to deler, og den nye perioden vil bli satt inn mellom de to delene. Perioder etter denne, vil bli forskjøvet <strong>{varighet}</strong>",
     "periodeskjema.melding.perioderFlyttes": "Perioder fra og med <strong>{dato}</strong> vil bli forskjøvet med <strong>{varighet}</strong>.",
     "periodeskjema.tid.startdato": "Startdato",
-    "periodeskjema.tid.startdato.låstInfo": "'Startdato settes automatisk etter forrige periode. For å endre startdato må du derfor endre siste dag på perioden før.'",
+    "periodeskjema.tid.startdato.låstInfo": "Startdato settes automatisk etter forrige periode. For å endre startdato må du derfor endre siste dag på perioden før.",
     "periodeskjema.tid.sluttdato": "Sluttdato",
     "periodeskjema.tid.skalIkkeHaDagerFørTermin": "Jeg skal ikke ha foreldrepenger før termin",
     "periodeskjema.tid.nesteDag": "Neste dag:",

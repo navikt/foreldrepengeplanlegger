@@ -1,27 +1,31 @@
 import * as React from 'react';
 import Block from 'common/components/block/Block';
 import { Undertittel, Element } from 'nav-frontend-typografi';
+import { FormattedMessage } from 'react-intl';
 
 interface Props {}
 
 const InfoFarFar: React.StatelessComponent<Props> = (props) => (
     <>
         <Block margin="s">
-            <Undertittel>Far og far</Undertittel>
+            <Undertittel>
+                <FormattedMessage id="farogfar.tittel" />
+            </Undertittel>
         </Block>
         <p>
-            Hvordan foreldrepengeperioden er delt mellom dere, kommer an på om dere får barn ved surrogati og den andre
-            stebarnsadopterer, eller om dere begge er adoptivforeldre til samme barn.
+            <FormattedMessage id="farogfar.tekst" />
         </p>
-        <Element>Surrogati</Element>
+        <Element>
+            <FormattedMessage id="farogfar.surrogati.tittel" />
+        </Element>
         <p>
-            Du som er biologisk far til barnet får vanligvis hele foreldrepengeperioden som far 1. Dersom den andre
-            faren stebarnsadopterer kan han ta ut kvote og være hjemme i fellesperioden, men det er da aktivitetskrav.
+            <FormattedMessage id="farogfar.surrogati.tekst" />
         </p>
-        <Element>Hvis dere begge er adoptivforeldre</Element>
+        <Element>
+            <FormattedMessage id="farogfar.adoptivforeldre.tittel" />
+        </Element>
         <p>
-            Dere kan velge hvem av dere som skal starte foreldrepengeperioden som far 1. Dere får begge kvote, men det
-            aktivitetskrav til far 1 når far 2 skal være hjemme i fellesperioden.
+            <FormattedMessage id="farogfar.adoptivforeldre.tekst" />
         </p>
     </>
 );

@@ -1,4 +1,7 @@
 {
+    "du": "du",
+    "Du": "Du",
+
     "antallBarn.alternativ.Barn-1": "Ett barn",
     "antallBarn.alternativ.Barn-2": "Tvillinger",
     "antallBarn.alternativ.Barn-3": "Trillinger eller flere",
@@ -88,5 +91,22 @@
     "fordeling.status.person.forMye": "{dager} for mye",
     "fordeling.status.person.forLite": "{dager} ikke brukt",
 
-    "oppsummering.situasjon.html": "<strong>{foreldre}</strong> venter <strong>{barn}</strong> med termin den <strong>{termin}</strong>."
+    "oppsummering.situasjon.html": "<strong>{foreldre}</strong> venter <strong>{barn}</strong> med termin den <strong>{termin}</strong>.",
+
+    "intro.tittel": "Planlegg dine foreldrepenger",
+    "intro.tekst": "Her kan dere planlegge hvor mange uker dere kan ta ut foreldrepenger, og hvordan dere kan utsette perioder med foreldrepenger.",
+
+    "dekningsgradInfo.tittel": "{uker} uker med {dekningsgrad} prosent foreldrepenger",
+    "dekningsgradInfo.uttakFørTermin": "{navn} får tre uker med foreldrepenger som må tas ut før termin.",
+    "dekningsgradInfo.eksempel.tittel": "Eksempel på utbetaling",
+    "dekningsgradInfo.eksempel.beskrivelse": "Eksempel på utbetaling med fast inntekt på 22 000 kroner per måned før skatt",
+    "dekningsgradInfo.eksempel.sum": "{sum} kroner per måned før skatt",
+
+    "farogfar.tittel": "Far og far",
+    "farogfar.tekst": "Hvordan foreldrepengeperioden er delt mellom dere, kommer an på om dere får barn ved surrogati og den andre stebarnsadopterer, eller om dere begge er adoptivforeldre til samme barn.",
+    "farogfar.surrogati.tittel": "Surrogati",
+    "farogfar.surrogati.tekst": "Du som er biologisk far til barnet får vanligvis hele foreldrepengeperioden som far 1. Dersom den andre faren stebarnsadopterer kan han ta ut kvote og være hjemme i fellesperioden, men det er da aktivitetskrav.",
+    "farogfar.adoptivforeldre.tittel": "Hvis dere begge er adoptivforeldre",
+    "farogfar.adoptivforeldre.tekst": "Dere kan velge hvem av dere som skal starte foreldrepengeperioden som far 1. Dere får begge kvote, men det aktivitetskrav til far 1 når far 2 skal være hjemme i fellesperioden."
+
 }

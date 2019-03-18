@@ -9,6 +9,8 @@ import PengerIkon from 'common/components/ikoner/PengerIkon';
 import Situasjonsinfo from '../situasjonsskjema/parts/velgSituasjon/SituasjonInfo';
 
 import './dekningsgradInfo.less';
+import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
+import getMessage from 'common/utils/i18nUtils';
 
 interface Props {
     situasjon: Situasjon;
@@ -18,47 +20,56 @@ interface Props {
     flerbarnsdager: number;
 }
 
-const DekningsgradInfo: React.StatelessComponent<Props> = ({
+const DekningsgradInfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
     omForeldre,
     tilgjengeligeDager,
     dekningsgrad,
     situasjon,
-    flerbarnsdager
+    flerbarnsdager,
+    intl
 }) => {
     const bem = BEMHelper('dekningsgradInfo');
-    const dekningsSum = dekningsgrad === '100' ? '22 000' : '17 600';
+    const sum = dekningsgrad === '100' ? '22 000' : '17 600';
     const rolle = omForeldre.erDeltOmsorg ? undefined : omForeldre.bareMor ? Forelder.mor : Forelder.farMedmor;
     return (
         <div className={bem.block}>
             <Block margin="xs">
                 <Undertittel tag="h3">
-                    {tilgjengeligeDager.dagerTotalt / 5} uker med {dekningsgrad} prosent foreldrepenger
+                    <FormattedMessage
+                        id="dekningsgradInfo.tittel"
+                        values={{ uker: tilgjengeligeDager.dagerTotalt / 5, dekningsgrad }}
+                    />
                 </Undertittel>
             </Block>
             <Block margin="s">
                 <Situasjonsinfo situasjon={situasjon} forelder={rolle} flerbarnsdager={flerbarnsdager} />
             </Block>
-
             <Block margin="m">
                 <TilgjengeligeDagerGraf omForeldre={omForeldre} tilgjengeligeDager={tilgjengeligeDager} />
                 {tilgjengeligeDager.dagerForeldrepengerFørFødsel > 0 && (
                     <Block marginTop="xs">
-                        {omForeldre.erDeltOmsorg ? omForeldre.mor.navn : 'Du'} får tre uker med foreldrepenger som må
-                        tas ut før termin.
+                        <FormattedMessage
+                            id="dekningsgradInfo.tittel"
+                            values={{ navn: omForeldre.erDeltOmsorg ? omForeldre.mor.navn : getMessage(intl, 'Du') }}
+                        />
                     </Block>
                 )}
             </Block>
             <Block margin="none">
                 <Block margin="xs">
-                    <Undertittel>Eksempel på utbetaling</Undertittel>
+                    <Undertittel>
+                        <FormattedMessage id="dekningsgradInfo.eksempel.tittel" />
+                    </Undertittel>
                 </Block>
-                <p>Eksempel på utbetaling med fast inntekt på 22 000 kroner per måned før skatt</p>
+                <p>
+                    <FormattedMessage id="dekningsgradInfo.eksempel.beskrivelse" />
+                </p>
                 <div className={bem.element('utbetaling')}>
                     <div className={bem.child('utbetaling').element('ikon')}>
                         <PengerIkon />
                     </div>
                     <Ingress tag="p" className={bem.child('utbetaling').element('tekst')}>
-                        {dekningsSum} kroner per måned før skatt
+                        <FormattedMessage id="dekningsgradInfo.eksempel.sum" values={{ sum }} />
                     </Ingress>
                 </div>
             </Block>
@@ -66,4 +77,4 @@ const DekningsgradInfo: React.StatelessComponent<Props> = ({
     );
 };
 
-export default DekningsgradInfo;
+export default injectIntl(DekningsgradInfo);

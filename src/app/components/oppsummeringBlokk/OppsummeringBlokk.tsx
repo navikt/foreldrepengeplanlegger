@@ -4,6 +4,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import LinkButton from 'common/components/linkButton/LinkButton';
 
 import './oppsummeringBlokk.less';
+import { FormattedMessage } from 'react-intl';
 
 interface Props {
     tittel: string;
@@ -24,7 +25,9 @@ const OppsummeringBlokk: React.StatelessComponent<Props> = ({ tittel, onRequestC
                 <Systemtittel tag="h3" className={bem.element('tittel')}>
                     {tittel}
                 </Systemtittel>
-                <LinkButton onClick={onRequestChange}>Endre</LinkButton>
+                <LinkButton onClick={onRequestChange}>
+                    <FormattedMessage id="oppsummering.endre" />
+                </LinkButton>
             </header>
             <div className={bem.element('content')}>{children}</div>
         </div>

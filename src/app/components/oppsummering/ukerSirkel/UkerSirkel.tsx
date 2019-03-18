@@ -16,7 +16,6 @@ const UkerSirkel: React.StatelessComponent<Props> = ({ uker }) => {
             <div className={bem.element('ikon')}>
                 <Sirkelmaske diameter="5rem">
                     <AntallUkerKalenderIkon uker={uker} />
-                    {/* <div className={bem.element('uker')}>{uker}</div> */}
                 </Sirkelmaske>
             </div>
         </div>

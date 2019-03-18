@@ -3,6 +3,7 @@ import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
 import { Dekningsgrad } from 'common/types';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { getVarighetString } from 'common/utils/intlUtils';
+import getMessage from 'common/utils/i18nUtils';
 
 interface Props {
     dekningsgrad?: Dekningsgrad;
@@ -22,11 +23,11 @@ const DekningsgradValg: React.StatelessComponent<Props & InjectedIntlProps> = ({
         name="dekningsgrad"
         options={[
             {
-                label: `${getVarighetString(dager100, intl)} med 100 prosent foreldrepenger`,
+                label: getMessage(intl, 'dekningsgradvalg.100prosent', { uker: getVarighetString(dager100, intl) }),
                 value: '100'
             },
             {
-                label: `${getVarighetString(dager80, intl)} med 80 prosent foreldrepenger`,
+                label: getMessage(intl, 'dekningsgradvalg.80prosent', { uker: getVarighetString(dager80, intl) }),
                 value: '80'
             }
         ]}

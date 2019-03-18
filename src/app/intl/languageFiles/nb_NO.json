@@ -1,6 +1,11 @@
 {
+    "og": "og",
     "du": "du",
     "Du": "Du",
+    "dere": "dere",
+    "Dere": "Dere",
+    "du_dere": "{antall, plural, one {du} other {dere}}",
+    "Du_Dere": "{antall, plural, one {Du} other {Dere}}",
 
     "antallBarn.alternativ.Barn-1": "Ett barn",
     "antallBarn.alternativ.Barn-2": "Tvillinger",
@@ -63,7 +68,7 @@
 
     "regel.info.uttakForFarEllerMedmorFørsteSeksUkerInfo": "{navnFarMedmor} kan kun ta ut foreldrepenger de seks første ukene etter fødsel om {navnMor} er for syk til å ta seg av barnet eller er innlagt på helseinstitusjon.",
     "regel.info.ferieMedUttaksdagerInfo": "En kan ikke ta ut ferie på en helligdag, dette teller som en vanlig dag med foreldrepenger.",
-    "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} Hans bruker {dager} fra fellesperioden, og må legge ved dokumentasjon av aktivitetskravet til {navnMor} for disse dagene.",
+    "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker {dager} fra fellesperioden, og må legge ved dokumentasjon av aktivitetskravet til {navnMor} for disse dagene.",
     "regel.info.morUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnMor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid.",
     "regel.info.farMedmorUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnFarMedmor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid.",
     "regel.info.bareFarHarRettEttBarnAktivitetskravMorInfo": "Det er aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
@@ -91,8 +96,6 @@
     "fordeling.status.person.forMye": "{dager} for mye",
     "fordeling.status.person.forLite": "{dager} ikke brukt",
 
-    "oppsummering.situasjon.html": "<strong>{foreldre}</strong> venter <strong>{barn}</strong> med termin den <strong>{termin}</strong>.",
-
     "intro.tittel": "Planlegg dine foreldrepenger",
     "intro.tekst": "Her kan dere planlegge hvor mange uker dere kan ta ut foreldrepenger, og hvordan dere kan utsette perioder med foreldrepenger.",
 
@@ -107,6 +110,16 @@
     "farogfar.surrogati.tittel": "Surrogati",
     "farogfar.surrogati.tekst": "Du som er biologisk far til barnet får vanligvis hele foreldrepengeperioden som far 1. Dersom den andre faren stebarnsadopterer kan han ta ut kvote og være hjemme i fellesperioden, men det er da aktivitetskrav.",
     "farogfar.adoptivforeldre.tittel": "Hvis dere begge er adoptivforeldre",
-    "farogfar.adoptivforeldre.tekst": "Dere kan velge hvem av dere som skal starte foreldrepengeperioden som far 1. Dere får begge kvote, men det aktivitetskrav til far 1 når far 2 skal være hjemme i fellesperioden."
+    "farogfar.adoptivforeldre.tekst": "Dere kan velge hvem av dere som skal starte foreldrepengeperioden som far 1. Dere får begge kvote, men det aktivitetskrav til far 1 når far 2 skal være hjemme i fellesperioden.",
+
+    "dekningsgradvalg.100prosent": "{uker} med 100 prosent foreldrepenger",
+    "dekningsgradvalg.80prosent": "{uker} med 80 prosent foreldrepenger",
+
+    "oppsummering.ariaTittel": "Oppsummering",
+    "oppsummering.dekning.tittel": "Deres foreldrepengeperiode",
+    "oppsummering.dekning.harValgt": "{antallForeldre, plural, one {Du} other {Dere}} har valgt <strong>{varighet}</strong> med <strong>{dekningsgrad} prosent utbetaling</strong>",
+    "oppsummering.situasjon.tittel": "{antallForeldre, plural, one {Du} other {Dere}} og {antallBarn, plural, one {barnet} other {barna}}",
+    "oppsummering.situasjon.tekst": "{antallForeldre, plural, one {Du} other {Dere}} venter <strong>{barn}</strong> med termin den <strong>{termin}</strong>.",
+    "oppsummering.endre": "Endre"
 
 }

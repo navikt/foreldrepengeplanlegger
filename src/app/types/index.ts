@@ -116,10 +116,10 @@ export interface Forelderinfo {
 export interface OmForeldre {
     mor: Forelderinfo;
     farMedmor?: Forelderinfo;
-    erDeltOmsorg: boolean;
     bareMor: boolean;
     bareFar: boolean;
     forelderVedAleneomsorg?: Forelder;
+    erDeltOmsorg: boolean;
 }
 
 export interface Uttaksdatoer {

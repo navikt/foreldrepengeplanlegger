@@ -14,10 +14,10 @@ import StatusIkon from 'common/components/ikoner/StatusIkon';
 import { getVarighetString } from 'common/utils/intlUtils';
 import getMessage from 'common/utils/i18nUtils';
 import Personkort from '../personkort/Personkort';
-
-import './fordelingGraf.less';
 import { getProsentFordeling } from '../../utils/tilgjengeligeDagerUtils';
 import AriaText from 'common/components/aria/AriaText';
+
+import './fordelingGraf.less';
 
 interface OwnProps {
     forbruk: Forbruk;

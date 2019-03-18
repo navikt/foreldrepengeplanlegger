@@ -25,7 +25,7 @@ import './periodeSkjema.less';
 import EndringerVedNyPeriode from './EndringerVedNyPeriode';
 import { focusFirstElement } from '../../utils/focusUtils';
 import getMessage from 'common/utils/i18nUtils';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
 
 interface OwnProps {
     nesteUttaksdag: Date;
@@ -119,7 +119,9 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
             <Form className="periodeSkjema">
                 <PeriodeBlokk farge={getPeriodetypeFarge(periodetype, forelder)} nyPeriode={true}>
                     <Block margin="s">
-                        <Ingress>Legg til ny periode</Ingress>
+                        <Ingress>
+                            <FormattedMessage id="periodeskjema.tittelNyPeriode" />
+                        </Ingress>
                     </Block>
                     <Block margin="s">
                         <PeriodelisteElement
@@ -217,15 +219,15 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                             }
                         />
                     </Block>
-                    <Block visible={false}>
+                    <Block margin="none">
                         <EndringerVedNyPeriode nyPeriode={nyPeriode} perioder={perioder} omForeldre={omForeldre} />
                     </Block>
                     <Knapperad>
                         <Hovedknapp htmlType="submit" disabled={formik.isValid === false}>
-                            Legg til
+                            <FormattedMessage id="periodeskjema.knapp.leggTil" />
                         </Hovedknapp>
                         <Knapp htmlType="button" onClick={() => onCancel()}>
-                            Avbryt
+                            <FormattedMessage id="periodeskjema.knapp.avbryt" />
                         </Knapp>
                     </Knapperad>
                 </PeriodeBlokk>

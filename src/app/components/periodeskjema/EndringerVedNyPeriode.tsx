@@ -4,11 +4,11 @@ import { Periode, OmForeldre } from '../../types';
 import { Periodene } from '../../utils/Periodene';
 import Block from 'common/components/block/Block';
 import AlertStripe from 'nav-frontend-alertstriper';
-import Varighet from '../varighet/Varighet';
 import { getForelderNavn } from '../../utils/common';
 import { Tidsperioden } from '../../utils/Tidsperioden';
-import { InjectedIntl, injectIntl, InjectedIntlProps } from 'react-intl';
+import { InjectedIntl, injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
 import { formaterDato } from 'common/utils/datoUtils';
+import { getVarighetString } from 'common/utils/intlUtils';
 
 interface Props {
     nyPeriode?: Partial<Periode>;
@@ -24,32 +24,36 @@ const PeriodeSomVilBliSplittet: React.StatelessComponent<{
 }> = ({ periode, antallUttaksdager, omForeldre, intl }) => {
     const navn = getForelderNavn(periode.forelder, omForeldre);
     return (
-        <Block margin="s">
+        <Block margin="m">
             <AlertStripe type="info">
-                {navn} sin periode ({Tidsperioden(periode.tidsperiode).formaterStringKort(intl)}), vil bli delt opp i to
-                deler, og den nye perioden vil bli satt inn mellom de to delene. Påfølgende perioder vil bli forskjøvet
-                med{' '}
-                <strong>
-                    <Varighet dager={antallUttaksdager} />
-                </strong>
-                .
+                <FormattedHTMLMessage
+                    id="periodeskjema.melding.oppdeltPeriode"
+                    values={{
+                        navn,
+                        varighet: getVarighetString(antallUttaksdager, intl),
+                        tidsperiode: Tidsperioden(periode.tidsperiode).formaterStringKort(intl)
+                    }}
+                />
             </AlertStripe>
         </Block>
     );
 };
 
-const PerioderSomVilBliFlyttetPå: React.StatelessComponent<{ perioder: Periode[]; antallUttaksdager: number }> = ({
-    perioder,
-    antallUttaksdager
-}) => {
+const PerioderSomVilBliFlyttetPå: React.StatelessComponent<{
+    perioder: Periode[];
+    antallUttaksdager: number;
+    intl: InjectedIntl;
+}> = ({ perioder, antallUttaksdager, intl }) => {
     return (
-        <Block margin="s">
+        <Block margin="m">
             <AlertStripe type="info">
-                Perioder fra og med <strong>{formaterDato(perioder[0].tidsperiode.fom)}</strong> vil bli forskjøvet med{' '}
-                <strong>
-                    <Varighet dager={antallUttaksdager} />
-                </strong>
-                .
+                <FormattedHTMLMessage
+                    id="periodeskjema.melding.perioderFlyttes"
+                    values={{
+                        dato: formaterDato(perioder[0].tidsperiode.fom),
+                        varighet: getVarighetString(antallUttaksdager, intl)
+                    }}
+                />
             </AlertStripe>
         </Block>
     );
@@ -83,7 +87,9 @@ const EndringerVedNyPeriode: React.StatelessComponent<Props & InjectedIntlProps>
         'day'
     );
     if (periodeSomStarterSammeDag) {
-        return <PerioderSomVilBliFlyttetPå perioder={berørtePerioder} antallUttaksdager={antallUttaksdager} />;
+        return (
+            <PerioderSomVilBliFlyttetPå perioder={berørtePerioder} antallUttaksdager={antallUttaksdager} intl={intl} />
+        );
     } else {
         return (
             <PeriodeSomVilBliSplittet

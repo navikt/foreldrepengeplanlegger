@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Periode } from '../../../types';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import BEMHelper from 'common/utils/bem';
+import { FormattedMessage } from 'react-intl';
 
 interface Props {
     periode: Periode;
@@ -14,9 +15,9 @@ const bem = BEMHelper('periodeliste');
 const SlåSammenPerioderValg: React.StatelessComponent<Props> = ({ periode, forrigePeriode, onSamlePerioder }) => {
     return (
         <div className={bem.element('likePerioder')}>
-            Perioden over og under har samme type og hører til samme person, så de kan{' '}
+            <FormattedMessage id="periodeliste.slaaSammenPerioder.part1" />
             <LinkButton onClick={() => onSamlePerioder(periode, forrigePeriode)}>
-                slåes sammen til én periode
+                <FormattedMessage id="periodeliste.slaaSammenPerioder.part2" />
             </LinkButton>
         </div>
     );

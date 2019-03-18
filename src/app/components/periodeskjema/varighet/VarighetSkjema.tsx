@@ -10,6 +10,8 @@ import LinkButton from 'common/components/linkButton/LinkButton';
 import { getDagerGradert } from '../../../utils/forbrukUtils';
 import { Undertittel, Ingress } from 'nav-frontend-typografi';
 import Tittel from 'common/components/tittel/Tittel';
+import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
+import getMessage from 'common/utils/i18nUtils';
 
 export interface VarighetChangeEvent {
     ingenVarighet?: boolean;
@@ -33,7 +35,7 @@ export interface VarighetSkjemaProps {
     onVarighetChange: (evt: VarighetChangeEvent) => void;
 }
 
-type Props = VarighetSkjemaProps;
+type Props = VarighetSkjemaProps & InjectedIntlProps;
 
 interface State {
     varighetEllerSluttdato: 'sluttdato' | 'varighet';
@@ -45,23 +47,24 @@ const VarighetStartdato: React.StatelessComponent<Props> = ({
     minDato,
     maksDato,
     periodetype,
-    erNyPeriode
+    erNyPeriode,
+    intl
 }) => {
     const låstStartdato = periodetype !== Periodetype.UttakFørTermin && erNyPeriode === false;
+    const label = getMessage(intl, 'periodeskjema.tid.startdato');
     return (
         <>
             {låstStartdato && tidsperiode.fom && (
                 <>
                     <Block margin="xs">
-                        <Undertittel>Startdato</Undertittel>
+                        <Undertittel>{label}</Undertittel>
                     </Block>
                     <Tittel
                         tittel={
                             <Ingress className="capitalizeFirstLetter">{formaterDatoUtenDag(tidsperiode.fom)}</Ingress>
                         }
                         info={{
-                            tekst:
-                                'Startdato settes automatisk etter forrige periode. For å endre startdato må du derfor endre siste dag på perioden før.'
+                            tekst: getMessage(intl, 'periodeskjema.tid.startdato.låstInfo')
                         }}
                     />
                 </>
@@ -71,8 +74,8 @@ const VarighetStartdato: React.StatelessComponent<Props> = ({
                     id="fom"
                     name="fom"
                     label={{
-                        label: <Undertittel className="blokk-xxs">Startdato</Undertittel>,
-                        ariaLabel: 'Startdato'
+                        label: <Undertittel className="blokk-xxs">{label}</Undertittel>,
+                        ariaLabel: label
                     }}
                     visÅrValger={true}
                     dato={tidsperiode.fom}
@@ -89,13 +92,18 @@ const VarighetSluttdato: React.StatelessComponent<Props> = ({
     onTidsperiodeChange,
     tidsperiode,
     minDato,
-    maksDato
+    maksDato,
+    intl
 }) => {
+    const label = getMessage(intl, 'periodeskjema.tid.sluttdato');
     return (
         <DatoInput
             id="tom"
             name="tom"
-            label={{ label: <Undertittel className="blokk-xxs">Sluttdato</Undertittel>, ariaLabel: 'Sluttdato' }}
+            label={{
+                label: <Undertittel className="blokk-xxs">{label}</Undertittel>,
+                ariaLabel: label
+            }}
             visÅrValger={true}
             dato={tidsperiode.tom}
             avgrensninger={{ minDato: tidsperiode.fom || minDato, maksDato, helgedagerIkkeTillatt: true }}
@@ -105,14 +113,14 @@ const VarighetSluttdato: React.StatelessComponent<Props> = ({
 };
 
 const VarighetStartdatoFørTermin: React.StatelessComponent<Props> = (props) => {
-    const { ingenVarighet, onVarighetChange } = props;
+    const { ingenVarighet, onVarighetChange, intl } = props;
     return (
         <Block margin="s">
             <Block margin="s">
                 <VarighetStartdato {...props} />
             </Block>
             <Checkbox
-                label="Jeg skal ikke ha foreldrepenger før termin"
+                label={getMessage(intl, 'periodeskjema.tid.skalIkkeHaDagerFørTermin')}
                 checked={ingenVarighet === true || false}
                 onChange={(evt) => onVarighetChange({ ingenVarighet: evt.target.checked })}
             />
@@ -131,7 +139,8 @@ class VarighetSkjema extends React.Component<Props, State> {
             nesteUttaksdag,
             gjenståendeDager,
             periodetype,
-            gradering
+            gradering,
+            intl
         } = this.props;
         const { uker, dager } = getUkerOgDagerFromDager(antallUttaksdager || 0);
         const { fom } = tidsperiode;
@@ -145,7 +154,7 @@ class VarighetSkjema extends React.Component<Props, State> {
                     <VarighetStartdato {...this.props} />
                     {fom === undefined && nesteUttaksdag !== undefined && (
                         <Block marginTop="xs">
-                            Neste dag:{' '}
+                            <FormattedMessage id="periodeskjema.tid.nesteDag" />{' '}
                             <LinkButton
                                 onClick={() => onTidsperiodeChange({ fom: nesteUttaksdag, tom: tidsperiode.tom })}>
                                 {formaterDatoUtenDag(nesteUttaksdag)}
@@ -160,7 +169,7 @@ class VarighetSkjema extends React.Component<Props, State> {
 
                     <Block margin="s">
                         <UkerOgDagerVelger
-                            tittel="Lengde"
+                            tittel={getMessage(intl, 'periodeskjema.tid.lengde')}
                             dager={dager}
                             uker={uker}
                             minDager={1}
@@ -181,7 +190,7 @@ class VarighetSkjema extends React.Component<Props, State> {
                                         dager: getDagerGradert(gjenståendeDager, gradering)
                                     })
                                 }>
-                                Bruk gjenstående dager
+                                <FormattedMessage id="periodeskjema.tid.brukGjenståendeDager" />
                             </LinkButton>
                         )}
                 </Block>
@@ -190,4 +199,4 @@ class VarighetSkjema extends React.Component<Props, State> {
     }
 }
 
-export default VarighetSkjema;
+export default injectIntl(VarighetSkjema);

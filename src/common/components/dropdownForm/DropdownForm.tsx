@@ -5,12 +5,10 @@ import BEMHelper from 'common/utils/bem';
 import { guid } from 'nav-frontend-js-utils';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { Flatknapp } from 'nav-frontend-knapper';
-import { NedChevron } from 'nav-frontend-chevron';
-import DropdownDialogTittel from 'app/components/periodeliste/parts/DropdownDialogTittel';
+import Block from 'common/components/block/Block';
+import { Undertittel } from 'nav-frontend-typografi';
 
 import './dropdownForm.less';
-
-const USE_CHEVRON = false;
 
 export type DropdownFormStyle = 'border' | 'filled';
 
@@ -80,11 +78,6 @@ class DropdownForm extends React.Component<Props> {
                             bem.element('button', style || 'filled')
                         )}>
                         <div className={bem.element('button__label')}>{labelRenderer()}</div>
-                        {USE_CHEVRON && (
-                            <div className={bem.element('button__chevron')}>
-                                <NedChevron />
-                            </div>
-                        )}
                     </Button>
                 )}
                 <Menu
@@ -94,7 +87,11 @@ class DropdownForm extends React.Component<Props> {
                         contentClassName
                     )}>
                     <section>
-                        {contentTitle && <DropdownDialogTittel>{contentTitle}</DropdownDialogTittel>}
+                        {contentTitle && (
+                            <Block margin="s">
+                                <Undertittel tag="h1">{contentTitle}</Undertittel>
+                            </Block>
+                        )}
                         {contentRenderer()}
                         {renderCloseButton && (
                             <Knapperad>

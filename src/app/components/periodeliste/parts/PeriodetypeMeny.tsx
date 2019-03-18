@@ -78,7 +78,7 @@ const PeriodetypeMeny: React.StatelessComponent<Props> = (props) => {
             onSelection={onChange}
             labelRenderer={() => <PeriodetypeMenyLabel {...props} />}
             contentClassName="periodetypeDialog"
-            contentTitle="Velg type"
+            contentTitle={getMessage(intl, 'periodeliste.velgPeriodetype')}
             style={dropdownStyle}
             contentRenderer={() => <DropdownFormMenu options={getOptions(intl)} selectedValue={type} />}
         />

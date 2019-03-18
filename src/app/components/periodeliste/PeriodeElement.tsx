@@ -106,7 +106,7 @@ class PeriodeElement extends React.Component<Props> {
                             className: bem.element('gradering'),
                             render: () => (
                                 <GraderingMeny
-                                    foreldernavn={omForeldre.erDeltOmsorg ? foreldernavn : 'du'}
+                                    foreldernavn={omForeldre.erDeltOmsorg ? foreldernavn : getMessage(intl, 'du')}
                                     gradering={this.props.periode.gradering}
                                     onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
                                     uttaksdagerBrukt={antallUttaksdagerBrukt}
@@ -178,7 +178,7 @@ class PeriodeElement extends React.Component<Props> {
                     slett={
                         kanSlettes
                             ? {
-                                  ariaLabel: 'Slett periode',
+                                  ariaLabel: getMessage(intl, 'periodeliste.ariatekst.slettPeriode'),
                                   onRemove: () => onRemove(periode)
                               }
                             : undefined

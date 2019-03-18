@@ -13,8 +13,10 @@ import RegelbruddFeilmelding from '../../regelbrudd/RegelbruddFeilmelding';
 import InfoIkonFylt from 'common/InfoIkonFylt';
 
 import './periodelisteElement.less';
+import getMessage from 'common/utils/i18nUtils';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 
-interface Props {
+interface OwnProps {
     menyer: PeriodeElementMeny[];
     slett?: {
         onRemove: () => void;
@@ -31,8 +33,8 @@ interface State {
 
 interface PeriodeElementMeny {
     id: string;
-    render: () => React.ReactNode;
     className?: string;
+    render: () => React.ReactNode;
     isVisibleCheck?: () => boolean;
 }
 const bem = BEMHelper('periodelisteElement');
@@ -44,6 +46,8 @@ const PeriodeElementMenyWrapper: React.StatelessComponent<{ meny: PeriodeElement
         </div>
     );
 };
+
+type Props = OwnProps & InjectedIntlProps;
 
 class PeriodelisteElement extends React.Component<Props, State> {
     constructor(props: Props) {
@@ -59,7 +63,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
         }
     }
     render() {
-        const { menyer, slett, info, regelbrudd } = this.props;
+        const { menyer, slett, info, regelbrudd, intl } = this.props;
         const infoId = guid();
         const regelId = guid();
         const { regelInfoVisible, infoVisible } = this.state;
@@ -95,7 +99,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                                                     <InfoIkonFylt />
                                                 )
                                             }
-                                            ariaLabel="Perioden har regelbrudd"
+                                            ariaLabel={getMessage(intl, 'periodeliste.ariaTekst.periodenHarRegelbrudd')}
                                         />
                                     }
                                 </div>
@@ -134,4 +138,4 @@ class PeriodelisteElement extends React.Component<Props, State> {
     }
 }
 
-export default PeriodelisteElement;
+export default injectIntl(PeriodelisteElement);

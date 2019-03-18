@@ -5,8 +5,6 @@ import { PeriodelisteProps } from './types';
 import { formaterDato } from 'common/utils/datoUtils';
 import BEMHelper from 'common/utils/bem';
 import IconText from 'common/components/iconText/IconText';
-import LinkButton from 'common/components/linkButton/LinkButton';
-import { Ingress } from 'nav-frontend-typografi';
 import SlåSammenPerioderValg from './parts/SlåSammenPerioderValg';
 import periodelisteUtils from './periodelisteUtils';
 import posed, { PoseGroup } from 'react-pose';
@@ -64,18 +62,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
         nyPeriodeId,
         ...elementProps
     } = props;
-    const { onResetPlan } = elementProps;
     const antallPerioder = perioder.length;
-    if (antallPerioder === 0 && 1 + 1 === 3) {
-        return (
-            <div className={bem.element('tomListe')}>
-                <Ingress tag="p">
-                    Ingen perioder er registrert.{' '}
-                    {onResetPlan && <LinkButton onClick={() => onResetPlan()}>Lag nytt forslag</LinkButton>}
-                </Ingress>
-            </div>
-        );
-    }
     const posedItems = perioder.map((periode: Periode, index: number) => {
         return (
             <PosedLi className="periodeliste__periode" key={periode.id}>
@@ -98,6 +85,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
             </PosedLi>
         );
     });
+
     if (visSkjema) {
         posedItems.push(<PosedLi key={nyPeriodeId}>{nyPeriodeSkjema}</PosedLi>);
     }

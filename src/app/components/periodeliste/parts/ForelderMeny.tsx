@@ -4,6 +4,8 @@ import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
 import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
 import IconText from 'common/components/iconText/IconText';
+import getMessage from 'common/utils/i18nUtils';
+import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
 
 interface Props {
     forelder?: Forelder;
@@ -44,11 +46,15 @@ const renderLabel = (props: Props, options: DropdownFormMenuOption[]): React.Rea
             </IconText>
         );
     }
-    return <span>Velg forelder</span>;
+    return (
+        <span>
+            <FormattedMessage id="periodeliste.forelder.tittel" />
+        </span>
+    );
 };
 
-const ForelderMeny: React.StatelessComponent<Props> = (props) => {
-    const { onChange, forelder, mor, farMedmor, erLåst, dropdownStyle = 'filled' } = props;
+const ForelderMeny: React.StatelessComponent<Props & InjectedIntlProps> = (props) => {
+    const { onChange, forelder, mor, farMedmor, erLåst, dropdownStyle = 'filled', intl } = props;
     const options = getForelderOptions(mor.navn, farMedmor!.navn);
     return (
         <DropdownForm
@@ -56,7 +62,7 @@ const ForelderMeny: React.StatelessComponent<Props> = (props) => {
             disabledButtonClassName="forelderMenyDisabled"
             onSelection={(value) => onChange(value as Forelder)}
             contentClassName="forelderDialog"
-            contentTitle="Hvem gjelder perioden?"
+            contentTitle={getMessage(intl, 'periodeliste.forelder.spørsmål')}
             labelRenderer={() => renderLabel(props, options)}
             labelAlignment="center"
             style={dropdownStyle}
@@ -66,4 +72,4 @@ const ForelderMeny: React.StatelessComponent<Props> = (props) => {
     );
 };
 
-export default ForelderMeny;
+export default injectIntl(ForelderMeny);

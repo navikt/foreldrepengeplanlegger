@@ -120,6 +120,40 @@
     "oppsummering.dekning.harValgt": "{antallForeldre, plural, one {Du} other {Dere}} har valgt <strong>{varighet}</strong> med <strong>{dekningsgrad} prosent utbetaling</strong>",
     "oppsummering.situasjon.tittel": "{antallForeldre, plural, one {Du} other {Dere}} og {antallBarn, plural, one {barnet} other {barna}}",
     "oppsummering.situasjon.tekst": "{antallForeldre, plural, one {Du} other {Dere}} venter <strong>{barn}</strong> med termin den <strong>{termin}</strong>.",
-    "oppsummering.endre": "Endre"
+    "oppsummering.endre": "Endre",
+
+    "periodeliste.ariatekst.slettPeriode": "Slett periode",
+    "periodeliste.ariatekst.periodenHarRegelbrudd": "Perioden har regelbrudd",
+    "periodeliste.slaaSammenPerioder.part1": "Perioden over og under har samme type og hører til samme person, så de kan ",
+    "periodeliste.slaaSammenPerioder.part2": "slåes sammen til én periode",
+    "periodeliste.velgPeriodetype": "Velg type",
+    "periodeliste.arbeidOgUttak.ariatekst.jobber": "Jobber {arbeidsprosent} prosent",
+    "periodeliste.arbeidOgUttak.tittel": "Velg stillingsprosent",
+    "periodeliste.arbeidOgUttak.spørsmål": "Hvor mange prosent skal {navn} jobbe?",
+    "periodeliste.arbeidOgUttak.label.ariaTekst": "Prosent arbeid",
+    "periodeliste.arbeidOgUttak.uttaksdager": "<strong>{dager}</strong> med foreldrepenger brukes.",
+    "periodeliste.forelder.tittel": "Velg forelder",
+    "periodeliste.forelder.spørsmål": "Hvem gjelder perioden?",
+
+    "periodeskjema.tittelNyPeriode": "Legg til ny periode",
+    "periodeskjema.knapp.leggTil": "Legg til",
+    "periodeskjema.knapp.avbryt": "Avbryt",
+    "periodeskjema.validering.periodetype": "Du må velge periodetype",
+    "periodeskjema.validering.forelder": "Du må velge hvem perioden gjelder",
+    "periodeskjema.validering.arbeidsprosent": "Du må velge periodetype",
+    "periodeskjema.validering.fom": "Du må velge når perioden skal starte",
+    "periodeskjema.validering.tom": "Du må velge når perioden skal avsluttes",
+    "periodeskjema.validering.arbeidOgUttak": "Du må velge hvor mye du skal jobbe",
+    "periodeskjema.melding.deltPeriode": "{navn} sin periode ({tidsperiode}), vil bli delt opp i to deler, og den nye perioden vil bli satt inn mellom de to delene. Perioder etter denne, vil bli forskjøvet <strong>{varighet}</strong>",
+    "periodeskjema.melding.perioderFlyttes": "Perioder fra og med <strong>{dato}</strong> vil bli forskjøvet med <strong>{varighet}</strong>.",
+    "periodeskjema.tid.startdato": "Startdato",
+    "periodeskjema.tid.startdato.låstInfo": "'Startdato settes automatisk etter forrige periode. For å endre startdato må du derfor endre siste dag på perioden før.'",
+    "periodeskjema.tid.sluttdato": "Sluttdato",
+    "periodeskjema.tid.skalIkkeHaDagerFørTermin": "Jeg skal ikke ha foreldrepenger før termin",
+    "periodeskjema.tid.nesteDag": "Neste dag:",
+    "periodeskjema.tid.brukGjenståendeDager": "Bruk gjenstående dager",
+    "periodeskjema.tid.lengde": "Lengde"
+
+
 
 }

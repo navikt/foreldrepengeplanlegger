@@ -6,8 +6,10 @@ import { Periode, Periodetype } from '../../types/periodetyper';
 import periodeskjemaUtils from './utils';
 import { PeriodeskjemaFormValues } from './types';
 import { OmForeldre, Forbruk } from '../../types';
+import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
+import getMessage from 'common/utils/i18nUtils';
 
-interface Props {
+interface OwnProps {
     periode?: Periode;
     nyPeriode?: Partial<Periode>;
     omForeldre: OmForeldre;
@@ -25,16 +27,20 @@ interface Props {
 }
 export type PeriodeSkjemaProps = Props;
 
-const periodeValidationSchema = yup.object().shape({
-    periodetype: yup.string().required('Du må velge periodetype'),
-    forelder: yup.string().required('Du må velge hvem perioden gjelder'),
-    fom: yup.date().required('Fradato må velges'),
-    tom: yup.date().required('Tildato må velges'),
-    gradering: yup.number().when('periodetype', {
-        is: Periodetype.GradertUttak,
-        then: yup.string().required('Gradering må velges')
-    })
-});
+const getPeriodeValidationSchema = (intl: InjectedIntl) => {
+    return yup.object().shape({
+        periodetype: yup.string().required(getMessage(intl, 'periodeskjema.validering.periodetype')),
+        forelder: yup.string().required(getMessage(intl, 'periodeskjema.validering.forelder')),
+        fom: yup.date().required(getMessage(intl, 'periodeskjema.validering.fom')),
+        tom: yup.date().required(getMessage(intl, 'periodeskjema.validering.tom')),
+        gradering: yup.number().when('periodetype', {
+            is: Periodetype.GradertUttak,
+            then: yup.string().required(getMessage(intl, 'periodeskjema.validering.arbeidOgUttak'))
+        })
+    });
+};
+
+type Props = OwnProps & InjectedIntlProps;
 
 class Periodeskjema extends React.Component<Props, {}> {
     constructor(props: Props) {
@@ -83,7 +89,8 @@ class Periodeskjema extends React.Component<Props, {}> {
             perioder,
             periodeFørTermin,
             forbruk,
-            onSubmit
+            onSubmit,
+            intl
         } = this.props;
         return (
             <>
@@ -109,10 +116,10 @@ class Periodeskjema extends React.Component<Props, {}> {
                             sisteUttaksdag={sisteUttaksdag}
                         />
                     )}
-                    validationSchema={periodeValidationSchema}
+                    validationSchema={getPeriodeValidationSchema(intl)}
                 />
             </>
         );
     }
 }
-export default Periodeskjema;
+export default injectIntl(Periodeskjema);

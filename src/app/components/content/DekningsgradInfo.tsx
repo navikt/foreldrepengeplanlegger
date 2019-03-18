@@ -49,7 +49,7 @@ const DekningsgradInfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
                 {tilgjengeligeDager.dagerForeldrepengerFørFødsel > 0 && (
                     <Block marginTop="xs">
                         <FormattedMessage
-                            id="dekningsgradInfo.tittel"
+                            id="dekningsgradInfo.uttakFørTermin"
                             values={{ navn: omForeldre.erDeltOmsorg ? omForeldre.mor.navn : getMessage(intl, 'Du') }}
                         />
                     </Block>

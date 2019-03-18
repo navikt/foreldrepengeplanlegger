@@ -7,7 +7,7 @@ import { UttaksplanHexFarge } from 'common/utils/colors';
 
 import './tilgjengeligeDagerGraf.less';
 import { getVarighetString } from 'common/utils/intlUtils';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, InjectedIntlProps, FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import Personkort from '../personkort/Personkort';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
 
@@ -34,8 +34,10 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, o
                         <Personkort
                             ikon={<ForelderIkon forelder={omForeldre.mor.ikonRef} width={35} />}
                             textValign="bottom">
-                            {omForeldre.mor.navn}
-                            <br /> sin del
+                            <FormattedHTMLMessage
+                                id="tilgjengeligeDagerGraf.person.del"
+                                values={{ navn: omForeldre.mor.navn }}
+                            />
                         </Personkort>
                     </div>
                     <Multibar
@@ -48,7 +50,9 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, o
                     />
                 </div>
                 <div className={bem.element('felles')} style={{ width: `${fordeling.pstFelles}%` }}>
-                    <div className={bem.element('barTitle')}>Fellesperiode</div>
+                    <div className={bem.element('barTitle')}>
+                        <FormattedMessage id="tilgjengeligeDagerGraf.fellesperiode" />
+                    </div>
                     <Multibar
                         borderColor={UttaksplanHexFarge.graa}
                         leftBar={{
@@ -70,8 +74,10 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, o
                                 ikon={<ForelderIkon forelder={omForeldre.farMedmor.ikonRef} width={35} />}
                                 invertert={true}
                                 textValign="bottom">
-                                {omForeldre.farMedmor.navn}
-                                <br /> sin del
+                                <FormattedHTMLMessage
+                                    id="tilgjengeligeDagerGraf.person.del"
+                                    values={{ navn: omForeldre.farMedmor.navn }}
+                                />
                             </Personkort>
                         </div>
                         <Multibar

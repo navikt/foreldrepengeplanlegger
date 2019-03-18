@@ -18,6 +18,8 @@ import { getForbruk } from '../../utils/forbrukUtils';
 import BEMHelper from 'common/utils/bem';
 
 import './uttaksplan.less';
+import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
+import getMessage from 'common/utils/i18nUtils';
 
 interface State {
     visSkjema: boolean;
@@ -39,7 +41,7 @@ interface OwnProps {
     onNyPeriodeChange?: (periode?: Periode) => void;
 }
 
-type Props = OwnProps & PeriodelisteProps;
+type Props = OwnProps & PeriodelisteProps & InjectedIntlProps;
 
 const bem = BEMHelper('uttaksplan');
 
@@ -102,7 +104,8 @@ class Uttaksplan extends React.Component<Props, State> {
             nyPeriode,
             periodeFørTermin,
             tilgjengeligeDager,
-            nyPeriodeId
+            nyPeriodeId,
+            intl
         } = this.props;
         const { visSkjema } = this.state;
         const nesteUttaksdag =
@@ -119,12 +122,18 @@ class Uttaksplan extends React.Component<Props, State> {
                         <Block margin="s">
                             <div className="periodeliste__header">
                                 <div className="periodeliste__title">
-                                    <Systemtittel>{omForeldre.erDeltOmsorg ? 'Deres plan' : 'Din plan'}</Systemtittel>
+                                    <Systemtittel>
+                                        {omForeldre.erDeltOmsorg ? (
+                                            <FormattedMessage id="uttaksplan.deresPlan" />
+                                        ) : (
+                                            <FormattedMessage id="uttaksplan.dinPlan" />
+                                        )}
+                                    </Systemtittel>
                                 </div>
                                 {onResetPlan && perioder.length > 0 && (
                                     <div className="periodeliste__reset">
                                         <LinkButton color="red" onClick={() => this.handleSlettPlan()}>
-                                            Slett plan
+                                            <FormattedMessage id="uttaksplan.slettPlanKnapp" />
                                         </LinkButton>
                                     </div>
                                 )}
@@ -165,7 +174,7 @@ class Uttaksplan extends React.Component<Props, State> {
                         <Block visible={visSkjema !== true} margin="xl">
                             <Knapperad align="center">
                                 <Knapp type="standard" onClick={() => this.setState({ visSkjema: true })}>
-                                    Legg til eller utsett
+                                    <FormattedMessage id="uttaksplan.leggTilKnapp" />
                                 </Knapp>
                                 <div className="dev">
                                     {onResetPlan && <Flatknapp onClick={() => onResetPlan()}>Reset</Flatknapp>}
@@ -191,27 +200,27 @@ class Uttaksplan extends React.Component<Props, State> {
                 />
 
                 <BekreftDialog
-                    tittel="Bekreft fjern periode"
+                    tittel={getMessage(intl, 'uttaksplan.slettPeriodeDialog.tittel')}
                     isOpen={this.state.visBekreftSlettPeriodeDialog}
-                    avbrytLabel="Avbryt"
-                    bekreftLabel="Ja, fjern periode"
+                    avbrytLabel={getMessage(intl, 'uttaksplan.slettPeriodeDialog.avbrytKnapp')}
+                    bekreftLabel={getMessage(intl, 'uttaksplan.slettPeriodeDialog.jaSlettKnapp')}
                     onBekreft={() => this.slettValgtPeriode()}
                     onAvbryt={() => this.setState({ visBekreftSlettPeriodeDialog: false, valgtPeriode: undefined })}>
-                    Ønsker du å slette perioden?
+                    <FormattedMessage id="uttaksplan.slettPeriodeDialog.tekst" />
                 </BekreftDialog>
 
                 {onResetPlan && (
                     <BekreftDialog
-                        tittel="Bekreft slett plan"
+                        tittel={getMessage(intl, 'uttaksplan.slettPlanDialog.tittel')}
                         isOpen={this.state.visBekreftSlettPlanDialog}
-                        avbrytLabel="Avbryt"
-                        bekreftLabel="Ja, slett plan"
+                        avbrytLabel={getMessage(intl, 'uttaksplan.slettPlanDialog.avbrytKnapp')}
+                        bekreftLabel={getMessage(intl, 'uttaksplan.slettPlanDialog.jaSlettKnapp')}
                         onBekreft={() => {
                             onResetPlan();
                             this.setState({ visBekreftSlettPlanDialog: false });
                         }}
                         onAvbryt={() => this.setState({ visBekreftSlettPlanDialog: false })}>
-                        Ønsker du å slette planen? Alle perioder etter termin vil bli fjernet.
+                        <FormattedMessage id="uttaksplan.slettPlanDialog.tekst" />
                     </BekreftDialog>
                 )}
             </section>
@@ -219,4 +228,4 @@ class Uttaksplan extends React.Component<Props, State> {
     }
 }
 
-export default Uttaksplan;
+export default injectIntl(Uttaksplan);

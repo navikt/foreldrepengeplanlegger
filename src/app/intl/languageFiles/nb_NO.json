@@ -170,6 +170,32 @@
     "situasjonskjema.fornavn.far.morOgMedmor.label": "Fornavn medmor",
     "situasjonskjema.morEllerFar.label": "Er du mor eller far?",
     "situasjonskjema.morEllerFar.mor.label": "Mor",
-    "situasjonskjema.morEllerFar.far.label": "Far"
+    "situasjonskjema.morEllerFar.far.label": "Far",
+
+    "tilgjengeligeDagerGraf.person.del": "{navn}<br/> sin del",
+    "tilgjengeligeDagerGraf.fellesperiode": "Fellesperiode",
+
+    "fordeling.spørsmål": "Hvordan vil dere dele fellesperioden?",
+    "fordeling.tekst": "Planen kan endres på neste side.",
+    "fordeling.lagPlan": "Lag forslag til plan",
+
+    "uttaksplan.deresPlan": "Deres plan",
+    "uttaksplan.dinPlan": "Din plan",
+    "uttaksplan.slettPlanKnapp": "Slett plan",
+    "uttaksplan.leggTilKnapp": "Legg til eller utsett",
+
+    "uttaksplan.slettPeriodeDialog.tittel": "Bekreft fjern periode",
+    "uttaksplan.slettPeriodeDialog.avbrytKnapp": "Avbryt",
+    "uttaksplan.slettPeriodeDialog.jaSlettKnapp": "Ja, fjern periode",
+    "uttaksplan.slettPeriodeDialog.tekst": "Ønsker du å slette perioden?",
+
+    "uttaksplan.slettPlanDialog.tittel": "Bekreft fjern periode",
+    "uttaksplan.slettPlanDialog.avbrytKnapp": "Avbryt",
+    "uttaksplan.slettPlanDialog.jaSlettKnapp": "Ja, slett planen",
+    "uttaksplan.slettPlanDialog.tekst": "Ønsker du å slette planen? Alle perioder etter termin vil bli fjernet."
+
+
+
+
 
 }

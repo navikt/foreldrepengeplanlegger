@@ -6,8 +6,10 @@ import SkjemaFordelingFellesperiode from '../ukefordeling/SkjemaFordelingFellesp
 import { TilgjengeligeDager } from '../../types';
 import { dagerTilUker } from '../../utils/common';
 import Skjemablokk from '../skjemablokk/Skjemablokk';
+import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
+import getMessage from 'common/utils/i18nUtils';
 
-interface Props {
+interface OwnProps {
     tilgjengeligeDager: TilgjengeligeDager;
     navnMor: string;
     navnFarMedmor: string;
@@ -17,6 +19,8 @@ interface Props {
 interface State {
     ukerMor?: number;
 }
+
+type Props = OwnProps & InjectedIntlProps;
 
 class FordelingForeldrepenger extends React.Component<Props, State> {
     constructor(props: Props) {
@@ -32,14 +36,16 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
     }
 
     render() {
-        const { tilgjengeligeDager, navnMor, navnFarMedmor, onChange } = this.props;
+        const { tilgjengeligeDager, navnMor, navnFarMedmor, onChange, intl } = this.props;
 
         const defaultUker = Math.round(dagerTilUker(tilgjengeligeDager.dagerFelles) / 2);
         const ukerMor = this.state.ukerMor !== undefined ? this.state.ukerMor : defaultUker;
         const ukerFelles = dagerTilUker(tilgjengeligeDager.dagerFelles);
 
         return (
-            <Skjemablokk tittel="Hvordan vil dere dele fellesperioden?" beskrivelse="Planen kan endres på neste side.">
+            <Skjemablokk
+                tittel={getMessage(intl, 'fordeling.spørsmål')}
+                beskrivelse={getMessage(intl, 'fordeling.tekst')}>
                 <Block>
                     <SkjemaFordelingFellesperiode
                         navnFarMedmor={navnFarMedmor}
@@ -50,10 +56,12 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
                     />
                 </Block>
                 <Knapperad>
-                    <Hovedknapp onClick={() => onChange(ukerMor)}>Lag forslag til plan</Hovedknapp>
+                    <Hovedknapp onClick={() => onChange(ukerMor)}>
+                        <FormattedMessage id="fordeling.lagPlan" />
+                    </Hovedknapp>
                 </Knapperad>
             </Skjemablokk>
         );
     }
 }
-export default FordelingForeldrepenger;
+export default injectIntl(FordelingForeldrepenger);

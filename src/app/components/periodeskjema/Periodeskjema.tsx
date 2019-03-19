@@ -97,6 +97,7 @@ class Periodeskjema extends React.Component<Props, {}> {
                 <Formik
                     isInitialValid={false}
                     initialValues={periodeskjemaUtils.getInitialFormValuesFromPeriode(periode, omForeldre)}
+                    validationSchema={getPeriodeValidationSchema(intl)}
                     onSubmit={(values: PeriodeskjemaFormValues) =>
                         onSubmit(periodeskjemaUtils.createPeriodeFromValues(values, nyPeriodeId))
                     }
@@ -116,7 +117,6 @@ class Periodeskjema extends React.Component<Props, {}> {
                             sisteUttaksdag={sisteUttaksdag}
                         />
                     )}
-                    validationSchema={getPeriodeValidationSchema(intl)}
                 />
             </>
         );

@@ -162,38 +162,36 @@ class VarighetSkjema extends React.Component<Props, State> {
                         </Block>
                     )}
                 </Block>
-                <Block visible={tidsperiode.fom !== undefined} margin="none">
-                    <Block margin="s">
-                        <VarighetSluttdato {...this.props} />
-                    </Block>
-
-                    <Block margin="s">
-                        <UkerOgDagerVelger
-                            tittel={getMessage(intl, 'periodeskjema.tid.lengde')}
-                            dager={dager}
-                            uker={uker}
-                            minDager={1}
-                            onChange={(ukerOgDager) =>
-                                onVarighetChange({
-                                    dager: ukerOgDager.dager + ukerOgDager.uker * 5
-                                })
-                            }
-                        />
-                    </Block>
-                    {gjenståendeDager !== undefined &&
-                        gjenståendeDager > 0 &&
-                        (antallUttaksdager === undefined ||
-                            (antallUttaksdagerBrukt !== undefined && antallUttaksdagerBrukt !== gjenståendeDager)) && (
-                            <LinkButton
-                                onClick={() =>
-                                    onVarighetChange({
-                                        dager: getDagerGradert(gjenståendeDager, gradering)
-                                    })
-                                }>
-                                <FormattedMessage id="periodeskjema.tid.brukGjenståendeDager" />
-                            </LinkButton>
-                        )}
+                <Block margin="s">
+                    <VarighetSluttdato {...this.props} />
                 </Block>
+
+                <Block margin="s">
+                    <UkerOgDagerVelger
+                        tittel={getMessage(intl, 'periodeskjema.tid.lengde')}
+                        dager={dager}
+                        uker={uker}
+                        minDager={1}
+                        onChange={(ukerOgDager) =>
+                            onVarighetChange({
+                                dager: ukerOgDager.dager + ukerOgDager.uker * 5
+                            })
+                        }
+                    />
+                </Block>
+                {gjenståendeDager !== undefined &&
+                    gjenståendeDager > 0 &&
+                    (antallUttaksdager === undefined ||
+                        (antallUttaksdagerBrukt !== undefined && antallUttaksdagerBrukt !== gjenståendeDager)) && (
+                        <LinkButton
+                            onClick={() =>
+                                onVarighetChange({
+                                    dager: getDagerGradert(gjenståendeDager, gradering)
+                                })
+                            }>
+                            <FormattedMessage id="periodeskjema.tid.brukGjenståendeDager" />
+                        </LinkButton>
+                    )}
             </div>
         );
     }

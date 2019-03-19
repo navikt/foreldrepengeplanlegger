@@ -46,6 +46,16 @@ type Props = OwnProps & InjectedIntlProps;
 
 const bem = BEMHelper('periodeElement');
 
+const periodeErGyldig = (values: PeriodeskjemaFormValues): boolean => {
+    return (
+        values.forelder !== undefined &&
+        values.fom !== undefined &&
+        values.periodetype !== undefined &&
+        values.tom !== undefined &&
+        (values.periodetype === Periodetype.GradertUttak ? values.gradering !== undefined : true)
+    );
+};
+
 class PeriodeskjemaForm extends React.Component<Props, {}> {
     constructor(props: Props) {
         super(props);
@@ -223,7 +233,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                         <EndringerVedNyPeriode nyPeriode={nyPeriode} perioder={perioder} omForeldre={omForeldre} />
                     </Block>
                     <Knapperad>
-                        <Hovedknapp htmlType="submit" disabled={formik.isValid === false}>
+                        <Hovedknapp htmlType="submit" disabled={periodeErGyldig(formik.values) === false}>
                             <FormattedMessage id="periodeskjema.knapp.leggTil" />
                         </Hovedknapp>
                         <Knapp htmlType="button" onClick={() => onCancel()}>

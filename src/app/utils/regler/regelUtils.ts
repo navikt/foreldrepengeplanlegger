@@ -63,13 +63,6 @@ export const getRegelAvvikForPeriode = (
     periodeId: string
 ): RegelAvvik[] | undefined => {
     return resultat && resultat.avvikPerPeriode[periodeId];
-    //     return flatten(
-    //         resultat.avvikPerPeriode[periodeId]
-    //             .filter((r) => r.passerer === false && r.regelAvvik !== undefined && r.regelAvvik.length > 0)
-    //             .map((r) => r.regelAvvik!)
-    //     );
-    // }
-    // return undefined;
 };
 
 export const getRegelAvvik = (resultat: RegelStatus[]): RegelAvvik[] => {

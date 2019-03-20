@@ -1,24 +1,24 @@
 import * as React from 'react';
-import { Regelbrudd, RegelAlvorlighet } from '../../utils/regler/types';
+import { RegelAvvik, RegelAlvorlighet } from '../../utils/regler/types';
 import BEMHelper from 'common/utils/bem';
-import RegelbruddFeilmelding from './RegelbruddFeilmelding';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Veileder, { VeilederAnsiktstype } from 'common/components/veileder/Veileder';
 import { AlertStripeAdvarsel, AlertStripeInfo, AlertStripeFeil } from 'nav-frontend-alertstriper';
-import { trimRelaterteRegelbrudd } from '../../utils/regler/regelUtils';
+import { trimRelaterteRegelAvvik } from '../../utils/regler/regelUtils';
 import AriaText from 'common/components/aria/AriaText';
 import { FormattedMessage } from 'react-intl';
+import RegelAvvikFeilmelding from './RegelAvvikFeilmelding';
 
 interface Props {
-    regelbrudd: Regelbrudd[];
+    avvik: RegelAvvik[];
 }
 
-const bem = BEMHelper('regelbrudd');
+const bem = BEMHelper('regelAvvik');
 
-const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
-    const ulovlig = trimRelaterteRegelbrudd(regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.ULOVLIG));
-    const viktig = trimRelaterteRegelbrudd(regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.VIKTIG));
-    const info = trimRelaterteRegelbrudd(regelbrudd.filter((b) => b.alvorlighet === RegelAlvorlighet.INFO));
+const RegelAvvik: React.StatelessComponent<Props> = ({ avvik }) => {
+    const ulovlig = trimRelaterteRegelAvvik(avvik.filter((b) => b.alvorlighet === RegelAlvorlighet.FEIL));
+    const viktig = trimRelaterteRegelAvvik(avvik.filter((b) => b.alvorlighet === RegelAlvorlighet.ADVARSEL));
+    const info = trimRelaterteRegelAvvik(avvik.filter((b) => b.alvorlighet === RegelAlvorlighet.INFO));
     const harFeil = ulovlig.length > 0;
 
     let ansikt: VeilederAnsiktstype;
@@ -33,7 +33,7 @@ const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
     return (
         <div>
             <AriaText tag="h2">
-                <FormattedMessage id="regelbrudd.ariaTittel" />
+                <FormattedMessage id="regelAvvik.ariaTittel" />
             </AriaText>
             <Veilederpanel
                 kompakt={true}
@@ -43,27 +43,27 @@ const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
                 <div className={bem.block}>
                     {ulovlig.length > 0 && (
                         <>
-                            {ulovlig.map((brudd) => (
-                                <AlertStripeFeil key={brudd.key} className={'alertstripe--noBorder'}>
-                                    <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
+                            {ulovlig.map((ulovligAvvik) => (
+                                <AlertStripeFeil key={ulovligAvvik.key} className={'alertstripe--noBorder'}>
+                                    <RegelAvvikFeilmelding info={ulovligAvvik.info} />
                                 </AlertStripeFeil>
                             ))}
                         </>
                     )}
                     {viktig.length > 0 && (
                         <>
-                            {viktig.map((brudd) => (
-                                <AlertStripeAdvarsel key={brudd.key} className={'alertstripe--noBorder'}>
-                                    <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
+                            {viktig.map((advarselAvvik) => (
+                                <AlertStripeAdvarsel key={advarselAvvik.key} className={'alertstripe--noBorder'}>
+                                    <RegelAvvikFeilmelding info={advarselAvvik.info} />
                                 </AlertStripeAdvarsel>
                             ))}
                         </>
                     )}
                     {info.length > 0 && (
                         <>
-                            {info.map((brudd) => (
-                                <AlertStripeInfo key={brudd.key} className={'alertstripe--noBorder'}>
-                                    <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
+                            {info.map((infoAvvik) => (
+                                <AlertStripeInfo key={infoAvvik.key} className={'alertstripe--noBorder'}>
+                                    <RegelAvvikFeilmelding info={infoAvvik.info} />
                                 </AlertStripeInfo>
                             ))}
                         </>
@@ -74,4 +74,4 @@ const Regelbrudd: React.StatelessComponent<Props> = ({ regelbrudd }) => {
     );
 };
 
-export default Regelbrudd;
+export default RegelAvvik;

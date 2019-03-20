@@ -8,23 +8,22 @@ import {
     TilgjengeligeDager,
     Forelder
 } from '../../types';
-import { RegelKey } from './regelKeys';
 import { InjectedIntl } from 'react-intl';
+import { RegelKey } from '.';
 
 type FeilIntlMessage = (intl: InjectedIntl) => string;
 
 export enum RegelAlvorlighet {
-    'ULOVLIG' = 'ulovlig',
-    'VIKTIG' = 'viktig',
+    'FEIL' = 'feil',
+    'ADVARSEL' = 'advarsel',
     'INFO' = 'info'
 }
 
 export interface UttaksplanRegelTestresultat {
-    resultat: RegelTestresultat[];
-    resultatPerPeriode: Dictionary<RegelTestresultat[]>;
-    regelbrudd: Regelbrudd[];
+    resultat: RegelStatus[];
+    resultatPerPeriode: Dictionary<RegelStatus[]>;
+    avvik: RegelAvvik[];
 }
-
 export interface Regelgrunnlag {
     perioder: Periode[];
     periodeFørTermin: UttakFørTerminPeriode | undefined;
@@ -43,29 +42,38 @@ export interface Regelgrunnlag {
 export interface Regel {
     key: RegelKey;
     test: RegelTest;
-    erRelevant?: (grunnlag: Regelgrunnlag) => boolean;
-    overstyresAvRegel?: RegelKey;
-    overstyrerRegler?: RegelKey[];
-}
-
-export type RegelTest = (regel: Regel, grunnlag: Regelgrunnlag) => RegelTestresultat;
-
-export interface RegelTestresultat {
-    key: RegelKey;
-    passerer: boolean;
-    regelbrudd?: Regelbrudd;
-}
-
-export interface Regelbrudd {
-    periodeId?: string;
-    key: RegelKey;
-    feilmelding: RegelbruddIntlFeilmelding;
     alvorlighet: RegelAlvorlighet;
     overstyresAvRegel?: RegelKey;
     overstyrerRegler?: RegelKey[];
 }
 
-export interface RegelbruddIntlFeilmelding {
-    intlKey: string;
+export type RegelTest = (grunnlag: Regelgrunnlag) => RegelTestresultat;
+
+export type RegelAvvikInfo = RegelAvvikIntlInfo | RegelAvvikIntlInfo[];
+
+export interface RegelTestresultat {
+    passerer: boolean;
+    info?: RegelAvvikInfo;
+    periodeId?: string;
+}
+
+export interface RegelStatus {
+    key: RegelKey;
+    passerer: boolean;
+    regelAvvik?: RegelAvvik;
+}
+
+export interface RegelAvvik {
+    key: RegelKey;
+    periodeId?: string;
+    info: RegelAvvikInfo;
+    alvorlighet: RegelAlvorlighet;
+    overstyresAvRegel?: RegelKey;
+    overstyrerRegler?: RegelKey[];
+}
+
+export interface RegelAvvikIntlInfo {
+    intlKey?: string;
     values?: { [key: string]: string | number | Date | FeilIntlMessage | undefined };
+    periodeId?: string;
 }

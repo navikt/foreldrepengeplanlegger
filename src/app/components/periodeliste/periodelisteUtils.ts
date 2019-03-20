@@ -1,6 +1,6 @@
 import { Periode } from '../../types';
 import { Perioden } from '../../utils/Perioden';
-import { UttaksplanRegelTestresultat, Regelbrudd, RegelAlvorlighet } from '../../utils/regler/types';
+import { UttaksplanRegelTestresultat, RegelAvvik, RegelAlvorlighet } from '../../utils/regler/types';
 import { AlertStripeType } from 'nav-frontend-alertstriper';
 
 const periodelisteUtils = {
@@ -22,16 +22,14 @@ export const getRegelTestresultatForPeriode = (periodeId: string, testresultater
     return testresultater.resultatPerPeriode[periodeId];
 };
 
-export const getAlertstripeTypeFromRegelbrudd = (
-    brudd: Regelbrudd
-): AlertStripeType => {
-    switch (brudd.alvorlighet) {
-        case RegelAlvorlighet.ULOVLIG:
-            return "feil";
-        case RegelAlvorlighet.VIKTIG:
-            return "advarsel";
+export const getAlertstripeTypeFromRegelAvvik = (avvik: RegelAvvik): AlertStripeType => {
+    switch (avvik.alvorlighet) {
+        case RegelAlvorlighet.FEIL:
+            return 'feil';
+        case RegelAlvorlighet.ADVARSEL:
+            return 'advarsel';
         default:
-            return "info";
+            return 'info';
     }
 };
 

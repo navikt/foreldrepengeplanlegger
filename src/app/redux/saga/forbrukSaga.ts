@@ -13,8 +13,8 @@ import { selectForbruk, selectTilgjengeligeDager } from '../selectors';
 import { getOmForeldre, getAntallForeldreISituasjon } from '../../utils/common';
 import { ApiActionKeys } from '../actions/api/apiActionDefinitions';
 import { getUttaksdatoer } from '../../utils/uttaksdatoer';
-import { Regelgrunnlag, RegelTestresultat } from '../../utils/regler/types';
-import { sjekkUttaksplanOppMotRegler, getRegelbrudd } from '../../utils/regler/regelUtils';
+import { Regelgrunnlag, RegelStatus } from '../../utils/regler/types';
+import { sjekkUttaksplanOppMotRegler, getRegelAvvik } from '../../utils/regler/regelUtils';
 
 const stateSelector = (state: AppState) => state;
 
@@ -67,11 +67,11 @@ function* validerUttaksplanSaga() {
         };
         const resultat = sjekkUttaksplanOppMotRegler(regelgrunnlag);
         const feil = resultat.filter(
-            (r) => r.passerer === false && r.regelbrudd && r.regelbrudd.periodeId !== undefined
+            (r) => r.passerer === false && r.regelAvvik && r.regelAvvik.periodeId !== undefined
         );
-        const resultatPerPeriode = groupBy(feil, (r: RegelTestresultat) => r.regelbrudd!.periodeId);
-        const regelbrudd = getRegelbrudd(resultat);
-        yield put(setUttaksplanValidering({ resultat, resultatPerPeriode, regelbrudd }));
+        const resultatPerPeriode = groupBy(feil, (r: RegelStatus) => r.regelAvvik!.periodeId);
+        const avvik = getRegelAvvik(resultat);
+        yield put(setUttaksplanValidering({ resultat, resultatPerPeriode, avvik }));
     }
 }
 

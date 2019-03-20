@@ -25,7 +25,7 @@ import { getUttaksdatoer } from '../utils/uttaksdatoer';
 import { UttaksplanRegelTestresultat } from '../utils/regler/types';
 import Oppsummering from '../components/oppsummering/Oppsummering';
 import { Side } from '../routes';
-import Regelbrudd from '../components/regelbrudd/Regelbrudd';
+import RegelAvvik from '../components/regelAvvik/RegelAvvik';
 
 interface StateProps {
     periodeFørTermin?: Periode;
@@ -125,8 +125,8 @@ class UttaksplanSide extends React.Component<Props> {
                             uttaksdatoer={uttaksdatoer}
                             regelTestresultat={regelTestresultat}
                         />
-                        <Block visible={regelTestresultat.regelbrudd.length > 0} marginTop="l">
-                            <Regelbrudd regelbrudd={regelTestresultat.regelbrudd} />
+                        <Block visible={regelTestresultat.avvik.length > 0} marginTop="l">
+                            <RegelAvvik avvik={regelTestresultat.avvik} />
                         </Block>
                     </>
                 )}

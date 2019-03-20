@@ -73,7 +73,7 @@ export const getDefaultCommonState = (storage?: CommonState): CommonState => {
         regelTestresultat: {
             resultat: [],
             resultatPerPeriode: {},
-            regelbrudd: []
+            avvik: []
         }
     };
 };
@@ -103,7 +103,7 @@ const lagForslagTilPlan = (state: CommonState): CommonState => {
             state.skjemadata.situasjon,
             state.familiehendelsesdato,
             state.dekningsgrad === '100' ? state.stønadskontoer100.kontoer : state.stønadskontoer80.kontoer,
-            state.ønsketFordeling.ukerMor ? state.ønsketFordeling.ukerMor * 5 : undefined
+            state.ønsketFordeling.ukerMor !== undefined ? state.ønsketFordeling.ukerMor * 5 : undefined
         );
         return updateStateAndStorage(state, {
             periodeFørTermin: getPeriodeFørTermin(

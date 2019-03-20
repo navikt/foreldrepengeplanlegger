@@ -44,7 +44,7 @@ const RegelAvvik: React.StatelessComponent<Props> = ({ avvik }) => {
                     {ulovlig.length > 0 && (
                         <>
                             {ulovlig.map((ulovligAvvik) => (
-                                <AlertStripeFeil key={ulovligAvvik.key} className={'alertstripe--noBorder'}>
+                                <AlertStripeFeil key={ulovligAvvik.id} className={'alertstripe--noBorder'}>
                                     <RegelAvvikFeilmelding info={ulovligAvvik.info} />
                                 </AlertStripeFeil>
                             ))}
@@ -53,7 +53,7 @@ const RegelAvvik: React.StatelessComponent<Props> = ({ avvik }) => {
                     {viktig.length > 0 && (
                         <>
                             {viktig.map((advarselAvvik) => (
-                                <AlertStripeAdvarsel key={advarselAvvik.key} className={'alertstripe--noBorder'}>
+                                <AlertStripeAdvarsel key={advarselAvvik.id} className={'alertstripe--noBorder'}>
                                     <RegelAvvikFeilmelding info={advarselAvvik.info} />
                                 </AlertStripeAdvarsel>
                             ))}
@@ -62,7 +62,7 @@ const RegelAvvik: React.StatelessComponent<Props> = ({ avvik }) => {
                     {info.length > 0 && (
                         <>
                             {info.map((infoAvvik) => (
-                                <AlertStripeInfo key={infoAvvik.key} className={'alertstripe--noBorder'}>
+                                <AlertStripeInfo key={infoAvvik.id} className={'alertstripe--noBorder'}>
                                     <RegelAvvikFeilmelding info={infoAvvik.info} />
                                 </AlertStripeInfo>
                             ))}

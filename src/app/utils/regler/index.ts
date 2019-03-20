@@ -6,7 +6,7 @@ import { erPlanenInnenforSisteMuligeUttaksdagTest } from './tester/erPlanenInnen
 import { erFarMedmorsUttakErInnenforMaksAntallDagerTest } from './tester/erFarMedmorsUttakErInnenforMaksAntallDagerTest';
 import { erMorsUttakErInnenforMaksAntallDagerTest } from './tester/erMorsUttakErInnenforMaksAntallDagerTest';
 import { erAlleUttakErInnenforMaksAntallDagerTest } from './tester/erAlleUttakErInnenforMaksAntallDagerTest';
-import { harMorForMangeFeriedager, harFarMedmorForMangeFeriedager } from './tester/harForelderForMangeFeriedagerTest';
+// import { harMorForMangeFeriedager, harFarMedmorForMangeFeriedager } from './tester/harForelderForMangeFeriedagerTest';
 import {
     harFarMedmorUtsettelseFørsteSeksUkerTest,
     harMorUtsettelseFørsteSeksUkerTest
@@ -16,6 +16,7 @@ import { bareFarHarRettEttBarnAktivitetskravMorTest } from './info/bareFarHarRet
 import { bareFarHarRettFlerbarnsukerAktivitetskravMorTest } from './info/bareFarHarRettFlerbarnsukerAktivitetskravMorInfo';
 import { brukerFarMedmorAvFellesperiodeTest } from './info/brukerFarMedmorAvFellesperiodeTest';
 import { utsetterFarMedmorPgaArbeidTest } from './info/utsetterFarMedmorPgaArbeidTest';
+import { harForeldreForMangeFeriedagerTest } from './tester/harForelderForMangeFeriedagerTest';
 
 export enum RegelKey {
     'alleUttakErInnenforMaksAntallDager' = 'alleUttakErInnenforMaksAntallDager',
@@ -30,7 +31,7 @@ export enum RegelKey {
     'farMedmorUtsetterPgaArbeidInfo' = 'farMedmorUtsetterPgaArbeidInfo',
     'morUtsetterFørsteSeksUker' = 'morUsetterFørsteSeksUker',
     'farMedmorUtsetterFørsteSeksUker' = 'farMedmorUtsetterFørsteSeksUker',
-    'morHarForMangeFeriedager' = 'morHarForMangeFeriedager',
+    'harForeldreForMangeFeriedager' = 'morHarForMangeFeriedager',
     'farMedmorHarForMangeFeriedager' = 'farMedmorHarForMangeFeriedager',
     'bareFarHarRettEttBarnAktivitetskravMorInfo' = 'bareFarHarRettEttBarnAktivitetskravMorInfo',
     'bareFarHarRettFlerbarnsukerAktivitetskravMorInfo' = 'bareFarHarRettFlerbarnsukerAktivitetskravMorInfo'
@@ -70,14 +71,9 @@ const uttaksplanRegler: Regel[] = [
         test: erAlleUttakErInnenforMaksAntallDagerTest
     },
     {
-        key: RegelKey.morHarForMangeFeriedager,
+        key: RegelKey.harForeldreForMangeFeriedager,
         alvorlighet: RegelAlvorlighet.FEIL,
-        test: harMorForMangeFeriedager
-    },
-    {
-        key: RegelKey.farMedmorHarForMangeFeriedager,
-        alvorlighet: RegelAlvorlighet.FEIL,
-        test: harFarMedmorForMangeFeriedager
+        test: harForeldreForMangeFeriedagerTest
     },
     {
         key: RegelKey.morUtsetterFørsteSeksUker,

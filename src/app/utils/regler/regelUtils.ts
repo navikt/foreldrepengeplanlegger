@@ -4,10 +4,14 @@ import {
     RegelAvvik,
     Regel,
     RegelTestresultatInfo,
-    RegelStatus
+    RegelStatus,
+    RegelTestresultatInfoObject
 } from './types';
 import uttaksplanRegler from '.';
 import { InjectedIntl } from 'react-intl';
+import { isArray } from 'util';
+import { flatten } from 'lodash';
+import { guid } from 'nav-frontend-js-utils';
 
 export const sjekkUttaksplanOppMotRegler = (regelgrunnlag: Regelgrunnlag): RegelStatus[] => {
     return uttaksplanRegler.map((regel) => {
@@ -18,23 +22,34 @@ export const sjekkUttaksplanOppMotRegler = (regelgrunnlag: Regelgrunnlag): Regel
 
 const getRegelIntlKey = (regel: Regel): string => `regel.${regel.alvorlighet}.${regel.key}`;
 
-const ensureRegelTestresultatIntlKey = (regel: Regel, info?: RegelTestresultatInfo): RegelTestresultatInfo => ({
+const ensureRegelTestresultatIntlKey = (
+    regel: Regel,
+    info?: Partial<RegelTestresultatInfo>
+): RegelTestresultatInfo => ({
     ...info,
     intlKey: info ? info.intlKey || getRegelIntlKey(regel) : getRegelIntlKey(regel)
 });
 
-export const regelHarAvvik = (regel: Regel, info?: RegelTestresultatInfo, periodeId?: string): RegelStatus => {
+export const regelHarAvvik = (regel: Regel, info?: RegelTestresultatInfoObject, periodeId?: string): RegelStatus => {
+    const mapInfoToRegelAvvik = (i?: Partial<RegelTestresultatInfo>): RegelAvvik => ({
+        id: guid(),
+        key: regel.key,
+        alvorlighet: regel.alvorlighet,
+        info: ensureRegelTestresultatIntlKey(regel, i),
+        overstyrerRegler: regel.overstyrerRegler,
+        overstyresAvRegel: regel.overstyresAvRegel,
+        periodeId
+    });
+    const regelAvvik: RegelAvvik[] = [];
+    if (isArray(info)) {
+        info.forEach((i) => regelAvvik.push(mapInfoToRegelAvvik(i)));
+    } else {
+        regelAvvik.push(mapInfoToRegelAvvik(info));
+    }
     return {
         key: regel.key,
         passerer: false,
-        regelAvvik: {
-            key: regel.key,
-            alvorlighet: regel.alvorlighet,
-            info: ensureRegelTestresultatIntlKey(regel, info),
-            overstyrerRegler: regel.overstyrerRegler,
-            overstyresAvRegel: regel.overstyresAvRegel,
-            periodeId
-        }
+        regelAvvik
     };
 };
 
@@ -47,17 +62,21 @@ export const getRegelAvvikForPeriode = (
     resultat: UttaksplanRegelTestresultat,
     periodeId: string
 ): RegelAvvik[] | undefined => {
-    if (resultat && resultat.resultatPerPeriode[periodeId]) {
-        return resultat.resultatPerPeriode[periodeId]
-            .filter((r) => r.passerer === false && r.regelAvvik !== undefined)
-            .map((r) => r.regelAvvik!);
-    }
-    return undefined;
+    return resultat && resultat.avvikPerPeriode[periodeId];
+    //     return flatten(
+    //         resultat.avvikPerPeriode[periodeId]
+    //             .filter((r) => r.passerer === false && r.regelAvvik !== undefined && r.regelAvvik.length > 0)
+    //             .map((r) => r.regelAvvik!)
+    //     );
+    // }
+    // return undefined;
 };
 
 export const getRegelAvvik = (resultat: RegelStatus[]): RegelAvvik[] => {
     if (resultat) {
-        return resultat.filter((r) => r.passerer === false && r.regelAvvik !== undefined).map((r) => r.regelAvvik!);
+        return flatten(
+            resultat.filter((r) => r.passerer === false && r.regelAvvik !== undefined).map((r) => r.regelAvvik!)
+        );
     }
     return [];
 };

@@ -19,7 +19,7 @@ const periodelisteUtils = {
 };
 
 export const getRegelTestresultatForPeriode = (periodeId: string, testresultater: UttaksplanRegelTestresultat) => {
-    return testresultater.resultatPerPeriode[periodeId];
+    return testresultater.avvikPerPeriode[periodeId];
 };
 
 export const getAlertstripeTypeFromRegelAvvik = (avvik: RegelAvvik): AlertStripeType => {

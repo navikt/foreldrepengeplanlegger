@@ -1,6 +1,6 @@
 import { all, put, select, takeLatest } from 'redux-saga/effects';
 import { AppState } from '../reducers/rootReducer';
-import groupBy from 'lodash.groupby';
+import { groupBy } from 'lodash';
 import {
     updateForbruk,
     updateTilgjengeligeDager,
@@ -13,7 +13,7 @@ import { selectForbruk, selectTilgjengeligeDager } from '../selectors';
 import { getOmForeldre, getAntallForeldreISituasjon } from '../../utils/common';
 import { ApiActionKeys } from '../actions/api/apiActionDefinitions';
 import { getUttaksdatoer } from '../../utils/uttaksdatoer';
-import { Regelgrunnlag, RegelStatus } from '../../utils/regler/types';
+import { Regelgrunnlag } from '../../utils/regler/types';
 import { sjekkUttaksplanOppMotRegler, getRegelAvvik } from '../../utils/regler/regelUtils';
 
 const stateSelector = (state: AppState) => state;
@@ -66,12 +66,9 @@ function* validerUttaksplanSaga() {
             antallBarn: skjemadata.antallBarn
         };
         const resultat = sjekkUttaksplanOppMotRegler(regelgrunnlag);
-        const feil = resultat.filter(
-            (r) => r.passerer === false && r.regelAvvik && r.regelAvvik.periodeId !== undefined
-        );
-        const resultatPerPeriode = groupBy(feil, (r: RegelStatus) => r.regelAvvik!.periodeId);
         const avvik = getRegelAvvik(resultat);
-        yield put(setUttaksplanValidering({ resultat, resultatPerPeriode, avvik }));
+        const avvikPerPeriode = groupBy(avvik.filter((a) => a.periodeId !== undefined), (r) => r.periodeId);
+        yield put(setUttaksplanValidering({ resultat, avvikPerPeriode, avvik }));
     }
 }
 

@@ -6,8 +6,11 @@ import { erPlanenInnenforSisteMuligeUttaksdagTest } from './tester/erPlanenInnen
 import { erFarMedmorsUttakErInnenforMaksAntallDagerTest } from './tester/erFarMedmorsUttakErInnenforMaksAntallDagerTest';
 import { erMorsUttakErInnenforMaksAntallDagerTest } from './tester/erMorsUttakErInnenforMaksAntallDagerTest';
 import { erAlleUttakErInnenforMaksAntallDagerTest } from './tester/erAlleUttakErInnenforMaksAntallDagerTest';
-import { harForelderForMangeFeriedager } from './tester/harForelderForMangeFeriedagerTest';
-import { inneholderUtsettelseFørsteSeksUkerTest } from './tester/inneholderUtsettelseF\u00F8rsteSeksUkerTest';
+import { harMorForMangeFeriedager, harFarMedmorForMangeFeriedager } from './tester/harForelderForMangeFeriedagerTest';
+import {
+    harFarMedmorUtsettelseFørsteSeksUkerTest,
+    harMorUtsettelseFørsteSeksUkerTest
+} from './tester/inneholderUtsettelseF\u00F8rsteSeksUkerTest';
 import { harMorUtsettelsePgaArbeidTest } from './info/harMorUtsettelsePgaArbeidTest';
 import { bareFarHarRettEttBarnAktivitetskravMorTest } from './info/bareFarHarRettEttBarnAktivitetskravMorInfo';
 import { bareFarHarRettFlerbarnsukerAktivitetskravMorTest } from './info/bareFarHarRettFlerbarnsukerAktivitetskravMorInfo';
@@ -25,8 +28,10 @@ export enum RegelKey {
     'farMedmorsUttakErInnenforMaksAntallDager' = 'farMedmorsUttakErInnenforMaksAntallDager',
     'farMedmorBrukerFellesperiodeInfo' = 'farMedmorBrukerFellesperiodeInfo',
     'farMedmorUtsetterPgaArbeidInfo' = 'farMedmorUtsetterPgaArbeidInfo',
-    'usetterFørsteSeksUker' = 'usetterFørsteSeksUker',
-    'forMangeFeriedager' = 'forMangeFeriedager',
+    'morUtsetterFørsteSeksUker' = 'morUsetterFørsteSeksUker',
+    'farMedmorUtsetterFørsteSeksUker' = 'farMedmorUtsetterFørsteSeksUker',
+    'morHarForMangeFeriedager' = 'morHarForMangeFeriedager',
+    'farMedmorHarForMangeFeriedager' = 'farMedmorHarForMangeFeriedager',
     'bareFarHarRettEttBarnAktivitetskravMorInfo' = 'bareFarHarRettEttBarnAktivitetskravMorInfo',
     'bareFarHarRettFlerbarnsukerAktivitetskravMorInfo' = 'bareFarHarRettFlerbarnsukerAktivitetskravMorInfo'
 }
@@ -65,14 +70,24 @@ const uttaksplanRegler: Regel[] = [
         test: erAlleUttakErInnenforMaksAntallDagerTest
     },
     {
-        key: RegelKey.forMangeFeriedager,
+        key: RegelKey.morHarForMangeFeriedager,
         alvorlighet: RegelAlvorlighet.FEIL,
-        test: harForelderForMangeFeriedager
+        test: harMorForMangeFeriedager
     },
     {
-        key: RegelKey.usetterFørsteSeksUker,
+        key: RegelKey.farMedmorHarForMangeFeriedager,
         alvorlighet: RegelAlvorlighet.FEIL,
-        test: inneholderUtsettelseFørsteSeksUkerTest
+        test: harFarMedmorForMangeFeriedager
+    },
+    {
+        key: RegelKey.morUtsetterFørsteSeksUker,
+        alvorlighet: RegelAlvorlighet.FEIL,
+        test: harMorUtsettelseFørsteSeksUkerTest
+    },
+    {
+        key: RegelKey.farMedmorUtsetterFørsteSeksUker,
+        alvorlighet: RegelAlvorlighet.FEIL,
+        test: harFarMedmorUtsettelseFørsteSeksUkerTest
     },
     {
         key: RegelKey.uttakForFarEllerMedmorFørsteSeksUkerInfo,

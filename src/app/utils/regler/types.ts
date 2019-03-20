@@ -49,11 +49,9 @@ export interface Regel {
 
 export type RegelTest = (grunnlag: Regelgrunnlag) => RegelTestresultat;
 
-export type RegelAvvikInfo = RegelAvvikIntlInfo | RegelAvvikIntlInfo[];
-
 export interface RegelTestresultat {
     passerer: boolean;
-    info?: RegelAvvikInfo;
+    info?: RegelTestresultatInfo;
     periodeId?: string;
 }
 
@@ -66,13 +64,13 @@ export interface RegelStatus {
 export interface RegelAvvik {
     key: RegelKey;
     periodeId?: string;
-    info: RegelAvvikInfo;
+    info: RegelTestresultatInfo;
     alvorlighet: RegelAlvorlighet;
     overstyresAvRegel?: RegelKey;
     overstyrerRegler?: RegelKey[];
 }
 
-export interface RegelAvvikIntlInfo {
+export interface RegelTestresultatInfo {
     intlKey?: string;
     values?: { [key: string]: string | number | Date | FeilIntlMessage | undefined };
     periodeId?: string;

@@ -1,4 +1,4 @@
-import { RegelTestresultat, Regelgrunnlag, RegelAvvikIntlInfo } from '../types';
+import { RegelTestresultat, Regelgrunnlag } from '../types';
 import { Forelder, Periodetype, Periode } from '../../../types';
 
 const maksFeriedagerMedOverføring = 52;
@@ -10,31 +10,26 @@ const getAntallFeriedagerForForelder = (perioder: Periode[], forelder: Forelder)
         .reduce((d, nyeDager) => nyeDager + d, 0);
 };
 
-export const harForelderForMangeFeriedager = (grunnlag: Regelgrunnlag): RegelTestresultat => {
+const harForelderForMangeFeriedager = (grunnlag: Regelgrunnlag, forelder: Forelder): RegelTestresultat => {
     const { perioder } = grunnlag;
 
-    const antallFeriedagerMor = getAntallFeriedagerForForelder(perioder, Forelder.mor);
-    const antallFeriedagerFarMedmor = getAntallFeriedagerForForelder(perioder, Forelder.farMedmor);
-    const info: RegelAvvikIntlInfo[] = [];
+    const antallFeriedager = getAntallFeriedagerForForelder(perioder, forelder);
 
-    if (antallFeriedagerMor > maksFeriedagerMedOverføring) {
-        info.push({
-            values: {
-                navn: grunnlag.navnMor,
-                antallFeriedager: antallFeriedagerMor
-            }
-        });
-    }
-    if (antallFeriedagerFarMedmor > maksFeriedagerMedOverføring) {
-        info.push({
-            values: {
-                navn: grunnlag.navnFarMedmor,
-                antallFeriedager: antallFeriedagerFarMedmor
-            }
-        });
-    }
+    const passerer = antallFeriedager === maksFeriedagerMedOverføring;
     return {
-        passerer: info.length === 0,
-        info: info.length > 0 ? info : undefined
+        passerer,
+        info: passerer
+            ? undefined
+            : {
+                  values: {
+                      navn: forelder === Forelder.mor ? grunnlag.navnMor : grunnlag.navnFarMedmor,
+                      antallFeriedager
+                  }
+              }
     };
 };
+
+export const harMorForMangeFeriedager = (grunnlag: Regelgrunnlag): RegelTestresultat =>
+    harForelderForMangeFeriedager(grunnlag, Forelder.mor);
+export const harFarMedmorForMangeFeriedager = (grunnlag: Regelgrunnlag): RegelTestresultat =>
+    harForelderForMangeFeriedager(grunnlag, Forelder.farMedmor);

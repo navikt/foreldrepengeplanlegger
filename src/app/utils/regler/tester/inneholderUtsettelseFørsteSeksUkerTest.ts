@@ -1,4 +1,4 @@
-import { RegelTestresultat, Regelgrunnlag, RegelAvvikIntlInfo } from '../types';
+import { RegelTestresultat, Regelgrunnlag } from '../types';
 import { Forelder, Periodetype, Periode } from '../../../types';
 import moment from 'moment';
 
@@ -18,7 +18,7 @@ const getUtsettelserForForelderInnenforFørsteSeksUker = (
     );
 };
 
-export const inneholderUtsettelseFørsteSeksUkerTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
+const inneholderUtsettelseFørsteSeksUkerTest = (grunnlag: Regelgrunnlag, forelder: Forelder): RegelTestresultat => {
     const {
         perioder,
         uttaksdatoer: {
@@ -26,32 +26,25 @@ export const inneholderUtsettelseFørsteSeksUkerTest = (grunnlag: Regelgrunnlag)
         }
     } = grunnlag;
 
-    const utsettelserMor = getUtsettelserForForelderInnenforFørsteSeksUker(
+    const utsettelser = getUtsettelserForForelderInnenforFørsteSeksUker(
         perioder,
-        Forelder.mor,
+        forelder,
         sisteUttaksdagInnenforSeksUker
     );
 
-    const utsettelserFarMedmor = getUtsettelserForForelderInnenforFørsteSeksUker(
-        perioder,
-        Forelder.farMedmor,
-        sisteUttaksdagInnenforSeksUker
-    );
-
-    const info: RegelAvvikIntlInfo[] = [];
-    if (utsettelserMor.length > 0) {
-        info.push({
-            values: { navn: grunnlag.navnMor }
-        });
-    }
-    if (utsettelserFarMedmor.length > 0) {
-        info.push({
-            values: { navn: grunnlag.navnFarMedmor }
-        });
-    }
-
+    const passerer = utsettelser.length === 0;
     return {
-        passerer: info.length === 0,
-        info
+        passerer,
+        info: passerer
+            ? undefined
+            : {
+                  values: { navn: forelder === Forelder.mor ? grunnlag.navnMor : grunnlag.navnFarMedmor }
+              }
     };
 };
+
+export const harMorUtsettelseFørsteSeksUkerTest = (grunnlag: Regelgrunnlag): RegelTestresultat =>
+    inneholderUtsettelseFørsteSeksUkerTest(grunnlag, Forelder.mor);
+
+export const harFarMedmorUtsettelseFørsteSeksUkerTest = (grunnlag: Regelgrunnlag): RegelTestresultat =>
+    inneholderUtsettelseFørsteSeksUkerTest(grunnlag, Forelder.farMedmor);

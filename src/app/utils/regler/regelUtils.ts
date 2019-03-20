@@ -3,13 +3,11 @@ import {
     UttaksplanRegelTestresultat,
     RegelAvvik,
     Regel,
-    RegelAvvikIntlInfo,
-    RegelStatus,
-    RegelAvvikInfo
+    RegelTestresultatInfo,
+    RegelStatus
 } from './types';
 import uttaksplanRegler from '.';
 import { InjectedIntl } from 'react-intl';
-import { isArray } from 'util';
 
 export const sjekkUttaksplanOppMotRegler = (regelgrunnlag: Regelgrunnlag): RegelStatus[] => {
     return uttaksplanRegler.map((regel) => {
@@ -20,30 +18,19 @@ export const sjekkUttaksplanOppMotRegler = (regelgrunnlag: Regelgrunnlag): Regel
 
 const getRegelIntlKey = (regel: Regel): string => `regel.${regel.alvorlighet}.${regel.key}`;
 
-const getRegelAvvikIntlInfoFromRegelTestRe = (regel: Regel, avvikInfo: RegelAvvikInfo | undefined): RegelAvvikInfo => {
-    if (avvikInfo === undefined) {
-        return {
-            intlKey: getRegelIntlKey(regel)
-        };
-    }
-    const ensureInfoIntlKey = (info: RegelAvvikIntlInfo): RegelAvvikIntlInfo => ({
-        ...info,
-        intlKey: info.intlKey || getRegelIntlKey(regel)
-    });
-    if (isArray(avvikInfo)) {
-        return avvikInfo.map((info) => ensureInfoIntlKey(info));
-    }
-    return ensureInfoIntlKey(avvikInfo);
-};
+const ensureRegelTestresultatIntlKey = (regel: Regel, info?: RegelTestresultatInfo): RegelTestresultatInfo => ({
+    ...info,
+    intlKey: info ? info.intlKey || getRegelIntlKey(regel) : getRegelIntlKey(regel)
+});
 
-export const regelHarAvvik = (regel: Regel, info?: RegelAvvikInfo, periodeId?: string): RegelStatus => {
+export const regelHarAvvik = (regel: Regel, info?: RegelTestresultatInfo, periodeId?: string): RegelStatus => {
     return {
         key: regel.key,
         passerer: false,
         regelAvvik: {
             key: regel.key,
             alvorlighet: regel.alvorlighet,
-            info: getRegelAvvikIntlInfoFromRegelTestRe(regel, info),
+            info: ensureRegelTestresultatIntlKey(regel, info),
             overstyrerRegler: regel.overstyrerRegler,
             overstyresAvRegel: regel.overstyresAvRegel,
             periodeId
@@ -98,7 +85,7 @@ export const trimRelaterteRegelAvvik = (avvik: RegelAvvik[]): RegelAvvik[] => {
 
 export const getRegelIntlValues = (
     intl: InjectedIntl,
-    info: RegelAvvikIntlInfo
+    info: RegelTestresultatInfo
 ): { [key: string]: string } | undefined => {
     const { values } = info;
     if (values === undefined) {

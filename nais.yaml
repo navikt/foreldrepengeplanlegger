@@ -1,5 +1,5 @@
-name: foreldrepengeplanlegger
-image: repo.adeo.no:5443/foreldrepengeplanlegger
+name: foreldrepengeplanlegger-v2
+image: repo.adeo.no:5443/foreldrepengeplanlegger-v2
 replicas: 
   min: 1 
   max: 1 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import BEMHelper from 'common/utils/bem';
 import Sidebanner from './components/sidebanner/Sidebanner';
 import Breadcrumbs from './components/breadcrumbs/Breadcrumbs';
-import { Route, Switch, withRouter, RouteComponentProps, Redirect } from 'react-router-dom';
+import { Route, Switch, RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
 import UttaksplanSide from './sider/UttaksplanSide';
 import Skjemaside from './sider/Skjemaside';
 import Block from 'common/components/block/Block';

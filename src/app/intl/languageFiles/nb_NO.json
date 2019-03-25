@@ -72,7 +72,7 @@
 
     "regel.info.uttakForFarEllerMedmorFørsteSeksUkerInfo": "{navnFarMedmor} kan kun ta ut foreldrepenger de seks første ukene etter fødsel om {navnMor} er for syk til å ta seg av barnet eller er innlagt på helseinstitusjon.",
     "regel.info.ferieMedUttaksdagerInfo": "En kan ikke ta ut ferie på en helligdag, dette teller som en vanlig dag med foreldrepenger.",
-    "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker {dager} fra fellesperioden, og må legge ved dokumentasjon av aktivitetskravet til {navnMor} for disse dagene.",
+    "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker {dager} av fellesperioden, og må legge ved dokumentasjon av aktivitetskravet til {navnMor} for disse dagene.",
     "regel.info.morUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnMor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid.",
     "regel.info.farMedmorUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnFarMedmor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid.",
     "regel.info.bareFarHarRettEttBarnAktivitetskravMorInfo": "Det er aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",

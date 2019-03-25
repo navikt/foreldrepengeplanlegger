@@ -16,7 +16,7 @@ export const harForeldreForMangeFeriedagerTest = (grunnlag: Regelgrunnlag): Rege
     const antallFeriedagerFarMedmor = getAntallFeriedagerForForelder(perioder, Forelder.farMedmor);
 
     const info: RegelTestresultatInfoObject = [];
-    if (antallFeriedagerMor <= maksFeriedagerMedOverføring) {
+    if (antallFeriedagerMor > maksFeriedagerMedOverføring) {
         info.push({
             values: {
                 navn: grunnlag.navnMor,
@@ -24,7 +24,7 @@ export const harForeldreForMangeFeriedagerTest = (grunnlag: Regelgrunnlag): Rege
             }
         });
     }
-    if (antallFeriedagerFarMedmor <= maksFeriedagerMedOverføring) {
+    if (antallFeriedagerFarMedmor > maksFeriedagerMedOverføring) {
         info.push({
             values: {
                 navn: grunnlag.navnFarMedmor,

@@ -68,6 +68,8 @@
     "regel.feil.morHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
     "regel.feil.farMedmorHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
 
+    "regel.advarsel.erAlleTilgjengeligeDagerBrukt": "{dager} er ikke brukt",
+
     "regel.info.uttakForFarEllerMedmorFørsteSeksUkerInfo": "{navnFarMedmor} kan kun ta ut foreldrepenger de seks første ukene etter fødsel om {navnMor} er for syk til å ta seg av barnet eller er innlagt på helseinstitusjon.",
     "regel.info.ferieMedUttaksdagerInfo": "En kan ikke ta ut ferie på en helligdag, dette teller som en vanlig dag med foreldrepenger.",
     "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker {dager} fra fellesperioden, og må legge ved dokumentasjon av aktivitetskravet til {navnMor} for disse dagene.",

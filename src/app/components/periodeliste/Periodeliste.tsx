@@ -8,7 +8,7 @@ import IconText from 'common/components/iconText/IconText';
 import SlåSammenPerioderValg from './parts/SlåSammenPerioderValg';
 import periodelisteUtils from './periodelisteUtils';
 import posed, { PoseGroup } from 'react-pose';
-import { getRegelbruddForPeriode } from '../../utils/regler/regelUtils';
+import { getRegelAvvikForPeriode } from '../../utils/regler/regelUtils';
 import HjerteIkon from './parts/HjerteIkon';
 
 import './periodeliste.less';
@@ -80,7 +80,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
                     periodeFørTermin={periodeFørTermin}
                     {...elementProps}
                     startdatoErLåst={true}
-                    regelbrudd={getRegelbruddForPeriode(regelTestresultat, periode.id)}
+                    regelAvvik={getRegelAvvikForPeriode(regelTestresultat, periode.id)}
                 />
             </PosedLi>
         );
@@ -99,7 +99,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
                             perioder={perioder}
                             periode={periodeFørTermin}
                             periodeFørTermin={periodeFørTermin}
-                            regelbrudd={getRegelbruddForPeriode(regelTestresultat, periodeFørTermin.id)}
+                            regelAvvik={getRegelAvvikForPeriode(regelTestresultat, periodeFørTermin.id)}
                             typeErLåst={true}
                             forelderErLåst={true}
                             sluttdatoErLåst={true}

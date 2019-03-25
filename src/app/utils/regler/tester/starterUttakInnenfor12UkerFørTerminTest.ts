@@ -1,11 +1,9 @@
 import moment from 'moment';
-import { RegelAlvorlighet, RegelTestresultat, Regelgrunnlag, RegelTest, Regel } from '../types';
+import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../types';
 import { Periode } from '../../../types';
-import { RegelKey } from '../regelKeys';
 import { formaterDatoUtenDag } from 'common/utils/datoUtils';
 
-const starterInnenfor12UkerFørTermin: RegelTest = (regel: Regel, grunnlag: Regelgrunnlag): RegelTestresultat => {
-    const { key } = regel;
+export const starterUttakInnenfor12UkerFørTerminTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { periodeFørTermin, perioder, uttaksdatoer } = grunnlag;
     const { førsteMuligeUttaksdag } = uttaksdatoer.førFødsel;
 
@@ -19,26 +17,15 @@ const starterInnenfor12UkerFørTermin: RegelTest = (regel: Regel, grunnlag: Rege
     );
 
     return {
-        key,
         passerer: periode === undefined,
-        regelbrudd:
+        info:
             periode === undefined
                 ? undefined
                 : {
-                      key,
                       periodeId: periode.id,
-                      alvorlighet: RegelAlvorlighet.ULOVLIG,
-                      feilmelding: {
-                          intlKey: `regel.feiler.${key}`,
-                          values: {
-                              dato: formaterDatoUtenDag(førsteMuligeUttaksdag)
-                          }
+                      values: {
+                          dato: formaterDatoUtenDag(førsteMuligeUttaksdag)
                       }
                   }
     };
-};
-
-export const starterInnenfor12UkerFørTerminRegel: Regel = {
-    key: RegelKey.starterInnenfor12UkerFørTermin,
-    test: starterInnenfor12UkerFørTermin
 };

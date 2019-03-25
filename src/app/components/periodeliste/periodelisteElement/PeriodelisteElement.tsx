@@ -6,10 +6,10 @@ import BEMHelper from 'common/utils/bem';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { guid } from 'nav-frontend-js-utils';
 import * as React from 'react';
-import { Regelbrudd, RegelAlvorlighet } from '../../../utils/regler/types';
+import { RegelAvvik, RegelAlvorlighet } from '../../../utils/regler/types';
 import AdvarselIkon from 'common/components/ikoner/AdvarselIkon';
-import { getAlertstripeTypeFromRegelbrudd } from '../periodelisteUtils';
-import RegelbruddFeilmelding from '../../regelbrudd/RegelbruddFeilmelding';
+import { getAlertstripeTypeFromRegelAvvik } from '../periodelisteUtils';
+import RegelAvvikFeilmelding from '../../regelAvvik/RegelAvvikFeilmelding';
 import InfoIkonFylt from 'common/InfoIkonFylt';
 
 import './periodelisteElement.less';
@@ -23,7 +23,7 @@ interface OwnProps {
         ariaLabel: string;
     };
     info?: string[];
-    regelbrudd?: Regelbrudd[];
+    regelAvvik?: RegelAvvik[];
 }
 
 interface State {
@@ -63,7 +63,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
         }
     }
     render() {
-        const { menyer, slett, info, regelbrudd, intl } = this.props;
+        const { menyer, slett, info, regelAvvik, intl } = this.props;
         const infoId = guid();
         const regelId = guid();
         const { regelInfoVisible, infoVisible } = this.state;
@@ -76,7 +76,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                             <PeriodeElementMenyWrapper meny={meny} key={meny.id} />
                         ))}
 
-                    {(slett || regelbrudd) && (
+                    {(slett || regelAvvik) && (
                         <div className={bem.element('tools')}>
                             {slett && (
                                 <div className={bem.element('tool')}>
@@ -87,19 +87,19 @@ class PeriodelisteElement extends React.Component<Props, State> {
                                     />
                                 </div>
                             )}
-                            {regelbrudd && regelbrudd.length > 0 && (
+                            {regelAvvik && regelAvvik.length > 0 && (
                                 <div className={bem.element('tool')}>
                                     {
                                         <IkonKnapp
                                             onClick={() => this.setState({ regelInfoVisible: !regelInfoVisible })}
                                             ikon={
-                                                regelbrudd[0].alvorlighet === RegelAlvorlighet.ULOVLIG ? (
+                                                regelAvvik[0].alvorlighet === RegelAlvorlighet.FEIL ? (
                                                     <AdvarselIkon type="feil" />
                                                 ) : (
                                                     <InfoIkonFylt />
                                                 )
                                             }
-                                            ariaLabel={getMessage(intl, 'periodeliste.ariatekst.periodenHarRegelbrudd')}
+                                            ariaLabel={getMessage(intl, 'periodeliste.ariatekst.periodenHarRegelAvvik')}
                                         />
                                     }
                                 </div>
@@ -118,14 +118,14 @@ class PeriodelisteElement extends React.Component<Props, State> {
                         </Block>
                     </div>
                 )}
-                {regelbrudd && regelbrudd.length > 0 && regelInfoVisible && (
-                    <div className={bem.element('regelbrudd', regelInfoVisible ? 'open' : undefined)} id={regelId}>
+                {regelAvvik && regelAvvik.length > 0 && regelInfoVisible && (
+                    <div className={bem.element('regelAvvik', regelInfoVisible ? 'open' : undefined)} id={regelId}>
                         <Block visible={regelInfoVisible} margin="none">
-                            <AlertStripe type={getAlertstripeTypeFromRegelbrudd(regelbrudd[0])} solid={true}>
-                                <ul className={bem.element('regelbruddListe')}>
-                                    {regelbrudd.map((brudd, idx) => (
-                                        <li className={bem.element('regelbruddListe__brudd')} key={idx}>
-                                            <RegelbruddFeilmelding feilmelding={brudd.feilmelding} />
+                            <AlertStripe type={getAlertstripeTypeFromRegelAvvik(regelAvvik[0])} solid={true}>
+                                <ul className={bem.element('regelAvvikListe')}>
+                                    {regelAvvik.map((a, idx) => (
+                                        <li className={bem.element('regelAvvikListe__brudd')} key={idx}>
+                                            <RegelAvvikFeilmelding info={a.info} />
                                         </li>
                                     ))}
                                 </ul>

@@ -123,7 +123,7 @@
     "oppsummering.endre": "Endre",
 
     "periodeliste.ariatekst.slettPeriode": "Slett periode",
-    "periodeliste.ariatekst.periodenHarRegelbrudd": "Perioden har regelbrudd",
+    "periodeliste.ariatekst.periodenHarRegelAvvik": "Perioden har ekstrainformasjon",
     "periodeliste.slaaSammenPerioder.part1": "Perioden over og under har samme type og hører til samme person, så de kan ",
     "periodeliste.slaaSammenPerioder.part2": "slåes sammen til én periode",
     "periodeliste.velgPeriodetype": "Velg type",
@@ -154,7 +154,7 @@
     "periodeskjema.tid.brukGjenståendeDager": "Bruk gjenstående dager",
     "periodeskjema.tid.lengde": "Lengde",
 
-    "regelbrudd.ariaTittel": "Viktig informasjon om planen",
+    "regelAvvik.ariaTittel": "Viktig informasjon om planen",
 
     "situasjonskjema.validering.situasjon": "Du må velge situasjon",
     "situasjonskjema.validering.foreldernavn": "Du må fylle ut feltet for navn",

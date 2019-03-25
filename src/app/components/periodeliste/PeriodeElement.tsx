@@ -64,7 +64,7 @@ class PeriodeElement extends React.Component<Props> {
             onUpdate,
             onRemove,
             uttaksdatoer,
-            regelbrudd,
+            regelAvvik,
             perioder,
             kanSlettes = true,
             intl
@@ -193,7 +193,7 @@ class PeriodeElement extends React.Component<Props> {
                               ]
                             : undefined
                     }
-                    regelbrudd={regelbrudd}
+                    regelAvvik={regelAvvik}
                 />
             </PeriodeBlokk>
         );

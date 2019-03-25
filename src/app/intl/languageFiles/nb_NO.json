@@ -57,14 +57,18 @@
     "skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
     "uttaksplan.ferie.inneholderHelligdager": "En kan ikke ta ut ferie på en helligdag. Denne perioden inneholder {dager, plural, one {# helligdag} other {# helligdager}}, som derfor vil bli regnet som dager med foreldrepenger for {navn}.",
 
-    "regel.feiler.starterInnenfor12UkerFørTermin": "Foreldrepenger før fødsel kan starte tidligst 12 uker før termin. Første mulige dag er {dato}.",
-    "regel.feiler.erInnenforSisteMuligeUttaksdag": "Foreldrepengene må tas ut før barnet fyller tre år.",
-    "regel.feiler.morsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
-    "regel.feiler.farMedmorsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
-    "regel.feiler.alleUttakErInnenforMaksAntallDager": "Det er registrert {dagerForMye} for mye foreldrepenger til sammen. Du kan rette opp i dette ved å endre lengden på noen av periodene i planen. Du kan også utvide perioden ved å kombinere foreldrepenger og arbeid.",
-    "regel.feiler.førstePeriodeErUttakAvForeldrepenger": "Planen kan ikke starte med {type}.",
-    "regel.feiler.usetterFørsteSeksUker": "{navn} kan ikke utsette eller kombinere foreldrepenger og arbeid de første seks ukene etter fødsel.",
-    "regel.feiler.forMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
+    "regel.feil.starterInnenfor12UkerFørTermin": "Foreldrepenger før fødsel kan starte tidligst 12 uker før termin. Første mulige dag er {dato}.",
+    "regel.feil.erInnenforSisteMuligeUttaksdag": "Foreldrepengene må tas ut før barnet fyller tre år.",
+    "regel.feil.morsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
+    "regel.feil.farMedmorsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
+    "regel.feil.alleUttakErInnenforMaksAntallDager": "Det er registrert {dagerForMye} for mye foreldrepenger til sammen. Du kan rette opp i dette ved å endre lengden på noen av periodene i planen. Du kan også utvide perioden ved å kombinere foreldrepenger og arbeid.",
+    "regel.feil.førstePeriodeErUttakAvForeldrepenger": "Planen kan ikke starte med {type}.",
+    "regel.feil.morUsetterFørsteSeksUker": "{navn} kan ikke utsette eller kombinere foreldrepenger og arbeid de første seks ukene etter fødsel.",
+    "regel.feil.farMedmorUsetterFørsteSeksUker": "{navn} kan ikke utsette eller kombinere foreldrepenger og arbeid de første seks ukene etter fødsel.",
+    "regel.feil.morHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
+    "regel.feil.farMedmorHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
+
+    "regel.advarsel.erAlleTilgjengeligeDagerBrukt": "{dager} er ikke brukt",
 
     "regel.info.uttakForFarEllerMedmorFørsteSeksUkerInfo": "{navnFarMedmor} kan kun ta ut foreldrepenger de seks første ukene etter fødsel om {navnMor} er for syk til å ta seg av barnet eller er innlagt på helseinstitusjon.",
     "regel.info.ferieMedUttaksdagerInfo": "En kan ikke ta ut ferie på en helligdag, dette teller som en vanlig dag med foreldrepenger.",
@@ -123,7 +127,7 @@
     "oppsummering.endre": "Endre",
 
     "periodeliste.ariatekst.slettPeriode": "Slett periode",
-    "periodeliste.ariatekst.periodenHarRegelbrudd": "Perioden har regelbrudd",
+    "periodeliste.ariatekst.periodenHarRegelAvvik": "Perioden har ekstrainformasjon",
     "periodeliste.slaaSammenPerioder.part1": "Perioden over og under har samme type og hører til samme person, så de kan ",
     "periodeliste.slaaSammenPerioder.part2": "slåes sammen til én periode",
     "periodeliste.velgPeriodetype": "Velg type",
@@ -154,7 +158,7 @@
     "periodeskjema.tid.brukGjenståendeDager": "Bruk gjenstående dager",
     "periodeskjema.tid.lengde": "Lengde",
 
-    "regelbrudd.ariaTittel": "Viktig informasjon om planen",
+    "regelAvvik.ariaTittel": "Viktig informasjon om planen",
 
     "situasjonskjema.validering.situasjon": "Du må velge situasjon",
     "situasjonskjema.validering.foreldernavn": "Du må fylle ut feltet for navn",

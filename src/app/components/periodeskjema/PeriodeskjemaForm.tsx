@@ -232,7 +232,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                     <Block margin="none">
                         <EndringerVedNyPeriode nyPeriode={nyPeriode} perioder={perioder} omForeldre={omForeldre} />
                     </Block>
-                    <Knapperad>
+                    <Knapperad style="mobile-50-50">
                         <Hovedknapp htmlType="submit" disabled={periodeErGyldig(formik.values) === false}>
                             <FormattedMessage id="periodeskjema.knapp.leggTil" />
                         </Hovedknapp>

@@ -27,6 +27,8 @@ import Oppsummering from '../components/oppsummering/Oppsummering';
 import { Side } from '../routes';
 import RegelAvvik from '../components/regelAvvik/RegelAvvik';
 import FocusChildOnMountContainer from 'common/components/focusContainer/FocusChildOnMountContainer';
+import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
+import { Element } from 'nav-frontend-typografi';
 
 interface StateProps {
     periodeFørTermin?: Periode;
@@ -104,6 +106,13 @@ class UttaksplanSide extends React.Component<Props> {
                                         : undefined
                                 }
                             />
+                        </Block>
+
+                        <Block visible={omForeldre.erDeltOmsorg}>
+                            <Veilederinfo stil="normal" type="info">
+                                <Element>Felles periode</Element>
+                                Enn så lenge støtter vi ikke at dere kan registrere en periode som gjelder dere begge.
+                            </Veilederinfo>
                         </Block>
 
                         <FocusChildOnMountContainer active={true}>

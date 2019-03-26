@@ -8,7 +8,6 @@ import { AppRoutes } from '../../routes';
 import getMessage from 'common/utils/i18nUtils';
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
 import Veileder from 'common/components/veileder/Veileder';
-import Lenke from 'nav-frontend-lenker';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 
 const VelkommenTekst: React.StatelessComponent<RouteComponentProps & InjectedIntlProps> = (props) => (
@@ -22,17 +21,7 @@ const VelkommenTekst: React.StatelessComponent<RouteComponentProps & InjectedInt
                     type="normal"
                     fargetema="normal"
                     svg={<Veileder farge="transparent" stil="iNavVeilederPanel" ansikt="glad" />}>
-                    <Block margin="xs">
-                        <Element>Du er litt tidlig ute</Element>
-                    </Block>
-                    <p>
-                        Du har nå funnet vår nye foreldrepengeplanlegger som ikke er helt ferdig enda. Den kan oppføre
-                        seg litt rart av og til, så mens vi jobber med denne, kan du heller bruke vår{' '}
-                        <Lenke href="https://tjenester.nav.no/foreldrepengeplanlegger">
-                            nåværende foreldrepengeplanlegger
-                        </Lenke>
-                        .
-                    </p>
+                    <p>Vår nye foreldrepengeplanlegger er fortsatt under utvikling. Derfor kan den oppføre seg litt rart av og til.</p>
                 </Veilederpanel>
             </Block>
             <Ingress>

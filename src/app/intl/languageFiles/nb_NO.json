@@ -70,7 +70,7 @@
 
     "regel.advarsel.erAlleTilgjengeligeDagerBrukt": "{dager} er ikke brukt",
 
-    "regel.info.uttakForFarEllerMedmorFørsteSeksUkerInfo": "{navnFarMedmor} kan kun ta ut foreldrepenger de seks første ukene etter fødsel om {navnMor} er for syk til å ta seg av barnet eller er innlagt på helseinstitusjon.",
+    "regel.advarsel.uttakForFarEllerMedmorFørsteSeksUkerInfo": "{navnFarMedmor} kan kun ta ut foreldrepenger de seks første ukene etter fødsel om {navnMor} er for syk til å ta seg av barnet eller er innlagt på helseinstitusjon.",
     "regel.info.ferieMedUttaksdagerInfo": "En kan ikke ta ut ferie på en helligdag, dette teller som en vanlig dag med foreldrepenger.",
     "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker {dager} av fellesperioden, og må legge ved dokumentasjon av aktivitetskravet til {navnMor} for disse dagene.",
     "regel.info.morUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnMor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid.",
@@ -197,9 +197,4 @@
     "uttaksplan.slettPlanDialog.avbrytKnapp": "Avbryt",
     "uttaksplan.slettPlanDialog.jaSlettKnapp": "Ja, slett planen",
     "uttaksplan.slettPlanDialog.tekst": "Ønsker du å slette planen? Alle perioder etter termin vil bli fjernet."
-
-
-
-
-
 }

@@ -48,25 +48,29 @@
 
     "uttaksplan.skjema.fordeling.annenForeldersFellesperiode": "{navnFarMedmor} kan ta ut {antallUker} uker av fellesperioden",
     "uttaksplan.skjema.fordeling.aria.fordeling": "Hvor mange uker av fellesdelen skal {navnMor} ha av totalt {ukerFellesperiode} uker?",
-    "uttaksplan.skjema.fordeling.reduser.tooltip": "En uke mindre",
+    "uttaksplan.skjema.fordeling.reduser.tooltip": "En uke mer til {navn}",
     "uttaksplan.skjema.fordeling.spørsmål": "Hvor mange uker skal {navn} ha av fellesperioden?",
     "uttaksplan.skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
-    "uttaksplan.skjema.fordeling.valgtVerdi": "{ukerForelder} av {ukerTotalt, plural, one {# uke} other {# uker}} med fellesperiode",
+    "uttaksplan.skjema.fordeling.valgtVerdi": "{ukerMor, plural, one {# uke} other {# uker}} til {navnMor}, {ukerFarMedmor, plural, one {# uke} other {# uker}} til {navnFarMedmor}.",
     "uttaksplan.skjema.fordeling.veiledning.lenketekst": "Les mer om aktivitetskravet her.",
-    "uttaksplan.skjema.fordeling.øk.tooltip": "En uke mer",
+    "uttaksplan.skjema.fordeling.øk.tooltip": "En uke mer til {navn}",
     "skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
     "uttaksplan.ferie.inneholderHelligdager": "En kan ikke ta ut ferie på en helligdag. Denne perioden inneholder {dager, plural, one {# helligdag} other {# helligdager}}, som derfor vil bli regnet som dager med foreldrepenger for {navn}.",
 
-    "regel.feiler.starterInnenfor12UkerFørTermin": "Foreldrepenger før fødsel kan starte tidligst 12 uker før termin. Første mulige dag er {dato}.",
-    "regel.feiler.erInnenforSisteMuligeUttaksdag": "Foreldrepengene må tas ut før barnet fyller tre år.",
-    "regel.feiler.morsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
-    "regel.feiler.farMedmorsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
-    "regel.feiler.alleUttakErInnenforMaksAntallDager": "Det er registrert {dagerForMye} for mye foreldrepenger til sammen. Du kan rette opp i dette ved å endre lengden på noen av periodene i planen. Du kan også utvide perioden ved å kombinere foreldrepenger og arbeid.",
-    "regel.feiler.førstePeriodeErUttakAvForeldrepenger": "Planen kan ikke starte med {type}.",
-    "regel.feiler.usetterFørsteSeksUker": "{navn} kan ikke utsette eller kombinere foreldrepenger og arbeid de første seks ukene etter fødsel.",
-    "regel.feiler.forMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
+    "regel.feil.starterInnenfor12UkerFørTermin": "Foreldrepenger før fødsel kan starte tidligst 12 uker før termin. Første mulige dag er {dato}.",
+    "regel.feil.erInnenforSisteMuligeUttaksdag": "Foreldrepengene må tas ut før barnet fyller tre år.",
+    "regel.feil.morsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
+    "regel.feil.farMedmorsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
+    "regel.feil.alleUttakErInnenforMaksAntallDager": "Det er registrert {dagerForMye} for mye foreldrepenger til sammen. Du kan rette opp i dette ved å endre lengden på noen av periodene i planen. Du kan også utvide perioden ved å kombinere foreldrepenger og arbeid.",
+    "regel.feil.førstePeriodeErUttakAvForeldrepenger": "Planen kan ikke starte med {type}.",
+    "regel.feil.morUsetterFørsteSeksUker": "{navn} kan ikke utsette eller kombinere foreldrepenger og arbeid de første seks ukene etter fødsel.",
+    "regel.feil.farMedmorUsetterFørsteSeksUker": "{navn} kan ikke utsette eller kombinere foreldrepenger og arbeid de første seks ukene etter fødsel.",
+    "regel.feil.morHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
+    "regel.feil.farMedmorHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
 
-    "regel.info.uttakForFarEllerMedmorFørsteSeksUkerInfo": "{navnFarMedmor} kan kun ta ut foreldrepenger de seks første ukene etter fødsel om {navnMor} er for syk til å ta seg av barnet eller er innlagt på helseinstitusjon.",
+    "regel.advarsel.erAlleTilgjengeligeDagerBrukt": "{dager} er ikke brukt",
+
+    "regel.advarsel.uttakForFarEllerMedmorFørsteSeksUkerInfo": "{navnFarMedmor} kan kun ta ut foreldrepenger de seks første ukene etter fødsel om {navnMor} er for syk til å ta seg av barnet eller er innlagt på helseinstitusjon.",
     "regel.info.ferieMedUttaksdagerInfo": "En kan ikke ta ut ferie på en helligdag, dette teller som en vanlig dag med foreldrepenger.",
     "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker {dager} av fellesperioden, og må legge ved dokumentasjon av aktivitetskravet til {navnMor} for disse dagene.",
     "regel.info.morUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnMor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid.",
@@ -96,7 +100,7 @@
     "fordeling.status.person.forMye": "{dager} for mye",
     "fordeling.status.person.forLite": "{dager} ikke brukt",
 
-    "intro.tittel": "Planlegg dine foreldrepenger",
+    "intro.tittel": "Planlegg dine foreldrepenger - betaversjon",
     "intro.tekst": "Her kan dere planlegge hvor mange uker dere kan ta ut foreldrepenger, og hvordan dere kan utsette perioder med foreldrepenger.",
 
     "dekningsgradInfo.tittel": "{uker} uker med {dekningsgrad} prosent foreldrepenger",
@@ -193,9 +197,4 @@
     "uttaksplan.slettPlanDialog.avbrytKnapp": "Avbryt",
     "uttaksplan.slettPlanDialog.jaSlettKnapp": "Ja, slett planen",
     "uttaksplan.slettPlanDialog.tekst": "Ønsker du å slette planen? Alle perioder etter termin vil bli fjernet."
-
-
-
-
-
 }

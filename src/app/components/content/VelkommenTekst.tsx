@@ -2,7 +2,7 @@ import * as React from 'react';
 import Introduksjon from '../introduksjon/Introduksjon';
 import IntroSirkelSvg from '../illustrasjoner/IntroSirkelSvg';
 import Block from 'common/components/block/Block';
-import { Ingress, Element } from 'nav-frontend-typografi';
+import { Ingress } from 'nav-frontend-typografi';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { AppRoutes } from '../../routes';
 import getMessage from 'common/utils/i18nUtils';
@@ -21,7 +21,10 @@ const VelkommenTekst: React.StatelessComponent<RouteComponentProps & InjectedInt
                     type="normal"
                     fargetema="normal"
                     svg={<Veileder farge="transparent" stil="iNavVeilederPanel" ansikt="glad" />}>
-                    <p>Vår nye foreldrepengeplanlegger er fortsatt under utvikling. Derfor kan den oppføre seg litt rart av og til.</p>
+                    <p>
+                        Vår nye foreldrepengeplanlegger er fortsatt under utvikling. Derfor kan den oppføre seg litt
+                        rart av og til.
+                    </p>
                 </Veilederpanel>
             </Block>
             <Ingress>

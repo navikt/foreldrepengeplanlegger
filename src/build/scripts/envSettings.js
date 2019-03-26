@@ -5,7 +5,7 @@ function createEnvSettingsFile(settingsFile) {
         fsExtra.writeFileSync(
             settingsFile,
             `window.appSettings = {
-                UTTAK_API_URL: '${process.env.UTTAK_API_URL}'
+                FP_UTTAK_SERVICE_URL: '${process.env.FP_UTTAK_SERVICE_URL}'
             };`
         );
     });

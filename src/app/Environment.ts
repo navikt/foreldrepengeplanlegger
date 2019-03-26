@@ -1,6 +1,6 @@
 const Environment = () => {
     return {
-        UTTAK_API_URL: (window as any).appSettings.UTTAK_API_URL
+        FP_UTTAK_SERVICE_URL: (window as any).appSettings.FP_UTTAK_SERVICE_URL
     };
 };
 

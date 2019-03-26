@@ -21,10 +21,8 @@ const VelkommenTekst: React.StatelessComponent<RouteComponentProps & InjectedInt
                     type="normal"
                     fargetema="normal"
                     svg={<Veileder farge="transparent" stil="iNavVeilederPanel" ansikt="glad" />}>
-                    <p>
-                        Vår nye foreldrepengeplanlegger er fortsatt under utvikling. Derfor kan den oppføre seg litt
-                        rart av og til.
-                    </p>
+                    Vår nye foreldrepengeplanlegger er fortsatt under utvikling. Derfor kan den oppføre seg litt rart av
+                    og til.
                 </Veilederpanel>
             </Block>
             <Ingress>

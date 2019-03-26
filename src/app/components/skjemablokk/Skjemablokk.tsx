@@ -22,6 +22,7 @@ interface Props {
         title: string;
         content: React.ReactNode;
     };
+    focusable?: boolean;
 }
 
 interface State {
@@ -36,13 +37,23 @@ class Skjemablokk extends React.Component<Props, State> {
         };
     }
     render() {
-        const { tittel, feil, info, children, visible, beskrivelse, animated = false, margin = 'l' } = this.props;
+        const {
+            tittel,
+            feil,
+            info,
+            children,
+            visible,
+            beskrivelse,
+            animated = false,
+            margin = 'l',
+            focusable
+        } = this.props;
         const infoId = guid();
         return (
             <div className="skjemablokkWrapper">
                 <Block margin={margin} visible={visible} animated={animated}>
                     <SkjemaGruppe feil={feil}>
-                        <fieldset className="skjema__fieldset skjemablokk">
+                        <fieldset className="skjema__fieldset skjemablokk" tabIndex={focusable ? -1 : undefined}>
                             <legend className="skjema__legend">
                                 <Undertittel className="skjemablokk__tittel">{tittel}</Undertittel>
                                 {info && (

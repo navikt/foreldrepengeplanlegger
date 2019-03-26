@@ -5,6 +5,7 @@ const elementSelector = [
     'select:not([disabled])',
     'input:not([disabled])',
     'textarea:not([disabled])',
+    '[tabindex]',
     'button:not([disabled])'
 ];
 

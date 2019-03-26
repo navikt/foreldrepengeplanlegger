@@ -32,16 +32,21 @@ const FordelingFellesperiodeSpørsmål: React.StatelessComponent<OwnProps & Inje
             max={ukerTotalt}
             onChange={(fellesperiodeukerMor) => onChange(fellesperiodeukerMor)}
             steppers={{
-                reduceLabel: intl.formatMessage({ id: 'uttaksplan.skjema.fordeling.reduser.tooltip' }),
-                increaseLabel: intl.formatMessage({ id: 'uttaksplan.skjema.fordeling.øk.tooltip' })
+                reduceLabel: intl.formatMessage(
+                    { id: 'uttaksplan.skjema.fordeling.reduser.tooltip' },
+                    { navn: navnFarMedmor }
+                ),
+                increaseLabel: intl.formatMessage({ id: 'uttaksplan.skjema.fordeling.øk.tooltip' }, { navn: navnMor })
             }}
             ariaValueChangedMessage={(value) =>
                 intl.formatMessage(
                     { id: 'uttaksplan.skjema.fordeling.valgtVerdi' },
                     {
-                        ukerForelder: value,
+                        ukerMor: value,
+                        ukerFarMedmor: ukerTotalt - value,
                         ukerTotalt,
-                        navnForelder: navnMor
+                        navnMor,
+                        navnFarMedmor
                     }
                 )
             }

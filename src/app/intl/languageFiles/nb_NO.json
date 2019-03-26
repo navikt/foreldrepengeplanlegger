@@ -48,12 +48,12 @@
 
     "uttaksplan.skjema.fordeling.annenForeldersFellesperiode": "{navnFarMedmor} kan ta ut {antallUker} uker av fellesperioden",
     "uttaksplan.skjema.fordeling.aria.fordeling": "Hvor mange uker av fellesdelen skal {navnMor} ha av totalt {ukerFellesperiode} uker?",
-    "uttaksplan.skjema.fordeling.reduser.tooltip": "En uke mindre",
+    "uttaksplan.skjema.fordeling.reduser.tooltip": "En uke mer til {navn}",
     "uttaksplan.skjema.fordeling.spørsmål": "Hvor mange uker skal {navn} ha av fellesperioden?",
     "uttaksplan.skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
-    "uttaksplan.skjema.fordeling.valgtVerdi": "{ukerForelder} av {ukerTotalt, plural, one {# uke} other {# uker}} med fellesperiode",
+    "uttaksplan.skjema.fordeling.valgtVerdi": "{ukerMor, plural, one {# uke} other {# uker}} til {navnMor}, {ukerFarMedmor, plural, one {# uke} other {# uker}} til {navnFarMedmor}.",
     "uttaksplan.skjema.fordeling.veiledning.lenketekst": "Les mer om aktivitetskravet her.",
-    "uttaksplan.skjema.fordeling.øk.tooltip": "En uke mer",
+    "uttaksplan.skjema.fordeling.øk.tooltip": "En uke mer til {navn}",
     "skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
     "uttaksplan.ferie.inneholderHelligdager": "En kan ikke ta ut ferie på en helligdag. Denne perioden inneholder {dager, plural, one {# helligdag} other {# helligdager}}, som derfor vil bli regnet som dager med foreldrepenger for {navn}.",
 

@@ -116,9 +116,7 @@ class RangeInput extends React.Component<Props, State> {
                             <Infoboks tekst={hjelpetekst} />
                         </div>
                     )}
-                    <div aria-live="polite">
-                        {valueLabelPlacement === 'above' && labelRenderer({ value, min, max })}
-                    </div>
+                    <div>{valueLabelPlacement === 'above' && labelRenderer({ value, min, max })}</div>
                     <div
                         className={classNames(bemRangeInput.block, {
                             [bemRangeInput.modifier('withSteppers')]: steppers !== undefined
@@ -161,9 +159,7 @@ class RangeInput extends React.Component<Props, State> {
                             </div>
                         )}
                     </div>
-                    <div aria-live="polite">
-                        {valueLabelPlacement === 'below' && labelRenderer({ value, min, max })}
-                    </div>
+                    <div>{valueLabelPlacement === 'below' && labelRenderer({ value, min, max })}</div>
                 </Fieldset>
             </div>
         );

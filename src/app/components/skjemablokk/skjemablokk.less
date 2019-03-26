@@ -1,3 +1,5 @@
+@import '../../../common/styles/mixins.less';
+
 .skjemablokkWrapper {
     /* For å forhindre at outline kuttes under animasjon */
     margin-left: -1rem;
@@ -7,6 +9,10 @@
 .skjemablokk {
     padding-left: 1rem;
     padding-right: 1rem;
+
+    &:focus {
+        outline: none;
+    }
 
     >.skjema__legend {
         margin-bottom: 1rem;

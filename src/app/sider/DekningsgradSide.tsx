@@ -24,6 +24,7 @@ import Knapperad from 'common/components/knapperad/Knapperad';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import DekningsgradInfo from '../components/content/DekningsgradInfo';
 import Oppsummering from '../components/oppsummering/Oppsummering';
+import FocusChildOnMountContainer from 'common/components/focusContainer/FocusChildOnMountContainer';
 
 interface StateProps {
     dekningsgrad?: Dekningsgrad;
@@ -79,21 +80,24 @@ class UttaksplanSide extends React.Component<Props> {
                             }}
                         />
                     </Block>
-                    <Skjemablokk
-                        tittel={`Hvor lang periode med foreldrepenger ønsker ${
-                            omForeldre.erDeltOmsorg ? 'dere' : 'du'
-                        }?`}
-                        beskrivelse={`${
-                            omForeldre.erDeltOmsorg ? 'Valget vil gjelde for dere begge. ' : ''
-                        }Den totale utbetalingensummen blir høyere ved å velge 100
+                    <FocusChildOnMountContainer active={true}>
+                        <Skjemablokk
+                            tittel={`Hvor lang periode med foreldrepenger ønsker ${
+                                omForeldre.erDeltOmsorg ? 'dere' : 'du'
+                            }?`}
+                            focusable={true}
+                            beskrivelse={`${
+                                omForeldre.erDeltOmsorg ? 'Valget vil gjelde for dere begge. ' : ''
+                            }Den totale utbetalingssummen blir høyere ved å velge 100
                         prosent.`}>
-                        <DekningsgradValg
-                            dekningsgrad={dekningsgrad}
-                            onChange={(dg) => dispatch(setDekningsgrad(dg as Dekningsgrad))}
-                            dager100={dager100}
-                            dager80={dager80}
-                        />
-                    </Skjemablokk>
+                            <DekningsgradValg
+                                dekningsgrad={dekningsgrad}
+                                onChange={(dg) => dispatch(setDekningsgrad(dg as Dekningsgrad))}
+                                dager100={dager100}
+                                dager80={dager80}
+                            />
+                        </Skjemablokk>
+                    </FocusChildOnMountContainer>
 
                     {tilgjengeligeDager && dekningsgrad !== undefined && (
                         <>

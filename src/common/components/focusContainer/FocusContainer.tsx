@@ -8,11 +8,11 @@ interface Props {
 }
 
 const FocusContainer: React.StatelessComponent<Props> = ({ active, onClick, children }) => {
-    if (active !== true || onClick === undefined) {
+    if (active !== true) {
         return <>{children}</>;
     }
     return (
-        <div className="focusContainer" onClick={() => onClick()} tabIndex={-1}>
+        <div className="focusContainer" onClick={onClick ? () => onClick() : undefined} tabIndex={-1}>
             {children}
         </div>
     );

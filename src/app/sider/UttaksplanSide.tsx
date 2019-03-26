@@ -26,6 +26,7 @@ import { UttaksplanRegelTestresultat } from '../utils/regler/types';
 import Oppsummering from '../components/oppsummering/Oppsummering';
 import { Side } from '../routes';
 import RegelAvvik from '../components/regelAvvik/RegelAvvik';
+import FocusChildOnMountContainer from 'common/components/focusContainer/FocusChildOnMountContainer';
 
 interface StateProps {
     periodeFørTermin?: Periode;
@@ -105,26 +106,28 @@ class UttaksplanSide extends React.Component<Props> {
                             />
                         </Block>
 
-                        <Uttaksplan
-                            nyPeriodeId={nyPeriodeId}
-                            familiehendelsesdato={familiehendelsesdato}
-                            omForeldre={omForeldre}
-                            periodeFørTermin={periodeFørTermin}
-                            perioder={perioder}
-                            forbruk={forbruk!}
-                            nyPeriode={nyPeriode}
-                            tilgjengeligeDager={tilgjengeligeDager}
-                            onAdd={(periode) => dispatch(addPeriode(periode))}
-                            onUpdate={(periode) => periode.type === dispatch(updatePeriode(periode))}
-                            onRemove={(periode) => dispatch(removePeriode(periode))}
-                            onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
-                            onResetPlan={() => dispatch(resetPlan())}
-                            onResetApp={() => dispatch(resetApp())}
-                            onNyPeriodeChange={(periode) => dispatch(nyPeriodeChange(periode))}
-                            onSlåSammenPerioder={(p1, p2) => dispatch(slåSammenPerioder(p1, p2))}
-                            uttaksdatoer={uttaksdatoer}
-                            regelTestresultat={regelTestresultat}
-                        />
+                        <FocusChildOnMountContainer active={true}>
+                            <Uttaksplan
+                                nyPeriodeId={nyPeriodeId}
+                                familiehendelsesdato={familiehendelsesdato}
+                                omForeldre={omForeldre}
+                                periodeFørTermin={periodeFørTermin}
+                                perioder={perioder}
+                                forbruk={forbruk!}
+                                nyPeriode={nyPeriode}
+                                tilgjengeligeDager={tilgjengeligeDager}
+                                onAdd={(periode) => dispatch(addPeriode(periode))}
+                                onUpdate={(periode) => periode.type === dispatch(updatePeriode(periode))}
+                                onRemove={(periode) => dispatch(removePeriode(periode))}
+                                onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
+                                onResetPlan={() => dispatch(resetPlan())}
+                                onResetApp={() => dispatch(resetApp())}
+                                onNyPeriodeChange={(periode) => dispatch(nyPeriodeChange(periode))}
+                                onSlåSammenPerioder={(p1, p2) => dispatch(slåSammenPerioder(p1, p2))}
+                                uttaksdatoer={uttaksdatoer}
+                                regelTestresultat={regelTestresultat}
+                            />
+                        </FocusChildOnMountContainer>
                         <Block visible={regelTestresultat.avvik.length > 0} marginTop="l">
                             <RegelAvvik avvik={regelTestresultat.avvik} />
                         </Block>

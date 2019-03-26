@@ -20,6 +20,7 @@ import BEMHelper from 'common/utils/bem';
 import './uttaksplan.less';
 import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
 import getMessage from 'common/utils/i18nUtils';
+import FocusContainer from 'common/components/focusContainer/FocusContainer';
 
 interface State {
     visSkjema: boolean;
@@ -122,13 +123,15 @@ class Uttaksplan extends React.Component<Props, State> {
                         <Block margin="s">
                             <div className="periodeliste__header">
                                 <div className="periodeliste__title">
-                                    <Systemtittel>
-                                        {omForeldre.erDeltOmsorg ? (
-                                            <FormattedMessage id="uttaksplan.deresPlan" />
-                                        ) : (
-                                            <FormattedMessage id="uttaksplan.dinPlan" />
-                                        )}
-                                    </Systemtittel>
+                                    <FocusContainer active={true}>
+                                        <Systemtittel>
+                                            {omForeldre.erDeltOmsorg ? (
+                                                <FormattedMessage id="uttaksplan.deresPlan" />
+                                            ) : (
+                                                <FormattedMessage id="uttaksplan.dinPlan" />
+                                            )}
+                                        </Systemtittel>
+                                    </FocusContainer>
                                 </div>
                                 {onResetPlan && perioder.length > 0 && (
                                     <div className="periodeliste__reset">

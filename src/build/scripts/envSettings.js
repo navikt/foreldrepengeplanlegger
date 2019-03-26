@@ -5,7 +5,7 @@ function createEnvSettingsFile(settingsFile) {
         fsExtra.writeFileSync(
             settingsFile,
             `window.appSettings = {
-                FPP_API_URL: '${process.env.FPP_API_URL}'
+                UTTAK_API_URL: '${process.env.UTTAK_API_URL}'
             };`
         );
     });

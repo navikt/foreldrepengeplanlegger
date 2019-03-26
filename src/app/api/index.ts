@@ -3,7 +3,7 @@ import { formaterDato } from 'common/utils/datoUtils';
 import { GetTilgjengeligeStønadskontoerParams } from './types';
 import Environment from '../../app/Environment';
 
-const uttakBaseUrl = Environment.FPP_API_URL;
+const uttakBaseUrl = Environment.UTTAK_API_URL;
 
 function getUttakskontoer(params: GetTilgjengeligeStønadskontoerParams) {
     const {

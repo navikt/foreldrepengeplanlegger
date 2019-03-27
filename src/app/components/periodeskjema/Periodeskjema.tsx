@@ -57,7 +57,7 @@ class Periodeskjema extends React.Component<Props, {}> {
     handleFormValuesChange(values: Partial<PeriodeskjemaFormValues> = {}) {
         const { onChange, nyPeriodeId } = this.props;
         if (onChange) {
-            const { fom, forelder, gradering, periodetype, tom } = values;
+            const { fom, forelder, gradering, periodetype, tom, medforelder } = values;
             if (fom && tom && forelder && periodetype) {
                 onChange(
                     periodeskjemaUtils.createPeriodeFromValues(
@@ -65,6 +65,7 @@ class Periodeskjema extends React.Component<Props, {}> {
                             fom,
                             tom,
                             forelder,
+                            medforelder,
                             periodetype,
                             gradering
                         },

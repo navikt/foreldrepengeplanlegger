@@ -24,6 +24,7 @@ import EndringerVedNyPeriode from './EndringerVedNyPeriode';
 import { focusFirstElement } from '../../utils/focusUtils';
 import getMessage from 'common/utils/i18nUtils';
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
+import { kanBeggeForeldreVelgesForPeriodetype } from '../../utils/kontoUtils';
 
 import './periodeSkjema.less';
 import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
@@ -123,7 +124,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
             intl,
             nyPeriode
         } = this.props;
-        const { fom, tom, periodetype, forelder, gradering } = formik.values;
+        const { fom, tom, periodetype, forelder, medforelder, gradering } = formik.values;
         const forelderNavn = getForelderNavn(forelder, omForeldre);
         const antallUttaksdagerBrukt = periodeskjemaUtils.getBrukteUttaksdagerForNyPeriode(formik.values);
         const uttaksdager = fom && tom ? Tidsperioden({ fom, tom }).getAntallUttaksdager() : undefined;
@@ -182,12 +183,14 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                     render: () => (
                                         <ForelderMeny
                                             forelder={forelder}
+                                            medforelder={medforelder}
                                             mor={omForeldre.mor}
                                             farMedmor={omForeldre.farMedmor!}
                                             dropdownStyle="border"
-                                            disabled={periodetype === Periodetype.UlønnetPermisjon}
-                                            onChange={(f) => {
+                                            kanVelgeBeggeForeldre={kanBeggeForeldreVelgesForPeriodetype(periodetype)}
+                                            onChange={(f, mf) => {
                                                 formik.setFieldValue('forelder', f);
+                                                formik.setFieldValue('medforelder', mf);
                                                 this.handleValueOnChange();
                                             }}
                                         />

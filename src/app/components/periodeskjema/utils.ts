@@ -56,9 +56,9 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues, nyPeriodeId: s
                 forelder: values.forelder,
                 gradering: values.gradering
             };
-        case Periodetype.UbetaltPermisjon:
+        case Periodetype.UlønnetPermisjon:
             return {
-                type: Periodetype.UbetaltPermisjon,
+                type: Periodetype.UlønnetPermisjon,
                 id: nyPeriodeId,
                 tidsperiode: {
                     fom: values.fom,

@@ -8,7 +8,7 @@ export enum Periodetype {
     'GradertUttak' = 'gradertUttak',
     'Ferie' = 'ferie',
     'Arbeid' = 'arbeid',
-    'UbetaltPermisjon' = 'ubetaltPermisjon'
+    'UlønnetPermisjon' = 'ulønnetPermisjon'
 }
 
 export interface PeriodeBase {
@@ -42,18 +42,18 @@ export interface Arbeidsperiode extends PeriodeBase {
     type: Periodetype.Arbeid;
 }
 
-export interface UbetaltPermisjon extends PeriodeBase {
-    type: Periodetype.UbetaltPermisjon;
+export interface UlønnetPermisjon extends PeriodeBase {
+    type: Periodetype.UlønnetPermisjon;
 }
 
-export type Utsettelsesperiode = Ferieperiode | Arbeidsperiode;
+export type Utsettelsesperiode = Ferieperiode | Arbeidsperiode | UlønnetPermisjon;
 
 export type Periode =
     | Uttaksperiode
     | UttakFørTerminPeriode
     | GradertUttaksperiode
     | Utsettelsesperiode
-    | UbetaltPermisjon
+    | UlønnetPermisjon
     | Ferieperiode;
 
 export function isKomplettPeriode(periode: Partial<Periode> | undefined): periode is Periode {
@@ -93,6 +93,6 @@ export function isArbeid(periode: Periode): periode is Arbeidsperiode {
     return periode.type === Periodetype.Arbeid;
 }
 
-export function isUbetaltPermisjon(periode: Periode): periode is UbetaltPermisjon {
-    return periode.type === Periodetype.UbetaltPermisjon;
+export function isUlønnetPermisjon(periode: Periode): periode is UlønnetPermisjon {
+    return periode.type === Periodetype.UlønnetPermisjon;
 }

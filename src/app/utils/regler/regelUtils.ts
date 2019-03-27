@@ -10,7 +10,7 @@ import {
 import uttaksplanRegler from '.';
 import { InjectedIntl } from 'react-intl';
 import { isArray } from 'util';
-import { flatten } from 'lodash';
+import { flatten, uniqBy } from 'lodash';
 import { guid } from 'nav-frontend-js-utils';
 
 export const sjekkUttaksplanOppMotRegler = (regelgrunnlag: Regelgrunnlag): RegelStatus[] => {
@@ -38,7 +38,8 @@ export const regelHarAvvik = (regel: Regel, info?: RegelTestresultatInfoObject, 
         info: ensureRegelTestresultatIntlKey(regel, i),
         overstyrerRegler: regel.overstyrerRegler,
         overstyresAvRegel: regel.overstyresAvRegel,
-        periodeId
+        slåsSammenVedOppsummering: regel.slåsSammenVedOppsummering,
+        periodeId: i ? i.periodeId : periodeId
     });
     const regelAvvik: RegelAvvik[] = [];
     if (isArray(info)) {
@@ -92,7 +93,7 @@ const overstyrerAndreFilter = (avvik: RegelAvvik, idx: number, alleAvvik: RegelA
 };
 
 export const trimRelaterteRegelAvvik = (avvik: RegelAvvik[]): RegelAvvik[] => {
-    return avvik.filter(overstyresAvFilter).filter(overstyrerAndreFilter);
+    return uniqBy(avvik.filter(overstyresAvFilter).filter(overstyrerAndreFilter), (a) => a.key);
 };
 
 export const getRegelIntlValues = (

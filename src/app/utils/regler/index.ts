@@ -17,7 +17,7 @@ import { harForeldreForMangeFeriedagerTest } from './tester/harForelderForMangeF
 import { bareFarHarRettEttBarnAktivitetskravMorTest } from './info/bareFarHarRettEttBarnAktivitetskravMorTest';
 import { bareFarHarRettFlerbarnsukerAktivitetskravMorTest } from './info/bareFarHarRettFlerbarnsukerAktivitetskravMorTest';
 import { erAlleTilgjengeligeDagerBruktTest } from './info/erAlleTilgjengeligeDagerBruktTest';
-import { erUlønnetPermisjonTest } from './info/erUl\u00F8nnetPermisjonTest';
+// import { erUlønnetPermisjonTest } from './info/erUl\u00F8nnetPermisjonTest';
 
 export enum RegelKey {
     'alleUttakErInnenforMaksAntallDager' = 'alleUttakErInnenforMaksAntallDager',

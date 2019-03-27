@@ -78,6 +78,7 @@ export interface RegelAvvik {
 export interface RegelAvvikInfo {
     intlKey: string;
     values?: { [key: string]: string | number | Date | FeilIntlMessage | undefined };
+    renderAsHtml?: boolean;
 }
 
 export interface RegelTestresultatInfo extends RegelAvvikInfo {

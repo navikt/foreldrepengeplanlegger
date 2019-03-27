@@ -16,6 +16,7 @@ export interface PeriodeBase {
     type: Periodetype;
     tidsperiode: Tidsperiode;
     forelder: Forelder;
+    medforelder?: Forelder;
     fixed?: boolean;
     uttaksinfo?: Uttaksinfo;
     gradering?: number;

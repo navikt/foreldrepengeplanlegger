@@ -15,6 +15,7 @@ import getMessage from 'common/utils/i18nUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import VarighetMeny from '../periodeskjema/varighet/VarighetMeny';
 import { VarighetChangeEvent } from '../periodeskjema/varighet/VarighetSkjema';
+import { kanBeggeForeldreVelgesForPeriodetype } from '../../utils/kontoUtils';
 
 type Props = PeriodelisteElementProps & InjectedIntlProps;
 
@@ -79,9 +80,9 @@ class PeriodeElement extends React.Component<Props> {
         };
 
         const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
-        const { fom, tom } = this.props.periode.tidsperiode;
+        const { fom, tom } = periode.tidsperiode;
         return (
-            <PeriodeBlokk farge={getPeriodetypeFarge(this.props.periode.type, this.props.periode.forelder)}>
+            <PeriodeBlokk farge={getPeriodetypeFarge(periode.type, periode.forelder)}>
                 <PeriodelisteElement
                     menyer={[
                         {
@@ -89,15 +90,14 @@ class PeriodeElement extends React.Component<Props> {
                             className: bem.element('periode'),
                             render: () => (
                                 <PeriodetypeMeny
-                                    type={this.props.periode.type}
-                                    forelder={this.props.periode.forelder}
+                                    type={periode.type}
+                                    forelder={periode.forelder}
                                     foreldernavn={foreldernavn}
                                     erLåst={typeErLåst}
+                                    gradering={periode.gradering}
                                     brukteUttaksdager={antallUttaksdagerBrukt}
                                     uttaksdager={antallUttaksdager}
-                                    onChange={(periodetype) =>
-                                        onUpdate(changePeriodeType(this.props.periode, periodetype))
-                                    }
+                                    onChange={(periodetype) => onUpdate(changePeriodeType(periode, periodetype))}
                                 />
                             )
                         },
@@ -107,8 +107,8 @@ class PeriodeElement extends React.Component<Props> {
                             render: () => (
                                 <GraderingMeny
                                     foreldernavn={omForeldre.erDeltOmsorg ? foreldernavn : getMessage(intl, 'du')}
-                                    gradering={this.props.periode.gradering}
-                                    onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
+                                    gradering={periode.gradering}
+                                    onChange={(gradering) => onUpdate({ ...periode, gradering })}
                                     uttaksdagerBrukt={antallUttaksdagerBrukt}
                                 />
                             ),
@@ -120,13 +120,16 @@ class PeriodeElement extends React.Component<Props> {
                             render: () => (
                                 <ForelderMeny
                                     forelder={this.props.periode.forelder}
+                                    medforelder={this.props.periode.medforelder}
                                     mor={this.props.omForeldre.mor}
                                     farMedmor={this.props.omForeldre.farMedmor!}
-                                    erLåst={forelderErLåst}
-                                    onChange={(forelder) =>
+                                    disabled={forelderErLåst}
+                                    kanVelgeBeggeForeldre={kanBeggeForeldreVelgesForPeriodetype(periode.type)}
+                                    onChange={(forelder, medforelder) =>
                                         onUpdate({
                                             ...this.props.periode,
-                                            forelder
+                                            forelder,
+                                            medforelder
                                         })
                                     }
                                 />
@@ -160,14 +163,14 @@ class PeriodeElement extends React.Component<Props> {
                                         onTidsperiodeChange: (tidsperiode) =>
                                             isValidTidsperiode(tidsperiode)
                                                 ? onUpdate({
-                                                      ...this.props.periode,
+                                                      ...periode,
                                                       tidsperiode
                                                   })
                                                 : null,
                                         onVarighetChange: this.handleChangeVarighet,
                                         ingenVarighet:
-                                            this.props.periode.type === Periodetype.UttakFørTermin
-                                                ? this.props.periode.skalIkkeHaUttakFørTermin
+                                            periode.type === Periodetype.UttakFørTermin
+                                                ? periode.skalIkkeHaUttakFørTermin
                                                 : undefined
                                     }}
                                     dropdownStyle="filled"

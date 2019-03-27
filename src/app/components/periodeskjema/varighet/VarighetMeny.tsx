@@ -8,6 +8,7 @@ export type VarighetSkjemaType = 'låstStartdato' | 'foreldrepengerFørFødsel' 
 interface OwnProps {
     dropdownStyle: DropdownFormStyle;
     skjemaProps: VarighetSkjemaProps;
+    disabled?: boolean;
 }
 
 type Props = OwnProps;
@@ -32,7 +33,7 @@ class VarighetMeny extends React.Component<Props, {}> {
     }
 
     render() {
-        const { dropdownStyle = 'filled' } = this.props;
+        const { disabled, dropdownStyle = 'filled' } = this.props;
         return (
             <DropdownForm
                 ref={(c) => (this.dropdown = c)}
@@ -43,6 +44,7 @@ class VarighetMeny extends React.Component<Props, {}> {
                 style={dropdownStyle}
                 dropdownPlacement="right"
                 renderCloseButton={true}
+                disabled={disabled}
             />
         );
     }

@@ -12,6 +12,7 @@ import { getUttaksinfoForPeriode } from './uttaksinfo';
 import { Uttaksdagen } from './Uttaksdagen';
 import { getAntallForeldreISituasjon } from './common';
 import situasjonsregler from './situasjonsregler';
+import Settings from '../settings';
 
 export const stønadskontoSortOrder = {
     [StønadskontoType.ForeldrepengerFørFødsel]: 1,
@@ -125,5 +126,15 @@ export const getPeriodeFørTermin = (
             };
             periode.uttaksinfo = getUttaksinfoForPeriode(periode);
             return periode;
+    }
+};
+
+export const kanBeggeForeldreVelgesForPeriodetype = (periodetype: Periodetype | undefined) => {
+    switch (periodetype) {
+        case Periodetype.Arbeid:
+        case Periodetype.Ferie:
+            return Settings.kanVelgeBeggeForeldrePåPeriode;
+        default:
+            return false;
     }
 };

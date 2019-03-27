@@ -5,5 +5,6 @@ export interface PeriodeskjemaFormValues {
     fom: Date;
     tom: Date;
     forelder: Forelder;
+    medforelder?: Forelder;
     gradering?: number;
 }

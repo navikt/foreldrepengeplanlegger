@@ -123,12 +123,12 @@ const uttaksplanRegler: Regel[] = [
         key: RegelKey.erAlleTilgjengeligeDagerBrukt,
         alvorlighet: RegelAlvorlighet.ADVARSEL,
         test: erAlleTilgjengeligeDagerBruktTest
-    },
-    {
-        key: RegelKey.erUlønnetPermisjon,
-        alvorlighet: RegelAlvorlighet.ADVARSEL,
-        test: erUlønnetPermisjonTest,
-        slåsSammenVedOppsummering: true
+        // },
+        // {
+        //     key: RegelKey.erUlønnetPermisjon,
+        //     alvorlighet: RegelAlvorlighet.ADVARSEL,
+        //     test: erUlønnetPermisjonTest,
+        //     slåsSammenVedOppsummering: true
     }
 ];
 

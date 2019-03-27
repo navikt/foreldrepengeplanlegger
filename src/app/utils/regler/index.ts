@@ -17,7 +17,6 @@ import { harForeldreForMangeFeriedagerTest } from './tester/harForelderForMangeF
 import { bareFarHarRettEttBarnAktivitetskravMorTest } from './info/bareFarHarRettEttBarnAktivitetskravMorTest';
 import { bareFarHarRettFlerbarnsukerAktivitetskravMorTest } from './info/bareFarHarRettFlerbarnsukerAktivitetskravMorTest';
 import { erAlleTilgjengeligeDagerBruktTest } from './info/erAlleTilgjengeligeDagerBruktTest';
-import { erUlønnetPermisjonTest } from './info/erUl\u00F8nnetPermisjonTest';
 
 export enum RegelKey {
     'alleUttakErInnenforMaksAntallDager' = 'alleUttakErInnenforMaksAntallDager',
@@ -123,12 +122,6 @@ const uttaksplanRegler: Regel[] = [
         key: RegelKey.erAlleTilgjengeligeDagerBrukt,
         alvorlighet: RegelAlvorlighet.ADVARSEL,
         test: erAlleTilgjengeligeDagerBruktTest
-    },
-    {
-        key: RegelKey.erUlønnetPermisjon,
-        alvorlighet: RegelAlvorlighet.ADVARSEL,
-        test: erUlønnetPermisjonTest,
-        slåsSammenVedOppsummering: true
     }
 ];
 

@@ -30,7 +30,8 @@ const getOptions = (intl: InjectedIntl): DropdownFormMenuOption[] => [
     { value: Periodetype.Uttak, label: getMessage(intl, `periodetype.${Periodetype.Uttak}`) },
     { value: Periodetype.GradertUttak, label: getMessage(intl, `periodetype.${Periodetype.GradertUttak}`) },
     { value: Periodetype.Ferie, label: getMessage(intl, `periodetype.${Periodetype.Ferie}`) },
-    { value: Periodetype.Arbeid, label: getMessage(intl, `periodetype.${Periodetype.Arbeid}`) }
+    { value: Periodetype.Arbeid, label: getMessage(intl, `periodetype.${Periodetype.Arbeid}`) },
+    { value: Periodetype.UlønnetPermisjon, label: getMessage(intl, `periodetype.${Periodetype.UlønnetPermisjon}`) }
 ];
 
 const getPeriodetypeLabel = (type: Periodetype | undefined, intl: InjectedIntl): string => {

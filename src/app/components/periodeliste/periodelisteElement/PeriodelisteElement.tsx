@@ -122,9 +122,9 @@ class PeriodelisteElement extends React.Component<Props, State> {
                     <div className={bem.element('regelAvvik', regelInfoVisible ? 'open' : undefined)} id={regelId}>
                         <Block visible={regelInfoVisible} margin="none">
                             <AlertStripe type={getAlertstripeTypeFromRegelAvvik(regelAvvik[0])} solid={true}>
-                                <ul className={bem.element('regelAvvikListe')}>
+                                <ul className={bem.element('regelavvikListe')}>
                                     {regelAvvik.map((a, idx) => (
-                                        <li className={bem.element('regelAvvikListe__brudd')} key={idx}>
+                                        <li className={bem.element('regelavvikListe__brudd')} key={idx}>
                                             <RegelAvvikFeilmelding info={a.info} />
                                         </li>
                                     ))}

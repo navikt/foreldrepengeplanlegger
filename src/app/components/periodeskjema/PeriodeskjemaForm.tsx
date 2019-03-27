@@ -25,9 +25,10 @@ import { focusFirstElement } from '../../utils/focusUtils';
 import getMessage from 'common/utils/i18nUtils';
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
 import { kanBeggeForeldreVelgesForPeriodetype } from '../../utils/kontoUtils';
+import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
+import Settings from '../../settings';
 
 import './periodeSkjema.less';
-import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
 
 interface OwnProps {
     nesteUttaksdag: Date;
@@ -150,7 +151,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             dropdownStyle="border"
                                             brukteUttaksdager={antallUttaksdagerBrukt}
                                             uttaksdager={uttaksdager}
-                                            kanVelgeUlønnetPermisjon={true}
+                                            kanVelgeUlønnetPermisjon={Settings.kanVelgeUlønnetPermisjon}
                                             onChange={(type) => {
                                                 formik.setFieldValue('periodetype', type);
                                                 if (type === Periodetype.GradertUttak) {

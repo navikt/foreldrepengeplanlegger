@@ -12,6 +12,7 @@ import {
 } from '../types';
 import { Periodene } from './Periodene';
 import { Perioden } from './Perioden';
+import Settings from '../settings';
 
 const getAlleDagerFørTermin = (periode: UttakFørTerminPeriode | undefined): number => {
     if (periode && periode.skalIkkeHaUttakFørTermin !== true) {
@@ -150,7 +151,10 @@ export const getForbruk = (
 
 export const getDagerGradert = (dager: number, gradering?: number): number => {
     if (gradering && gradering > 0 && gradering < 100) {
-        return Math.ceil(dager * (100 / gradering));
+        if (Settings.avrundGraderingPerPeriode) {
+            return Math.ceil(dager * (100 / gradering));
+        }
+        return dager * (100 / gradering);
     }
     return dager;
 };

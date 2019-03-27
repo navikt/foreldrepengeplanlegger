@@ -1,5 +1,6 @@
 const Settings = {
-    kanVelgeBeggeForeldrePåPeriode: false
+    kanVelgeBeggeForeldrePåPeriode: false,
+    avrundGraderingPerPeriode: true
 };
 
 export default Settings;

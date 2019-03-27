@@ -53,7 +53,7 @@ describe('Perioden', () => {
             expect(
                 Perioden(periode1).erLik({
                     ...periode1,
-                    type: Periodetype.UbetaltPermisjon
+                    type: Periodetype.UlønnetPermisjon
                 })
             ).toBeFalsy();
         });

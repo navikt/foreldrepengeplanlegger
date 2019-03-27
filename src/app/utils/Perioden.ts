@@ -2,12 +2,12 @@ import moment from 'moment';
 import { getTidsperiode, Tidsperioden } from './Tidsperioden';
 import { Uttaksdagen } from './Uttaksdagen';
 import { Tidsperiode } from 'common/types';
-import { Periode, isUttak, isUtsettelse, isUbetaltPermisjon } from '../types/periodetyper';
+import { Periode, isUttak, isUtsettelse, isUlønnetPermisjon } from '../types/periodetyper';
 
 export const Perioden = (periode: Periode) => ({
     erUttak: () => isUttak(periode),
     erUtsettelse: () => isUtsettelse(periode),
-    erUbetaltPermisjon: () => isUbetaltPermisjon(periode),
+    erUlønnetPermisjon: () => isUlønnetPermisjon(periode),
     setStartdato: (fom: Date) => flyttPeriode(periode, fom),
     setUttaksdager: (uttaksdager: number) =>
         (periode.tidsperiode = getTidsperiode(periode.tidsperiode.fom, uttaksdager)),

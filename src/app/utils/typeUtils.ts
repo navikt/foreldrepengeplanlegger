@@ -62,10 +62,10 @@ export const changePeriodeType = (periode: Periode, type: Periodetype): Periode 
                 gradering: 50,
                 fixed: false
             };
-        case Periodetype.UbetaltPermisjon:
+        case Periodetype.UlønnetPermisjon:
             return {
                 ...basePeriode,
-                type: Periodetype.UbetaltPermisjon,
+                type: Periodetype.UlønnetPermisjon,
                 gradering: undefined,
                 fixed: false
             };

@@ -251,7 +251,7 @@ function splittPeriodeMedPeriode(periode: Periode, nyPeriode: Periode): Periode[
     };
     const startSisteDel: Date = Uttaksdagen(midt.tidsperiode.tom).neste();
 
-    if (Perioden(periode).erUbetaltPermisjon()) {
+    if (Perioden(periode).erUlønnetPermisjon()) {
         dagerSisteDel = dagerSisteDel - Perioden(midt).getAntallUttaksdager();
     }
     const siste: Periode = {

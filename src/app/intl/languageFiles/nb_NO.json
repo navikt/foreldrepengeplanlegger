@@ -44,7 +44,7 @@
     "periodetype.gradertUttak": "Foreldrepenger og arbeid",
     "periodetype.ferie": "Ferie",
     "periodetype.arbeid": "Arbeid heltid",
-    "periodetype.ubetaltPermisjon": "Ubetalt permisjon",
+    "periodetype.ulønnetPermisjon": "Ulønnet permisjon",
 
     "uttaksplan.skjema.fordeling.annenForeldersFellesperiode": "{navnFarMedmor} kan ta ut {antallUker} uker av fellesperioden",
     "uttaksplan.skjema.fordeling.aria.fordeling": "Hvor mange uker av fellesdelen skal {navnMor} ha av totalt {ukerFellesperiode} uker?",

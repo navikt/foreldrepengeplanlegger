@@ -19,7 +19,7 @@ const beregnBrukteUttaksdager = (
             return Math.floor(uttaksdager * (gradering / 100));
         case Periodetype.Ferie:
             return fridager;
-        case Periodetype.UbetaltPermisjon:
+        case Periodetype.UlønnetPermisjon:
             return 0;
         case Periodetype.Arbeid:
             return 0;

@@ -13,7 +13,8 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues, nyPeriodeId: s
                     fom: values.fom,
                     tom: values.tom
                 },
-                forelder: values.forelder
+                forelder: values.forelder,
+                medforelder: values.medforelder
             };
         case Periodetype.Arbeid:
             return {
@@ -23,7 +24,8 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues, nyPeriodeId: s
                     fom: values.fom,
                     tom: values.tom
                 },
-                forelder: values.forelder
+                forelder: values.forelder,
+                medforelder: values.medforelder
             };
         case Periodetype.Uttak:
             return {

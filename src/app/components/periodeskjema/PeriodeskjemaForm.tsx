@@ -14,18 +14,19 @@ import { getForelderNavn } from '../../utils/common';
 import ForelderMeny from '../periodeliste/parts/ForelderMeny';
 import { Tidsperiode } from 'nav-datovelger';
 import PeriodelisteElement from '../periodeliste/periodelisteElement/PeriodelisteElement';
-import { Ingress } from 'nav-frontend-typografi';
+import { Ingress, Element as TypoElement } from 'nav-frontend-typografi';
 import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
 import periodeskjemaUtils from './utils';
 import { getTidsperiode, Tidsperioden } from '../../utils/Tidsperioden';
 import { VarighetChangeEvent } from './varighet/VarighetSkjema';
 import VarighetMeny from './varighet/VarighetMeny';
-
-import './periodeSkjema.less';
 import EndringerVedNyPeriode from './EndringerVedNyPeriode';
 import { focusFirstElement } from '../../utils/focusUtils';
 import getMessage from 'common/utils/i18nUtils';
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
+
+import './periodeSkjema.less';
+import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
 
 interface OwnProps {
     nesteUttaksdag: Date;
@@ -51,6 +52,7 @@ const periodeErGyldig = (values: PeriodeskjemaFormValues): boolean => {
         values.forelder !== undefined &&
         values.fom !== undefined &&
         values.periodetype !== undefined &&
+        values.periodetype !== Periodetype.UlønnetPermisjon &&
         values.tom !== undefined &&
         (values.periodetype === Periodetype.GradertUttak ? values.gradering !== undefined : true)
     );
@@ -147,6 +149,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             dropdownStyle="border"
                                             brukteUttaksdager={antallUttaksdagerBrukt}
                                             uttaksdager={uttaksdager}
+                                            kanVelgeUlønnetPermisjon={true}
                                             onChange={(type) => {
                                                 formik.setFieldValue('periodetype', type);
                                                 if (type === Periodetype.GradertUttak) {
@@ -182,19 +185,22 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             mor={omForeldre.mor}
                                             farMedmor={omForeldre.farMedmor!}
                                             dropdownStyle="border"
+                                            disabled={periodetype === Periodetype.UlønnetPermisjon}
                                             onChange={(f) => {
                                                 formik.setFieldValue('forelder', f);
                                                 this.handleValueOnChange();
                                             }}
                                         />
                                     ),
-                                    isVisibleCheck: () => omForeldre.erDeltOmsorg
+                                    isVisibleCheck: () =>
+                                        omForeldre.erDeltOmsorg && periodetype !== Periodetype.UlønnetPermisjon
                                 },
                                 {
                                     id: 'varighet',
                                     className: bem.element('varighet', 'skjema'),
                                     render: () => (
                                         <VarighetMeny
+                                            disabled={periodetype === Periodetype.UlønnetPermisjon}
                                             skjemaProps={{
                                                 tidsperiode: { fom, tom },
                                                 antallUttaksdager: uttaksdager,
@@ -212,7 +218,8 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             }}
                                             dropdownStyle="border"
                                         />
-                                    )
+                                    ),
+                                    isVisibleCheck: () => periodetype !== Periodetype.UlønnetPermisjon
                                 }
                             ]}
                             info={
@@ -228,6 +235,15 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                     : undefined
                             }
                         />
+                    </Block>
+                    <Block margin="none" visible={periodetype === Periodetype.UlønnetPermisjon}>
+                        <Veilederinfo stil="normal" type="info">
+                            <Block margin="xs">
+                                <TypoElement>Om ulønnet permisjon</TypoElement>
+                            </Block>
+                            Ulønnet permisjon betyr at en den ene forelderen må søke om å utsette foreldrepengene på
+                            grunn av heltidsarbeid, sykdom eller ferie. Så her i planleggeren må du...
+                        </Veilederinfo>
                     </Block>
                     <Block margin="none">
                         <EndringerVedNyPeriode nyPeriode={nyPeriode} perioder={perioder} omForeldre={omForeldre} />

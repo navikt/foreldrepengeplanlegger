@@ -16,23 +16,33 @@ interface OwnProps {
     uttaksdager?: number;
     brukteUttaksdager?: number;
     dropdownStyle?: DropdownFormStyle;
+    kanVelgeUlønnetPermisjon?: boolean;
     onChange: (periodetype: Periodetype) => void;
 }
 
 type Props = OwnProps & InjectedIntlProps;
 
-const getOptions = (intl: InjectedIntl): DropdownFormMenuOption[] => [
-    {
-        value: Periodetype.UttakFørTermin,
-        label: getMessage(intl, `periodetype.${Periodetype.UttakFørTermin}`),
-        hidden: true
-    },
-    { value: Periodetype.Uttak, label: getMessage(intl, `periodetype.${Periodetype.Uttak}`) },
-    { value: Periodetype.GradertUttak, label: getMessage(intl, `periodetype.${Periodetype.GradertUttak}`) },
-    { value: Periodetype.Ferie, label: getMessage(intl, `periodetype.${Periodetype.Ferie}`) },
-    { value: Periodetype.Arbeid, label: getMessage(intl, `periodetype.${Periodetype.Arbeid}`) },
-    { value: Periodetype.UlønnetPermisjon, label: getMessage(intl, `periodetype.${Periodetype.UlønnetPermisjon}`) }
-];
+const getOptions = (intl: InjectedIntl, kanVelgeUlønnetPermisjon?: boolean): DropdownFormMenuOption[] => {
+    return [
+        {
+            value: Periodetype.UttakFørTermin,
+            label: getMessage(intl, `periodetype.${Periodetype.UttakFørTermin}`),
+            hidden: true
+        },
+        { value: Periodetype.Uttak, label: getMessage(intl, `periodetype.${Periodetype.Uttak}`) },
+        { value: Periodetype.GradertUttak, label: getMessage(intl, `periodetype.${Periodetype.GradertUttak}`) },
+        { value: Periodetype.Ferie, label: getMessage(intl, `periodetype.${Periodetype.Ferie}`) },
+        { value: Periodetype.Arbeid, label: getMessage(intl, `periodetype.${Periodetype.Arbeid}`) },
+        ...(kanVelgeUlønnetPermisjon
+            ? [
+                  {
+                      value: Periodetype.UlønnetPermisjon,
+                      label: getMessage(intl, `periodetype.${Periodetype.UlønnetPermisjon}`)
+                  }
+              ]
+            : [])
+    ];
+};
 
 const getPeriodetypeLabel = (type: Periodetype | undefined, intl: InjectedIntl): string => {
     return getMessage(intl, `periodetype.${type}`);
@@ -72,7 +82,7 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
 };
 
 const PeriodetypeMeny: React.StatelessComponent<Props> = (props) => {
-    const { erLåst, intl, type, dropdownStyle = 'filled', onChange } = props;
+    const { erLåst, intl, type, dropdownStyle = 'filled', onChange, kanVelgeUlønnetPermisjon } = props;
     return (
         <DropdownForm
             disabled={erLåst}
@@ -81,7 +91,9 @@ const PeriodetypeMeny: React.StatelessComponent<Props> = (props) => {
             contentClassName="periodetypeDialog"
             contentTitle={getMessage(intl, 'periodeliste.velgPeriodetype')}
             style={dropdownStyle}
-            contentRenderer={() => <DropdownFormMenu options={getOptions(intl)} selectedValue={type} />}
+            contentRenderer={() => (
+                <DropdownFormMenu options={getOptions(intl, kanVelgeUlønnetPermisjon)} selectedValue={type} />
+            )}
         />
     );
 };

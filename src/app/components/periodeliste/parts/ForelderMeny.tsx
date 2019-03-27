@@ -11,7 +11,7 @@ interface Props {
     forelder?: Forelder;
     mor: Forelderinfo;
     farMedmor: Forelderinfo;
-    erLåst?: boolean;
+    disabled?: boolean;
     dropdownStyle?: DropdownFormStyle;
     onChange: (forelder: Forelder) => void;
 }
@@ -54,11 +54,11 @@ const renderLabel = (props: Props, options: DropdownFormMenuOption[]): React.Rea
 };
 
 const ForelderMeny: React.StatelessComponent<Props & InjectedIntlProps> = (props) => {
-    const { onChange, forelder, mor, farMedmor, erLåst, dropdownStyle = 'filled', intl } = props;
+    const { onChange, forelder, mor, farMedmor, disabled, dropdownStyle = 'filled', intl } = props;
     const options = getForelderOptions(mor.navn, farMedmor!.navn);
     return (
         <DropdownForm
-            disabled={erLåst}
+            disabled={disabled}
             disabledButtonClassName="forelderMenyDisabled"
             onSelection={(value) => onChange(value as Forelder)}
             contentClassName="forelderDialog"

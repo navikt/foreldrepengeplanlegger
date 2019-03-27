@@ -1,6 +1,7 @@
 import { Periode, Uttaksinfo, Periodetype } from '../types';
 import { isValidTidsperiode, Tidsperioden } from './Tidsperioden';
 import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
+import Settings from '../settings';
 
 const beregnBrukteUttaksdager = (
     type: Periodetype,
@@ -16,7 +17,10 @@ const beregnBrukteUttaksdager = (
             if (gradering === undefined || isNaN(gradering)) {
                 return uttaksdager;
             }
-            return Math.floor(uttaksdager * (gradering / 100));
+            if (Settings.avrundGraderingPerPeriode) {
+                return Math.floor(uttaksdager * (gradering / 100));
+            }
+            return uttaksdager * (gradering / 100);
         case Periodetype.Ferie:
             return fridager;
         case Periodetype.UbetaltPermisjon:

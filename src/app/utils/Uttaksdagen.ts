@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { Tidsperioden } from './Tidsperioden';
+import Settings from '../settings';
 
 /**
  * Wrapper en dato med uttaksdager-funksjonalitet
@@ -33,7 +34,10 @@ function erUttaksdag(dato: Date): boolean {
 }
 
 function getUttaksdagerMedGradering(uttaksdager: number, uttaksprosent?: number): number {
-    return uttaksprosent !== undefined ? Math.round(uttaksdager * (100 / uttaksprosent)) : uttaksdager;
+    if (Settings.avrundGraderingPerPeriode) {
+        return uttaksprosent !== undefined ? Math.round(uttaksdager * (100 / uttaksprosent)) : uttaksdager;
+    }
+    return uttaksprosent !== undefined ? uttaksdager * (100 / uttaksprosent) : uttaksdager;
 }
 
 /**

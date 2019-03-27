@@ -1,7 +1,7 @@
 const Settings = {
     kanVelgeBeggeForeldrePåPeriode: false,
     avrundGraderingPerPeriode: true,
-    kanVelgeUlønnetPermisjon: true
+    kanVelgeUlønnetPermisjon: false
 };
 
 export default Settings;

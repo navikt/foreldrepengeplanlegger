@@ -18,7 +18,7 @@ interface Props {
     onChange: (forelder: Forelder, medforelder: Forelder | undefined) => void;
 }
 
-const BEGGE_VALG_VERDI = 'begge';
+export const BEGGE_FORELDRE = 'begge';
 
 const getForelderOptions = (
     navnMor: string,
@@ -27,7 +27,7 @@ const getForelderOptions = (
 ): DropdownFormMenuOption[] => [
     { value: Forelder.mor, label: navnMor },
     { value: Forelder.farMedmor, label: navnFarMedmor },
-    ...(kanVelgeBeggeForeldre ? [{ value: BEGGE_VALG_VERDI, label: `Begge` }] : [])
+    ...(kanVelgeBeggeForeldre ? [{ value: BEGGE_FORELDRE, label: `Begge` }] : [])
 ];
 
 const renderForelderIkon = (
@@ -89,7 +89,7 @@ const ForelderMeny: React.StatelessComponent<Props & InjectedIntlProps> = (props
             disabled={erLåst}
             disabledButtonClassName="forelderMenyDisabled"
             onSelection={(value) => {
-                if (value === BEGGE_VALG_VERDI) {
+                if (value === BEGGE_FORELDRE) {
                     onChange(Forelder.mor, Forelder.farMedmor);
                 } else {
                     onChange(value as Forelder, undefined);
@@ -101,7 +101,7 @@ const ForelderMeny: React.StatelessComponent<Props & InjectedIntlProps> = (props
             labelAlignment="center"
             style={dropdownStyle}
             contentRenderer={() => (
-                <DropdownFormMenu options={options} selectedValue={!!medforelder ? BEGGE_VALG_VERDI : forelder} />
+                <DropdownFormMenu options={options} selectedValue={!!medforelder ? BEGGE_FORELDRE : forelder} />
             )}
             dropdownPlacement="right"
         />

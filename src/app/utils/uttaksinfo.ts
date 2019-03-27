@@ -38,7 +38,6 @@ export const getUttaksinfoForPeriode = (periode: Periode): Uttaksinfo | undefine
             periode.type,
             antallUttaksdager,
             antallFridager,
-
             periode.gradering
         );
         return {

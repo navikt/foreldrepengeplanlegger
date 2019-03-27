@@ -15,6 +15,7 @@ import getMessage from 'common/utils/i18nUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import VarighetMeny from '../periodeskjema/varighet/VarighetMeny';
 import { VarighetChangeEvent } from '../periodeskjema/varighet/VarighetSkjema';
+import { kanBeggeForeldreVelgesForPeriodetype } from '../../utils/kontoUtils';
 
 type Props = PeriodelisteElementProps & InjectedIntlProps;
 
@@ -124,6 +125,7 @@ class PeriodeElement extends React.Component<Props> {
                                     mor={this.props.omForeldre.mor}
                                     farMedmor={this.props.omForeldre.farMedmor!}
                                     erLåst={forelderErLåst}
+                                    kanVelgeBeggeForeldre={kanBeggeForeldreVelgesForPeriodetype(periode.type)}
                                     onChange={(forelder, medforelder) =>
                                         onUpdate({
                                             ...this.props.periode,

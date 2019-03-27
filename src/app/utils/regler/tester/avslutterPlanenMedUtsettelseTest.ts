@@ -11,7 +11,6 @@ export const avslutterPlanenMedUtsettelseTest: RegelTest = (grunnlag: Regelgrunn
     const perioder = [...grunnlag.perioder].reverse();
     const idx = perioder.findIndex((periode) => !isUtsettelse(periode));
     const passerer = idx === 0;
-
     const info: RegelTestresultatInfoObject | undefined = passerer
         ? undefined
         : perioder.slice(0, idx).map((p): Partial<RegelTestresultatInfo> => ({ periodeId: p.id }));

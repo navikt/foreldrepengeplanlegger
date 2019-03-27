@@ -57,6 +57,7 @@
     "skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
     "uttaksplan.ferie.inneholderHelligdager": "En kan ikke ta ut ferie på en helligdag. Denne perioden inneholder {dager, plural, one {# helligdag} other {# helligdager}}, som derfor vil bli regnet som dager med foreldrepenger for {navn}.",
 
+    "regel.feil.uttaksplanStatusTittel": "Planen inneholder feil",
     "regel.feil.starterInnenfor12UkerFørTermin": "Foreldrepenger før fødsel kan starte tidligst 12 uker før termin. Første mulige dag er {dato}.",
     "regel.feil.erInnenforSisteMuligeUttaksdag": "Foreldrepengene må tas ut før barnet fyller tre år.",
     "regel.feil.morsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",

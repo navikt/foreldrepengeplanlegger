@@ -7,14 +7,14 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { guid } from 'nav-frontend-js-utils';
 import * as React from 'react';
 import { RegelAvvik, RegelAlvorlighet } from '../../../utils/regler/types';
-import AdvarselIkon from 'common/components/ikoner/AdvarselIkon';
 import { getAlertstripeTypeFromRegelAvvik } from '../periodelisteUtils';
-import RegelAvvikFeilmelding from '../../regelAvvik/RegelAvvikFeilmelding';
+import RegelAvvikFeilmelding from '../../regelAvvikListe/RegelAvvikFeilmelding';
 import InfoIkonFylt from 'common/InfoIkonFylt';
 
 import './periodelisteElement.less';
 import getMessage from 'common/utils/i18nUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
+import StatusIkon from 'common/components/ikoner/StatusIkon';
 
 interface OwnProps {
     menyer: PeriodeElementMeny[];
@@ -94,7 +94,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                                             onClick={() => this.setState({ regelInfoVisible: !regelInfoVisible })}
                                             ikon={
                                                 regelAvvik[0].alvorlighet === RegelAlvorlighet.FEIL ? (
-                                                    <AdvarselIkon type="feil" />
+                                                    <StatusIkon status="feil" />
                                                 ) : (
                                                     <InfoIkonFylt />
                                                 )

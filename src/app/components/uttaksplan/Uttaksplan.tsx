@@ -21,6 +21,7 @@ import './uttaksplan.less';
 import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
 import getMessage from 'common/utils/i18nUtils';
 import FocusContainer from 'common/components/focusContainer/FocusContainer';
+import { RegelAvvik } from '../../utils/regler/types';
 
 interface State {
     visSkjema: boolean;
@@ -38,6 +39,7 @@ interface OwnProps {
     nyPeriode: Partial<Periode> | undefined;
     nyPeriodeId: string;
     tilgjengeligeDager: TilgjengeligeDager;
+    regelAvvik: RegelAvvik[];
     onResetApp: () => void;
     onNyPeriodeChange?: (periode?: Periode) => void;
 }
@@ -106,6 +108,7 @@ class Uttaksplan extends React.Component<Props, State> {
             periodeFørTermin,
             tilgjengeligeDager,
             nyPeriodeId,
+            regelAvvik,
             intl
         } = this.props;
         const { visSkjema } = this.state;
@@ -189,6 +192,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                 forbruk={forbruk}
                                 omForeldre={omForeldre}
                                 tilgjengeligeDager={tilgjengeligeDager}
+                                regelAvvik={regelAvvik}
                             />
                         )}
                     </Block>

@@ -96,15 +96,15 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
                 <>
                     <li className={bem.element('periode')} key={periodeFørTermin.id}>
                         <PeriodeElement
+                            {...elementProps}
                             perioder={perioder}
                             periode={periodeFørTermin}
                             periodeFørTermin={periodeFørTermin}
-                            regelAvvik={getRegelAvvikForPeriode(regelTestresultat, periodeFørTermin.id)}
                             typeErLåst={true}
                             forelderErLåst={true}
                             sluttdatoErLåst={true}
                             kanSlettes={false}
-                            {...elementProps}
+                            regelAvvik={getRegelAvvikForPeriode(regelTestresultat, periodeFørTermin.id)}
                         />
                     </li>
                     <li className={bem.element('termin')}>

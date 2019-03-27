@@ -8,7 +8,7 @@ import Block from 'common/components/block/Block';
 import { Undertittel, Normaltekst } from 'nav-frontend-typografi';
 import Multibar from '../multibar/Multibar';
 import { UttaksplanHexFarge } from 'common/utils/colors';
-import { getFordelingStatus } from '../../utils/fordelingStatusUtils';
+import { getFordelingStatus, FordelingStatus } from '../../utils/fordelingStatusUtils';
 import { FormattedMessage, injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
 import StatusIkon from 'common/components/ikoner/StatusIkon';
 import { getVarighetString } from 'common/utils/intlUtils';
@@ -16,6 +16,7 @@ import getMessage from 'common/utils/i18nUtils';
 import Personkort from '../personkort/Personkort';
 import { getProsentFordeling } from '../../utils/tilgjengeligeDagerUtils';
 import AriaText from 'common/components/aria/AriaText';
+import { RegelAvvik, RegelAlvorlighet } from '../../utils/regler/types';
 
 import './fordelingGraf.less';
 
@@ -23,6 +24,7 @@ interface OwnProps {
     forbruk: Forbruk;
     tilgjengeligeDager: TilgjengeligeDager;
     omForeldre: OmForeldre;
+    regelAvvik: RegelAvvik[];
 }
 
 type Props = OwnProps & InjectedIntlProps;
@@ -270,7 +272,11 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengelig
 
 const FordelingStatusHeader: React.StatelessComponent<Props> = (props) => {
     const bemHeader = bem.child('statusHeader');
-    const fordelingStatus = getFordelingStatus(props.forbruk, props.omForeldre, props.intl);
+    const planenHarAvvikSomErFeil =
+        props.regelAvvik.filter((avvik) => avvik.alvorlighet === RegelAlvorlighet.FEIL).length > 0;
+    const fordelingStatus: FordelingStatus = planenHarAvvikSomErFeil
+        ? { status: 'feil', tittel: { key: 'regel.feil.uttaksplanStatusTittel' } }
+        : getFordelingStatus(props.forbruk, props.omForeldre, props.intl);
     return (
         <div className={bemHeader.block}>
             <AriaText tag="h2">Status på planen</AriaText>

@@ -25,10 +25,10 @@ import { getUttaksdatoer } from '../utils/uttaksdatoer';
 import { UttaksplanRegelTestresultat } from '../utils/regler/types';
 import Oppsummering from '../components/oppsummering/Oppsummering';
 import { Side } from '../routes';
-import RegelAvvik from '../components/regelAvvik/RegelAvvik';
 import FocusChildOnMountContainer from 'common/components/focusContainer/FocusChildOnMountContainer';
 import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
 import { Element } from 'nav-frontend-typografi';
+import RegelAvvikListe from '../components/regelAvvikListe/RegelAvvikListe';
 
 interface StateProps {
     periodeFørTermin?: Periode;
@@ -124,6 +124,7 @@ class UttaksplanSide extends React.Component<Props> {
                                 perioder={perioder}
                                 forbruk={forbruk!}
                                 nyPeriode={nyPeriode}
+                                regelAvvik={regelTestresultat.avvik}
                                 tilgjengeligeDager={tilgjengeligeDager}
                                 onAdd={(periode) => dispatch(addPeriode(periode))}
                                 onUpdate={(periode) => periode.type === dispatch(updatePeriode(periode))}
@@ -138,7 +139,7 @@ class UttaksplanSide extends React.Component<Props> {
                             />
                         </FocusChildOnMountContainer>
                         <Block visible={regelTestresultat.avvik.length > 0} marginTop="l">
-                            <RegelAvvik avvik={regelTestresultat.avvik} />
+                            <RegelAvvikListe avvik={regelTestresultat.avvik} />
                         </Block>
                     </>
                 )}

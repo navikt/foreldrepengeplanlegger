@@ -4,7 +4,7 @@ import { getVarighetString } from 'common/utils/intlUtils';
 
 export type FordelingStatusVerdi = 'suksess' | 'advarsel' | 'feil';
 
-interface FordelingStatus {
+export interface FordelingStatus {
     status: FordelingStatusVerdi;
     tittel: {
         key: string;

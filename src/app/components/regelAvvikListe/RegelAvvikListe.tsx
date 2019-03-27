@@ -15,7 +15,7 @@ interface Props {
 
 const bem = BEMHelper('regelAvvik');
 
-const RegelAvvik: React.StatelessComponent<Props> = ({ avvik }) => {
+const RegelAvvikListe: React.StatelessComponent<Props> = ({ avvik }) => {
     const ulovlig = trimRelaterteRegelAvvik(avvik.filter((b) => b.alvorlighet === RegelAlvorlighet.FEIL));
     const viktig = trimRelaterteRegelAvvik(avvik.filter((b) => b.alvorlighet === RegelAlvorlighet.ADVARSEL));
     const info = trimRelaterteRegelAvvik(avvik.filter((b) => b.alvorlighet === RegelAlvorlighet.INFO));
@@ -74,4 +74,4 @@ const RegelAvvik: React.StatelessComponent<Props> = ({ avvik }) => {
     );
 };
 
-export default RegelAvvik;
+export default RegelAvvikListe;

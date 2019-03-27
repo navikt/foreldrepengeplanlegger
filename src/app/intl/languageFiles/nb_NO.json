@@ -68,9 +68,9 @@
     "regel.feil.farMedmorUsetterFørsteSeksUker": "{navn} kan ikke utsette eller kombinere foreldrepenger og arbeid de første seks ukene etter fødsel.",
     "regel.feil.morHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
     "regel.feil.farMedmorHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
-    "regel.feil.avlutterUttaksplanMedUtsettelse": "Planen kan ikke slutte med en utsettelse",
+    "regel.feil.avlutterUttaksplanMedUtsettelse": "Planen kan ikke slutte med en utsettelse.",
 
-    "regel.advarsel.erAlleTilgjengeligeDagerBrukt": "{dager} er ikke brukt",
+    "regel.advarsel.erAlleTilgjengeligeDagerBrukt": "{dager} er ikke brukt.",
     "regel.advarsel.erUlønnetPermisjon": "Når en forelder planlegger å være hjemme i ulønnet permisjon må den andre forelderen søke om å utsette foreldrepengene på grunn av heltidsarbeid, sykdom eller ferie.",
     "regel.advarsel.uttakForFarEllerMedmorFørsteSeksUkerInfo": "{navnFarMedmor} kan kun ta ut foreldrepenger de seks første ukene etter fødsel om {navnMor} er for syk til å ta seg av barnet eller er innlagt på helseinstitusjon.",
 

@@ -1,5 +1,5 @@
 const Settings = {
-    kanVelgeBeggeForeldrePåPeriode: true
+    kanVelgeBeggeForeldrePåPeriode: false
 };
 
 export default Settings;

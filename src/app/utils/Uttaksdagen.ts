@@ -145,11 +145,6 @@ function trekkUttaksdagerFraDato(dato: Date, uttaksdager: number, uttaksprosent?
     let nyDato = dato;
     let dagteller = 0;
     let uttaksdageteller = 0;
-    /**
-     * I og med denne legger til uttaksdager etter dato, dvs. legger en til en uttaksdag blir
-     * antall uttaksdager 2. Dvs. en må da legge til 1 uttaksdag i antallet som kommer inn, for deretter
-     * å trekke fra en når en har gradering, slik at verdien av en uttaksdag blir riktig.
-     */
     const reelleUttaksdager = getUttaksdagerMedGradering(uttaksdager + 1, uttaksprosent) - 1;
     while (uttaksdageteller < Math.abs(reelleUttaksdager)) {
         const tellerdato = moment(dato)

@@ -9,6 +9,7 @@ import { SituasjonSkjemadata, TilgjengeligStønadskonto, StønadskontoType, Situ
 import { AppState } from '../reducers/rootReducer';
 import situasjonsregler from '../../utils/situasjonsregler';
 import { Dekningsgrad } from 'common/types';
+import { Uttaksdagen } from '../../utils/Uttaksdagen';
 
 const getStønadskontoerRequestParams = (
     familiehendelsesdato: Date,
@@ -23,7 +24,7 @@ const getStønadskontoerRequestParams = (
         farHarRett: situasjonsregler.harFarRett(data.situasjon),
         morHarAleneomsorg: situasjonsregler.harMorAleneomsorg(data.situasjon, data.forelderVedAleneomsorg),
         morHarRett: situasjonsregler.harMorRett(data.situasjon),
-        startdatoUttak: new Date(),
+        startdatoUttak: Uttaksdagen(familiehendelsesdato).trekkFra(15),
         dekningsgrad
     };
 };

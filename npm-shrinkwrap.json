@@ -8036,9 +8036,9 @@
             "integrity": "sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ=="
         },
         "js-yaml": {
-            "version": "3.12.1",
-            "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-3.12.1.tgz",
-            "integrity": "sha512-um46hB9wNOKlwkHgiuyEVAybXBjwFUV0Z/RaHJblRd9DXltue9FTYvzCr9ErQrK9Adz5MU4gHWVaNUfdmrC8qA==",
+            "version": "3.13.0",
+            "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-3.13.0.tgz",
+            "integrity": "sha512-pZZoSxcCYco+DIKBTimr67J6Hy+EYGZDY/HCWC+iAEA9h1ByhMXAIVUXMcMFpOCxQ/xjXmPI2MkDL5HRm5eFrQ==",
             "requires": {
                 "argparse": "^1.0.7",
                 "esprima": "^4.0.0"
@@ -9294,14 +9294,14 @@
             "dev": true
         },
         "nav-frontend-veilederpanel": {
-            "version": "0.1.11",
-            "resolved": "https://registry.npmjs.org/nav-frontend-veilederpanel/-/nav-frontend-veilederpanel-0.1.11.tgz",
-            "integrity": "sha512-HWQY+QZn8kgJjNB1OquQENxKQJzDjX6s2zu1fDgbYNPOgY3RZCF5EgfhFD6y/Pzg4B3UTJwKYpV+qb1tu/nqKw=="
+            "version": "0.1.12",
+            "resolved": "https://registry.npmjs.org/nav-frontend-veilederpanel/-/nav-frontend-veilederpanel-0.1.12.tgz",
+            "integrity": "sha512-nvybeQUncpVVCyjpdmaNOcmXDDRdQYCCMlTU5uQP/hZipbN38f3CXH/wD4sOlIM/AXbnEZWXksSu76+mSuCFhA=="
         },
         "nav-frontend-veilederpanel-style": {
-            "version": "0.0.15",
-            "resolved": "https://registry.npmjs.org/nav-frontend-veilederpanel-style/-/nav-frontend-veilederpanel-style-0.0.15.tgz",
-            "integrity": "sha512-7gRYTA9xzA6opwUMmQzf9EeKq0xoI7yXkUKRmPi7Vzuwf2zTBYb36O1eagwkp9r4pm5N2p1tL9QRFQPbVeuloQ==",
+            "version": "0.0.16",
+            "resolved": "https://registry.npmjs.org/nav-frontend-veilederpanel-style/-/nav-frontend-veilederpanel-style-0.0.16.tgz",
+            "integrity": "sha512-gFnFoXUdSmP81D6srehoadAP3RJgliSRlmE6PIQEWjCbq89xtcr4Uap5VOdB7R9TP3Buj/E9ImpSZj2snwytYw==",
             "dev": true
         },
         "nearley": {

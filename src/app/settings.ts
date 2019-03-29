@@ -1,5 +1,5 @@
 const Settings = {
-    kanVelgeBeggeForeldrePåPeriode: false,
+    kanVelgeBeggeForeldreFerieOgArbeid: false,
     avrundGraderingPerPeriode: true,
     kanVelgeUlønnetPermisjon: false
 };

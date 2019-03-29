@@ -133,7 +133,7 @@ export const kanBeggeForeldreVelgesForPeriodetype = (periodetype: Periodetype | 
     switch (periodetype) {
         case Periodetype.Arbeid:
         case Periodetype.Ferie:
-            return Settings.kanVelgeBeggeForeldrePåPeriode;
+            return Settings.kanVelgeBeggeForeldreFerieOgArbeid;
         default:
             return false;
     }

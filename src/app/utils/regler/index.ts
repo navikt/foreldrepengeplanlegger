@@ -61,18 +61,21 @@ const uttaksplanRegler: Regel[] = [
         key: RegelKey.farMedmorsUttakErInnenforMaksAntallDager,
         alvorlighet: RegelAlvorlighet.FEIL,
         test: erFarMedmorsUttakErInnenforMaksAntallDagerTest,
-        overstyresAvRegel: RegelKey.alleUttakErInnenforMaksAntallDager
+        overstyresAvRegel: RegelKey.alleUttakErInnenforMaksAntallDager,
+        kategori: 'fordeling'
     },
     {
         key: RegelKey.morsUttakErInnenforMaksAntallDager,
         alvorlighet: RegelAlvorlighet.FEIL,
         test: erMorsUttakErInnenforMaksAntallDagerTest,
-        overstyresAvRegel: RegelKey.alleUttakErInnenforMaksAntallDager
+        overstyresAvRegel: RegelKey.alleUttakErInnenforMaksAntallDager,
+        kategori: 'fordeling'
     },
     {
         key: RegelKey.alleUttakErInnenforMaksAntallDager,
         alvorlighet: RegelAlvorlighet.FEIL,
-        test: erAlleUttakErInnenforMaksAntallDagerTest
+        test: erAlleUttakErInnenforMaksAntallDagerTest,
+        kategori: 'fordeling'
     },
     {
         key: RegelKey.harForeldreForMangeFeriedager,
@@ -123,7 +126,8 @@ const uttaksplanRegler: Regel[] = [
     {
         key: RegelKey.erAlleTilgjengeligeDagerBrukt,
         alvorlighet: RegelAlvorlighet.ADVARSEL,
-        test: erAlleTilgjengeligeDagerBruktTest
+        test: erAlleTilgjengeligeDagerBruktTest,
+        kategori: 'fordeling'
     },
     {
         key: RegelKey.avlutterUttaksplanMedUtsettelse,
@@ -131,5 +135,7 @@ const uttaksplanRegler: Regel[] = [
         test: avslutterPlanenMedUtsettelseTest
     }
 ];
+
+export const ReglerAngåendeFordeling = [];
 
 export default uttaksplanRegler;

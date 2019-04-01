@@ -272,11 +272,18 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengelig
 
 const FordelingStatusHeader: React.StatelessComponent<Props> = (props) => {
     const bemHeader = bem.child('statusHeader');
+    const planenHarFordelingsavvik =
+        props.regelAvvik.filter(
+            (avvik) => avvik.alvorlighet !== RegelAlvorlighet.INFO && avvik.kategori === 'fordeling'
+        ).length > 0;
     const planenHarAvvikSomErFeil =
-        props.regelAvvik.filter((avvik) => avvik.alvorlighet === RegelAlvorlighet.FEIL).length > 0;
-    const fordelingStatus: FordelingStatus = planenHarAvvikSomErFeil
-        ? { status: 'feil', tittel: { key: 'regel.feil.uttaksplanStatusTittel' } }
-        : getFordelingStatus(props.forbruk, props.omForeldre, props.intl);
+        props.regelAvvik.filter(
+            (avvik) => avvik.alvorlighet === RegelAlvorlighet.FEIL && avvik.kategori !== 'fordeling'
+        ).length > 0;
+    const fordelingStatus: FordelingStatus =
+        planenHarAvvikSomErFeil && !planenHarFordelingsavvik
+            ? { status: 'feil', tittel: { key: 'regel.feil.uttaksplanStatusTittel' } }
+            : getFordelingStatus(props.forbruk, props.omForeldre, props.intl);
     return (
         <div className={bemHeader.block}>
             <AriaText tag="h2">Status på planen</AriaText>

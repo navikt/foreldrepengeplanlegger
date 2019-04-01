@@ -39,6 +39,8 @@ export interface Regelgrunnlag {
     antallBarn: number;
 }
 
+export type RegelKategori = 'fordeling' | undefined;
+
 export interface Regel {
     key: RegelKey;
     test: RegelTest;
@@ -46,6 +48,7 @@ export interface Regel {
     overstyresAvRegel?: RegelKey;
     overstyrerRegler?: RegelKey[];
     slåsSammenVedOppsummering?: boolean;
+    kategori?: RegelKategori;
 }
 
 export type RegelTest = (grunnlag: Regelgrunnlag) => RegelTestresultat;
@@ -73,6 +76,7 @@ export interface RegelAvvik {
     overstyresAvRegel?: RegelKey;
     overstyrerRegler?: RegelKey[];
     slåsSammenVedOppsummering?: boolean;
+    kategori?: RegelKategori;
 }
 
 interface AvvikInfo {

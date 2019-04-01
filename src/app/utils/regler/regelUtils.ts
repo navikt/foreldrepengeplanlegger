@@ -37,7 +37,8 @@ export const regelHarAvvik = (regel: Regel, info?: RegelTestresultatInfoObject, 
         overstyrerRegler: regel.overstyrerRegler,
         overstyresAvRegel: regel.overstyresAvRegel,
         slåsSammenVedOppsummering: regel.slåsSammenVedOppsummering,
-        periodeId: i ? i.periodeId : periodeId
+        periodeId: i ? i.periodeId : periodeId,
+        kategori: regel.kategori
     });
     const regelAvvik: RegelAvvik[] = [];
     if (isArray(info)) {

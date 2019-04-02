@@ -8,3 +8,10 @@ export interface Tidsperiode {
     fom: Date;
     tom: Date;
 }
+
+export interface Avgrensninger {
+    minDato?: Date;
+    maksDato?: Date;
+    ugyldigeTidsperioder?: Tidsperiode[];
+    helgedagerIkkeTillatt?: boolean;
+}

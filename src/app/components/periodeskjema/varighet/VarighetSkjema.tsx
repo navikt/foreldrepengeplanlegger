@@ -4,7 +4,7 @@ import { Checkbox } from 'nav-frontend-skjema';
 import Block from 'common/components/block/Block';
 import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVelger';
 import { getUkerOgDagerFromDager, formaterDatoUtenDag } from 'common/utils/datoUtils';
-import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
+import { Tidsperiode } from 'common/types';
 import { Periode, Periodetype } from '../../../types';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import { getDagerGradert } from '../../../utils/forbrukUtils';
@@ -80,7 +80,7 @@ const VarighetStartdato: React.StatelessComponent<Props> = ({
                     visÅrValger={true}
                     dato={tidsperiode.fom}
                     disabled={låstStartdato}
-                    avgrensninger={{ minDato, maksDato, helgedagerIkkeTillatt: true }}
+                    datoAvgrensninger={{ minDato, maksDato, helgedagerIkkeTillatt: true }}
                     onChange={(dato) => onTidsperiodeChange({ fom: dato, tom: tidsperiode.tom })}
                 />
             )}
@@ -106,7 +106,7 @@ const VarighetSluttdato: React.StatelessComponent<Props> = ({
             }}
             visÅrValger={true}
             dato={tidsperiode.tom}
-            avgrensninger={{ minDato: tidsperiode.fom || minDato, maksDato, helgedagerIkkeTillatt: true }}
+            datoAvgrensninger={{ minDato: tidsperiode.fom || minDato, maksDato, helgedagerIkkeTillatt: true }}
             onChange={(dato) => onTidsperiodeChange({ tom: dato, fom: tidsperiode.fom })}
         />
     );

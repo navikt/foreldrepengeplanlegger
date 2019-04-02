@@ -2,7 +2,7 @@ import * as React from 'react';
 import moment from 'moment';
 import SkjemaInputElement from '../skjemaInputElement/SkjemaInputElement';
 import { Feil } from '../skjemaInputElement/types';
-import NavDatovelger from 'nav-datovelger';
+import NavDatovelger, { DatovelgerAvgrensninger } from 'nav-datovelger';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { DatovelgerCommonProps } from 'nav-datovelger/dist/datovelger/Datovelger';
 import AriaText from 'common/components/aria/AriaText';
@@ -11,6 +11,8 @@ import { getAvgrensningerDescriptionForInput } from './datoInputDescription';
 import FocusContainer from 'common/components/focusContainer/FocusContainer';
 
 import './datoInput.less';
+import { Avgrensninger, Tidsperiode } from 'common/types';
+import { dateToISOFormattedDateString } from 'common/utils/datoUtils';
 
 interface ComponentWithAriaLabel {
     label: React.ReactNode;
@@ -26,10 +28,24 @@ export interface DatoInputProps extends DatovelgerCommonProps {
     visÅrValger?: boolean;
     onChange: (dato?: Date) => void;
     onDisabledClick?: () => void;
+    datoAvgrensninger?: Avgrensninger;
 }
 
 export type Props = DatoInputProps & InjectedIntlProps;
 
+const parseAvgrensinger = (avgrensinger: Avgrensninger): DatovelgerAvgrensninger => {
+    return {
+        maksDato: dateToISOFormattedDateString(avgrensinger.maksDato),
+        minDato: dateToISOFormattedDateString(avgrensinger.minDato),
+        helgedagerIkkeTillatt: avgrensinger.helgedagerIkkeTillatt,
+        ugyldigeTidsperioder:
+            avgrensinger.ugyldigeTidsperioder &&
+            avgrensinger.ugyldigeTidsperioder.map((t: Tidsperiode) => ({
+                fom: dateToISOFormattedDateString(t.fom)!,
+                tom: dateToISOFormattedDateString(t.tom)!
+            }))
+    };
+};
 const bem = BEMHelper('datoInput');
 
 class DatoInput extends React.Component<Props, {}> {
@@ -38,6 +54,7 @@ class DatoInput extends React.Component<Props, {}> {
             id,
             label,
             postfix,
+            datoAvgrensninger,
             feil,
             intl,
             onChange,
@@ -45,10 +62,11 @@ class DatoInput extends React.Component<Props, {}> {
             name,
             visÅrValger,
             onDisabledClick,
+            dato,
             ...rest
         } = this.props;
         const avgrensningerTekst = this.props.avgrensninger
-            ? getAvgrensningerDescriptionForInput(intl, this.props.avgrensninger)
+            ? getAvgrensningerDescriptionForInput(intl, datoAvgrensninger)
             : undefined;
 
         const ariaDescriptionId = avgrensningerTekst ? `${id}_ariaDesc` : undefined;
@@ -63,6 +81,7 @@ class DatoInput extends React.Component<Props, {}> {
                             active={rest.disabled === true}>
                             <NavDatovelger.Datovelger
                                 {...rest}
+                                valgtDato={dato ? moment.utc(dato).format('YYYY-MM-DD') : undefined}
                                 id={id ? id : name}
                                 locale={intl.locale}
                                 kalender={kalender}
@@ -74,12 +93,14 @@ class DatoInput extends React.Component<Props, {}> {
                                     ariaDescribedby: ariaDescriptionId,
                                     ariaLabel: compLabel ? compLabel.ariaLabel : undefined
                                 }}
-                                onChange={(dato) => {
-                                    if (moment(dato).isSame(this.props.dato, 'day')) {
-                                        return;
+                                onChange={(datoString: string) => {
+                                    const nyDato =
+                                        datoString && datoString !== 'Invalid date' ? new Date(datoString) : undefined;
+                                    if (dato !== nyDato) {
+                                        onChange(nyDato);
                                     }
-                                    onChange(dato ? dato : undefined);
                                 }}
+                                avgrensninger={datoAvgrensninger ? parseAvgrensinger(datoAvgrensninger) : undefined}
                             />
                         </FocusContainer>
                         {ariaDescriptionId && (

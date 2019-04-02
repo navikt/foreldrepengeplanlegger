@@ -1,5 +1,5 @@
-import { Tidsperiode } from 'nav-datovelger';
 import { Tidsperioden, getTidsperiode } from '../Tidsperioden';
+import { Tidsperiode } from 'common/types';
 
 const DAGER = 10;
 const T10: Tidsperiode = getTidsperiode(new Date(2019, 0, 7), DAGER);

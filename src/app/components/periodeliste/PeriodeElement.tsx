@@ -8,7 +8,7 @@ import GraderingMeny from './parts/GraderingMeny';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
 import { OmForeldre, Forelder, Periodetype, Periode } from '../../types';
 import { Tidsperioden, isValidTidsperiode } from '../../utils/Tidsperioden';
-import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
+import { Tidsperiode } from 'common/types';
 import PeriodelisteElement from './periodelisteElement/PeriodelisteElement';
 import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
 import getMessage from 'common/utils/i18nUtils';

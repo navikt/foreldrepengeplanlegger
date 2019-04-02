@@ -12,7 +12,6 @@ import BEMHelper from 'common/utils/bem';
 import GraderingMeny from '../periodeliste/parts/GraderingMeny';
 import { getForelderNavn } from '../../utils/common';
 import ForelderMeny from '../periodeliste/parts/ForelderMeny';
-import { Tidsperiode } from 'nav-datovelger';
 import PeriodelisteElement from '../periodeliste/periodelisteElement/PeriodelisteElement';
 import { Ingress, Element as TypoElement } from 'nav-frontend-typografi';
 import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
@@ -29,6 +28,7 @@ import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
 import Settings from '../../settings';
 
 import './periodeSkjema.less';
+import { Tidsperiode } from 'common/types';
 
 interface OwnProps {
     nesteUttaksdag: Date;

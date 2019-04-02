@@ -74,3 +74,5 @@ export const dateIsSameOrAfter = (date: DateValue, otherDate: DateValue): boolea
     }
     return true;
 };
+
+export const dateToISOFormattedDateString = (date?: Date) => (date ? moment.utc(date).format('YYYY-MM-DD') : undefined);

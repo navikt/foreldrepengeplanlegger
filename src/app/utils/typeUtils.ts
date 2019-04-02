@@ -1,6 +1,6 @@
 import { Periodetype, Periode, PeriodeBase } from '../types';
 import { Tidsperioden } from './Tidsperioden';
-import { Tidsperiode } from 'nav-datovelger/src/datovelger/types';
+import { Tidsperiode } from 'common/types';
 
 const getBasePeriode = (periode: Periode): PeriodeBase => {
     if (periode.type === Periodetype.UttakFørTermin) {

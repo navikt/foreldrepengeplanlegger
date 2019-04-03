@@ -4,7 +4,7 @@ import { Periode, OmForeldre } from '../../types';
 import { Periodene } from '../../utils/Periodene';
 import Block from 'common/components/block/Block';
 import AlertStripe from 'nav-frontend-alertstriper';
-import { getForelderNavn } from '../../utils/common';
+import { getForelderNavn, getNavnGenitivEierform } from '../../utils/common';
 import { Tidsperioden } from '../../utils/Tidsperioden';
 import { InjectedIntl, injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
 import { formaterDato } from 'common/utils/datoUtils';
@@ -29,7 +29,7 @@ const PeriodeSomVilBliSplittet: React.StatelessComponent<{
                 <FormattedHTMLMessage
                     id="periodeskjema.melding.oppdeltPeriode"
                     values={{
-                        navn,
+                        navnEierform: getNavnGenitivEierform(navn || ''),
                         varighet: getVarighetString(antallUttaksdager, intl),
                         tidsperiode: Tidsperioden(periode.tidsperiode).formaterStringKort(intl)
                     }}

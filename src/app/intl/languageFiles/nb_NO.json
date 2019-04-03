@@ -30,13 +30,13 @@
 
     "stønadskontotype.AKTIVITETSFRI_FLERBARNSDAGER": "Flerbarnsuker uten aktivitetskrav",
     "stønadskontotype.AKTIVITETSFRI_KVOTE": "Foreldrepenger uten aktivitetskrav",
-    "stønadskontotype.FEDREKVOTE": "Far sin kvote",
+    "stønadskontotype.FEDREKVOTE": "Fars kvote",
     "stønadskontotype.FELLESPERIODE": "Fellesperiode",
     "stønadskontotype.FLERBARNSDAGER": "Flerbarnsuker",
     "stønadskontotype.FLERBARNSUKER": "Flerbarnsuker",
     "stønadskontotype.FORELDREPENGER": "Foreldrepenger",
     "stønadskontotype.FORELDREPENGER_FØR_FØDSEL": "Foreldrepenger før fødsel",
-    "stønadskontotype.MØDREKVOTE": "Mor sin kvote",
+    "stønadskontotype.MØDREKVOTE": "Mors kvote",
 
     "periodetype.undefined": "Ukjent periodetype",
     "periodetype.uttak": "Foreldrepenger",
@@ -151,7 +151,7 @@
     "periodeskjema.validering.fom": "Du må velge når perioden skal starte",
     "periodeskjema.validering.tom": "Du må velge når perioden skal avsluttes",
     "periodeskjema.validering.arbeidOgUttak": "Du må velge hvor mye du skal jobbe",
-    "periodeskjema.melding.oppdeltPeriode": "{navn} sin periode ({tidsperiode}), vil bli delt opp i to deler, og den nye perioden vil bli satt inn mellom de to delene. Perioder etter denne, vil bli forskjøvet <strong>{varighet}</strong>",
+    "periodeskjema.melding.oppdeltPeriode": "{navnEierform} periode ({tidsperiode}), vil bli delt opp i to deler, og den nye perioden vil bli satt inn mellom de to delene. Perioder etter denne, vil bli forskjøvet <strong>{varighet}</strong>",
     "periodeskjema.melding.perioderFlyttes": "Perioder fra og med <strong>{dato}</strong> vil bli forskjøvet med <strong>{varighet}</strong>.",
     "periodeskjema.tid.startdato": "Startdato",
     "periodeskjema.tid.startdato.låstInfo": "Startdato settes automatisk etter forrige periode. For å endre startdato må du derfor endre siste dag på perioden før.",
@@ -179,7 +179,7 @@
     "situasjonskjema.morEllerFar.mor.label": "Mor",
     "situasjonskjema.morEllerFar.far.label": "Far",
 
-    "tilgjengeligeDagerGraf.person.del": "{navn}<br/> sin del",
+    "tilgjengeligeDagerGraf.person.del": "{navnEierform}<br/> del",
     "tilgjengeligeDagerGraf.fellesperiode": "Fellesperiode",
 
     "fordeling.spørsmål": "Hvordan vil dere dele fellesperioden?",

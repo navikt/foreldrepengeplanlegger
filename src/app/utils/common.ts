@@ -37,6 +37,18 @@ export const getForelderNavn = (forelder: Forelder | undefined, omForeldre: OmFo
     return undefined;
 };
 
+const navnSlutterPåSLyd = (navn: string): boolean => {
+    const sisteBokstav = navn.charAt(navn.length - 1).toLowerCase();
+    return sisteBokstav === 's' || sisteBokstav === 'x' || sisteBokstav === 'z';
+};
+
+export const getNavnGenitivEierform = (navn: string): string | undefined => {
+    if (navnSlutterPåSLyd(navn)) {
+        return `${navn}'`;
+    }
+    return `${navn}s`;
+};
+
 export const inputHasValue = (value: string | undefined) => {
     return value !== undefined && value !== '';
 };

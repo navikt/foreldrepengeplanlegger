@@ -10,6 +10,7 @@ import { getVarighetString } from 'common/utils/intlUtils';
 import { injectIntl, InjectedIntlProps, FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import Personkort from '../personkort/Personkort';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
+import { getNavnGenitivEierform } from '../../utils/common';
 
 interface OwnProps {
     tilgjengeligeDager: TilgjengeligeDager;
@@ -36,7 +37,7 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, o
                             textValign="bottom">
                             <FormattedHTMLMessage
                                 id="tilgjengeligeDagerGraf.person.del"
-                                values={{ navn: omForeldre.mor.navn }}
+                                values={{ navnEierform: getNavnGenitivEierform(omForeldre.mor.navn) }}
                             />
                         </Personkort>
                     </div>
@@ -76,7 +77,7 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, o
                                 textValign="bottom">
                                 <FormattedHTMLMessage
                                     id="tilgjengeligeDagerGraf.person.del"
-                                    values={{ navn: omForeldre.farMedmor.navn }}
+                                    values={{ navnEierform: getNavnGenitivEierform(omForeldre.farMedmor.navn) }}
                                 />
                             </Personkort>
                         </div>

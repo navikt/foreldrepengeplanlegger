@@ -39,15 +39,11 @@ export enum RegelKey {
     'bareFarHarRettFlerbarnsukerAktivitetskravMorInfo' = 'bareFarHarRettFlerbarnsukerAktivitetskravMorInfo',
     'erAlleTilgjengeligeDagerBrukt' = 'erAlleTilgjengeligeDagerBrukt',
     'erUlønnetPermisjon' = 'erUlønnetPermisjon',
-    'avlutterUttaksplanMedUtsettelse' = 'avlutterUttaksplanMedUtsettelse'
+    'avlutterUttaksplanMedUtsettelse' = 'avlutterUttaksplanMedUtsettelse',
+    'harUlønnetPermisjonValgtÅrsak' = 'harUlønnetPermisjonValgtÅrsak'
 }
 
-const uttaksplanRegler: Regel[] = [
-    {
-        key: RegelKey.ferieMedUttaksdagerInfo,
-        alvorlighet: RegelAlvorlighet.INFO,
-        test: inneholderPlanenFerieMedUttaksdagerTest
-    },
+const feilRegler: Regel[] = [
     {
         key: RegelKey.starterInnenfor12UkerFørTermin,
         alvorlighet: RegelAlvorlighet.FEIL,
@@ -94,9 +90,31 @@ const uttaksplanRegler: Regel[] = [
         test: harFarMedmorUtsettelseFørsteSeksUkerTest
     },
     {
+        key: RegelKey.avlutterUttaksplanMedUtsettelse,
+        alvorlighet: RegelAlvorlighet.FEIL,
+        test: avslutterPlanenMedUtsettelseTest
+    }
+];
+
+const advarselRegler: Regel[] = [
+    {
         key: RegelKey.uttakForFarEllerMedmorFørsteSeksUkerInfo,
         alvorlighet: RegelAlvorlighet.ADVARSEL,
         test: harFarEllerMedmorUttakFørsteSeksUkerTest
+    },
+    {
+        key: RegelKey.erAlleTilgjengeligeDagerBrukt,
+        alvorlighet: RegelAlvorlighet.ADVARSEL,
+        test: erAlleTilgjengeligeDagerBruktTest,
+        kategori: 'fordeling'
+    }
+];
+
+const infoRegler: Regel[] = [
+    {
+        key: RegelKey.ferieMedUttaksdagerInfo,
+        alvorlighet: RegelAlvorlighet.INFO,
+        test: inneholderPlanenFerieMedUttaksdagerTest
     },
     {
         key: RegelKey.bareFarHarRettEttBarnAktivitetskravMorInfo,
@@ -123,19 +141,10 @@ const uttaksplanRegler: Regel[] = [
         key: RegelKey.farMedmorUtsetterPgaArbeidInfo,
         alvorlighet: RegelAlvorlighet.INFO,
         test: utsetterFarMedmorPgaArbeidTest
-    },
-    {
-        key: RegelKey.erAlleTilgjengeligeDagerBrukt,
-        alvorlighet: RegelAlvorlighet.ADVARSEL,
-        test: erAlleTilgjengeligeDagerBruktTest,
-        kategori: 'fordeling'
-    },
-    {
-        key: RegelKey.avlutterUttaksplanMedUtsettelse,
-        alvorlighet: RegelAlvorlighet.FEIL,
-        test: avslutterPlanenMedUtsettelseTest
     }
 ];
+
+const uttaksplanRegler: Regel[] = [...feilRegler, ...advarselRegler, ...infoRegler];
 
 export const ReglerAngåendeFordeling = [];
 

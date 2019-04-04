@@ -6,7 +6,7 @@ import { changePeriodeType } from '../../utils/typeUtils';
 import { PeriodelisteElementProps } from './types';
 import GraderingMeny from './parts/GraderingMeny';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
-import { OmForeldre, Forelder, Periodetype, Periode, isUlønnetPermisjon } from '../../types';
+import { OmForeldre, Forelder, Periodetype, Periode, isUlønnetPermisjon, UlønnetPermisjon } from '../../types';
 import { Tidsperioden, isValidTidsperiode } from '../../utils/Tidsperioden';
 import { Tidsperiode } from 'common/types';
 import PeriodelisteElement from './periodelisteElement/PeriodelisteElement';
@@ -111,7 +111,7 @@ class PeriodeElement extends React.Component<Props> {
                                 <GraderingMeny
                                     foreldernavn={omForeldre.erDeltOmsorg ? foreldernavn : getMessage(intl, 'du')}
                                     gradering={periode.gradering}
-                                    onChange={(gradering) => onUpdate({ ...periode, gradering })}
+                                    onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
                                     uttaksdagerBrukt={antallUttaksdagerBrukt}
                                 />
                             ),
@@ -151,7 +151,10 @@ class PeriodeElement extends React.Component<Props> {
                                               utsettelsesårsak={periode.utsettelsesårsak}
                                               dropdownStyle="filled"
                                               onChange={(utsettelsesårsak) => {
-                                                  onUpdate({ ...periode, utsettelsesårsak });
+                                                  onUpdate({
+                                                      ...(this.props.periode as UlønnetPermisjon),
+                                                      utsettelsesårsak
+                                                  });
                                               }}
                                           />
                                       )

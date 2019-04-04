@@ -13,6 +13,7 @@ import {
 import { Periodene } from './Periodene';
 import { Perioden } from './Perioden';
 import Settings from '../settings';
+import { isValidTidsperiode } from './Tidsperioden';
 
 const getAlleDagerFørTermin = (periode: UttakFørTerminPeriode | undefined): number => {
     if (periode && periode.skalIkkeHaUttakFørTermin !== true) {
@@ -23,6 +24,14 @@ const getAlleDagerFørTermin = (periode: UttakFørTerminPeriode | undefined): nu
 
 const morsPerioderFilter = (p: Periode) => p.forelder === Forelder.mor;
 const farsPerioderFilter = (p: Periode) => p.forelder === Forelder.farMedmor;
+
+const getAntallFeriedager = (perioder: Periode[], forelder: Forelder): number => {
+    const perioderMedFerie = Periodene(perioder).getPerioderMedFerieForForelder(forelder);
+    return perioderMedFerie
+        .filter((p) => isValidTidsperiode(p.tidsperiode))
+        .map((p) => (p.uttaksinfo !== undefined ? p.uttaksinfo.antallUttaksdager - p.uttaksinfo.antallFridager : 0))
+        .reduce((d, nyeDager) => nyeDager + d, 0);
+};
 
 export const getMorsForbruk = (
     allePerioder: Periode[],
@@ -39,7 +48,8 @@ export const getMorsForbruk = (
             dagerForLite: 0,
             dagerForMye: 0,
             dagerErOk: true,
-            dagerAvFellesperiode: 0
+            dagerAvFellesperiode: 0,
+            dagerMedFerie: 0
         };
     }
     const morsPerioder = allePerioder.filter(morsPerioderFilter);
@@ -56,6 +66,7 @@ export const getMorsForbruk = (
     const dagerErOk = dagerForLite === 0 && dagerForMye === 0;
 
     const dagerAvFellesperiode = Math.max(0, dagerUtenForeldrepengerFørFødsel - tilgjengeligeDager.dagerMor);
+    const dagerMedFerie = getAntallFeriedager(allePerioder, Forelder.mor);
 
     return {
         dagerEtterTermin,
@@ -66,7 +77,8 @@ export const getMorsForbruk = (
         dagerForLite,
         dagerForMye,
         dagerErOk,
-        dagerAvFellesperiode
+        dagerAvFellesperiode,
+        dagerMedFerie
     };
 };
 export const getFarsForbruk = (
@@ -80,7 +92,8 @@ export const getFarsForbruk = (
             dagerForLite: 0,
             dagerForMye: 0,
             dagerErOk: true,
-            dagerAvFellesperiode: 0
+            dagerAvFellesperiode: 0,
+            dagerMedFerie: 0
         };
     }
     if (omForeldre.bareFar) {
@@ -92,12 +105,14 @@ export const getFarsForbruk = (
     const dagerForMye = Math.max(0, dagerTotalt - tilgjengeligeDager.maksDagerFar);
     const dagerErOk = dagerForLite === 0 && dagerForMye === 0;
     const dagerAvFellesperiode = Math.max(0, dagerTotalt - tilgjengeligeDager.dagerFar);
+    const dagerMedFerie = getAntallFeriedager(perioder, Forelder.farMedmor);
     return {
         dagerTotalt,
         dagerForLite,
         dagerForMye,
         dagerErOk,
-        dagerAvFellesperiode
+        dagerAvFellesperiode,
+        dagerMedFerie
     };
 };
 
@@ -113,12 +128,14 @@ export const getForelderForbrukAleneomsorg = (
     const dagerForMye = Math.max(0, dagerTotalt - dagerFPTilgjengelig);
     const dagerErOk = dagerForLite === 0 && dagerForMye === 0;
     const dagerAvFellesperiode = Math.max(0, dagerTotalt - dagerFPTilgjengelig);
+    const dagerMedFerie = getAntallFeriedager(perioder, Forelder.farMedmor);
     return {
         dagerTotalt,
         dagerForLite,
         dagerForMye,
         dagerErOk,
-        dagerAvFellesperiode
+        dagerAvFellesperiode,
+        dagerMedFerie
     };
 };
 

@@ -1,9 +1,17 @@
 import moment from 'moment';
 import { Uttaksdagen } from './Uttaksdagen';
-import { isValidTidsperiode, Tidsperioden } from './Tidsperioden';
+import { isValidTidsperiode } from './Tidsperioden';
 import { Tidsperiode } from 'common/types';
-import { Periode, Uttaksperiode, Utsettelsesperiode, isUtsettelse, isFerie, isArbeid } from '../types/periodetyper';
-import { Forelder, GradertUttaksperiode, isUttakOrGradertUttak } from '../types';
+import {
+    Periode,
+    Uttaksperiode,
+    Utsettelsesperiode,
+    isUtsettelse,
+    isFerie,
+    isArbeid,
+    isUlønnetPermisjon
+} from '../types/periodetyper';
+import { GradertUttaksperiode, isUttakOrGradertUttak, Forelder } from '../types';
 import { Perioden } from './Perioden';
 import { getUttaksinfoForPeriode } from './uttaksinfo';
 
@@ -16,10 +24,10 @@ export const Periodene = (perioder: Periode[]) => ({
     getPerioderEtterFamiliehendelsesdato: (dato: Date) => getPerioderEtterFamiliehendelsesdato(perioder, dato),
     getPerioderFørFamiliehendelsesdato: (dato: Date) => getPerioderFørFamiliehendelsesdato(perioder, dato),
     getPerioderMedUgyldigTidsperiode: () => getPeriodeMedUgyldigTidsperiode(perioder),
+    getPerioderMedFerieForForelder: (forelder: Forelder) => getPerioderMedFerieForForelder(perioder, forelder),
     getFørstePerioderEtterFamiliehendelsesdato: (dato: Date) =>
         getFørstePeriodeEtterFamiliehendelsesdato(perioder, dato),
     getFørsteUttaksdag: () => getFørsteUttaksdag(perioder),
-    getAntallFeriedager: (forelder?: Forelder) => getAntallFeriedager(perioder, forelder),
     getBrukteUttaksdager: () => getBrukteUttaksdager(perioder),
     getAntallFridager: () => getAntallFridager(perioder),
     finnOverlappendePerioder: (periode: Periode) => finnOverlappendePerioder(perioder, periode),
@@ -183,13 +191,6 @@ function getFørsteUttaksdag(perioder: Periode[]): Date | undefined {
     return undefined;
 }
 
-function getAntallFeriedager(perioder: Periode[], forelder?: Forelder): number {
-    return getFerieperioder(perioder)
-        .filter((p) => (isValidTidsperiode(p.tidsperiode) && forelder ? p.forelder === forelder : true))
-        .map((p) => Tidsperioden(p.tidsperiode).getAntallUttaksdager())
-        .reduce((tot = 0, curr) => tot + curr, 0);
-}
-
 function getBrukteUttaksdager(perioder: Periode[]): number {
     return perioder.reduce((dager, periode) => {
         const uttaksinfo = periode.uttaksinfo || getUttaksinfoForPeriode(periode);
@@ -209,3 +210,14 @@ function getAntallFridager(perioder: Periode[]): number {
         return dager;
     }, 0);
 }
+
+function getPerioderMedFerieForForelder(perioder: Periode[], forelder: Forelder): Periode[] {
+    return perioder.filter((periode) => erPeriodeMedFerieForForelder(periode, forelder));
+}
+
+export const erPeriodeMedFerieForForelder = (periode: Periode, forelder: Forelder): boolean => {
+    return (
+        (isFerie(periode) && periode.forelder === forelder) ||
+        (isUlønnetPermisjon(periode) && periode.forelder !== undefined && periode.forelder !== forelder)
+    );
+};

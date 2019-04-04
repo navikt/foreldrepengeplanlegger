@@ -53,7 +53,7 @@ export interface UlønnetPermisjon extends PeriodeBase {
     utsettelsesårsak: Utsettelsesårsak | undefined;
 }
 
-export type Utsettelsesperiode = Ferieperiode | Arbeidsperiode;
+export type Utsettelsesperiode = Ferieperiode | Arbeidsperiode | UlønnetPermisjon;
 
 export type Periode =
     | Uttaksperiode

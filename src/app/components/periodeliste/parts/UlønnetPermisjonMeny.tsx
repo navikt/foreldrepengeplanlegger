@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
-import { Utsettelsesårsak, OmForeldre, Forelder } from '../../../types';
+import { Utsettelsesårsak, OmForeldre, Forelder, Forelderinfo } from '../../../types';
 import getMessage from 'common/utils/i18nUtils';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
 import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import { getMedforelderNavn } from '../../../utils/common';
+import IconText from 'common/components/iconText/IconText';
+import AriaAlternative from 'common/components/aria/AriaAlternative';
+import UlønnetPermisjonÅrsakIkon from '../../periodeikon/ikoner/Ul\u00F8nnetPermisjon\u00C5rsakIkon';
 
 interface OwnProps {
     utsettelsesårsak?: Utsettelsesårsak;
@@ -33,9 +36,28 @@ const getUtsettelsesårsakLabel = (type: Utsettelsesårsak | undefined, intl: In
     return getMessage(intl, `utsettelsesårsak.${type}`);
 };
 
+const getMedforelderinfo = (forelder: Forelder, omForeldre: OmForeldre): Forelderinfo | undefined => {
+    if (omForeldre && omForeldre.farMedmor !== undefined) {
+        return forelder === Forelder.mor ? omForeldre.farMedmor : omForeldre.mor;
+    }
+    return undefined;
+};
+
 const UlønnetPermisjonLabel: React.StatelessComponent<Props> = ({ utsettelsesårsak, forelder, omForeldre, intl }) => {
-    return utsettelsesårsak ? (
-        <div className="ulonnetPermisjonMenyLabel">{getUtsettelsesårsakLabel(utsettelsesårsak, intl)}</div>
+    const forelderInfo = getMedforelderinfo(forelder, omForeldre);
+    return utsettelsesårsak && forelder && forelderInfo ? (
+        <div className="ulonnetPermisjonMenyLabel">
+            <div className="graderingLabel">
+                <IconText
+                    icon={<UlønnetPermisjonÅrsakIkon forelderinfo={forelderInfo} utsettelsesårsak={utsettelsesårsak} />}
+                    layout="vertical">
+                    <AriaAlternative
+                        ariaText={getUtsettelsesårsakLabel(utsettelsesårsak, intl)}
+                        visibleText={getMessage(intl, `utsettelsesårsak.${utsettelsesårsak}.kort`)}
+                    />
+                </IconText>
+            </div>
+        </div>
     ) : (
         <div className="ulonnetPermisjonMenyLabel">Velg utsettelse</div>
     );

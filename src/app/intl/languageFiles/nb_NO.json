@@ -48,7 +48,8 @@
 
     "utsettelsesårsak.ferie": "Ferie",
     "utsettelsesårsak.arbeidHeltid": "Arbeid heltid",
-    "utsettelsesårsak.sykdom": "Sykdom",
+    "utsettelsesårsak.ferie.kort": "Ferie",
+    "utsettelsesårsak.arbeidHeltid.kort": "Arbeid",
 
     "uttaksplan.skjema.fordeling.annenForeldersFellesperiode": "{navnFarMedmor} kan ta ut {antallUker} uker av fellesperioden",
     "uttaksplan.skjema.fordeling.aria.fordeling": "Hvor mange uker av fellesdelen skal {navnMor} ha av totalt {ukerFellesperiode} uker?",

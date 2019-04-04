@@ -2,7 +2,8 @@ import moment from 'moment';
 import { getTidsperiode, Tidsperioden } from './Tidsperioden';
 import { Uttaksdagen } from './Uttaksdagen';
 import { Tidsperiode } from 'common/types';
-import { Periode, isUttak, isUtsettelse, isUlønnetPermisjon } from '../types/periodetyper';
+import { Periode, isUttak, isUtsettelse, isUlønnetPermisjon, Utsettelsesårsak } from '../types/periodetyper';
+import { Forelder } from '../types';
 
 export const Perioden = (periode: Periode) => ({
     erUttak: () => isUttak(periode),
@@ -13,6 +14,10 @@ export const Perioden = (periode: Periode) => ({
         (periode.tidsperiode = getTidsperiode(periode.tidsperiode.fom, uttaksdager)),
     getAntallUttaksdager: () => Tidsperioden(periode.tidsperiode).getAntallUttaksdager(),
     erSammenhengende: (periode2: Periode) => erPerioderSammenhengende(periode, periode2),
+    erUlønnetPermisjonMedArbeidForForelder: (forelder: Forelder): boolean =>
+        erUlønnetPermisjonMedArbeidForForelder(periode, forelder),
+    erUlønnetPermisjonMedFerieForForelder: (forelder: Forelder): boolean =>
+        erUlønnetPermisjonMedFerieForForelder(periode, forelder),
     erLik: (periode2: Periode) => erPerioderLike(periode, periode2)
 });
 
@@ -44,4 +49,22 @@ function flyttPeriode(periode: Periode, fom: Date): Periode {
         ...periode,
         tidsperiode: Tidsperioden(periode.tidsperiode).setStartdato(fom) as Tidsperiode
     };
+}
+
+function erUlønnetPermisjonMedArbeidForForelder(periode: Periode, forelder: Forelder): boolean {
+    return (
+        isUlønnetPermisjon(periode) &&
+        periode.utsettelsesårsak === Utsettelsesårsak.arbeidHeltid &&
+        periode.forelder !== undefined &&
+        periode.forelder !== forelder
+    );
+}
+
+function erUlønnetPermisjonMedFerieForForelder(periode: Periode, forelder: Forelder): boolean {
+    return (
+        isUlønnetPermisjon(periode) &&
+        periode.utsettelsesårsak === Utsettelsesårsak.ferie &&
+        periode.forelder !== undefined &&
+        periode.forelder !== forelder
+    );
 }

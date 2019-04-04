@@ -89,7 +89,11 @@ export function isGradertUttak(periode: Periode): periode is GradertUttaksperiod
 }
 
 export function isUtsettelse(periode: Periode): periode is Utsettelsesperiode {
-    return periode.type === Periodetype.Ferie || periode.type === Periodetype.Arbeid;
+    return (
+        periode.type === Periodetype.Ferie ||
+        periode.type === Periodetype.Arbeid ||
+        periode.type === Periodetype.UlønnetPermisjon
+    );
 }
 
 export function isFerie(periode: Periode): periode is Ferieperiode {

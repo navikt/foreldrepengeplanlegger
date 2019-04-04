@@ -10,7 +10,7 @@ import {
     harFarMedmorUtsettelseFørsteSeksUkerTest,
     harMorUtsettelseFørsteSeksUkerTest
 } from './tester/inneholderUtsettelseFørsteSeksUkerTest';
-import { harMorUtsettelsePgaArbeidTest } from './info/harMorUtsettelsePgaArbeidTest';
+import { utsetterMorPgaArbeidTest } from './info/utsetterMorPgaArbeidTest';
 import { brukerFarMedmorAvFellesperiodeTest } from './info/brukerFarMedmorAvFellesperiodeTest';
 import { utsetterFarMedmorPgaArbeidTest } from './info/utsetterFarMedmorPgaArbeidTest';
 import { harForeldreForMangeFeriedagerTest } from './tester/harForelderForMangeFeriedagerTest';
@@ -98,11 +98,6 @@ const uttaksplanRegler: Regel[] = [
         test: harFarEllerMedmorUttakFørsteSeksUkerTest
     },
     {
-        key: RegelKey.morUtsetterPgaArbeidInfo,
-        alvorlighet: RegelAlvorlighet.INFO,
-        test: harMorUtsettelsePgaArbeidTest
-    },
-    {
         key: RegelKey.bareFarHarRettEttBarnAktivitetskravMorInfo,
         alvorlighet: RegelAlvorlighet.INFO,
         test: bareFarHarRettEttBarnAktivitetskravMorTest
@@ -117,6 +112,11 @@ const uttaksplanRegler: Regel[] = [
         key: RegelKey.farMedmorBrukerFellesperiodeInfo,
         alvorlighet: RegelAlvorlighet.INFO,
         test: brukerFarMedmorAvFellesperiodeTest
+    },
+    {
+        key: RegelKey.morUtsetterPgaArbeidInfo,
+        alvorlighet: RegelAlvorlighet.INFO,
+        test: utsetterMorPgaArbeidTest
     },
     {
         key: RegelKey.farMedmorUtsetterPgaArbeidInfo,

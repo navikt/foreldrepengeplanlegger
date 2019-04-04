@@ -9,7 +9,7 @@ import { erAlleUttakErInnenforMaksAntallDagerTest } from './tester/erAlleUttakEr
 import {
     harFarMedmorUtsettelseFørsteSeksUkerTest,
     harMorUtsettelseFørsteSeksUkerTest
-} from './tester/inneholderUtsettelseF\u00F8rsteSeksUkerTest';
+} from './tester/inneholderUtsettelseFørsteSeksUkerTest';
 import { harMorUtsettelsePgaArbeidTest } from './info/harMorUtsettelsePgaArbeidTest';
 import { brukerFarMedmorAvFellesperiodeTest } from './info/brukerFarMedmorAvFellesperiodeTest';
 import { utsetterFarMedmorPgaArbeidTest } from './info/utsetterFarMedmorPgaArbeidTest';

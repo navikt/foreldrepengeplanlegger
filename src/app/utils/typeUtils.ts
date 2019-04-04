@@ -67,7 +67,8 @@ export const changePeriodeType = (periode: Periode, type: Periodetype): Periode 
                 ...basePeriode,
                 type: Periodetype.UlønnetPermisjon,
                 gradering: undefined,
-                fixed: false
+                fixed: false,
+                utsettelsesårsak: undefined
             };
     }
 };

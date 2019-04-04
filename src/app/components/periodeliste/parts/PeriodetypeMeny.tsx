@@ -62,6 +62,8 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
     const getVarighetInfo = () => {
         if (erArbeidEllerFerie && uttaksdager) {
             return <Varighet dager={uttaksdager} separator=" og " />;
+        } else if (type === Periodetype.UlønnetPermisjon && uttaksdager) {
+            return <Varighet dager={uttaksdager} separator=" og " />;
         } else if (
             Settings.avrundGraderingPerPeriode === false &&
             type === Periodetype.GradertUttak &&

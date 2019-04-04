@@ -46,6 +46,10 @@
     "periodetype.arbeid": "Arbeid heltid",
     "periodetype.ulønnetPermisjon": "Ulønnet permisjon",
 
+    "utsettelsesårsak.ferie": "Ferie",
+    "utsettelsesårsak.arbeidHeltid": "Arbeid heltid",
+    "utsettelsesårsak.sykdom": "Sykdom",
+
     "uttaksplan.skjema.fordeling.annenForeldersFellesperiode": "{navnFarMedmor} kan ta ut {antallUker} uker av fellesperioden",
     "uttaksplan.skjema.fordeling.aria.fordeling": "Hvor mange uker av fellesdelen skal {navnMor} ha av totalt {ukerFellesperiode} uker?",
     "uttaksplan.skjema.fordeling.reduser.tooltip": "En uke mer til {navn}",
@@ -141,6 +145,7 @@
     "periodeliste.arbeidOgUttak.uttaksdager": "<strong>{dager}</strong> med foreldrepenger brukes.",
     "periodeliste.forelder.tittel": "Velg forelder",
     "periodeliste.forelder.spørsmål": "Hvem gjelder perioden?",
+    "periodeliste.velgUlønnetPermisjon": "Hva skal {navn} gjøre?",
 
     "periodeskjema.tittelNyPeriode": "Legg til ny periode",
     "periodeskjema.knapp.leggTil": "Legg til",
@@ -160,6 +165,8 @@
     "periodeskjema.tid.nesteDag": "Neste dag:",
     "periodeskjema.tid.brukGjenståendeDager": "Bruk gjenstående dager",
     "periodeskjema.tid.lengde": "Lengde",
+
+    "ulønnetPermisjonSkjema.tittel": "Hva skal {navn} gjøre?",
 
     "regelAvvik.ariaTittel": "Viktig informasjon om planen",
 

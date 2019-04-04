@@ -66,7 +66,8 @@ const createPeriodeFromValues = (values: PeriodeskjemaFormValues, nyPeriodeId: s
                     fom: values.fom,
                     tom: values.tom
                 },
-                forelder: values.forelder
+                forelder: values.forelder,
+                utsettelsesårsak: values.utsettelsesårsak
             };
     }
 };

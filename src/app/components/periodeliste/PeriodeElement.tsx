@@ -6,7 +6,7 @@ import { changePeriodeType } from '../../utils/typeUtils';
 import { PeriodelisteElementProps } from './types';
 import GraderingMeny from './parts/GraderingMeny';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
-import { OmForeldre, Forelder, Periodetype, Periode } from '../../types';
+import { OmForeldre, Forelder, Periodetype, Periode, isUlønnetPermisjon } from '../../types';
 import { Tidsperioden, isValidTidsperiode } from '../../utils/Tidsperioden';
 import { Tidsperiode } from 'common/types';
 import PeriodelisteElement from './periodelisteElement/PeriodelisteElement';
@@ -16,6 +16,8 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import VarighetMeny from '../periodeskjema/varighet/VarighetMeny';
 import { VarighetChangeEvent } from '../periodeskjema/varighet/VarighetSkjema';
 import { kanBeggeForeldreVelgesForPeriodetype } from '../../utils/kontoUtils';
+import UlønnetPermisjonMeny from './parts/UlønnetPermisjonMeny';
+import Settings from '../../settings';
 
 type Props = PeriodelisteElementProps & InjectedIntlProps;
 
@@ -78,7 +80,6 @@ class PeriodeElement extends React.Component<Props> {
             antallUttaksdagerBrukt: 0,
             antallUttaksdager: 0
         };
-
         const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
         const { fom, tom } = periode.tidsperiode;
         return (
@@ -97,10 +98,12 @@ class PeriodeElement extends React.Component<Props> {
                                     gradering={periode.gradering}
                                     brukteUttaksdager={antallUttaksdagerBrukt}
                                     uttaksdager={antallUttaksdager}
+                                    kanVelgeUlønnetPermisjon={Settings.kanVelgeUlønnetPermisjon}
                                     onChange={(periodetype) => onUpdate(changePeriodeType(periode, periodetype))}
                                 />
                             )
                         },
+
                         {
                             id: 'gradering',
                             className: bem.element('gradering'),
@@ -136,6 +139,26 @@ class PeriodeElement extends React.Component<Props> {
                             ),
                             isVisibleCheck: () => omForeldre.erDeltOmsorg
                         },
+                        ...(isUlønnetPermisjon(periode)
+                            ? [
+                                  {
+                                      id: 'ulønnetPermisjon',
+                                      className: bem.element('ulonnetPermisjon'),
+                                      render: () => (
+                                          <UlønnetPermisjonMeny
+                                              forelder={periode.forelder}
+                                              omForeldre={omForeldre}
+                                              utsettelsesårsak={periode.utsettelsesårsak}
+                                              dropdownStyle="filled"
+                                              onChange={(utsettelsesårsak) => {
+                                                  onUpdate({ ...periode, utsettelsesårsak });
+                                              }}
+                                          />
+                                      )
+                                  }
+                              ]
+                            : []),
+
                         {
                             id: 'varighet',
                             className: bem.element('varighet'),

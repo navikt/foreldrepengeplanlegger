@@ -11,6 +11,11 @@ export enum Periodetype {
     'UlønnetPermisjon' = 'ulønnetPermisjon'
 }
 
+export enum Utsettelsesårsak {
+    'ferie' = 'ferie',
+    'arbeidHeltid' = 'arbeidHeltid'
+}
+
 export interface PeriodeBase {
     id: string;
     type: Periodetype;
@@ -45,9 +50,10 @@ export interface Arbeidsperiode extends PeriodeBase {
 
 export interface UlønnetPermisjon extends PeriodeBase {
     type: Periodetype.UlønnetPermisjon;
+    utsettelsesårsak: Utsettelsesårsak | undefined;
 }
 
-export type Utsettelsesperiode = Ferieperiode | Arbeidsperiode | UlønnetPermisjon;
+export type Utsettelsesperiode = Ferieperiode | Arbeidsperiode;
 
 export type Periode =
     | Uttaksperiode

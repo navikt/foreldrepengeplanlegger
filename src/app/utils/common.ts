@@ -37,6 +37,17 @@ export const getForelderNavn = (forelder: Forelder | undefined, omForeldre: OmFo
     return undefined;
 };
 
+export const getMedforelderNavn = (forelder: Forelder | undefined, omForeldre: OmForeldre): string => {
+    switch (forelder) {
+        case Forelder.mor:
+            return omForeldre.farMedmor ? omForeldre.farMedmor.navn : 'medforelder';
+        case Forelder.farMedmor:
+            return omForeldre.mor.navn;
+        default:
+            return 'medforelder';
+    }
+};
+
 const navnSlutterPåSLyd = (navn: string): boolean => {
     const sisteBokstav = navn.charAt(navn.length - 1).toLowerCase();
     return sisteBokstav === 's' || sisteBokstav === 'x' || sisteBokstav === 'z';

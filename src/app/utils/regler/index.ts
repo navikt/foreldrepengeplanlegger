@@ -19,6 +19,7 @@ import { utsetterFarMedmorPgaArbeidTest } from './tester/utsetterFarMedmorPgaArb
 import { bareFarHarRettEttBarnAktivitetskravMorTest } from './tester/bareFarHarRettEttBarnAktivitetskravMorTest';
 import { bareFarHarRettFlerbarnsukerAktivitetskravMorTest } from './tester/bareFarHarRettFlerbarnsukerAktivitetskravMorTest';
 import { erAlleTilgjengeligeDagerBruktTest } from './tester/erAlleTilgjengeligeDagerBruktTest';
+import { harUlønnetPermisjonUtsettelsesårsak } from './tester/harUl\u00F8nnetPermisjonUtsettelses\u00E5rsak';
 
 export enum RegelKey {
     'alleUttakErInnenforMaksAntallDager' = 'alleUttakErInnenforMaksAntallDager',
@@ -93,6 +94,11 @@ const feilRegler: Regel[] = [
         key: RegelKey.avlutterUttaksplanMedUtsettelse,
         alvorlighet: RegelAlvorlighet.FEIL,
         test: avslutterPlanenMedUtsettelseTest
+    },
+    {
+        key: RegelKey.harUlønnetPermisjonValgtÅrsak,
+        alvorlighet: RegelAlvorlighet.FEIL,
+        test: harUlønnetPermisjonUtsettelsesårsak
     }
 ];
 

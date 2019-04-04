@@ -98,7 +98,9 @@ class PeriodeElement extends React.Component<Props> {
                                     gradering={periode.gradering}
                                     brukteUttaksdager={antallUttaksdagerBrukt}
                                     uttaksdager={antallUttaksdager}
-                                    kanVelgeUlønnetPermisjon={Settings.kanVelgeUlønnetPermisjon}
+                                    kanVelgeUlønnetPermisjon={
+                                        Settings.ulønnetPermisjonEnabled && omForeldre.erDeltOmsorg === true
+                                    }
                                     onChange={(periodetype) => onUpdate(changePeriodeType(periode, periodetype))}
                                 />
                             )

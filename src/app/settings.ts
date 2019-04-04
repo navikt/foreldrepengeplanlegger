@@ -1,7 +1,7 @@
 const Settings = {
     kanVelgeBeggeForeldreFerieOgArbeid: false,
     avrundGraderingPerPeriode: true,
-    kanVelgeUlønnetPermisjon: true
+    ulønnetPermisjonEnabled: true
 };
 
 export default Settings;

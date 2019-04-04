@@ -151,7 +151,9 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             dropdownStyle="border"
                                             brukteUttaksdager={antallUttaksdagerBrukt}
                                             uttaksdager={uttaksdager}
-                                            kanVelgeUlønnetPermisjon={Settings.kanVelgeUlønnetPermisjon}
+                                            kanVelgeUlønnetPermisjon={
+                                                Settings.ulønnetPermisjonEnabled && omForeldre.erDeltOmsorg === true
+                                            }
                                             onChange={(type) => {
                                                 formik.setFieldValue('periodetype', type);
                                                 if (type === Periodetype.GradertUttak) {

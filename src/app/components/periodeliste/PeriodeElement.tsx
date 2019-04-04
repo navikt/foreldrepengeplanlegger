@@ -75,6 +75,7 @@ class PeriodeElement extends React.Component<Props> {
 
         const { uttaksinfo } = this.props.periode;
         const periode = this.props.periode;
+        const sistePeriodeId = perioder.length > 0 ? perioder[perioder.length - 1].id : undefined;
 
         const { antallUttaksdagerBrukt, antallUttaksdager } = uttaksinfo || {
             antallUttaksdagerBrukt: 0,
@@ -141,7 +142,7 @@ class PeriodeElement extends React.Component<Props> {
                             ),
                             isVisibleCheck: () => omForeldre.erDeltOmsorg
                         },
-                        ...(isUlønnetPermisjon(periode)
+                        ...(isUlønnetPermisjon(periode) && periode.id !== sistePeriodeId
                             ? [
                                   {
                                       id: 'ulønnetPermisjon',

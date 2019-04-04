@@ -5,11 +5,13 @@ import {
     RegelTestresultatInfoObject,
     RegelTestresultatInfo
 } from '../types';
-import { isUtsettelse } from '../../../types';
+import { isUtsettelse, Periodetype } from '../../../types';
 
 export const avslutterPlanenMedUtsettelseTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
     const perioder = [...grunnlag.perioder].reverse();
-    const idx = perioder.findIndex((periode) => !isUtsettelse(periode));
+    const idx = perioder.findIndex(
+        (periode) => !isUtsettelse(periode) || periode.type === Periodetype.UlønnetPermisjon
+    );
     const passerer = idx === 0;
     const info: RegelTestresultatInfoObject | undefined = passerer
         ? undefined

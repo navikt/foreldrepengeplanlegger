@@ -11,7 +11,15 @@ export const harUlønnetPermisjonUtsettelsesårsak: RegelTest = (grunnlag: Regel
     const perioderUtenÅrsak = grunnlag.perioder.filter(
         (p) => isUlønnetPermisjon(p) && p.utsettelsesårsak === undefined
     );
-    const passerer = perioderUtenÅrsak.length === 0;
+    const antallPerioderUtenÅrsak = perioderUtenÅrsak.length;
+    let passerer = antallPerioderUtenÅrsak === 0;
+    if (antallPerioderUtenÅrsak === 1) {
+        const sistePeriode = perioderUtenÅrsak[antallPerioderUtenÅrsak - 1];
+        if (sistePeriode.id === grunnlag.perioder[grunnlag.perioder.length - 1].id) {
+            passerer = true;
+        }
+    }
+
     const info: RegelTestresultatInfoObject = perioderUtenÅrsak.map(
         (p): Partial<RegelTestresultatInfo> => ({ periodeId: p.id })
     );

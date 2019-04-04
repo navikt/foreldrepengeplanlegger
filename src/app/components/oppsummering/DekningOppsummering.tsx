@@ -28,7 +28,7 @@ const DekningOppsummering: React.StatelessComponent<DekningOppsummeringProps & I
     return (
         <OppsummeringBlokk
             onRequestChange={onRequestChange}
-            tittel={getMessage(intl, 'oppsummering.dekning.tittel')}
+            tittel={getMessage(intl, `oppsummering.dekning.tittel.${omForeldre.erDeltOmsorg ? 'deres' : 'din'}`)}
             illustrasjoner={
                 <div className={bem.classNames(bem.element('deler', 'illustrasjoner'))}>
                     <div className={bem.element('illustrasjon')}>

@@ -30,7 +30,7 @@ export enum RegelKey {
     'farMedmorsUttakErInnenforMaksAntallDager' = 'farMedmorsUttakErInnenforMaksAntallDager',
     'farMedmorBrukerFellesperiodeInfo' = 'farMedmorBrukerFellesperiodeInfo',
     'farMedmorUtsetterPgaArbeidInfo' = 'farMedmorUtsetterPgaArbeidInfo',
-    'morUtsetterFørsteSeksUker' = 'morUsetterFørsteSeksUker',
+    'morUtsetterFørsteSeksUker' = 'morUtsetterFørsteSeksUker',
     'farMedmorUtsetterFørsteSeksUker' = 'farMedmorUtsetterFørsteSeksUker',
     'harForeldreForMangeFeriedager' = 'morHarForMangeFeriedager',
     'farMedmorHarForMangeFeriedager' = 'farMedmorHarForMangeFeriedager',

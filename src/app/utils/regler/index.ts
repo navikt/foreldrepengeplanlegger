@@ -1,6 +1,6 @@
 import { Regel, RegelAlvorlighet } from './types';
-import { harFarEllerMedmorUttakFørsteSeksUkerTest } from './info/harFarEllerMedmorUttakFørsteSeksUkerTest';
-import { inneholderPlanenFerieMedUttaksdagerTest } from './info/inneholderPlanenFerieMedUttaksdagerTest';
+import { harFarEllerMedmorUttakFørsteSeksUkerTest } from './tester/harFarEllerMedmorUttakFørsteSeksUkerTest';
+import { inneholderPlanenFerieMedUttaksdagerTest } from './tester/inneholderPlanenFerieMedUttaksdagerTest';
 import { starterUttakInnenfor12UkerFørTerminTest } from './tester/starterUttakInnenfor12UkerFørTerminTest';
 import { erPlanenInnenforSisteMuligeUttaksdagTest } from './tester/erPlanenInnenforSisteMuligeUttaksdagTest';
 import { erFarMedmorsUttakErInnenforMaksAntallDagerTest } from './tester/erFarMedmorsUttakErInnenforMaksAntallDagerTest';
@@ -10,14 +10,15 @@ import {
     harFarMedmorUtsettelseFørsteSeksUkerTest,
     harMorUtsettelseFørsteSeksUkerTest
 } from './tester/inneholderUtsettelseFørsteSeksUkerTest';
-import { utsetterMorPgaArbeidTest } from './info/utsetterMorPgaArbeidTest';
-import { brukerFarMedmorAvFellesperiodeTest } from './info/brukerFarMedmorAvFellesperiodeTest';
-import { utsetterFarMedmorPgaArbeidTest } from './info/utsetterFarMedmorPgaArbeidTest';
 import { harForeldreForMangeFeriedagerTest } from './tester/harForelderForMangeFeriedagerTest';
-import { bareFarHarRettEttBarnAktivitetskravMorTest } from './info/bareFarHarRettEttBarnAktivitetskravMorTest';
-import { bareFarHarRettFlerbarnsukerAktivitetskravMorTest } from './info/bareFarHarRettFlerbarnsukerAktivitetskravMorTest';
-import { erAlleTilgjengeligeDagerBruktTest } from './info/erAlleTilgjengeligeDagerBruktTest';
 import { avslutterPlanenMedUtsettelseTest } from './tester/avslutterPlanenMedUtsettelseTest';
+
+import { utsetterMorPgaArbeidTest } from './tester/utsetterMorPgaArbeidTest';
+import { brukerFarMedmorAvFellesperiodeTest } from './tester/brukerFarMedmorAvFellesperiodeTest';
+import { utsetterFarMedmorPgaArbeidTest } from './tester/utsetterFarMedmorPgaArbeidTest';
+import { bareFarHarRettEttBarnAktivitetskravMorTest } from './tester/bareFarHarRettEttBarnAktivitetskravMorTest';
+import { bareFarHarRettFlerbarnsukerAktivitetskravMorTest } from './tester/bareFarHarRettFlerbarnsukerAktivitetskravMorTest';
+import { erAlleTilgjengeligeDagerBruktTest } from './tester/erAlleTilgjengeligeDagerBruktTest';
 
 export enum RegelKey {
     'alleUttakErInnenforMaksAntallDager' = 'alleUttakErInnenforMaksAntallDager',

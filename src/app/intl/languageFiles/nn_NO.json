@@ -46,6 +46,11 @@
     "periodetype.arbeid": "Arbeid heltid",
     "periodetype.ulønnetPermisjon": "Ulønnet permisjon",
 
+    "utsettelsesårsak.ferie": "Ferie",
+    "utsettelsesårsak.arbeidHeltid": "Arbeid heltid",
+    "utsettelsesårsak.ferie.kort": "Ferie",
+    "utsettelsesårsak.arbeidHeltid.kort": "Arbeid",
+
     "uttaksplan.skjema.fordeling.annenForeldersFellesperiode": "{navnFarMedmor} kan ta ut {antallUker} uker av fellesperioden",
     "uttaksplan.skjema.fordeling.aria.fordeling": "Hvor mange uker av fellesdelen skal {navnMor} ha av totalt {ukerFellesperiode} uker?",
     "uttaksplan.skjema.fordeling.reduser.tooltip": "En uke mer til {navn}",
@@ -55,8 +60,9 @@
     "uttaksplan.skjema.fordeling.veiledning.lenketekst": "Les mer om aktivitetskravet her.",
     "uttaksplan.skjema.fordeling.øk.tooltip": "En uke mer til {navn}",
     "skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
-    "uttaksplan.ferie.inneholderHelligdager": "En kan ikke ta ut ferie på en helligdag. Denne perioden inneholder {dager, plural, one {# helligdag} other {# helligdager}}, som derfor vil bli regnet som dager med foreldrepenger for {navn}.",
+    "uttaksplan.ferie.inneholderHelligdager": "Helligdager i en ferieperiode vil telle som dager med foreldrepenger. Denne perioden inneholder {dager, plural, one {# helligdag} other {# helligdager}}, som vil bli regnet som dager med foreldrepenger for {navn}.",
 
+    "regel.feil.uttaksplanStatusTittel": "Planen inneholder feil",
     "regel.feil.starterInnenfor12UkerFørTermin": "Foreldrepenger før fødsel kan starte tidligst 12 uker før termin. Første mulige dag er {dato}.",
     "regel.feil.erInnenforSisteMuligeUttaksdag": "Foreldrepengene må tas ut før barnet fyller tre år.",
     "regel.feil.morsUttakErInnenforMaksAntallDager": "{navn} har for mange uker. Det er registrert {dagerRegistrert}, mens det er {dagerTilgjengelig} som er tilgjengelig for {navn}.",
@@ -67,12 +73,14 @@
     "regel.feil.farMedmorUtsetterFørsteSeksUker": "{navn} kan ikke utsette eller kombinere foreldrepenger og arbeid de første seks ukene etter fødsel.",
     "regel.feil.morHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
     "regel.feil.farMedmorHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
+    "regel.feil.avlutterUttaksplanMedUtsettelse": "Planen kan ikke slutte med en utsettelse eller ulønnet permisjon.",
 
-    "regel.advarsel.erAlleTilgjengeligeDagerBrukt": "{dager} er ikke brukt",
-
+    "regel.advarsel.erAlleTilgjengeligeDagerBrukt": "{dager} er ikke brukt.",
+    "regel.advarsel.erUlønnetPermisjon": "Når en forelder planlegger å være hjemme i ulønnet permisjon må den andre forelderen søke om å utsette foreldrepengene på grunn av heltidsarbeid, sykdom eller ferie.",
     "regel.advarsel.uttakForFarEllerMedmorFørsteSeksUkerInfo": "{navnFarMedmor} kan kun ta ut foreldrepenger de seks første ukene etter fødsel om {navnMor} er for syk til å ta seg av barnet eller er innlagt på helseinstitusjon.",
-    "regel.info.ferieMedUttaksdagerInfo": "En kan ikke ta ut ferie på en helligdag, dette teller som en vanlig dag med foreldrepenger.",
-    "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker {dager} av fellesperioden, og må legge ved dokumentasjon av aktivitetskravet til {navnMor} for disse dagene.",
+
+    "regel.info.ferieMedUttaksdagerInfo": "Helligdager i en ferieperiode vil telle som dager med foreldrepenger.",
+    "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker {dager} av fellesperioden, og må legge ved dokumentasjon av aktivitetskravet til {navnMor} for disse dagene. <a href=\"{lenke}\" rel=\"noopener\" class=\"lenke\">Les mer om aktivitetskravet her</a>.",
     "regel.info.morUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnMor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid.",
     "regel.info.farMedmorUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnFarMedmor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid.",
     "regel.info.bareFarHarRettEttBarnAktivitetskravMorInfo": "Det er aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
@@ -120,7 +128,8 @@
     "dekningsgradvalg.80prosent": "{uker} med 80 prosent foreldrepenger",
 
     "oppsummering.ariaTittel": "Oppsummering",
-    "oppsummering.dekning.tittel": "Deres foreldrepengeperiode",
+    "oppsummering.dekning.tittel.din": "Din foreldrepengeperiode",
+    "oppsummering.dekning.tittel.deres": "Deres foreldrepengeperiode",
     "oppsummering.dekning.harValgt": "{antallForeldre, plural, one {Du} other {Dere}} har valgt <strong>{varighet}</strong> med <strong>{dekningsgrad} prosent utbetaling</strong>",
     "oppsummering.situasjon.tittel": "{antallForeldre, plural, one {Du} other {Dere}} og {antallBarn, plural, one {barnet} other {barna}}",
     "oppsummering.situasjon.tekst": "{antallForeldre, plural, one {Du} other {Dere}} venter <strong>{barn}</strong> med termin den <strong>{termin}</strong>.",
@@ -138,6 +147,7 @@
     "periodeliste.arbeidOgUttak.uttaksdager": "<strong>{dager}</strong> med foreldrepenger brukes.",
     "periodeliste.forelder.tittel": "Velg forelder",
     "periodeliste.forelder.spørsmål": "Hvem gjelder perioden?",
+    "periodeliste.velgUlønnetPermisjon": "Hva skal {navn} gjøre?",
 
     "periodeskjema.tittelNyPeriode": "Legg til ny periode",
     "periodeskjema.knapp.leggTil": "Legg til",
@@ -157,6 +167,8 @@
     "periodeskjema.tid.nesteDag": "Neste dag:",
     "periodeskjema.tid.brukGjenståendeDager": "Bruk gjenstående dager",
     "periodeskjema.tid.lengde": "Lengde",
+
+    "ulønnetPermisjonSkjema.tittel": "Hva skal {navn} gjøre?",
 
     "regelAvvik.ariaTittel": "Viktig informasjon om planen",
 

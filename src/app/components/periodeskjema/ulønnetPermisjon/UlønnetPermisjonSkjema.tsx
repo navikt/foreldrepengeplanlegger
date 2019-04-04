@@ -24,13 +24,15 @@ const UlønnetPermisjonSkjema: React.StatelessComponent<Props & InjectedIntlProp
     intl
 }) => (
     <div>
-        <Veilederinfo stil="normal" type="info">
-            <Block margin="xs">
-                <Element>Om ulønnet permisjon</Element>
-            </Block>
-            Ulønnet permisjon betyr at en den ene forelderen må søke om å utsette foreldrepengene på grunn av
-            heltidsarbeid, sykdom eller ferie. Så her i planleggeren må du...
-        </Veilederinfo>
+        <Block margin="xs">
+            <Veilederinfo stil="normal" type="info">
+                <Block margin="xs">
+                    <Element>Om ulønnet permisjon</Element>
+                </Block>
+                Ulønnet permisjon betyr at en den ene forelderen må søke om å utsette foreldrepengene på grunn av
+                heltidsarbeid, sykdom eller ferie. Så her i planleggeren må du...
+            </Veilederinfo>
+        </Block>
         <Skjemablokk
             tittel={getMessage(intl, 'ulønnetPermisjonSkjema.tittel', {
                 navn: getMedforelderNavn(forelder, omForeldre)

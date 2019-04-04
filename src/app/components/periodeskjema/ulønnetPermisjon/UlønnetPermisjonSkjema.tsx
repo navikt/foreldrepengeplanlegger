@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Utsettelsesårsak, Forelder, OmForeldre } from '../../../types';
 import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
 import Block from 'common/components/block/Block';
-import { Element } from 'nav-frontend-typografi';
 import Skjemablokk from '../../skjemablokk/Skjemablokk';
 import { getMedforelderNavn } from '../../../utils/common';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
@@ -26,11 +25,8 @@ const UlønnetPermisjonSkjema: React.StatelessComponent<Props & InjectedIntlProp
     <div>
         <Block margin="xs">
             <Veilederinfo stil="normal" type="info">
-                <Block margin="xs">
-                    <Element>Om ulønnet permisjon</Element>
-                </Block>
-                Ulønnet permisjon betyr at en den ene forelderen må søke om å utsette foreldrepengene på grunn av
-                heltidsarbeid, sykdom eller ferie. Så her i planleggeren må du...
+                Ved ulønnet permisjon må den den andre forelderen søke om å utsette foreldrepengene på grunn av
+                heltidsarbeid eller ferie, dersom det er en periode inne i planen.
             </Veilederinfo>
         </Block>
         <Skjemablokk

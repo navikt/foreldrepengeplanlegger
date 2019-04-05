@@ -6,7 +6,7 @@ import Skjemablokk from '../../skjemablokk/Skjemablokk';
 import { getMedforelderNavn } from '../../../utils/common';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
 import getMessage from 'common/utils/i18nUtils';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { InjectedIntlProps, injectIntl, FormattedMessage } from 'react-intl';
 
 interface Props {
     utsettelsesårsak?: Utsettelsesårsak;
@@ -25,9 +25,10 @@ const UlønnetPermisjonSkjema: React.StatelessComponent<Props & InjectedIntlProp
     <div>
         <Block margin="xs">
             <Veilederinfo stil="normal" type="info">
-                Ved ulønnet permisjon må den den andre forelderen søke om å utsette foreldrepengene på grunn av
-                heltidsarbeid eller ferie. Ulønnet permisjon etter siste dag med foreldrepenger trenger ikke søkes om
-                hos NAV.
+                <FormattedMessage
+                    id="ulønnetPermisjonSkjema.info"
+                    values={{ antallForeldre: omForeldre.erDeltOmsorg ? 2 : 1 }}
+                />
             </Veilederinfo>
         </Block>
         <Skjemablokk

@@ -12,6 +12,7 @@ export const harAvsluttendeUlønnedePermisjoner: RegelTest = (grunnlag: Regelgru
         info: sistePeriode
             ? {
                   values: {
+                      antallForeldre: grunnlag.erDeltOmsorg ? 2 : 1,
                       sisteDag: formaterDato(sistePeriode.tidsperiode.tom)
                   }
               }

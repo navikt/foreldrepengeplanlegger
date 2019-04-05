@@ -146,8 +146,7 @@ class PeriodeElement extends React.Component<Props> {
                             ),
                             isVisibleCheck: () => omForeldre.erDeltOmsorg
                         },
-                        ...(isUlønnetPermisjon(periode) &&
-                        !avsluttendeUlønnedePermisjoner.some((p) => p.id === periode.id)
+                        ...(isUlønnetPermisjon(periode)
                             ? [
                                   {
                                       id: 'ulønnetPermisjon',
@@ -165,7 +164,9 @@ class PeriodeElement extends React.Component<Props> {
                                                   });
                                               }}
                                           />
-                                      )
+                                      ),
+                                      isVisibleCheck: () =>
+                                          !avsluttendeUlønnedePermisjoner.some((p) => p.id === periode.id)
                                   }
                               ]
                             : []),

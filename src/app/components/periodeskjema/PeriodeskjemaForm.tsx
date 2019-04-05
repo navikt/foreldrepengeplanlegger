@@ -198,7 +198,8 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                                 this.handleValueOnChange();
                                             }}
                                         />
-                                    )
+                                    ),
+                                    isVisibleCheck: () => omForeldre.erDeltOmsorg
                                 },
                                 {
                                     id: 'varighet',

@@ -20,6 +20,7 @@ import { bareFarHarRettEttBarnAktivitetskravMorTest } from './tester/bareFarHarR
 import { bareFarHarRettFlerbarnsukerAktivitetskravMorTest } from './tester/bareFarHarRettFlerbarnsukerAktivitetskravMorTest';
 import { erAlleTilgjengeligeDagerBruktTest } from './tester/erAlleTilgjengeligeDagerBruktTest';
 import { harUlønnetPermisjonUtsettelsesårsak } from './tester/harUl\u00F8nnetPermisjonUtsettelses\u00E5rsak';
+import { harAvsluttendeUlønnedePermisjoner } from './tester/harAvsluttendeUl\u00F8nnedePermisjoner';
 
 export enum RegelKey {
     'alleUttakErInnenforMaksAntallDager' = 'alleUttakErInnenforMaksAntallDager',
@@ -41,7 +42,8 @@ export enum RegelKey {
     'erAlleTilgjengeligeDagerBrukt' = 'erAlleTilgjengeligeDagerBrukt',
     'erUlønnetPermisjon' = 'erUlønnetPermisjon',
     'avlutterUttaksplanMedUtsettelse' = 'avlutterUttaksplanMedUtsettelse',
-    'harUlønnetPermisjonValgtÅrsak' = 'harUlønnetPermisjonValgtÅrsak'
+    'harUlønnetPermisjonValgtÅrsak' = 'harUlønnetPermisjonValgtÅrsak',
+    'harAvsluttendeUlønnedePermisjoner' = 'avsluttendeUlønnedePermisjoner'
 }
 
 const feilRegler: Regel[] = [
@@ -147,6 +149,11 @@ const infoRegler: Regel[] = [
         key: RegelKey.farMedmorUtsetterPgaArbeidInfo,
         alvorlighet: RegelAlvorlighet.INFO,
         test: utsetterFarMedmorPgaArbeidTest
+    },
+    {
+        key: RegelKey.harAvsluttendeUlønnedePermisjoner,
+        alvorlighet: RegelAlvorlighet.INFO,
+        test: harAvsluttendeUlønnedePermisjoner
     }
 ];
 

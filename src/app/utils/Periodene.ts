@@ -32,6 +32,7 @@ export const Periodene = (perioder: Periode[]) => ({
     getBrukteUttaksdager: () => getBrukteUttaksdager(perioder),
     getAntallFridager: () => getAntallFridager(perioder),
     getAvsluttendeUlønnedePermisjoner: () => getAvsluttendeUlønnedePermisjoner(perioder),
+    getSistePeriodeMedUttak: () => getSistePeriodeMedUttak(perioder),
     finnOverlappendePerioder: (periode: Periode) => finnOverlappendePerioder(perioder, periode),
     finnPeriodeMedDato: (dato: Date) => finnPeriodeMedDato(perioder, dato),
     finnAlleForegåendePerioder: (periode: Periode) => finnPerioderFørPeriode(perioder, periode),
@@ -226,6 +227,12 @@ function getAvsluttendeUlønnedePermisjoner(perioder: Periode[]) {
         .reverse()
         .findIndex((periode) => periode.type !== Periodetype.UlønnetPermisjon);
     return idx === -1 ? [] : perioder.slice(perioder.length - idx);
+}
+
+function getSistePeriodeMedUttak(perioder: Periode[]): Periode | undefined {
+    return getUttak(perioder)
+        .slice()
+        .pop();
 }
 
 export const erPeriodeMedFerieForForelder = (periode: Periode, forelder: Forelder): boolean => {

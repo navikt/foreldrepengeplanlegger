@@ -9,10 +9,10 @@ import AriaText from 'common/components/aria/AriaText';
 import BEMHelper from 'common/utils/bem';
 import { getAvgrensningerDescriptionForInput } from './datoInputDescription';
 import FocusContainer from 'common/components/focusContainer/FocusContainer';
-
-import './datoInput.less';
 import { Avgrensninger, Tidsperiode } from 'common/types';
 import { dateToISOFormattedDateString } from 'common/utils/datoUtils';
+
+import './datoInput.less';
 
 interface ComponentWithAriaLabel {
     label: React.ReactNode;

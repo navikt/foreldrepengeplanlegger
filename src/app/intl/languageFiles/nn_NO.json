@@ -74,6 +74,7 @@
     "regel.feil.morHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
     "regel.feil.farMedmorHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
     "regel.feil.avlutterUttaksplanMedUtsettelse": "Planen kan ikke slutte med en utsettelse eller ulønnet permisjon.",
+    "regel.feil.harUlønnetPermisjonValgtÅrsak": "Du må velge hva {utsetterNavn} skal gjøre mens {forelderNavn} har ulønnet permisjon.",
 
     "regel.advarsel.erAlleTilgjengeligeDagerBrukt": "{dager} er ikke brukt.",
     "regel.advarsel.erUlønnetPermisjon": "Når en forelder planlegger å være hjemme i ulønnet permisjon må den andre forelderen søke om å utsette foreldrepengene på grunn av heltidsarbeid, sykdom eller ferie.",
@@ -85,6 +86,7 @@
     "regel.info.farMedmorUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnFarMedmor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid.",
     "regel.info.bareFarHarRettEttBarnAktivitetskravMorInfo": "Det er aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
     "regel.info.bareFarHarRettFlerbarnsukerAktivitetskravMorInfo": "Dersom du tar ut mer enn flerbarnsukene, er det aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
+    "regel.info.avsluttendeUlønnedePermisjoner": "Perioder med ulønnet permisjon etter din siste dag med foreldrepenger, trenger du ikke søke om hos NAV. Din siste dag med foreldrepenger fra NAV i planen din er {sisteDag}.",
 
     "situasjon.info.farOgMor": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en fellesperiode som dere kan dele.",
     "situasjon.info.farOgMor.flerbarn": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en fellesperiode som dere kan dele. Dere får <strong>{flerbarnsuker}</strong> med flerbarnsuker, disse ukene kan dere ta ut når som helst i foreldrepengeperioden. Dere kan ta de ut samtidig, eller hver for dere.",

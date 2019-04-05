@@ -26,7 +26,8 @@ const UlønnetPermisjonSkjema: React.StatelessComponent<Props & InjectedIntlProp
         <Block margin="xs">
             <Veilederinfo stil="normal" type="info">
                 Ved ulønnet permisjon må den den andre forelderen søke om å utsette foreldrepengene på grunn av
-                heltidsarbeid eller ferie, dersom det er en periode inne i planen.
+                heltidsarbeid eller ferie. Ulønnet permisjon etter siste dag med foreldrepenger trenger ikke søkes om
+                hos NAV.
             </Veilederinfo>
         </Block>
         <Skjemablokk

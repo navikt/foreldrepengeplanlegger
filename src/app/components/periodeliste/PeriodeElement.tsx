@@ -104,7 +104,9 @@ class PeriodeElement extends React.Component<Props> {
                                     kanVelgeUlønnetPermisjon={
                                         Settings.ulønnetPermisjonEnabled && omForeldre.erDeltOmsorg === true
                                     }
-                                    onChange={(periodetype) => onUpdate(changePeriodeType(periode, periodetype))}
+                                    onChange={(periodetype) =>
+                                        onUpdate(changePeriodeType(this.props.periode, periodetype))
+                                    }
                                 />
                             )
                         },
@@ -195,7 +197,7 @@ class PeriodeElement extends React.Component<Props> {
                                         onTidsperiodeChange: (tidsperiode) =>
                                             isValidTidsperiode(tidsperiode)
                                                 ? onUpdate({
-                                                      ...periode,
+                                                      ...this.props.periode,
                                                       tidsperiode
                                                   })
                                                 : null,
@@ -214,7 +216,7 @@ class PeriodeElement extends React.Component<Props> {
                         kanSlettes
                             ? {
                                   ariaLabel: getMessage(intl, 'periodeliste.ariatekst.slettPeriode'),
-                                  onRemove: () => onRemove(periode)
+                                  onRemove: () => onRemove(this.props.periode)
                               }
                             : undefined
                     }

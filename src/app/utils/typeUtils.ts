@@ -6,6 +6,9 @@ const getBasePeriode = (periode: Periode): PeriodeBase => {
     if (periode.type === Periodetype.UttakFørTermin) {
         const { skalIkkeHaUttakFørTermin, ...rest } = periode;
         return rest;
+    } else if (periode.type === Periodetype.UlønnetPermisjon) {
+        const { utsettelsesårsak, ...rest } = periode;
+        return rest;
     } else if (periode.type === Periodetype.GradertUttak) {
         const antallUttaksdager = Tidsperioden(periode.tidsperiode).getAntallUttaksdager();
         return {

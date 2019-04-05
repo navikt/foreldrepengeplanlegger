@@ -10,7 +10,8 @@ import {
     isFerie,
     isArbeid,
     isUlønnetPermisjon,
-    Periodetype
+    Periodetype,
+    Utsettelsesårsak
 } from '../types/periodetyper';
 import { GradertUttaksperiode, isUttakOrGradertUttak, Forelder } from '../types';
 import { Perioden } from './Perioden';
@@ -238,6 +239,9 @@ function getSistePeriodeMedUttak(perioder: Periode[]): Periode | undefined {
 export const erPeriodeMedFerieForForelder = (periode: Periode, forelder: Forelder): boolean => {
     return (
         (isFerie(periode) && periode.forelder === forelder) ||
-        (isUlønnetPermisjon(periode) && periode.forelder !== undefined && periode.forelder !== forelder)
+        (isUlønnetPermisjon(periode) &&
+            periode.utsettelsesårsak === Utsettelsesårsak.ferie &&
+            periode.forelder !== undefined &&
+            periode.forelder !== forelder)
     );
 };

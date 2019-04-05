@@ -9,7 +9,8 @@ import {
     isUtsettelse,
     isFerie,
     isArbeid,
-    isUlønnetPermisjon
+    isUlønnetPermisjon,
+    Periodetype
 } from '../types/periodetyper';
 import { GradertUttaksperiode, isUttakOrGradertUttak, Forelder } from '../types';
 import { Perioden } from './Perioden';
@@ -30,6 +31,7 @@ export const Periodene = (perioder: Periode[]) => ({
     getFørsteUttaksdag: () => getFørsteUttaksdag(perioder),
     getBrukteUttaksdager: () => getBrukteUttaksdager(perioder),
     getAntallFridager: () => getAntallFridager(perioder),
+    getAvsluttendeUlønnedePermisjoner: () => getAvsluttendeUlønnedePermisjoner(perioder),
     finnOverlappendePerioder: (periode: Periode) => finnOverlappendePerioder(perioder, periode),
     finnPeriodeMedDato: (dato: Date) => finnPeriodeMedDato(perioder, dato),
     finnAlleForegåendePerioder: (periode: Periode) => finnPerioderFørPeriode(perioder, periode),
@@ -213,6 +215,17 @@ function getAntallFridager(perioder: Periode[]): number {
 
 function getPerioderMedFerieForForelder(perioder: Periode[], forelder: Forelder): Periode[] {
     return perioder.filter((periode) => erPeriodeMedFerieForForelder(periode, forelder));
+}
+
+/***
+ * Finner alle ulønnede permisjoner som ligger på slutten av periodelisten
+ * */
+function getAvsluttendeUlønnedePermisjoner(perioder: Periode[]) {
+    const idx = perioder
+        .slice()
+        .reverse()
+        .findIndex((periode) => periode.type !== Periodetype.UlønnetPermisjon);
+    return idx === -1 ? [] : perioder.slice(perioder.length - idx);
 }
 
 export const erPeriodeMedFerieForForelder = (periode: Periode, forelder: Forelder): boolean => {

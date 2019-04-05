@@ -6,16 +6,14 @@ import {
     RegelTestresultatInfo
 } from '../types';
 
-import { isUlønnetPermisjon, Forelder, Periodetype } from '../../../types';
+import { isUlønnetPermisjon, Forelder } from '../../../types';
+import { Periodene } from '../../Periodene';
 
 export const harUlønnetPermisjonUtsettelsesårsak: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
     // Regel gjelder ikke ulønnede permisjoner på slutten av uttaksplanen
-    const idx = grunnlag.perioder
-        .slice()
-        .reverse()
-        .findIndex((p) => p.type !== Periodetype.UlønnetPermisjon);
+    const cnt = Periodene(grunnlag.perioder).getAvsluttendeUlønnedePermisjoner().length;
 
-    const perioder = idx > -1 ? grunnlag.perioder.slice(0, grunnlag.perioder.length - idx) : grunnlag.perioder;
+    const perioder = cnt > 0 ? grunnlag.perioder.slice(0, grunnlag.perioder.length - cnt - 1) : grunnlag.perioder;
     const perioderUtenÅrsak = perioder.filter((p) => isUlønnetPermisjon(p) && p.utsettelsesårsak === undefined);
     const antallPerioderUtenÅrsak = perioderUtenÅrsak.length;
 

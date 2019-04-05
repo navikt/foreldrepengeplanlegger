@@ -18,6 +18,7 @@ import { VarighetChangeEvent } from '../periodeskjema/varighet/VarighetSkjema';
 import { kanBeggeForeldreVelgesForPeriodetype } from '../../utils/kontoUtils';
 import UlønnetPermisjonMeny from './parts/UlønnetPermisjonMeny';
 import Settings from '../../settings';
+import { Periodene } from '../../utils/Periodene';
 
 type Props = PeriodelisteElementProps & InjectedIntlProps;
 
@@ -75,7 +76,8 @@ class PeriodeElement extends React.Component<Props> {
 
         const { uttaksinfo } = this.props.periode;
         const periode = this.props.periode;
-        const sistePeriodeId = perioder.length > 0 ? perioder[perioder.length - 1].id : undefined;
+
+        const avsluttendeUlønnedePermisjoner = Periodene(perioder).getAvsluttendeUlønnedePermisjoner();
 
         const { antallUttaksdagerBrukt, antallUttaksdager } = uttaksinfo || {
             antallUttaksdagerBrukt: 0,
@@ -142,7 +144,8 @@ class PeriodeElement extends React.Component<Props> {
                             ),
                             isVisibleCheck: () => omForeldre.erDeltOmsorg
                         },
-                        ...(isUlønnetPermisjon(periode) && periode.id !== sistePeriodeId
+                        ...(isUlønnetPermisjon(periode) &&
+                        !avsluttendeUlønnedePermisjoner.some((p) => p.id === periode.id)
                             ? [
                                   {
                                       id: 'ulønnetPermisjon',

@@ -8,6 +8,9 @@ import { getMedforelderNavn } from '../../../utils/common';
 import IconText from 'common/components/iconText/IconText';
 import AriaAlternative from 'common/components/aria/AriaAlternative';
 import UlønnetPermisjonÅrsakIkon from '../../periodeikon/ikoner/Ul\u00F8nnetPermisjon\u00C5rsakIkon';
+import Tittel from 'common/components/tittel/Tittel';
+import { Element } from 'nav-frontend-typografi';
+import Block from 'common/components/block/Block';
 
 interface OwnProps {
     utsettelsesårsak?: Utsettelsesårsak;
@@ -74,7 +77,24 @@ const UlønnetPermisjonMeny: React.StatelessComponent<Props> = (props) => {
                 navn: getMedforelderNavn(forelder, omForeldre)
             })}
             style={dropdownStyle}
-            contentRenderer={() => <DropdownFormMenu options={getOptions(intl)} selectedValue={utsettelsesårsak} />}
+            contentRenderer={() => (
+                <DropdownFormMenu
+                    options={getOptions(intl)}
+                    selectedValue={utsettelsesårsak}
+                    headerContent={
+                        <Tittel
+                            tittel={
+                                <Block margin="xxs">
+                                    <Element>Velg utsettelsesårsak</Element>
+                                </Block>
+                            }
+                            info={{
+                                tekst: getMessage(intl, 'ulønnetPermisjonSkjema.info.html')
+                            }}
+                        />
+                    }
+                />
+            )}
         />
     );
 };

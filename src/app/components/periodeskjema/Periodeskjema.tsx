@@ -8,6 +8,7 @@ import { PeriodeskjemaFormValues } from './types';
 import { OmForeldre, Forbruk } from '../../types';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
 import getMessage from 'common/utils/i18nUtils';
+import FocusTrap from 'react-focus-trap';
 
 interface OwnProps {
     periode?: Periode;
@@ -95,30 +96,32 @@ class Periodeskjema extends React.Component<Props, {}> {
         } = this.props;
         return (
             <>
-                <Formik
-                    isInitialValid={false}
-                    initialValues={periodeskjemaUtils.getInitialFormValuesFromPeriode(periode, omForeldre)}
-                    validationSchema={getPeriodeValidationSchema(intl)}
-                    onSubmit={(values: PeriodeskjemaFormValues) =>
-                        onSubmit(periodeskjemaUtils.createPeriodeFromValues(values, nyPeriodeId))
-                    }
-                    render={(props: FormikProps<PeriodeskjemaFormValues>) => (
-                        <PeriodeskjemaForm
-                            perioder={perioder}
-                            periodeFørTermin={periodeFørTermin}
-                            nyPeriode={nyPeriode}
-                            onCancel={this.onCancel}
-                            onChange={this.handleFormValuesChange}
-                            forbrukEksisterendePerioder={forbruk}
-                            formik={props}
-                            omForeldre={omForeldre}
-                            nesteUttaksdag={nesteUttaksdag}
-                            førsteUttaksdagFørTermin={førsteUttaksdagFørTermin}
-                            førsteUttaksdag={førsteUttaksdag}
-                            sisteUttaksdag={sisteUttaksdag}
-                        />
-                    )}
-                />
+                <FocusTrap>
+                    <Formik
+                        isInitialValid={false}
+                        initialValues={periodeskjemaUtils.getInitialFormValuesFromPeriode(periode, omForeldre)}
+                        validationSchema={getPeriodeValidationSchema(intl)}
+                        onSubmit={(values: PeriodeskjemaFormValues) =>
+                            onSubmit(periodeskjemaUtils.createPeriodeFromValues(values, nyPeriodeId))
+                        }
+                        render={(props: FormikProps<PeriodeskjemaFormValues>) => (
+                            <PeriodeskjemaForm
+                                perioder={perioder}
+                                periodeFørTermin={periodeFørTermin}
+                                nyPeriode={nyPeriode}
+                                onCancel={this.onCancel}
+                                onChange={this.handleFormValuesChange}
+                                forbrukEksisterendePerioder={forbruk}
+                                formik={props}
+                                omForeldre={omForeldre}
+                                nesteUttaksdag={nesteUttaksdag}
+                                førsteUttaksdagFørTermin={førsteUttaksdagFørTermin}
+                                førsteUttaksdag={førsteUttaksdag}
+                                sisteUttaksdag={sisteUttaksdag}
+                            />
+                        )}
+                    />
+                </FocusTrap>
             </>
         );
     }

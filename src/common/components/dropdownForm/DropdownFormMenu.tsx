@@ -11,12 +11,14 @@ export interface DropdownFormMenuOption {
 interface Props {
     options: DropdownFormMenuOption[];
     selectedValue?: string;
+    headerContent?: React.ReactNode;
 }
 
 const bem = BEMHelper('dropdownFormMenu');
 
-const DropdownFormMenu: React.StatelessComponent<Props> = ({ options, selectedValue }) => (
+const DropdownFormMenu: React.StatelessComponent<Props> = ({ options, selectedValue, headerContent }) => (
     <div className={bem.block}>
+        {headerContent && <div className={bem.element('header')}>{headerContent}</div>}
         <ul>
             {options
                 .filter((option) => option.hidden !== true)

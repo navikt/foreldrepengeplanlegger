@@ -6,7 +6,7 @@ import Skjemablokk from '../../skjemablokk/Skjemablokk';
 import { getMedforelderNavn } from '../../../utils/common';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
 import getMessage from 'common/utils/i18nUtils';
-import { InjectedIntlProps, injectIntl, FormattedMessage } from 'react-intl';
+import { InjectedIntlProps, injectIntl, FormattedHTMLMessage } from 'react-intl';
 
 interface Props {
     utsettelsesårsak?: Utsettelsesårsak;
@@ -25,8 +25,8 @@ const UlønnetPermisjonSkjema: React.StatelessComponent<Props & InjectedIntlProp
     <div>
         <Block margin="xs">
             <Veilederinfo stil="normal" type="info">
-                <FormattedMessage
-                    id="ulønnetPermisjonSkjema.info"
+                <FormattedHTMLMessage
+                    id="ulønnetPermisjonSkjema.info.html"
                     values={{ antallForeldre: omForeldre.erDeltOmsorg ? 2 : 1 }}
                 />
             </Veilederinfo>

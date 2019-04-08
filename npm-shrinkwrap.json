@@ -9449,6 +9449,11 @@
                     "resolved": "https://registry.npmjs.org/nav-frontend-core/-/nav-frontend-core-4.0.6.tgz",
                     "integrity": "sha512-ZIC0xZU2QeyKrJWAUcVjEySZl3IYAX/judnNvzgUi0vZSlCHuutmzEzdmRlAZjTAfTFkjGHp2s+vMBIB+E7qcw=="
                 },
+                "nav-frontend-js-utils": {
+                    "version": "1.0.6",
+                    "resolved": "https://registry.npmjs.org/nav-frontend-js-utils/-/nav-frontend-js-utils-1.0.6.tgz",
+                    "integrity": "sha512-d9aOUnIREijWV1454WwHLnz4bz3qD1qAPKrH2xQDruBFkKJRoyidzW+aLTMABKe9OeCpEIq2HOkMPbB2v6mpEw=="
+                },
                 "nav-frontend-paneler-style": {
                     "version": "0.3.13",
                     "resolved": "https://registry.npmjs.org/nav-frontend-paneler-style/-/nav-frontend-paneler-style-0.3.13.tgz",
@@ -9498,9 +9503,9 @@
             "integrity": "sha512-JHPZVhxvchI1lHar9at38ektL9/Pgm7nUvVzFQXGNgsSxNk/mWGMl+bhmwU1qxc9vZMaZYb9ng/DhG9pxnBoYg=="
         },
         "nav-frontend-alertstriper-style": {
-            "version": "1.0.1",
-            "resolved": "https://registry.npmjs.org/nav-frontend-alertstriper-style/-/nav-frontend-alertstriper-style-1.0.1.tgz",
-            "integrity": "sha512-2hLzqh0WIFEmfYSkuSTbxnTr9zSnPxNfHKdcncWm1es5Qmi/HkqEWukngpBboMzKsrTs+znYprnBnkbUfIE5Tw==",
+            "version": "1.0.2",
+            "resolved": "https://registry.npmjs.org/nav-frontend-alertstriper-style/-/nav-frontend-alertstriper-style-1.0.2.tgz",
+            "integrity": "sha512-hIET2Tr+4LKx9tQ1Vx0CW/IRpy46PhGARLIb9jabsqe8nkBsZKxSwx0JuD1XWyoLwNFOK8p8hwJMhGYZ8LKdpw==",
             "dev": true
         },
         "nav-frontend-chevron": {
@@ -9536,9 +9541,9 @@
             "integrity": "sha512-+115YXOYtF5+tOc7zeDQz+X/ZYjdPJJ+coxzeBMDuGkg+Zf+yIzrZUv9Wc0B0gBoAQEDt0NbB1Eza6R2gFEamA=="
         },
         "nav-frontend-js-utils": {
-            "version": "1.0.6",
-            "resolved": "https://registry.npmjs.org/nav-frontend-js-utils/-/nav-frontend-js-utils-1.0.6.tgz",
-            "integrity": "sha512-d9aOUnIREijWV1454WwHLnz4bz3qD1qAPKrH2xQDruBFkKJRoyidzW+aLTMABKe9OeCpEIq2HOkMPbB2v6mpEw=="
+            "version": "1.0.7",
+            "resolved": "https://registry.npmjs.org/nav-frontend-js-utils/-/nav-frontend-js-utils-1.0.7.tgz",
+            "integrity": "sha512-/XzbrFCfIou61E+fpeuyiKG5SVFd2EYUk96B9SfP8BZLwfRMjNdFieWpu0WP//5KbR9sMhpbqc2evzTnzXyrfQ=="
         },
         "nav-frontend-knapper": {
             "version": "1.0.27",
@@ -11169,6 +11174,11 @@
             "version": "2.0.4",
             "resolved": "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-2.0.4.tgz",
             "integrity": "sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw=="
+        },
+        "react-focus-trap": {
+            "version": "2.7.1",
+            "resolved": "https://registry.npmjs.org/react-focus-trap/-/react-focus-trap-2.7.1.tgz",
+            "integrity": "sha512-23LD3kjQiL27L5pSZBFSnR0pmI0kg9PlPdfpNdMg5gTXF7YyxZhYwKX6D5zIFif3cI2z7i9f5ToPruUiTWvNFQ=="
         },
         "react-intl": {
             "version": "2.8.0",

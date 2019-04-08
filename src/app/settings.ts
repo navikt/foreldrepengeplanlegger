@@ -2,7 +2,7 @@ const Settings = {
     kanVelgeBeggeForeldreFerieOgArbeid: false,
     avrundGraderingPerPeriode: true,
     ulønnetPermisjonEnabled: true,
-    splittAvsluttendeUlønnetPermisjon: false
+    splittAvsluttendeUlønnetPermisjon: true
 };
 
 export default Settings;

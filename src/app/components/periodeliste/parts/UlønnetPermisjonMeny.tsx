@@ -17,6 +17,7 @@ interface OwnProps {
     forelder: Forelder;
     omForeldre: OmForeldre;
     dropdownStyle?: DropdownFormStyle;
+    disabled?: boolean;
     onChange: (utsettelsesårsak: Utsettelsesårsak) => void;
 }
 
@@ -67,9 +68,10 @@ const UlønnetPermisjonLabel: React.StatelessComponent<Props> = ({ utsettelseså
 };
 
 const UlønnetPermisjonMeny: React.StatelessComponent<Props> = (props) => {
-    const { intl, utsettelsesårsak, dropdownStyle = 'filled', onChange, forelder, omForeldre } = props;
+    const { intl, utsettelsesårsak, dropdownStyle = 'filled', onChange, forelder, omForeldre, disabled } = props;
     return (
         <DropdownForm
+            disabled={disabled}
             onSelection={onChange}
             labelRenderer={() => <UlønnetPermisjonLabel {...props} />}
             contentClassName="ulonnetPermisjonDialog"

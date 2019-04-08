@@ -71,6 +71,7 @@ class PeriodeElement extends React.Component<Props> {
             regelAvvik,
             perioder,
             kanSlettes = true,
+            disabled,
             intl
         } = this.props;
 
@@ -85,6 +86,7 @@ class PeriodeElement extends React.Component<Props> {
         };
         const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
         const { fom, tom } = periode.tidsperiode;
+
         return (
             <PeriodeBlokk farge={getPeriodetypeFarge(periode.type, periode.forelder)}>
                 <PeriodelisteElement
@@ -97,7 +99,7 @@ class PeriodeElement extends React.Component<Props> {
                                     type={periode.type}
                                     forelder={periode.forelder}
                                     foreldernavn={foreldernavn}
-                                    erLåst={typeErLåst}
+                                    disabled={typeErLåst || disabled}
                                     gradering={periode.gradering}
                                     brukteUttaksdager={antallUttaksdagerBrukt}
                                     uttaksdager={antallUttaksdager}
@@ -116,6 +118,7 @@ class PeriodeElement extends React.Component<Props> {
                             className: bem.element('gradering'),
                             render: () => (
                                 <GraderingMeny
+                                    disabled={disabled}
                                     foreldernavn={omForeldre.erDeltOmsorg ? foreldernavn : getMessage(intl, 'du')}
                                     gradering={periode.gradering}
                                     onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
@@ -132,7 +135,7 @@ class PeriodeElement extends React.Component<Props> {
                                     forelder={this.props.periode.forelder}
                                     mor={this.props.omForeldre.mor}
                                     farMedmor={this.props.omForeldre.farMedmor!}
-                                    disabled={forelderErLåst}
+                                    disabled={forelderErLåst || disabled}
                                     kanVelgeBeggeForeldre={kanBeggeForeldreVelgesForPeriodetype(periode.type)}
                                     onChange={(forelder, medforelder) =>
                                         onUpdate({
@@ -155,6 +158,7 @@ class PeriodeElement extends React.Component<Props> {
                                               omForeldre={omForeldre}
                                               utsettelsesårsak={periode.utsettelsesårsak}
                                               dropdownStyle="filled"
+                                              disabled={disabled}
                                               onChange={(utsettelsesårsak) => {
                                                   onUpdate({
                                                       ...(this.props.periode as UlønnetPermisjon),
@@ -174,6 +178,7 @@ class PeriodeElement extends React.Component<Props> {
                             className: bem.element('varighet'),
                             render: () => (
                                 <VarighetMeny
+                                    disabled={disabled}
                                     skjemaProps={{
                                         perioder,
                                         erNyPeriode: false,

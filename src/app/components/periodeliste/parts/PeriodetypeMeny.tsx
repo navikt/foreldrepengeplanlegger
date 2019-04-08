@@ -13,12 +13,12 @@ interface OwnProps {
     type?: Periodetype;
     forelder?: Forelder;
     foreldernavn?: string;
-    erLåst?: boolean;
     uttaksdager?: number;
     brukteUttaksdager?: number;
     gradering?: number;
     dropdownStyle?: DropdownFormStyle;
     kanVelgeUlønnetPermisjon?: boolean;
+    disabled?: boolean;
     onChange: (periodetype: Periodetype) => void;
 }
 
@@ -98,10 +98,10 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
 };
 
 const PeriodetypeMeny: React.StatelessComponent<Props> = (props) => {
-    const { erLåst, intl, type, dropdownStyle = 'filled', onChange, kanVelgeUlønnetPermisjon } = props;
+    const { disabled, intl, type, dropdownStyle = 'filled', onChange, kanVelgeUlønnetPermisjon } = props;
     return (
         <DropdownForm
-            disabled={erLåst}
+            disabled={disabled}
             onSelection={onChange}
             labelRenderer={() => <PeriodetypeMenyLabel {...props} />}
             contentClassName="periodetypeDialog"

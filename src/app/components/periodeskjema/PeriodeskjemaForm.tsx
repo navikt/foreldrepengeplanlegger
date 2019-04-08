@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
+import moment from 'moment';
 import { Form, FormikProps } from 'formik';
 import Block from 'common/components/block/Block';
 import { Knapp, Hovedknapp } from 'nav-frontend-knapper';
@@ -129,6 +130,13 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         const navnForelder = getForelderNavn(forelder, omForeldre);
         const antallUttaksdagerBrukt = periodeskjemaUtils.getBrukteUttaksdagerForNyPeriode(formik.values);
         const uttaksdager = fom && tom ? Tidsperioden({ fom, tom }).getAntallUttaksdager() : undefined;
+        const antallPerioder = perioder.length;
+        const skalLeggesTilPåSluttenAvListen =
+            fom && antallPerioder > 0 && moment(perioder[antallPerioder - 1].tidsperiode.tom).isBefore(fom);
+        const visInfoOmUlønnetPermisjon =
+            periodetype === Periodetype.UlønnetPermisjon &&
+            fom !== undefined &&
+            skalLeggesTilPåSluttenAvListen === false;
         return (
             <Form className="periodeSkjema">
                 <PeriodeBlokk farge={getPeriodetypeFarge(periodetype, forelder)} nyPeriode={true}>
@@ -240,7 +248,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                             }
                         />
                     </Block>
-                    <Block margin="none" visible={periodetype === Periodetype.UlønnetPermisjon}>
+                    <Block margin="none" visible={visInfoOmUlønnetPermisjon}>
                         <UlønnetPermisjonSkjema
                             forelder={forelder}
                             omForeldre={omForeldre}

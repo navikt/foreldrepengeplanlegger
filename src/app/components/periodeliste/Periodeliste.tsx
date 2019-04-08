@@ -10,8 +10,11 @@ import periodelisteUtils from './periodelisteUtils';
 import posed, { PoseGroup } from 'react-pose';
 import { getRegelAvvikForPeriode } from '../../utils/regler/regelUtils';
 import HjerteIkon from './parts/HjerteIkon';
+import { Periodene } from '../../utils/Periodene';
+import { EtikettLiten } from 'nav-frontend-typografi';
 
 import './periodeliste.less';
+import Settings from '../../settings';
 
 const bem = BEMHelper('periodeliste');
 
@@ -63,9 +66,17 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
         ...elementProps
     } = props;
     const antallPerioder = perioder.length;
+    const avsluttendeUlønnetPermisjoner =
+        Settings.splittAvsluttendeUlønnetPermisjon && Periodene(perioder).getAvsluttendeUlønnedePermisjoner();
+    const aup =
+        avsluttendeUlønnetPermisjoner && avsluttendeUlønnetPermisjoner.length > 0
+            ? avsluttendeUlønnetPermisjoner[0]
+            : undefined;
     const posedItems = perioder.map((periode: Periode, index: number) => {
+        const avvik = getRegelAvvikForPeriode(regelTestresultat, periode.id);
+        const erFørsteAvsluttendeUlønnetPermisjon = aup && aup.id === periode.id;
         return (
-            <PosedLi className="periodeliste__periode" key={periode.id}>
+            <PosedLi className={bem.element('periode')} key={periode.id}>
                 {onSlåSammenPerioder &&
                     periodelisteUtils.erPeriodeLikForrigePeriode(perioder, periode, index, antallPerioder) && (
                         <SlåSammenPerioderValg
@@ -74,13 +85,18 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
                             onSamlePerioder={onSlåSammenPerioder}
                         />
                     )}
+                {erFørsteAvsluttendeUlønnetPermisjon && (
+                    <div className={bem.element('info')}>
+                        <EtikettLiten>Ulønnet permisjon som må avklares med arbeidsgiver</EtikettLiten>
+                    </div>
+                )}
                 <PeriodeElement
                     periode={periode}
                     perioder={perioder}
                     periodeFørTermin={periodeFørTermin}
                     {...elementProps}
                     startdatoErLåst={true}
-                    regelAvvik={getRegelAvvikForPeriode(regelTestresultat, periode.id)}
+                    regelAvvik={avvik}
                 />
             </PosedLi>
         );

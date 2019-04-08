@@ -86,6 +86,7 @@
     "regel.info.farMedmorUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnFarMedmor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid.",
     "regel.info.bareFarHarRettEttBarnAktivitetskravMorInfo": "Det er aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
     "regel.info.bareFarHarRettFlerbarnsukerAktivitetskravMorInfo": "Dersom du tar ut mer enn flerbarnsukene, er det aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
+    "regel.info.avsluttendeUlønnedePermisjoner.tittel": "Doo",
     "regel.info.avsluttendeUlønnedePermisjoner": "Perioder med ulønnet permisjon etter  {antallForeldre, plural, one {du} other {dere}} er ferdig med foreldrepenger trenger dere ikke søke NAV om, dette planlegger du sammen med arbeidsgiveren din. Siste dag med foreldrepenger fra NAV i planen er {sisteDag}.",
 
     "ulønnetPermisjonSkjema.info.html": "Du kan ikke utsette foreldrepengene med ulønnet permisjon. Om du skal ha ulønnet permisjon før perioden med foreldrepenger er ferdig kan den andre forelderen ha foreldrepenger samtidig eller søke om å utsette foreldrepengene på grunn av heltidsarbeid eller ferie.<br/><br/> Husk at ulønnet permisjon er noe du må avtale med din arbeidsgiver og at ulønnet permisjon kan påvirke retten din til andre utbetalinger fra NAV og opptjening av rett til foreldrepenger for nytt barn.",

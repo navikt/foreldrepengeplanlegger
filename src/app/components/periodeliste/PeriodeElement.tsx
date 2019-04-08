@@ -130,7 +130,6 @@ class PeriodeElement extends React.Component<Props> {
                             render: () => (
                                 <ForelderMeny
                                     forelder={this.props.periode.forelder}
-                                    medforelder={this.props.periode.medforelder}
                                     mor={this.props.omForeldre.mor}
                                     farMedmor={this.props.omForeldre.farMedmor!}
                                     disabled={forelderErLåst}
@@ -138,8 +137,7 @@ class PeriodeElement extends React.Component<Props> {
                                     onChange={(forelder, medforelder) =>
                                         onUpdate({
                                             ...this.props.periode,
-                                            forelder,
-                                            medforelder
+                                            forelder
                                         })
                                     }
                                 />

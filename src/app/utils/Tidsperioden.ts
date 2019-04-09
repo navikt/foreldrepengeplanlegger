@@ -36,7 +36,7 @@ export function isValidTidsperiode(tidsperiode: any): tidsperiode is Tidsperiode
     return (
         tidsperiode.fom !== undefined &&
         tidsperiode.tom !== undefined &&
-        moment(tidsperiode.fom).isSameOrBefore(tidsperiode.tom, 'day')
+        moment.utc(tidsperiode.fom).isSameOrBefore(tidsperiode.tom, 'day')
     );
 }
 
@@ -44,7 +44,7 @@ export function resetTidsperiodeTomIfBeforeFom(tidsperiode: Partial<Tidsperiode>
     return {
         fom: tidsperiode.fom,
         tom:
-            tidsperiode.fom && tidsperiode.tom && moment(tidsperiode.fom).isAfter(tidsperiode.tom, 'day')
+            tidsperiode.fom && tidsperiode.tom && moment.utc(tidsperiode.fom).isAfter(tidsperiode.tom, 'day')
                 ? tidsperiode.fom
                 : tidsperiode.tom
     };
@@ -74,8 +74,8 @@ function getAntallUttaksdagerITidsperiode(tidsperiode: Partial<Tidsperiode>, taB
     if (isValidTidsperiode(tidsperiode) === false) {
         return 0;
     }
-    const fom = moment(tidsperiode.fom);
-    const tom = moment(tidsperiode.tom);
+    const fom = moment.utc(tidsperiode.fom);
+    const tom = moment.utc(tidsperiode.tom);
     if (fom.isAfter(tom, 'day')) {
         return 0;
     }
@@ -129,8 +129,8 @@ function erTidsperiodeUtenforTidsperiode(
 ): boolean {
     if (isValidTidsperiode(tidsperiode1) && isValidTidsperiode(tidsperiode2)) {
         return (
-            moment(tidsperiode1.fom).isAfter(tidsperiode2.tom, 'day') ||
-            moment(tidsperiode1.tom).isBefore(tidsperiode2.fom, 'day')
+            moment.utc(tidsperiode1.fom).isAfter(tidsperiode2.tom, 'day') ||
+            moment.utc(tidsperiode1.tom).isBefore(tidsperiode2.fom, 'day')
         );
     }
     return false;
@@ -138,7 +138,7 @@ function erTidsperiodeUtenforTidsperiode(
 
 function tidsperiodeToString(tidsperiode: Partial<Tidsperiode>, intl: InjectedIntl) {
     const { fom, tom } = tidsperiode;
-    if (fom && tom && moment(fom).isSame(tom, 'day')) {
+    if (fom && tom && moment.utc(fom).isSame(tom, 'day')) {
         return formaterDatoUtenDag(fom ? fom : tom);
     }
     return getMessage(intl, 'tidsperiode', {
@@ -149,7 +149,7 @@ function tidsperiodeToString(tidsperiode: Partial<Tidsperiode>, intl: InjectedIn
 
 function tidsperiodeToStringMedDag(tidsperiode: Partial<Tidsperiode>, intl: InjectedIntl) {
     const { fom, tom } = tidsperiode;
-    if (fom && tom && moment(fom).isSame(tom, 'day')) {
+    if (fom && tom && moment.utc(fom).isSame(tom, 'day')) {
         return formaterDato(fom ? fom : tom);
     }
     return getMessage(intl, 'tidsperiode', {
@@ -160,7 +160,7 @@ function tidsperiodeToStringMedDag(tidsperiode: Partial<Tidsperiode>, intl: Inje
 
 function tidsperiodeToStringKort(tidsperiode: Partial<Tidsperiode>, intl: InjectedIntl) {
     const { fom, tom } = tidsperiode;
-    if (fom && tom && moment(fom).isSame(tom, 'day')) {
+    if (fom && tom && moment.utc(fom).isSame(tom, 'day')) {
         return formaterDatoMedDagKort(fom ? fom : tom);
     }
     return getMessage(intl, 'tidsperiode.kort', {
@@ -173,8 +173,8 @@ const erTidsperiodeFomEllerEtterDato = (tidsperiode: Partial<Tidsperiode>, dato:
     return (
         tidsperiode.fom !== undefined &&
         tidsperiode.tom !== undefined &&
-        moment(tidsperiode.fom).isSameOrAfter(dato, 'day') &&
-        moment(tidsperiode.tom).isSameOrAfter(dato, 'day')
+        moment.utc(tidsperiode.fom).isSameOrAfter(dato, 'day') &&
+        moment.utc(tidsperiode.tom).isSameOrAfter(dato, 'day')
     );
 };
 

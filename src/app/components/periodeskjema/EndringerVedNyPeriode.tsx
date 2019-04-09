@@ -82,10 +82,9 @@ const EndringerVedNyPeriode: React.StatelessComponent<Props & InjectedIntlProps>
         return null;
     }
 
-    const periodeSomStarterSammeDag = moment(berørtePerioder[0].tidsperiode.fom).isSame(
-        nyPeriode.tidsperiode.fom,
-        'day'
-    );
+    const periodeSomStarterSammeDag = moment
+        .utc(berørtePerioder[0].tidsperiode.fom)
+        .isSame(nyPeriode.tidsperiode.fom, 'day');
     if (periodeSomStarterSammeDag) {
         return (
             <PerioderSomVilBliFlyttetPå perioder={berørtePerioder} antallUttaksdager={antallUttaksdager} intl={intl} />

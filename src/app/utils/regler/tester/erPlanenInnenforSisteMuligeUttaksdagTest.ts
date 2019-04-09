@@ -14,7 +14,7 @@ export const erPlanenInnenforSisteMuligeUttaksdagTest: RegelTest = (grunnlag: Re
 
     const perioderUtenforGyldigTidsrom = perioderForSjekk.filter((periode) => {
         const { tom } = periode.tidsperiode;
-        if (moment(tom).isSameOrBefore(sisteMuligeUttaksdag, 'day') === false) {
+        if (moment.utc(tom).isSameOrBefore(sisteMuligeUttaksdag, 'day') === false) {
             return true;
         }
         return false;

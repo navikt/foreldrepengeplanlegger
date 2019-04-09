@@ -66,10 +66,10 @@ export const inputHasValue = (value: string | undefined) => {
 
 export const getTermindatoAvgrensninger = (): Avgrensninger => {
     return {
-        minDato: moment()
+        minDato: moment.utc()
             .subtract(6, 'months')
             .toDate(),
-        maksDato: moment()
+        maksDato: moment.utc()
             .add(24, 'months')
             .toDate()
     };

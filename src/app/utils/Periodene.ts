@@ -53,7 +53,7 @@ export function sorterPerioder(p1: Periode, p2: Periode) {
         // }
         return isValidTidsperiode(p1.tidsperiode) ? -1 : 1;
     }
-    return moment(p1.tidsperiode.fom).isBefore(p2.tidsperiode.fom, 'day') ? -1 : 1;
+    return moment.utc(p1.tidsperiode.fom).isBefore(p2.tidsperiode.fom, 'day') ? -1 : 1;
 }
 
 function getPeriode(perioder: Periode[], id: string): Periode | undefined {
@@ -96,35 +96,35 @@ function datoErInnenforTidsperiode(dato: Date, tidsperiode: Tidsperiode): boolea
     if (!fom || !tom) {
         return false;
     }
-    return moment(dato).isBetween(fom, tom, 'days', '[]');
+    return moment.utc(dato).isBetween(fom, tom, 'days', '[]');
 }
 
 function finnPeriodeMedDato(perioder: Periode[], dato: Date): Periode | undefined {
     return perioder.find((periode) => {
-        return moment(dato).isBetween(periode.tidsperiode.fom, periode.tidsperiode.tom, 'day', '[]');
+        return moment.utc(dato).isBetween(periode.tidsperiode.fom, periode.tidsperiode.tom, 'day', '[]');
     });
 }
 function finnPerioderMedEllerEtterDato(perioder: Periode[], dato: Date): Periode[] | undefined {
     return perioder.filter((periode) => {
         return (
-            moment(dato).isBetween(periode.tidsperiode.fom, periode.tidsperiode.tom, 'day', '[]') ||
-            moment(dato).isBefore(periode.tidsperiode.fom, 'day')
+            moment.utc(dato).isBetween(periode.tidsperiode.fom, periode.tidsperiode.tom, 'day', '[]') ||
+            moment.utc(dato).isBefore(periode.tidsperiode.fom, 'day')
         );
     });
 }
 
 function finnPerioderEtterDato(perioder: Periode[], dato: Date): Periode[] | undefined {
     return perioder.filter((periode) => {
-        return moment(dato).isBefore(periode.tidsperiode.fom, 'day');
+        return moment.utc(dato).isBefore(periode.tidsperiode.fom, 'day');
     });
 }
 
 function finnPerioderFørPeriode(perioder: Periode[], periode: Periode): Periode[] {
-    return perioder.filter((p) => moment(p.tidsperiode.tom).isBefore(periode.tidsperiode.fom, 'day'));
+    return perioder.filter((p) => moment.utc(p.tidsperiode.tom).isBefore(periode.tidsperiode.fom, 'day'));
 }
 
 function finnPerioderEtterPeriode(perioder: Periode[], periode: Periode): Periode[] {
-    return perioder.filter((p) => moment(p.tidsperiode.fom).isAfter(periode.tidsperiode.tom, 'day'));
+    return perioder.filter((p) => moment.utc(p.tidsperiode.fom).isAfter(periode.tidsperiode.tom, 'day'));
 }
 
 function finnForrigePeriode(perioder: Periode[], periode: Periode): Periode | undefined {
@@ -160,7 +160,7 @@ function getPerioderFørFamiliehendelsesdato(perioder: Periode[], familiehendels
     return perioder.filter(
         (periode) =>
             isValidTidsperiode(periode.tidsperiode) &&
-            moment(periode.tidsperiode.fom).isBefore(familiehendelsesdato, 'day')
+            moment.utc(periode.tidsperiode.fom).isBefore(familiehendelsesdato, 'day')
     );
 }
 
@@ -168,7 +168,7 @@ function getPerioderEtterFamiliehendelsesdato(perioder: Periode[], familiehendel
     return perioder.filter(
         (periode) =>
             isValidTidsperiode(periode.tidsperiode) &&
-            moment(periode.tidsperiode.fom).isSameOrAfter(familiehendelsesdato, 'day')
+            moment.utc(periode.tidsperiode.fom).isSameOrAfter(familiehendelsesdato, 'day')
     );
 }
 

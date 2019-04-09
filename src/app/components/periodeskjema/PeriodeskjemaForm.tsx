@@ -68,7 +68,7 @@ const visSkjemaForUlønnetPermisjon = (perioder: Periode[], periodetype?: Period
     if (perioder.length === 0 || !fom || periodetype !== Periodetype.UlønnetPermisjon) {
         return false;
     }
-    return moment(fom).isSameOrBefore(perioder[antallPerioder - 1].tidsperiode.tom, 'day');
+    return moment.utc(fom).isSameOrBefore(perioder[antallPerioder - 1].tidsperiode.tom, 'day');
 };
 class PeriodeskjemaForm extends React.Component<Props, {}> {
     constructor(props: Props) {

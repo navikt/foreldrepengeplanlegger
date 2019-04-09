@@ -14,7 +14,7 @@ const getUtsettelserForForelderInnenforFørsteSeksUker = (
         (p) =>
             p.forelder === forelder &&
             erUtsettelse(p.type) &&
-            moment(p.tidsperiode.fom).isSameOrBefore(sisteUttaksdagInnenforSeksUker, 'day')
+            moment.utc(p.tidsperiode.fom).isSameOrBefore(sisteUttaksdagInnenforSeksUker, 'day')
     );
 };
 

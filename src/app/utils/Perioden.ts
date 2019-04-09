@@ -41,7 +41,7 @@ function getPeriodeFootprint(periode: Periode) {
 function erPerioderSammenhengende(p1: Periode, p2: Periode) {
     const p1NesteUttaksdato = Uttaksdagen(p1.tidsperiode.tom).neste();
     const p2Startdato = p2.tidsperiode.fom;
-    return moment(p1NesteUttaksdato).isSame(p2Startdato, 'day');
+    return moment.utc(p1NesteUttaksdato).isSame(p2Startdato, 'day');
 }
 
 function flyttPeriode(periode: Periode, fom: Date): Periode {

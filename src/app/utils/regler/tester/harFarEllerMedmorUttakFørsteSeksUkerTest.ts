@@ -15,7 +15,7 @@ export const harFarEllerMedmorUttakFørsteSeksUkerTest: RegelTest = (grunnlag: R
         .filter(
             (p) =>
                 p.forelder === Forelder.farMedmor &&
-                moment(p.tidsperiode.fom).isBefore(moment(førsteUttaksdagEtterSeksUker), 'day')
+                moment.utc(p.tidsperiode.fom).isBefore(moment.utc(førsteUttaksdagEtterSeksUker), 'day')
         )
         .shift();
 

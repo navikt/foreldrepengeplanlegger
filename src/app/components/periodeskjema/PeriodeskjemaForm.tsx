@@ -61,6 +61,13 @@ const periodeErGyldig = (values: PeriodeskjemaFormValues): boolean => {
     );
 };
 
+const visSkjemaForUlønnetPermisjon = (perioder: Periode[], periodetype?: Periodetype, fom?: Date): boolean => {
+    const antallPerioder = perioder.length;
+    if (perioder.length === 0 || !fom || periodetype !== Periodetype.UlønnetPermisjon) {
+        return false;
+    }
+    return moment(fom).isSameOrBefore(perioder[antallPerioder - 1].tidsperiode.tom, 'day');
+};
 class PeriodeskjemaForm extends React.Component<Props, {}> {
     constructor(props: Props) {
         super(props);
@@ -130,13 +137,6 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         const navnForelder = getForelderNavn(forelder, omForeldre);
         const antallUttaksdagerBrukt = periodeskjemaUtils.getBrukteUttaksdagerForNyPeriode(formik.values);
         const uttaksdager = fom && tom ? Tidsperioden({ fom, tom }).getAntallUttaksdager() : undefined;
-        const antallPerioder = perioder.length;
-        const skalLeggesTilPåSluttenAvListen =
-            fom && antallPerioder > 0 && moment(perioder[antallPerioder - 1].tidsperiode.tom).isBefore(fom);
-        const visInfoOmUlønnetPermisjon =
-            periodetype === Periodetype.UlønnetPermisjon &&
-            fom !== undefined &&
-            skalLeggesTilPåSluttenAvListen === false;
         return (
             <Form className="periodeSkjema">
                 <PeriodeBlokk farge={getPeriodetypeFarge(periodetype, forelder)} nyPeriode={true}>
@@ -248,7 +248,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                             }
                         />
                     </Block>
-                    <Block margin="none" visible={visInfoOmUlønnetPermisjon}>
+                    <Block margin="none" visible={visSkjemaForUlønnetPermisjon(perioder, periodetype, fom)}>
                         <UlønnetPermisjonSkjema
                             forelder={forelder}
                             omForeldre={omForeldre}

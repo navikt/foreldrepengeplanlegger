@@ -26,7 +26,7 @@ export const Uttaksdagen = (dato: Date) => ({
 });
 
 function getUkedag(dato: Date) {
-    return moment(dato).isoWeekday();
+    return moment.utc(dato).isoWeekday();
 }
 
 function erUttaksdag(dato: Date): boolean {

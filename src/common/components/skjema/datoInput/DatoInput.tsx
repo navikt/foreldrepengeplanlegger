@@ -89,7 +89,9 @@ class DatoInput extends React.Component<Props, {}> {
                             }}
                             onChange={(datoString: string) => {
                                 const nyDato =
-                                    datoString && datoString !== 'Invalid date' ? new Date(datoString) : undefined;
+                                    datoString && datoString !== 'Invalid date'
+                                        ? moment.utc(datoString).toDate()
+                                        : undefined;
                                 if (dato !== nyDato) {
                                     onChange(nyDato);
                                 }

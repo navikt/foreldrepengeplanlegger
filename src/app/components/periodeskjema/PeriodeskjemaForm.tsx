@@ -57,7 +57,9 @@ const periodeErGyldig = (values: PeriodeskjemaFormValues, ulønnetPermisjonSkjem
         values.periodetype !== undefined &&
         values.tom !== undefined &&
         (values.periodetype === Periodetype.GradertUttak ? values.gradering !== undefined : true) &&
-        (values.periodetype === Periodetype.UlønnetPermisjon && ulønnetPermisjonSkjemaErDSynlig ? values.utsettelsesårsak !== undefined : true)
+        (values.periodetype === Periodetype.UlønnetPermisjon && ulønnetPermisjonSkjemaErDSynlig
+            ? values.utsettelsesårsak !== undefined
+            : true)
     );
 };
 
@@ -264,7 +266,9 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                         <EndringerVedNyPeriode nyPeriode={nyPeriode} perioder={perioder} omForeldre={omForeldre} />
                     </Block>
                     <Knapperad style="mobile-50-50">
-                        <Hovedknapp htmlType="submit" disabled={periodeErGyldig(formik.values, visUlønnetPermisjonSkjema) === false}>
+                        <Hovedknapp
+                            htmlType="submit"
+                            disabled={periodeErGyldig(formik.values, visUlønnetPermisjonSkjema) === false}>
                             <FormattedMessage id="periodeskjema.knapp.leggTil" />
                         </Hovedknapp>
                         <Knapp htmlType="button" onClick={() => onCancel()}>

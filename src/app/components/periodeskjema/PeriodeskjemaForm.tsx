@@ -50,14 +50,14 @@ type Props = OwnProps & InjectedIntlProps;
 
 const bem = BEMHelper('periodeElement');
 
-const periodeErGyldig = (values: PeriodeskjemaFormValues): boolean => {
+const periodeErGyldig = (values: PeriodeskjemaFormValues, ulønnetPermisjonSkjemaErDSynlig?: boolean): boolean => {
     return (
         values.forelder !== undefined &&
         values.fom !== undefined &&
         values.periodetype !== undefined &&
         values.tom !== undefined &&
         (values.periodetype === Periodetype.GradertUttak ? values.gradering !== undefined : true) &&
-        (values.periodetype === Periodetype.UlønnetPermisjon ? values.utsettelsesårsak !== undefined : true)
+        (values.periodetype === Periodetype.UlønnetPermisjon && ulønnetPermisjonSkjemaErDSynlig ? values.utsettelsesårsak !== undefined : true)
     );
 };
 
@@ -137,6 +137,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
         const navnForelder = getForelderNavn(forelder, omForeldre);
         const antallUttaksdagerBrukt = periodeskjemaUtils.getBrukteUttaksdagerForNyPeriode(formik.values);
         const uttaksdager = fom && tom ? Tidsperioden({ fom, tom }).getAntallUttaksdager() : undefined;
+        const visUlønnetPermisjonSkjema = visSkjemaForUlønnetPermisjon(perioder, periodetype, fom);
         return (
             <Form className="periodeSkjema">
                 <PeriodeBlokk farge={getPeriodetypeFarge(periodetype, forelder)} nyPeriode={true}>
@@ -248,7 +249,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                             }
                         />
                     </Block>
-                    <Block margin="none" visible={visSkjemaForUlønnetPermisjon(perioder, periodetype, fom)}>
+                    <Block margin="none" visible={visUlønnetPermisjonSkjema}>
                         <UlønnetPermisjonSkjema
                             forelder={forelder}
                             omForeldre={omForeldre}
@@ -263,7 +264,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                         <EndringerVedNyPeriode nyPeriode={nyPeriode} perioder={perioder} omForeldre={omForeldre} />
                     </Block>
                     <Knapperad style="mobile-50-50">
-                        <Hovedknapp htmlType="submit" disabled={periodeErGyldig(formik.values) === false}>
+                        <Hovedknapp htmlType="submit" disabled={periodeErGyldig(formik.values, visUlønnetPermisjonSkjema) === false}>
                             <FormattedMessage id="periodeskjema.knapp.leggTil" />
                         </Hovedknapp>
                         <Knapp htmlType="button" onClick={() => onCancel()}>

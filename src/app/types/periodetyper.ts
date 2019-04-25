@@ -11,12 +11,16 @@ export enum Periodetype {
     'UlønnetPermisjon' = 'ulønnetPermisjon'
 }
 
+export enum Utsettelsesårsak {
+    'ferie' = 'ferie',
+    'arbeidHeltid' = 'arbeidHeltid'
+}
+
 export interface PeriodeBase {
     id: string;
     type: Periodetype;
     tidsperiode: Tidsperiode;
     forelder: Forelder;
-    medforelder?: Forelder;
     fixed?: boolean;
     uttaksinfo?: Uttaksinfo;
     gradering?: number;
@@ -45,6 +49,7 @@ export interface Arbeidsperiode extends PeriodeBase {
 
 export interface UlønnetPermisjon extends PeriodeBase {
     type: Periodetype.UlønnetPermisjon;
+    utsettelsesårsak: Utsettelsesårsak | undefined;
 }
 
 export type Utsettelsesperiode = Ferieperiode | Arbeidsperiode | UlønnetPermisjon;
@@ -83,7 +88,11 @@ export function isGradertUttak(periode: Periode): periode is GradertUttaksperiod
 }
 
 export function isUtsettelse(periode: Periode): periode is Utsettelsesperiode {
-    return periode.type === Periodetype.Ferie || periode.type === Periodetype.Arbeid;
+    return (
+        periode.type === Periodetype.Ferie ||
+        periode.type === Periodetype.Arbeid ||
+        periode.type === Periodetype.UlønnetPermisjon
+    );
 }
 
 export function isFerie(periode: Periode): periode is Ferieperiode {

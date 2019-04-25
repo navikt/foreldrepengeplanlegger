@@ -6,7 +6,7 @@ import { changePeriodeType } from '../../utils/typeUtils';
 import { PeriodelisteElementProps } from './types';
 import GraderingMeny from './parts/GraderingMeny';
 import { getPeriodetypeFarge } from '../../utils/styleutils';
-import { OmForeldre, Forelder, Periodetype, Periode } from '../../types';
+import { OmForeldre, Forelder, Periodetype, Periode, isUlønnetPermisjon, UlønnetPermisjon } from '../../types';
 import { Tidsperioden, isValidTidsperiode } from '../../utils/Tidsperioden';
 import { Tidsperiode } from 'common/types';
 import PeriodelisteElement from './periodelisteElement/PeriodelisteElement';
@@ -16,6 +16,9 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import VarighetMeny from '../periodeskjema/varighet/VarighetMeny';
 import { VarighetChangeEvent } from '../periodeskjema/varighet/VarighetSkjema';
 import { kanBeggeForeldreVelgesForPeriodetype } from '../../utils/kontoUtils';
+import UlønnetPermisjonMeny from './parts/UlønnetPermisjonMeny';
+import Settings from '../../settings';
+import { Periodene } from '../../utils/Periodene';
 
 type Props = PeriodelisteElementProps & InjectedIntlProps;
 
@@ -68,19 +71,22 @@ class PeriodeElement extends React.Component<Props> {
             regelAvvik,
             perioder,
             kanSlettes = true,
+            disabled,
             intl
         } = this.props;
 
         const { uttaksinfo } = this.props.periode;
         const periode = this.props.periode;
 
+        const avsluttendeUlønnedePermisjoner = Periodene(perioder).getAvsluttendeUlønnedePermisjoner();
+
         const { antallUttaksdagerBrukt, antallUttaksdager } = uttaksinfo || {
             antallUttaksdagerBrukt: 0,
             antallUttaksdager: 0
         };
-
         const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
         const { fom, tom } = periode.tidsperiode;
+
         return (
             <PeriodeBlokk farge={getPeriodetypeFarge(periode.type, periode.forelder)}>
                 <PeriodelisteElement
@@ -93,22 +99,29 @@ class PeriodeElement extends React.Component<Props> {
                                     type={periode.type}
                                     forelder={periode.forelder}
                                     foreldernavn={foreldernavn}
-                                    erLåst={typeErLåst}
+                                    disabled={typeErLåst || disabled}
                                     gradering={periode.gradering}
                                     brukteUttaksdager={antallUttaksdagerBrukt}
                                     uttaksdager={antallUttaksdager}
-                                    onChange={(periodetype) => onUpdate(changePeriodeType(periode, periodetype))}
+                                    kanVelgeUlønnetPermisjon={
+                                        Settings.ulønnetPermisjonEnabled && omForeldre.erDeltOmsorg === true
+                                    }
+                                    onChange={(periodetype) =>
+                                        onUpdate(changePeriodeType(this.props.periode, periodetype))
+                                    }
                                 />
                             )
                         },
+
                         {
                             id: 'gradering',
                             className: bem.element('gradering'),
                             render: () => (
                                 <GraderingMeny
+                                    disabled={disabled}
                                     foreldernavn={omForeldre.erDeltOmsorg ? foreldernavn : getMessage(intl, 'du')}
                                     gradering={periode.gradering}
-                                    onChange={(gradering) => onUpdate({ ...periode, gradering })}
+                                    onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
                                     uttaksdagerBrukt={antallUttaksdagerBrukt}
                                 />
                             ),
@@ -120,27 +133,52 @@ class PeriodeElement extends React.Component<Props> {
                             render: () => (
                                 <ForelderMeny
                                     forelder={this.props.periode.forelder}
-                                    medforelder={this.props.periode.medforelder}
                                     mor={this.props.omForeldre.mor}
                                     farMedmor={this.props.omForeldre.farMedmor!}
-                                    disabled={forelderErLåst}
+                                    disabled={forelderErLåst || disabled}
                                     kanVelgeBeggeForeldre={kanBeggeForeldreVelgesForPeriodetype(periode.type)}
                                     onChange={(forelder, medforelder) =>
                                         onUpdate({
                                             ...this.props.periode,
-                                            forelder,
-                                            medforelder
+                                            forelder
                                         })
                                     }
                                 />
                             ),
                             isVisibleCheck: () => omForeldre.erDeltOmsorg
                         },
+                        ...(isUlønnetPermisjon(periode)
+                            ? [
+                                  {
+                                      id: 'ulønnetPermisjon',
+                                      className: bem.element('ulonnetPermisjon'),
+                                      render: () => (
+                                          <UlønnetPermisjonMeny
+                                              forelder={periode.forelder}
+                                              omForeldre={omForeldre}
+                                              utsettelsesårsak={periode.utsettelsesårsak}
+                                              dropdownStyle="filled"
+                                              disabled={disabled}
+                                              onChange={(utsettelsesårsak) => {
+                                                  onUpdate({
+                                                      ...(this.props.periode as UlønnetPermisjon),
+                                                      utsettelsesårsak
+                                                  });
+                                              }}
+                                          />
+                                      ),
+                                      isVisibleCheck: () =>
+                                          !avsluttendeUlønnedePermisjoner.some((p) => p.id === periode.id)
+                                  }
+                              ]
+                            : []),
+
                         {
                             id: 'varighet',
                             className: bem.element('varighet'),
                             render: () => (
                                 <VarighetMeny
+                                    disabled={disabled}
                                     skjemaProps={{
                                         perioder,
                                         erNyPeriode: false,
@@ -163,7 +201,7 @@ class PeriodeElement extends React.Component<Props> {
                                         onTidsperiodeChange: (tidsperiode) =>
                                             isValidTidsperiode(tidsperiode)
                                                 ? onUpdate({
-                                                      ...periode,
+                                                      ...this.props.periode,
                                                       tidsperiode
                                                   })
                                                 : null,
@@ -182,7 +220,7 @@ class PeriodeElement extends React.Component<Props> {
                         kanSlettes
                             ? {
                                   ariaLabel: getMessage(intl, 'periodeliste.ariatekst.slettPeriode'),
-                                  onRemove: () => onRemove(periode)
+                                  onRemove: () => onRemove(this.props.periode)
                               }
                             : undefined
                     }

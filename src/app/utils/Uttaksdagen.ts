@@ -26,7 +26,7 @@ export const Uttaksdagen = (dato: Date) => ({
 });
 
 function getUkedag(dato: Date) {
-    return moment(dato).isoWeekday();
+    return moment.utc(dato).isoWeekday();
 }
 
 function erUttaksdag(dato: Date): boolean {
@@ -46,7 +46,8 @@ function getUttaksdagerMedGradering(uttaksdager: number, uttaksprosent?: number)
  */
 function getUttaksdagFørDato(dato: Date): Date {
     return getUttaksdagTilOgMedDato(
-        moment(dato)
+        moment
+            .utc(dato)
             .subtract(24, 'hours')
             .toDate()
     );
@@ -59,11 +60,13 @@ function getUttaksdagFørDato(dato: Date): Date {
 function getUttaksdagTilOgMedDato(dato: Date): Date {
     switch (getUkedag(dato)) {
         case 6:
-            return moment(dato)
+            return moment
+                .utc(dato)
                 .subtract(24, 'hours')
                 .toDate();
         case 7:
-            return moment(dato)
+            return moment
+                .utc(dato)
                 .subtract(48, 'hours')
                 .toDate();
         default:
@@ -77,7 +80,8 @@ function getUttaksdagTilOgMedDato(dato: Date): Date {
  */
 function getUttaksdagEtterDato(dato: Date): Date {
     return getUttaksdagFraOgMedDato(
-        moment(dato)
+        moment
+            .utc(dato)
             .add(24, 'hours')
             .toDate()
     );
@@ -90,11 +94,13 @@ function getUttaksdagEtterDato(dato: Date): Date {
 function getUttaksdagFraOgMedDato(dato: Date): Date {
     switch (getUkedag(dato)) {
         case 6:
-            return moment(dato)
+            return moment
+                .utc(dato)
                 .add(48, 'hours')
                 .toDate();
         case 7:
-            return moment(dato)
+            return moment
+                .utc(dato)
                 .add(24, 'hours')
                 .toDate();
         default:
@@ -122,7 +128,8 @@ function leggUttaksdagerTilDato(dato: Date, uttaksdager: number, uttaksprosent?:
     const reelleUttaksdager = getUttaksdagerMedGradering(uttaksdager + 1, uttaksprosent) - 1;
 
     while (uttaksdageteller <= reelleUttaksdager) {
-        const tellerdato = moment(dato)
+        const tellerdato = moment
+            .utc(dato)
             .add(dagteller++ * 24, 'hours')
             .toDate();
         if (erUttaksdag(tellerdato)) {
@@ -147,7 +154,8 @@ function trekkUttaksdagerFraDato(dato: Date, uttaksdager: number, uttaksprosent?
     let uttaksdageteller = 0;
     const reelleUttaksdager = getUttaksdagerMedGradering(uttaksdager + 1, uttaksprosent) - 1;
     while (uttaksdageteller < Math.abs(reelleUttaksdager)) {
-        const tellerdato = moment(dato)
+        const tellerdato = moment
+            .utc(dato)
             .add(--dagteller * 24, 'hours')
             .toDate();
         if (erUttaksdag(tellerdato)) {
@@ -165,10 +173,10 @@ function trekkUttaksdagerFraDato(dato: Date, uttaksdager: number, uttaksprosent?
  * @param til
  */
 function getUttaksdagerFremTilDato(fom: Date, tom: Date): number {
-    if (moment(fom).isSame(tom, 'day')) {
+    if (moment.utc(fom).isSame(tom, 'day')) {
         return 0;
     }
-    if (moment(fom).isBefore(tom, 'day')) {
+    if (moment.utc(fom).isBefore(tom, 'day')) {
         return Tidsperioden({ fom, tom }).getAntallUttaksdager() - 1;
     }
     return (

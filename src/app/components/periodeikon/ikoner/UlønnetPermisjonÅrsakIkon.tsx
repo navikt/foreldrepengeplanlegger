@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { Utsettelsesårsak, Forelderinfo } from '../../../types';
+import BEMHelper from 'common/utils/bem';
+import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
+import WorkIkon from 'common/components/ikoner/WorkIkon';
+import HolidayIkon from 'common/components/ikoner/HolidayIkon';
+
+interface Props {
+    forelderinfo: Forelderinfo;
+    utsettelsesårsak: Utsettelsesårsak;
+}
+
+const bem = BEMHelper('ulonnetPermisjonArsakIkon');
+
+const UlønnetPermisjonÅrsakIkon: React.StatelessComponent<Props> = ({ forelderinfo, utsettelsesårsak }) => (
+    <div className={bem.block}>
+        <div className={bem.element('forelder')}>
+            <ForelderIkon forelder={forelderinfo.ikonRef} />
+        </div>
+        <div className={bem.element('utsettelsesarsak')}>
+            {utsettelsesårsak === Utsettelsesårsak.arbeidHeltid && <WorkIkon />}
+            {utsettelsesårsak === Utsettelsesårsak.ferie && <HolidayIkon />}
+        </div>
+    </div>
+);
+
+export default UlønnetPermisjonÅrsakIkon;

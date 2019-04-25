@@ -14,6 +14,7 @@ interface OwnProps {
     uttaksdagerBrukt?: number;
     foreldernavn?: string;
     dropdownStyle?: DropdownFormStyle;
+    disabled?: boolean;
     onChange: (gradering: number | undefined) => void;
 }
 
@@ -31,6 +32,7 @@ const GraderingMeny: React.StatelessComponent<Props> = ({
     foreldernavn,
     uttaksdagerBrukt,
     onChange,
+    disabled,
     intl,
     dropdownStyle = 'filled'
 }) => {
@@ -39,6 +41,7 @@ const GraderingMeny: React.StatelessComponent<Props> = ({
     return (
         <>
             <DropdownForm
+                disabled={disabled}
                 contentClassName="graderingDialog"
                 dropdownPlacement="right"
                 labelAlignment="center"

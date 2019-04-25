@@ -13,7 +13,7 @@ export const starterUttakInnenfor12UkerFørTerminTest: RegelTest = (grunnlag: Re
     ];
 
     const periode = perioderForSjekk.find(
-        (p) => moment(p.tidsperiode.fom).isSameOrAfter(førsteMuligeUttaksdag, 'day') === false
+        (p) => moment.utc(p.tidsperiode.fom).isSameOrAfter(førsteMuligeUttaksdag, 'day') === false
     );
 
     return {

@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 
 const dateStringToDateObjectMapper = (key: string, value: string) => {
-    if (moment(value, moment.ISO_8601).isValid()) {
+    if (moment.utc(value, moment.ISO_8601).isValid()) {
         return new Date(value);
     }
     return value;

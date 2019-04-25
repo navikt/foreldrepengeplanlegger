@@ -22,6 +22,8 @@ import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
 import getMessage from 'common/utils/i18nUtils';
 import FocusContainer from 'common/components/focusContainer/FocusContainer';
 import { RegelAvvik } from '../../utils/regler/types';
+import { KeyboardActions } from 'common/components/helpers/KeyboardActions';
+import { focusElement } from '../../utils/focusUtils';
 
 interface State {
     visSkjema: boolean;
@@ -49,12 +51,14 @@ type Props = OwnProps & PeriodelisteProps & InjectedIntlProps;
 const bem = BEMHelper('uttaksplan');
 
 class Uttaksplan extends React.Component<Props, State> {
+    leggTilKnapp: Knapp | null;
     constructor(props: Props) {
         super(props);
         this.addPeriode = this.addPeriode.bind(this);
         this.slettValgtPeriode = this.slettValgtPeriode.bind(this);
         this.handleNyPeriodeChange = this.handleNyPeriodeChange.bind(this);
         this.handleRemovePeriode = this.handleRemovePeriode.bind(this);
+        this.handleCancelLeggTil = this.handleCancelLeggTil.bind(this);
         this.state = {
             visSkjema: props.perioder.length === 0,
             visBekreftSlettPeriodeDialog: false,
@@ -94,6 +98,15 @@ class Uttaksplan extends React.Component<Props, State> {
         this.setState({ visBekreftSlettPlanDialog: true });
     }
 
+    handleCancelLeggTil() {
+        this.setState({ visSkjema: false });
+        setTimeout(() => {
+            if (this.leggTilKnapp !== null) {
+                focusElement(this.leggTilKnapp);
+            }
+        });
+    }
+
     render() {
         const {
             perioder,
@@ -120,117 +133,136 @@ class Uttaksplan extends React.Component<Props, State> {
         const visFordelingGraf = perioder.length > 0 || periodeFørTermin !== undefined;
 
         return (
-            <section className={bem.classNames(bem.block, bem.modifierConditional('visSkjema', visSkjema))}>
-                <div className="periodelisteWrapper">
-                    <Block margin="none">
-                        <Block margin="s">
-                            <div className="periodeliste__header">
-                                <div className="periodeliste__title">
-                                    <FocusContainer active={true}>
-                                        <Systemtittel>
-                                            {omForeldre.erDeltOmsorg ? (
-                                                <FormattedMessage id="uttaksplan.deresPlan" />
-                                            ) : (
-                                                <FormattedMessage id="uttaksplan.dinPlan" />
-                                            )}
-                                        </Systemtittel>
-                                    </FocusContainer>
-                                </div>
-                                {onResetPlan && perioder.length > 0 && (
-                                    <div className="periodeliste__reset">
-                                        <LinkButton color="red" onClick={() => this.handleSlettPlan()}>
-                                            <FormattedMessage id="uttaksplan.slettPlanKnapp" />
-                                        </LinkButton>
+            <KeyboardActions
+                active={visSkjema}
+                actions={
+                    visSkjema
+                        ? [
+                              {
+                                  key: 'Escape',
+                                  name: 'Lukk skjema',
+                                  onAction: this.handleCancelLeggTil
+                              }
+                          ]
+                        : []
+                }>
+                <section className={bem.classNames(bem.block, bem.modifierConditional('visSkjema', visSkjema))}>
+                    <div className="periodelisteWrapper">
+                        <Block margin="none">
+                            <Block margin="s">
+                                <div className="periodeliste__header">
+                                    <div className="periodeliste__title">
+                                        <FocusContainer active={true}>
+                                            <Systemtittel>
+                                                {omForeldre.erDeltOmsorg ? (
+                                                    <FormattedMessage id="uttaksplan.deresPlan" />
+                                                ) : (
+                                                    <FormattedMessage id="uttaksplan.dinPlan" />
+                                                )}
+                                            </Systemtittel>
+                                        </FocusContainer>
                                     </div>
-                                )}
-                            </div>
-                        </Block>
-                        <Block>
-                            <Periodeliste
-                                {...this.props}
-                                onRemove={this.handleRemovePeriode}
-                                nyPeriodeId={nyPeriodeId}
-                                visSkjema={visSkjema}
-                                nyPeriodeSkjema={
-                                    <Block margin="s">
-                                        <Periodeskjema
-                                            perioder={perioder}
-                                            periodeFørTermin={periodeFørTermin}
-                                            nyPeriode={nyPeriode}
-                                            nyPeriodeId={nyPeriodeId}
-                                            omForeldre={omForeldre}
-                                            onCancel={() => this.setState({ visSkjema: false })}
-                                            onChange={this.handleNyPeriodeChange}
-                                            onSubmit={(periode) => this.addPeriode(periode)}
-                                            nesteUttaksdag={nesteUttaksdag}
-                                            førsteUttaksdag={uttaksdatoer.førsteUttaksdag}
-                                            sisteUttaksdag={uttaksdatoer.etterFødsel.sisteMuligeUttaksdag}
-                                            førsteUttaksdagFørTermin={uttaksdatoer.førFødsel.førsteMuligeUttaksdag}
-                                            forbruk={getForbruk(
-                                                [...perioder, ...(periodeFørTermin ? [periodeFørTermin] : [])],
-                                                tilgjengeligeDager,
-                                                omForeldre
-                                            )}
-                                        />
-                                    </Block>
-                                }
-                            />
-                        </Block>
-
-                        <Block visible={visSkjema !== true} margin="xl">
-                            <Knapperad align="center">
-                                <Knapp type="standard" onClick={() => this.setState({ visSkjema: true })}>
-                                    <FormattedMessage id="uttaksplan.leggTilKnapp" />
-                                </Knapp>
-                                <div className="dev">
-                                    {onResetPlan && <Flatknapp onClick={() => onResetPlan()}>Reset</Flatknapp>}
+                                    {onResetPlan && perioder.length > 0 && (
+                                        <div className="periodeliste__reset">
+                                            <LinkButton color="red" onClick={() => this.handleSlettPlan()}>
+                                                <FormattedMessage id="uttaksplan.slettPlanKnapp" />
+                                            </LinkButton>
+                                        </div>
+                                    )}
                                 </div>
-                            </Knapperad>
+                            </Block>
+                            <Block>
+                                <Periodeliste
+                                    {...this.props}
+                                    onRemove={this.handleRemovePeriode}
+                                    nyPeriodeId={nyPeriodeId}
+                                    visSkjema={visSkjema}
+                                    nyPeriodeSkjema={
+                                        <Block margin="s">
+                                            <Periodeskjema
+                                                perioder={perioder}
+                                                periodeFørTermin={periodeFørTermin}
+                                                nyPeriode={nyPeriode}
+                                                nyPeriodeId={nyPeriodeId}
+                                                omForeldre={omForeldre}
+                                                onCancel={this.handleCancelLeggTil}
+                                                onChange={this.handleNyPeriodeChange}
+                                                onSubmit={(periode) => this.addPeriode(periode)}
+                                                nesteUttaksdag={nesteUttaksdag}
+                                                førsteUttaksdag={uttaksdatoer.førsteUttaksdag}
+                                                sisteUttaksdag={uttaksdatoer.etterFødsel.sisteMuligeUttaksdag}
+                                                førsteUttaksdagFørTermin={uttaksdatoer.førFødsel.førsteMuligeUttaksdag}
+                                                forbruk={getForbruk(
+                                                    [...perioder, ...(periodeFørTermin ? [periodeFørTermin] : [])],
+                                                    tilgjengeligeDager,
+                                                    omForeldre
+                                                )}
+                                            />
+                                        </Block>
+                                    }
+                                />
+                            </Block>
+
+                            <Block visible={visSkjema !== true} margin="xl">
+                                <Knapperad align="center">
+                                    <Knapp
+                                        ref={(c) => (this.leggTilKnapp = c)}
+                                        type="standard"
+                                        onClick={() => this.setState({ visSkjema: true })}>
+                                        <FormattedMessage id="uttaksplan.leggTilKnapp" />
+                                    </Knapp>
+                                    <div className="dev">
+                                        {onResetPlan && <Flatknapp onClick={() => onResetPlan()}>Reset</Flatknapp>}
+                                    </div>
+                                </Knapperad>
+                            </Block>
+                            {visFordelingGraf && (
+                                <FordelingGraf
+                                    forbruk={forbruk}
+                                    omForeldre={omForeldre}
+                                    tilgjengeligeDager={tilgjengeligeDager}
+                                    regelAvvik={regelAvvik}
+                                />
+                            )}
                         </Block>
-                        {visFordelingGraf && (
-                            <FordelingGraf
-                                forbruk={forbruk}
-                                omForeldre={omForeldre}
-                                tilgjengeligeDager={tilgjengeligeDager}
-                                regelAvvik={regelAvvik}
-                            />
-                        )}
-                    </Block>
-                </div>
+                    </div>
 
-                <PeriodeDevBar
-                    perioder={perioder}
-                    onAdd={onAdd}
-                    onDelete={onRemove}
-                    onChange={onUpdate}
-                    onResetApp={this.props.onResetApp}
-                />
+                    <PeriodeDevBar
+                        perioder={perioder}
+                        onAdd={onAdd}
+                        onDelete={onRemove}
+                        onChange={onUpdate}
+                        onResetApp={this.props.onResetApp}
+                    />
 
-                <BekreftDialog
-                    tittel={getMessage(intl, 'uttaksplan.slettPeriodeDialog.tittel')}
-                    isOpen={this.state.visBekreftSlettPeriodeDialog}
-                    avbrytLabel={getMessage(intl, 'uttaksplan.slettPeriodeDialog.avbrytKnapp')}
-                    bekreftLabel={getMessage(intl, 'uttaksplan.slettPeriodeDialog.jaSlettKnapp')}
-                    onBekreft={() => this.slettValgtPeriode()}
-                    onAvbryt={() => this.setState({ visBekreftSlettPeriodeDialog: false, valgtPeriode: undefined })}>
-                    <FormattedMessage id="uttaksplan.slettPeriodeDialog.tekst" />
-                </BekreftDialog>
-
-                {onResetPlan && (
                     <BekreftDialog
-                        tittel={getMessage(intl, 'uttaksplan.slettPlanDialog.tittel')}
-                        isOpen={this.state.visBekreftSlettPlanDialog}
-                        avbrytLabel={getMessage(intl, 'uttaksplan.slettPlanDialog.avbrytKnapp')}
-                        bekreftLabel={getMessage(intl, 'uttaksplan.slettPlanDialog.jaSlettKnapp')}
-                        onBekreft={() => {
-                            onResetPlan();
-                            this.setState({ visBekreftSlettPlanDialog: false });
-                        }}
-                        onAvbryt={() => this.setState({ visBekreftSlettPlanDialog: false })}>
-                        <FormattedMessage id="uttaksplan.slettPlanDialog.tekst" />
+                        tittel={getMessage(intl, 'uttaksplan.slettPeriodeDialog.tittel')}
+                        isOpen={this.state.visBekreftSlettPeriodeDialog}
+                        avbrytLabel={getMessage(intl, 'uttaksplan.slettPeriodeDialog.avbrytKnapp')}
+                        bekreftLabel={getMessage(intl, 'uttaksplan.slettPeriodeDialog.jaSlettKnapp')}
+                        onBekreft={() => this.slettValgtPeriode()}
+                        onAvbryt={() =>
+                            this.setState({ visBekreftSlettPeriodeDialog: false, valgtPeriode: undefined })
+                        }>
+                        <FormattedMessage id="uttaksplan.slettPeriodeDialog.tekst" />
                     </BekreftDialog>
-                )}
-            </section>
+
+                    {onResetPlan && (
+                        <BekreftDialog
+                            tittel={getMessage(intl, 'uttaksplan.slettPlanDialog.tittel')}
+                            isOpen={this.state.visBekreftSlettPlanDialog}
+                            avbrytLabel={getMessage(intl, 'uttaksplan.slettPlanDialog.avbrytKnapp')}
+                            bekreftLabel={getMessage(intl, 'uttaksplan.slettPlanDialog.jaSlettKnapp')}
+                            onBekreft={() => {
+                                onResetPlan();
+                                this.setState({ visBekreftSlettPlanDialog: false });
+                            }}
+                            onAvbryt={() => this.setState({ visBekreftSlettPlanDialog: false })}>
+                            <FormattedMessage id="uttaksplan.slettPlanDialog.tekst" />
+                        </BekreftDialog>
+                    )}
+                </section>
+            </KeyboardActions>
         );
     }
 }

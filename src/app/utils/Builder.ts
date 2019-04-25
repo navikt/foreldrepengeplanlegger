@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Periode } from '../types/periodetyper';
+import { Periode, isUlønnetPermisjon } from '../types/periodetyper';
 import { Periodene, sorterPerioder } from './Periodene';
 import { Uttaksdagen } from './Uttaksdagen';
 import { Perioden } from './Perioden';
@@ -40,8 +40,10 @@ class Builder {
             this.perioder = settInnPerioder(this.perioder, fastePerioder);
             this.sort();
             this.perioder = slåSammenLikePerioder(this.perioder);
+            this.perioder = fjernUtsettelsesårsakPåAvsluttendeUlønnedePermisjoner(this.perioder);
         } else {
             this.perioder = resetTidsperioder(this.perioder, this.familiehendelsesdato);
+            this.perioder = fjernUtsettelsesårsakPåAvsluttendeUlønnedePermisjoner(this.perioder);
         }
 
         return this;
@@ -191,7 +193,7 @@ function settInnPeriode(perioder: Periode[], nyPeriode: Periode): Periode[] {
     // if (periodeSomMåSplittes.fixed === true) {
     //     throw new Error('Kan ikke dele opp en fixed periode');
     // }
-    if (moment(periodeSomMåSplittes.tidsperiode.fom).isSame(nyPeriode.tidsperiode.fom, 'day')) {
+    if (moment.utc(periodeSomMåSplittes.tidsperiode.fom).isSame(nyPeriode.tidsperiode.fom, 'day')) {
         return leggTilPeriodeEtterPeriode(perioder, periodeSomMåSplittes, nyPeriode);
     } else {
         return leggTilPeriodeIPeriode(perioder, periodeSomMåSplittes, nyPeriode);
@@ -260,4 +262,23 @@ function splittPeriodeMedPeriode(periode: Periode, nyPeriode: Periode): Periode[
         tidsperiode: getTidsperiode(startSisteDel, dagerSisteDel)
     };
     return [forste, midt, siste];
+}
+
+function fjernUtsettelsesårsakPåAvsluttendeUlønnedePermisjoner(perioder: Periode[]): Periode[] {
+    let annenTypePeriodeFunnet = false;
+    const revPerioder = perioder
+        .slice()
+        .reverse()
+        .map((periode) => {
+            if (isUlønnetPermisjon(periode) && annenTypePeriodeFunnet === false) {
+                return {
+                    ...periode,
+                    utsettelsesårsak: undefined
+                };
+            }
+            annenTypePeriodeFunnet = true;
+            return periode;
+        })
+        .reverse();
+    return revPerioder;
 }

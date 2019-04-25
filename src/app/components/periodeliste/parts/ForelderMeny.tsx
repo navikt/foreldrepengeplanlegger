@@ -83,6 +83,7 @@ const ForelderMeny: React.StatelessComponent<Props & InjectedIntlProps> = (props
         kanVelgeBeggeForeldre,
         intl
     } = props;
+
     const options = getForelderOptions(mor.navn, farMedmor.navn, kanVelgeBeggeForeldre === true);
     return (
         <DropdownForm

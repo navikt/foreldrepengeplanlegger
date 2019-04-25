@@ -41,7 +41,7 @@ export function getFørsteMuligeUttaksdag(familiehendelsesdato: Date): Date {
 
 export function getSisteMuligeUttaksdag(familiehendelsesdato: Date): Date {
     return Uttaksdagen(
-        moment(getFørsteUttaksdagPåEllerEtterFødsel(familiehendelsesdato))
+        moment.utc(getFørsteUttaksdagPåEllerEtterFødsel(familiehendelsesdato))
             .add(3, 'year')
             .toDate()
     ).denneEllerNeste();

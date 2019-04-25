@@ -2,56 +2,58 @@ import moment from 'moment';
 import { DateValue } from 'common/types';
 
 export function formaterDato(dato: Date, datoformat?: string): string {
-    return moment(dato).format(datoformat || 'dddd D. MMMM YYYY');
+    return moment.utc(dato).format(datoformat || 'dddd D. MMMM YYYY');
 }
 
-export function formaterDatoTall(dato: Date, datoformat?: string): string {
-    return moment(dato).format(datoformat || 'DD.MM.YYYY');
+export function formaterDatoTall(dato: string, datoformat?: string): string {
+    return moment.utc(dato).format(datoformat || 'DD.MM.YYYY');
 }
 
 export function formaterDatoUtenDag(dato: Date): string {
-    return moment(dato).format('D. MMMM YYYY');
+    return moment.utc(dato).format('D. MMMM YYYY');
 }
 
 export function formaterDatoMedDagKort(dato: Date): string {
-    const dag = moment(dato)
+    const dag = moment
+        .utc(dato)
         .format('dddd')
         .substr(0, 3);
-    return `${dag}. ${moment(dato).format('DD.MM.YYYY')}`;
+    return `${dag}. ${moment.utc(dato).format('DD.MM.YYYY')}`;
 }
 
 export function år(dato: Date): string {
-    return moment(dato).format('YYYY');
+    return moment.utc(dato).format('YYYY');
 }
 
 export function årToBokstaver(dato: Date): string {
-    return moment(dato).format('YY');
+    return moment.utc(dato).format('YY');
 }
 
 export function måned(dato: Date): string {
-    return moment(dato).format('MMMM');
+    return moment.utc(dato).format('MMMM');
 }
 
 export function måned3bokstaver(dato: Date): string {
-    return moment(dato)
+    return moment
+        .utc(dato)
         .format('MMM')
         .substr(0, 3);
 }
 
 export function mnd(dato: Date): string {
-    return moment(dato).format('MMM');
+    return moment.utc(dato).format('MMM');
 }
 
 export function ukedag(dato: Date): string {
-    return moment(dato).format('dddd');
+    return moment.utc(dato).format('dddd');
 }
 
 export function ukedagKort(dato: Date): string {
-    return moment(dato).format('ddd');
+    return moment.utc(dato).format('ddd');
 }
 
 export function dagIMåned(dato: Date): string {
-    return moment(dato).format('D.');
+    return moment.utc(dato).format('D.');
 }
 
 export const getUkerOgDagerFromDager = (dager: number): { uker: number; dager: number } => {
@@ -64,13 +66,13 @@ export const getUkerOgDagerFromDager = (dager: number): { uker: number; dager: n
 
 export const dateIsSameOrBefore = (date: DateValue, otherDate: DateValue): boolean => {
     if (date && otherDate) {
-        return moment(date).isSameOrBefore(moment(otherDate, 'day'));
+        return moment.utc(date).isSameOrBefore(moment.utc(otherDate, 'day'));
     }
     return true;
 };
 export const dateIsSameOrAfter = (date: DateValue, otherDate: DateValue): boolean => {
     if (date && otherDate) {
-        return moment(date).isSameOrAfter(otherDate, 'day');
+        return moment.utc(date).isSameOrAfter(otherDate, 'day');
     }
     return true;
 };

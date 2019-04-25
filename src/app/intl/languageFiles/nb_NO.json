@@ -46,6 +46,15 @@
     "periodetype.arbeid": "Arbeid heltid",
     "periodetype.ulønnetPermisjon": "Ulønnet permisjon",
 
+    "utsettelsesårsak.ferie": "Ferie",
+    "utsettelsesårsak.arbeidHeltid": "Arbeid heltid",
+    "utsettelsesårsak.ferie.kort": "Ferie",
+    "utsettelsesårsak.arbeidHeltid.kort": "Arbeid",
+
+    "dekningsgradSide.dekningsgrad.spørsmål": "Hvor lang periode med foreldrepenger ønsker {hvem}?",
+    "dekningsgradSide.dekningsgrad.beskrivelsePart1.deltOmsorg": "Valget vil gjelde for dere begge.",
+    "dekningsgradSide.dekningsgrad.beskrivelsePart2": "Den totale utbetalingssummen blir høyere ved å velge 100 prosent.",
+
     "uttaksplan.skjema.fordeling.annenForeldersFellesperiode": "{navnFarMedmor} kan ta ut {antallUker} uker av fellesperioden",
     "uttaksplan.skjema.fordeling.aria.fordeling": "Hvor mange uker av fellesdelen skal {navnMor} ha av totalt {ukerFellesperiode} uker?",
     "uttaksplan.skjema.fordeling.reduser.tooltip": "En uke mer til {navn}",
@@ -69,6 +78,7 @@
     "regel.feil.morHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
     "regel.feil.farMedmorHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
     "regel.feil.avlutterUttaksplanMedUtsettelse": "Planen kan ikke slutte med en utsettelse.",
+    "regel.feil.harUlønnetPermisjonValgtÅrsak": "Du må velge hva {utsetterNavn} skal gjøre mens {forelderNavn} har ulønnet permisjon.",
 
     "regel.advarsel.erAlleTilgjengeligeDagerBrukt": "{dager} er ikke brukt.",
     "regel.advarsel.erUlønnetPermisjon": "Når en forelder planlegger å være hjemme i ulønnet permisjon må den andre forelderen søke om å utsette foreldrepengene på grunn av heltidsarbeid, sykdom eller ferie.",
@@ -80,6 +90,8 @@
     "regel.info.farMedmorUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnFarMedmor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid.",
     "regel.info.bareFarHarRettEttBarnAktivitetskravMorInfo": "Det er aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
     "regel.info.bareFarHarRettFlerbarnsukerAktivitetskravMorInfo": "Dersom du tar ut mer enn flerbarnsukene, er det aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
+    "regel.info.avsluttendeUlønnedePermisjoner.tittel": "Doo",
+    "regel.info.avsluttendeUlønnedePermisjoner": "Perioder med ulønnet permisjon etter  {antallForeldre, plural, one {du} other {dere}} er ferdig med foreldrepenger trenger dere ikke søke NAV om, dette planlegger du sammen med arbeidsgiveren din. Siste dag med foreldrepenger fra NAV i planen er {sisteDag}.",
 
     "situasjon.info.farOgMor": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en fellesperiode som dere kan dele.",
     "situasjon.info.farOgMor.flerbarn": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en fellesperiode som dere kan dele. Dere får <strong>{flerbarnsuker}</strong> med flerbarnsuker, disse ukene kan dere ta ut når som helst i foreldrepengeperioden. Dere kan ta de ut samtidig, eller hver for dere.",
@@ -142,6 +154,9 @@
     "periodeliste.arbeidOgUttak.uttaksdager": "<strong>{dager}</strong> med foreldrepenger brukes.",
     "periodeliste.forelder.tittel": "Velg forelder",
     "periodeliste.forelder.spørsmål": "Hvem gjelder perioden?",
+    "periodeliste.velgUlønnetPermisjon": "Hva skal {navn} gjøre?",
+    "periodeliste.avsluttendeUlønnetPermisjonTittel": "Ulønnet permisjon som må avklares med arbeidsgiver",
+    "periodeliste.termin": "Termin {dato}",
 
     "periodeskjema.tittelNyPeriode": "Legg til ny periode",
     "periodeskjema.knapp.leggTil": "Legg til",
@@ -161,6 +176,11 @@
     "periodeskjema.tid.nesteDag": "Neste dag:",
     "periodeskjema.tid.brukGjenståendeDager": "Bruk gjenstående dager",
     "periodeskjema.tid.lengde": "Lengde",
+
+    "ulønnetPermisjonSkjema.tittel": "Hva skal {navn} gjøre?",
+    "ulønnetPermisjonSkjema.alternativ.ferie": "Ta ut ferie",
+    "ulønnetPermisjonSkjema.alternativ.arbeid": "Arbeide heltid",
+    "ulønnetPermisjonSkjema.info.html": "Du kan ikke utsette foreldrepengene med ulønnet permisjon. Om du skal ha ulønnet permisjon før perioden med foreldrepenger er ferdig kan den andre forelderen ha foreldrepenger samtidig eller søke om å utsette foreldrepengene på grunn av heltidsarbeid eller ferie.<br/><br/> Husk at ulønnet permisjon er noe du må avtale med din arbeidsgiver og at ulønnet permisjon kan påvirke retten din til andre utbetalinger fra NAV og opptjening av rett til foreldrepenger for nytt barn.",
 
     "regelAvvik.ariaTittel": "Viktig informasjon om planen",
 

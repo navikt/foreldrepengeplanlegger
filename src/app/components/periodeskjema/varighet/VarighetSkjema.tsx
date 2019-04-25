@@ -77,7 +77,7 @@ const VarighetStartdato: React.StatelessComponent<Props> = ({
                         label: <Undertittel className="blokk-xxs">{label}</Undertittel>,
                         ariaLabel: label
                     }}
-                    visÅrValger={true}
+                    visÅrVelger={true}
                     dato={tidsperiode.fom}
                     disabled={låstStartdato}
                     datoAvgrensninger={{ minDato, maksDato, helgedagerIkkeTillatt: true }}
@@ -104,7 +104,7 @@ const VarighetSluttdato: React.StatelessComponent<Props> = ({
                 label: <Undertittel className="blokk-xxs">{label}</Undertittel>,
                 ariaLabel: label
             }}
-            visÅrValger={true}
+            visÅrVelger={true}
             dato={tidsperiode.tom}
             datoAvgrensninger={{ minDato: tidsperiode.fom || minDato, maksDato, helgedagerIkkeTillatt: true }}
             onChange={(dato) => onTidsperiodeChange({ tom: dato, fom: tidsperiode.fom })}

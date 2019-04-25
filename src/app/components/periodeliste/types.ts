@@ -7,6 +7,7 @@ interface PeriodelisteBaseProps {
     omForeldre: OmForeldre;
     familiehendelsesdato: Date;
     regelTestresultat: UttaksplanRegelTestresultat;
+    disabled?: boolean;
 }
 
 interface PeriodelisteElementBaseProps {
@@ -20,6 +21,7 @@ interface PeriodelisteElementBaseProps {
     sluttdatoErLåst?: boolean;
     kanSlettes?: boolean;
     regelAvvik: RegelAvvik[] | undefined;
+    disabled?: boolean;
 }
 
 interface PeriodelisteDatoer {

@@ -13,12 +13,12 @@ interface OwnProps {
     type?: Periodetype;
     forelder?: Forelder;
     foreldernavn?: string;
-    erLåst?: boolean;
     uttaksdager?: number;
     brukteUttaksdager?: number;
     gradering?: number;
     dropdownStyle?: DropdownFormStyle;
     kanVelgeUlønnetPermisjon?: boolean;
+    disabled?: boolean;
     onChange: (periodetype: Periodetype) => void;
 }
 
@@ -62,6 +62,8 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
     const getVarighetInfo = () => {
         if (erArbeidEllerFerie && uttaksdager) {
             return <Varighet dager={uttaksdager} separator=" og " />;
+        } else if (type === Periodetype.UlønnetPermisjon && uttaksdager) {
+            return <Varighet dager={uttaksdager} separator=" og " />;
         } else if (
             Settings.avrundGraderingPerPeriode === false &&
             type === Periodetype.GradertUttak &&
@@ -96,10 +98,10 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
 };
 
 const PeriodetypeMeny: React.StatelessComponent<Props> = (props) => {
-    const { erLåst, intl, type, dropdownStyle = 'filled', onChange, kanVelgeUlønnetPermisjon } = props;
+    const { disabled, intl, type, dropdownStyle = 'filled', onChange, kanVelgeUlønnetPermisjon } = props;
     return (
         <DropdownForm
-            disabled={erLåst}
+            disabled={disabled}
             onSelection={onChange}
             labelRenderer={() => <PeriodetypeMenyLabel {...props} />}
             contentClassName="periodetypeDialog"

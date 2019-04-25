@@ -118,7 +118,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                             name="familiehendelsesdato"
                             label="Termindato"
                             datoAvgrensninger={termindatoAvgrensninger}
-                            visÅrValger={true}
+                            visÅrVelger={true}
                             onChange={(dato: Date) => formik.setFieldValue('familiehendelsesdato', dato)}
                             dato={familiehendelsesdato}
                         />

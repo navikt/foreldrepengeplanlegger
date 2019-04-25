@@ -1,9 +1,19 @@
 import moment from 'moment';
 import { Uttaksdagen } from './Uttaksdagen';
-import { isValidTidsperiode, Tidsperioden } from './Tidsperioden';
+import { isValidTidsperiode } from './Tidsperioden';
 import { Tidsperiode } from 'common/types';
-import { Periode, Uttaksperiode, Utsettelsesperiode, isUtsettelse, isFerie, isArbeid } from '../types/periodetyper';
-import { Forelder, GradertUttaksperiode, isUttakOrGradertUttak } from '../types';
+import {
+    Periode,
+    Uttaksperiode,
+    Utsettelsesperiode,
+    isUtsettelse,
+    isFerie,
+    isArbeid,
+    isUlønnetPermisjon,
+    Periodetype,
+    Utsettelsesårsak
+} from '../types/periodetyper';
+import { GradertUttaksperiode, isUttakOrGradertUttak, Forelder } from '../types';
 import { Perioden } from './Perioden';
 import { getUttaksinfoForPeriode } from './uttaksinfo';
 
@@ -16,12 +26,14 @@ export const Periodene = (perioder: Periode[]) => ({
     getPerioderEtterFamiliehendelsesdato: (dato: Date) => getPerioderEtterFamiliehendelsesdato(perioder, dato),
     getPerioderFørFamiliehendelsesdato: (dato: Date) => getPerioderFørFamiliehendelsesdato(perioder, dato),
     getPerioderMedUgyldigTidsperiode: () => getPeriodeMedUgyldigTidsperiode(perioder),
+    getPerioderMedFerieForForelder: (forelder: Forelder) => getPerioderMedFerieForForelder(perioder, forelder),
     getFørstePerioderEtterFamiliehendelsesdato: (dato: Date) =>
         getFørstePeriodeEtterFamiliehendelsesdato(perioder, dato),
     getFørsteUttaksdag: () => getFørsteUttaksdag(perioder),
-    getAntallFeriedager: (forelder?: Forelder) => getAntallFeriedager(perioder, forelder),
     getBrukteUttaksdager: () => getBrukteUttaksdager(perioder),
     getAntallFridager: () => getAntallFridager(perioder),
+    getAvsluttendeUlønnedePermisjoner: () => getAvsluttendeUlønnedePermisjoner(perioder),
+    getSistePeriodeMedUttak: () => getSistePeriodeMedUttak(perioder),
     finnOverlappendePerioder: (periode: Periode) => finnOverlappendePerioder(perioder, periode),
     finnPeriodeMedDato: (dato: Date) => finnPeriodeMedDato(perioder, dato),
     finnAlleForegåendePerioder: (periode: Periode) => finnPerioderFørPeriode(perioder, periode),
@@ -41,7 +53,7 @@ export function sorterPerioder(p1: Periode, p2: Periode) {
         // }
         return isValidTidsperiode(p1.tidsperiode) ? -1 : 1;
     }
-    return moment(p1.tidsperiode.fom).isBefore(p2.tidsperiode.fom, 'day') ? -1 : 1;
+    return moment.utc(p1.tidsperiode.fom).isBefore(p2.tidsperiode.fom, 'day') ? -1 : 1;
 }
 
 function getPeriode(perioder: Periode[], id: string): Periode | undefined {
@@ -84,35 +96,35 @@ function datoErInnenforTidsperiode(dato: Date, tidsperiode: Tidsperiode): boolea
     if (!fom || !tom) {
         return false;
     }
-    return moment(dato).isBetween(fom, tom, 'days', '[]');
+    return moment.utc(dato).isBetween(fom, tom, 'days', '[]');
 }
 
 function finnPeriodeMedDato(perioder: Periode[], dato: Date): Periode | undefined {
     return perioder.find((periode) => {
-        return moment(dato).isBetween(periode.tidsperiode.fom, periode.tidsperiode.tom, 'day', '[]');
+        return moment.utc(dato).isBetween(periode.tidsperiode.fom, periode.tidsperiode.tom, 'day', '[]');
     });
 }
 function finnPerioderMedEllerEtterDato(perioder: Periode[], dato: Date): Periode[] | undefined {
     return perioder.filter((periode) => {
         return (
-            moment(dato).isBetween(periode.tidsperiode.fom, periode.tidsperiode.tom, 'day', '[]') ||
-            moment(dato).isBefore(periode.tidsperiode.fom, 'day')
+            moment.utc(dato).isBetween(periode.tidsperiode.fom, periode.tidsperiode.tom, 'day', '[]') ||
+            moment.utc(dato).isBefore(periode.tidsperiode.fom, 'day')
         );
     });
 }
 
 function finnPerioderEtterDato(perioder: Periode[], dato: Date): Periode[] | undefined {
     return perioder.filter((periode) => {
-        return moment(dato).isBefore(periode.tidsperiode.fom, 'day');
+        return moment.utc(dato).isBefore(periode.tidsperiode.fom, 'day');
     });
 }
 
 function finnPerioderFørPeriode(perioder: Periode[], periode: Periode): Periode[] {
-    return perioder.filter((p) => moment(p.tidsperiode.tom).isBefore(periode.tidsperiode.fom, 'day'));
+    return perioder.filter((p) => moment.utc(p.tidsperiode.tom).isBefore(periode.tidsperiode.fom, 'day'));
 }
 
 function finnPerioderEtterPeriode(perioder: Periode[], periode: Periode): Periode[] {
-    return perioder.filter((p) => moment(p.tidsperiode.fom).isAfter(periode.tidsperiode.tom, 'day'));
+    return perioder.filter((p) => moment.utc(p.tidsperiode.fom).isAfter(periode.tidsperiode.tom, 'day'));
 }
 
 function finnForrigePeriode(perioder: Periode[], periode: Periode): Periode | undefined {
@@ -148,7 +160,7 @@ function getPerioderFørFamiliehendelsesdato(perioder: Periode[], familiehendels
     return perioder.filter(
         (periode) =>
             isValidTidsperiode(periode.tidsperiode) &&
-            moment(periode.tidsperiode.fom).isBefore(familiehendelsesdato, 'day')
+            moment.utc(periode.tidsperiode.fom).isBefore(familiehendelsesdato, 'day')
     );
 }
 
@@ -156,7 +168,7 @@ function getPerioderEtterFamiliehendelsesdato(perioder: Periode[], familiehendel
     return perioder.filter(
         (periode) =>
             isValidTidsperiode(periode.tidsperiode) &&
-            moment(periode.tidsperiode.fom).isSameOrAfter(familiehendelsesdato, 'day')
+            moment.utc(periode.tidsperiode.fom).isSameOrAfter(familiehendelsesdato, 'day')
     );
 }
 
@@ -183,13 +195,6 @@ function getFørsteUttaksdag(perioder: Periode[]): Date | undefined {
     return undefined;
 }
 
-function getAntallFeriedager(perioder: Periode[], forelder?: Forelder): number {
-    return getFerieperioder(perioder)
-        .filter((p) => (isValidTidsperiode(p.tidsperiode) && forelder ? p.forelder === forelder : true))
-        .map((p) => Tidsperioden(p.tidsperiode).getAntallUttaksdager())
-        .reduce((tot = 0, curr) => tot + curr, 0);
-}
-
 function getBrukteUttaksdager(perioder: Periode[]): number {
     return perioder.reduce((dager, periode) => {
         const uttaksinfo = periode.uttaksinfo || getUttaksinfoForPeriode(periode);
@@ -209,3 +214,34 @@ function getAntallFridager(perioder: Periode[]): number {
         return dager;
     }, 0);
 }
+
+function getPerioderMedFerieForForelder(perioder: Periode[], forelder: Forelder): Periode[] {
+    return perioder.filter((periode) => erPeriodeMedFerieForForelder(periode, forelder));
+}
+
+/***
+ * Finner alle ulønnede permisjoner som ligger på slutten av periodelisten
+ * */
+function getAvsluttendeUlønnedePermisjoner(perioder: Periode[]) {
+    const idx = perioder
+        .slice()
+        .reverse()
+        .findIndex((periode) => periode.type !== Periodetype.UlønnetPermisjon);
+    return idx === -1 ? [] : perioder.slice(perioder.length - idx);
+}
+
+function getSistePeriodeMedUttak(perioder: Periode[]): Periode | undefined {
+    return getUttak(perioder)
+        .slice()
+        .pop();
+}
+
+export const erPeriodeMedFerieForForelder = (periode: Periode, forelder: Forelder): boolean => {
+    return (
+        (isFerie(periode) && periode.forelder === forelder) ||
+        (isUlønnetPermisjon(periode) &&
+            periode.utsettelsesårsak === Utsettelsesårsak.ferie &&
+            periode.forelder !== undefined &&
+            periode.forelder !== forelder)
+    );
+};

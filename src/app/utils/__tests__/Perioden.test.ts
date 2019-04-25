@@ -53,7 +53,8 @@ describe('Perioden', () => {
             expect(
                 Perioden(periode1).erLik({
                     ...periode1,
-                    type: Periodetype.UlønnetPermisjon
+                    type: Periodetype.UlønnetPermisjon,
+                    utsettelsesårsak: undefined
                 })
             ).toBeFalsy();
         });

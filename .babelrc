@@ -1,11 +1,13 @@
 {
     "plugins": ["transform-object-rest-spread"],
-    "presets": ["env", "react"],
+    "presets": ["env", "react", "typescript"],
     "env": {
         "test": {
             "plugins": [
                 "transform-es2015-modules-commonjs",
-                ["babel-plugin-webpack-alias", { "config": "./src/build/webpack/webpack.config.global.js" }]
+                ["babel-plugin-webpack-alias", {
+                    "config": "./src/build/webpack/webpack.config.global.js"
+                }]
             ]
         }
     }

@@ -1,4 +1,4 @@
-import { Periodetype, Forelder } from '../../types';
+import { Periodetype, Forelder, Utsettelsesårsak } from '../../types';
 
 export interface PeriodeskjemaFormValues {
     periodetype: Periodetype;
@@ -7,4 +7,5 @@ export interface PeriodeskjemaFormValues {
     forelder: Forelder;
     medforelder?: Forelder;
     gradering?: number;
+    utsettelsesårsak?: Utsettelsesårsak;
 }

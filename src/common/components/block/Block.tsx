@@ -3,15 +3,18 @@ import classNames from 'classnames';
 import BEMHelper from 'common/utils/bem';
 import { Collapse } from 'react-collapse';
 import { collapseSpringConfig } from 'common/utils/animationUtils';
-import { Undertittel, Element } from 'nav-frontend-typografi';
+import Infoboks from 'common/components/infoboks/Infoboks';
 
 import './block.less';
 
 export type BlockPadding = 'xxl' | 'xl' | 'l' | 'ml' | 'm' | 's' | 'xs' | 'xxs' | 'xxs' | 'none';
 
 export interface BlockProps {
-    title?: React.ReactNode;
-    headingSize?: 'm' | 'l';
+    header?: {
+        title: string;
+        info?: string;
+        stil?: 'normal' | 'seksjon';
+    };
     visible?: boolean;
     animated?: boolean;
     margin?: BlockPadding;
@@ -22,19 +25,18 @@ export interface BlockProps {
     style?: 'info' | undefined;
 }
 
-const bem = BEMHelper('block');
+const cls = BEMHelper('block');
 
 const Block: React.StatelessComponent<BlockProps> = ({
     visible,
     margin,
     marginTop,
-    title,
+    header,
     animated = false,
     children,
     hasChildBlocks,
     align,
-    style,
-    headingSize = 'm'
+    style
 }) => {
     if (children === undefined || (animated !== true && visible === false)) {
         return null;
@@ -50,20 +52,17 @@ const Block: React.StatelessComponent<BlockProps> = ({
         bottomMargin = 'l';
     }
 
-    const contentClass = classNames(bem.block, !hasChildBlocks ? bem.modifier(bottomMargin) : bem.modifier('none'), {
-        [bem.modifier(`top-${marginTop}`)]: marginTop,
-        [bem.modifier(`align-${align}`)]: align,
-        [bem.modifier(`style-${style}`)]: style
+    const contentClass = classNames(cls.block, !hasChildBlocks ? cls.modifier(bottomMargin) : cls.modifier('none'), {
+        [cls.modifier(`top-${marginTop}`)]: marginTop,
+        [cls.modifier(`align-${align}`)]: align,
+        [cls.modifier(`style-${style}`)]: style
     });
     const content =
-        title !== undefined ? (
+        header !== undefined ? (
             <section className={contentClass}>
-                <div className="heading">
-                    {headingSize === 'm' ? (
-                        <Element tag="h1">{title}</Element>
-                    ) : (
-                        <Undertittel tag="h1">{title}</Undertittel>
-                    )}
+                <div className={cls.element('heading', `stil-${header.stil || 'normal'}`)}>
+                    <h1 className={`typo-element ${cls.element('title')}`}>{header.title}</h1>
+                    {header.info && <Infoboks tekst={header.info} contentFullWidth={true} />}
                 </div>
                 {children}
             </section>

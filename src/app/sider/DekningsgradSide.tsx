@@ -25,6 +25,8 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import DekningsgradInfo from '../components/content/DekningsgradInfo';
 import Oppsummering from '../components/oppsummering/Oppsummering';
 import FocusChildOnMountContainer from 'common/components/focusContainer/FocusChildOnMountContainer';
+import getMessage from 'common/utils/i18nUtils';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 interface StateProps {
     dekningsgrad?: Dekningsgrad;
@@ -40,7 +42,7 @@ interface StateProps {
     uttaksdatoer: Uttaksdatoer;
 }
 
-type Props = StateProps & DispatchProps & RouteComponentProps;
+type Props = StateProps & DispatchProps & RouteComponentProps & InjectedIntlProps;
 
 class UttaksplanSide extends React.Component<Props> {
     constructor(props: Props) {
@@ -60,6 +62,7 @@ class UttaksplanSide extends React.Component<Props> {
             skjemadata,
             omForeldre,
             history,
+            intl,
             dispatch
         } = this.props;
 
@@ -82,14 +85,15 @@ class UttaksplanSide extends React.Component<Props> {
                     </Block>
                     <FocusChildOnMountContainer active={true}>
                         <Skjemablokk
-                            tittel={`Hvor lang periode med foreldrepenger ønsker ${
-                                omForeldre.erDeltOmsorg ? 'dere' : 'du'
-                            }?`}
+                            tittel={getMessage(intl, 'dekningsgradSide.dekningsgrad.spørsmål', {
+                                hvem: omForeldre.erDeltOmsorg ? getMessage(intl, 'dere') : getMessage(intl, 'du')
+                            })}
                             focusable={true}
                             beskrivelse={`${
-                                omForeldre.erDeltOmsorg ? 'Valget vil gjelde for dere begge. ' : ''
-                            }Den totale utbetalingssummen blir høyere ved å velge 100
-                        prosent.`}>
+                                omForeldre.erDeltOmsorg
+                                    ? getMessage(intl, 'dekningsgradSide.dekningsgrad.beskrivelsePart1.deltOmsorg')
+                                    : ''
+                            } ${getMessage(intl, 'dekningsgradSide.dekningsgrad.beskrivelsePart2')}`}>
                             <DekningsgradValg
                                 dekningsgrad={dekningsgrad}
                                 onChange={(dg) => dispatch(setDekningsgrad(dg as Dekningsgrad))}
@@ -157,4 +161,4 @@ const mapStateToProps = (state: AppState): StateProps => {
     };
 };
 
-export default connect(mapStateToProps)(withRouter(UttaksplanSide));
+export default connect(mapStateToProps)(withRouter(injectIntl(UttaksplanSide)));

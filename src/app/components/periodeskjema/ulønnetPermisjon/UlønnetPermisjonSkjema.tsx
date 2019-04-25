@@ -40,11 +40,11 @@ const UlønnetPermisjonSkjema: React.StatelessComponent<Props & InjectedIntlProp
                 checked={utsettelsesårsak}
                 options={[
                     {
-                        label: 'Ferie',
+                        label: getMessage(intl, 'ulønnetPermisjonSkjema.alternativ.ferie'),
                         value: Utsettelsesårsak.ferie
                     },
                     {
-                        label: 'Arbeid heltid',
+                        label: getMessage(intl, 'ulønnetPermisjonSkjema.alternativ.arbeid'),
                         value: Utsettelsesårsak.arbeidHeltid
                     }
                 ]}

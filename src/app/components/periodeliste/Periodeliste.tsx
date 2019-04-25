@@ -15,6 +15,7 @@ import { EtikettLiten } from 'nav-frontend-typografi';
 
 import './periodeliste.less';
 import Settings from '../../settings';
+import { FormattedMessage } from 'react-intl';
 
 const bem = BEMHelper('periodeliste');
 
@@ -87,7 +88,9 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
                     )}
                 {erFørsteAvsluttendeUlønnetPermisjon && (
                     <div className={bem.element('info')}>
-                        <EtikettLiten>Ulønnet permisjon som må avklares med arbeidsgiver</EtikettLiten>
+                        <EtikettLiten>
+                            <FormattedMessage id="periodeliste.avsluttendeUlønnetPermisjonTittel" />
+                        </EtikettLiten>
                     </div>
                 )}
                 <PeriodeElement
@@ -125,7 +128,10 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
                     </li>
                     <li className={bem.element('termin')}>
                         <IconText layout="horizontal" icon={<HjerteIkon fylt={true} title="Termin" />}>
-                            Termin {formaterDato(familiehendelsesdato)}
+                            <FormattedMessage
+                                id="periodeliste.termin"
+                                values={{ dato: formaterDato(familiehendelsesdato) }}
+                            />
                         </IconText>
                     </li>
                 </>

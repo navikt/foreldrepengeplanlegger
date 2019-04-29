@@ -22,8 +22,8 @@
         "start": "node ./src/build/scripts/start-dev.js",
         "start-no-decorator": "node ./src/build/scripts/start-dev-nodecorator.js",
         "precommit": "pretty-quick --staged",
-        "jest": "jest --config ./jest.config.js",
-        "jest-watch": "jest --watch --verbose --config ./jest.config.js"
+        "jest": "jest --config ./jest.config.js --passWithNoTests",
+        "jest-watch": "jest --watch --verbose --config ./jest/jest.config.js"
     },
     "devDependencies": {
         "@types/array-move": "1.0.0",

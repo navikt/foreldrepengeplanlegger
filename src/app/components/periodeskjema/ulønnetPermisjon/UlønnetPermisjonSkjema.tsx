@@ -7,6 +7,7 @@ import { getMedforelderNavn } from '../../../utils/common';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
 import getMessage from 'common/utils/i18nUtils';
 import { InjectedIntlProps, injectIntl, FormattedHTMLMessage } from 'react-intl';
+import Lenker from '../../../lenker';
 
 interface Props {
     utsettelsesårsak?: Utsettelsesårsak;
@@ -27,7 +28,9 @@ const UlønnetPermisjonSkjema: React.StatelessComponent<Props & InjectedIntlProp
             <Veilederinfo stil="normal" type="info">
                 <FormattedHTMLMessage
                     id="ulønnetPermisjonSkjema.info.html"
-                    values={{ antallForeldre: omForeldre.erDeltOmsorg ? 2 : 1 }}
+                    values={{
+                        lenke: Lenker.infolenkeUlønnetPermisjon
+                    }}
                 />
             </Veilederinfo>
         </Block>

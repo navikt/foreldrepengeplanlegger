@@ -2,21 +2,32 @@ import * as React from 'react';
 import Introduksjon from '../introduksjon/Introduksjon';
 import IntroSirkelSvg from '../illustrasjoner/IntroSirkelSvg';
 import Block from 'common/components/block/Block';
-import { Ingress } from 'nav-frontend-typografi';
+import { Ingress, Element } from 'nav-frontend-typografi';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { AppRoutes } from '../../routes';
 import getMessage from 'common/utils/i18nUtils';
-import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
+import { injectIntl, InjectedIntlProps, FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import UtvidetInformasjon from 'common/components/utvidetInformasjon/UtvidetInformasjon';
 
-const VelkommenTekst: React.StatelessComponent<RouteComponentProps & InjectedIntlProps> = (props) => (
+const VelkommenTekst: React.StatelessComponent<RouteComponentProps & InjectedIntlProps> = ({ intl, location }) => (
     <Introduksjon
         ikon={<IntroSirkelSvg />}
-        tittel={getMessage(props.intl, 'intro.tittel')}
-        skjulContent={props.location.pathname !== AppRoutes.startside}>
+        tittel={getMessage(intl, 'intro.tittel')}
+        skjulContent={location.pathname !== AppRoutes.startside}>
         <Block margin="xxs">
-            <Ingress>
-                <FormattedMessage id="intro.tekst" />
-            </Ingress>
+            <Block margin="s">
+                <Ingress tag="div">
+                    <FormattedMessage id="intro.tekst" />
+                </Ingress>
+            </Block>
+            <UtvidetInformasjon apneLabel={getMessage(intl, 'intro.begrensninger.tittel')}>
+                <Block margin="s">
+                    <Element tag="h3">
+                        <FormattedMessage id="intro.begrensninger.tittel" />
+                    </Element>
+                    <FormattedHTMLMessage id="intro.begrensninger.html" tagName="div" />
+                </Block>
+            </UtvidetInformasjon>
         </Block>
     </Introduksjon>
 );

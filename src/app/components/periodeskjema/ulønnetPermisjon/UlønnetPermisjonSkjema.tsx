@@ -57,6 +57,7 @@ const UlønnetPermisjonSkjema: React.StatelessComponent<Props & InjectedIntlProp
             })}>
             <RadioGroup
                 name="ulønnetPermisjonUtsettelseÅrsak"
+                columns={2}
                 checked={utsettelsesårsak}
                 options={getUlønnetPermisjonUtsettelseOptions(intl)}
                 onChange={(årsak) => onChange(årsak as Utsettelsesårsak)}

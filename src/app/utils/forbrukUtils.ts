@@ -8,7 +8,8 @@ import {
     isUttakFørTermin,
     MorsForbruk,
     ForelderForbruk,
-    OmForeldre
+    OmForeldre,
+    Utsettelsesårsak
 } from '../types';
 import { Periodene } from './Periodene';
 import { Perioden } from './Perioden';
@@ -24,6 +25,8 @@ const getAlleDagerFørTermin = (periode: UttakFørTerminPeriode | undefined): nu
 
 const morsPerioderFilter = (p: Periode) => p.forelder === Forelder.mor;
 const farsPerioderFilter = (p: Periode) => p.forelder === Forelder.farMedmor;
+const ulønnetPermisjonMedUttakÅrsak = (p: Periode) =>
+    p.type === Periodetype.UlønnetPermisjon && p.utsettelsesårsak === Utsettelsesårsak.uttakForeldrepenger;
 
 const getAntallFeriedager = (perioder: Periode[], forelder: Forelder): number => {
     const perioderMedFerie = Periodene(perioder).getPerioderMedFerieForForelder(forelder);
@@ -57,8 +60,12 @@ export const getMorsForbruk = (
     const perioderEtterTermin = morsPerioder.filter((p) => p.type !== Periodetype.UttakFørTermin);
     const dagerFørTermin = getAlleDagerFørTermin(periodeFørTermin);
     const ekstradagerFørTermin = Math.max(0, dagerFørTermin - tilgjengeligeDager.dagerForeldrepengerFørFødsel);
-    const dagerEtterTermin = Periodene(perioderEtterTermin).getBrukteUttaksdager();
-    const dagerTotalt = Periodene(morsPerioder).getBrukteUttaksdager();
+    const dagerVedUlønnetPermisjonAnnenForelder = Periodene(
+        allePerioder.filter(ulønnetPermisjonMedUttakÅrsak).filter(farsPerioderFilter)
+    ).getUttaksdager();
+    const dagerEtterTermin =
+        Periodene(perioderEtterTermin).getBrukteUttaksdager() + dagerVedUlønnetPermisjonAnnenForelder;
+    const dagerTotalt = Periodene(morsPerioder).getBrukteUttaksdager() + dagerVedUlønnetPermisjonAnnenForelder;
     const dagerUtenForeldrepengerFørFødsel = dagerEtterTermin + ekstradagerFørTermin;
 
     const dagerForLite = Math.max(0, tilgjengeligeDager.dagerMor - dagerUtenForeldrepengerFørFødsel);
@@ -100,7 +107,10 @@ export const getFarsForbruk = (
         return getForelderForbrukAleneomsorg(perioder, tilgjengeligeDager);
     }
 
-    const dagerTotalt = Periodene(perioder.filter(farsPerioderFilter)).getBrukteUttaksdager();
+    const dagerTotalt =
+        Periodene(perioder.filter(farsPerioderFilter)).getBrukteUttaksdager() +
+        Periodene(perioder.filter(ulønnetPermisjonMedUttakÅrsak).filter(morsPerioderFilter)).getUttaksdager();
+
     const dagerForLite = Math.max(0, tilgjengeligeDager.dagerFar - dagerTotalt);
     const dagerForMye = Math.max(0, dagerTotalt - tilgjengeligeDager.maksDagerFar);
     const dagerErOk = dagerForLite === 0 && dagerForMye === 0;

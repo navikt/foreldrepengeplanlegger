@@ -50,6 +50,8 @@
     "utsettelsesårsak.arbeidHeltid": "Arbeid heltid",
     "utsettelsesårsak.ferie.kort": "Ferie",
     "utsettelsesårsak.arbeidHeltid.kort": "Arbeid",
+    "utsettelsesårsak.uttakForeldrepenger": "Uttak av foreldrepenger",
+    "utsettelsesårsak.uttakForeldrepenger.kort": "Uttak",
 
     "dekningsgradSide.dekningsgrad.spørsmål": "Hvor lang periode med foreldrepenger ønsker {hvem}?",
     "dekningsgradSide.dekningsgrad.beskrivelsePart1.deltOmsorg": "Valget vil gjelde for dere begge.",
@@ -181,6 +183,7 @@
     "ulønnetPermisjonSkjema.tittel": "Hva skal {navn} gjøre?",
     "ulønnetPermisjonSkjema.alternativ.ferie": "Ta ut ferie",
     "ulønnetPermisjonSkjema.alternativ.arbeid": "Arbeide heltid",
+    "ulønnetPermisjonSkjema.alternativ.foreldrepenger": "Ta ut foreldrepenger",
     "ulønnetPermisjonSkjema.velgUtsettelsesårsak": "Velg utsettelsesårsak",
     "ulønnetPermisjonSkjema.info.html": "<p>Ulønnet permisjon er noe du må avtale med arbeidsgiveren din. Husk at ulønnet permisjon kan påvirke retten din til <a href=\"{lenke}\" rel=\"noopener\" class=\"lenke\" target=\"_blank\">andre utbetalinger fra NAV og opptjening av rett til foreldrepenger for nytt barn</a>.</p><p>Når du tar ut ulønnet permisjon før perioden med foreldrepenger kan den andre forelderen ta ut foreldrepenger samtidig, eller søke om å utsette på grunn av heltidsarbeid eller ferie. Du kan ikke utsette foreldrepengene med ulønnet permisjon.</p>",
     "regelAvvik.ariaTittel": "Viktig informasjon om planen",

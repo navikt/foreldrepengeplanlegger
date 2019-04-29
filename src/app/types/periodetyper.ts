@@ -13,7 +13,8 @@ export enum Periodetype {
 
 export enum Utsettelsesårsak {
     'ferie' = 'ferie',
-    'arbeidHeltid' = 'arbeidHeltid'
+    'arbeidHeltid' = 'arbeidHeltid',
+    'uttakForeldrepenger' = 'uttakForeldrepenger'
 }
 
 export interface PeriodeBase {

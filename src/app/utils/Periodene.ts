@@ -31,6 +31,7 @@ export const Periodene = (perioder: Periode[]) => ({
         getFørstePeriodeEtterFamiliehendelsesdato(perioder, dato),
     getFørsteUttaksdag: () => getFørsteUttaksdag(perioder),
     getBrukteUttaksdager: () => getBrukteUttaksdager(perioder),
+    getUttaksdager: () => getUttaksdager(perioder),
     getAntallFridager: () => getAntallFridager(perioder),
     getAvsluttendeUlønnedePermisjoner: () => getAvsluttendeUlønnedePermisjoner(perioder),
     getSistePeriodeMedUttak: () => getSistePeriodeMedUttak(perioder),
@@ -200,6 +201,16 @@ function getBrukteUttaksdager(perioder: Periode[]): number {
         const uttaksinfo = periode.uttaksinfo || getUttaksinfoForPeriode(periode);
         if (uttaksinfo) {
             return dager + uttaksinfo.antallUttaksdagerBrukt;
+        }
+        return dager;
+    }, 0);
+}
+
+function getUttaksdager(perioder: Periode[]): number {
+    return perioder.reduce((dager, periode) => {
+        const uttaksinfo = periode.uttaksinfo || getUttaksinfoForPeriode(periode);
+        if (uttaksinfo) {
+            return dager + uttaksinfo.antallUttaksdager;
         }
         return dager;
     }, 0);

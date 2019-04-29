@@ -11,6 +11,7 @@ import UlønnetPermisjonÅrsakIkon from '../../periodeikon/ikoner/Ul\u00F8nnetPe
 import Tittel from 'common/components/tittel/Tittel';
 import { Element } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
+import Lenker from '../../../lenker';
 
 interface OwnProps {
     utsettelsesårsak?: Utsettelsesårsak;
@@ -87,11 +88,13 @@ const UlønnetPermisjonMeny: React.StatelessComponent<Props> = (props) => {
                         <Tittel
                             tittel={
                                 <Block margin="xxs">
-                                    <Element>Velg utsettelsesårsak</Element>
+                                    <Element>{getMessage(intl, 'ulønnetPermisjonSkjema.velgUtsettelsesårsak')}</Element>
                                 </Block>
                             }
                             info={{
-                                tekst: getMessage(intl, 'ulønnetPermisjonSkjema.info.html')
+                                tekst: getMessage(intl, 'ulønnetPermisjonSkjema.info.html', {
+                                    lenke: Lenker.infolenkeUlønnetPermisjon
+                                })
                             }}
                         />
                     }

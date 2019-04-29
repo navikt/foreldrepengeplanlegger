@@ -9,6 +9,7 @@ import { Tidsperioden } from '../../utils/Tidsperioden';
 import { InjectedIntl, injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
 import { formaterDato } from 'common/utils/datoUtils';
 import { getVarighetString } from 'common/utils/intlUtils';
+import getMessage from 'common/utils/i18nUtils';
 
 interface Props {
     nyPeriode?: Partial<Periode>;
@@ -20,18 +21,21 @@ const PeriodeSomVilBliSplittet: React.StatelessComponent<{
     periode: Periode;
     antallUttaksdager: number;
     omForeldre: OmForeldre;
+    årsakIntlKey?: string;
     intl: InjectedIntl;
-}> = ({ periode, antallUttaksdager, omForeldre, intl }) => {
+}> = ({ periode, antallUttaksdager, omForeldre, årsakIntlKey, intl }) => {
     const navn = getForelderNavn(periode.forelder, omForeldre);
+
     return (
         <Block margin="m">
             <AlertStripe type="info">
                 <FormattedHTMLMessage
-                    id="periodeskjema.melding.oppdeltPeriode"
+                    id={`periodeskjema.melding.oppdeltPeriode${årsakIntlKey === undefined ? '.utenÅrsak' : ''}`}
                     values={{
                         navnEierform: getNavnGenitivEierform(navn || ''),
                         varighet: getVarighetString(antallUttaksdager, intl),
-                        tidsperiode: Tidsperioden(periode.tidsperiode).formaterStringKort(intl)
+                        tidsperiode: Tidsperioden(periode.tidsperiode).formaterStringKort(intl),
+                        årsak: årsakIntlKey ? getMessage(intl, årsakIntlKey).toLowerCase() : undefined
                     }}
                 />
             </AlertStripe>
@@ -57,6 +61,13 @@ const PerioderSomVilBliFlyttetPå: React.StatelessComponent<{
             </AlertStripe>
         </Block>
     );
+};
+
+const getÅrsakIntlKeyForPeriodeSplitt = (nyPeriode: Partial<Periode>): string | undefined => {
+    if (nyPeriode.type !== undefined) {
+        return `periodetype.${nyPeriode.type}`;
+    }
+    return undefined;
 };
 
 const EndringerVedNyPeriode: React.StatelessComponent<Props & InjectedIntlProps> = ({
@@ -85,6 +96,7 @@ const EndringerVedNyPeriode: React.StatelessComponent<Props & InjectedIntlProps>
     const periodeSomStarterSammeDag = moment
         .utc(berørtePerioder[0].tidsperiode.fom)
         .isSame(nyPeriode.tidsperiode.fom, 'day');
+    const årsak = getÅrsakIntlKeyForPeriodeSplitt(nyPeriode);
     if (periodeSomStarterSammeDag) {
         return (
             <PerioderSomVilBliFlyttetPå perioder={berørtePerioder} antallUttaksdager={antallUttaksdager} intl={intl} />
@@ -95,6 +107,7 @@ const EndringerVedNyPeriode: React.StatelessComponent<Props & InjectedIntlProps>
                 periode={berørtePerioder[0]}
                 antallUttaksdager={antallUttaksdager}
                 omForeldre={omForeldre}
+                årsakIntlKey={årsak}
                 intl={intl}
             />
         );

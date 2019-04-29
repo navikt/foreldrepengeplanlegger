@@ -91,8 +91,8 @@
     "regel.info.farMedmorUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnFarMedmor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid.",
     "regel.info.bareFarHarRettEttBarnAktivitetskravMorInfo": "Det er aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
     "regel.info.bareFarHarRettFlerbarnsukerAktivitetskravMorInfo": "Dersom du tar ut mer enn flerbarnsukene, er det aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
-    "regel.info.avsluttendeUlønnedePermisjoner.tittel": "Doo",
-    "regel.info.avsluttendeUlønnedePermisjoner": "Perioder med ulønnet permisjon etter  {antallForeldre, plural, one {du} other {dere}} er ferdig med foreldrepenger trenger dere ikke søke NAV om, dette planlegger du sammen med arbeidsgiveren din. Siste dag med foreldrepenger fra NAV i planen er {sisteDag}.",
+    "regel.info.avsluttendeUlønnedePermisjoner.tittel": "Ulønnet permisjon",
+    "regel.info.avsluttendeUlønnedePermisjoner": "Perioder med ulønnet permisjon etter {antallForeldre, plural, one {du} other {dere}} er ferdig med foreldrepenger trenger dere ikke søke NAV om, dette planlegger du sammen med arbeidsgiveren din. Siste dag med foreldrepenger fra NAV i planen er {sisteDag}.",
 
     "situasjon.info.farOgMor": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en fellesperiode som dere kan dele.",
     "situasjon.info.farOgMor.flerbarn": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en fellesperiode som dere kan dele. Dere får <strong>{flerbarnsuker}</strong> med flerbarnsuker, disse ukene kan dere ta ut når som helst i foreldrepengeperioden. Dere kan ta de ut samtidig, eller hver for dere.",
@@ -108,6 +108,8 @@
     "situasjon.info.morOgMedmor.flerbarn": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en fellesperiode som dere kan dele. Dere får <strong>{flerbarnsuker}</strong> med flerbarnsuker, disse ukene kan dere ta ut når som helst i foreldrepengeperioden. Dere kan ta de ut samtidig, eller hver for dere.",
 
 
+    "fordeling.tittel.deres": "Deres plan",
+    "fordeling.tittel.din": "Din plan",
     "fordeling.status.altOk": "Planen er ok",
     "fordeling.status.forMangeDagerTotalt": "{dager} for mye",
     "fordeling.status.dagerIkkeBrukt": "{dager} ikke brukt",
@@ -170,7 +172,7 @@
     "periodeskjema.validering.fom": "Du må velge når perioden skal starte",
     "periodeskjema.validering.tom": "Du må velge når perioden skal avsluttes",
     "periodeskjema.validering.arbeidOgUttak": "Du må velge hvor mye du skal jobbe",
-    "periodeskjema.melding.oppdeltPeriode": "{navnEierform} periode ({tidsperiode}), vil bli delt opp i to deler. Perioden blir forskjøvet med <strong>{varighet}</strong> fordi du legger inn en periode med ferie.",
+    "periodeskjema.melding.oppdeltPeriode": "{navnEierform} periode ({tidsperiode}), vil bli delt opp i to deler. Perioden blir forskjøvet med <strong>{varighet}</strong> fordi du legger inn en periode med {årsak}.",
     "periodeskjema.melding.perioderFlyttes": "Perioder fra og med <strong>{dato}</strong> vil bli forskjøvet med <strong>{varighet}</strong>.",
     "periodeskjema.tid.startdato": "Startdato",
     "periodeskjema.tid.startdato.låstInfo": "Startdato settes automatisk etter forrige periode. For å endre startdato må du derfor endre siste dag på perioden før.",

@@ -292,7 +292,7 @@ const FordelingStatusHeader: React.StatelessComponent<Props> = (props) => {
             </div>
             <div className={bemHeader.element('statusBlokk')}>
                 <Normaltekst className={bemHeader.element('tittel')} tag="strong">
-                    Deres plan
+                    <FormattedMessage id={`fordeling.tittel.${props.omForeldre.erDeltOmsorg ? 'deres' : 'din'}`} />
                 </Normaltekst>
                 <Undertittel className={bemHeader.element('statusTekst')} tag="h3">
                     <FormattedMessage id={fordelingStatus.tittel.key} values={fordelingStatus.tittel.values} />

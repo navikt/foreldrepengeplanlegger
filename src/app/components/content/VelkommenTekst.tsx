@@ -22,9 +22,11 @@ const VelkommenTekst: React.StatelessComponent<RouteComponentProps & InjectedInt
             </Block>
             <UtvidetInformasjon apneLabel={getMessage(intl, 'intro.begrensninger.tittel')}>
                 <Block margin="s">
-                    <Element tag="h3">
-                        <FormattedMessage id="intro.begrensninger.tittel" />
-                    </Element>
+                    <Block margin="xs">
+                        <Element tag="h3">
+                            <FormattedMessage id="intro.begrensninger.tittel" />
+                        </Element>
+                    </Block>
                     <FormattedHTMLMessage id="intro.begrensninger.html" tagName="div" />
                 </Block>
             </UtvidetInformasjon>

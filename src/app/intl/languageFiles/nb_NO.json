@@ -107,7 +107,6 @@
     "situasjon.info.morOgMedmor": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, medmorkvoten og en fellesperiode som dere kan dele.",
     "situasjon.info.morOgMedmor.flerbarn": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en fellesperiode som dere kan dele. Dere får <strong>{flerbarnsuker}</strong> med flerbarnsuker, disse ukene kan dere ta ut når som helst i foreldrepengeperioden. Dere kan ta de ut samtidig, eller hver for dere.",
 
-
     "fordeling.tittel.deres": "Deres plan",
     "fordeling.tittel.din": "Din plan",
     "fordeling.status.altOk": "Planen er ok",
@@ -187,7 +186,7 @@
     "ulønnetPermisjonSkjema.alternativ.arbeid": "Arbeide heltid",
     "ulønnetPermisjonSkjema.alternativ.foreldrepenger": "Ta ut foreldrepenger",
     "ulønnetPermisjonSkjema.velgUtsettelsesårsak": "Velg utsettelsesårsak",
-    "ulønnetPermisjonSkjema.info.html": "<p>Ulønnet permisjon er noe du må avtale med arbeidsgiveren din. Husk at ulønnet permisjon kan påvirke retten din til <a href=\"{lenke}\" rel=\"noopener\" class=\"lenke\" target=\"_blank\">andre utbetalinger fra NAV og opptjening av rett til foreldrepenger for nytt barn</a>.</p><p>Når du tar ut ulønnet permisjon før perioden med foreldrepenger kan den andre forelderen ta ut foreldrepenger samtidig, eller søke om å utsette på grunn av heltidsarbeid eller ferie. Du kan ikke utsette foreldrepengene med ulønnet permisjon.</p>",
+    "ulønnetPermisjonSkjema.info.html": "<p>Ulønnet permisjon er noe du må avtale med arbeidsgiveren din. Husk at ulønnet permisjon kan påvirke retten din til <a href=\"{lenke}\" rel=\"noopener\" class=\"lenke\" target=\"_blank\">andre utbetalinger fra NAV og opptjening av rett til foreldrepenger for nytt barn</a>.</p><p>Når du tar ut ulønnet permisjon før perioden med foreldrepenger er ferdig kan den andre forelderen ta ut foreldrepenger samtidig, eller søke om å utsette på grunn av heltidsarbeid eller ferie. Du kan ikke utsette foreldrepengene med ulønnet permisjon.</p>",
     "regelAvvik.ariaTittel": "Viktig informasjon om planen",
 
     "situasjonskjema.validering.situasjon": "Du må velge situasjon",
@@ -229,6 +228,4 @@
     "uttaksplan.slettPlanDialog.tekst": "Ønsker du å slette planen? Alle perioder etter termin vil bli fjernet.",
 
     "utvidetinfo.lukk": "Lukk informasjon"
-
-
 }

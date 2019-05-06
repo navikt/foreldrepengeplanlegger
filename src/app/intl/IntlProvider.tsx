@@ -1,9 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { addLocaleData, IntlProvider as Provider } from 'react-intl';
-
 import moment from 'moment';
-
 import * as nb from 'react-intl/locale-data/nb';
 import * as nn from 'react-intl/locale-data/nn';
 
@@ -11,25 +9,27 @@ import nnMessages from './languageFiles/nn_NO.json';
 import nbMessages from './languageFiles/nb_NO.json';
 import nnMessagesCommon from '../../common/intl/nn_NO.json';
 import nbMessagesCommon from '../../common/intl/nb_NO.json';
-
 import { AppState } from '../redux/reducers/rootReducer';
-import { Språkkode } from './types';
 
 interface StateProps {
-    språkkode: Språkkode;
+    språkkode: Language;
 }
 
-moment.locale('nb');
+export type Language = 'nb' | 'nn';
+const DEFAULT_LANG = 'nb';
 
 class IntlProvider extends React.Component<StateProps> {
     constructor(props: StateProps) {
         super(props);
         addLocaleData([...nb, ...nn]);
+        moment.locale(props.språkkode || DEFAULT_LANG);
     }
 
     render() {
+        const { språkkode } = this.props;
+
         const messages =
-            this.props.språkkode === 'nb'
+            språkkode === 'nb'
                 ? {
                       ...nbMessages,
                       ...nbMessagesCommon
@@ -40,7 +40,7 @@ class IntlProvider extends React.Component<StateProps> {
                   };
 
         return (
-            <Provider key={this.props.språkkode} locale={this.props.språkkode} messages={messages || {}}>
+            <Provider key={språkkode} locale={språkkode} messages={messages || {}}>
                 {this.props.children}
             </Provider>
         );

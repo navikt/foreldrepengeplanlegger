@@ -11,35 +11,58 @@ import { AppRoutes } from './routes';
 import DekningsgradSide from './sider/DekningsgradSide';
 
 import 'common/styles/index.less';
+import { InjectedIntlProps, injectIntl, FormattedMessage } from 'react-intl';
+import Språkvelger from './components/spr\u00E5kvelger/Spr\u00E5kvelger';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 const cls = BEMHelper('planlegger');
 
-type Props = RouteComponentProps<any>;
+type Props = RouteComponentProps<any> & InjectedIntlProps;
 
 class Uttaksplanlegger extends React.Component<Props> {
     render() {
+        const { intl } = this.props;
         return (
             <div className={cls.block}>
-                <Sidebanner text="common.sidebanner" />
-                <div className={cls.element('container')}>
-                    <div className={cls.element('wrapper')}>
-                        <Breadcrumbs sti={'/foreldrepengeplanlegger'} />
-                        <div className="content">
-                            <Block>
-                                <VelkommenTekst />
-                            </Block>
-                            <Switch>
-                                <Route exact={true} path={AppRoutes.uttaksplanside} component={UttaksplanSide} />
-                                <Route exact={true} path={AppRoutes.dekningsgradside} component={DekningsgradSide} />
-                                <Route exact={true} path={AppRoutes.startside} component={Skjemaside} />
-                                <Redirect to={AppRoutes.startside} />
-                            </Switch>
+                <Språkvelger>
+                    <div lang={intl.locale}>
+                        <Sidebanner text="common.sidebanner" />
+                        <div className={cls.element('container')}>
+                            <div className={cls.element('wrapper')}>
+                                <Breadcrumbs sti={'/foreldrepengeplanlegger'} />
+                                {intl.locale === 'nn' && (
+                                    <Block margin="s">
+                                        <AlertStripeInfo>
+                                            <FormattedMessage id="nynorsk.ingenStøtte" />
+                                        </AlertStripeInfo>
+                                    </Block>
+                                )}
+                                <div className="content">
+                                    <Block>
+                                        <VelkommenTekst />
+                                    </Block>
+                                    <Switch>
+                                        <Route
+                                            exact={true}
+                                            path={AppRoutes.uttaksplanside}
+                                            component={UttaksplanSide}
+                                        />
+                                        <Route
+                                            exact={true}
+                                            path={AppRoutes.dekningsgradside}
+                                            component={DekningsgradSide}
+                                        />
+                                        <Route exact={true} path={AppRoutes.startside} component={Skjemaside} />
+                                        <Redirect to={AppRoutes.startside} />
+                                    </Switch>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </Språkvelger>
             </div>
         );
     }
 }
 
-export default withRouter(Uttaksplanlegger);
+export default withRouter(injectIntl(Uttaksplanlegger));

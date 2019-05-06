@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
+import { injectIntl, InjectedIntlProps, InjectedIntl, FormattedMessage } from 'react-intl';
 import { Periodetype, Forelder } from '../../../types';
 import getMessage from 'common/utils/i18nUtils';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
@@ -8,6 +8,7 @@ import Periodeikon from '../../periodeikon/Periodeikon';
 import IconText from 'common/components/iconText/IconText';
 import Varighet from '../../varighet/Varighet';
 import Settings from '../../../settings';
+import { getVarighetString } from 'common/utils/intlUtils';
 
 interface OwnProps {
     type?: Periodetype;
@@ -71,15 +72,20 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
             gradering
         ) {
             return (
-                <span>
-                    <Varighet dager={uttaksdager} separator=" og " />
-                    med {gradering} prosent foreldrepenger.
-                </span>
+                <FormattedMessage
+                    id="periodeliste.graderteDager"
+                    values={{
+                        dager: getVarighetString(uttaksdager, intl),
+                        gradering
+                    }}
+                />
             );
         } else if (brukteUttaksdager !== undefined) {
             return (
                 <span>
-                    <Varighet dager={brukteUttaksdager} separator=" og " /> med foreldrepenger
+                    {getMessage(intl, 'periodeliste.dagerMedForeldrepenger', {
+                        dager: getVarighetString(brukteUttaksdager, intl)
+                    })}
                 </span>
             );
         }

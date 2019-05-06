@@ -87,6 +87,7 @@ const updateStateAndStorage = (state: CommonState, updates: Partial<CommonState>
 const updateStateWithNewSkjemadata = (state: CommonState, action: SubmitSkjemadataAction): CommonState => {
     return {
         ...getDefaultCommonState(),
+        språkkode: state.språkkode,
         skjemadata: action.data,
         ønsketFordeling: {
             harValgtFordeling: false,
@@ -124,7 +125,7 @@ const commonReducer = (state = getDefaultCommonState(getStorage()), action: Comm
     };
     switch (action.type) {
         case CommonActionKeys.SET_SPRÅK:
-            return { ...state, språkkode: action.språkkode };
+            return updateStateAndStorage(state, { ...state, språkkode: action.språkkode });
         case CommonActionKeys.APPLY_STORAGE:
             return { ...state, ...action.storage };
         case CommonActionKeys.UPDATE_FORBRUK:

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormikProps, Form } from 'formik';
 import Block from 'common/components/block/Block';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
 import DatoInput from 'common/components/skjema/datoInput/DatoInput';
 import { SituasjonSkjemadata, Situasjon, Forelder } from '../../types';
 import { Hovedknapp } from 'nav-frontend-knapper';
@@ -12,6 +12,7 @@ import VelgForeldrenavn from './parts/VelgForeldrenavn';
 import { getAntallForeldreISituasjon, inputHasValue, getTermindatoAvgrensninger } from '../../utils/common';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import VelgErMorEllerFar from './parts/VelgErMorEllerFar';
+import getMessage from 'common/utils/i18nUtils';
 
 interface OwnProps {
     formik: FormikProps<SituasjonSkjemadata>;
@@ -45,7 +46,7 @@ const visAntallBarnValg = (
 
 class SituasjonsskjemaForm extends React.Component<Props> {
     render() {
-        const { formik, onReset } = this.props;
+        const { formik, onReset, intl } = this.props;
         const {
             situasjon,
             antallBarn,
@@ -66,7 +67,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
         const erToForeldre = getAntallForeldreISituasjon(situasjon) > 1;
         return (
             <Form>
-                <Skjemablokk tittel="Velg deres situasjon" animated={true}>
+                <Skjemablokk tittel={getMessage(intl, 'situasjon.velgSituasjon')} animated={true}>
                     <Block margin="s">
                         <VelgSituasjon
                             onChange={(s) => {
@@ -102,7 +103,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
 
                 {visAntallBarn && (
                     <Skjemablokk
-                        tittel={erToForeldre ? 'Hvor mange barn venter dere?' : 'Hvor mange barn venter du?'}
+                        tittel={getMessage(intl, `antallBarn.hvorMange.${erToForeldre ? 'dere' : 'du'}`)}
                         visible={visAntallBarn}>
                         <VelgAntallBarn
                             antallBarn={antallBarn}
@@ -112,7 +113,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                 )}
 
                 {visTermindato && (
-                    <Skjemablokk tittel={`Når er termindato?`} visible={visTermindato}>
+                    <Skjemablokk tittel={getMessage(intl, 'termindato.når')} visible={visTermindato}>
                         <DatoInput
                             id="familiehendelsesdato"
                             name="familiehendelsesdato"
@@ -126,7 +127,9 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                 )}
                 <Block align="center" visible={formik.isValid}>
                     <Block>
-                        <Hovedknapp htmlType="submit">Gå videre</Hovedknapp>
+                        <Hovedknapp htmlType="submit">
+                            <FormattedMessage id="knapp.gåVidere" />
+                        </Hovedknapp>
                     </Block>
                     {onReset && (
                         <Block visible={false}>
@@ -135,7 +138,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
                                     onReset();
                                     formik.resetForm();
                                 }}>
-                                Start på ny
+                                <FormattedMessage id="lenke.startPåNy" />
                             </LinkButton>
                         </Block>
                     )}

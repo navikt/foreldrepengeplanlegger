@@ -10,10 +10,17 @@ interface StateProps {
     språkkode: Language;
 }
 
-type Props = StateProps & DispatchProps;
+interface OwnProps {
+    children: React.ReactNode;
+}
 
-const Språkvelger: React.StatelessComponent<Props> = ({ dispatch }) => (
-    <LanguageToggle toggleLanguage={(code: Language) => dispatch(setSpråk(code))} />
+type Props = OwnProps & StateProps & DispatchProps;
+
+const Språkvelger: React.StatelessComponent<Props> = ({ dispatch, children }) => (
+    <div>
+        <LanguageToggle toggleLanguage={(code: Language) => dispatch(setSpråk(code))} />
+        {children}
+    </div>
 );
 
 const mapStateToProps = (state: AppState): StateProps => {

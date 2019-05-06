@@ -24,37 +24,42 @@ class Uttaksplanlegger extends React.Component<Props> {
         const { intl } = this.props;
         return (
             <div className={cls.block}>
-                <Språkvelger />
-                <div lang={intl.locale}>
-                    <Sidebanner text="common.sidebanner" />
-                    <div className={cls.element('container')}>
-                        <div className={cls.element('wrapper')}>
-                            <Breadcrumbs sti={'/foreldrepengeplanlegger'} />
-                            {intl.locale === 'nn' && (
-                                <Block margin="s">
-                                    <AlertStripeInfo>
-                                        <FormattedMessage id="nynorsk.ingenStøtte" />
-                                    </AlertStripeInfo>
-                                </Block>
-                            )}
-                            <div className="content">
-                                <Block>
-                                    <VelkommenTekst />
-                                </Block>
-                                <Switch>
-                                    <Route exact={true} path={AppRoutes.uttaksplanside} component={UttaksplanSide} />
-                                    <Route
-                                        exact={true}
-                                        path={AppRoutes.dekningsgradside}
-                                        component={DekningsgradSide}
-                                    />
-                                    <Route exact={true} path={AppRoutes.startside} component={Skjemaside} />
-                                    <Redirect to={AppRoutes.startside} />
-                                </Switch>
+                <Språkvelger>
+                    <div lang={intl.locale}>
+                        <Sidebanner text="common.sidebanner" />
+                        <div className={cls.element('container')}>
+                            <div className={cls.element('wrapper')}>
+                                <Breadcrumbs sti={'/foreldrepengeplanlegger'} />
+                                {intl.locale === 'nn' && (
+                                    <Block margin="s">
+                                        <AlertStripeInfo>
+                                            <FormattedMessage id="nynorsk.ingenStøtte" />
+                                        </AlertStripeInfo>
+                                    </Block>
+                                )}
+                                <div className="content">
+                                    <Block>
+                                        <VelkommenTekst />
+                                    </Block>
+                                    <Switch>
+                                        <Route
+                                            exact={true}
+                                            path={AppRoutes.uttaksplanside}
+                                            component={UttaksplanSide}
+                                        />
+                                        <Route
+                                            exact={true}
+                                            path={AppRoutes.dekningsgradside}
+                                            component={DekningsgradSide}
+                                        />
+                                        <Route exact={true} path={AppRoutes.startside} component={Skjemaside} />
+                                        <Redirect to={AppRoutes.startside} />
+                                    </Switch>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </Språkvelger>
             </div>
         );
     }

@@ -166,6 +166,8 @@
     "periodeliste.arbeidOgUttak.spørsmål": "Hvor mange prosent skal {navn} jobbe?",
     "periodeliste.arbeidOgUttak.label.ariaTekst": "Prosent arbeid",
     "periodeliste.arbeidOgUttak.uttaksdager": "<strong>{dager}</strong> med foreldrepenger brukes.",
+    "periodeliste.dagerMedForeldrepenger": "{dager} med foreldrepenger",
+    "periodeliste.graderteDager": "{dager} med {gradering} prosent foreldrepenger",
     "periodeliste.forelder.tittel": "Velg forelder",
     "periodeliste.forelder.spørsmål": "Hvem gjelder perioden?",
     "periodeliste.velgUlønnetPermisjon": "Hva skal {navn} gjøre?",

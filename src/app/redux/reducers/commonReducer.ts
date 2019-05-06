@@ -87,6 +87,7 @@ const updateStateAndStorage = (state: CommonState, updates: Partial<CommonState>
 const updateStateWithNewSkjemadata = (state: CommonState, action: SubmitSkjemadataAction): CommonState => {
     return {
         ...getDefaultCommonState(),
+        språkkode: state.språkkode,
         skjemadata: action.data,
         ønsketFordeling: {
             harValgtFordeling: false,

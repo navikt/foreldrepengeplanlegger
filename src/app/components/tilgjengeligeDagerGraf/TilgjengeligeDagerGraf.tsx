@@ -11,6 +11,7 @@ import { injectIntl, InjectedIntlProps, FormattedHTMLMessage, FormattedMessage }
 import Personkort from '../personkort/Personkort';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
 import { getNavnGenitivEierform } from '../../utils/common';
+import getMessage from 'common/utils/i18nUtils';
 
 interface OwnProps {
     tilgjengeligeDager: TilgjengeligeDager;
@@ -25,7 +26,11 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, o
     const fordeling = getProsentFordeling(tilgjengeligeDager, true);
     const txtMor =
         tilgjengeligeDager.dagerForeldrepengerFørFødsel > 0
-            ? `${tilgjengeligeDager.dagerForeldrepengerFørFødsel / 5} + ${tilgjengeligeDager.dagerMor / 5} uker`
+            ? `${tilgjengeligeDager.dagerForeldrepengerFørFødsel / 5} + ${tilgjengeligeDager.dagerMor / 5} ${getMessage(
+                  intl,
+                  'common.uker',
+                  { uker: 15 }
+              )}`
             : getVarighetString(tilgjengeligeDager.dagerMor, intl);
     return (
         <div className={bem.classNames(bem.block, bem.modifier('flereForeldre'))}>

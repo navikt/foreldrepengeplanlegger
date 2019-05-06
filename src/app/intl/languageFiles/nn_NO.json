@@ -7,25 +7,34 @@
     "du_dere": "{antall, plural, one {du} other {dere}}",
     "Du_Dere": "{antall, plural, one {Du} other {Dere}}",
 
-    "antallBarn.alternativ.Barn-1": "Ett barn",
-    "antallBarn.alternativ.Barn-2": "Tvillinger",
-    "antallBarn.alternativ.Barn-3": "Trillinger eller flere",
-    "antallBarn.alternativ.barn-1": "ett barn",
-    "antallBarn.alternativ.barn-2": "tvillinger",
-    "antallBarn.alternativ.barn-3": "trillinger eller flere",
-    "antallBarn.select.tekst.adopsjon": "Hvor mange barn adopterer du?",
-    "antallBarn.select.tekst.fødsel": "Hvor mange barn fikk du?",
-    "antallBarn.select.tekst.termin": "Hvor mange barn venter du?",
-    "antallBarn.select.velg": "Velg",
-    "antallBarn.spørsmål.adoptert": "Hvor mange barn adopterte du?",
-    "antallBarn.spørsmål.fått": "Hvor mange barn har du fått?",
-    "antallBarn.spørsmål.venter": "Hvor mange barn venter du?",
+    "språk.nb": "Bokmål",
+    "språk.nn": "Nynorsk",
+
+    "knapp.gåVidere": "Gå videre",
+    "lenke.startPåNy": "Start på ny",
+
+    "situasjon.velgSituasjon": "Velg deres situasjon",
     "situasjon.farOgMor": "Mor og far",
     "situasjon.bareFar": "Bare far har rett",
     "situasjon.bareMor": "Bare mor har rett",
     "situasjon.aleneomsorg": "Aleneomsorg",
     "situasjon.morOgMedmor": "Mor og  medmor",
     "situasjon.farOgFar": "Far og far",
+
+    "antallBarn.hvorMange.dere": "Hvor mange barn venter dere?",
+    "antallBarn.hvorMange.du": "Hvor mange barn venter du?",
+    "antallBarn.alternativ.Barn-1": "Ett barn",
+    "antallBarn.alternativ.Barn-2": "Tvillinger",
+    "antallBarn.alternativ.Barn-3": "Trillinger eller flere",
+    "antallBarn.alternativ.barn-1": "ett barn",
+    "antallBarn.alternativ.barn-2": "tvillinger",
+    "antallBarn.alternativ.barn-3": "trillinger eller flere",
+    "antallBarn.spørsmål.adoptert": "Hvor mange barn adopterte du?",
+    "antallBarn.spørsmål.fått": "Hvor mange barn har du fått?",
+    "antallBarn.spørsmål.venter": "Hvor mange barn venter du?",
+
+    "termindato.når": "Når er termindato?",
+
     "uttaksplan.mor": "mor",
 
     "stønadskontotype.AKTIVITETSFRI_FLERBARNSDAGER": "Flerbarnsuker uten aktivitetskrav",
@@ -50,6 +59,12 @@
     "utsettelsesårsak.arbeidHeltid": "Arbeid heltid",
     "utsettelsesårsak.ferie.kort": "Ferie",
     "utsettelsesårsak.arbeidHeltid.kort": "Arbeid",
+    "utsettelsesårsak.uttakForeldrepenger": "Uttak av foreldrepenger",
+    "utsettelsesårsak.uttakForeldrepenger.kort": "Uttak",
+
+    "dekningsgradSide.dekningsgrad.spørsmål": "Hvor lang periode med foreldrepenger ønsker {hvem}?",
+    "dekningsgradSide.dekningsgrad.beskrivelsePart1.deltOmsorg": "Valget vil gjelde for dere begge.",
+    "dekningsgradSide.dekningsgrad.beskrivelsePart2": "Den totale utbetalingssummen blir høyere ved å velge 100 prosent.",
 
     "uttaksplan.skjema.fordeling.annenForeldersFellesperiode": "{navnFarMedmor} kan ta ut {antallUker} uker av fellesperioden",
     "uttaksplan.skjema.fordeling.aria.fordeling": "Hvor mange uker av fellesdelen skal {navnMor} ha av totalt {ukerFellesperiode} uker?",
@@ -60,8 +75,7 @@
     "uttaksplan.skjema.fordeling.veiledning.lenketekst": "Les mer om aktivitetskravet her.",
     "uttaksplan.skjema.fordeling.øk.tooltip": "En uke mer til {navn}",
     "skjema.fordeling.uker": "{uker, plural, one {# uke} other {# uker}}",
-    "uttaksplan.ferie.inneholderHelligdager": "Helligdager i en ferieperiode vil telle som dager med foreldrepenger. Denne perioden inneholder {dager, plural, one {# helligdag} other {# helligdager}}, som vil bli regnet som dager med foreldrepenger for {navn}.",
-
+    "uttaksplan.ferie.inneholderHelligdager": "Du har lagt inn ferie på {dager, plural, one {# helligdag} other {# helligdager}}. Det er ikke mulig å utsette med ferie på dager du ellers ville fått fri av arbeidsgiver. Du vil derfor få utbetalt foreldrepenger på helligdagene.",
     "regel.feil.uttaksplanStatusTittel": "Planen inneholder feil",
     "regel.feil.starterInnenfor12UkerFørTermin": "Foreldrepenger før fødsel kan starte tidligst 12 uker før termin. Første mulige dag er {dato}.",
     "regel.feil.erInnenforSisteMuligeUttaksdag": "Foreldrepengene må tas ut før barnet fyller tre år.",
@@ -81,12 +95,13 @@
     "regel.advarsel.uttakForFarEllerMedmorFørsteSeksUkerInfo": "{navnFarMedmor} kan kun ta ut foreldrepenger de seks første ukene etter fødsel om {navnMor} er for syk til å ta seg av barnet eller er innlagt på helseinstitusjon.",
 
     "regel.info.ferieMedUttaksdagerInfo": "Helligdager i en ferieperiode vil telle som dager med foreldrepenger.",
-    "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker {dager} av fellesperioden, og må legge ved dokumentasjon av aktivitetskravet til {navnMor} for disse dagene. <a href=\"{lenke}\" rel=\"noopener\" class=\"lenke\">Les mer om aktivitetskravet her</a>.",
+    "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker {dager} av fellesperioden, og må legge ved dokumentasjon i søknaden av aktivitetskravet til {navnMor} for disse dagene. <a href=\"{lenke}\" rel=\"noopener\" class=\"lenke\">Les mer om aktivitetskravet her</a>.",
     "regel.info.morUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnMor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid.",
     "regel.info.farMedmorUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnFarMedmor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid.",
     "regel.info.bareFarHarRettEttBarnAktivitetskravMorInfo": "Det er aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
     "regel.info.bareFarHarRettFlerbarnsukerAktivitetskravMorInfo": "Dersom du tar ut mer enn flerbarnsukene, er det aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
-    "regel.info.avsluttendeUlønnedePermisjoner": "Perioder med ulønnet permisjon etter din siste dag med foreldrepenger, trenger du ikke søke om hos NAV. Din siste dag med foreldrepenger fra NAV i planen din er {sisteDag}.",
+    "regel.info.avsluttendeUlønnedePermisjoner.tittel": "Ulønnet permisjon",
+    "regel.info.avsluttendeUlønnedePermisjoner": "Perioder med ulønnet permisjon etter {antallForeldre, plural, one {du} other {dere}} er ferdig med foreldrepenger trenger dere ikke søke NAV om, dette planlegger du sammen med arbeidsgiveren din. Siste dag med foreldrepenger fra NAV i planen er {sisteDag}.",
 
     "situasjon.info.farOgMor": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en fellesperiode som dere kan dele.",
     "situasjon.info.farOgMor.flerbarn": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en fellesperiode som dere kan dele. Dere får <strong>{flerbarnsuker}</strong> med flerbarnsuker, disse ukene kan dere ta ut når som helst i foreldrepengeperioden. Dere kan ta de ut samtidig, eller hver for dere.",
@@ -101,7 +116,8 @@
     "situasjon.info.morOgMedmor": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, medmorkvoten og en fellesperiode som dere kan dele.",
     "situasjon.info.morOgMedmor.flerbarn": "Når begge foreldrene har rett til foreldrepenger består foreldrepengeperioden av mødrekvoten, fedrekvoten og en fellesperiode som dere kan dele. Dere får <strong>{flerbarnsuker}</strong> med flerbarnsuker, disse ukene kan dere ta ut når som helst i foreldrepengeperioden. Dere kan ta de ut samtidig, eller hver for dere.",
 
-
+    "fordeling.tittel.deres": "Deres plan",
+    "fordeling.tittel.din": "Din plan",
     "fordeling.status.altOk": "Planen er ok",
     "fordeling.status.forMangeDagerTotalt": "{dager} for mye",
     "fordeling.status.dagerIkkeBrukt": "{dager} ikke brukt",
@@ -110,8 +126,10 @@
     "fordeling.status.person.forMye": "{dager} for mye",
     "fordeling.status.person.forLite": "{dager} ikke brukt",
 
-    "intro.tittel": "Planlegg dine foreldrepenger - betaversjon",
+    "intro.tittel": "Planlegg foreldrepengene dine",
     "intro.tekst": "Her kan dere planlegge hvor mange uker dere kan ta ut foreldrepenger, og hvordan dere kan utsette perioder med foreldrepenger.",
+    "intro.begrensninger.tittel": "Begrensninger i planleggeren",
+    "intro.begrensninger.html": "<ul><li>opphold i foreldrepengene på grunn av sykdom</li><li>foreldrepenger på grunn av adopsjon</li><li>oppstart av foreldrepengene tidligere enn tre uker før termindato</li><li>foreldrepenger på grunn av overtakelse av foreldreansvar</li></ul>",
 
     "dekningsgradInfo.tittel": "{uker} uker med {dekningsgrad} prosent foreldrepenger",
     "dekningsgradInfo.uttakFørTermin": "{navn} får tre uker med foreldrepenger som må tas ut før termin.",
@@ -139,8 +157,8 @@
 
     "periodeliste.ariatekst.slettPeriode": "Slett periode",
     "periodeliste.ariatekst.periodenHarRegelAvvik": "Perioden har ekstrainformasjon",
-    "periodeliste.slaaSammenPerioder.part1": "Perioden over og under har samme type og hører til samme person, så de kan ",
-    "periodeliste.slaaSammenPerioder.part2": "slåes sammen til én periode",
+    "periodeliste.slaaSammenPerioder.part1": "Perioden over og under hører til samme person, så dere kan ",
+    "periodeliste.slaaSammenPerioder.part2": "slå de sammen til én periode.",
     "periodeliste.velgPeriodetype": "Velg type",
     "periodeliste.arbeidOgUttak.ariatekst.jobber": "Jobber {arbeidsprosent} prosent",
     "periodeliste.arbeidOgUttak.tittel": "Velg stillingsprosent",
@@ -150,6 +168,8 @@
     "periodeliste.forelder.tittel": "Velg forelder",
     "periodeliste.forelder.spørsmål": "Hvem gjelder perioden?",
     "periodeliste.velgUlønnetPermisjon": "Hva skal {navn} gjøre?",
+    "periodeliste.avsluttendeUlønnetPermisjonTittel": "Ulønnet permisjon som må avklares med arbeidsgiver",
+    "periodeliste.termin": "Termin {dato}",
 
     "periodeskjema.tittelNyPeriode": "Legg til ny periode",
     "periodeskjema.knapp.leggTil": "Legg til",
@@ -160,7 +180,7 @@
     "periodeskjema.validering.fom": "Du må velge når perioden skal starte",
     "periodeskjema.validering.tom": "Du må velge når perioden skal avsluttes",
     "periodeskjema.validering.arbeidOgUttak": "Du må velge hvor mye du skal jobbe",
-    "periodeskjema.melding.oppdeltPeriode": "{navnEierform} periode ({tidsperiode}), vil bli delt opp i to deler, og den nye perioden vil bli satt inn mellom de to delene. Perioder etter denne, vil bli forskjøvet <strong>{varighet}</strong>",
+    "periodeskjema.melding.oppdeltPeriode": "{navnEierform} periode ({tidsperiode}), vil bli delt opp i to deler. Perioden blir forskjøvet med <strong>{varighet}</strong> fordi du legger inn en periode med {årsak}.",
     "periodeskjema.melding.perioderFlyttes": "Perioder fra og med <strong>{dato}</strong> vil bli forskjøvet med <strong>{varighet}</strong>.",
     "periodeskjema.tid.startdato": "Startdato",
     "periodeskjema.tid.startdato.låstInfo": "Startdato settes automatisk etter forrige periode. For å endre startdato må du derfor endre siste dag på perioden før.",
@@ -171,7 +191,11 @@
     "periodeskjema.tid.lengde": "Lengde",
 
     "ulønnetPermisjonSkjema.tittel": "Hva skal {navn} gjøre?",
-
+    "ulønnetPermisjonSkjema.alternativ.ferie": "Ta ut ferie",
+    "ulønnetPermisjonSkjema.alternativ.arbeid": "Arbeide heltid",
+    "ulønnetPermisjonSkjema.alternativ.foreldrepenger": "Ta ut foreldrepenger",
+    "ulønnetPermisjonSkjema.velgUtsettelsesårsak": "Velg utsettelsesårsak",
+    "ulønnetPermisjonSkjema.info.html": "<p>Ulønnet permisjon er noe du må avtale med arbeidsgiveren din. Husk at ulønnet permisjon kan påvirke retten din til <a href=\"{lenke}\" rel=\"noopener\" class=\"lenke\" target=\"_blank\">andre utbetalinger fra NAV og opptjening av rett til foreldrepenger for nytt barn</a>.</p><p>Når du tar ut ulønnet permisjon før perioden med foreldrepenger er ferdig kan den andre forelderen ta ut foreldrepenger samtidig, eller søke om å utsette på grunn av heltidsarbeid eller ferie. Du kan ikke utsette foreldrepengene med ulønnet permisjon.</p>",
     "regelAvvik.ariaTittel": "Viktig informasjon om planen",
 
     "situasjonskjema.validering.situasjon": "Du må velge situasjon",
@@ -210,5 +234,7 @@
     "uttaksplan.slettPlanDialog.tittel": "Bekreft fjern periode",
     "uttaksplan.slettPlanDialog.avbrytKnapp": "Avbryt",
     "uttaksplan.slettPlanDialog.jaSlettKnapp": "Ja, slett planen",
-    "uttaksplan.slettPlanDialog.tekst": "Ønsker du å slette planen? Alle perioder etter termin vil bli fjernet."
+    "uttaksplan.slettPlanDialog.tekst": "Ønsker du å slette planen? Alle perioder etter termin vil bli fjernet.",
+
+    "utvidetinfo.lukk": "Lukk informasjon"
 }

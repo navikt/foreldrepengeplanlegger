@@ -19,13 +19,13 @@ const store = configureStore();
 
 render(
     <Provider store={store}>
-        <IntlProvider>
-            <BrowserRouter>
-                <Normaltekst tag="div">
+        <Normaltekst tag="div">
+            <IntlProvider>
+                <BrowserRouter>
                     <Uttaksplanlegger />
-                </Normaltekst>
-            </BrowserRouter>
-        </IntlProvider>
+                </BrowserRouter>
+            </IntlProvider>
+        </Normaltekst>
     </Provider>,
     root
 );

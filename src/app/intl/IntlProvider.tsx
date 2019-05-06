@@ -1,8 +1,7 @@
-import * as React from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { addLocaleData, IntlProvider as Provider } from 'react-intl';
-
 import moment from 'moment';
-
 import * as nb from 'react-intl/locale-data/nb';
 import * as nn from 'react-intl/locale-data/nn';
 
@@ -10,40 +9,27 @@ import nnMessages from './languageFiles/nn_NO.json';
 import nbMessages from './languageFiles/nb_NO.json';
 import nnMessagesCommon from '../../common/intl/nn_NO.json';
 import nbMessagesCommon from '../../common/intl/nb_NO.json';
+import { AppState } from '../redux/reducers/rootReducer';
 
-import LanguageToggle from './languageToggle/LanguageToggle';
-
-interface State {
-    currentLanguage: Language;
+interface StateProps {
+    språkkode: Language;
 }
 
 export type Language = 'nb' | 'nn';
 const DEFAULT_LANG = 'nb';
 
-class IntlProvider extends React.Component<{}, State> {
-    constructor(props: {}) {
+class IntlProvider extends React.Component<StateProps> {
+    constructor(props: StateProps) {
         super(props);
         addLocaleData([...nb, ...nn]);
-        this.state = {
-            currentLanguage: DEFAULT_LANG
-        };
-        moment.locale(DEFAULT_LANG);
+        moment.locale(props.språkkode || DEFAULT_LANG);
     }
 
-    setLanguage = (lang: Language) => {
-        moment.locale(lang);
-        this.setState({
-            currentLanguage: lang
-        });
-    };
-
-    toggleLanguage = (lang: Language) => {
-        this.setLanguage(lang);
-    };
-
     render() {
+        const { språkkode } = this.props;
+
         const messages =
-            this.state.currentLanguage === 'nb'
+            språkkode === 'nb'
                 ? {
                       ...nbMessages,
                       ...nbMessagesCommon
@@ -54,20 +40,15 @@ class IntlProvider extends React.Component<{}, State> {
                   };
 
         return (
-            <Provider key={this.state.currentLanguage} locale={this.state.currentLanguage} messages={messages || {}}>
-                <div>
-                    <div lang={this.state.currentLanguage}>
-                        <LanguageToggle toggleLanguage={this.toggleLanguage} />
-                    </div>
-                    {this.props.children}
-                </div>
+            <Provider key={språkkode} locale={språkkode} messages={messages || {}}>
+                {this.props.children}
             </Provider>
         );
     }
 }
 
-// const mapStateToProps = (state: AppState): StateProps => ({
-//     språkkode: state.common.språkkode
-// });
+const mapStateToProps = (state: AppState): StateProps => ({
+    språkkode: state.common.språkkode
+});
 
-export default IntlProvider;
+export default connect(mapStateToProps)(IntlProvider);

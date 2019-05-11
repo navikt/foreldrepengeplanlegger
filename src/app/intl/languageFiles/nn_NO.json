@@ -174,7 +174,7 @@
     "periodeliste.avsluttendeUlønnetPermisjonTittel": "Ulønt permisjon som må avklarast med arbeidsgivar",
     "periodeliste.termin": "Termin {dato}",
 
-    "periodeskjema.tittelNyPeriode": "Legg til ny periode.",
+    "periodeskjema.tittelNyPeriode": "Legg til ny periode",
     "periodeskjema.knapp.leggTil": "Legg til",
     "periodeskjema.knapp.avbryt": "Avbryt",
     "periodeskjema.validering.periodetype": "Du må velje periodetype.",
@@ -202,8 +202,8 @@
     "regelAvvik.ariaTittel": "Viktig informasjon om planen",
 
     "situasjonskjema.validering.situasjon": "Du må velje situasjon.",
-    "situasjonskjema.validering.foreldernavn": "Du må fylle ut feltet for namn.",
-    "situasjonskjema.validering.forelderVedAleneomsorg": "Du må velje om du er mor eller far.",
+    "situasjonskjema.validering.foreldernavn": "Du må fylle ut feltet for namn",
+    "situasjonskjema.validering.forelderVedAleneomsorg": "Du må velje om du er mor eller far",
     "situasjonskjema.validering.antallBarn": "Du må velje talet på barn",
     "situasjonskjema.validering.termindato": "Du må velje termindato.",
     "situasjonskjema.fornavn.label": "Fornamn",
@@ -226,17 +226,17 @@
 
     "uttaksplan.deresPlan": "Dykkar plan",
     "uttaksplan.dinPlan": "Din plan",
-    "uttaksplan.slettPlanKnapp": "Slett plan.",
+    "uttaksplan.slettPlanKnapp": "Slett plan",
     "uttaksplan.leggTilKnapp": "Legg til eller utset",
 
-    "uttaksplan.slettPeriodeDialog.tittel": "Bekreft fjern periode.",
+    "uttaksplan.slettPeriodeDialog.tittel": "Bekreft fjern periode",
     "uttaksplan.slettPeriodeDialog.avbrytKnapp": "Avbryt",
-    "uttaksplan.slettPeriodeDialog.jaSlettKnapp": "Ja, fjern periode.",
+    "uttaksplan.slettPeriodeDialog.jaSlettKnapp": "Ja, fjern periode",
     "uttaksplan.slettPeriodeDialog.tekst": "Ønskjer du å slette perioden?",
 
-    "uttaksplan.slettPlanDialog.tittel": "Bekreft fjern periode.",
+    "uttaksplan.slettPlanDialog.tittel": "Bekreft fjern periode",
     "uttaksplan.slettPlanDialog.avbrytKnapp": "Avbryt",
-    "uttaksplan.slettPlanDialog.jaSlettKnapp": "Ja, slett planen.",
+    "uttaksplan.slettPlanDialog.jaSlettKnapp": "Ja, slett planen",
     "uttaksplan.slettPlanDialog.tekst": "Ønskjer du å slette planen? Alle periodar etter termin vil bli fjerna.",
 
     "utvidetinfo.lukk": "Lukk informasjon."

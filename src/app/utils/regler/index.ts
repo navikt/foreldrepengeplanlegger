@@ -19,8 +19,8 @@ import { utsetterFarMedmorPgaArbeidTest } from './tester/utsetterFarMedmorPgaArb
 import { bareFarHarRettEttBarnAktivitetskravMorTest } from './tester/bareFarHarRettEttBarnAktivitetskravMorTest';
 import { bareFarHarRettFlerbarnsukerAktivitetskravMorTest } from './tester/bareFarHarRettFlerbarnsukerAktivitetskravMorTest';
 import { erAlleTilgjengeligeDagerBruktTest } from './tester/erAlleTilgjengeligeDagerBruktTest';
-import { harUlønnetPermisjonUtsettelsesårsak } from './tester/harUl\u00F8nnetPermisjonUtsettelses\u00E5rsak';
-import { harAvsluttendeUlønnedePermisjoner } from './tester/harAvsluttendeUl\u00F8nnedePermisjoner';
+import { harUlønnetPermisjonUtsettelsesårsak } from './tester/harUlønnetPermisjonUtsettelsesårsak';
+import { harAvsluttendeUlønnedePermisjoner } from './tester/harAvsluttendeUlønnedePermisjoner';
 
 export enum RegelKey {
     'alleUttakErInnenforMaksAntallDager' = 'alleUttakErInnenforMaksAntallDager',

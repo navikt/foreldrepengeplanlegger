@@ -11,9 +11,8 @@ import { AppRoutes } from './routes';
 import DekningsgradSide from './sider/DekningsgradSide';
 
 import 'common/styles/index.less';
-import { InjectedIntlProps, injectIntl, FormattedMessage } from 'react-intl';
-import Språkvelger from './components/spr\u00E5kvelger/Spr\u00E5kvelger';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
+import Språkvelger from './components/språkvelger/Språkvelger';
 
 const cls = BEMHelper('planlegger');
 
@@ -30,13 +29,6 @@ class Uttaksplanlegger extends React.Component<Props> {
                         <div className={cls.element('container')}>
                             <div className={cls.element('wrapper')}>
                                 <Breadcrumbs sti={'/foreldrepengeplanlegger'} />
-                                {intl.locale === 'nn' && (
-                                    <Block margin="s">
-                                        <AlertStripeInfo>
-                                            <FormattedMessage id="nynorsk.ingenStøtte" />
-                                        </AlertStripeInfo>
-                                    </Block>
-                                )}
                                 <div className="content">
                                     <Block>
                                         <VelkommenTekst />

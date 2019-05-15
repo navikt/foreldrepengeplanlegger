@@ -7,12 +7,12 @@ import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/
 import { getMedforelderNavn } from '../../../utils/common';
 import IconText from 'common/components/iconText/IconText';
 import AriaAlternative from 'common/components/aria/AriaAlternative';
-import UlønnetPermisjonÅrsakIkon from '../../periodeikon/ikoner/Ul\u00F8nnetPermisjon\u00C5rsakIkon';
+import UlønnetPermisjonÅrsakIkon from '../../periodeikon/ikoner/UlønnetPermisjon\u00C5rsakIkon';
 import Tittel from 'common/components/tittel/Tittel';
 import { Element } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
 import Lenker from '../../../lenker';
-import { getUlønnetPermisjonUtsettelseOptions } from '../../periodeskjema/ul\u00F8nnetPermisjon/Ul\u00F8nnetPermisjonSkjema';
+import { getUlønnetPermisjonUtsettelseOptions } from '../../periodeskjema/ulønnetPermisjon/UlønnetPermisjonSkjema';
 
 interface OwnProps {
     utsettelsesårsak?: Utsettelsesårsak;

@@ -7,7 +7,7 @@ import FerieIkon from './ikoner/FerieIkon';
 import UttakIkon from './ikoner/UttakIkon';
 import GradertUttakIkon from './ikoner/GradertUttakIkon';
 import BEMHelper from 'common/utils/bem';
-import UlønnetPermisjonIkon from './ikoner/Ul\u00F8nnetPermisjonIkon';
+import UlønnetPermisjonIkon from './ikoner/UlønnetPermisjonIkon';
 
 import './periodeikon.less';
 

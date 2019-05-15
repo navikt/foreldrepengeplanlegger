@@ -198,7 +198,7 @@
     "ulønnetPermisjonSkjema.alternativ.arbeid": "Arbeide heiltid",
     "ulønnetPermisjonSkjema.alternativ.foreldrepenger": "Ta ut foreldrepengar",
     "ulønnetPermisjonSkjema.velgUtsettelsesårsak": "Vel utsetjingsårsak",
-    "ulønnetPermisjonSkjema.info.html": "<p>Ulønt permisjon er noko du må avtale med arbeidsgivaren din. Hugs at ulønt permisjon kan påverke retten din til <a href=\"{lenke}\" rel=\"noopener\" class=\"lenke\" target=\"_blank\">andre utbetalingar frå NAV og opptening av rett til foreldrepengar for nytt barn</a>.</p><p>Når du tar ut ulønt permisjon før perioden med foreldrepengar er ferdig, kan den andre forelderen ta ut foreldrepengar samtidig, eller søkje om å utsetje på grunn av heiltidsarbeid eller ferie. Du kan ikkje utsetje foreldrepengane med ulønt permisjon.</p>",
+    "ulønnetPermisjonSkjema.info.html": "<p>Ulønt permisjon er noko du må avtale med arbeidsgivaren din. Hugs at ulønt permisjon kan påverke retten din til <a href=\"{lenke}\" rel=\"noopener\" class=\"lenke\" target=\"_blank\">andre utbetalingar frå NAV og opptening av rett til foreldrepengar for nytt barn</a>.</p>Når du tar ut ulønt permisjon før perioden med foreldrepengar er ferdig, kan den andre forelderen ta ut foreldrepengar samtidig, eller søkje om å utsetje på grunn av heiltidsarbeid eller ferie. Du kan ikkje utsetje foreldrepengane med ulønt permisjon.",
     "regelAvvik.ariaTittel": "Viktig informasjon om planen",
 
     "situasjonskjema.validering.situasjon": "Du må velje situasjon.",

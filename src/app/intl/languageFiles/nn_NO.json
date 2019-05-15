@@ -239,5 +239,8 @@
     "uttaksplan.slettPlanDialog.jaSlettKnapp": "Ja, slett planen",
     "uttaksplan.slettPlanDialog.tekst": "Ønskjer du å slette planen? Alle periodar etter termin vil bli fjerna.",
 
-    "utvidetinfo.lukk": "Lukk informasjon."
+    "utvidetinfo.lukk": "Lukk informasjon.",
+
+    "fellesperiode.info.tittel": "Felles periode",
+    "fellesperiode.info.tekst": "Enn så lenge støttar vi ikkje at de kan registrere ein periode som gjeld dykk begge."
 }

@@ -1,0 +1,18 @@
+.ikonLabel {
+    &--right {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        & .ikonLabel {
+            &__label {
+                flex: 2 1 60%;
+                order: 1;
+            }
+            &__ikon {
+                padding-left: 0.25rem;
+                flex: 0 1 20%;
+                order: 2;
+            }
+        }
+    }
+}

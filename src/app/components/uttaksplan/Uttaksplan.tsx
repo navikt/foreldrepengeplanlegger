@@ -16,14 +16,14 @@ import { Uttaksdagen } from '../../utils/Uttaksdagen';
 import BekreftDialog from 'common/components/dialog/BekreftDialog';
 import { getForbruk } from '../../utils/forbrukUtils';
 import BEMHelper from 'common/utils/bem';
-
-import './uttaksplan.less';
 import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
 import getMessage from 'common/utils/i18nUtils';
 import FocusContainer from 'common/components/focusContainer/FocusContainer';
 import { RegelAvvik } from '../../utils/regler/types';
 import { KeyboardActions } from 'common/components/helpers/KeyboardActions';
 import { focusElement } from '../../utils/focusUtils';
+
+import './uttaksplan.less';
 
 interface State {
     visSkjema: boolean;
@@ -44,6 +44,8 @@ interface OwnProps {
     regelAvvik: RegelAvvik[];
     onResetApp: () => void;
     onNyPeriodeChange?: (periode?: Periode) => void;
+    undo?: () => void;
+    redo?: () => void;
 }
 
 type Props = OwnProps & PeriodelisteProps & InjectedIntlProps;
@@ -122,6 +124,8 @@ class Uttaksplan extends React.Component<Props, State> {
             tilgjengeligeDager,
             nyPeriodeId,
             regelAvvik,
+            undo,
+            redo,
             intl
         } = this.props;
         const { visSkjema } = this.state;
@@ -162,13 +166,23 @@ class Uttaksplan extends React.Component<Props, State> {
                                             </Systemtittel>
                                         </FocusContainer>
                                     </div>
-                                    {onResetPlan && perioder.length > 0 && (
-                                        <div className="periodeliste__reset">
+                                    <div className="periodeliste__actions">
+                                        {undo && (
+                                            <LinkButton onClick={undo}>
+                                                <FormattedMessage id="undo.angre" />
+                                            </LinkButton>
+                                        )}
+                                        {redo && (
+                                            <LinkButton onClick={redo}>
+                                                <FormattedMessage id="undo.gjørom" />
+                                            </LinkButton>
+                                        )}
+                                        {onResetPlan && perioder.length > 0 && (
                                             <LinkButton color="red" onClick={() => this.handleSlettPlan()}>
                                                 <FormattedMessage id="uttaksplan.slettPlanKnapp" />
                                             </LinkButton>
-                                        </div>
-                                    )}
+                                        )}
+                                    </div>
                                 </div>
                             </Block>
                             <Block>

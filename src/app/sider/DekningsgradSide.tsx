@@ -147,17 +147,17 @@ class UttaksplanSide extends React.Component<Props> {
 const mapStateToProps = (state: AppState): StateProps => {
     const { stønadskontoer } = state.api;
     return {
-        dekningsgrad: state.common.dekningsgrad,
-        familiehendelsesdato: state.common.familiehendelsesdato,
-        tilgjengeligeDager: state.common.tilgjengeligeDager,
+        dekningsgrad: state.common.present.dekningsgrad,
+        familiehendelsesdato: state.common.present.familiehendelsesdato,
+        tilgjengeligeDager: state.common.present.tilgjengeligeDager,
         stønadskontoerLastet: stønadskontoer.loaded === true,
         henterStønadskontoer: state.api.stønadskontoer.pending === true,
-        dager100: state.common.stønadskontoer100.dager,
-        dager80: state.common.stønadskontoer80.dager,
-        skjemadata: state.common.skjemadata!,
-        omForeldre: state.common.omForeldre,
-        ønsketFordeling: state.common.ønsketFordeling,
-        uttaksdatoer: getUttaksdatoer(state.common.familiehendelsesdato)
+        dager100: state.common.present.stønadskontoer100.dager,
+        dager80: state.common.present.stønadskontoer80.dager,
+        skjemadata: state.common.present.skjemadata!,
+        omForeldre: state.common.present.omForeldre,
+        ønsketFordeling: state.common.present.ønsketFordeling,
+        uttaksdatoer: getUttaksdatoer(state.common.present.familiehendelsesdato)
     };
 };
 

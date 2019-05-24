@@ -25,7 +25,7 @@ const Språkvelger: React.StatelessComponent<Props> = ({ dispatch, children }) =
 
 const mapStateToProps = (state: AppState): StateProps => {
     return {
-        språkkode: state.common.språkkode
+        språkkode: state.common.present.språkkode
     };
 };
 

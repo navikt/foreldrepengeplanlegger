@@ -14,12 +14,17 @@
     &__periode {
         margin-bottom: 0.25rem;
         position: relative;
-
     }
 
     &__header {
         display: flex;
         align-items: center;
+    }
+
+    &__actions {
+        > * {
+            margin-left: 1rem;
+        }
     }
 
     &__title {
@@ -35,8 +40,7 @@
     }
 
     &__info {
-        padding: 1.5rem 0.5rem .5rem 0;
-
+        padding: 1.5rem 0.5rem 0.5rem 0;
     }
 
     &__tomListe {
@@ -69,13 +73,12 @@
     @media (max-width: @mobile-breakpoint) {
         &__periode {
             min-width: 100%;
-            margin-bottom: .5rem;
+            margin-bottom: 0.5rem;
         }
 
         &__varighet {
             flex: 3 1 0;
         }
-
     }
 }
 
@@ -139,7 +142,7 @@
     @media (max-width: @mobile-breakpoint) {
         right: 0;
         left: auto;
-        top: calc(100% + .25rem);
+        top: calc(100% + 0.25rem);
         margin-right: 0;
         min-width: 15rem;
         flex: 3 1 0;
@@ -148,12 +151,11 @@
     @media (max-width: 400px) {
         right: -1rem;
         left: auto;
-        top: calc(100% + .25rem);
+        top: calc(100% + 0.25rem);
         margin-right: 0;
         min-width: 16rem;
         flex: 3 1 0;
     }
-
 }
 
 .forelderMenyIkon {

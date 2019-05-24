@@ -7,7 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 function configureStore(initialState?: Partial<AppState>) {
     const sagaMiddleware = createSagaMiddleware();
-    const store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+    const store = createStore(rootReducer, initialState as any, composeWithDevTools(applyMiddleware(sagaMiddleware)));
 
     sagaMiddleware.run(rootSaga);
 

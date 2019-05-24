@@ -30,6 +30,7 @@ import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
 import { Element } from 'nav-frontend-typografi';
 import RegelAvvikListe from '../components/regelAvvikListe/RegelAvvikListe';
 import { FormattedMessage } from 'react-intl';
+import { ActionCreators as undoActions } from 'redux-undo';
 
 interface StateProps {
     periodeFørTermin?: Periode;
@@ -49,6 +50,8 @@ interface StateProps {
     nyPeriode: Partial<Periode> | undefined;
     nyPeriodeId: string;
     regelTestresultat: UttaksplanRegelTestresultat;
+    undoAvailable: boolean;
+    redoAvailable: boolean;
 }
 
 type Props = StateProps & DispatchProps & RouteComponentProps;
@@ -59,6 +62,11 @@ class UttaksplanSide extends React.Component<Props> {
         if (this.props.stønadskontoerLastet === false && this.props.henterStønadskontoer === false) {
             this.props.dispatch(getStønadskontoer());
         }
+    }
+    componentDidMount() {
+        setTimeout(() => {
+            this.props.dispatch(undoActions.clearHistory());
+        }, 1000);
     }
     render() {
         const {
@@ -76,6 +84,7 @@ class UttaksplanSide extends React.Component<Props> {
             nyPeriode,
             nyPeriodeId,
             history,
+            undoAvailable,
             dispatch
         } = this.props;
 
@@ -139,6 +148,7 @@ class UttaksplanSide extends React.Component<Props> {
                                 onSlåSammenPerioder={(p1, p2) => dispatch(slåSammenPerioder(p1, p2))}
                                 uttaksdatoer={uttaksdatoer}
                                 regelTestresultat={regelTestresultat}
+                                undo={undoAvailable ? () => dispatch(undoActions.undo()) : undefined}
                             />
                         </FocusChildOnMountContainer>
                         <Block visible={regelTestresultat.avvik.length > 0} marginTop="l">
@@ -153,24 +163,27 @@ class UttaksplanSide extends React.Component<Props> {
 
 const mapStateToProps = (state: AppState): StateProps => {
     const { stønadskontoer } = state.api;
+    const common = state.common.present;
     return {
-        periodeFørTermin: state.common.periodeFørTermin,
-        perioder: state.common.perioder,
-        dekningsgrad: state.common.dekningsgrad,
-        familiehendelsesdato: state.common.familiehendelsesdato,
-        tilgjengeligeDager: state.common.tilgjengeligeDager,
+        periodeFørTermin: common.periodeFørTermin,
+        perioder: common.perioder,
+        dekningsgrad: common.dekningsgrad,
+        familiehendelsesdato: common.familiehendelsesdato,
+        tilgjengeligeDager: common.tilgjengeligeDager,
         stønadskontoerLastet: stønadskontoer.loaded === true,
         henterStønadskontoer: state.api.stønadskontoer.pending === true,
-        dager100: state.common.stønadskontoer100.dager,
-        dager80: state.common.stønadskontoer80.dager,
-        skjemadata: state.common.skjemadata!,
-        forbruk: state.common.forbruk,
-        omForeldre: state.common.omForeldre,
-        ønsketFordeling: state.common.ønsketFordeling,
-        uttaksdatoer: getUttaksdatoer(state.common.familiehendelsesdato),
-        regelTestresultat: state.common.regelTestresultat,
-        nyPeriode: state.common.nyPeriode,
-        nyPeriodeId: state.common.nyPeriodeId
+        dager100: common.stønadskontoer100.dager,
+        dager80: common.stønadskontoer80.dager,
+        skjemadata: common.skjemadata!,
+        forbruk: common.forbruk,
+        omForeldre: common.omForeldre,
+        ønsketFordeling: common.ønsketFordeling,
+        uttaksdatoer: getUttaksdatoer(common.familiehendelsesdato),
+        regelTestresultat: common.regelTestresultat,
+        nyPeriode: common.nyPeriode,
+        nyPeriodeId: common.nyPeriodeId,
+        undoAvailable: state.common.past.length > 0,
+        redoAvailable: state.common.future.length > 0
     };
 };
 

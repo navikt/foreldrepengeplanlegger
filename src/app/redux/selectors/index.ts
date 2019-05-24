@@ -8,27 +8,27 @@ const getState = (state: AppState): AppState => state;
 
 export const selectPerioder = createSelector(
     [getState],
-    (state): Periode[] => state.common.perioder
+    (state): Periode[] => state.common.present.perioder
 );
 
 export const selectPeriodeFørTermin = createSelector(
     [getState],
-    (state): Periode | undefined => state.common.periodeFørTermin
+    (state): Periode | undefined => state.common.present.periodeFørTermin
 );
 
 export const selectPeriodeSomSkalLeggesTil = createSelector(
     [getState],
-    (state): Periode | undefined => state.common.nyPeriode
+    (state): Periode | undefined => state.common.present.nyPeriode
 );
 
 export const selectSkjemadata = createSelector(
     [getState],
-    (state): SituasjonSkjemadata | undefined => state.common.skjemadata
+    (state): SituasjonSkjemadata | undefined => state.common.present.skjemadata
 );
 
 export const selectOmForelder = createSelector(
     [getState],
-    (state): OmForeldre | undefined => state.common.omForeldre
+    (state): OmForeldre | undefined => state.common.present.omForeldre
 );
 
 export const selectTilgjengeligeDager = createSelector(
@@ -37,9 +37,9 @@ export const selectTilgjengeligeDager = createSelector(
         return skjemadata && skjemadata.situasjon
             ? getTilgjengeligeDager(
                   skjemadata.situasjon,
-                  state.common.dekningsgrad === '100'
-                      ? state.common.stønadskontoer100.kontoer
-                      : state.common.stønadskontoer80.kontoer,
+                  state.common.present.dekningsgrad === '100'
+                      ? state.common.present.stønadskontoer100.kontoer
+                      : state.common.present.stønadskontoer80.kontoer,
                   skjemadata.forelderVedAleneomsorg
               )
             : undefined;

@@ -34,7 +34,7 @@ class Skjemaside extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState): StateProps => {
     return {
-        skjemadata: state.common.skjemadata,
+        skjemadata: state.common.present.skjemadata,
         henterStønadskontoer: state.api.stønadskontoer.pending
     };
 };

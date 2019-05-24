@@ -48,7 +48,7 @@ class IntlProvider extends React.Component<StateProps> {
 }
 
 const mapStateToProps = (state: AppState): StateProps => ({
-    språkkode: state.common.språkkode
+    språkkode: state.common.present.språkkode
 });
 
 export default connect(mapStateToProps)(IntlProvider);

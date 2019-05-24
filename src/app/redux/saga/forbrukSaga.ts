@@ -20,7 +20,7 @@ const stateSelector = (state: AppState) => state;
 
 function* updateForbrukSaga() {
     const appState: AppState = yield select(stateSelector);
-    const { perioder, tilgjengeligeDager } = appState.common;
+    const { perioder, tilgjengeligeDager } = appState.common.present;
     if (perioder && tilgjengeligeDager) {
         yield put(updateForbruk(selectForbruk(appState)));
         yield put(validerUttaksplan());
@@ -34,7 +34,7 @@ function* updateTilgjengeligeDagerSaga() {
 
 function* updateOmForeldreSaga() {
     const appState: AppState = yield select(stateSelector);
-    const { skjemadata } = appState.common;
+    const { skjemadata } = appState.common.present;
     if (skjemadata) {
         const omForeldre = getOmForeldre(
             skjemadata.situasjon,
@@ -48,7 +48,14 @@ function* updateOmForeldreSaga() {
 function* validerUttaksplanSaga() {
     const appState: AppState = yield select(stateSelector);
     const { common } = appState;
-    const { skjemadata, familiehendelsesdato, perioder, periodeFørTermin, forbruk, tilgjengeligeDager } = common;
+    const {
+        skjemadata,
+        familiehendelsesdato,
+        perioder,
+        periodeFørTermin,
+        forbruk,
+        tilgjengeligeDager
+    } = common.present;
 
     if (skjemadata) {
         const regelgrunnlag: Regelgrunnlag = {

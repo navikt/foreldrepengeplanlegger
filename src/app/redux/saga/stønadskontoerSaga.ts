@@ -95,7 +95,7 @@ const getKontoerFromForeldrepengerDTO = (
 
 function* getStønadskontoerSaga(action: GetStønadskontoerAction) {
     const appState: AppState = yield select(stateSelector);
-    const { skjemadata, familiehendelsesdato } = appState.common;
+    const { skjemadata, familiehendelsesdato } = appState.common.present;
     if (!skjemadata) {
         return;
     }

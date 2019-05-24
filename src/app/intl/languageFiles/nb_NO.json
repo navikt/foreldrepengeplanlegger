@@ -242,5 +242,8 @@
     "utvidetinfo.lukk": "Lukk informasjon",
 
     "fellesperiode.info.tittel": "Felles periode",
-    "fellesperiode.info.tekst": "Enn så lenge støttar vi ikkje at de kan registrere ein periode som gjeld dykk begge."
+    "fellesperiode.info.tekst": "Enn så lenge støtter vi ikke at dere kan registrere en periode som gjelder dere begge.",
+
+    "undo.gjørom": "Gjør om",
+    "undo.angre": "Angre"
 }

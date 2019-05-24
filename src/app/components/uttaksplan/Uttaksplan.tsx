@@ -22,8 +22,10 @@ import FocusContainer from 'common/components/focusContainer/FocusContainer';
 import { RegelAvvik } from '../../utils/regler/types';
 import { KeyboardActions } from 'common/components/helpers/KeyboardActions';
 import { focusElement } from '../../utils/focusUtils';
+import IkonLabel from '../ikonLabel/IkonLabel';
 
 import './uttaksplan.less';
+import UndoIkon from 'common/components/ikoner/Undo';
 
 interface State {
     visSkjema: boolean;
@@ -167,11 +169,12 @@ class Uttaksplan extends React.Component<Props, State> {
                                         </FocusContainer>
                                     </div>
                                     <div className="periodeliste__actions">
-                                        {undo && (
-                                            <LinkButton onClick={undo}>
+                                        <LinkButton onClick={undo} disabled={undo === undefined}>
+                                            <IkonLabel ikon={<UndoIkon />} placement="right">
                                                 <FormattedMessage id="undo.angre" />
-                                            </LinkButton>
-                                        )}
+                                            </IkonLabel>
+                                        </LinkButton>
+
                                         {redo && (
                                             <LinkButton onClick={redo}>
                                                 <FormattedMessage id="undo.gjørom" />

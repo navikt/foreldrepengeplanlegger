@@ -9,6 +9,24 @@
     padding: 0;
     margin: 0;
 
+    &:disabled {
+        opacity: 0.7;
+        color: inherit !important;
+        text-decoration: none !important;
+        &:hover {
+            color: inherit !important;
+            text-decoration: none;
+        }
+        svg {
+            * {
+                stroke: #7f756c;
+            }
+        }
+    }
+    :not(:disabled) {
+        text-decoration: underline;
+    }
+
     &--white {
         color: white;
         text-decoration: underline;

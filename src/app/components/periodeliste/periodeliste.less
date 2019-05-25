@@ -52,6 +52,11 @@
 .periodeElement {
     &__periode {
         flex: 3 1 0;
+        @media print {
+            .periodeikon {
+                display: none;
+            }
+        }
     }
 
     &__varighet {
@@ -70,7 +75,7 @@
         max-width: 6rem;
     }
 
-    @media (max-width: @mobile-breakpoint) {
+    @media screen and (max-width: @mobile-breakpoint) {
         &__periode {
             min-width: 100%;
             margin-bottom: 0.5rem;
@@ -78,6 +83,20 @@
 
         &__varighet {
             flex: 3 1 0;
+        }
+    }
+    @media print {
+        &__forelder {
+            order: 1;
+        }
+        &__periode {
+            order: 2;
+        }
+        &__gradering {
+            order: 3;
+        }
+        &__varighet {
+            order: 4;
         }
     }
 }

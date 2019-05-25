@@ -5,7 +5,7 @@
         display: flex;
 
         &__felles {
-            padding: 0 .25rem;
+            padding: 0 0.25rem;
         }
     }
 
@@ -14,7 +14,7 @@
 
         &__ikon {
             border-right: 1px solid @c-border-gray;
-            padding: .5rem 1rem;
+            padding: 0.5rem 1rem;
             flex-grow: 0;
             margin-right: 1rem;
             line-height: 0;
@@ -24,13 +24,17 @@
     &__titler {
         display: flex;
 
-        >* {
+        > * {
             flex: 1 1 50%;
-            margin-right: .5rem;
+            margin-right: 0.5rem;
 
             &:last-child {
                 margin: 0;
             }
+        }
+        @media print {
+            padding-left: 2rem;
+            padding-right: 2rem;
         }
     }
 
@@ -46,7 +50,5 @@
             font-weight: bold;
             font-size: 1.25rem;
         }
-
     }
-
 }

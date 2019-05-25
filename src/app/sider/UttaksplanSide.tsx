@@ -118,7 +118,7 @@ class UttaksplanSide extends React.Component<Props> {
                             />
                         </Block>
 
-                        <Block visible={omForeldre.erDeltOmsorg}>
+                        <Block visible={omForeldre.erDeltOmsorg} screenOnly={true}>
                             <Veilederinfo stil="normal" type="info">
                                 <Element>
                                     <FormattedMessage id="fellesperiode.info.tittel" />
@@ -127,30 +127,32 @@ class UttaksplanSide extends React.Component<Props> {
                             </Veilederinfo>
                         </Block>
 
-                        <FocusChildOnMountContainer active={true}>
-                            <Uttaksplan
-                                nyPeriodeId={nyPeriodeId}
-                                familiehendelsesdato={familiehendelsesdato}
-                                omForeldre={omForeldre}
-                                periodeFørTermin={periodeFørTermin}
-                                perioder={perioder}
-                                forbruk={forbruk!}
-                                nyPeriode={nyPeriode}
-                                regelAvvik={regelTestresultat.avvik}
-                                tilgjengeligeDager={tilgjengeligeDager}
-                                onAdd={(periode) => dispatch(addPeriode(periode))}
-                                onUpdate={(periode) => periode.type === dispatch(updatePeriode(periode))}
-                                onRemove={(periode) => dispatch(removePeriode(periode))}
-                                onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
-                                onResetPlan={() => dispatch(resetPlan())}
-                                onResetApp={() => dispatch(resetApp())}
-                                onNyPeriodeChange={(periode) => dispatch(nyPeriodeChange(periode))}
-                                onSlåSammenPerioder={(p1, p2) => dispatch(slåSammenPerioder(p1, p2))}
-                                uttaksdatoer={uttaksdatoer}
-                                regelTestresultat={regelTestresultat}
-                                undo={undoAvailable ? () => dispatch(undoActions.undo()) : undefined}
-                            />
-                        </FocusChildOnMountContainer>
+                        <div style={{ pageBreakAfter: 'always' }}>
+                            <FocusChildOnMountContainer active={true}>
+                                <Uttaksplan
+                                    nyPeriodeId={nyPeriodeId}
+                                    familiehendelsesdato={familiehendelsesdato}
+                                    omForeldre={omForeldre}
+                                    periodeFørTermin={periodeFørTermin}
+                                    perioder={perioder}
+                                    forbruk={forbruk!}
+                                    nyPeriode={nyPeriode}
+                                    regelAvvik={regelTestresultat.avvik}
+                                    tilgjengeligeDager={tilgjengeligeDager}
+                                    onAdd={(periode) => dispatch(addPeriode(periode))}
+                                    onUpdate={(periode) => periode.type === dispatch(updatePeriode(periode))}
+                                    onRemove={(periode) => dispatch(removePeriode(periode))}
+                                    onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
+                                    onResetPlan={() => dispatch(resetPlan())}
+                                    onResetApp={() => dispatch(resetApp())}
+                                    onNyPeriodeChange={(periode) => dispatch(nyPeriodeChange(periode))}
+                                    onSlåSammenPerioder={(p1, p2) => dispatch(slåSammenPerioder(p1, p2))}
+                                    uttaksdatoer={uttaksdatoer}
+                                    regelTestresultat={regelTestresultat}
+                                    undo={undoAvailable ? () => dispatch(undoActions.undo()) : undefined}
+                                />
+                            </FocusChildOnMountContainer>
+                        </div>
                         <Block visible={regelTestresultat.avvik.length > 0} marginTop="l">
                             <RegelAvvikListe avvik={regelTestresultat.avvik} />
                         </Block>

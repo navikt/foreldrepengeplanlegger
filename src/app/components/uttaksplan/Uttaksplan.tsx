@@ -3,7 +3,6 @@ import Knapp, { Flatknapp } from 'nav-frontend-knapper';
 import Periodeskjema from '../periodeskjema/Periodeskjema';
 import Block from 'common/components/block/Block';
 import { Periode, Periodetype } from '../../types/periodetyper';
-import PeriodeDevBar from '../../dev/PeriodeDevBar';
 import { PeriodelisteProps } from '../periodeliste/types';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import FordelingGraf from '../fordelingGraf/FordelingGraf';
@@ -23,9 +22,9 @@ import { RegelAvvik } from '../../utils/regler/types';
 import { KeyboardActions } from 'common/components/helpers/KeyboardActions';
 import { focusElement } from '../../utils/focusUtils';
 import IkonLabel from '../ikonLabel/IkonLabel';
+import UndoIkon from 'common/components/ikoner/Undo';
 
 import './uttaksplan.less';
-import UndoIkon from 'common/components/ikoner/Undo';
 
 interface State {
     visSkjema: boolean;
@@ -114,9 +113,6 @@ class Uttaksplan extends React.Component<Props, State> {
     render() {
         const {
             perioder,
-            onAdd,
-            onUpdate,
-            onRemove,
             onResetPlan,
             forbruk,
             omForeldre,
@@ -168,7 +164,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                             </Systemtittel>
                                         </FocusContainer>
                                     </div>
-                                    <div className="periodeliste__actions">
+                                    <div className="periodeliste__actions no-print">
                                         <LinkButton onClick={undo} disabled={undo === undefined}>
                                             <IkonLabel ikon={<UndoIkon />} placement="right">
                                                 <FormattedMessage id="undo.angre" />
@@ -220,7 +216,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                 />
                             </Block>
 
-                            <Block visible={visSkjema !== true} margin="xl">
+                            <Block visible={visSkjema !== true} margin="xl" screenOnly={true}>
                                 <Knapperad align="center">
                                     <Knapp
                                         ref={(c) => (this.leggTilKnapp = c)}
@@ -243,14 +239,6 @@ class Uttaksplan extends React.Component<Props, State> {
                             )}
                         </Block>
                     </div>
-
-                    <PeriodeDevBar
-                        perioder={perioder}
-                        onAdd={onAdd}
-                        onDelete={onRemove}
-                        onChange={onUpdate}
-                        onResetApp={this.props.onResetApp}
-                    />
 
                     <BekreftDialog
                         tittel={getMessage(intl, 'uttaksplan.slettPeriodeDialog.tittel')}

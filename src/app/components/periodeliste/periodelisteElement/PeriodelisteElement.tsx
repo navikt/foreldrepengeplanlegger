@@ -77,7 +77,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                         ))}
 
                     {(slett || regelAvvik) && (
-                        <div className={bem.element('tools')}>
+                        <div className={bem.classNames(bem.element('tools'), 'no-print')}>
                             {slett && (
                                 <div className={bem.element('tool')}>
                                     <SlettKnapp

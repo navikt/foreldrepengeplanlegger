@@ -6,7 +6,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 
 interface Props {
     ikon: React.ReactNode;
-    tittel: string;
+    tittel: React.ReactNode;
     children: React.ReactNode;
     skjulContent?: boolean;
 }

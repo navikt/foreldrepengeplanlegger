@@ -9,28 +9,14 @@
     position: relative;
     overflow: hidden;
 
-    &--gronn {
-        background-color: @c-periodefarge-gronn;
+    &__bkg {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
-
-    &--blaa {
-        background-color: @c-periodefarge-blaa;
-    }
-
-    &--graa {
-        background-color: @c-periodefarge-graa;
-    }
-
-    &--lilla {
-        background-color: @c-periodefarge-lilla;
-    }
-
-    &--lillaBlaa {
-        background: repeating-linear-gradient(-45deg,
-            @c-periodefarge-blaa,
-            @c-periodefarge-blaa 50%,
-            @c-periodefarge-lilla 50%,
-            @c-periodefarge-lilla 100%);
+    &__ikon {
+        z-index: 2;
     }
 }
 
@@ -38,7 +24,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 
     &__utsettelsesarsak {
         svg {

@@ -85,6 +85,7 @@ class UttaksplanSide extends React.Component<Props> {
             nyPeriodeId,
             history,
             undoAvailable,
+            redoAvailable,
             dispatch
         } = this.props;
 
@@ -150,6 +151,7 @@ class UttaksplanSide extends React.Component<Props> {
                                     uttaksdatoer={uttaksdatoer}
                                     regelTestresultat={regelTestresultat}
                                     undo={undoAvailable ? () => dispatch(undoActions.undo()) : undefined}
+                                    redo={redoAvailable ? () => dispatch(undoActions.redo()) : undefined}
                                 />
                             </FocusChildOnMountContainer>
                         </div>

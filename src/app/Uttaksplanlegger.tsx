@@ -28,7 +28,9 @@ class Uttaksplanlegger extends React.Component<Props> {
                         <Sidebanner text="common.sidebanner" />
                         <div className={cls.element('container')}>
                             <div className={cls.element('wrapper')}>
-                                <Breadcrumbs sti={'/foreldrepengeplanlegger'} />
+                                <div className="no-print">
+                                    <Breadcrumbs sti={'/foreldrepengeplanlegger'} />
+                                </div>
                                 <div className="content">
                                     <Block>
                                         <VelkommenTekst />

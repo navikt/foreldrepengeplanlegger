@@ -309,10 +309,10 @@ const FordelingGraf: React.StatelessComponent<Props> = (props) => {
     }
     return (
         <section className={bem.block}>
-            <Block margin="s">
+            <Block margin="s" screenOnly={true}>
                 <FordelingStatusHeader {...props} />
             </Block>
-            <Block margin="s">
+            <Block margin="s" screenOnly={true}>
                 {props.omForeldre.erDeltOmsorg && <GrafDeltOmsorg {...props} />}
                 {props.omForeldre.bareMor && <GrafAleneomsorgMor {...props} />}
                 {props.omForeldre.bareFar && <GrafAleneomsorgFarMedmor {...props} />}

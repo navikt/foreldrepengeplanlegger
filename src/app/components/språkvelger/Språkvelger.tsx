@@ -18,7 +18,9 @@ type Props = OwnProps & StateProps & DispatchProps;
 
 const Språkvelger: React.StatelessComponent<Props> = ({ dispatch, children }) => (
     <div>
-        <LanguageToggle toggleLanguage={(code: Language) => dispatch(setSpråk(code))} />
+        <div className="no-print">
+            <LanguageToggle toggleLanguage={(code: Language) => dispatch(setSpråk(code))} />
+        </div>
         {children}
     </div>
 );

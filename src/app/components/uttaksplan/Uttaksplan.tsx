@@ -171,13 +171,12 @@ class Uttaksplan extends React.Component<Props, State> {
                                             </IkonLabel>
                                         </LinkButton>
 
-                                        {redo && (
-                                            <LinkButton onClick={redo}>
-                                                <IkonLabel ikon={<UndoIkon flip={true} />} placement="right">
-                                                    <FormattedMessage id="undo.gjørom" />
-                                                </IkonLabel>
-                                            </LinkButton>
-                                        )}
+                                        <LinkButton onClick={redo} disabled={redo !== undefined}>
+                                            <IkonLabel ikon={<UndoIkon flip={true} />} placement="right">
+                                                <FormattedMessage id="undo.gjørom" />
+                                            </IkonLabel>
+                                        </LinkButton>
+
                                         {onResetPlan && perioder.length > 0 && (
                                             <LinkButton color="red" onClick={() => this.handleSlettPlan()}>
                                                 <FormattedMessage id="uttaksplan.slettPlanKnapp" />

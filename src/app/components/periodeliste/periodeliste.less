@@ -19,6 +19,9 @@
     &__header {
         display: flex;
         align-items: baseline;
+        @media (max-width: @mobile-breakpoint) {
+            flex-wrap: wrap;
+        }
     }
 
     &__actions {
@@ -29,6 +32,10 @@
 
     &__title {
         flex: 3 1 0;
+        @media (max-width: @mobile-breakpoint) {
+            min-width: 100%;
+            margin-bottom: 0.75rem;
+        }
     }
 
     &__termin,

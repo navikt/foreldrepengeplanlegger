@@ -171,7 +171,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                             </IkonLabel>
                                         </LinkButton>
 
-                                        <LinkButton onClick={redo} disabled={redo !== undefined}>
+                                        <LinkButton onClick={redo} disabled={redo === undefined}>
                                             <IkonLabel ikon={<UndoIkon flip={true} />} placement="right">
                                                 <FormattedMessage id="undo.gjørom" />
                                             </IkonLabel>

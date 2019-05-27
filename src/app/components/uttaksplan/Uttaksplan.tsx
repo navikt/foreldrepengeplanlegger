@@ -173,7 +173,9 @@ class Uttaksplan extends React.Component<Props, State> {
 
                                         {redo && (
                                             <LinkButton onClick={redo}>
-                                                <FormattedMessage id="undo.gjørom" />
+                                                <IkonLabel ikon={<UndoIkon flip={true} />} placement="right">
+                                                    <FormattedMessage id="undo.gjørom" />
+                                                </IkonLabel>
                                             </LinkButton>
                                         )}
                                         {onResetPlan && perioder.length > 0 && (

@@ -31,6 +31,7 @@ import { Element } from 'nav-frontend-typografi';
 import RegelAvvikListe from '../components/regelAvvikListe/RegelAvvikListe';
 import { FormattedMessage } from 'react-intl';
 import { ActionCreators as undoActions } from 'redux-undo';
+import { Knapp } from 'nav-frontend-knapper';
 
 interface StateProps {
     periodeFørTermin?: Periode;
@@ -155,8 +156,13 @@ class UttaksplanSide extends React.Component<Props> {
                                 />
                             </FocusChildOnMountContainer>
                         </div>
-                        <Block visible={regelTestresultat.avvik.length > 0} marginTop="l">
+                        <Block visible={regelTestresultat.avvik.length > 0} marginTop="l" margin="m">
                             <RegelAvvikListe avvik={regelTestresultat.avvik} />
+                        </Block>
+                        <Block align="center">
+                            <Knapp htmlType="button" onClick={() => window.print()}>
+                                <FormattedMessage id="skrivUtLabel" />
+                            </Knapp>
                         </Block>
                     </>
                 )}

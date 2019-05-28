@@ -11,7 +11,7 @@ require('dotenv').config();
 createEnvSettingsFile(path.resolve(`${__dirname}/../../../dist/js/settings.js`));
 
 webpackConfig.entry = {
-    reload: 'webpack-dev-server/client?http://localhost:8080/',
+    reload: 'webpack-dev-server/client?http://localhost:8081/',
     ...webpackConfig.entry
 };
 
@@ -26,4 +26,4 @@ const server = new WebpackDevServer(
     })
 );
 
-server.listen(8080, '0.0.0.0', () => console.log('Started server on http://localhost:8080'));
+server.listen(8081, '0.0.0.0', () => console.log('Started server on http://localhost:8081'));

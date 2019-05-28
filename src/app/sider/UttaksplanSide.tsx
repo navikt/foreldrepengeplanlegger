@@ -156,7 +156,7 @@ class UttaksplanSide extends React.Component<Props> {
                                 />
                             </FocusChildOnMountContainer>
                         </div>
-                        <Block visible={regelTestresultat.avvik.length > 0} marginTop="l" margin="m">
+                        <Block visible={regelTestresultat.avvik.length > 0} marginTop="l" margin="l">
                             <RegelAvvikListe avvik={regelTestresultat.avvik} />
                         </Block>
                         <Block align="center">

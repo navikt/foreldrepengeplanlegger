@@ -12,12 +12,12 @@ interface Props {
 const bem = BEMHelper('ikonLabel');
 
 const IkonLabel: React.StatelessComponent<Props> = ({ ikon, placement = 'top', children }) => (
-    <div className={bem.classNames(bem.block, bem.modifier(placement))}>
-        <div className={bem.element('ikon')} aria-hidden={true} role="presentation">
+    <span className={bem.classNames(bem.block, bem.modifier(placement))}>
+        <span className={bem.element('ikon')} aria-hidden={true} role="presentation">
             {ikon}
-        </div>
-        <div className={bem.element('label')}>{children}</div>
-    </div>
+        </span>
+        <span className={bem.element('label')}>{children}</span>
+    </span>
 );
 
 export default IkonLabel;

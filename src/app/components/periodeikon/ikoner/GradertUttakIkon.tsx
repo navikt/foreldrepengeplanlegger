@@ -11,7 +11,7 @@ const color2 = '#634689';
 const GradertUttakIkon = (props: SvgIkonProps & OwnProps) => {
     const { title, forelder = Forelder.mor } = props;
     return (
-        <svg width={32} height={32} {...props}>
+        <svg role="presentation" focusable="false" width={32} height={32} {...props}>
             <title>{title}</title>
             <defs>
                 <path

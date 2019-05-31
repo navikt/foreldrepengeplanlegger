@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 const KalenderIkon = (props: {}) => (
-    <svg width={24} height={24} {...props}>
+    <svg role="presentation" focusable="false" width={24} height={24} {...props}>
         <title>{'Icons/calendar/blue'}</title>
         <defs>
             <path d="M4.333 9h15.334" id="kalender_prefix__a" />

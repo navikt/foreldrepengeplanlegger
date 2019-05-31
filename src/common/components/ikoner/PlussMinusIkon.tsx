@@ -30,7 +30,7 @@ export default class PlussMinusIkon extends React.Component<Props> {
         const icon = type === 'minus' ? this.renderMinusIcon() : this.renderPlusIcon();
 
         return (
-            <svg width="24px" height="24px" viewBox="0 0 24 24" className="plussMinusIkon">
+            <svg role="presentation" focusable="false" width="24px" height="24px" viewBox="0 0 24 24" className="plussMinusIkon">
                 <g id="Icons/subtract/default" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                     {icon}
                 </g>

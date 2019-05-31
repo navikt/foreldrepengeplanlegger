@@ -3,7 +3,7 @@ import * as React from 'react';
 interface Props {}
 
 const IntroSirkelSvg: React.StatelessComponent<Props> = (props) => (
-    <svg width={100} height={100} {...props}>
+    <svg role="presentation" focusable="false" width={100} height={100} {...props}>
         <g fill="none" fillRule="evenodd">
             <circle fill="#C1B5D0" cx={50} cy={50} r={50} />
             <path d="M80 68.75a7.5 7.5 0 0 1-7.5 7.5h-45a7.5 7.5 0 0 1-7.5-7.5V32.5h60v36.25z" fill="#FFF" />

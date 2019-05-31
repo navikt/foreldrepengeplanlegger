@@ -92,7 +92,7 @@ class PeriodeElement extends React.Component<Props> {
                 <PeriodelisteElement
                     menyer={[
                         {
-                            id: 'periodetype',
+                            id: `periodetype-${periode.id}`,
                             className: bem.element('periode'),
                             render: () => (
                                 <PeriodetypeMeny
@@ -114,7 +114,7 @@ class PeriodeElement extends React.Component<Props> {
                         },
 
                         {
-                            id: 'gradering',
+                            id: `gradering-${periode.id}`,
                             className: bem.element('gradering'),
                             render: () => (
                                 <GraderingMeny
@@ -128,7 +128,7 @@ class PeriodeElement extends React.Component<Props> {
                             isVisibleCheck: () => periode.type === Periodetype.GradertUttak
                         },
                         {
-                            id: 'forelder',
+                            id: `forelder-${periode.id}`,
                             className: bem.element('foreldre'),
                             render: () => (
                                 <ForelderMeny
@@ -150,7 +150,7 @@ class PeriodeElement extends React.Component<Props> {
                         ...(isUlønnetPermisjon(periode)
                             ? [
                                   {
-                                      id: 'ulønnetPermisjon',
+                                      id: `ulønnetPermisjon-${periode.id}`,
                                       className: bem.element('ulonnetPermisjon'),
                                       render: () => (
                                           <UlønnetPermisjonMeny
@@ -174,7 +174,7 @@ class PeriodeElement extends React.Component<Props> {
                             : []),
 
                         {
-                            id: 'varighet',
+                            id: `varighet-${periode.id}`,
                             className: bem.element('varighet'),
                             render: () => (
                                 <VarighetMeny

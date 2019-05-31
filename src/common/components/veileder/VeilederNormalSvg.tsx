@@ -6,7 +6,7 @@ interface Props {
 
 // tslint:disable max-line-length
 const VeilederNormal: React.StatelessComponent<Props> = ({ svgProps }) => (
-    <svg viewBox="0 0 184 184" xmlnsXlink="http://www.w3.org/1999/xlink" {...svgProps}>
+    <svg role="presentation" focusable="false" viewBox="0 0 184 184" xmlnsXlink="http://www.w3.org/1999/xlink" {...svgProps}>
         <title>NAV veileder</title>
         <defs>
             <circle id="path-veileder-1" cx="92" cy="92" r="92" />

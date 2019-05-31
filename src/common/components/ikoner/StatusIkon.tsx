@@ -10,7 +10,7 @@ type Props = OwnProps;
 
 const FeilSirkelFyll: React.StatelessComponent<Props> = (props) => {
     return (
-        <svg viewBox="0 0 24 24" width={props.size} height={props.size}>
+        <svg role="presentation" focusable="false" viewBox="0 0 24 24" width={props.size} height={props.size}>
             <g fill="none" fillRule="evenodd">
                 <path
                     d="M11.999 0C5.395 0 .013 5.372 0 11.976a11.923 11.923 0 0 0 3.498 8.493A11.925 11.925 0 0 0 11.977 24H12c6.603 0 11.986-5.373 12-11.978C24.013 5.406 18.64.012 11.999 0z"
@@ -29,7 +29,7 @@ const FeilSirkelFyll: React.StatelessComponent<Props> = (props) => {
 
 const InfoSirkelFyll: React.StatelessComponent<Props> = (props) => {
     return (
-        <svg viewBox="0 0 24 24" width={props.size} height={props.size}>
+        <svg role="presentation" focusable="false" viewBox="0 0 24 24" width={props.size} height={props.size}>
             {props.title && <title>{props.title}</title>}
             <g fill="none" fillRule="evenodd">
                 <path
@@ -46,7 +46,7 @@ const InfoSirkelFyll: React.StatelessComponent<Props> = (props) => {
 
 const OkSirkelFyll: React.StatelessComponent<Props> = (props) => {
     return (
-        <svg viewBox="0 0 24 24" width={props.size} height={props.size}>
+        <svg role="presentation" focusable="false" viewBox="0 0 24 24" width={props.size} height={props.size}>
             <g fillRule="nonzero" fill="none">
                 <path
                     d="M12 0C5.383 0 0 5.384 0 12s5.383 12 12 12c6.616 0 12-5.384 12-12S18.616 0 12 0z"

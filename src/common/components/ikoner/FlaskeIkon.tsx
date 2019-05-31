@@ -5,7 +5,7 @@ export interface OwnProps {
 }
 
 const FlaskeIkon = (props: OwnProps) => (
-    <svg viewBox="0 0 48 48" width={props.size} height={props.size}>
+    <svg role="presentation" focusable="false" viewBox="0 0 48 48" width={props.size} height={props.size}>
         <g fill="none" fillRule="evenodd">
             <path
                 fill="#D8D8D8"

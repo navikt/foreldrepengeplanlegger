@@ -7,7 +7,7 @@ export interface OwnProps {
 const HuskestativIkon = (props: OwnProps) => {
     const ratio = 66 / 65;
     return (
-        <svg viewBox="0 0 65 66" width={props.size} height={props.size ? props.size * ratio : undefined}>
+        <svg role="presentation" focusable="false" viewBox="0 0 65 66" width={props.size} height={props.size ? props.size * ratio : undefined}>
             <title>{'Huskestativ'}</title>
             <g fill="none" fillRule="evenodd">
                 <path

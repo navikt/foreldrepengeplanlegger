@@ -110,7 +110,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
     }
 
     return (
-        <div className={bem.classNames(bem.block, nyPeriodeSkjema ? bem.modifier('medSkjema') : undefined)}>
+        <ol className={bem.classNames(bem.block, nyPeriodeSkjema ? bem.modifier('medSkjema') : undefined)}>
             {periodeFørTermin ? (
                 <>
                     <li className={bem.element('periode')} key={periodeFørTermin.id}>
@@ -139,7 +139,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
                 undefined
             )}
             <PoseGroup>{posedItems}</PoseGroup>
-        </div>
+        </ol>
     );
 };
 

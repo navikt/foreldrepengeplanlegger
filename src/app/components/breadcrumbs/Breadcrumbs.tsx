@@ -90,7 +90,6 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps & InjectedIntlProps> 
                 const current = index === parsedPath.length - 1;
                 breadcrumbsTilPlanlegger.push(
                     <TypografiBase
-                        aria-label={current ? 'Denne siden' : 'Tidligere side'}
                         aria-current={current ? 'page' : ''}
                         key={`crumb${index}`}
                         type="normaltekst"

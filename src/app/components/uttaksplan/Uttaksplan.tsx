@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Knapp, { Flatknapp } from 'nav-frontend-knapper';
+import Knapp from 'nav-frontend-knapper';
 import Periodeskjema from '../periodeskjema/Periodeskjema';
 import Block from 'common/components/block/Block';
 import { Periode, Periodetype } from '../../types/periodetyper';
@@ -225,9 +225,6 @@ class Uttaksplan extends React.Component<Props, State> {
                                         onClick={() => this.setState({ visSkjema: true })}>
                                         <FormattedMessage id="uttaksplan.leggTilKnapp" />
                                     </Knapp>
-                                    <div className="dev">
-                                        {onResetPlan && <Flatknapp onClick={() => onResetPlan()}>Reset</Flatknapp>}
-                                    </div>
                                 </Knapperad>
                             </Block>
                             {visFordelingGraf && (

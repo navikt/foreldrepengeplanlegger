@@ -13,7 +13,7 @@ const ArbeidIkon = (props: SvgIkonProps) => {
             {...rest}>
             <title>{props.title}</title>
             <defs>
-                <rect id="a" width={32} height={32} rx={10} />
+                <rect width={32} height={32} rx={10} />
             </defs>
             <g fill="none" fillRule="evenodd">
                 <path

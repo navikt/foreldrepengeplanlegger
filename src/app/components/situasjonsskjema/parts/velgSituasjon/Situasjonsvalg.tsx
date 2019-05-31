@@ -33,8 +33,10 @@ class Situasjonsvalg extends React.Component<Props, State> {
 
     render() {
         const { situasjon, checked, onChange } = this.props;
+        const inputId = `situasjon_${situasjon}`;
         return (
             <label
+                htmlFor={inputId}
                 className={classNames(bem.block, {
                     [bem.modifier('valgt')]: checked,
                     [bem.modifier('medFokus')]: this.state.hasFocus
@@ -56,6 +58,7 @@ class Situasjonsvalg extends React.Component<Props, State> {
                     className={bem.element('input')}
                     onFocus={() => this.toggleOutline()}
                     onBlur={() => this.toggleOutline()}
+                    id={inputId}
                 />
             </label>
         );

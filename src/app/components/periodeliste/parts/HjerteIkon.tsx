@@ -8,7 +8,7 @@ interface OwnProps {
 const HjerteIkon = (props: SvgIkonProps & OwnProps) => {
     const { title, fylt, ...rest } = props;
     return fylt ? (
-        <svg width={24} height={24} {...rest}>
+        <svg role="presentation" focusable="false" width={24} height={24} {...rest}>
             <title>{title}</title>
             <path
                 fill="#ba3a26"
@@ -17,7 +17,7 @@ const HjerteIkon = (props: SvgIkonProps & OwnProps) => {
             />
         </svg>
     ) : (
-        <svg width={24} height={24} viewBox="0 0 24 24" {...rest}>
+        <svg role="presentation" focusable="false" width={24} height={24} viewBox="0 0 24 24" {...rest}>
             <title>{title}</title>
             <path
                 fill="none"

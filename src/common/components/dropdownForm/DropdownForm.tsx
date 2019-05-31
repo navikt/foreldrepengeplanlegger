@@ -61,6 +61,7 @@ class DropdownForm extends React.Component<Props> {
 
         return (
             <Wrapper
+                tag="div"
                 id={this.id}
                 className={classNames(bem.block, buttonSize ? bem.modifier(buttonSize) : undefined)}
                 onSelection={onSelection}>
@@ -70,6 +71,7 @@ class DropdownForm extends React.Component<Props> {
                     </div>
                 ) : (
                     <Button
+                        tag="div"
                         className={classNames(
                             'inputPanel',
                             bem.element('button'),

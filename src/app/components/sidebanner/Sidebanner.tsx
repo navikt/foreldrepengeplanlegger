@@ -9,9 +9,9 @@ const cls = BEMHelper('sidebanner');
 
 const Sidebanner = ({ text, intl }: { text: string; intl: InjectedIntl }) => {
     return (
-        <header className={cls.classNames(cls.block, 'no-print')}>
+        <div className={cls.classNames(cls.block, 'no-print')}>
             <TypografiBase type="sidetittel">{getMessage(intl, text)} </TypografiBase>
-        </header>
+        </div>
     );
 };
 

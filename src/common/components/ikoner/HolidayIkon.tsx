@@ -12,7 +12,7 @@ const colors = {
 const HolidayIkon: React.StatelessComponent<Props> = (props) => {
     const { color = 'green' } = props;
     return (
-        <svg width={25} height={24} {...props}>
+        <svg role="presentation" focusable="false" width={25} height={24} {...props}>
             <g stroke={colors[color]} fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M24 17h-6c-2.451 0-4.62.789-5.99 2M18 17.017l-3.316-8.368m-2.58-6.507l-.368-.929" />
                 <path

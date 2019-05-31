@@ -29,8 +29,8 @@ const IconText: React.StatelessComponent<Props> = ({
             [`${bem.modifier('iconOnly')}`]: iconOnly,
             [`${bem.modifier('fullWidth')}`]: fullWidth
         })}>
-        {icon && <span className={bem.element('icon')}>{icon}</span>}
-        {iconOnly ? <AriaText>{children}</AriaText> : <span className={bem.element('text')}>{children}</span>}
+        {icon && <div className={bem.element('icon')}>{icon}</div>}
+        {iconOnly ? <AriaText>{children}</AriaText> : <div className={bem.element('text')}>{children}</div>}
     </div>
 );
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 const BarnIkon = (props: any) => (
-    <svg width={26} height={37} {...props}>
+    <svg role="presentation" focusable="false" width={26} height={37} {...props}>
         <g fill="none" fillRule="evenodd">
             <path
                 d="M22 28.987V37H4v-8.013c0-2.292 2.94-4.91 4.91-5.987h8.18c1.988 1.097 4.91 3.721 4.91 5.987z"

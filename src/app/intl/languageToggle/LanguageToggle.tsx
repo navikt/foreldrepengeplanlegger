@@ -42,15 +42,15 @@ const LanguageToggle: React.StatelessComponent<Props & InjectedIntlProps> = ({ i
                 className="languageToggle__wrapper"
                 onSelection={(value: JSX.Element[], e: any) => handleSelection(value, e, toggleLanguage)}>
                 <Button className="languageToggle__button">
-                    <div className="languageToggle__button__flag">
+                    <span className="languageToggle__button__flag">
                         <NorwayFlagSVG />
-                    </div>
-                    <div className="languageToggle__button__language">
+                    </span>
+                    <span className="languageToggle__button__language">
                         <FormattedMessage id={`språk.${intl.locale}`} />
-                    </div>
-                    <div>
+                    </span>
+                    <span>
                         <NedChevron />
-                    </div>
+                    </span>
                 </Button>
                 <Menu className="languageToggle__menu">
                     <ul>{menuLanguages.map((code) => renderMenuItem(code))}</ul>

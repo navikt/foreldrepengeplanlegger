@@ -41,7 +41,7 @@ const PeriodeIkonBkg: React.StatelessComponent<{ farge: UttaksplanFarge; gradert
     const fill = getUttaksplanHexFromFarge(farge);
     const gradertFill = gradertFarge ? getUttaksplanHexFromFarge(gradertFarge) : undefined;
     return (
-        <svg width={32} height={32}>
+        <svg role="presentation" focusable="false" width={32} height={32}>
             <g fill="none" fillRule="evenodd">
                 <rect fill={fill} width={32} height={32} rx={8} />
                 {gradertFill && (
@@ -64,12 +64,12 @@ const PeriodeIkonBkg: React.StatelessComponent<{ farge: UttaksplanFarge; gradert
 const Periodeikon: React.StatelessComponent<Props & InjectedIntlProps> = ({ periodetype, forelder }) => {
     const farge = getPeriodetypeFarge(periodetype, forelder);
     return (
-        <div className={bem.classNames(bem.block)}>
+        <span className={bem.classNames(bem.block)}>
             <span className={bem.element('bkg')}>
                 <PeriodeIkonBkg farge={farge} />
             </span>
             <span className={bem.element('ikon')}>{getPeriodetypeIkon(periodetype, '', forelder)}</span>
-        </div>
+        </span>
     );
 };
 

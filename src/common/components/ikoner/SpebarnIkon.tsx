@@ -7,7 +7,7 @@ export interface OwnProps {
 const SpebarnIkon = ({ size = 42 }) => {
     const ratio = 82 / 42;
     return (
-        <svg viewBox="0 0 41 82" width={size} height={size ? size * ratio : undefined}>
+        <svg role="presentation" focusable="false" viewBox="0 0 41 82" width={size} height={size ? size * ratio : undefined}>
             <title>{'Spebarn'}</title>
             <g fill="none" fillRule="evenodd">
                 <path

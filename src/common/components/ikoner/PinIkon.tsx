@@ -11,7 +11,7 @@ export default class PinIkon extends React.Component<Props> {
         const { title, size = 24, color = 'white' } = this.props;
 
         return (
-            <svg width={size} height={size} viewBox={`0 0 24 24`}>
+            <svg role="presentation" focusable="false" width={size} height={size} viewBox={`0 0 24 24`}>
                 <title>{title}</title>
                 <defs>
                     <path

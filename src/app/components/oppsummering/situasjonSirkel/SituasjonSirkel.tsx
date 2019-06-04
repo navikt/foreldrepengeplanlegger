@@ -1,13 +1,13 @@
 import * as React from 'react';
 import BEMHelper from 'common/util/bem';
-import { Situasjon, Forelder } from '../../../types';
+import { ForeldreparSituasjon, Forelder } from '../../../types';
 import Sirkelmaske from '../../sirkelmaske/Sirkelmaske';
 import SituasjonForeldrepar from '../../situasjonForeldrepar/SituasjonForeldrepar';
 
 import './situasjonSirkel.less';
 
 interface Props {
-    situasjon: Situasjon;
+    situasjon: ForeldreparSituasjon;
     valgtForelder?: Forelder;
 }
 

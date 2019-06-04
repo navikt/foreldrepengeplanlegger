@@ -3,7 +3,7 @@ import { Dekningsgrad } from 'common/types';
 import BEMHelper from 'common/util/bem';
 import { Undertittel, Ingress } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
-import { TilgjengeligeDager, OmForeldre, Situasjon, Forelder } from '../../types';
+import { TilgjengeligeDager, OmForeldre, ForeldreparSituasjon, Forelder } from '../../types';
 import TilgjengeligeDagerGraf from '../tilgjengeligeDagerGraf/TilgjengeligeDagerGraf';
 import PengerIkon from 'common/components/ikoner/PengerIkon';
 import Situasjonsinfo from '../situasjonsskjema/parts/velgSituasjon/SituasjonInfo';
@@ -13,7 +13,7 @@ import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
 
 interface Props {
-    situasjon: Situasjon;
+    situasjon: ForeldreparSituasjon;
     dekningsgrad: Dekningsgrad;
     tilgjengeligeDager: TilgjengeligeDager;
     omForeldre: OmForeldre;

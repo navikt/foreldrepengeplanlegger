@@ -1,15 +1,8 @@
 import { Dictionary } from 'lodash';
-import {
-    Periode,
-    ForeldreparSituasjon,
-    Uttaksdatoer,
-    UttakFørTerminPeriode,
-    Forbruk,
-    TilgjengeligeDager,
-    Forelder
-} from '../../app/types';
+import { Periode, Uttaksdatoer, UttakFørTerminPeriode, Forbruk, TilgjengeligeDager, Forelder } from '../../app/types';
 import { InjectedIntl } from 'react-intl';
 import { RegelKey } from '../../app/utils/regler';
+import { ForeldreparSituasjon } from 'shared/types/foreldreparTypes';
 
 type FeilIntlMessage = (intl: InjectedIntl) => string;
 
@@ -48,6 +41,9 @@ export interface Regel {
     overstyresAvRegel?: RegelKey;
     overstyrerRegler?: RegelKey[];
     slåsSammenVedOppsummering?: boolean;
+    skjulesIOppsummering?: boolean;
+    skjulesIPeriode?: boolean;
+    avvikType?: AvvikType;
     kategori?: RegelKategori;
 }
 
@@ -67,21 +63,20 @@ export interface RegelStatus {
     regelAvvik?: RegelAvvik[];
 }
 
+export type AvvikType = 'forretning' | 'skjema';
+
 export interface RegelAvvik {
     id: string;
-    key: RegelKey;
+    regel: Regel;
     periodeId?: string;
     info: RegelAvvikInfo;
-    alvorlighet: RegelAlvorlighet;
-    overstyresAvRegel?: RegelKey;
-    overstyrerRegler?: RegelKey[];
-    slåsSammenVedOppsummering?: boolean;
-    kategori?: RegelKategori;
 }
+
+type avikValueFunk = (intl: InjectedIntl) => string;
 
 interface AvvikInfo {
     periodeId?: string;
-    values?: { [key: string]: string | number | Date | FeilIntlMessage | undefined };
+    values?: { [key: string]: string | number | Date | FeilIntlMessage | avikValueFunk | undefined };
     renderAsHtml?: boolean;
 }
 

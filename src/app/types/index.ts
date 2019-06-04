@@ -1,7 +1,8 @@
 import { Periodetype } from './periodetyper';
-import { Situasjon, ForeldreparForelder } from 'shared/foreldrepar/foreldreparTypes';
+import { ForeldreparForelder } from 'shared/foreldrepar/foreldreparTypes';
 import { Holiday } from 'date-holidays';
-export * from 'shared/foreldrepar/foreldreparTypes';
+import { ForeldreparSituasjon } from 'shared/types';
+export * from 'shared/types';
 export * from './periodetyper';
 
 export enum Forelder {
@@ -32,7 +33,7 @@ export interface Uttaksinfo {
 export type UttaksplanFarge = 'lilla' | 'blaa' | 'gronn' | 'gul' | 'graa' | 'hvit';
 
 export interface SituasjonSkjemadata {
-    situasjon: Situasjon;
+    situasjon: ForeldreparSituasjon;
     navnMor: string;
     navnFarMedmor?: string;
     antallBarn: number;

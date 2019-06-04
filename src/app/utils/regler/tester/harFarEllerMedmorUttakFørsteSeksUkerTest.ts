@@ -1,12 +1,12 @@
 import moment from 'moment';
 import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../../../../shared/regler/types';
-import { Forelder, Situasjon } from '../../../types';
+import { Forelder, ForeldreparSituasjon } from '../../../types';
 
 export const harFarEllerMedmorUttakFørsteSeksUkerTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { perioder, uttaksdatoer, navnFarMedmor, situasjon, navnMor } = grunnlag;
     const { førsteUttaksdagEtterSeksUker } = uttaksdatoer.etterFødsel;
 
-    if (grunnlag.situasjon === Situasjon.farOgFar) {
+    if (grunnlag.situasjon === ForeldreparSituasjon.farOgFar) {
         return {
             passerer: true
         };
@@ -20,7 +20,9 @@ export const harFarEllerMedmorUttakFørsteSeksUkerTest: RegelTest = (grunnlag: R
         .shift();
 
     return {
-        passerer: periode === undefined || (situasjon === Situasjon.bareFar || situasjon === Situasjon.aleneomsorg),
+        passerer:
+            periode === undefined ||
+            (situasjon === ForeldreparSituasjon.bareFar || situasjon === ForeldreparSituasjon.aleneomsorg),
         info:
             periode === undefined
                 ? undefined

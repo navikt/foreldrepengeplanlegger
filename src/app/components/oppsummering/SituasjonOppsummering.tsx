@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Situasjon, OmForeldre } from '../../types';
+import { ForeldreparSituasjon, OmForeldre } from '../../types';
 import BEMHelper from 'common/util/bem';
 import OppsummeringBlokk from '../oppsummeringBlokk/OppsummeringBlokk';
 import AntallBarnSirkel from './antallBarnSirkel/AntallBarnSirkel';
@@ -9,7 +9,7 @@ import getMessage from 'common/util/i18nUtils';
 import { injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
 
 export interface SituasjonsoppsummeringProps {
-    situasjon: Situasjon;
+    situasjon: ForeldreparSituasjon;
     omForeldre: OmForeldre;
     antallBarn: number;
     familiehendelsesdato: Date;

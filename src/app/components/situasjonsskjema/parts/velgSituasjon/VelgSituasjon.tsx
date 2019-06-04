@@ -1,19 +1,19 @@
 import * as React from 'react';
-import { Situasjon } from '../../../../types';
+import { ForeldreparSituasjon } from '../../../../types';
 import Situasjonsvalg from './Situasjonsvalg';
 
 export interface Props {
-    valgtSituasjon?: Situasjon;
-    onChange: (situasjon: Situasjon) => void;
+    valgtSituasjon?: ForeldreparSituasjon;
+    onChange: (situasjon: ForeldreparSituasjon) => void;
 }
 
-const situasjoner: Situasjon[] = [
-    Situasjon.farOgMor,
-    Situasjon.bareMor,
-    Situasjon.bareFar,
-    Situasjon.aleneomsorg,
-    Situasjon.morOgMedmor,
-    Situasjon.farOgFar
+const situasjoner: ForeldreparSituasjon[] = [
+    ForeldreparSituasjon.farOgMor,
+    ForeldreparSituasjon.bareMor,
+    ForeldreparSituasjon.bareFar,
+    ForeldreparSituasjon.aleneomsorg,
+    ForeldreparSituasjon.morOgMedmor,
+    ForeldreparSituasjon.farOgFar
 ];
 
 const VelgSituasjon: React.StatelessComponent<Props> = ({ valgtSituasjon, onChange }) => (

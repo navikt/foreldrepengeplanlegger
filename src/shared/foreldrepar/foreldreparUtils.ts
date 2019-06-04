@@ -1,4 +1,4 @@
-import { Situasjon, ForeldreparForelder, ForeldreparIllustrasjonsvariant } from 'app/types';
+import { ForeldreparSituasjon, ForeldreparForelder, ForeldreparIllustrasjonsvariant } from 'app/types';
 
 export interface SituasjonForelderSvg {
     mor: ForeldreparForelder;
@@ -6,37 +6,37 @@ export interface SituasjonForelderSvg {
     variant?: ForeldreparIllustrasjonsvariant;
 }
 
-export const getSituasjonForelderSvg = (situasjon: Situasjon): SituasjonForelderSvg => {
+export const getSituasjonForelderSvg = (situasjon: ForeldreparSituasjon): SituasjonForelderSvg => {
     switch (situasjon) {
-        case Situasjon.farOgMor:
+        case ForeldreparSituasjon.farOgMor:
             return {
                 mor: 'mor1',
                 farMedmor: 'far1'
             };
-        case Situasjon.bareFar:
+        case ForeldreparSituasjon.bareFar:
             return {
                 mor: 'mor1',
                 farMedmor: 'far1',
                 variant: 'førsteForelderHalvtSynlig'
             };
-        case Situasjon.bareMor:
+        case ForeldreparSituasjon.bareMor:
             return {
                 mor: 'mor1',
                 farMedmor: 'far1',
                 variant: 'andreForelderHalvtSynlig'
             };
-        case Situasjon.aleneomsorg:
+        case ForeldreparSituasjon.aleneomsorg:
             return {
                 mor: 'mor2',
                 farMedmor: 'far2',
                 variant: 'foreldreSeparert'
             };
-        case Situasjon.morOgMedmor:
+        case ForeldreparSituasjon.morOgMedmor:
             return {
                 mor: 'medmor2',
                 farMedmor: 'medmor1'
             };
-        case Situasjon.farOgFar:
+        case ForeldreparSituasjon.farOgFar:
             return {
                 mor: 'far3',
                 farMedmor: 'far4'

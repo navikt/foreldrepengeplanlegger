@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Foreldrepar from 'shared/foreldrepar/Foreldrepar';
-import { Situasjon, Forelder } from '../../types';
+import { ForeldreparSituasjon, Forelder } from '../../types';
 import { getSituasjonForelderSvg } from 'shared/foreldrepar/foreldreparUtils';
 import { getAntallForeldreISituasjon } from '../../utils/common';
 
 interface Props {
-    situasjon: Situasjon;
+    situasjon: ForeldreparSituasjon;
     kompakt?: boolean;
     valgtForelder?: Forelder;
 }

@@ -1,26 +1,26 @@
-import { Situasjon, Forelder } from '../types';
+import { ForeldreparSituasjon, Forelder } from '../types';
 
 const situasjonsregler = {
-    harFarAleneomsorg: (situasjon: Situasjon, valgtForelder: Forelder | undefined): boolean => {
-        return situasjon === Situasjon.aleneomsorg && valgtForelder === Forelder.farMedmor;
+    harFarAleneomsorg: (situasjon: ForeldreparSituasjon, valgtForelder: Forelder | undefined): boolean => {
+        return situasjon === ForeldreparSituasjon.aleneomsorg && valgtForelder === Forelder.farMedmor;
     },
-    harFarRett: (situasjon: Situasjon): boolean => {
+    harFarRett: (situasjon: ForeldreparSituasjon): boolean => {
         return (
-            situasjon === Situasjon.bareFar ||
-            situasjon === Situasjon.farOgMor ||
-            situasjon === Situasjon.farOgFar ||
-            situasjon === Situasjon.morOgMedmor
+            situasjon === ForeldreparSituasjon.bareFar ||
+            situasjon === ForeldreparSituasjon.farOgMor ||
+            situasjon === ForeldreparSituasjon.farOgFar ||
+            situasjon === ForeldreparSituasjon.morOgMedmor
         );
     },
-    harMorAleneomsorg: (situasjon: Situasjon, valgtForelder: Forelder | undefined): boolean => {
-        return situasjon === Situasjon.aleneomsorg && valgtForelder === Forelder.mor;
+    harMorAleneomsorg: (situasjon: ForeldreparSituasjon, valgtForelder: Forelder | undefined): boolean => {
+        return situasjon === ForeldreparSituasjon.aleneomsorg && valgtForelder === Forelder.mor;
     },
-    harMorRett: (situasjon: Situasjon): boolean => {
+    harMorRett: (situasjon: ForeldreparSituasjon): boolean => {
         return (
-            situasjon === Situasjon.bareMor ||
-            situasjon === Situasjon.farOgMor ||
-            situasjon === Situasjon.farOgFar ||
-            situasjon === Situasjon.morOgMedmor
+            situasjon === ForeldreparSituasjon.bareMor ||
+            situasjon === ForeldreparSituasjon.farOgMor ||
+            situasjon === ForeldreparSituasjon.farOgFar ||
+            situasjon === ForeldreparSituasjon.morOgMedmor
         );
     }
 };

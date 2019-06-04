@@ -5,7 +5,7 @@ import {
     Forelder,
     Periodetype,
     UttakFørTerminPeriode,
-    Situasjon
+    ForeldreparSituasjon
 } from '../types';
 import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from './uttaksinfo';
@@ -57,7 +57,7 @@ const kontoErEtterTermin = (konto: TilgjengeligStønadskonto): boolean => {
 };
 
 export const getTilgjengeligeDager = (
-    situasjon: Situasjon,
+    situasjon: ForeldreparSituasjon,
     kontoer: TilgjengeligStønadskonto[],
     forelderVedAleneomsorg: Forelder | undefined
 ): TilgjengeligeDager => {
@@ -101,17 +101,17 @@ export const getTilgjengeligeDager = (
 };
 
 export const getPeriodeFørTermin = (
-    situasjon: Situasjon,
+    situasjon: ForeldreparSituasjon,
     familiehendelsesdato: Date,
     antallDagerFørTermin: number,
     erMor?: boolean
 ): UttakFørTerminPeriode | undefined => {
     switch (situasjon) {
-        case Situasjon.bareFar:
-        case Situasjon.farOgFar:
+        case ForeldreparSituasjon.bareFar:
+        case ForeldreparSituasjon.farOgFar:
             return undefined;
         default:
-            if (situasjon === Situasjon.aleneomsorg && erMor === false) {
+            if (situasjon === ForeldreparSituasjon.aleneomsorg && erMor === false) {
                 return undefined;
             }
             const tom = Uttaksdagen(familiehendelsesdato).forrige();

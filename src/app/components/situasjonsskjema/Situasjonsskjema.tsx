@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Formik, FormikProps } from 'formik';
 import SituasjonsskjemaForm from './SituasjonsskjemaForm';
-import { SituasjonSkjemadata, Situasjon, Forelder } from '../../types';
+import { SituasjonSkjemadata, ForeldreparSituasjon, Forelder } from '../../types';
 import * as yup from 'yup';
 import { getAntallForeldreISituasjon } from '../../utils/common';
 import { InjectedIntlProps, injectIntl, InjectedIntl } from 'react-intl';
@@ -23,17 +23,17 @@ const getSituasjonValidationSkjema = (intl: InjectedIntl) =>
             .when(
                 ['situasjon', 'forelderVedAleneomsorg'],
                 (
-                    situasjon: Situasjon,
+                    situasjon: ForeldreparSituasjon,
                     forelderVedAleneomsorg: Forelder | undefined,
                     schema: yup.Schema<SituasjonSkjemadata>
                 ) => {
                     if (getAntallForeldreISituasjon(situasjon) === 2) {
                         return schema.required(getMessage(intl, 'situasjonskjema.validering.foreldernavn'));
                     }
-                    if (situasjon === Situasjon.bareMor) {
+                    if (situasjon === ForeldreparSituasjon.bareMor) {
                         return schema.required(getMessage(intl, 'situasjonskjema.validering.foreldernavn'));
                     }
-                    if (situasjon === Situasjon.aleneomsorg && forelderVedAleneomsorg === Forelder.mor) {
+                    if (situasjon === ForeldreparSituasjon.aleneomsorg && forelderVedAleneomsorg === Forelder.mor) {
                         return schema.required(getMessage(intl, 'situasjonskjema.validering.foreldernavn'));
                     }
                     return schema;
@@ -44,17 +44,20 @@ const getSituasjonValidationSkjema = (intl: InjectedIntl) =>
             .when(
                 ['situasjon', 'forelderVedAleneomsorg'],
                 (
-                    situasjon: Situasjon,
+                    situasjon: ForeldreparSituasjon,
                     forelderVedAleneomsorg: Forelder | undefined,
                     schema: yup.Schema<SituasjonSkjemadata>
                 ) => {
                     if (getAntallForeldreISituasjon(situasjon) === 2) {
                         return schema.required(getMessage(intl, 'situasjonskjema.validering.foreldernavn'));
                     }
-                    if (situasjon === Situasjon.bareFar) {
+                    if (situasjon === ForeldreparSituasjon.bareFar) {
                         return schema.required(getMessage(intl, 'situasjonskjema.validering.foreldernavn'));
                     }
-                    if (situasjon === Situasjon.aleneomsorg && forelderVedAleneomsorg === Forelder.farMedmor) {
+                    if (
+                        situasjon === ForeldreparSituasjon.aleneomsorg &&
+                        forelderVedAleneomsorg === Forelder.farMedmor
+                    ) {
                         return schema.required(getMessage(intl, 'situasjonskjema.validering.foreldernavn'));
                     }
                     return schema;
@@ -62,8 +65,8 @@ const getSituasjonValidationSkjema = (intl: InjectedIntl) =>
             ),
         forelderVedAleneomsorg: yup
             .string()
-            .when('situasjon', (situasjon: Situasjon, schema: yup.Schema<SituasjonSkjemadata>) => {
-                if (situasjon === Situasjon.aleneomsorg) {
+            .when('situasjon', (situasjon: ForeldreparSituasjon, schema: yup.Schema<SituasjonSkjemadata>) => {
+                if (situasjon === ForeldreparSituasjon.aleneomsorg) {
                     return schema.required(getMessage(intl, 'situasjonskjema.validering.forelderVedAleneomsorg'));
                 }
                 return schema;

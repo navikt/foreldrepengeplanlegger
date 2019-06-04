@@ -1,11 +1,11 @@
-import { TilgjengeligStønadskonto, Periode, Situasjon } from '../../types';
+import { TilgjengeligStønadskonto, Periode, ForeldreparSituasjon } from '../../types';
 import { getUttaksinfoForPeriode } from '../uttaksinfo';
 import { deltUttakFødselForslag } from './deltUttak';
 import { getAntallForeldreISituasjon } from '../common';
 import { ikkeDeltUttakForslag } from './ikkeDeltUttak';
 
 export const lagUttaksplan = (
-    situasjon: Situasjon,
+    situasjon: ForeldreparSituasjon,
     famDato: Date,
     tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[],
     fellesperiodedagerMor: number | undefined

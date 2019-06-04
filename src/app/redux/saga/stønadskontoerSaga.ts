@@ -5,7 +5,7 @@ import { getStønadskontoSortOrder } from '../../utils/kontoUtils';
 import { updateApi } from '../actions/api/apiActionCreators';
 import { CommonActionKeys, GetStønadskontoerAction } from '../actions/common/commonActionDefinitions';
 import { setStønadskontoer } from '../actions/common/commonActionCreators';
-import { SituasjonSkjemadata, TilgjengeligStønadskonto, StønadskontoType, Situasjon } from '../../types';
+import { SituasjonSkjemadata, TilgjengeligStønadskonto, StønadskontoType, ForeldreparSituasjon } from '../../types';
 import { AppState } from '../reducers/rootReducer';
 import situasjonsregler from '../../utils/situasjonsregler';
 import { Dekningsgrad } from 'common/types';
@@ -50,9 +50,9 @@ const trekkFlerbarnsdagerFraFellesperiode = (kontoerDTO: FPKontoServiceDTO): FPK
 
 const fjernForeldrepengerFørFødselToFedre = (
     kontoerDTO: FPKontoServiceDTO,
-    situasjon: Situasjon
+    situasjon: ForeldreparSituasjon
 ): FPKontoServiceDTO => {
-    if (situasjon === Situasjon.farOgFar) {
+    if (situasjon === ForeldreparSituasjon.farOgFar) {
         const { FORELDREPENGER_FØR_FØDSEL, ...rest } = kontoerDTO.kontoer;
         return { kontoer: rest };
     }
@@ -61,7 +61,7 @@ const fjernForeldrepengerFørFødselToFedre = (
 const getKontoerFromForeldrepengerDTO = (
     kontoer80: FPKontoServiceDTO,
     kontoer100: FPKontoServiceDTO,
-    situasjon: Situasjon
+    situasjon: ForeldreparSituasjon
 ): { dekning80: TilgjengeligStønadskonto[]; dekning100: TilgjengeligStønadskonto[] } => {
     const dekning80: TilgjengeligStønadskonto[] = [];
     const dekning100: TilgjengeligStønadskonto[] = [];

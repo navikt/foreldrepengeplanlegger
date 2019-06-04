@@ -1,26 +1,29 @@
 import moment from 'moment';
-import { Situasjon, Forelder, OmForeldre } from '../types';
+import { Forelder, OmForeldre, ForeldreparSituasjon } from '../types';
 import { getSituasjonForelderSvg } from 'shared/foreldrepar/foreldreparUtils';
 import { Avgrensninger } from 'common/types';
 
-export const getAntallForeldreISituasjon = (situasjon: Situasjon) => {
+export const getAntallForeldreISituasjon = (situasjon: ForeldreparSituasjon) => {
     switch (situasjon) {
-        case Situasjon.aleneomsorg:
-        case Situasjon.bareFar:
-        case Situasjon.bareMor:
+        case ForeldreparSituasjon.aleneomsorg:
+        case ForeldreparSituasjon.bareFar:
+        case ForeldreparSituasjon.bareMor:
             return 1;
         default:
             return 2;
     }
 };
 
-export const getRolleVedIkkeDeltPlan = (situasjon: Situasjon, erMor: boolean | undefined): Forelder | undefined => {
+export const getRolleVedIkkeDeltPlan = (
+    situasjon: ForeldreparSituasjon,
+    erMor: boolean | undefined
+): Forelder | undefined => {
     switch (situasjon) {
-        case Situasjon.bareMor:
+        case ForeldreparSituasjon.bareMor:
             return Forelder.mor;
-        case Situasjon.bareFar:
+        case ForeldreparSituasjon.bareFar:
             return Forelder.farMedmor;
-        case Situasjon.aleneomsorg:
+        case ForeldreparSituasjon.aleneomsorg:
             return erMor === true ? Forelder.mor : Forelder.farMedmor;
     }
     return undefined;
@@ -78,16 +81,18 @@ export const getTermindatoAvgrensninger = (): Avgrensninger => {
 };
 
 export const getOmForeldre = (
-    situasjon: Situasjon,
+    situasjon: ForeldreparSituasjon,
     navnMor: string,
     navnFarMedmor?: string,
     valgForelderVedAleneomsorg?: Forelder
 ): OmForeldre => {
     const info = getSituasjonForelderSvg(situasjon);
     const erDeltOmsorg = getAntallForeldreISituasjon(situasjon) === 2;
-    const bareMor = situasjon === Situasjon.bareMor || (!erDeltOmsorg && valgForelderVedAleneomsorg === Forelder.mor);
+    const bareMor =
+        situasjon === ForeldreparSituasjon.bareMor || (!erDeltOmsorg && valgForelderVedAleneomsorg === Forelder.mor);
     const bareFar =
-        situasjon === Situasjon.bareFar || (!erDeltOmsorg && valgForelderVedAleneomsorg === Forelder.farMedmor);
+        situasjon === ForeldreparSituasjon.bareFar ||
+        (!erDeltOmsorg && valgForelderVedAleneomsorg === Forelder.farMedmor);
     return {
         mor: {
             navn: navnMor,

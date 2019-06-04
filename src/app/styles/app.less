@@ -78,11 +78,22 @@ ul {
     white-space: nowrap;
 }
 
+@media (max-width: @mobile-breakpoint) {
+    .periodeBlokk--nyPeriode {
+        .nav-datovelger__kalenderPortal {
+            position: fixed;
+            top: 0;
+            left: -1.5rem;
+            right: 0;
+        }
+    }
+}
+
 .text-ellipsis {
     text-overflow: ellipsis;
 }
 
 .focus-trap:focus {
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     .focusOutline();
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import BEMHelper from 'common/utils/bem';
 import Multibar from 'app/components/multibar/Multibar';
 import { UttaksplanHexFarge } from 'common/utils/colors';
+import { fordelingGrafBem } from '../FordelingGraf';
 
 interface Props {
     mor: {
@@ -19,10 +19,9 @@ interface Props {
         pstBrukt: number;
     };
 }
-const bem = BEMHelper('fordelingGraf');
 
 const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ mor, farMedmor, felles }) => {
-    const childBem = bem.child('graf');
+    const childBem = fordelingGrafBem.child('graf');
     return (
         <div className={childBem.block}>
             <div className={childBem.element('forelder1')} style={{ width: `${mor.pstAvTotal}%` }}>

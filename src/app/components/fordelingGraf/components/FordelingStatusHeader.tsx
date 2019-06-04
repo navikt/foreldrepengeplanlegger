@@ -1,8 +1,8 @@
 import * as React from 'react';
-import BEMHelper from 'common/utils/bem';
 import AriaText from 'common/components/aria/AriaText';
 import StatusIkon, { StatusIkonStatus } from 'common/components/ikoner/StatusIkon';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { fordelingGrafBem } from '../FordelingGraf';
 
 interface Props {
     ariaTitle: string;
@@ -11,10 +11,8 @@ interface Props {
     statusTekst: string;
 }
 
-const bem = BEMHelper('fordelingGraf');
-
 const FordelingStatusHeader: React.StatelessComponent<Props> = ({ ariaTitle, status, tittel, statusTekst }) => {
-    const bemHeader = bem.child('statusHeader');
+    const bemHeader = fordelingGrafBem.child('statusHeader');
     return (
         <div>
             <div className={bemHeader.block}>

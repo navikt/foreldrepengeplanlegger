@@ -1,23 +1,19 @@
 import * as React from 'react';
 import BEMHelper from 'common/utils/bem';
 import { OmForeldre, TilgjengeligeDager, Forbruk } from '../../types';
-import Varighet from '../varighet/Varighet';
-import HighlightContent from 'common/components/highlightContent/HighlightContent';
-import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
 import Block from 'common/components/block/Block';
 import Multibar from '../multibar/Multibar';
 import { UttaksplanHexFarge } from 'common/utils/colors';
 import { getFordelingStatus, FordelingStatus } from '../../utils/fordelingStatusUtils';
-import { FormattedMessage, injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
-import { getVarighetString } from 'common/utils/intlUtils';
+import { injectIntl, InjectedIntlProps } from 'react-intl';
 import getMessage from 'common/utils/i18nUtils';
-import Personkort from '../personkort/Personkort';
 import { getProsentFordeling } from '../../utils/tilgjengeligeDagerUtils';
 import { RegelAvvik, RegelAlvorlighet } from '../../utils/regler/types';
-
-import './fordelingGraf.less';
 import FordelingStatusHeader from './components/FordelingStatusHeader';
 import GrafDeltOmsorg from './components/GrafDeltOmsorg';
+import FordelingTitler from './components/FordelingTitler';
+
+import './fordelingGraf.less';
 
 interface OwnProps {
     forbruk: Forbruk;
@@ -28,94 +24,40 @@ interface OwnProps {
 
 type Props = OwnProps & InjectedIntlProps;
 
-const bem = BEMHelper('fordelingGraf');
+export const fordelingGrafBem = BEMHelper('fordelingGraf');
 
-interface TittelProps {
-    navn: string;
-    ikon: React.ReactNode;
-    dager: number;
-    dagerForMye: number;
-    dagerForLite: number;
-    invertert?: boolean;
-    intl: InjectedIntl;
-}
-const Tittel: React.StatelessComponent<TittelProps> = ({
-    navn,
-    ikon,
-    dager,
-    dagerForLite,
-    dagerForMye,
-    invertert,
-    intl
-}) => {
-    const tittelBem = bem.child('tittel');
-
-    const getTittelVarighet = (): React.ReactNode => {
-        if (dagerForLite > 0) {
-            return (
-                <FormattedMessage
-                    id="fordeling.status.person.forLite"
-                    values={{ dager: getVarighetString(dagerForLite, intl, 'full') }}
-                />
-            );
-        }
-        if (dagerForMye) {
-            return (
-                <FormattedMessage
-                    id="fordeling.status.person.forMye"
-                    values={{ dager: getVarighetString(dagerForMye, intl, 'full') }}
-                />
-            );
-        }
-        return <Varighet dager={Math.abs(dager | 0)} separator={` ${getMessage(intl, 'common.varighet.og')} `} />;
-    };
-
-    return (
-        <Personkort ikon={ikon} tittel={navn} invertert={invertert}>
-            <div
-                className={tittelBem.classNames(
-                    tittelBem.element('dager'),
-                    tittelBem.modifierConditional('formangedager', dagerForMye > 0)
-                )}>
-                <HighlightContent watchValue={dager} invalid={dager < 0}>
-                    {getTittelVarighet()}
-                </HighlightContent>
-            </div>
-        </Personkort>
-    );
-};
-
-const FordelingTitler: React.StatelessComponent<Props> = ({ forbruk, omForeldre, intl }) => {
+const FordelingTitlerWrapper: React.StatelessComponent<Props> = ({ forbruk, omForeldre, intl }) => {
     const { mor, farMedmor } = forbruk;
     return (
-        <div className={bem.element('titler')}>
-            {!omForeldre.bareFar && (
-                <Tittel
-                    navn={omForeldre.mor.navn}
-                    ikon={<ForelderIkon forelder={omForeldre.mor.ikonRef} />}
-                    dager={mor.dagerTotalt}
-                    dagerForLite={mor.dagerForLite}
-                    dagerForMye={mor.dagerForMye}
-                    intl={intl}
-                />
-            )}
-            {omForeldre.farMedmor && farMedmor !== undefined && (
-                <Tittel
-                    navn={omForeldre.farMedmor.navn}
-                    ikon={<ForelderIkon forelder={omForeldre.farMedmor.ikonRef} />}
-                    dager={farMedmor.dagerTotalt}
-                    dagerForLite={farMedmor.dagerForLite}
-                    dagerForMye={farMedmor.dagerForMye}
-                    invertert={!omForeldre.bareFar}
-                    intl={intl}
-                />
-            )}
-        </div>
+        <FordelingTitler
+            mor={
+                !omForeldre.farMedmor && farMedmor !== undefined
+                    ? {
+                          navn: omForeldre.mor.navn,
+                          ikonRef: omForeldre.mor.ikonRef,
+                          dagerTotalt: mor.dagerTotalt,
+                          dagerForLite: mor.dagerForLite,
+                          dagerForMye: mor.dagerForMye
+                      }
+                    : undefined
+            }
+            farMedmor={
+                farMedmor && omForeldre.farMedmor
+                    ? {
+                          navn: omForeldre.farMedmor.navn,
+                          ikonRef: omForeldre.farMedmor.ikonRef,
+                          dagerTotalt: farMedmor.dagerTotalt,
+                          dagerForLite: farMedmor.dagerForLite,
+                          dagerForMye: farMedmor.dagerForMye
+                      }
+                    : undefined
+            }
+        />
     );
 };
 
 const GrafAleneomsorgMor: React.StatelessComponent<Props> = ({ forbruk, tilgjengeligeDager }) => {
-    const childBem = bem.child('graf');
+    const childBem = fordelingGrafBem.child('graf');
     const tg = tilgjengeligeDager;
 
     const maksTillatt = tg.dagerForeldrepenger + forbruk.dagerForeldrepengerFørFødsel;
@@ -149,7 +91,7 @@ const GrafAleneomsorgMor: React.StatelessComponent<Props> = ({ forbruk, tilgjeng
 };
 
 const GrafAleneomsorgFarMedmor: React.StatelessComponent<Props> = ({ forbruk, tilgjengeligeDager }) => {
-    const childBem = bem.child('graf');
+    const childBem = fordelingGrafBem.child('graf');
     const tg = tilgjengeligeDager;
 
     if (!forbruk.farMedmor) {
@@ -259,7 +201,7 @@ const FordelingGraf: React.StatelessComponent<Props> = (props) => {
         return null;
     }
     return (
-        <section className={bem.block}>
+        <section className={fordelingGrafBem.block}>
             <Block margin="s" screenOnly={true}>
                 <FordelingStatusHeaderWrapper {...props} />
             </Block>
@@ -268,7 +210,7 @@ const FordelingGraf: React.StatelessComponent<Props> = (props) => {
                 {props.omForeldre.bareMor && <GrafAleneomsorgMor {...props} />}
                 {props.omForeldre.bareFar && <GrafAleneomsorgFarMedmor {...props} />}
             </Block>
-            <FordelingTitler {...props} />
+            <FordelingTitlerWrapper {...props} />
         </section>
     );
 };

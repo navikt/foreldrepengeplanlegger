@@ -20,7 +20,8 @@ type Props = RouteComponentProps<any> & InjectedIntlProps;
 
 class Uttaksplanlegger extends React.Component<Props> {
     render() {
-        const { intl } = this.props;
+        const { location, intl } = this.props;
+        const path = location.pathname;
         return (
             <div className={cls.block}>
                 <Språkvelger>
@@ -29,7 +30,7 @@ class Uttaksplanlegger extends React.Component<Props> {
                         <div className={cls.element('container')}>
                             <div className={cls.element('wrapper')}>
                                 <div className="no-print">
-                                    <Breadcrumbs sti={'/foreldrepengeplanlegger'} />
+                                    <Breadcrumbs sti={path} />
                                 </div>
                                 <div className="content">
                                     <Block>

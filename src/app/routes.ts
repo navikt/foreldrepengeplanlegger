@@ -1,14 +1,13 @@
 export const AppRoot = '/foreldrepengeplanlegger';
 
 export enum Side {
-    'START' = 'startside',
-    'DEKNINGSGRAD' = 'dekningsgradside',
-    'UTTAKSPLAN' = 'uttaksplan'
+    'START' = '',
+    'DEKNINGSGRAD' = 'antallUker',
+    'UTTAKSPLAN' = 'plan'
 }
 
 export const AppRoutes = {
     startside: `${AppRoot}`,
-    uttaksplanside: `${AppRoot}/plan`,
-    dekningsgradside: `${AppRoot}/antalluker`,
-    dev: `${AppRoot}/dev`
+    uttaksplanside: `${AppRoot}/${Side.UTTAKSPLAN}`,
+    dekningsgradside: `${AppRoot}/${Side.DEKNINGSGRAD}`
 };

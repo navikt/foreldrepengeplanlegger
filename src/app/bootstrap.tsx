@@ -10,6 +10,7 @@ import './styles/app.less';
 import { BrowserRouter } from 'react-router-dom';
 import configureStore from './redux/configureStore';
 import { Provider } from 'react-redux';
+import ScrollToTop from './components/scrollToTop/ScrollToTop';
 
 const root = document.getElementById('app');
 Modal.setAppElement('#appContainer');
@@ -22,7 +23,9 @@ render(
         <Normaltekst tag="div">
             <IntlProvider>
                 <BrowserRouter>
-                    <Uttaksplanlegger />
+                    <ScrollToTop>
+                        <Uttaksplanlegger />
+                    </ScrollToTop>
                 </BrowserRouter>
             </IntlProvider>
         </Normaltekst>

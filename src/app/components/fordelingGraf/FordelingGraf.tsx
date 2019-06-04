@@ -5,20 +5,19 @@ import Varighet from '../varighet/Varighet';
 import HighlightContent from 'common/components/highlightContent/HighlightContent';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
 import Block from 'common/components/block/Block';
-import { Undertittel, Normaltekst } from 'nav-frontend-typografi';
 import Multibar from '../multibar/Multibar';
 import { UttaksplanHexFarge } from 'common/utils/colors';
 import { getFordelingStatus, FordelingStatus } from '../../utils/fordelingStatusUtils';
 import { FormattedMessage, injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
-import StatusIkon from 'common/components/ikoner/StatusIkon';
 import { getVarighetString } from 'common/utils/intlUtils';
 import getMessage from 'common/utils/i18nUtils';
 import Personkort from '../personkort/Personkort';
 import { getProsentFordeling } from '../../utils/tilgjengeligeDagerUtils';
-import AriaText from 'common/components/aria/AriaText';
 import { RegelAvvik, RegelAlvorlighet } from '../../utils/regler/types';
 
 import './fordelingGraf.less';
+import FordelingStatusHeader from './components/FordelingStatusHeader';
+import GrafDeltOmsorg from './components/GrafDeltOmsorg';
 
 interface OwnProps {
     forbruk: Forbruk;
@@ -115,38 +114,6 @@ const FordelingTitler: React.StatelessComponent<Props> = ({ forbruk, omForeldre,
     );
 };
 
-const BarFellesdager: React.StatelessComponent<{ dagerFelles: number; dagerMor: number; dagerFar: number }> = ({
-    dagerFelles,
-    dagerMor,
-    dagerFar
-}) => {
-    const maksDager = Math.max(dagerFelles, dagerFar + dagerMor);
-    const dagerForMye = maksDager > dagerFelles ? maksDager - dagerFelles : 0;
-    const pst = 100 / (maksDager + dagerForMye);
-
-    return (
-        <Multibar
-            borderColor={UttaksplanHexFarge.graa}
-            leftBar={{
-                width: dagerMor * pst,
-                color: UttaksplanHexFarge.lilla
-            }}
-            rightBar={{
-                width: dagerFar * pst,
-                color: UttaksplanHexFarge.blaa
-            }}
-            centerBar={
-                dagerForMye > 0
-                    ? {
-                          width: dagerForMye * pst,
-                          color: UttaksplanHexFarge.rod
-                      }
-                    : undefined
-            }
-        />
-    );
-};
-
 const GrafAleneomsorgMor: React.StatelessComponent<Props> = ({ forbruk, tilgjengeligeDager }) => {
     const childBem = bem.child('graf');
     const tg = tilgjengeligeDager;
@@ -215,8 +182,7 @@ const GrafAleneomsorgFarMedmor: React.StatelessComponent<Props> = ({ forbruk, ti
     );
 };
 
-const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengeligeDager }) => {
-    const childBem = bem.child('graf');
+const GrafDeltOmsorgWrapper: React.StatelessComponent<Props> = ({ forbruk, tilgjengeligeDager }) => {
     const tg = tilgjengeligeDager;
 
     if (!forbruk.farMedmor) {
@@ -232,46 +198,38 @@ const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ forbruk, tilgjengelig
     const farsDagerAvFellesdel = Math.max(0, farsBrukteDager - tg.dagerFar);
 
     const farsForbrukAvEgenKvote = farsBrukteDager >= tg.dagerFar ? 100 : (100 / tg.dagerFar) * farsBrukteDager;
-
     const maksMorsKvoteBar = tg.dagerMor + forbruk.dagerForeldrepengerFørFødsel + forbruk.ekstradagerFørTermin;
     const morsBarIPst = Math.min(
         100,
         (100 / maksMorsKvoteBar) * (morsBrukteDager + forbruk.dagerForeldrepengerFørFødsel)
     );
 
+    // Felles
+    const maksDager = Math.max(tg.dagerFelles, farsDagerAvFellesdel + morsDagerAvFellesdel);
+    const dagerForMye = maksDager > tg.dagerFelles ? maksDager - tg.dagerFelles : 0;
+    const fellesPst = 100 / (maksDager + dagerForMye);
+
     return (
-        <div className={childBem.block}>
-            <div className={childBem.element('forelder1')} style={{ width: `${pstMor}%` }}>
-                <Multibar
-                    borderColor={UttaksplanHexFarge.lilla}
-                    leftBar={{
-                        width: morsBarIPst,
-                        color: UttaksplanHexFarge.lilla
-                    }}
-                />
-            </div>
-            <div className={childBem.element('felles')} style={{ width: `${pstFelles}%` }}>
-                <BarFellesdager
-                    dagerFelles={tg.dagerFelles}
-                    dagerMor={morsDagerAvFellesdel}
-                    dagerFar={farsDagerAvFellesdel}
-                />
-            </div>
-            <div className={childBem.element('forelder2')} style={{ width: `${pstFarMedmor}%` }}>
-                <Multibar
-                    borderColor={UttaksplanHexFarge.blaa}
-                    rightBar={{
-                        width: farsForbrukAvEgenKvote,
-                        color: UttaksplanHexFarge.blaa
-                    }}
-                />
-            </div>
-        </div>
+        <GrafDeltOmsorg
+            mor={{
+                pstAvTotal: pstMor,
+                pstBrukt: morsBarIPst
+            }}
+            felles={{
+                pstAvTotal: pstFelles,
+                pstBruktMor: fellesPst * morsDagerAvFellesdel,
+                pstBruktFar: fellesPst * farsDagerAvFellesdel,
+                pstForMye: fellesPst * dagerForMye
+            }}
+            farMedmor={{
+                pstAvTotal: pstFarMedmor,
+                pstBrukt: farsForbrukAvEgenKvote
+            }}
+        />
     );
 };
 
-const FordelingStatusHeader: React.StatelessComponent<Props> = (props) => {
-    const bemHeader = bem.child('statusHeader');
+const FordelingStatusHeaderWrapper: React.StatelessComponent<Props> = (props) => {
     const planenHarFordelingsavvik =
         props.regelAvvik.filter(
             (avvik) => avvik.alvorlighet !== RegelAlvorlighet.INFO && avvik.kategori === 'fordeling'
@@ -284,21 +242,14 @@ const FordelingStatusHeader: React.StatelessComponent<Props> = (props) => {
         planenHarAvvikSomErFeil && !planenHarFordelingsavvik
             ? { status: 'feil', tittel: { key: 'regel.feil.uttaksplanStatusTittel' } }
             : getFordelingStatus(props.forbruk, props.omForeldre, props.intl);
+    const { intl } = props;
     return (
-        <div className={bemHeader.block}>
-            <AriaText tag="h2">Status på planen</AriaText>
-            <div className={bemHeader.element('ikon')}>
-                <StatusIkon status={fordelingStatus.status} size={32} />
-            </div>
-            <div className={bemHeader.element('statusBlokk')}>
-                <Normaltekst className={bemHeader.element('tittel')} tag="strong">
-                    <FormattedMessage id={`fordeling.tittel.${props.omForeldre.erDeltOmsorg ? 'deres' : 'din'}`} />
-                </Normaltekst>
-                <Undertittel className={bemHeader.element('statusTekst')} tag="h3">
-                    <FormattedMessage id={fordelingStatus.tittel.key} values={fordelingStatus.tittel.values} />
-                </Undertittel>
-            </div>
-        </div>
+        <FordelingStatusHeader
+            ariaTitle="Status på planen"
+            status={fordelingStatus.status}
+            tittel={getMessage(props.intl, `fordeling.tittel.${props.omForeldre.erDeltOmsorg ? 'deres' : 'din'}`)}
+            statusTekst={getMessage(intl, fordelingStatus.tittel.key, fordelingStatus.tittel.values)}
+        />
     );
 };
 
@@ -310,10 +261,10 @@ const FordelingGraf: React.StatelessComponent<Props> = (props) => {
     return (
         <section className={bem.block}>
             <Block margin="s" screenOnly={true}>
-                <FordelingStatusHeader {...props} />
+                <FordelingStatusHeaderWrapper {...props} />
             </Block>
             <Block margin="s" screenOnly={true}>
-                {props.omForeldre.erDeltOmsorg && <GrafDeltOmsorg {...props} />}
+                {props.omForeldre.erDeltOmsorg && <GrafDeltOmsorgWrapper {...props} />}
                 {props.omForeldre.bareMor && <GrafAleneomsorgMor {...props} />}
                 {props.omForeldre.bareFar && <GrafAleneomsorgFarMedmor {...props} />}
             </Block>

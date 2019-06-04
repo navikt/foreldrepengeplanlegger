@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { UttaksplanFarge } from '../../types';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 
 import './periodeBlokk.less';
 

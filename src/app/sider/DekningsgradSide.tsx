@@ -25,7 +25,7 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import DekningsgradInfo from '../components/content/DekningsgradInfo';
 import Oppsummering from '../components/oppsummering/Oppsummering';
 import FocusChildOnMountContainer from 'common/components/focusContainer/FocusChildOnMountContainer';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 interface StateProps {

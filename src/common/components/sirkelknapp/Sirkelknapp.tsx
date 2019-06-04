@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import './sirkelknapp.less';
 import { guid } from 'nav-frontend-js-utils';
 import AriaText from '../aria/AriaText';
-import preventDoubleTapZoom from 'common/utils/preventDoubleTapZoom';
+import preventDoubleTapZoom from 'common/util/preventDoubleTapZoom';
 
 export type Stil = 'hvit' | 'bla' | 'info';
 export type SirkelknappSize = 'normal' | 'stor';

@@ -1,8 +1,8 @@
 import React from 'react';
 import { injectIntl, InjectedIntl } from 'react-intl';
 import TypografiBase from 'nav-frontend-typografi';
-import getMessage from 'common/utils/i18nUtils';
-import BEMHelper from 'common/utils/bem';
+import getMessage from 'common/util/i18nUtils';
+import BEMHelper from 'common/util/bem';
 import './sidebanner.less';
 
 const cls = BEMHelper('sidebanner');

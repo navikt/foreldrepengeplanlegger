@@ -1,6 +1,6 @@
 import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../types';
 import { InjectedIntl } from 'react-intl';
-import { getVarighetString } from 'common/utils/intlUtils';
+import { getVarighetString } from 'common/util/intlUtils';
 import { Forelder } from '../../../types';
 
 export const erFarMedmorsUttakErInnenforMaksAntallDagerTest: RegelTest = (

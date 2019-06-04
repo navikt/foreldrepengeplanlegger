@@ -4,8 +4,8 @@ import NavFrontendChevron from 'nav-frontend-chevron';
 import TypografiBase from 'nav-frontend-typografi';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import getMessage from 'common/utils/i18nUtils';
-import BEMHelper from 'common/utils/bem';
+import getMessage from 'common/util/i18nUtils';
+import BEMHelper from 'common/util/bem';
 import Lenke from 'nav-frontend-lenker';
 import { Side, AppRoutes } from 'app/routes';
 

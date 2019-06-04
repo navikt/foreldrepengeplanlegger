@@ -1,6 +1,6 @@
 import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../types';
 import { InjectedIntl } from 'react-intl';
-import { getVarighetString } from 'common/utils/intlUtils';
+import { getVarighetString } from 'common/util/intlUtils';
 
 export const erAlleUttakErInnenforMaksAntallDagerTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { forbruk, tilgjengeligeDager, navnMor } = grunnlag;

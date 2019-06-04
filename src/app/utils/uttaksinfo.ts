@@ -1,6 +1,6 @@
 import { Periode, Uttaksinfo, Periodetype } from '../types';
 import { isValidTidsperiode, Tidsperioden } from './Tidsperioden';
-import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
+import { getUkerOgDagerFromDager } from 'common/util/datoUtils';
 import Settings from '../settings';
 
 const beregnBrukteUttaksdager = (

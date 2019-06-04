@@ -1,5 +1,5 @@
 import * as React from 'react';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import { Situasjon, Forelder } from '../../../types';
 import Sirkelmaske from '../../sirkelmaske/Sirkelmaske';
 import SituasjonForeldrepar from '../../situasjonForeldrepar/SituasjonForeldrepar';

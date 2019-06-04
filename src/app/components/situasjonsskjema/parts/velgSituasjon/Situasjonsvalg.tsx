@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { Situasjon } from '../../../../types';
 import { FormattedMessage } from 'react-intl';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import SituasjonForeldrepar from '../../../situasjonForeldrepar/SituasjonForeldrepar';
 
 import './velgSituasjon.less';

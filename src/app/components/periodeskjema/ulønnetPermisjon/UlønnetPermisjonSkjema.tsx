@@ -5,7 +5,7 @@ import Block from 'common/components/block/Block';
 import Skjemablokk from '../../skjemablokk/Skjemablokk';
 import { getMedforelderNavn } from '../../../utils/common';
 import RadioGroup, { RadioOption } from 'common/components/skjema/radioGroup/RadioGroup';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 import { InjectedIntlProps, injectIntl, FormattedHTMLMessage, InjectedIntl } from 'react-intl';
 import Lenker from '../../../lenker';
 

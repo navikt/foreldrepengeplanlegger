@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MenuItem } from 'react-aria-menubutton';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 
 export interface DropdownFormMenuOption {
     value: string;

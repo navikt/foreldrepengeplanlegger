@@ -1,5 +1,5 @@
 import * as React from 'react';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import ForelderMeny from './parts/ForelderMeny';
 import PeriodetypeMeny from './parts/PeriodetypeMeny';
 import { changePeriodeType } from '../../utils/typeUtils';
@@ -11,7 +11,7 @@ import { Tidsperioden, isValidTidsperiode } from '../../utils/Tidsperioden';
 import { Tidsperiode } from 'common/types';
 import PeriodelisteElement from './periodelisteElement/PeriodelisteElement';
 import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import VarighetMeny from '../periodeskjema/varighet/VarighetMeny';
 import { VarighetChangeEvent } from '../periodeskjema/varighet/VarighetSkjema';

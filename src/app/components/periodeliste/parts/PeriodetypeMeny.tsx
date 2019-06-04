@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps, InjectedIntl, FormattedMessage } from 'react-intl';
 import { Periodetype, Forelder } from '../../../types';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
 import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import Periodeikon from '../../periodeikon/Periodeikon';
 import IconText from 'common/components/iconText/IconText';
 import Varighet from '../../varighet/Varighet';
 import Settings from '../../../settings';
-import { getVarighetString } from 'common/utils/intlUtils';
+import { getVarighetString } from 'common/util/intlUtils';
 
 interface OwnProps {
     type?: Periodetype;

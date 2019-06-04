@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../types';
 import { Periode } from '../../../types';
-import { formaterDatoUtenDag } from 'common/utils/datoUtils';
+import { formaterDatoUtenDag } from 'common/util/datoUtils';
 
 export const starterUttakInnenfor12UkerFørTerminTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { periodeFørTermin, perioder, uttaksdatoer } = grunnlag;

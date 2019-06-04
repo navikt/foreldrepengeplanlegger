@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Multibar from 'app/components/multibar/Multibar';
-import { UttaksplanHexFarge } from 'common/utils/colors';
+import { UttaksplanHexFarge } from 'common/util/colors';
 import { fordelingGrafBem } from '../FordelingGraf';
 
 export interface GrafDeltOmsorgProps {

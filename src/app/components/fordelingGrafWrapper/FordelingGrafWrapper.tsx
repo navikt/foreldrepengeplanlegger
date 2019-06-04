@@ -8,8 +8,8 @@ import {
     getGrafAleneomsorgFarMedmorProps,
     getFordelingStatusHeaderProps,
     getGrafFordelingTitler
-} from '../fordelingGraf/fordelingGrafUtils';
-import FordelingGraf from '../fordelingGraf/FordelingGraf';
+} from '../../../shared/fordelingGraf/fordelingGrafUtils';
+import FordelingGraf from '../../../shared/fordelingGraf/FordelingGraf';
 
 interface Props {
     omForeldre: OmForeldre;

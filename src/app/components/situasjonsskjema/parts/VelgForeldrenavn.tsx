@@ -4,7 +4,7 @@ import { Input } from 'nav-frontend-skjema';
 import { Situasjon, Forelder } from '../../../types';
 import { getAntallForeldreISituasjon } from '../../../utils/common';
 import { InjectedIntlProps, injectIntl, InjectedIntl } from 'react-intl';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 
 interface OwnProps {
     situasjon: Situasjon;

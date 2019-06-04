@@ -7,7 +7,7 @@ import periodeskjemaUtils from './utils';
 import { PeriodeskjemaFormValues } from './types';
 import { OmForeldre, Forbruk } from '../../types';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 import FocusTrap from 'react-focus-trap';
 
 interface OwnProps {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import KalenderBakgrunnIkon from 'common/components/ikoner/KalenderBakgrunnIkon';
 
 import './antallUkerKalenderIkon.less';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 
 interface Props {
     uker: number;

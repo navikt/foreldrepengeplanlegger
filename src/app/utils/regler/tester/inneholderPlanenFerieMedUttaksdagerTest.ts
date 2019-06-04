@@ -1,7 +1,7 @@
 import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../types';
 import { Periodetype } from '../../../types';
 import { InjectedIntl } from 'react-intl';
-import { getVarighetString } from 'common/utils/intlUtils';
+import { getVarighetString } from 'common/util/intlUtils';
 
 export const inneholderPlanenFerieMedUttaksdagerTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { perioder } = grunnlag;

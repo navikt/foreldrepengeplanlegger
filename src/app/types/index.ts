@@ -1,7 +1,7 @@
 import { Periodetype } from './periodetyper';
-import { Situasjon, ForeldreparForelder } from 'common/components/foreldrepar/foreldreparTypes';
+import { Situasjon, ForeldreparForelder } from 'shared/foreldrepar/foreldreparTypes';
 import { Holiday } from 'date-holidays';
-export * from 'common/components/foreldrepar/foreldreparTypes';
+export * from 'shared/foreldrepar/foreldreparTypes';
 export * from './periodetyper';
 
 export enum Forelder {

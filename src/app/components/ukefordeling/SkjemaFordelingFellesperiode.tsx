@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 import RangeInput from 'common/components/skjema/rangeInput/RangeInput';
 import FordelingFellesperiodeLabelRenderer from './FordelingFellesperiodeLabelRenderer';
 

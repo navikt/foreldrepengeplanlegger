@@ -6,7 +6,7 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { Systemtittel } from 'nav-frontend-typografi';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 
 import './dialog.less';
 

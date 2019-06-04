@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { Wrapper, Button, Menu, closeMenu } from 'react-aria-menubutton';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import { guid } from 'nav-frontend-js-utils';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { Flatknapp } from 'nav-frontend-knapper';

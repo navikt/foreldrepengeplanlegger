@@ -1,9 +1,9 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
-import getMessage from 'common/utils/i18nUtils';
+import { getUkerOgDagerFromDager } from 'common/util/datoUtils';
+import getMessage from 'common/util/i18nUtils';
 
 import './varighet.less';
 

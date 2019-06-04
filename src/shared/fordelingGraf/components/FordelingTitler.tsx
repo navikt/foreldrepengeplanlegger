@@ -1,9 +1,9 @@
 import * as React from 'react';
-import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
+import ForelderIkon from 'shared/foreldrepar/ForelderIkon';
 import { InjectedIntl, FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
-import { getVarighetString } from 'common/utils/intlUtils';
+import { getVarighetString } from 'common/util/intlUtils';
 import Varighet from 'app/components/varighet/Varighet';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 import Personkort from 'app/components/personkort/Personkort';
 import HighlightContent from 'common/components/highlightContent/HighlightContent';
 import { ForeldreparForelder } from 'app/types';

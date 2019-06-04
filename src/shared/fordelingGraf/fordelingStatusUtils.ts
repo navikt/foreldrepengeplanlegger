@@ -1,6 +1,6 @@
 import { MorsForbruk, ForelderForbruk, Forbruk, OmForeldre } from 'app/types';
 import { InjectedIntl } from 'react-intl';
-import { getVarighetString } from 'common/utils/intlUtils';
+import { getVarighetString } from 'common/util/intlUtils';
 
 export type FordelingStatusVerdi = 'suksess' | 'advarsel' | 'feil';
 

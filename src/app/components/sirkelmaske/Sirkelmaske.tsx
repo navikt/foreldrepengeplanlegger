@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
-import BEMHelper from 'common/utils/bem';
-import { UttaksplanHexFarge } from 'common/utils/colors';
+import BEMHelper from 'common/util/bem';
+import { UttaksplanHexFarge } from 'common/util/colors';
 
 import './sirkelmaske.less';
 

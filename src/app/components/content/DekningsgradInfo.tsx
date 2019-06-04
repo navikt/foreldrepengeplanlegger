@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dekningsgrad } from 'common/types';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import { Undertittel, Ingress } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
 import { TilgjengeligeDager, OmForeldre, Situasjon, Forelder } from '../../types';
@@ -10,7 +10,7 @@ import Situasjonsinfo from '../situasjonsskjema/parts/velgSituasjon/SituasjonInf
 
 import './dekningsgradInfo.less';
 import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 
 interface Props {
     situasjon: Situasjon;

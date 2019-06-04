@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Situasjon, OmForeldre } from '../../types';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import OppsummeringBlokk from '../oppsummeringBlokk/OppsummeringBlokk';
 import AntallBarnSirkel from './antallBarnSirkel/AntallBarnSirkel';
 import SituasjonSirkel from './situasjonSirkel/SituasjonSirkel';
-import { formaterDatoUtenDag } from 'common/utils/datoUtils';
-import getMessage from 'common/utils/i18nUtils';
+import { formaterDatoUtenDag } from 'common/util/datoUtils';
+import getMessage from 'common/util/i18nUtils';
 import { injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
 
 export interface SituasjonsoppsummeringProps {

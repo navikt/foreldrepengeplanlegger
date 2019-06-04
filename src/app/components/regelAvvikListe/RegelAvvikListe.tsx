@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RegelAvvik, RegelAlvorlighet } from '../../utils/regler/types';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Veileder, { VeilederAnsiktstype } from 'common/components/veileder/Veileder';
 import { AlertStripeAdvarsel, AlertStripeInfo, AlertStripeFeil } from 'nav-frontend-alertstriper';

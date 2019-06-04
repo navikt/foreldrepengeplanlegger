@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import AriaText from 'common/components/aria/AriaText';
 
 import './iconText.less';

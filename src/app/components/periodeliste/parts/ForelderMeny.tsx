@@ -3,9 +3,9 @@ import { Forelder, Forelderinfo } from '../../../types';
 import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
 import IconText from 'common/components/iconText/IconText';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
-import Foreldrepar from 'common/components/foreldrepar/Foreldrepar';
+import Foreldrepar from 'shared/foreldrepar/Foreldrepar';
 
 interface Props {
     forelder?: Forelder;

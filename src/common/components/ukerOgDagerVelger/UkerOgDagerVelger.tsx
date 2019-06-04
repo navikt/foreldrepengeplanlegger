@@ -3,7 +3,7 @@ import { UkerOgDager } from 'app/types';
 import { Fieldset, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Feil } from 'common/components/skjema/skjemaInputElement/types';
 import SkjemaNumberStepper from 'common/components/skjema/skjemaNumberStepper/SkjemaNumberStepper';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 
 import './ukerOgDagerVelger.less';
 

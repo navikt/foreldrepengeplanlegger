@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import Block from 'common/components/block/Block';
 import FordelingStatusHeader, { FordelingStatusHeaderProps } from './components/FordelingStatusHeader';
 import GrafDeltOmsorg, { GrafDeltOmsorgProps } from './components/GrafDeltOmsorg';

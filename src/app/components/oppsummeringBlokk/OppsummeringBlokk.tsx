@@ -1,5 +1,5 @@
 import * as React from 'react';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import { Systemtittel } from 'nav-frontend-typografi';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import { FormattedMessage } from 'react-intl';

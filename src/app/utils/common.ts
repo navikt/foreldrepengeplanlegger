@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { Situasjon, Forelder, OmForeldre } from '../types';
-import { getSituasjonForelderSvg } from 'common/components/foreldrepar/foreldreparUtils';
+import { getSituasjonForelderSvg } from 'shared/foreldrepar/foreldreparUtils';
 import { Avgrensninger } from 'common/types';
 
 export const getAntallForeldreISituasjon = (situasjon: Situasjon) => {

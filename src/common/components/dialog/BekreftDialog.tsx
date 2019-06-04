@@ -8,7 +8,7 @@ import Knapperad from 'common/components/knapperad/Knapperad';
 import { Systemtittel } from 'nav-frontend-typografi';
 
 import './dialog.less';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 
 export interface Props {
     tittel: string;

@@ -12,7 +12,7 @@ import VelgForeldrenavn from './parts/VelgForeldrenavn';
 import { getAntallForeldreISituasjon, inputHasValue, getTermindatoAvgrensninger } from '../../utils/common';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import VelgErMorEllerFar from './parts/VelgErMorEllerFar';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 
 interface OwnProps {
     formik: FormikProps<SituasjonSkjemadata>;

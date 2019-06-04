@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 
 interface OwnProps {
     antallBarn?: number;

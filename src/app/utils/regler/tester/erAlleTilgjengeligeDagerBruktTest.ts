@@ -1,5 +1,5 @@
 import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../types';
-import { getVarighetString } from 'common/utils/intlUtils';
+import { getVarighetString } from 'common/util/intlUtils';
 
 export const erAlleTilgjengeligeDagerBruktTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { forbruk } = grunnlag;

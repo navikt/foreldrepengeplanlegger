@@ -1,12 +1,12 @@
 import { FordelingStatusHeaderProps } from './components/FordelingStatusHeader';
+import { InjectedIntl } from 'react-intl';
 import { RegelAvvik, RegelAlvorlighet } from 'app/utils/regler/types';
 import { Forbruk, OmForeldre, MorsForbruk, ForelderForbruk, TilgjengeligeDager, Forelder } from 'app/types';
-import { InjectedIntl } from 'react-intl';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 import { GrafDeltOmsorgProps } from './components/GrafDeltOmsorg';
 import { GrafAleneomsorgProps } from './components/GrafAleneomsorg';
-import { FordelingStatus, getFordelingStatus } from '../fordelingGrafWrapper/fordelingStatusUtils';
 import { FordelingTitlerProps } from './components/FordelingTitler';
+import { FordelingStatus, getFordelingStatus } from './fordelingStatusUtils';
 
 export const getProsentFordelingPerDel = (
     tilgjengeligeDager: TilgjengeligeDager,

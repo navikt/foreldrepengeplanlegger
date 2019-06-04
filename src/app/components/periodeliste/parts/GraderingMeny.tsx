@@ -6,8 +6,8 @@ import WorkIkon from 'common/components/ikoner/WorkIkon';
 import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import IconText from 'common/components/iconText/IconText';
 import Block from 'common/components/block/Block';
-import getMessage from 'common/utils/i18nUtils';
-import { getVarighetString } from 'common/utils/intlUtils';
+import getMessage from 'common/util/i18nUtils';
+import { getVarighetString } from 'common/util/intlUtils';
 
 interface OwnProps {
     gradering?: number;

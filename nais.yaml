@@ -1,4 +1,5 @@
 name: foreldrepengeplanlegger-v2
+team: teamforeldrepenger
 image: repo.adeo.no:5443/foreldrepengeplanlegger-v2
 replicas:
     min: 1

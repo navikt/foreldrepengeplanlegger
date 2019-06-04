@@ -31,7 +31,7 @@ const getStønadskontoerRequestParams = (
 const stateSelector = (state: AppState) => state;
 
 const sortStønadskonto = (a: TilgjengeligStønadskonto, b: TilgjengeligStønadskonto) =>
-    getStønadskontoSortOrder(a.stønadskontoType) > getStønadskontoSortOrder(b.stønadskontoType) ? 1 : -1;
+    getStønadskontoSortOrder(a.konto) > getStønadskontoSortOrder(b.konto) ? 1 : -1;
 
 const trekkFlerbarnsdagerFraFellesperiode = (kontoerDTO: FPKontoServiceDTO): FPKontoServiceDTO => {
     const flerbarnsdager = kontoerDTO.kontoer[StønadskontoType.Flerbarnsdager];
@@ -78,11 +78,11 @@ const getKontoerFromForeldrepengerDTO = (
     Object.keys(justerteKontoer80.kontoer).forEach((konto) => {
         dekning80.push({
             dager: justerteKontoer80.kontoer[konto],
-            stønadskontoType: konto as StønadskontoType
+            konto: konto as StønadskontoType
         });
         dekning100.push({
             dager: justerteKontoer100.kontoer[konto],
-            stønadskontoType: konto as StønadskontoType
+            konto: konto as StønadskontoType
         });
     });
     dekning80.sort(sortStønadskonto);

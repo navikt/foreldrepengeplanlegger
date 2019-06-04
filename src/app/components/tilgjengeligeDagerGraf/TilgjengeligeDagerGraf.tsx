@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { TilgjengeligeDager, OmForeldre } from '../../types';
 import BEMHelper from 'common/utils/bem';
-import { getProsentFordeling } from '../../utils/tilgjengeligeDagerUtils';
 import Multibar from '../multibar/Multibar';
 import { UttaksplanHexFarge } from 'common/utils/colors';
-
-import './tilgjengeligeDagerGraf.less';
 import { getVarighetString } from 'common/utils/intlUtils';
 import { injectIntl, InjectedIntlProps, FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import Personkort from '../personkort/Personkort';
 import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
 import { getNavnGenitivEierform } from '../../utils/common';
 import getMessage from 'common/utils/i18nUtils';
+import { getProsentFordelingPerDel } from '../fordelingGraf/fordelingGrafUtils';
+
+import './tilgjengeligeDagerGraf.less';
 
 interface OwnProps {
     tilgjengeligeDager: TilgjengeligeDager;
@@ -23,7 +23,7 @@ type Props = OwnProps & InjectedIntlProps;
 const bem = BEMHelper('tilgjengeligeDagerGraf');
 
 const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, omForeldre, intl }) => {
-    const fordeling = getProsentFordeling(tilgjengeligeDager, true);
+    const fordeling = getProsentFordelingPerDel(tilgjengeligeDager, true);
     const txtMor =
         tilgjengeligeDager.dagerForeldrepengerFørFødsel > 0
             ? `${tilgjengeligeDager.dagerForeldrepengerFørFødsel / 5} + ${tilgjengeligeDager.dagerMor / 5} ${getMessage(

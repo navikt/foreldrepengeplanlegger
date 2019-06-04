@@ -4,14 +4,19 @@ import StatusIkon, { StatusIkonStatus } from 'common/components/ikoner/StatusIko
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { fordelingGrafBem } from '../FordelingGraf';
 
-interface Props {
+export interface FordelingStatusHeaderProps {
     ariaTitle: string;
     status: StatusIkonStatus;
     tittel: string;
     statusTekst: string;
 }
 
-const FordelingStatusHeader: React.StatelessComponent<Props> = ({ ariaTitle, status, tittel, statusTekst }) => {
+const FordelingStatusHeader: React.StatelessComponent<FordelingStatusHeaderProps> = ({
+    ariaTitle,
+    status,
+    tittel,
+    statusTekst
+}) => {
     const bemHeader = fordelingGrafBem.child('statusHeader');
     return (
         <div>

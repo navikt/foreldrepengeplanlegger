@@ -3,7 +3,7 @@ import Multibar from 'app/components/multibar/Multibar';
 import { UttaksplanHexFarge } from 'common/utils/colors';
 import { fordelingGrafBem } from '../FordelingGraf';
 
-interface Props {
+export interface GrafDeltOmsorgProps {
     mor: {
         pstAvTotal: number;
         pstBrukt: number;
@@ -20,7 +20,7 @@ interface Props {
     };
 }
 
-const GrafDeltOmsorg: React.StatelessComponent<Props> = ({ mor, farMedmor, felles }) => {
+const GrafDeltOmsorg: React.StatelessComponent<GrafDeltOmsorgProps> = ({ mor, farMedmor, felles }) => {
     const childBem = fordelingGrafBem.child('graf');
     return (
         <div className={childBem.block}>

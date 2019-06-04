@@ -1,4 +1,4 @@
-import { OmForeldre, Forbruk, MorsForbruk, ForelderForbruk } from '../types';
+import { MorsForbruk, ForelderForbruk, Forbruk, OmForeldre } from 'app/types';
 import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/utils/intlUtils';
 
@@ -105,7 +105,7 @@ function getFordelingStatusDeltOmsorg(
     return advarsel('Dine dager');
 }
 
-function getFordelingStatusAleneomsorg(forbruk: Forbruk, omForeldre: OmForeldre, intl: InjectedIntl): FordelingStatus {
+function getFordelingStatusAleneomsorg(forbruk: Forbruk, intl: InjectedIntl): FordelingStatus {
     const { dagerGjenstående } = forbruk;
     const forMangeDagerTotalt = dagerGjenstående < 0;
     const forFåDagerTotalt = dagerGjenstående > 0;
@@ -131,5 +131,5 @@ export function getFordelingStatus(forbruk: Forbruk, omForeldre: OmForeldre, int
             intl
         );
     }
-    return getFordelingStatusAleneomsorg(forbruk, omForeldre, intl);
+    return getFordelingStatusAleneomsorg(forbruk, intl);
 }

@@ -1,16 +1,16 @@
 import * as React from 'react';
 import Multibar from 'app/components/multibar/Multibar';
 import { UttaksplanHexFarge } from 'common/utils/colors';
-import { fordelingGrafBem } from '../FordelingGraf';
 import { Forelder } from 'app/types';
+import { fordelingGrafBem } from '../FordelingGraf';
 
-interface Props {
+export interface GrafAleneomsorgProps {
     forelder: Forelder;
     pstBrukt: number;
     pstForMye?: number;
 }
 
-const GrafAleneomsorg: React.StatelessComponent<Props> = ({ forelder, pstBrukt, pstForMye }) => {
+const GrafAleneomsorg: React.StatelessComponent<GrafAleneomsorgProps> = ({ forelder, pstBrukt, pstForMye }) => {
     const childBem = fordelingGrafBem.child('graf');
     const farge = forelder === Forelder.mor ? UttaksplanHexFarge.lilla : UttaksplanHexFarge.blaa;
     return (

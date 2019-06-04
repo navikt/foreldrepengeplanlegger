@@ -5,7 +5,8 @@ import { InjectedIntl } from 'react-intl';
 import getMessage from 'common/utils/i18nUtils';
 import { GrafDeltOmsorgProps } from './components/GrafDeltOmsorg';
 import { GrafAleneomsorgProps } from './components/GrafAleneomsorg';
-import { FordelingStatus, getFordelingStatus } from './fordelingStatusUtils';
+import { FordelingStatus, getFordelingStatus } from '../fordelingGrafWrapper/fordelingStatusUtils';
+import { FordelingTitlerProps } from './components/FordelingTitler';
 
 export const getProsentFordelingPerDel = (
     tilgjengeligeDager: TilgjengeligeDager,
@@ -131,5 +132,34 @@ export const getGrafDeltOmsorgProps = (
             pstAvTotal: pstFarMedmor,
             pstBrukt: farsForbrukAvEgenKvote
         }
+    };
+};
+
+export const getGrafFordelingTitler = (
+    omForeldre: OmForeldre,
+    mor?: MorsForbruk,
+    farMedmor?: ForelderForbruk
+): FordelingTitlerProps => {
+    return {
+        mor:
+            mor && !omForeldre.farMedmor && farMedmor !== undefined
+                ? {
+                      navn: omForeldre.mor.navn,
+                      ikonRef: omForeldre.mor.ikonRef,
+                      dagerTotalt: mor.dagerTotalt,
+                      dagerForLite: mor.dagerForLite,
+                      dagerForMye: mor.dagerForMye
+                  }
+                : undefined,
+        farMedmor:
+            farMedmor && omForeldre.farMedmor
+                ? {
+                      navn: omForeldre.farMedmor.navn,
+                      ikonRef: omForeldre.farMedmor.ikonRef,
+                      dagerTotalt: farMedmor.dagerTotalt,
+                      dagerForLite: farMedmor.dagerForLite,
+                      dagerForMye: farMedmor.dagerForMye
+                  }
+                : undefined
     };
 };

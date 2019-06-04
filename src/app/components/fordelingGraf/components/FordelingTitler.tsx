@@ -65,7 +65,7 @@ const Tittel: React.StatelessComponent<TittelProps> = ({
     );
 };
 
-interface Props {
+export interface FordelingTitlerProps {
     mor?: {
         navn: string;
         ikonRef: ForeldreparForelder;
@@ -82,7 +82,11 @@ interface Props {
     };
 }
 
-const FordelingTitler: React.StatelessComponent<Props & InjectedIntlProps> = ({ mor, farMedmor, intl }) => {
+const FordelingTitler: React.StatelessComponent<FordelingTitlerProps & InjectedIntlProps> = ({
+    mor,
+    farMedmor,
+    intl
+}) => {
     return (
         <div className={fordelingGrafBem.element('titler')}>
             {mor && (

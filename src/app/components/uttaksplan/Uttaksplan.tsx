@@ -5,7 +5,6 @@ import Block from 'common/components/block/Block';
 import { Periode, Periodetype } from '../../types/periodetyper';
 import { PeriodelisteProps } from '../periodeliste/types';
 import Knapperad from 'common/components/knapperad/Knapperad';
-import FordelingGraf from '../fordelingGraf/FordelingGraf';
 import { Forbruk, OmForeldre, Uttaksdatoer, TilgjengeligeDager } from '../../types';
 import Periodeliste from '../periodeliste/Periodeliste';
 import { Systemtittel } from 'nav-frontend-typografi';
@@ -23,6 +22,7 @@ import { KeyboardActions } from 'common/components/helpers/KeyboardActions';
 import { focusElement } from '../../utils/focusUtils';
 import IkonLabel from '../ikonLabel/IkonLabel';
 import UndoIkon from 'common/components/ikoner/Undo';
+import FordelingGrafWrapper from '../fordelingGrafWrapper/FordelingGrafWrapper';
 
 import './uttaksplan.less';
 
@@ -228,7 +228,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                 </Knapperad>
                             </Block>
                             {visFordelingGraf && (
-                                <FordelingGraf
+                                <FordelingGrafWrapper
                                     forbruk={forbruk}
                                     omForeldre={omForeldre}
                                     tilgjengeligeDager={tilgjengeligeDager}

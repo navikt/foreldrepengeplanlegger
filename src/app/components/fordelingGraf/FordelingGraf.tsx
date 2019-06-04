@@ -1,9 +1,7 @@
 import * as React from 'react';
 import BEMHelper from 'common/utils/bem';
-import { OmForeldre, TilgjengeligeDager, Forbruk } from '../../types';
+import { OmForeldre, TilgjengeligeDager, Forbruk, Forelder } from '../../types';
 import Block from 'common/components/block/Block';
-import Multibar from '../multibar/Multibar';
-import { UttaksplanHexFarge } from 'common/utils/colors';
 import { getFordelingStatus, FordelingStatus } from '../../utils/fordelingStatusUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import getMessage from 'common/utils/i18nUtils';
@@ -12,6 +10,7 @@ import { RegelAvvik, RegelAlvorlighet } from '../../utils/regler/types';
 import FordelingStatusHeader from './components/FordelingStatusHeader';
 import GrafDeltOmsorg from './components/GrafDeltOmsorg';
 import FordelingTitler from './components/FordelingTitler';
+import GrafAleneomsorg from './components/GrafAleneomsorg';
 
 import './fordelingGraf.less';
 
@@ -56,10 +55,8 @@ const FordelingTitlerWrapper: React.StatelessComponent<Props> = ({ forbruk, omFo
     );
 };
 
-const GrafAleneomsorgMor: React.StatelessComponent<Props> = ({ forbruk, tilgjengeligeDager }) => {
-    const childBem = fordelingGrafBem.child('graf');
+const GrafAleneomsorgMorWrapper: React.StatelessComponent<Props> = ({ forbruk, tilgjengeligeDager }) => {
     const tg = tilgjengeligeDager;
-
     const maksTillatt = tg.dagerForeldrepenger + forbruk.dagerForeldrepengerFørFødsel;
     const maksBrukt =
         forbruk.mor.dagerUtenForeldrepengerFørFødsel +
@@ -69,59 +66,20 @@ const GrafAleneomsorgMor: React.StatelessComponent<Props> = ({ forbruk, tilgjeng
     const enDagIProsent = 100 / Math.max(maksBrukt, maksTillatt);
     const brukIProsent = Math.min(100, enDagIProsent * Math.min(tg.dagerTotalt, forbruk.dagerTotalt));
     const pstForMye = forbruk.mor.dagerForMye > 0 ? Math.min(100, enDagIProsent * forbruk.mor.dagerForMye) : undefined;
-    return (
-        <div className={childBem.block}>
-            <Multibar
-                borderColor={UttaksplanHexFarge.lilla}
-                leftBar={{
-                    width: brukIProsent,
-                    color: UttaksplanHexFarge.lilla
-                }}
-                centerBar={
-                    pstForMye
-                        ? {
-                              width: pstForMye,
-                              color: UttaksplanHexFarge.rod
-                          }
-                        : undefined
-                }
-            />
-        </div>
-    );
+    return <GrafAleneomsorg pstBrukt={brukIProsent} pstForMye={pstForMye} forelder={Forelder.mor} />;
 };
 
-const GrafAleneomsorgFarMedmor: React.StatelessComponent<Props> = ({ forbruk, tilgjengeligeDager }) => {
-    const childBem = fordelingGrafBem.child('graf');
+const GrafAleneomsorgFarMedmorWrapper: React.StatelessComponent<Props> = ({ forbruk, tilgjengeligeDager }) => {
     const tg = tilgjengeligeDager;
-
     if (!forbruk.farMedmor) {
         return null;
     }
-
     const enDagIProsent = 100 / Math.max(tg.dagerTotalt, forbruk.farMedmor.dagerTotalt);
     const brukIProsent = Math.min(100, enDagIProsent * Math.min(tg.dagerTotalt, forbruk.dagerTotalt));
     const pstForMye =
         forbruk.farMedmor.dagerForMye > 0 ? Math.min(100, enDagIProsent * forbruk.farMedmor.dagerForMye) : undefined;
 
-    return (
-        <div className={childBem.block}>
-            <Multibar
-                borderColor={UttaksplanHexFarge.blaa}
-                leftBar={{
-                    width: brukIProsent,
-                    color: UttaksplanHexFarge.blaa
-                }}
-                centerBar={
-                    pstForMye
-                        ? {
-                              width: pstForMye,
-                              color: UttaksplanHexFarge.rod
-                          }
-                        : undefined
-                }
-            />
-        </div>
-    );
+    return <GrafAleneomsorg pstBrukt={brukIProsent} pstForMye={pstForMye} forelder={Forelder.farMedmor} />;
 };
 
 const GrafDeltOmsorgWrapper: React.StatelessComponent<Props> = ({ forbruk, tilgjengeligeDager }) => {
@@ -207,8 +165,8 @@ const FordelingGraf: React.StatelessComponent<Props> = (props) => {
             </Block>
             <Block margin="s" screenOnly={true}>
                 {props.omForeldre.erDeltOmsorg && <GrafDeltOmsorgWrapper {...props} />}
-                {props.omForeldre.bareMor && <GrafAleneomsorgMor {...props} />}
-                {props.omForeldre.bareFar && <GrafAleneomsorgFarMedmor {...props} />}
+                {props.omForeldre.bareMor && <GrafAleneomsorgMorWrapper {...props} />}
+                {props.omForeldre.bareFar && <GrafAleneomsorgFarMedmorWrapper {...props} />}
             </Block>
             <FordelingTitlerWrapper {...props} />
         </section>

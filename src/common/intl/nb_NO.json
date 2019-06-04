@@ -3,8 +3,11 @@
     "tidsperiode.kort": "{fom} - {tom}",
 
     "route.": "Foreldrepenger, engangsstønad og svangerskapspenger",
-    "route.tilbake": "tilbake",
+    "route": "Foreldrepenger, engangsstønad og svangerskapspenger",
     "route.foreldrepengeplanlegger": "Foreldrepengeplanlegger",
+    "route.antallUker": "Foreldrepengeperioden",
+    "route.plan": "Planen",
+    "route.tilbake": "Tilbake",
 
     "common.sidebanner": "Foreldrepengeplanlegger",
     "common.dag": "dag",

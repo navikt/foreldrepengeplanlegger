@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { FlexibleSvg } from '../../common/components/customSvg/CustomSVG';
 import BEMHelper from 'common/util/bem';
-import { ForeldreparForelder, ForeldreparIllustrasjonsvariant } from 'shared/foreldrepar/foreldreparTypes';
 
 import './foreldrepar.less';
+import { ForeldreparForelder, ForeldreparIllustrasjonsvariant } from 'app/types';
 
 interface Props {
     forelder1: ForeldreparForelder;

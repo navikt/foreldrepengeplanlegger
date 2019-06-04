@@ -1,7 +1,6 @@
 import { Periodetype } from './periodetyper';
-import { ForeldreparForelder } from 'shared/foreldrepar/foreldreparTypes';
 import { Holiday } from 'date-holidays';
-import { ForeldreparSituasjon } from 'shared/types';
+import { ForeldreparSituasjon, ForeldreparForelder } from 'shared/types';
 export * from 'shared/types';
 export * from './periodetyper';
 

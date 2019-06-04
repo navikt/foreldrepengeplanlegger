@@ -93,7 +93,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                                         <IkonKnapp
                                             onClick={() => this.setState({ regelInfoVisible: !regelInfoVisible })}
                                             ikon={
-                                                regelAvvik[0].alvorlighet === RegelAlvorlighet.FEIL ? (
+                                                regelAvvik[0].regel.alvorlighet === RegelAlvorlighet.FEIL ? (
                                                     <StatusIkon status="feil" />
                                                 ) : (
                                                     <InfoIkonFylt />

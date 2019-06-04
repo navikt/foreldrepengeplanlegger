@@ -39,11 +39,13 @@ export const getFordelingStatusHeaderProps = (
     intl: InjectedIntl
 ): FordelingStatusHeaderProps => {
     const planenHarFordelingsavvik =
-        regelAvvik.filter((avvik) => avvik.alvorlighet !== RegelAlvorlighet.INFO && avvik.kategori === 'fordeling')
-            .length > 0;
+        regelAvvik.filter(
+            (avvik) => avvik.regel.alvorlighet !== RegelAlvorlighet.INFO && avvik.regel.kategori === 'fordeling'
+        ).length > 0;
     const planenHarAvvikSomErFeil =
-        regelAvvik.filter((avvik) => avvik.alvorlighet === RegelAlvorlighet.FEIL && avvik.kategori !== 'fordeling')
-            .length > 0;
+        regelAvvik.filter(
+            (avvik) => avvik.regel.alvorlighet === RegelAlvorlighet.FEIL && avvik.regel.kategori !== 'fordeling'
+        ).length > 0;
 
     const fordelingStatus: FordelingStatus =
         planenHarAvvikSomErFeil && !planenHarFordelingsavvik

@@ -23,7 +23,7 @@ export const getRegelTestresultatForPeriode = (periodeId: string, testresultater
 };
 
 export const getAlertstripeTypeFromRegelAvvik = (avvik: RegelAvvik): AlertStripeType => {
-    switch (avvik.alvorlighet) {
+    switch (avvik.regel.alvorlighet) {
         case RegelAlvorlighet.FEIL:
             return 'feil';
         case RegelAlvorlighet.ADVARSEL:

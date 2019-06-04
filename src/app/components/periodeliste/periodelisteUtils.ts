@@ -1,6 +1,6 @@
 import { Periode } from '../../types';
 import { Perioden } from '../../utils/Perioden';
-import { UttaksplanRegelTestresultat, RegelAvvik, RegelAlvorlighet } from '../../utils/regler/types';
+import { UttaksplanRegelTestresultat, RegelAvvik, RegelAlvorlighet } from '../../../shared/regler/types';
 import { AlertStripeType } from 'nav-frontend-alertstriper';
 
 const periodelisteUtils = {

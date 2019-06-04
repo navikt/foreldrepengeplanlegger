@@ -8,7 +8,7 @@ import IconText from 'common/components/iconText/IconText';
 import SlåSammenPerioderValg from './parts/SlåSammenPerioderValg';
 import periodelisteUtils from './periodelisteUtils';
 import posed, { PoseGroup } from 'react-pose';
-import { getRegelAvvikForPeriode } from '../../utils/regler/regelUtils';
+import { getRegelAvvikForPeriode } from '../../../shared/regler/regelUtils';
 import HjerteIkon from './parts/HjerteIkon';
 import { Periodene } from '../../utils/Periodene';
 import { EtikettLiten } from 'nav-frontend-typografi';

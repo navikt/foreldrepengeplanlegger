@@ -4,7 +4,7 @@ import {
     RegelTest,
     RegelTestresultatInfoObject,
     RegelTestresultatInfo
-} from '../types';
+} from '../../../../shared/regler/types';
 import { isUtsettelse, Periodetype } from '../../../types';
 
 export const avslutterPlanenMedUtsettelseTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {

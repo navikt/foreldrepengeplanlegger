@@ -1,4 +1,4 @@
-import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../types';
+import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../../../../shared/regler/types';
 import { Forelder, Periodetype } from '../../../types';
 import { Perioden } from '../../Perioden';
 

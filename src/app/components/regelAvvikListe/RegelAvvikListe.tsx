@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { RegelAvvik, RegelAlvorlighet } from '../../utils/regler/types';
+import { RegelAvvik, RegelAlvorlighet } from '../../../shared/regler/types';
 import BEMHelper from 'common/util/bem';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Veileder, { VeilederAnsiktstype } from 'common/components/veileder/Veileder';
 import { AlertStripeAdvarsel, AlertStripeInfo, AlertStripeFeil } from 'nav-frontend-alertstriper';
-import { trimRelaterteRegelAvvik } from '../../utils/regler/regelUtils';
+import { trimRelaterteRegelAvvik } from '../../../shared/regler/regelUtils';
 import AriaText from 'common/components/aria/AriaText';
 import { FormattedMessage } from 'react-intl';
 import RegelAvvikFeilmelding from './RegelAvvikFeilmelding';

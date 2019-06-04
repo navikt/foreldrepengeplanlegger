@@ -1,4 +1,4 @@
-import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../types';
+import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../../../../shared/regler/types';
 import { Periodetype } from '../../../types';
 import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/util/intlUtils';

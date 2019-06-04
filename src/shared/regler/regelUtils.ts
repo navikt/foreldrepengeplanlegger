@@ -8,7 +8,7 @@ import {
     RegelTestresultatInfoObject,
     RegelAvvikInfo
 } from './types';
-import uttaksplanRegler from '.';
+import uttaksplanRegler from '../../app/utils/regler';
 import { InjectedIntl } from 'react-intl';
 import { isArray } from 'util';
 import { flatten, uniqBy } from 'lodash';

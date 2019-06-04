@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../types';
+import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../../../../shared/regler/types';
 import { Forelder, Situasjon } from '../../../types';
 
 export const harFarEllerMedmorUttakFørsteSeksUkerTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {

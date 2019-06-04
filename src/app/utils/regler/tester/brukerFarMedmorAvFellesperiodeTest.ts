@@ -1,4 +1,4 @@
-import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../types';
+import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../../../../shared/regler/types';
 import { getVarighetString } from 'common/util/intlUtils';
 
 export const brukerFarMedmorAvFellesperiodeTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {

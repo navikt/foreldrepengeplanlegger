@@ -1,4 +1,4 @@
-import { Regel, RegelAlvorlighet } from './types';
+import { Regel, RegelAlvorlighet } from '../../../shared/regler/types';
 import { harFarEllerMedmorUttakFørsteSeksUkerTest } from './tester/harFarEllerMedmorUttakFørsteSeksUkerTest';
 import { inneholderPlanenFerieMedUttaksdagerTest } from './tester/inneholderPlanenFerieMedUttaksdagerTest';
 import { starterUttakInnenfor12UkerFørTerminTest } from './tester/starterUttakInnenfor12UkerFørTerminTest';

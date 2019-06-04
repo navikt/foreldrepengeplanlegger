@@ -13,8 +13,8 @@ import { selectForbruk, selectTilgjengeligeDager } from '../selectors';
 import { getOmForeldre, getAntallForeldreISituasjon } from '../../utils/common';
 import { ApiActionKeys } from '../actions/api/apiActionDefinitions';
 import { getUttaksdatoer } from '../../utils/uttaksdatoer';
-import { Regelgrunnlag } from '../../utils/regler/types';
-import { sjekkUttaksplanOppMotRegler, getRegelAvvik } from '../../utils/regler/regelUtils';
+import { Regelgrunnlag } from '../../../shared/regler/types';
+import { sjekkUttaksplanOppMotRegler, getRegelAvvik } from '../../../shared/regler/regelUtils';
 
 const stateSelector = (state: AppState) => state;
 

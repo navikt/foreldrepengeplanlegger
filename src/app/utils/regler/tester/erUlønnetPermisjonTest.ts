@@ -4,7 +4,7 @@ import {
     RegelTest,
     RegelTestresultatInfoObject,
     RegelTestresultatInfo
-} from '../types';
+} from '../../../../shared/regler/types';
 import { isUlønnetPermisjon } from '../../../types';
 
 export const erUlønnetPermisjonTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {

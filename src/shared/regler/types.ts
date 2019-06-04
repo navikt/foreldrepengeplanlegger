@@ -7,9 +7,9 @@ import {
     Forbruk,
     TilgjengeligeDager,
     Forelder
-} from '../../types';
+} from '../../app/types';
 import { InjectedIntl } from 'react-intl';
-import { RegelKey } from '.';
+import { RegelKey } from '../../app/utils/regler';
 
 type FeilIntlMessage = (intl: InjectedIntl) => string;
 

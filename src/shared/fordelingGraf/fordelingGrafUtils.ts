@@ -1,6 +1,6 @@
 import { FordelingStatusHeaderProps } from './components/FordelingStatusHeader';
 import { InjectedIntl } from 'react-intl';
-import { RegelAvvik, RegelAlvorlighet } from 'app/utils/regler/types';
+import { RegelAvvik, RegelAlvorlighet } from 'shared/regler/types';
 import { Forbruk, OmForeldre, MorsForbruk, ForelderForbruk, TilgjengeligeDager, Forelder } from 'app/types';
 import getMessage from 'common/util/i18nUtils';
 import { GrafDeltOmsorgProps } from './components/GrafDeltOmsorg';

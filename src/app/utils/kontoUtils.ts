@@ -32,30 +32,28 @@ export const summerAntallDagerIKontoer = (kontoer: TilgjengeligStønadskonto[]):
 };
 
 const getMorsStønadskontoer = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
-    kontoer.filter((konto) => konto.stønadskontoType === StønadskontoType.Mødrekvote);
+    kontoer.filter((konto) => konto.konto === StønadskontoType.Mødrekvote);
 
 const getFarsStønadskontoer = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
-    kontoer.filter((konto) => konto.stønadskontoType === StønadskontoType.Fedrekvote);
+    kontoer.filter((konto) => konto.konto === StønadskontoType.Fedrekvote);
 
 const getForeldrepengeKontoer = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
-    kontoer.filter((konto) => konto.stønadskontoType === StønadskontoType.Foreldrepenger);
+    kontoer.filter((konto) => konto.konto === StønadskontoType.Foreldrepenger);
 
 const getFlerbarnskonto = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
-    kontoer.filter((konto) => konto.stønadskontoType === StønadskontoType.Flerbarnsdager);
+    kontoer.filter((konto) => konto.konto === StønadskontoType.Flerbarnsdager);
 
 const getFellesStønadskontoer = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
     kontoer.filter(
-        (konto) =>
-            konto.stønadskontoType === StønadskontoType.Fellesperiode ||
-            konto.stønadskontoType === StønadskontoType.Flerbarnsdager
+        (konto) => konto.konto === StønadskontoType.Fellesperiode || konto.konto === StønadskontoType.Flerbarnsdager
     );
 
 const kontoErFørTermin = (konto: TilgjengeligStønadskonto): boolean => {
-    return konto.stønadskontoType === StønadskontoType.ForeldrepengerFørFødsel;
+    return konto.konto === StønadskontoType.ForeldrepengerFørFødsel;
 };
 
 const kontoErEtterTermin = (konto: TilgjengeligStønadskonto): boolean => {
-    return konto.stønadskontoType !== StønadskontoType.ForeldrepengerFørFødsel;
+    return konto.konto !== StønadskontoType.ForeldrepengerFørFødsel;
 };
 
 export const getTilgjengeligeDager = (

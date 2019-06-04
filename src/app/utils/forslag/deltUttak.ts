@@ -11,16 +11,16 @@ export const deltUttakFødselForslag = (
     const førsteUttaksdag = Uttaksdagen(famDato).denneEllerNeste();
     const perioder: Periode[] = [];
     const fellesKonto: TilgjengeligStønadskonto | undefined = tilgjengeligeStønadskontoer.find(
-        (konto) => konto.stønadskontoType === StønadskontoType.Fellesperiode
+        (konto) => konto.konto === StønadskontoType.Fellesperiode
     );
     const flerbarnsKonto: TilgjengeligStønadskonto | undefined = tilgjengeligeStønadskontoer.find(
-        (konto) => konto.stønadskontoType === StønadskontoType.Flerbarnsdager
+        (konto) => konto.konto === StønadskontoType.Flerbarnsdager
     );
     const mkKonto: TilgjengeligStønadskonto | undefined = tilgjengeligeStønadskontoer.find(
-        (konto) => konto.stønadskontoType === StønadskontoType.Mødrekvote
+        (konto) => konto.konto === StønadskontoType.Mødrekvote
     );
     const fkKonto: TilgjengeligStønadskonto | undefined = tilgjengeligeStønadskontoer.find(
-        (konto) => konto.stønadskontoType === StønadskontoType.Fedrekvote
+        (konto) => konto.konto === StønadskontoType.Fedrekvote
     );
 
     const fellesperiodedagerTotalt =

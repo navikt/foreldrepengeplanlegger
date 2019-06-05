@@ -1,18 +1,8 @@
 import moment from 'moment';
-import { Forelder, OmForeldre, ForeldreparSituasjon } from '../types';
-import { getSituasjonForelderSvg } from 'shared/foreldrepar/foreldreparUtils';
+import { Forelder, OmForeldre } from '../types';
+import { getSituasjonForelderSvg, getAntallForeldreISituasjon } from 'shared/foreldrepar/foreldreparUtils';
 import { Avgrensninger } from 'common/types';
-
-export const getAntallForeldreISituasjon = (situasjon: ForeldreparSituasjon) => {
-    switch (situasjon) {
-        case ForeldreparSituasjon.aleneomsorg:
-        case ForeldreparSituasjon.bareFar:
-        case ForeldreparSituasjon.bareMor:
-            return 1;
-        default:
-            return 2;
-    }
-};
+import { ForeldreparSituasjon } from 'shared/types';
 
 export const getRolleVedIkkeDeltPlan = (
     situasjon: ForeldreparSituasjon,

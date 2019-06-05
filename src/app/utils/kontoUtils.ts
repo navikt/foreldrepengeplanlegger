@@ -4,15 +4,15 @@ import {
     TilgjengeligeDager,
     Forelder,
     Periodetype,
-    UttakFørTerminPeriode,
-    ForeldreparSituasjon
+    UttakFørTerminPeriode
 } from '../types';
 import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from './uttaksinfo';
 import { Uttaksdagen } from './Uttaksdagen';
-import { getAntallForeldreISituasjon } from './common';
 import situasjonsregler from './situasjonsregler';
 import Settings from '../settings';
+import { getAntallForeldreISituasjon } from 'shared/foreldrepar/foreldreparUtils';
+import { ForeldreparSituasjon } from 'shared/types';
 
 export const stønadskontoSortOrder = {
     [StønadskontoType.ForeldrepengerFørFødsel]: 1,

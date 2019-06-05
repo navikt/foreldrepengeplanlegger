@@ -1,10 +1,21 @@
-import { ForeldreparSituasjon, ForeldreparForelder, ForeldreparIllustrasjonsvariant } from 'app/types';
+import { ForeldreparForelder, ForeldreparIllustrasjonsvariant, ForeldreparSituasjon } from 'shared/types';
 
 export interface SituasjonForelderSvg {
     mor: ForeldreparForelder;
     farMedmor: ForeldreparForelder;
     variant?: ForeldreparIllustrasjonsvariant;
 }
+
+export const getAntallForeldreISituasjon = (situasjon: ForeldreparSituasjon) => {
+    switch (situasjon) {
+        case ForeldreparSituasjon.aleneomsorg:
+        case ForeldreparSituasjon.bareFar:
+        case ForeldreparSituasjon.bareMor:
+            return 1;
+        default:
+            return 2;
+    }
+};
 
 export const getSituasjonForelderSvg = (situasjon: ForeldreparSituasjon): SituasjonForelderSvg => {
     switch (situasjon) {

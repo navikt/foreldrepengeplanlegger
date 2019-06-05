@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Foreldrepar from 'shared/foreldrepar/Foreldrepar';
-import { ForeldreparSituasjon, Forelder } from '../../types';
-import { getSituasjonForelderSvg } from 'shared/foreldrepar/foreldreparUtils';
-import { getAntallForeldreISituasjon } from '../../utils/common';
+import { Forelder } from '../../types';
+import { getSituasjonForelderSvg, getAntallForeldreISituasjon } from 'shared/foreldrepar/foreldreparUtils';
+import { ForeldreparSituasjon } from 'shared/types';
 
 interface Props {
     situasjon: ForeldreparSituasjon;

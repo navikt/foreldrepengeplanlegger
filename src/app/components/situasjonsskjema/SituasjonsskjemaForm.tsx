@@ -3,16 +3,18 @@ import { FormikProps, Form } from 'formik';
 import Block from 'common/components/block/Block';
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
 import DatoInput from 'common/components/skjema/datoInput/DatoInput';
-import { SituasjonSkjemadata, ForeldreparSituasjon, Forelder } from '../../types';
+import { SituasjonSkjemadata, Forelder } from '../../types';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import VelgAntallBarn from './parts/VelgAntallBarn';
 import Skjemablokk from '../skjemablokk/Skjemablokk';
 import VelgSituasjon from './parts/velgSituasjon/VelgSituasjon';
 import VelgForeldrenavn from './parts/VelgForeldrenavn';
-import { getAntallForeldreISituasjon, inputHasValue, getTermindatoAvgrensninger } from '../../utils/common';
+import { inputHasValue, getTermindatoAvgrensninger } from '../../utils/common';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import VelgErMorEllerFar from './parts/VelgErMorEllerFar';
 import getMessage from 'common/util/i18nUtils';
+import { getAntallForeldreISituasjon } from 'shared/foreldrepar/foreldreparUtils';
+import { ForeldreparSituasjon } from 'shared/types';
 
 interface OwnProps {
     formik: FormikProps<SituasjonSkjemadata>;

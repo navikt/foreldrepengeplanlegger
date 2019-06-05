@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { FormattedMessage, injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
-import { Forelder, ForeldreparSituasjon } from '../../../../types';
+import { Forelder } from '../../../../types';
 import { getVarighetString } from 'common/util/intlUtils';
+import { ForeldreparSituasjon } from 'shared/types';
 
 interface Props {
     situasjon: ForeldreparSituasjon;

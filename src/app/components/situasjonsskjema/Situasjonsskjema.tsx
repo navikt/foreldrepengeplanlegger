@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Formik, FormikProps } from 'formik';
 import SituasjonsskjemaForm from './SituasjonsskjemaForm';
-import { SituasjonSkjemadata, ForeldreparSituasjon, Forelder } from '../../types';
+import { SituasjonSkjemadata, Forelder } from '../../types';
 import * as yup from 'yup';
-import { getAntallForeldreISituasjon } from '../../utils/common';
 import { InjectedIntlProps, injectIntl, InjectedIntl } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
+import { getAntallForeldreISituasjon } from 'shared/foreldrepar/foreldreparUtils';
+import { ForeldreparSituasjon } from 'shared/types';
 
 interface OwnProps {
     skjemadata?: SituasjonSkjemadata;

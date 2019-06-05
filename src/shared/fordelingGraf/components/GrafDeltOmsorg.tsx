@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Multibar from 'app/components/multibar/Multibar';
+import Multibar from 'shared/multibar/Multibar';
 import { UttaksplanHexFarge } from 'common/util/colors';
 import { fordelingGrafBem } from '../FordelingGraf';
 

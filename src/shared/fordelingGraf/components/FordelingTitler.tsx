@@ -1,13 +1,13 @@
 import * as React from 'react';
-import ForelderIkon from 'shared/foreldrepar/ForelderIkon';
 import { InjectedIntl, FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
+import ForelderIkon from 'shared/foreldrepar/ForelderIkon';
 import { getVarighetString } from 'common/util/intlUtils';
-import Varighet from 'app/components/varighet/Varighet';
+import Varighet from 'common/components/varighet/Varighet';
 import getMessage from 'common/util/i18nUtils';
-import Personkort from 'app/components/personkort/Personkort';
+import Personkort from 'shared/personkort/Personkort';
 import HighlightContent from 'common/components/highlightContent/HighlightContent';
-import { ForeldreparForelder } from 'app/types';
 import { fordelingGrafBem } from '../FordelingGraf';
+import { ForeldreparForelder } from 'shared/types';
 
 interface TittelProps {
     navn: string;

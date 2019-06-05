@@ -6,7 +6,7 @@ import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/drop
 import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import Periodeikon from '../../periodeikon/Periodeikon';
 import IconText from 'common/components/iconText/IconText';
-import Varighet from '../../varighet/Varighet';
+import Varighet from '../../../../common/components/varighet/Varighet';
 import Settings from '../../../settings';
 import { getVarighetString } from 'common/util/intlUtils';
 

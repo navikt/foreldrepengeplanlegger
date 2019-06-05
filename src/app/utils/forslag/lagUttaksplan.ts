@@ -1,8 +1,9 @@
-import { TilgjengeligStønadskonto, Periode, ForeldreparSituasjon } from '../../types';
+import { TilgjengeligStønadskonto, Periode } from '../../types';
 import { getUttaksinfoForPeriode } from '../uttaksinfo';
 import { deltUttakFødselForslag } from './deltUttak';
-import { getAntallForeldreISituasjon } from '../common';
 import { ikkeDeltUttakForslag } from './ikkeDeltUttak';
+import { getAntallForeldreISituasjon } from 'shared/foreldrepar/foreldreparUtils';
+import { ForeldreparSituasjon } from 'shared/types';
 
 export const lagUttaksplan = (
     situasjon: ForeldreparSituasjon,

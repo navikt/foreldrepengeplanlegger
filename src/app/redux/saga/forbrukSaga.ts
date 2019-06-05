@@ -10,13 +10,14 @@ import {
 } from '../actions/common/commonActionCreators';
 import { CommonActionKeys } from '../actions/common/commonActionDefinitions';
 import { selectForbruk, selectTilgjengeligeDager } from '../selectors';
-import { getOmForeldre, getAntallForeldreISituasjon } from '../../utils/common';
+import { getOmForeldre } from '../../utils/common';
 import { ApiActionKeys } from '../actions/api/apiActionDefinitions';
 import { getUttaksdatoer } from '../../utils/uttaksdatoer';
 import { getRegelAvvik, regelPasserer, regelHarAvvik } from '../../../shared/regler/regelUtils';
 import { Regelgrunnlag } from 'app/utils/regler/types';
 import uttaksplanRegler from 'app/utils/regler';
-import { RegelStatus } from 'app/types';
+import { getAntallForeldreISituasjon } from 'shared/foreldrepar/foreldreparUtils';
+import { RegelStatus } from 'shared/types';
 
 const stateSelector = (state: AppState) => state;
 

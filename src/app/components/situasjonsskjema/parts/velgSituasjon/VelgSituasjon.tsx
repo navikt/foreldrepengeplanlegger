@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ForeldreparSituasjon } from '../../../../types';
 import Situasjonsvalg from './Situasjonsvalg';
+import { ForeldreparSituasjon } from 'shared/types';
 
 export interface Props {
     valgtSituasjon?: ForeldreparSituasjon;

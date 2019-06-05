@@ -1,7 +1,8 @@
 import moment from 'moment';
 import { RegelTestresultat, RegelTest } from '../../../../shared/types/regelTypes';
-import { Forelder, ForeldreparSituasjon } from '../../../types';
+import { Forelder } from '../../../types';
 import { Regelgrunnlag } from '../types';
+import { ForeldreparSituasjon } from 'shared/types';
 
 export const harFarEllerMedmorUttakFørsteSeksUkerTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { perioder, uttaksdatoer, navnFarMedmor, situasjon, navnMor } = grunnlag;

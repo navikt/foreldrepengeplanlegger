@@ -1,3 +1,6 @@
+import { InjectedIntl } from 'react-intl';
+import { flatten, uniqBy } from 'lodash';
+import { guid } from 'nav-frontend-js-utils';
 import {
     UttaksplanRegelTestresultat,
     RegelAvvik,
@@ -8,10 +11,7 @@ import {
     RegelAvvikInfo,
     RegelAlvorlighet
 } from '../types/regelTypes';
-import { InjectedIntl } from 'react-intl';
 import { isArray } from 'util';
-import { flatten, uniqBy } from 'lodash';
-import { guid } from 'nav-frontend-js-utils';
 
 const getRegelIntlKey = (regel: Regel, intlRegelPrefix: string): string =>
     `${intlRegelPrefix}.${regel.alvorlighet}.${regel.key}`;

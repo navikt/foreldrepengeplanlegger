@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Row, Column } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
-import { ForeldreparSituasjon, Forelder } from '../../../types';
-import { getAntallForeldreISituasjon } from '../../../utils/common';
+import { Forelder } from '../../../types';
 import { InjectedIntlProps, injectIntl, InjectedIntl } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
+import { getAntallForeldreISituasjon } from 'shared/foreldrepar/foreldreparUtils';
+import { ForeldreparSituasjon } from 'shared/types';
 
 interface OwnProps {
     situasjon: ForeldreparSituasjon;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { ForeldreparSituasjon } from '../../../../types';
+import { ForeldreparSituasjon } from 'shared/types';
 import { FormattedMessage } from 'react-intl';
 import BEMHelper from 'common/util/bem';
 import SituasjonForeldrepar from '../../../situasjonForeldrepar/SituasjonForeldrepar';

@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import AriaText from 'common/components/aria/AriaText';
 import StatusIkon, { StatusIkonStatus } from 'common/components/ikoner/StatusIkon';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { fordelingGrafBem } from '../FordelingGraf';
 
 export interface FordelingStatusHeaderProps {

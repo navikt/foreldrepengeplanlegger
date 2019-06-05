@@ -1,6 +1,6 @@
 import { RegelTestresultat, RegelTest } from '../../../../shared/types/regelTypes';
-import { ForeldreparSituasjon } from 'app/types';
 import { Regelgrunnlag } from '../types';
+import { ForeldreparSituasjon } from 'shared/types';
 
 export const bareFarHarRettFlerbarnsukerAktivitetskravMorTest: RegelTest = (
     grunnlag: Regelgrunnlag

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { TilgjengeligeDager, OmForeldre } from '../../types';
 import BEMHelper from 'common/util/bem';
-import Multibar from '../multibar/Multibar';
+import Multibar from '../../../shared/multibar/Multibar';
 import { UttaksplanHexFarge } from 'common/util/colors';
 import { getVarighetString } from 'common/util/intlUtils';
 import { injectIntl, InjectedIntlProps, FormattedHTMLMessage, FormattedMessage } from 'react-intl';
-import Personkort from '../personkort/Personkort';
+import Personkort from '../../../shared/personkort/Personkort';
 import ForelderIkon from 'shared/foreldrepar/ForelderIkon';
 import { getNavnGenitivEierform } from '../../utils/common';
 import getMessage from 'common/util/i18nUtils';

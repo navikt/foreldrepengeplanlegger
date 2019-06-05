@@ -1,4 +1,5 @@
-import { ForeldreparSituasjon, Forelder } from '../types';
+import { Forelder } from '../types';
+import { ForeldreparSituasjon } from 'shared/types';
 
 const situasjonsregler = {
     harFarAleneomsorg: (situasjon: ForeldreparSituasjon, valgtForelder: Forelder | undefined): boolean => {

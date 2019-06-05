@@ -1,5 +1,4 @@
 import {
-    Regelgrunnlag,
     UttaksplanRegelTestresultat,
     RegelAvvik,
     Regel,
@@ -14,6 +13,7 @@ import { InjectedIntl } from 'react-intl';
 import { isArray } from 'util';
 import { flatten, uniqBy } from 'lodash';
 import { guid } from 'nav-frontend-js-utils';
+import { Regelgrunnlag } from 'app/utils/regler/types';
 
 export const sjekkUttaksplanOppMotRegler = (regelgrunnlag: Regelgrunnlag): RegelStatus[] => {
     return uttaksplanRegler.map((regel) => {

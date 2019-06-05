@@ -1,11 +1,11 @@
 import {
     RegelTestresultat,
-    Regelgrunnlag,
     RegelTest,
     RegelTestresultatInfoObject,
     RegelTestresultatInfo
 } from '../../../../shared/regler/types';
 import { isUtsettelse, Periodetype } from '../../../types';
+import { Regelgrunnlag } from '../types';
 
 export const avslutterPlanenMedUtsettelseTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
     const perioder = [...grunnlag.perioder].reverse();

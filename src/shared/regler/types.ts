@@ -1,15 +1,5 @@
 import { Dictionary } from 'lodash';
-import {
-    Periode,
-    ForeldreparSituasjon,
-    Uttaksdatoer,
-    UttakFørTerminPeriode,
-    Forbruk,
-    TilgjengeligeDager,
-    Forelder
-} from '../../app/types';
 import { InjectedIntl } from 'react-intl';
-import { RegelKey } from '../../app/utils/regler';
 
 type FeilIntlMessage = (intl: InjectedIntl) => string;
 
@@ -24,29 +14,15 @@ export interface UttaksplanRegelTestresultat {
     avvikPerPeriode: Dictionary<RegelAvvik[]>;
     avvik: RegelAvvik[];
 }
-export interface Regelgrunnlag {
-    perioder: Periode[];
-    periodeFørTermin: UttakFørTerminPeriode | undefined;
-    familiehendelsesdato: Date;
-    situasjon: ForeldreparSituasjon;
-    forelderVedAleneomsorg?: Forelder;
-    erDeltOmsorg: boolean;
-    uttaksdatoer: Uttaksdatoer;
-    navnMor: string;
-    navnFarMedmor?: string;
-    forbruk?: Forbruk;
-    tilgjengeligeDager?: TilgjengeligeDager;
-    antallBarn: number;
-}
 
 export type RegelKategori = 'fordeling' | undefined;
 
 export interface Regel {
-    key: RegelKey;
+    key: string;
     test: RegelTest;
     alvorlighet: RegelAlvorlighet;
-    overstyresAvRegel?: RegelKey;
-    overstyrerRegler?: RegelKey[];
+    overstyresAvRegel?: string;
+    overstyrerRegler?: string[];
     slåsSammenVedOppsummering?: boolean;
     skjulesIOppsummering?: boolean;
     skjulesIPeriode?: boolean;
@@ -54,7 +30,7 @@ export interface Regel {
     kategori?: RegelKategori;
 }
 
-export type RegelTest = (grunnlag: Regelgrunnlag) => RegelTestresultat;
+export type RegelTest = (grunnlag: any) => RegelTestresultat;
 
 export interface RegelTestresultat {
     passerer: boolean;
@@ -65,7 +41,7 @@ export interface RegelTestresultat {
 export type RegelTestresultatInfoObject = RegelTestresultatInfo | RegelTestresultatInfo[];
 
 export interface RegelStatus {
-    key: RegelKey;
+    key: string;
     passerer: boolean;
     regelAvvik?: RegelAvvik[];
 }

@@ -15,13 +15,6 @@ import { flatten, uniqBy } from 'lodash';
 import { guid } from 'nav-frontend-js-utils';
 import { Regelgrunnlag } from 'app/utils/regler/types';
 
-export const sjekkUttaksplanOppMotRegler = (regelgrunnlag: Regelgrunnlag): RegelStatus[] => {
-    return uttaksplanRegler.map((regel) => {
-        const resultat = regel.test(regelgrunnlag);
-        return resultat.passerer ? regelPasserer(regel) : regelHarAvvik(regel, resultat.info, resultat.periodeId);
-    });
-};
-
 const getRegelIntlKey = (regel: Regel): string => `regel.${regel.alvorlighet}.${regel.key}`;
 
 const alvorlighetSortOrder = {
@@ -30,7 +23,7 @@ const alvorlighetSortOrder = {
     [RegelAlvorlighet.INFO]: 2
 };
 
-export const sorterAvvik = (a1: RegelAvvik, a2: RegelAvvik): number => {
+const sorterAvvik = (a1: RegelAvvik, a2: RegelAvvik): number => {
     if (a1.regel.alvorlighet === a2.regel.alvorlighet) {
         return 0;
     }
@@ -42,7 +35,25 @@ const ensureRegelAvvikIntlKey = (regel: Regel, info?: Partial<RegelTestresultatI
     intlKey: info ? info.intlKey || getRegelIntlKey(regel) : getRegelIntlKey(regel)
 });
 
-export const regelHarAvvik = (regel: Regel, info?: RegelTestresultatInfoObject, periodeId?: string): RegelStatus => {
+const overstyresAvFilter = (avvik: RegelAvvik, idx: number, alleAvvik: RegelAvvik[]): boolean => {
+    return (
+        avvik.regel.overstyresAvRegel === undefined &&
+        alleAvvik.some((b2) => b2.regel.key === avvik.regel.overstyresAvRegel) === false
+    );
+};
+
+const overstyrerAndreFilter = (avvik: RegelAvvik, idx: number, alleAvvik: RegelAvvik[]): boolean => {
+    const overstyresAvAndre = alleAvvik.some((rb) =>
+        rb.regel.overstyrerRegler
+            ? rb.regel.overstyrerRegler.some((rbo) => {
+                  return rbo === avvik.regel.key;
+              })
+            : false
+    );
+    return overstyresAvAndre === false;
+};
+
+const regelHarAvvik = (regel: Regel, info?: RegelTestresultatInfoObject, periodeId?: string): RegelStatus => {
     const mapInfoToRegelAvvik = (i?: Partial<RegelTestresultatInfo>): RegelAvvik => ({
         id: guid(),
         regel,
@@ -62,10 +73,17 @@ export const regelHarAvvik = (regel: Regel, info?: RegelTestresultatInfoObject, 
     };
 };
 
-export const regelPasserer = (regel: Regel): RegelStatus => ({
+const regelPasserer = (regel: Regel): RegelStatus => ({
     key: regel.key,
     passerer: true
 });
+
+export const sjekkUttaksplanOppMotRegler = (regelgrunnlag: Regelgrunnlag): RegelStatus[] => {
+    return uttaksplanRegler.map((regel) => {
+        const resultat = regel.test(regelgrunnlag);
+        return resultat.passerer ? regelPasserer(regel) : regelHarAvvik(regel, resultat.info, resultat.periodeId);
+    });
+};
 
 export const getRegelAvvikForPeriode = (resultat: UttaksplanRegelTestresultat, periodeId: string): RegelAvvik[] => {
     return resultat && resultat.avvikPerPeriode[periodeId] ? resultat.avvikPerPeriode[periodeId] : [];
@@ -84,30 +102,10 @@ export const isRegelFeil = (regelAvvik: RegelAvvik): boolean => regelAvvik.regel
 export const isRegelAdvarsel = (regelAvvik: RegelAvvik): boolean =>
     regelAvvik.regel.alvorlighet === RegelAlvorlighet.ADVARSEL;
 export const isRegelInfo = (regelAvvik: RegelAvvik): boolean => regelAvvik.regel.alvorlighet === RegelAlvorlighet.INFO;
-
 export const hasRegelFeil = (avvik: RegelAvvik[] = []) => avvik.some((a) => isRegelFeil(a));
 export const hasRegelAdvarsler = (avvik: RegelAvvik[] = []) => avvik.some((a) => isRegelAdvarsel(a));
 export const hasRegelInfo = (avvik: RegelAvvik[] = []) => avvik.some((a) => isRegelInfo(a));
-
 export const hasRegelAvvikFeil = (avvik: RegelAvvik[] = []) => avvik.some((a) => isRegelFeil(a));
-
-const overstyresAvFilter = (avvik: RegelAvvik, idx: number, alleAvvik: RegelAvvik[]): boolean => {
-    return (
-        avvik.regel.overstyresAvRegel === undefined &&
-        alleAvvik.some((b2) => b2.regel.key === avvik.regel.overstyresAvRegel) === false
-    );
-};
-
-const overstyrerAndreFilter = (avvik: RegelAvvik, idx: number, alleAvvik: RegelAvvik[]): boolean => {
-    const overstyresAvAndre = alleAvvik.some((rb) =>
-        rb.regel.overstyrerRegler
-            ? rb.regel.overstyrerRegler.some((rbo) => {
-                  return rbo === avvik.regel.key;
-              })
-            : false
-    );
-    return overstyresAvAndre === false;
-};
 
 export const trimRelaterteRegelAvvik = (avvik: RegelAvvik[]): RegelAvvik[] => {
     return uniqBy(avvik.filter(overstyresAvFilter).filter(overstyrerAndreFilter), (a) => {

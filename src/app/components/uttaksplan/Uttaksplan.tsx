@@ -19,7 +19,7 @@ import getMessage from 'common/util/i18nUtils';
 import FocusContainer from 'common/components/focusContainer/FocusContainer';
 import { RegelAvvik } from '../../../shared/types/regelTypes';
 import { KeyboardActions } from 'common/components/helpers/KeyboardActions';
-import { focusElement } from '../../utils/focusUtils';
+import { focusElement } from '../../../common/util/focusUtils';
 import IkonLabel from '../ikonLabel/IkonLabel';
 import UndoIkon from 'common/components/ikoner/Undo';
 import FordelingGrafWrapper from '../fordelingGrafWrapper/FordelingGrafWrapper';

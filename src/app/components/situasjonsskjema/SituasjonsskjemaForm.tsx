@@ -13,7 +13,7 @@ import { inputHasValue, getTermindatoAvgrensninger } from '../../utils/common';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import VelgErMorEllerFar from './parts/VelgErMorEllerFar';
 import getMessage from 'common/util/i18nUtils';
-import { getAntallForeldreISituasjon } from 'shared/foreldrepar/foreldreparUtils';
+import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
 import { ForeldreparSituasjon } from 'shared/types';
 
 interface OwnProps {

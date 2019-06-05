@@ -21,7 +21,7 @@ import { getTidsperiode, Tidsperioden } from '../../utils/Tidsperioden';
 import { VarighetChangeEvent } from './varighet/VarighetSkjema';
 import VarighetMeny from './varighet/VarighetMeny';
 import EndringerVedNyPeriode from './EndringerVedNyPeriode';
-import { focusFirstElement } from '../../utils/focusUtils';
+import { focusFirstElement } from '../../../common/util/focusUtils';
 import getMessage from 'common/util/i18nUtils';
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
 import { kanBeggeForeldreVelgesForPeriodetype } from '../../utils/kontoUtils';

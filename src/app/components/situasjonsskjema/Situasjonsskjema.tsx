@@ -5,7 +5,7 @@ import { SituasjonSkjemadata, Forelder } from '../../types';
 import * as yup from 'yup';
 import { InjectedIntlProps, injectIntl, InjectedIntl } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
-import { getAntallForeldreISituasjon } from 'shared/foreldrepar/foreldreparUtils';
+import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
 import { ForeldreparSituasjon } from 'shared/types';
 
 interface OwnProps {

@@ -1,18 +1,10 @@
 import { Holiday } from 'date-holidays';
 import { ForeldreparSituasjon, Forelder } from 'shared/types';
+import { UkerOgDager } from 'common/types';
+
 export * from './periodetyper';
 export * from 'shared/types';
-
-export enum Søkersituasjon {
-    FØDSEL = 'fødsel',
-    ADOPSJON = 'adopsjon',
-    FORELDREANSVAR = 'omsorgsovertakelse'
-}
-
-export interface UkerOgDager {
-    uker: number;
-    dager: number;
-}
+export * from 'common/types';
 
 export interface Uttaksinfo {
     antallUttaksdager: number;
@@ -22,8 +14,6 @@ export interface Uttaksinfo {
     antallUttaksdagerBrukt: number;
     fridager: Holiday[];
 }
-
-export type UttaksplanFarge = 'lilla' | 'blaa' | 'gronn' | 'gul' | 'graa' | 'hvit';
 
 export interface SituasjonSkjemadata {
     situasjon: ForeldreparSituasjon;

@@ -5,7 +5,7 @@ import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/drop
 import IconText from 'common/components/iconText/IconText';
 import getMessage from 'common/util/i18nUtils';
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
-import Foreldrepar from 'shared/foreldrepar/Foreldrepar';
+import Foreldrepar from 'shared/components/foreldrepar/Foreldrepar';
 
 interface Props {
     forelder?: Forelder;

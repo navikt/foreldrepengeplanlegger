@@ -11,7 +11,7 @@ import { getUttaksinfoForPeriode } from './uttaksinfo';
 import { Uttaksdagen } from './Uttaksdagen';
 import situasjonsregler from './situasjonsregler';
 import Settings from '../settings';
-import { getAntallForeldreISituasjon } from 'shared/foreldrepar/foreldreparUtils';
+import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
 import { ForeldreparSituasjon } from 'shared/types';
 
 export const stønadskontoSortOrder = {

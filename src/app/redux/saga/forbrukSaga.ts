@@ -16,7 +16,7 @@ import { getUttaksdatoer } from '../../utils/uttaksdatoer';
 import { getRegelAvvik, regelPasserer, regelHarAvvik } from '../../../shared/regler/regelUtils';
 import { Regelgrunnlag } from 'app/utils/regler/types';
 import uttaksplanRegler from 'app/utils/regler';
-import { getAntallForeldreISituasjon } from 'shared/foreldrepar/foreldreparUtils';
+import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
 import { RegelStatus } from 'shared/types';
 
 const stateSelector = (state: AppState) => state;

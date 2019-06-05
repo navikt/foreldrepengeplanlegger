@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FlexibleSvg } from '../../common/components/customSvg/CustomSVG';
+import { FlexibleSvg } from '../../../common/components/customSvg/CustomSVG';
 import BEMHelper from 'common/util/bem';
 import { ForeldreparForelder, ForeldreparIllustrasjonsvariant } from 'shared/types';
 

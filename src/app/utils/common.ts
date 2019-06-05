@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { Forelder, OmForeldre } from '../types';
-import { getSituasjonForelderSvg, getAntallForeldreISituasjon } from 'shared/foreldrepar/foreldreparUtils';
+import { getSituasjonForelderSvg, getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
 import { Avgrensninger } from 'common/types';
 import { ForeldreparSituasjon } from 'shared/types';
 

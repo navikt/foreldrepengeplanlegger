@@ -9,7 +9,7 @@ import * as React from 'react';
 import { RegelAvvik, RegelAlvorlighet } from '../../../../shared/types/regelTypes';
 import { getAlertstripeTypeFromRegelAvvik } from '../periodelisteUtils';
 import RegelAvvikFeilmelding from '../../regelAvvikListe/RegelAvvikFeilmelding';
-import InfoIkonFylt from 'common/InfoIkonFylt';
+import InfoIkonFylt from 'common/components/ikoner/InfoIkonFylt';
 
 import './periodelisteElement.less';
 import getMessage from 'common/util/i18nUtils';

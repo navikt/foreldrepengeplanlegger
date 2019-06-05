@@ -1,0 +1,39 @@
+@import '../../../../styles/variables.less';
+
+.periodeikon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.6rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+
+    &__bkg {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    &__ikon {
+        z-index: 2;
+    }
+}
+
+.ulonnetPermisjonArsakIkon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__utsettelsesarsak {
+        svg {
+            height: 1.5rem;
+        }
+    }
+
+    &__forelder {
+        svg {
+            height: 1.7rem;
+        }
+    }
+}

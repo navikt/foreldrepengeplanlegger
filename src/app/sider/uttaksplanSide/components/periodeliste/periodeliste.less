@@ -1,0 +1,180 @@
+@import '../../../../styles/variables.less';
+@import '../../../../styles/mixins.less';
+
+.periodelisteWrapper {
+    .grayBlock();
+}
+
+.periodeliste {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    &__periode {
+        margin-bottom: 0.25rem;
+        position: relative;
+    }
+
+    &__header {
+        display: flex;
+        align-items: baseline;
+        @media (max-width: @mobile-breakpoint) {
+            flex-wrap: wrap;
+        }
+    }
+
+    &__actions {
+        > * {
+            margin-left: 1.75rem;
+        }
+    }
+
+    &__title {
+        flex: 3 1 0;
+        @media (max-width: @mobile-breakpoint) {
+            min-width: 100%;
+            margin-bottom: 0.75rem;
+        }
+    }
+
+    &__termin,
+    &__likePerioder {
+        padding: 1rem 0.5rem 1rem 2.25rem;
+        margin-bottom: 0.25rem;
+        background-color: #efefef;
+        border-radius: 0.25rem;
+    }
+
+    &__info {
+        padding: 1.5rem 0.5rem 0.5rem 0;
+    }
+
+    &__tomListe {
+        padding: 3rem 0;
+        text-align: center;
+    }
+}
+
+.periodeElement {
+    &__periode {
+        flex: 3 1 0;
+    }
+
+    &__varighet {
+        min-width: 9.75rem;
+    }
+
+    &__foreldre {
+        min-width: 5rem;
+        &--skjema {
+            min-width: 6rem;
+        }
+    }
+
+    &__ulonnetPermisjon {
+        max-width: 6rem;
+    }
+
+    @media screen and (max-width: @mobile-breakpoint) {
+        &__periode {
+            min-width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        &__varighet {
+            flex: 3 1 0;
+        }
+    }
+}
+
+.periodetypeDialog {
+    min-width: 20rem;
+
+    @media (max-width: @mobile-breakpoint) {
+        left: 0;
+        right: 0;
+        min-width: 15rem;
+    }
+}
+
+.periodetypeMenyLabel {
+    line-height: initial;
+
+    &__type {
+        font-weight: bold;
+    }
+
+    &__tidsperiode {
+        font-weight: normal;
+        color: #7f756c;
+
+        &::first-letter {
+            text-transform: capitalize;
+        }
+    }
+}
+
+.graderingDialog {
+    min-width: 22rem;
+    left: 0;
+    right: auto;
+
+    @media (max-width: @mobile-breakpoint) {
+        min-width: 18rem;
+    }
+}
+
+.forelderDialog {
+    @media (max-width: @mobile-breakpoint) {
+        left: 0;
+        right: auto;
+        min-width: 17rem;
+    }
+}
+
+.ulonnetPermisjonMenyLabel {
+    line-height: initial;
+    text-align: center;
+}
+
+.varighetDialog {
+    min-width: 21rem;
+    top: 0;
+    margin-top: 0;
+    right: 100%;
+    margin-right: 0.25rem;
+
+    @media (max-width: @mobile-breakpoint) {
+        right: 0;
+        left: auto;
+        top: calc(100% + 0.25rem);
+        margin-right: 0;
+        min-width: 15rem;
+        flex: 3 1 0;
+    }
+
+    @media (max-width: 400px) {
+        right: -1rem;
+        left: auto;
+        top: calc(100% + 0.25rem);
+        margin-right: 0;
+        min-width: 16rem;
+        flex: 3 1 0;
+    }
+}
+
+.forelderMenyIkon {
+    margin: -1rem;
+
+    svg {
+        zoom: 1.2;
+    }
+}
+
+.forelderMenyDisabled {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,62 @@
+@import '../../../../../styles/variables.less';
+
+.periodelisteElement {
+    &__mainContent {
+        display: flex;
+        justify-content: stretch;
+        align-content: stretch;
+        flex-wrap: nowrap;
+
+        @media (max-width: @mobile-breakpoint) {
+            flex-wrap: wrap;
+        }
+    }
+
+    &__menyWrapper {
+        margin-right: 0.5rem;
+        min-width: 5rem;
+        position: relative;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    &__tools {
+        padding-left: 0.25rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        padding-top: 0.25rem;
+
+        @media (max-width: @mobile-breakpoint) {
+            order: 10;
+        }
+    }
+
+    &__tool {
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__info,
+    &__regelavvik {
+        &--open {
+            margin-top: 0.5rem;
+        }
+    }
+
+    &__regelavvikListe {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        &__avvik {
+            margin: 0.25rem 0 0.25rem 0;
+            position: relative;
+        }
+    }
+}

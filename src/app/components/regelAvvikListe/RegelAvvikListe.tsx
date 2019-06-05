@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { RegelAvvik, RegelAlvorlighet } from '../../utils/regler/types';
-import BEMHelper from 'common/utils/bem';
+import { RegelAvvik, RegelAlvorlighet } from '../../../shared/types/regelTypes';
+import BEMHelper from 'common/util/bem';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Veileder, { VeilederAnsiktstype } from 'common/components/veileder/Veileder';
 import { AlertStripeAdvarsel, AlertStripeInfo, AlertStripeFeil } from 'nav-frontend-alertstriper';
-import { trimRelaterteRegelAvvik } from '../../utils/regler/regelUtils';
+import { trimRelaterteRegelAvvik } from '../../../shared/regler/regelUtils';
 import AriaText from 'common/components/aria/AriaText';
 import { FormattedMessage } from 'react-intl';
 import RegelAvvikFeilmelding from './RegelAvvikFeilmelding';
@@ -16,9 +16,9 @@ interface Props {
 const bem = BEMHelper('regelAvvik');
 
 const RegelAvvikListe: React.StatelessComponent<Props> = ({ avvik }) => {
-    const ulovlig = trimRelaterteRegelAvvik(avvik.filter((b) => b.alvorlighet === RegelAlvorlighet.FEIL));
-    const viktig = trimRelaterteRegelAvvik(avvik.filter((b) => b.alvorlighet === RegelAlvorlighet.ADVARSEL));
-    const info = trimRelaterteRegelAvvik(avvik.filter((b) => b.alvorlighet === RegelAlvorlighet.INFO));
+    const ulovlig = trimRelaterteRegelAvvik(avvik.filter((b) => b.regel.alvorlighet === RegelAlvorlighet.FEIL));
+    const viktig = trimRelaterteRegelAvvik(avvik.filter((b) => b.regel.alvorlighet === RegelAlvorlighet.ADVARSEL));
+    const info = trimRelaterteRegelAvvik(avvik.filter((b) => b.regel.alvorlighet === RegelAlvorlighet.INFO));
     const harFeil = ulovlig.length > 0;
 
     let ansikt: VeilederAnsiktstype;

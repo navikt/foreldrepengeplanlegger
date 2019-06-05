@@ -5,11 +5,12 @@ import { getStønadskontoSortOrder } from '../../utils/kontoUtils';
 import { updateApi } from '../actions/api/apiActionCreators';
 import { CommonActionKeys, GetStønadskontoerAction } from '../actions/common/commonActionDefinitions';
 import { setStønadskontoer } from '../actions/common/commonActionCreators';
-import { SituasjonSkjemadata, TilgjengeligStønadskonto, StønadskontoType, Situasjon } from '../../types';
+import { SituasjonSkjemadata, TilgjengeligStønadskonto, StønadskontoType } from '../../types';
 import { AppState } from '../reducers/rootReducer';
 import situasjonsregler from '../../utils/situasjonsregler';
 import { Dekningsgrad } from 'common/types';
 import { getFørsteUttaksdagForeldrepengerFørFødsel } from '../../utils/uttaksdatoer';
+import { ForeldreparSituasjon } from 'shared/types';
 
 const getStønadskontoerRequestParams = (
     familiehendelsesdato: Date,
@@ -31,7 +32,7 @@ const getStønadskontoerRequestParams = (
 const stateSelector = (state: AppState) => state;
 
 const sortStønadskonto = (a: TilgjengeligStønadskonto, b: TilgjengeligStønadskonto) =>
-    getStønadskontoSortOrder(a.stønadskontoType) > getStønadskontoSortOrder(b.stønadskontoType) ? 1 : -1;
+    getStønadskontoSortOrder(a.konto) > getStønadskontoSortOrder(b.konto) ? 1 : -1;
 
 const trekkFlerbarnsdagerFraFellesperiode = (kontoerDTO: FPKontoServiceDTO): FPKontoServiceDTO => {
     const flerbarnsdager = kontoerDTO.kontoer[StønadskontoType.Flerbarnsdager];
@@ -50,9 +51,9 @@ const trekkFlerbarnsdagerFraFellesperiode = (kontoerDTO: FPKontoServiceDTO): FPK
 
 const fjernForeldrepengerFørFødselToFedre = (
     kontoerDTO: FPKontoServiceDTO,
-    situasjon: Situasjon
+    situasjon: ForeldreparSituasjon
 ): FPKontoServiceDTO => {
-    if (situasjon === Situasjon.farOgFar) {
+    if (situasjon === ForeldreparSituasjon.farOgFar) {
         const { FORELDREPENGER_FØR_FØDSEL, ...rest } = kontoerDTO.kontoer;
         return { kontoer: rest };
     }
@@ -61,7 +62,7 @@ const fjernForeldrepengerFørFødselToFedre = (
 const getKontoerFromForeldrepengerDTO = (
     kontoer80: FPKontoServiceDTO,
     kontoer100: FPKontoServiceDTO,
-    situasjon: Situasjon
+    situasjon: ForeldreparSituasjon
 ): { dekning80: TilgjengeligStønadskonto[]; dekning100: TilgjengeligStønadskonto[] } => {
     const dekning80: TilgjengeligStønadskonto[] = [];
     const dekning100: TilgjengeligStønadskonto[] = [];
@@ -78,11 +79,11 @@ const getKontoerFromForeldrepengerDTO = (
     Object.keys(justerteKontoer80.kontoer).forEach((konto) => {
         dekning80.push({
             dager: justerteKontoer80.kontoer[konto],
-            stønadskontoType: konto as StønadskontoType
+            konto: konto as StønadskontoType
         });
         dekning100.push({
             dager: justerteKontoer100.kontoer[konto],
-            stønadskontoType: konto as StønadskontoType
+            konto: konto as StønadskontoType
         });
     });
     dekning80.sort(sortStønadskonto);

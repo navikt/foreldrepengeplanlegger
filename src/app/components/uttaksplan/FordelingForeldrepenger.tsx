@@ -7,7 +7,7 @@ import { TilgjengeligeDager } from '../../types';
 import { dagerTilUker } from '../../utils/common';
 import Skjemablokk from '../skjemablokk/Skjemablokk';
 import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 
 interface OwnProps {
     tilgjengeligeDager: TilgjengeligeDager;

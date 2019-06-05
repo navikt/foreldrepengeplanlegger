@@ -1,13 +1,13 @@
 import {
     RegelTestresultat,
-    Regelgrunnlag,
     RegelTest,
     RegelTestresultatInfoObject,
     RegelTestresultatInfo
-} from '../types';
+} from '../../../../shared/types/regelTypes';
 
 import { isUlønnetPermisjon, Forelder } from '../../../types';
 import { Periodene } from '../../Periodene';
+import { Regelgrunnlag } from '../types';
 
 export const harUlønnetPermisjonUtsettelsesårsak: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
     // Regel gjelder ikke ulønnede permisjoner på slutten av uttaksplanen

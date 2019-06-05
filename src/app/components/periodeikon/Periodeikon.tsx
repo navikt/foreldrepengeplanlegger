@@ -6,9 +6,9 @@ import ArbeidIkon from './ikoner/ArbeidIkon';
 import FerieIkon from './ikoner/FerieIkon';
 import UttakIkon from './ikoner/UttakIkon';
 import GradertUttakIkon from './ikoner/GradertUttakIkon';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import UlønnetPermisjonIkon from './ikoner/UlønnetPermisjonIkon';
-import { getUttaksplanHexFromFarge } from 'common/utils/colors';
+import { getUttaksplanHexFromFarge } from 'common/util/colors';
 
 import './periodeikon.less';
 

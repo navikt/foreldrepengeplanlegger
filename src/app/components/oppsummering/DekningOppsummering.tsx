@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { TilgjengeligeDager, OmForeldre } from '../../types';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import OppsummeringBlokk from '../oppsummeringBlokk/OppsummeringBlokk';
 import { injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
 import { Dekningsgrad } from 'common/types';
 import UkerSirkel from './ukerSirkel/UkerSirkel';
-import { getVarighetString } from 'common/utils/intlUtils';
-import getMessage from 'common/utils/i18nUtils';
+import { getVarighetString } from 'common/util/intlUtils';
+import getMessage from 'common/util/i18nUtils';
 
 export interface DekningOppsummeringProps {
     omForeldre: OmForeldre;

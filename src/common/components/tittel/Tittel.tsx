@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Infoboks from 'common/components/infoboks/Infoboks';
 import { Stil } from 'common/components/sirkelknapp/Sirkelknapp';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 
 import './tittel.less';
 

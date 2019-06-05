@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Utsettelsesårsak, Forelderinfo } from '../../../types';
-import BEMHelper from 'common/utils/bem';
-import ForelderIkon from 'common/components/foreldrepar/ForelderIkon';
+import BEMHelper from 'common/util/bem';
+import ForelderIkon from 'shared/components/foreldrepar/ForelderIkon';
 import WorkIkon from 'common/components/ikoner/WorkIkon';
 import HolidayIkon from 'common/components/ikoner/HolidayIkon';
 

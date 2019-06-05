@@ -4,7 +4,7 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { guid } from 'nav-frontend-js-utils';
 import InfoToggler from 'common/components/utvidetInformasjon/InfoToggler';
 import EkspanderbartInnhold from 'common/components/ekspanderbartInnhold/EkspanderbartInnhold';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 
 import './utvidetInformasjon.less';
 

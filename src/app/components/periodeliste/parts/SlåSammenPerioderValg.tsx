@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Periode } from '../../../types';
 import LinkButton from 'common/components/linkButton/LinkButton';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import { FormattedMessage } from 'react-intl';
 
 interface Props {

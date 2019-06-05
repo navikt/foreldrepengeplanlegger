@@ -1,11 +1,11 @@
 import {
     RegelTestresultat,
-    Regelgrunnlag,
     RegelTest,
     RegelTestresultatInfoObject,
     RegelTestresultatInfo
-} from '../types';
+} from '../../../../shared/types/regelTypes';
 import { isUlønnetPermisjon } from '../../../types';
+import { Regelgrunnlag } from '../types';
 
 export const erUlønnetPermisjonTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
     const perioder = grunnlag.perioder.filter((p) => isUlønnetPermisjon(p));

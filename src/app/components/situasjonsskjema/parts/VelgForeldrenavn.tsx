@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { Row, Column } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
-import { Situasjon, Forelder } from '../../../types';
-import { getAntallForeldreISituasjon } from '../../../utils/common';
+import { Forelder } from '../../../types';
 import { InjectedIntlProps, injectIntl, InjectedIntl } from 'react-intl';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
+import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
+import { ForeldreparSituasjon } from 'shared/types';
 
 interface OwnProps {
-    situasjon: Situasjon;
+    situasjon: ForeldreparSituasjon;
     forelderVedAleneomsorg?: Forelder;
     navnFarMedmor?: string;
     navnMor?: string;
@@ -17,22 +18,22 @@ interface OwnProps {
 
 type Props = OwnProps & InjectedIntlProps;
 
-const getMorLabel = (situasjon: Situasjon, intl: InjectedIntl): string => {
+const getMorLabel = (situasjon: ForeldreparSituasjon, intl: InjectedIntl): string => {
     switch (situasjon) {
-        case Situasjon.farOgFar:
-        case Situasjon.farOgMor:
-        case Situasjon.morOgMedmor:
+        case ForeldreparSituasjon.farOgFar:
+        case ForeldreparSituasjon.farOgMor:
+        case ForeldreparSituasjon.morOgMedmor:
             return getMessage(intl, `situasjonskjema.fornavn.mor.${situasjon}.label`);
         default:
             return getMessage(intl, 'situasjonskjema.fornavn.label');
     }
 };
 
-const getFarMedmorLabel = (situasjon: Situasjon, intl: InjectedIntl): string => {
+const getFarMedmorLabel = (situasjon: ForeldreparSituasjon, intl: InjectedIntl): string => {
     switch (situasjon) {
-        case Situasjon.farOgFar:
-        case Situasjon.farOgMor:
-        case Situasjon.morOgMedmor:
+        case ForeldreparSituasjon.farOgFar:
+        case ForeldreparSituasjon.farOgMor:
+        case ForeldreparSituasjon.morOgMedmor:
             return getMessage(intl, `situasjonskjema.fornavn.far.${situasjon}.label`);
         default:
             return getMessage(intl, 'situasjonskjema.fornavn.label');
@@ -51,12 +52,12 @@ const VelgForeldrenavn: React.StatelessComponent<Props> = ({
     const toForeldre = getAntallForeldreISituasjon(situasjon) === 2;
     const visMorInput =
         toForeldre ||
-        situasjon === Situasjon.bareMor ||
-        (situasjon === Situasjon.aleneomsorg && forelderVedAleneomsorg === Forelder.mor);
+        situasjon === ForeldreparSituasjon.bareMor ||
+        (situasjon === ForeldreparSituasjon.aleneomsorg && forelderVedAleneomsorg === Forelder.mor);
     const visFarInput =
         toForeldre ||
-        situasjon === Situasjon.bareFar ||
-        (situasjon === Situasjon.aleneomsorg && forelderVedAleneomsorg === Forelder.farMedmor);
+        situasjon === ForeldreparSituasjon.bareFar ||
+        (situasjon === ForeldreparSituasjon.aleneomsorg && forelderVedAleneomsorg === Forelder.farMedmor);
     return (
         <Row>
             {visMorInput && (

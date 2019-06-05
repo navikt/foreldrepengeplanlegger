@@ -10,13 +10,25 @@ import {
 } from '../actions/common/commonActionCreators';
 import { CommonActionKeys } from '../actions/common/commonActionDefinitions';
 import { selectForbruk, selectTilgjengeligeDager } from '../selectors';
-import { getOmForeldre, getAntallForeldreISituasjon } from '../../utils/common';
+import { getOmForeldre } from '../../utils/common';
 import { ApiActionKeys } from '../actions/api/apiActionDefinitions';
 import { getUttaksdatoer } from '../../utils/uttaksdatoer';
-import { Regelgrunnlag } from '../../utils/regler/types';
-import { sjekkUttaksplanOppMotRegler, getRegelAvvik } from '../../utils/regler/regelUtils';
+import { getRegelAvvik, regelPasserer, regelHarAvvik } from '../../../shared/regler/regelUtils';
+import { Regelgrunnlag } from 'app/utils/regler/types';
+import uttaksplanRegler from 'app/utils/regler';
+import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
+import { RegelStatus } from 'shared/types';
 
 const stateSelector = (state: AppState) => state;
+
+const sjekkUttaksplanOppMotRegler = (regelgrunnlag: Regelgrunnlag): RegelStatus[] => {
+    return uttaksplanRegler.map((regel) => {
+        const resultat = regel.test(regelgrunnlag);
+        return resultat.passerer
+            ? regelPasserer(regel)
+            : regelHarAvvik(regel, 'regel', resultat.info, resultat.periodeId);
+    });
+};
 
 function* updateForbrukSaga() {
     const appState: AppState = yield select(stateSelector);

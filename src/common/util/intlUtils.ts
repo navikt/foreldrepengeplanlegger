@@ -1,5 +1,5 @@
 import { InjectedIntl } from 'react-intl';
-import { getUkerOgDagerFromDager } from 'common/utils/datoUtils';
+import { getUkerOgDagerFromDager } from 'common/util/datoUtils';
 
 export type VarighetFormat = 'full' | 'normal';
 

@@ -22,7 +22,7 @@ import { getStønadskontoer } from '../redux/actions/api/apiActionCreators';
 import LoadContainer from 'common/components/loadContainer/LoadContainer';
 import { ØnsketFordelingForeldrepenger } from '../redux/reducers/commonReducer';
 import { getUttaksdatoer } from '../utils/uttaksdatoer';
-import { UttaksplanRegelTestresultat } from '../utils/regler/types';
+import { UttaksplanRegelTestresultat } from '../../shared/types/regelTypes';
 import Oppsummering from '../components/oppsummering/Oppsummering';
 import { Side } from '../routes';
 import FocusChildOnMountContainer from 'common/components/focusContainer/FocusChildOnMountContainer';
@@ -31,7 +31,7 @@ import { Element } from 'nav-frontend-typografi';
 import RegelAvvikListe from '../components/regelAvvikListe/RegelAvvikListe';
 import { FormattedMessage } from 'react-intl';
 import { ActionCreators as undoActions } from 'redux-undo';
-import {  Hovedknapp } from 'nav-frontend-knapper';
+import { Hovedknapp } from 'nav-frontend-knapper';
 
 interface StateProps {
     periodeFørTermin?: Periode;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { SkjemaGruppe, Fieldset } from 'nav-frontend-skjema';
 import NumberStepper, { Props as NumberStepperProps } from 'common/components/numberStepper/NumberStepper';
 import { Feil } from 'common/components/skjema/skjemaInputElement/types';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 
 import './skjemaNumberStepper.less';
 

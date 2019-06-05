@@ -10,7 +10,7 @@ import {
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
 import { CommonState } from '../../reducers/commonReducer';
-import { UttaksplanRegelTestresultat } from '../../../utils/regler/types';
+import { UttaksplanRegelTestresultat } from '../../../../shared/types/regelTypes';
 import { Side } from '../../../routes';
 
 export enum CommonActionKeys {

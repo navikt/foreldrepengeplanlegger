@@ -17,7 +17,7 @@ import { summerAntallDagerIKontoer, getPeriodeFørTermin } from '../../utils/kon
 import { setStorage, getStorage, clearStorage } from '../../utils/storage';
 import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
 import { lagUttaksplan } from '../../utils/forslag/lagUttaksplan';
-import { UttaksplanRegelTestresultat } from '../../utils/regler/types';
+import { UttaksplanRegelTestresultat } from '../../../shared/types/regelTypes';
 import { guid } from 'nav-frontend-js-utils';
 
 export interface ØnsketFordelingForeldrepenger {

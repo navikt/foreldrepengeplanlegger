@@ -1,26 +1,19 @@
 import moment from 'moment';
-import { Situasjon, Forelder, OmForeldre } from '../types';
-import { getSituasjonForelderSvg } from 'common/components/foreldrepar/foreldreparUtils';
+import { Forelder, OmForeldre } from '../types';
+import { getSituasjonForelderSvg, getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
 import { Avgrensninger } from 'common/types';
+import { ForeldreparSituasjon } from 'shared/types';
 
-export const getAntallForeldreISituasjon = (situasjon: Situasjon) => {
+export const getRolleVedIkkeDeltPlan = (
+    situasjon: ForeldreparSituasjon,
+    erMor: boolean | undefined
+): Forelder | undefined => {
     switch (situasjon) {
-        case Situasjon.aleneomsorg:
-        case Situasjon.bareFar:
-        case Situasjon.bareMor:
-            return 1;
-        default:
-            return 2;
-    }
-};
-
-export const getRolleVedIkkeDeltPlan = (situasjon: Situasjon, erMor: boolean | undefined): Forelder | undefined => {
-    switch (situasjon) {
-        case Situasjon.bareMor:
+        case ForeldreparSituasjon.bareMor:
             return Forelder.mor;
-        case Situasjon.bareFar:
+        case ForeldreparSituasjon.bareFar:
             return Forelder.farMedmor;
-        case Situasjon.aleneomsorg:
+        case ForeldreparSituasjon.aleneomsorg:
             return erMor === true ? Forelder.mor : Forelder.farMedmor;
     }
     return undefined;
@@ -66,26 +59,30 @@ export const inputHasValue = (value: string | undefined) => {
 
 export const getTermindatoAvgrensninger = (): Avgrensninger => {
     return {
-        minDato: moment.utc()
+        minDato: moment
+            .utc()
             .subtract(6, 'months')
             .toDate(),
-        maksDato: moment.utc()
+        maksDato: moment
+            .utc()
             .add(24, 'months')
             .toDate()
     };
 };
 
 export const getOmForeldre = (
-    situasjon: Situasjon,
+    situasjon: ForeldreparSituasjon,
     navnMor: string,
     navnFarMedmor?: string,
     valgForelderVedAleneomsorg?: Forelder
 ): OmForeldre => {
     const info = getSituasjonForelderSvg(situasjon);
     const erDeltOmsorg = getAntallForeldreISituasjon(situasjon) === 2;
-    const bareMor = situasjon === Situasjon.bareMor || (!erDeltOmsorg && valgForelderVedAleneomsorg === Forelder.mor);
+    const bareMor =
+        situasjon === ForeldreparSituasjon.bareMor || (!erDeltOmsorg && valgForelderVedAleneomsorg === Forelder.mor);
     const bareFar =
-        situasjon === Situasjon.bareFar || (!erDeltOmsorg && valgForelderVedAleneomsorg === Forelder.farMedmor);
+        situasjon === ForeldreparSituasjon.bareFar ||
+        (!erDeltOmsorg && valgForelderVedAleneomsorg === Forelder.farMedmor);
     return {
         mor: {
             navn: navnMor,

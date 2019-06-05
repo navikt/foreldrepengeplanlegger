@@ -3,7 +3,7 @@ import DatoInput from 'common/components/skjema/datoInput/DatoInput';
 import { Checkbox } from 'nav-frontend-skjema';
 import Block from 'common/components/block/Block';
 import UkerOgDagerVelger from 'common/components/ukerOgDagerVelger/UkerOgDagerVelger';
-import { getUkerOgDagerFromDager, formaterDatoUtenDag } from 'common/utils/datoUtils';
+import { getUkerOgDagerFromDager, formaterDatoUtenDag } from 'common/util/datoUtils';
 import { Tidsperiode } from 'common/types';
 import { Periode, Periodetype } from '../../../types';
 import LinkButton from 'common/components/linkButton/LinkButton';
@@ -11,7 +11,7 @@ import { getDagerGradert } from '../../../utils/forbrukUtils';
 import { Undertittel, Ingress } from 'nav-frontend-typografi';
 import Tittel from 'common/components/tittel/Tittel';
 import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 
 export interface VarighetChangeEvent {
     ingenVarighet?: boolean;

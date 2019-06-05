@@ -1,7 +1,9 @@
 import React from 'react';
 
+export type StatusIkonStatus = 'advarsel' | 'feil' | 'suksess';
+
 export interface OwnProps {
-    status: 'advarsel' | 'feil' | 'suksess';
+    status: StatusIkonStatus;
     title?: string;
     size?: number;
 }

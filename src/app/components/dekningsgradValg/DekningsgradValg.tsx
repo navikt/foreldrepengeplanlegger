@@ -2,8 +2,8 @@ import * as React from 'react';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
 import { Dekningsgrad } from 'common/types';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import { getVarighetString } from 'common/utils/intlUtils';
-import getMessage from 'common/utils/i18nUtils';
+import { getVarighetString } from 'common/util/intlUtils';
+import getMessage from 'common/util/i18nUtils';
 
 interface Props {
     dekningsgrad?: Dekningsgrad;

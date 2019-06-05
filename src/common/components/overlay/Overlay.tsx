@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 
 export interface OverlayProps {
     active: boolean;

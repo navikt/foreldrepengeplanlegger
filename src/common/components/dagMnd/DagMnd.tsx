@@ -1,8 +1,8 @@
 import * as React from 'react';
 import moment from 'moment';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import { EtikettLiten } from 'nav-frontend-typografi';
-import { måned3bokstaver, år } from 'common/utils/datoUtils';
+import { måned3bokstaver, år } from 'common/util/datoUtils';
 
 import './dagMnd.less';
 

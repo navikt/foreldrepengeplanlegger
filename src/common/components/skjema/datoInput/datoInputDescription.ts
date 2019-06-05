@@ -1,7 +1,7 @@
 import { InjectedIntl } from 'react-intl';
 import { DatovelgerAvgrensninger } from 'nav-datovelger';
-import { formaterDatoTall } from 'common/utils/datoUtils';
-import getMessage from 'common/utils/i18nUtils';
+import { formaterDatoTall } from 'common/util/datoUtils';
+import getMessage from 'common/util/i18nUtils';
 
 export const getAvgrensningerDescriptionForInput = (
     intl: InjectedIntl,

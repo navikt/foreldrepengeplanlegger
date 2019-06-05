@@ -1,19 +1,20 @@
 import * as React from 'react';
 import { Dekningsgrad } from 'common/types';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import { Undertittel, Ingress } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
-import { TilgjengeligeDager, OmForeldre, Situasjon, Forelder } from '../../types';
+import { TilgjengeligeDager, OmForeldre, Forelder } from '../../types';
 import TilgjengeligeDagerGraf from '../tilgjengeligeDagerGraf/TilgjengeligeDagerGraf';
 import PengerIkon from 'common/components/ikoner/PengerIkon';
 import Situasjonsinfo from '../situasjonsskjema/parts/velgSituasjon/SituasjonInfo';
 
 import './dekningsgradInfo.less';
 import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
+import { ForeldreparSituasjon } from 'shared/types';
 
 interface Props {
-    situasjon: Situasjon;
+    situasjon: ForeldreparSituasjon;
     dekningsgrad: Dekningsgrad;
     tilgjengeligeDager: TilgjengeligeDager;
     omForeldre: OmForeldre;

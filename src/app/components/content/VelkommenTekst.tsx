@@ -5,7 +5,7 @@ import Block from 'common/components/block/Block';
 import { Ingress, Element } from 'nav-frontend-typografi';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { AppRoutes } from '../../routes';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 import { injectIntl, InjectedIntlProps, FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import UtvidetInformasjon from 'common/components/utvidetInformasjon/UtvidetInformasjon';
 

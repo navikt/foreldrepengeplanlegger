@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { formaterDato } from 'common/utils/datoUtils';
+import { formaterDato } from 'common/util/datoUtils';
 import { GetTilgjengeligeStønadskontoerParams } from './types';
 import Environment from '../../app/Environment';
 

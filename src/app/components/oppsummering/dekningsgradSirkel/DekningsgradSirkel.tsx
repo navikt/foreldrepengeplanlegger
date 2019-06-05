@@ -1,5 +1,5 @@
 import * as React from 'react';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import Sirkelmaske from '../../sirkelmaske/Sirkelmaske';
 
 import './dekningsgradSirkel.less';

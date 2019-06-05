@@ -6,7 +6,7 @@ import Infoboks from 'common/components/infoboks/Infoboks';
 
 import './rangeInput.less';
 import AriaText from 'common/components/aria/AriaText';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import StepperKnapp from 'common/components/stepperKnapp/StepperKnapp';
 
 export interface RangeInputElementRendererOptions {

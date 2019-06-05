@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Situasjon } from '../../../../../common/components/foreldrepar/foreldreparTypes';
 import { FormattedMessage, injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
 import { Forelder } from '../../../../types';
-import { getVarighetString } from 'common/utils/intlUtils';
+import { getVarighetString } from 'common/util/intlUtils';
+import { ForeldreparSituasjon } from 'shared/types';
 
 interface Props {
-    situasjon: Situasjon;
+    situasjon: ForeldreparSituasjon;
     forelder: Forelder | undefined;
     flerbarnsdager?: number;
 }
@@ -16,12 +16,14 @@ const Situasjonsinfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
     forelder,
     intl
 }) => {
-    if (situasjon === Situasjon.aleneomsorg && forelder) {
+    if (situasjon === ForeldreparSituasjon.aleneomsorg && forelder) {
         return <FormattedMessage id={`situasjon.info.${situasjon}.${forelder}.tekst`} />;
     }
     if (
         flerbarnsdager &&
-        (situasjon === Situasjon.farOgMor || situasjon === Situasjon.morOgMedmor || situasjon === Situasjon.bareFar)
+        (situasjon === ForeldreparSituasjon.farOgMor ||
+            situasjon === ForeldreparSituasjon.morOgMedmor ||
+            situasjon === ForeldreparSituasjon.bareFar)
     ) {
         return (
             <FormattedHTMLMessage

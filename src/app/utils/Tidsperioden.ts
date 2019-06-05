@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { Holiday } from 'date-holidays';
 import { Tidsperiode } from 'common/types';
-import { getOffentligeFridager } from 'common/utils/fridagerUtils';
+import { getOffentligeFridager } from 'common/util/fridagerUtils';
 import { Uttaksdagen } from './Uttaksdagen';
 import { InjectedIntl } from 'react-intl';
 import {
@@ -10,8 +10,8 @@ import {
     dateIsSameOrAfter,
     formaterDato,
     formaterDatoMedDagKort
-} from 'common/utils/datoUtils';
-import getMessage from 'common/utils/i18nUtils';
+} from 'common/util/datoUtils';
+import getMessage from 'common/util/i18nUtils';
 
 export const Tidsperioden = (tidsperiode: Partial<Tidsperiode> | Tidsperiode) => ({
     erLik: (tidsperiode2: Tidsperiode) => erTidsperioderLike(tidsperiode, tidsperiode2),

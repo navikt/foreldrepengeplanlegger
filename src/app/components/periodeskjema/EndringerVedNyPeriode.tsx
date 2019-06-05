@@ -7,9 +7,9 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { getForelderNavn, getNavnGenitivEierform } from '../../utils/common';
 import { Tidsperioden } from '../../utils/Tidsperioden';
 import { InjectedIntl, injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
-import { formaterDato } from 'common/utils/datoUtils';
-import { getVarighetString } from 'common/utils/intlUtils';
-import getMessage from 'common/utils/i18nUtils';
+import { formaterDato } from 'common/util/datoUtils';
+import { getVarighetString } from 'common/util/intlUtils';
+import getMessage from 'common/util/i18nUtils';
 
 interface Props {
     nyPeriode?: Partial<Periode>;

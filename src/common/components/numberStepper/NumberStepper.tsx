@@ -1,6 +1,6 @@
 import * as React from 'react';
 import StepperKnapp from 'common/components/stepperKnapp/StepperKnapp';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 
 import './numberStepper.less';
 

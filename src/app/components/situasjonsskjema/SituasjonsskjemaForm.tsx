@@ -3,16 +3,18 @@ import { FormikProps, Form } from 'formik';
 import Block from 'common/components/block/Block';
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
 import DatoInput from 'common/components/skjema/datoInput/DatoInput';
-import { SituasjonSkjemadata, Situasjon, Forelder } from '../../types';
+import { SituasjonSkjemadata, Forelder } from '../../types';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import VelgAntallBarn from './parts/VelgAntallBarn';
 import Skjemablokk from '../skjemablokk/Skjemablokk';
 import VelgSituasjon from './parts/velgSituasjon/VelgSituasjon';
 import VelgForeldrenavn from './parts/VelgForeldrenavn';
-import { getAntallForeldreISituasjon, inputHasValue, getTermindatoAvgrensninger } from '../../utils/common';
+import { inputHasValue, getTermindatoAvgrensninger } from '../../utils/common';
 import LinkButton from 'common/components/linkButton/LinkButton';
 import VelgErMorEllerFar from './parts/VelgErMorEllerFar';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
+import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
+import { ForeldreparSituasjon } from 'shared/types';
 
 interface OwnProps {
     formik: FormikProps<SituasjonSkjemadata>;
@@ -21,7 +23,7 @@ interface OwnProps {
 type Props = OwnProps & InjectedIntlProps;
 
 const visAntallBarnValg = (
-    situasjon: Situasjon | undefined,
+    situasjon: ForeldreparSituasjon | undefined,
     navnFarMedmor: string | undefined,
     navnMor: string | undefined,
     erMor: boolean | undefined
@@ -30,13 +32,13 @@ const visAntallBarnValg = (
         return false;
     }
     if (getAntallForeldreISituasjon(situasjon) === 1) {
-        if (situasjon === Situasjon.bareFar) {
+        if (situasjon === ForeldreparSituasjon.bareFar) {
             return inputHasValue(navnFarMedmor);
         }
-        if (situasjon === Situasjon.bareMor) {
+        if (situasjon === ForeldreparSituasjon.bareMor) {
             return inputHasValue(navnMor);
         }
-        if (situasjon === Situasjon.aleneomsorg && erMor !== undefined) {
+        if (situasjon === ForeldreparSituasjon.aleneomsorg && erMor !== undefined) {
             return erMor ? inputHasValue(navnMor) : inputHasValue(navnFarMedmor);
         }
         return false;
@@ -55,7 +57,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
             navnMor,
             forelderVedAleneomsorg
         } = formik.values;
-        const visErMorEllerFarMedmor = situasjon === Situasjon.aleneomsorg;
+        const visErMorEllerFarMedmor = situasjon === ForeldreparSituasjon.aleneomsorg;
         const visNavn =
             situasjon !== undefined &&
             (visErMorEllerFarMedmor === false ||
@@ -67,7 +69,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
         const erToForeldre = getAntallForeldreISituasjon(situasjon) > 1;
         return (
             <Form>
-                <Skjemablokk tittel={getMessage(intl, 'situasjon.velgSituasjon')} animated={true}>
+                <Skjemablokk tittel={getMessage(intl, 'ForeldreparSituasjon.velgSituasjon')} animated={true}>
                     <Block margin="s">
                         <VelgSituasjon
                             onChange={(s) => {

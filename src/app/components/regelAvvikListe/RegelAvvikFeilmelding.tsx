@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { RegelTestresultatInfo } from '../../utils/regler/types';
+import { RegelTestresultatInfo } from '../../../shared/types/regelTypes';
 import { FormattedMessage, injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
-import { getRegelIntlValues } from '../../utils/regler/regelUtils';
+import { getRegelIntlValues } from '../../../shared/regler/regelUtils';
 
 interface Props {
     info: RegelTestresultatInfo;

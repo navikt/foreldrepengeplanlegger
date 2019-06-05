@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { focusFirstElement } from 'app/utils/focusUtils';
+import { focusFirstElement } from 'common/util/focusUtils';
 
 interface Props {
     active: boolean;

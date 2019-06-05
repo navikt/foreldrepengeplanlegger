@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FlexibleSvg } from 'common/components/customSvg/CustomSVG';
-import { ForeldreparForelder } from 'app/types';
+import { ForeldreparForelder } from 'shared/types';
 
 interface Props {
     forelder: ForeldreparForelder;

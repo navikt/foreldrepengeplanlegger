@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
 import { Utsettelsesårsak, OmForeldre, Forelder, Forelderinfo } from '../../../types';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 import DropdownFormMenu from 'common/components/dropdownForm/DropdownFormMenu';
 import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import { getMedforelderNavn } from '../../../utils/common';

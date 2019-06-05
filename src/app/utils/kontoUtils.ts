@@ -4,15 +4,15 @@ import {
     TilgjengeligeDager,
     Forelder,
     Periodetype,
-    UttakFørTerminPeriode,
-    Situasjon
+    UttakFørTerminPeriode
 } from '../types';
 import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from './uttaksinfo';
 import { Uttaksdagen } from './Uttaksdagen';
-import { getAntallForeldreISituasjon } from './common';
 import situasjonsregler from './situasjonsregler';
 import Settings from '../settings';
+import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
+import { ForeldreparSituasjon } from 'shared/types';
 
 export const stønadskontoSortOrder = {
     [StønadskontoType.ForeldrepengerFørFødsel]: 1,
@@ -32,34 +32,32 @@ export const summerAntallDagerIKontoer = (kontoer: TilgjengeligStønadskonto[]):
 };
 
 const getMorsStønadskontoer = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
-    kontoer.filter((konto) => konto.stønadskontoType === StønadskontoType.Mødrekvote);
+    kontoer.filter((konto) => konto.konto === StønadskontoType.Mødrekvote);
 
 const getFarsStønadskontoer = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
-    kontoer.filter((konto) => konto.stønadskontoType === StønadskontoType.Fedrekvote);
+    kontoer.filter((konto) => konto.konto === StønadskontoType.Fedrekvote);
 
 const getForeldrepengeKontoer = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
-    kontoer.filter((konto) => konto.stønadskontoType === StønadskontoType.Foreldrepenger);
+    kontoer.filter((konto) => konto.konto === StønadskontoType.Foreldrepenger);
 
 const getFlerbarnskonto = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
-    kontoer.filter((konto) => konto.stønadskontoType === StønadskontoType.Flerbarnsdager);
+    kontoer.filter((konto) => konto.konto === StønadskontoType.Flerbarnsdager);
 
 const getFellesStønadskontoer = (kontoer: TilgjengeligStønadskonto[]): TilgjengeligStønadskonto[] =>
     kontoer.filter(
-        (konto) =>
-            konto.stønadskontoType === StønadskontoType.Fellesperiode ||
-            konto.stønadskontoType === StønadskontoType.Flerbarnsdager
+        (konto) => konto.konto === StønadskontoType.Fellesperiode || konto.konto === StønadskontoType.Flerbarnsdager
     );
 
 const kontoErFørTermin = (konto: TilgjengeligStønadskonto): boolean => {
-    return konto.stønadskontoType === StønadskontoType.ForeldrepengerFørFødsel;
+    return konto.konto === StønadskontoType.ForeldrepengerFørFødsel;
 };
 
 const kontoErEtterTermin = (konto: TilgjengeligStønadskonto): boolean => {
-    return konto.stønadskontoType !== StønadskontoType.ForeldrepengerFørFødsel;
+    return konto.konto !== StønadskontoType.ForeldrepengerFørFødsel;
 };
 
 export const getTilgjengeligeDager = (
-    situasjon: Situasjon,
+    situasjon: ForeldreparSituasjon,
     kontoer: TilgjengeligStønadskonto[],
     forelderVedAleneomsorg: Forelder | undefined
 ): TilgjengeligeDager => {
@@ -103,17 +101,17 @@ export const getTilgjengeligeDager = (
 };
 
 export const getPeriodeFørTermin = (
-    situasjon: Situasjon,
+    situasjon: ForeldreparSituasjon,
     familiehendelsesdato: Date,
     antallDagerFørTermin: number,
     erMor?: boolean
 ): UttakFørTerminPeriode | undefined => {
     switch (situasjon) {
-        case Situasjon.bareFar:
-        case Situasjon.farOgFar:
+        case ForeldreparSituasjon.bareFar:
+        case ForeldreparSituasjon.farOgFar:
             return undefined;
         default:
-            if (situasjon === Situasjon.aleneomsorg && erMor === false) {
+            if (situasjon === ForeldreparSituasjon.aleneomsorg && erMor === false) {
                 return undefined;
             }
             const tom = Uttaksdagen(familiehendelsesdato).forrige();

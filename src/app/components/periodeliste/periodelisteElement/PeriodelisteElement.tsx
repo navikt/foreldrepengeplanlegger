@@ -2,17 +2,17 @@ import classNames from 'classnames';
 import Block from 'common/components/block/Block';
 import IkonKnapp from 'common/components/ikonKnapp/IkonKnapp';
 import SlettKnapp from 'common/components/slett-knapp/SlettKnapp';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { guid } from 'nav-frontend-js-utils';
 import * as React from 'react';
-import { RegelAvvik, RegelAlvorlighet } from '../../../utils/regler/types';
+import { RegelAvvik, RegelAlvorlighet } from '../../../../shared/types/regelTypes';
 import { getAlertstripeTypeFromRegelAvvik } from '../periodelisteUtils';
 import RegelAvvikFeilmelding from '../../regelAvvikListe/RegelAvvikFeilmelding';
-import InfoIkonFylt from 'common/InfoIkonFylt';
+import InfoIkonFylt from 'common/components/ikoner/InfoIkonFylt';
 
 import './periodelisteElement.less';
-import getMessage from 'common/utils/i18nUtils';
+import getMessage from 'common/util/i18nUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import StatusIkon from 'common/components/ikoner/StatusIkon';
 
@@ -93,7 +93,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                                         <IkonKnapp
                                             onClick={() => this.setState({ regelInfoVisible: !regelInfoVisible })}
                                             ikon={
-                                                regelAvvik[0].alvorlighet === RegelAlvorlighet.FEIL ? (
+                                                regelAvvik[0].regel.alvorlighet === RegelAlvorlighet.FEIL ? (
                                                     <StatusIkon status="feil" />
                                                 ) : (
                                                     <InfoIkonFylt />

@@ -1,7 +1,8 @@
-import { RegelTestresultat, Regelgrunnlag, RegelTest } from '../types';
+import { RegelTestresultat, RegelTest } from '../../../../shared/types/regelTypes';
 
 import { Periodene } from '../../Periodene';
-import { formaterDato } from 'common/utils/datoUtils';
+import { formaterDato } from 'common/util/datoUtils';
+import { Regelgrunnlag } from '../types';
 
 export const harAvsluttendeUlønnedePermisjoner: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
     const antall = Periodene(grunnlag.perioder).getAvsluttendeUlønnedePermisjoner().length;

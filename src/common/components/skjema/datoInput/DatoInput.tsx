@@ -8,8 +8,8 @@ import moment from 'moment';
 import { Avgrensninger, Tidsperiode } from 'common/types';
 import './datoInput.less';
 import { Feil } from 'common/components/skjema/skjemaInputElement/types';
-import { dateToISOFormattedDateString } from 'common/utils/datoUtils';
-import BEMHelper from 'common/utils/bem';
+import { dateToISOFormattedDateString } from 'common/util/datoUtils';
+import BEMHelper from 'common/util/bem';
 import { getAvgrensningerDescriptionForInput } from 'common/components/skjema/datoInput/datoInputDescription';
 import SkjemaInputElement from 'common/components/skjema/skjemaInputElement/SkjemaInputElement';
 

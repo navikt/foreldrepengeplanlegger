@@ -1,5 +1,5 @@
 import * as React from 'react';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import Sidebanner from './components/sidebanner/Sidebanner';
 import Breadcrumbs from './components/breadcrumbs/Breadcrumbs';
 import { Route, Switch, RouteComponentProps, withRouter, Redirect } from 'react-router-dom';

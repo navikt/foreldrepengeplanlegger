@@ -1,8 +1,8 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import BEMHelper from 'common/utils/bem';
+import BEMHelper from 'common/util/bem';
 import { Collapse } from 'react-collapse';
-import { collapseSpringConfig } from 'common/utils/animationUtils';
+import { collapseSpringConfig } from 'common/util/animationUtils';
 import Infoboks from 'common/components/infoboks/Infoboks';
 
 import './block.less';

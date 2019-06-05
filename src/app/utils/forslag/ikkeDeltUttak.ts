@@ -9,9 +9,9 @@ export const ikkeDeltUttakForslag = (
 ): Periode[] => {
     const førsteUttaksdag = Uttaksdagen(famDato).denneEllerNeste();
     const foreldrepengerFørFødselKonto = tilgjengeligeStønadskontoer.find(
-        (k) => k.stønadskontoType === StønadskontoType.ForeldrepengerFørFødsel
+        (k) => k.konto === StønadskontoType.ForeldrepengerFørFødsel
     );
-    const fpKonto = tilgjengeligeStønadskontoer.find((k) => k.stønadskontoType === StønadskontoType.Foreldrepenger);
+    const fpKonto = tilgjengeligeStønadskontoer.find((k) => k.konto === StønadskontoType.Foreldrepenger);
     if (fpKonto) {
         return [
             {

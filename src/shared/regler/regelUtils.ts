@@ -8,14 +8,13 @@ import {
     RegelAvvikInfo,
     RegelAlvorlighet
 } from './types';
-import uttaksplanRegler from '../../app/utils/regler';
 import { InjectedIntl } from 'react-intl';
 import { isArray } from 'util';
 import { flatten, uniqBy } from 'lodash';
 import { guid } from 'nav-frontend-js-utils';
-import { Regelgrunnlag } from 'app/utils/regler/types';
 
-const getRegelIntlKey = (regel: Regel): string => `regel.${regel.alvorlighet}.${regel.key}`;
+const getRegelIntlKey = (regel: Regel, intlRegelPrefix: string): string =>
+    `${intlRegelPrefix}.${regel.alvorlighet}.${regel.key}`;
 
 const alvorlighetSortOrder = {
     [RegelAlvorlighet.FEIL]: 0,
@@ -30,9 +29,13 @@ const sorterAvvik = (a1: RegelAvvik, a2: RegelAvvik): number => {
     return alvorlighetSortOrder[a1.regel.alvorlighet] < alvorlighetSortOrder[a2.regel.alvorlighet] ? -1 : 1;
 };
 
-const ensureRegelAvvikIntlKey = (regel: Regel, info?: Partial<RegelTestresultatInfo>): RegelAvvikInfo => ({
+const ensureRegelAvvikIntlKey = (
+    regel: Regel,
+    intlRegelPrefix: string,
+    info?: Partial<RegelTestresultatInfo>
+): RegelAvvikInfo => ({
     ...info,
-    intlKey: info ? info.intlKey || getRegelIntlKey(regel) : getRegelIntlKey(regel)
+    intlKey: info ? info.intlKey || getRegelIntlKey(regel, intlRegelPrefix) : getRegelIntlKey(regel, intlRegelPrefix)
 });
 
 const overstyresAvFilter = (avvik: RegelAvvik, idx: number, alleAvvik: RegelAvvik[]): boolean => {
@@ -53,11 +56,16 @@ const overstyrerAndreFilter = (avvik: RegelAvvik, idx: number, alleAvvik: RegelA
     return overstyresAvAndre === false;
 };
 
-const regelHarAvvik = (regel: Regel, info?: RegelTestresultatInfoObject, periodeId?: string): RegelStatus => {
+export const regelHarAvvik = (
+    regel: Regel,
+    intlRegelPrefix: string,
+    info?: RegelTestresultatInfoObject,
+    periodeId?: string
+): RegelStatus => {
     const mapInfoToRegelAvvik = (i?: Partial<RegelTestresultatInfo>): RegelAvvik => ({
         id: guid(),
         regel,
-        info: ensureRegelAvvikIntlKey(regel, i),
+        info: ensureRegelAvvikIntlKey(regel, intlRegelPrefix, i),
         periodeId: i ? i.periodeId : periodeId
     });
     const regelAvvik: RegelAvvik[] = [];
@@ -73,17 +81,10 @@ const regelHarAvvik = (regel: Regel, info?: RegelTestresultatInfoObject, periode
     };
 };
 
-const regelPasserer = (regel: Regel): RegelStatus => ({
+export const regelPasserer = (regel: Regel): RegelStatus => ({
     key: regel.key,
     passerer: true
 });
-
-export const sjekkUttaksplanOppMotRegler = (regelgrunnlag: Regelgrunnlag): RegelStatus[] => {
-    return uttaksplanRegler.map((regel) => {
-        const resultat = regel.test(regelgrunnlag);
-        return resultat.passerer ? regelPasserer(regel) : regelHarAvvik(regel, resultat.info, resultat.periodeId);
-    });
-};
 
 export const getRegelAvvikForPeriode = (resultat: UttaksplanRegelTestresultat, periodeId: string): RegelAvvik[] => {
     return resultat && resultat.avvikPerPeriode[periodeId] ? resultat.avvikPerPeriode[periodeId] : [];

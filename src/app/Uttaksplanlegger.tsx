@@ -3,12 +3,12 @@ import BEMHelper from 'common/util/bem';
 import Sidebanner from './components/sidebanner/Sidebanner';
 import Breadcrumbs from './components/breadcrumbs/Breadcrumbs';
 import { Route, Switch, RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
-import UttaksplanSide from './sider/UttaksplanSide';
-import Skjemaside from './sider/Skjemaside';
+import UttaksplanSide from './sider/uttaksplanSide/UttaksplanSide';
+import Skjemaside from './sider/velkommen/VelkommenSide';
 import Block from 'common/components/block/Block';
-import VelkommenTekst from './components/content/VelkommenTekst';
+import VelkommenTekst from './sider/velkommen/components/velkommenTekst/VelkommenTekst';
 import { AppRoutes } from './routes';
-import DekningsgradSide from './sider/DekningsgradSide';
+import DekningsgradSide from './sider/dekningsgradSide/DekningsgradSide';
 
 import 'common/styles/index.less';
 import { InjectedIntlProps, injectIntl } from 'react-intl';

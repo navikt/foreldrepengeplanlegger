@@ -1,4 +1,4 @@
-@import './../../../common/styles/variables.less';
+@import './../../styles/variables.less';
 
 .knapperad {
     display: flex;
@@ -6,7 +6,7 @@
     flex-direction: row;
     justify-content: center;
 
-    .knapperad__knapp+.knapperad__knapp {
+    .knapperad__knapp + .knapperad__knapp {
         padding-left: 1rem;
     }
 
@@ -16,7 +16,7 @@
 
     &--mobile-50-50 {
         @media (max-width: @mobile-breakpoint) {
-            .knapperad__knapp+.knapperad__knapp {
+            .knapperad__knapp + .knapperad__knapp {
                 padding: 0;
             }
 
@@ -32,7 +32,7 @@
                     padding-left: 0.125rem;
                 }
 
-                >.knapp {
+                > .knapp {
                     height: 100%;
                     white-space: normal;
                     width: 100%;

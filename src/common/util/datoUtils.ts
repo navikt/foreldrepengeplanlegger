@@ -1,5 +1,6 @@
 import moment from 'moment';
-import { DateValue } from 'common/types';
+
+export type DateValue = Date | undefined;
 
 export function formaterDato(dato: Date, datoformat?: string): string {
     return moment.utc(dato).format(datoformat || 'dddd D. MMMM YYYY');

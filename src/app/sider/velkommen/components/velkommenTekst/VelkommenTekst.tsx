@@ -5,7 +5,7 @@ import { withRouter, RouteComponentProps } from 'react-router';
 import getMessage from 'common/util/i18nUtils';
 import { injectIntl, InjectedIntlProps, FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import UtvidetInformasjon from 'common/components/utvidetInformasjon/UtvidetInformasjon';
-import Introduksjon from 'app/components/introduksjon/Introduksjon';
+import Introduksjon from 'app/sider/velkommen/components/introduksjon/Introduksjon';
 import IntroSirkelSvg from 'app/sider/velkommen/components/velkommenTekst/IntroSirkelSvg';
 import { AppRoutes } from 'app/routes';
 

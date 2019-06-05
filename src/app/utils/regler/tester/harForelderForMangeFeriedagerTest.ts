@@ -1,4 +1,4 @@
-import { RegelTestresultat, RegelTestresultatInfoObject } from '../../../../shared/regler/types';
+import { RegelTestresultat, RegelTestresultatInfoObject } from '../../../../shared/types/regelTypes';
 import { Regelgrunnlag } from '../types';
 
 const maksFeriedagerMedOverføring = 52;

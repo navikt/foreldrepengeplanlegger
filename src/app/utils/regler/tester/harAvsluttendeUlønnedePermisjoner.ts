@@ -1,4 +1,4 @@
-import { RegelTestresultat, RegelTest } from '../../../../shared/regler/types';
+import { RegelTestresultat, RegelTest } from '../../../../shared/types/regelTypes';
 
 import { Periodene } from '../../Periodene';
 import { formaterDato } from 'common/util/datoUtils';

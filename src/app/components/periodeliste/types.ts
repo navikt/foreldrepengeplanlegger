@@ -1,5 +1,5 @@
 import { Periode, OmForeldre, Uttaksdatoer } from '../../types';
-import { UttaksplanRegelTestresultat, RegelAvvik } from '../../../shared/regler/types';
+import { UttaksplanRegelTestresultat, RegelAvvik } from '../../../shared/types/regelTypes';
 
 interface PeriodelisteBaseProps {
     perioder: Periode[];

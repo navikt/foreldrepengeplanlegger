@@ -3,7 +3,7 @@ import {
     RegelTest,
     RegelTestresultatInfoObject,
     RegelTestresultatInfo
-} from '../../../../shared/regler/types';
+} from '../../../../shared/types/regelTypes';
 
 import { isUlønnetPermisjon, Forelder } from '../../../types';
 import { Periodene } from '../../Periodene';

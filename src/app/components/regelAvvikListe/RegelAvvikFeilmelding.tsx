@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RegelTestresultatInfo } from '../../../shared/regler/types';
+import { RegelTestresultatInfo } from '../../../shared/types/regelTypes';
 import { FormattedMessage, injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
 import { getRegelIntlValues } from '../../../shared/regler/regelUtils';
 

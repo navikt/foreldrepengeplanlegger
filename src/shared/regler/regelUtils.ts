@@ -7,7 +7,7 @@ import {
     RegelTestresultatInfoObject,
     RegelAvvikInfo,
     RegelAlvorlighet
-} from './types';
+} from '../types/regelTypes';
 import { InjectedIntl } from 'react-intl';
 import { isArray } from 'util';
 import { flatten, uniqBy } from 'lodash';

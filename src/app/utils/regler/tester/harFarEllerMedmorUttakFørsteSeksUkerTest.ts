@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { RegelTestresultat, RegelTest } from '../../../../shared/regler/types';
+import { RegelTestresultat, RegelTest } from '../../../../shared/types/regelTypes';
 import { Forelder, ForeldreparSituasjon } from '../../../types';
 import { Regelgrunnlag } from '../types';
 

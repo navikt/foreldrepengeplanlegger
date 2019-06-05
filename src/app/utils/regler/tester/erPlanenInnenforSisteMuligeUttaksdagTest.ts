@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { RegelTestresultat, RegelTest } from '../../../../shared/regler/types';
+import { RegelTestresultat, RegelTest } from '../../../../shared/types/regelTypes';
 import { Periode } from '../../../types';
 import { formaterDatoUtenDag } from 'common/util/datoUtils';
 import { Regelgrunnlag } from '../types';

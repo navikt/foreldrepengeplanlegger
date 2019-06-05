@@ -1,6 +1,6 @@
 import { ForeldreparForelder } from 'shared/types/foreldreparTypes';
 
-export * from '../regler/types';
+export * from './regelTypes';
 export * from './forbrukTypes';
 export * from './foreldreparTypes';
 

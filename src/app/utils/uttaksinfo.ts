@@ -1,7 +1,6 @@
 import { Periode, Uttaksinfo, Periodetype } from '../types';
 import { isValidTidsperiode, Tidsperioden } from './Tidsperioden';
-import { getUkerOgDagerFromDager } from 'common/util/datoUtils';
-import Settings from '../settings';
+import Features from '../features';
 
 const beregnBrukteUttaksdager = (
     type: Periodetype,
@@ -17,7 +16,7 @@ const beregnBrukteUttaksdager = (
             if (gradering === undefined || isNaN(gradering)) {
                 return uttaksdager;
             }
-            if (Settings.avrundGraderingPerPeriode) {
+            if (Features.avrundGraderingPerPeriode) {
                 return Math.floor(uttaksdager * (gradering / 100));
             }
             return uttaksdager * (gradering / 100);
@@ -47,9 +46,6 @@ export const getUttaksinfoForPeriode = (periode: Periode): Uttaksinfo | undefine
         return {
             antallUttaksdager,
             antallFridager,
-            ukerOgDager: getUkerOgDagerFromDager(antallUttaksdager),
-            ukerOgDagerBrukt: getUkerOgDagerFromDager(antallUttaksdagerBrukt),
-            fridager: Tidsperioden(tidsperiode).getUttaksdagerSomErFridager(),
             antallUttaksdagerBrukt
         };
     }

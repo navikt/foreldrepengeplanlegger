@@ -14,7 +14,7 @@ import { Periodene } from '../../../../utils/Periodene';
 import { EtikettLiten } from 'nav-frontend-typografi';
 
 import './periodeliste.less';
-import Settings from '../../../../settings';
+import Features from '../../../../features';
 import { FormattedMessage } from 'react-intl';
 
 const bem = BEMHelper('periodeliste');
@@ -68,7 +68,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
     } = props;
     const antallPerioder = perioder.length;
     const avsluttendeUlønnetPermisjoner =
-        Settings.splittAvsluttendeUlønnetPermisjon && Periodene(perioder).getAvsluttendeUlønnedePermisjoner();
+        Features.visAvsluttendeUlønnetPermisjonSomEgenListe && Periodene(perioder).getAvsluttendeUlønnedePermisjoner();
     const aup =
         avsluttendeUlønnetPermisjoner && avsluttendeUlønnetPermisjoner.length > 0
             ? avsluttendeUlønnetPermisjoner[0]

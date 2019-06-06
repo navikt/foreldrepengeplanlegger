@@ -25,6 +25,7 @@ export interface PeriodeBase {
     fixed?: boolean;
     uttaksinfo?: Uttaksinfo;
     gradering?: number;
+    samtidigPeriodeMedforelder?: Periode;
 }
 
 export interface Uttaksperiode extends PeriodeBase {

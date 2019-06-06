@@ -10,7 +10,7 @@ import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from './uttaksinfo';
 import { Uttaksdagen } from './Uttaksdagen';
 import situasjonsregler from './situasjonsregler';
-import Settings from '../settings';
+import Features from '../features';
 import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
 import { ForeldreparSituasjon } from 'shared/types';
 
@@ -131,7 +131,7 @@ export const kanBeggeForeldreVelgesForPeriodetype = (periodetype: Periodetype | 
     switch (periodetype) {
         case Periodetype.Arbeid:
         case Periodetype.Ferie:
-            return Settings.kanVelgeBeggeForeldreFerieOgArbeid;
+            return Features.kanVelgeBeggeForeldreFerieOgArbeid;
         default:
             return false;
     }

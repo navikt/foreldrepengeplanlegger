@@ -1,6 +1,5 @@
 import { Periode, Uttaksinfo, Periodetype } from '../types';
 import { isValidTidsperiode, Tidsperioden } from './Tidsperioden';
-import { getUkerOgDagerFromDager } from 'common/util/datoUtils';
 import Features from '../features';
 
 const beregnBrukteUttaksdager = (
@@ -47,9 +46,6 @@ export const getUttaksinfoForPeriode = (periode: Periode): Uttaksinfo | undefine
         return {
             antallUttaksdager,
             antallFridager,
-            ukerOgDager: getUkerOgDagerFromDager(antallUttaksdager),
-            ukerOgDagerBrukt: getUkerOgDagerFromDager(antallUttaksdagerBrukt),
-            fridager: Tidsperioden(tidsperiode).getUttaksdagerSomErFridager(),
             antallUttaksdagerBrukt
         };
     }

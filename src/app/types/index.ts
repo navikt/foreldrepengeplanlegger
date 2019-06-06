@@ -1,6 +1,4 @@
-import { Holiday } from 'date-holidays';
 import { ForeldreparSituasjon, Forelder } from 'shared/types';
-import { UkerOgDager } from 'common/types';
 
 export * from './periodetyper';
 export * from 'shared/types';
@@ -9,10 +7,7 @@ export * from 'common/types';
 export interface Uttaksinfo {
     antallUttaksdager: number;
     antallFridager: number;
-    ukerOgDager: UkerOgDager;
-    ukerOgDagerBrukt: UkerOgDager;
     antallUttaksdagerBrukt: number;
-    fridager: Holiday[];
 }
 
 export interface SituasjonSkjemadata {

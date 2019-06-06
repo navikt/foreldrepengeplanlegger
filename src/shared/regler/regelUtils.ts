@@ -10,7 +10,7 @@ import {
     RegelTestresultatInfoObject,
     RegelAvvikInfo,
     RegelAlvorlighet
-} from '../types/regelTypes';
+} from './regelTypes';
 import { isArray } from 'util';
 
 const getRegelIntlKey = (regel: Regel, intlRegelPrefix: string): string =>

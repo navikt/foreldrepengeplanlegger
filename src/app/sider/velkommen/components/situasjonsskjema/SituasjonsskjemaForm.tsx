@@ -69,7 +69,7 @@ class SituasjonsskjemaForm extends React.Component<Props> {
         const erToForeldre = getAntallForeldreISituasjon(situasjon) > 1;
         return (
             <Form>
-                <Skjemablokk tittel={getMessage(intl, 'ForeldreparSituasjon.velgSituasjon')} animated={true}>
+                <Skjemablokk tittel={getMessage(intl, 'situasjon.velgSituasjon')} animated={true}>
                     <Block margin="s">
                         <VelgSituasjon
                             onChange={(s) => {

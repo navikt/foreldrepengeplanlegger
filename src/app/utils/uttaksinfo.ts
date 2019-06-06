@@ -1,7 +1,7 @@
 import { Periode, Uttaksinfo, Periodetype } from '../types';
 import { isValidTidsperiode, Tidsperioden } from './Tidsperioden';
 import { getUkerOgDagerFromDager } from 'common/util/datoUtils';
-import Settings from '../settings';
+import Features from '../features';
 
 const beregnBrukteUttaksdager = (
     type: Periodetype,
@@ -17,7 +17,7 @@ const beregnBrukteUttaksdager = (
             if (gradering === undefined || isNaN(gradering)) {
                 return uttaksdager;
             }
-            if (Settings.avrundGraderingPerPeriode) {
+            if (Features.avrundGraderingPerPeriode) {
                 return Math.floor(uttaksdager * (gradering / 100));
             }
             return uttaksdager * (gradering / 100);

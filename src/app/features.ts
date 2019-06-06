@@ -1,8 +1,8 @@
-const Settings = {
+const Features = {
     kanVelgeBeggeForeldreFerieOgArbeid: false,
     avrundGraderingPerPeriode: true,
     ulønnetPermisjonEnabled: true,
     splittAvsluttendeUlønnetPermisjon: true
 };
 
-export default Settings;
+export default Features;

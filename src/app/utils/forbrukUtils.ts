@@ -13,7 +13,7 @@ import {
 } from '../types';
 import { Periodene } from './Periodene';
 import { Perioden } from './Perioden';
-import Settings from '../settings';
+import Features from '../features';
 import { isValidTidsperiode } from './Tidsperioden';
 
 const getAlleDagerFørTermin = (periode: UttakFørTerminPeriode | undefined): number => {
@@ -178,7 +178,7 @@ export const getForbruk = (
 
 export const getDagerGradert = (dager: number, gradering?: number): number => {
     if (gradering && gradering > 0 && gradering < 100) {
-        if (Settings.avrundGraderingPerPeriode) {
+        if (Features.avrundGraderingPerPeriode) {
             return Math.ceil(dager * (100 / gradering));
         }
         return dager * (100 / gradering);

@@ -7,7 +7,7 @@ import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/
 import Periodeikon from '../../periodeikon/Periodeikon';
 import IconText from 'common/components/iconText/IconText';
 import Varighet from '../../../../../../common/components/varighet/Varighet';
-import Settings from '../../../../../settings';
+import Features from '../../../../../features';
 import { getVarighetString } from 'common/util/intlUtils';
 
 interface OwnProps {
@@ -66,7 +66,7 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
         } else if (type === Periodetype.UlønnetPermisjon && uttaksdager) {
             return <Varighet dager={uttaksdager} separator=" og " />;
         } else if (
-            Settings.avrundGraderingPerPeriode === false &&
+            Features.avrundGraderingPerPeriode === false &&
             type === Periodetype.GradertUttak &&
             uttaksdager &&
             gradering

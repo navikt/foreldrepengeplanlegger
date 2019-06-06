@@ -17,7 +17,6 @@ import VarighetMeny from '../periodeskjema/varighet/VarighetMeny';
 import { VarighetChangeEvent } from '../periodeskjema/varighet/VarighetSkjema';
 import { kanBeggeForeldreVelgesForPeriodetype } from '../../../../utils/kontoUtils';
 import UlønnetPermisjonMeny from './parts/UlønnetPermisjonMeny';
-import Features from '../../../../features';
 import { Periodene } from '../../../../utils/Periodene';
 
 type Props = PeriodelisteElementProps & InjectedIntlProps;
@@ -103,9 +102,7 @@ class PeriodeElement extends React.Component<Props> {
                                     gradering={periode.gradering}
                                     brukteUttaksdager={antallUttaksdagerBrukt}
                                     uttaksdager={antallUttaksdager}
-                                    kanVelgeUlønnetPermisjon={
-                                        Features.ulønnetPermisjonEnabled && omForeldre.erDeltOmsorg === true
-                                    }
+                                    kanVelgeUlønnetPermisjon={omForeldre.erDeltOmsorg === true}
                                     onChange={(periodetype) =>
                                         onUpdate(changePeriodeType(this.props.periode, periodetype))
                                     }

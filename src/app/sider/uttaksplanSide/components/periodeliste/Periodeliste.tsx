@@ -68,7 +68,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
     } = props;
     const antallPerioder = perioder.length;
     const avsluttendeUlønnetPermisjoner =
-        Features.splittAvsluttendeUlønnetPermisjon && Periodene(perioder).getAvsluttendeUlønnedePermisjoner();
+        Features.visAvsluttendeUlønnetPermisjonSomEgenListe && Periodene(perioder).getAvsluttendeUlønnedePermisjoner();
     const aup =
         avsluttendeUlønnetPermisjoner && avsluttendeUlønnetPermisjoner.length > 0
             ? avsluttendeUlønnetPermisjoner[0]

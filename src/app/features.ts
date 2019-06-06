@@ -1,8 +1,7 @@
 const Features = {
     kanVelgeBeggeForeldreFerieOgArbeid: false,
     avrundGraderingPerPeriode: true,
-    ulønnetPermisjonEnabled: true,
-    splittAvsluttendeUlønnetPermisjon: true
+    visAvsluttendeUlønnetPermisjonSomEgenListe: true
 };
 
 export default Features;

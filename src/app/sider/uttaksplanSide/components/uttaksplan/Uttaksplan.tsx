@@ -17,7 +17,7 @@ import BEMHelper from 'common/util/bem';
 import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
 import FocusContainer from 'common/components/focusContainer/FocusContainer';
-import { RegelAvvik } from '../../../../../shared/types/regelTypes';
+import { RegelAvvik } from '../../../../../shared/types';
 import { KeyboardActions } from 'common/components/helpers/KeyboardActions';
 import { focusElement } from '../../../../../common/util/focusUtils';
 import IkonLabel from '../../../../components/ikonLabel/IkonLabel';

@@ -22,7 +22,7 @@ import { getStønadskontoer } from '../../redux/actions/api/apiActionCreators';
 import LoadContainer from 'common/components/loadContainer/LoadContainer';
 import { ØnsketFordelingForeldrepenger } from '../../redux/reducers/commonReducer';
 import { getUttaksdatoer } from '../../utils/uttaksdatoer';
-import { UttaksplanRegelTestresultat } from '../../../shared/types/regelTypes';
+import { UttaksplanRegelTestresultat } from '../../../shared/types';
 import Oppsummering from '../felles/oppsummering/Oppsummering';
 import { Side } from '../../routes';
 import FocusChildOnMountContainer from 'common/components/focusContainer/FocusChildOnMountContainer';

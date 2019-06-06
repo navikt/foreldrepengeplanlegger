@@ -6,7 +6,7 @@ import BEMHelper from 'common/util/bem';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { guid } from 'nav-frontend-js-utils';
 import * as React from 'react';
-import { RegelAvvik, RegelAlvorlighet } from '../../../../../../shared/types/regelTypes';
+import { RegelAvvik, RegelAlvorlighet } from '../../../../../../shared/types';
 import { getAlertstripeTypeFromRegelAvvik } from '../periodelisteUtils';
 import RegelAvvikFeilmelding from '../../regelAvvikListe/RegelAvvikFeilmelding';
 import InfoIkonFylt from 'common/components/ikoner/InfoIkonFylt';

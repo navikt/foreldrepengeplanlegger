@@ -58,11 +58,9 @@ const Block: React.StatelessComponent<BlockProps> = ({
         cls.block,
         !hasChildBlocks ? cls.modifier(bottomMargin) : cls.modifier('none'),
         screenOnly ? 'no-print' : undefined,
-        {
-            [cls.modifier(`top-${marginTop}`)]: marginTop,
-            [cls.modifier(`align-${align}`)]: align,
-            [cls.modifier(`style-${style}`)]: style
-        }
+        cls.modifierConditional(`top-${marginTop}`, marginTop !== undefined),
+        cls.modifierConditional(`align-${align}`, align !== undefined),
+        cls.modifierConditional(`style-${style}`, style !== undefined)
     );
     const content =
         header !== undefined ? (
@@ -77,7 +75,7 @@ const Block: React.StatelessComponent<BlockProps> = ({
             <div className={contentClass}>{children}</div>
         );
 
-    if (animated === true && 1 + 1 === 2) {
+    if (animated === true) {
         return (
             <Collapse isOpened={visible !== false} springConfig={collapseSpringConfig}>
                 {content}

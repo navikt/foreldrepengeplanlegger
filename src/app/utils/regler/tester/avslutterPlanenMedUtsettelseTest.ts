@@ -3,7 +3,7 @@ import {
     RegelTest,
     RegelTestresultatInfoObject,
     RegelTestresultatInfo
-} from '../../../../shared/types/regelTypes';
+} from '../../../../shared/types';
 import { isUtsettelse, Periodetype } from '../../../types';
 import { Regelgrunnlag } from '../types';
 

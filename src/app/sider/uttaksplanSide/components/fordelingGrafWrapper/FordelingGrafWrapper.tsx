@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { OmForeldre, TilgjengeligeDager, Forbruk } from '../../../../types';
-import { RegelAvvik } from 'shared/types/regelTypes';
+import { RegelAvvik } from 'shared/types';
 import {
     getGrafDeltOmsorgProps,
     getGrafAleneomsorgMorProps,

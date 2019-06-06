@@ -1,4 +1,4 @@
-import { RegelTestresultat, RegelTest } from '../../../../shared/types/regelTypes';
+import { RegelTestresultat, RegelTest } from '../../../../shared/types';
 
 import { Regelgrunnlag } from '../types';
 import { ForeldreparSituasjon } from 'shared/types';

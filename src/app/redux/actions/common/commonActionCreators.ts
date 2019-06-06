@@ -4,7 +4,7 @@ import { Periode, SituasjonSkjemadata, Forbruk, TilgjengeligeDager, OmForeldre }
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
 import { CommonState } from '../../reducers/commonReducer';
-import { UttaksplanRegelTestresultat } from '../../../../shared/types/regelTypes';
+import { UttaksplanRegelTestresultat } from '../../../../shared/types';
 import { Side } from '../../../routes';
 
 export function setSpråk(språkkode: Språkkode): CommonActionTypes {

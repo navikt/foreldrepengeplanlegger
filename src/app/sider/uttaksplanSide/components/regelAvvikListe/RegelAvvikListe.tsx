@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RegelAvvik, RegelAlvorlighet } from '../../../../../shared/types/regelTypes';
+import { RegelAvvik, RegelAlvorlighet } from '../../../../../shared/types';
 import BEMHelper from 'common/util/bem';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Veileder, { VeilederAnsiktstype } from 'common/components/veileder/Veileder';

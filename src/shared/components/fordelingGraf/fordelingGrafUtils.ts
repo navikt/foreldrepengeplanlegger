@@ -151,16 +151,15 @@ export const getGrafFordelingTitler = (
     farMedmor?: ForelderForbruk
 ): FordelingTitlerProps => {
     return {
-        mor:
-            mor && !omForeldre.farMedmor && farMedmor !== undefined
-                ? {
-                      navn: omForeldre.mor.navn,
-                      ikonRef: omForeldre.mor.ikonRef,
-                      dagerTotalt: mor.dagerTotalt,
-                      dagerForLite: mor.dagerForLite,
-                      dagerForMye: mor.dagerForMye
-                  }
-                : undefined,
+        mor: mor
+            ? {
+                  navn: omForeldre.mor.navn,
+                  ikonRef: omForeldre.mor.ikonRef,
+                  dagerTotalt: mor.dagerTotalt,
+                  dagerForLite: mor.dagerForLite,
+                  dagerForMye: mor.dagerForMye
+              }
+            : undefined,
         farMedmor:
             farMedmor && omForeldre.farMedmor
                 ? {

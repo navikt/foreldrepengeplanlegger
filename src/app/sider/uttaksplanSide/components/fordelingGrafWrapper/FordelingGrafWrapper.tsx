@@ -51,7 +51,11 @@ const FordelingGrafWrapper: React.StatelessComponent<Props & InjectedIntlProps> 
                     ? getGrafAleneomsorgFarMedmorProps(forbruk.dagerTotalt, forbruk.farMedmor, tilgjengeligeDager)
                     : undefined
             }
-            titlerProps={getGrafFordelingTitler(omForeldre, mor, farMedmor)}
+            titlerProps={getGrafFordelingTitler(
+                omForeldre,
+                omForeldre.bareFar ? undefined : mor,
+                omForeldre.bareMor ? undefined : farMedmor
+            )}
         />
     );
 };

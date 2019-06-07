@@ -1,20 +1,6 @@
-import { FordelingStatusHeaderProps } from './components/FordelingStatusHeader';
-import { InjectedIntl } from 'react-intl';
-import {
-    RegelAvvik,
-    RegelAlvorlighet,
-    TilgjengeligeDager,
-    Forbruk,
-    OmForeldre,
-    MorsForbruk,
-    Forelder,
-    ForelderForbruk
-} from 'shared/types';
-import getMessage from 'common/util/i18nUtils';
-import { GrafDeltOmsorgProps } from './components/GrafDeltOmsorg';
-import { GrafAleneomsorgProps } from './components/GrafAleneomsorg';
-import { FordelingTitlerProps } from './components/FordelingTitler';
-import { FordelingStatus, getFordelingStatus } from './fordelingStatusUtils';
+import { TilgjengeligeDager, MorsForbruk, Forelder, ForelderForbruk } from 'shared/types';
+import { GrafDeltOmsorgProps } from '../../shared/components/fordelingGraf/components/GrafDeltOmsorg';
+import { GrafAleneomsorgProps } from '../../shared/components/fordelingGraf/components/GrafAleneomsorg';
 
 export const getProsentFordelingPerDel = (
     tilgjengeligeDager: TilgjengeligeDager,
@@ -40,33 +26,33 @@ export const getProsentFordelingPerDel = (
     };
 };
 
-export const getFordelingStatusHeaderProps = (
-    regelAvvik: RegelAvvik[],
-    forbruk: Forbruk,
-    omForeldre: OmForeldre,
-    intl: InjectedIntl
-): FordelingStatusHeaderProps => {
-    const planenHarFordelingsavvik =
-        regelAvvik.filter(
-            (avvik) => avvik.regel.alvorlighet !== RegelAlvorlighet.INFO && avvik.regel.kategori === 'fordeling'
-        ).length > 0;
-    const planenHarAvvikSomErFeil =
-        regelAvvik.filter(
-            (avvik) => avvik.regel.alvorlighet === RegelAlvorlighet.FEIL && avvik.regel.kategori !== 'fordeling'
-        ).length > 0;
+// export const getFordelingStatusHeaderProps = (
+//     regelAvvik: RegelAvvik[],
+//     forbruk: Forbruk,
+//     omForeldre: OmForeldre,
+//     intl: InjectedIntl
+// ): FordelingStatusHeaderProps => {
+//     const planenHarFordelingsavvik =
+//         regelAvvik.filter(
+//             (avvik) => avvik.regel.alvorlighet !== RegelAlvorlighet.INFO && avvik.regel.kategori === 'fordeling'
+//         ).length > 0;
+//     const planenHarAvvikSomErFeil =
+//         regelAvvik.filter(
+//             (avvik) => avvik.regel.alvorlighet === RegelAlvorlighet.FEIL && avvik.regel.kategori !== 'fordeling'
+//         ).length > 0;
 
-    const fordelingStatus: FordelingStatus =
-        planenHarAvvikSomErFeil && !planenHarFordelingsavvik
-            ? { status: 'feil', tittel: { key: 'regel.feil.uttaksplanStatusTittel' } }
-            : getFordelingStatus(forbruk, omForeldre, intl);
+//     const fordelingStatus: FordelingStatus =
+//         planenHarAvvikSomErFeil && !planenHarFordelingsavvik
+//             ? { status: 'feil', tittel: { key: 'regel.feil.uttaksplanStatusTittel' } }
+//             : getFordelingStatus(forbruk, omForeldre, intl);
 
-    return {
-        ariaTitle: 'Status på planen',
-        status: fordelingStatus.status,
-        tittel: getMessage(intl, `fordeling.tittel.${omForeldre.erDeltOmsorg ? 'deres' : 'din'}`),
-        statusTekst: getMessage(intl, fordelingStatus.tittel.key, fordelingStatus.tittel.values)
-    };
-};
+//     return {
+//         ariaTitle: 'Status på planen',
+//         status: fordelingStatus.status,
+//         tittel: getMessage(intl, `fordeling.tittel.${omForeldre.erDeltOmsorg ? 'deres' : 'din'}`),
+//         statusTekst: getMessage(intl, fordelingStatus.tittel.key, fordelingStatus.tittel.values)
+//     };
+// };
 
 export const getGrafAleneomsorgMorProps = (
     dagerTotalt: number,
@@ -145,31 +131,31 @@ export const getGrafDeltOmsorgProps = (
     };
 };
 
-export const getGrafFordelingTitler = (
-    omForeldre: OmForeldre,
-    mor?: MorsForbruk,
-    farMedmor?: ForelderForbruk
-): FordelingTitlerProps => {
-    return {
-        mor:
-            mor && !omForeldre.farMedmor && farMedmor !== undefined
-                ? {
-                      navn: omForeldre.mor.navn,
-                      ikonRef: omForeldre.mor.ikonRef,
-                      dagerTotalt: mor.dagerTotalt,
-                      dagerForLite: mor.dagerForLite,
-                      dagerForMye: mor.dagerForMye
-                  }
-                : undefined,
-        farMedmor:
-            farMedmor && omForeldre.farMedmor
-                ? {
-                      navn: omForeldre.farMedmor.navn,
-                      ikonRef: omForeldre.farMedmor.ikonRef,
-                      dagerTotalt: farMedmor.dagerTotalt,
-                      dagerForLite: farMedmor.dagerForLite,
-                      dagerForMye: farMedmor.dagerForMye
-                  }
-                : undefined
-    };
-};
+// export const getGrafFordelingTitler = (
+//     omForeldre: OmForeldre,
+//     mor?: MorsForbruk,
+//     farMedmor?: ForelderForbruk
+// ): FordelingTitlerProps => {
+//     return {
+//         mor:
+//             mor && !omForeldre.farMedmor && farMedmor !== undefined
+//                 ? {
+//                       forelderNavn: omForeldre.mor.navn,
+//                       ikonRef: omForeldre.mor.ikonRef,
+//                       dafer: mor.dagerTotalt,
+//                       dagerForLite: mor.dagerForLite,
+//                       dagerForMye: mor.dagerForMye
+//                   }
+//                 : undefined,
+//         farMedmor:
+//             farMedmor && omForeldre.farMedmor
+//                 ? {
+//                       forelderNavn: omForeldre.farMedmor.navn,
+//                       ikonRef: omForeldre.farMedmor.ikonRef,
+//                       dafer: farMedmor.dagerTotalt,
+//                       dagerForLite: farMedmor.dagerForLite,
+//                       dagerForMye: farMedmor.dagerForMye
+//                   }
+//                 : undefined
+//     };
+// };

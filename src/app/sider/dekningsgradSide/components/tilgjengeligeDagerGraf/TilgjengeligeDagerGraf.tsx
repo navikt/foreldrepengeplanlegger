@@ -9,7 +9,7 @@ import Personkort from '../../../../../shared/components/personkort/Personkort';
 import ForelderIkon from 'shared/components/foreldrepar/ForelderIkon';
 import { getNavnGenitivEierform } from '../../../../utils/common';
 import getMessage from 'common/util/i18nUtils';
-import { getProsentFordelingPerDel } from '../../../../../shared/components/fordelingGraf/fordelingGrafUtils';
+import { getProsentFordelingPerDel } from '../../../../utils/fordelingGrafUtils';
 
 import './tilgjengeligeDagerGraf.less';
 

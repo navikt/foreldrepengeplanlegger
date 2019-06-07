@@ -34,7 +34,7 @@ const FordelingForelderInfo: React.StatelessComponent<FordelingForelderInfoProps
                 )}>
                 {highlightChanges ? (
                     <HighlightContent watchValue={antallDager} invalid={antallDager < 0}>
-                        {tittel}sd
+                        {tittel}
                     </HighlightContent>
                 ) : (
                     { tittel }

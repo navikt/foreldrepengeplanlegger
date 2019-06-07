@@ -1,6 +1,8 @@
-import { TilgjengeligeDager, MorsForbruk, Forelder, ForelderForbruk } from 'shared/types';
-import { GrafDeltOmsorgProps } from '../../shared/components/fordelingGraf/components/GrafDeltOmsorg';
-import { GrafAleneomsorgProps } from '../../shared/components/fordelingGraf/components/GrafAleneomsorg';
+import { TilgjengeligeDager, MorsForbruk, ForelderForbruk, Forbruk } from 'shared/types';
+import { FordelingForbrukDeltOmsorg, FordelingForbrukIkkeDeltOmsorg } from 'shared/components/fordelingGraf/types';
+import { InjectedIntl } from 'react-intl';
+import { getVarighetString } from 'common/util/intlUtils';
+import getMessage from 'common/util/i18nUtils';
 
 export const getProsentFordelingPerDel = (
     tilgjengeligeDager: TilgjengeligeDager,
@@ -26,81 +28,53 @@ export const getProsentFordelingPerDel = (
     };
 };
 
-// export const getFordelingStatusHeaderProps = (
-//     regelAvvik: RegelAvvik[],
-//     forbruk: Forbruk,
-//     omForeldre: OmForeldre,
-//     intl: InjectedIntl
-// ): FordelingStatusHeaderProps => {
-//     const planenHarFordelingsavvik =
-//         regelAvvik.filter(
-//             (avvik) => avvik.regel.alvorlighet !== RegelAlvorlighet.INFO && avvik.regel.kategori === 'fordeling'
-//         ).length > 0;
-//     const planenHarAvvikSomErFeil =
-//         regelAvvik.filter(
-//             (avvik) => avvik.regel.alvorlighet === RegelAlvorlighet.FEIL && avvik.regel.kategori !== 'fordeling'
-//         ).length > 0;
-
-//     const fordelingStatus: FordelingStatus =
-//         planenHarAvvikSomErFeil && !planenHarFordelingsavvik
-//             ? { status: 'feil', tittel: { key: 'regel.feil.uttaksplanStatusTittel' } }
-//             : getFordelingStatus(forbruk, omForeldre, intl);
-
-//     return {
-//         ariaTitle: 'Status på planen',
-//         status: fordelingStatus.status,
-//         tittel: getMessage(intl, `fordeling.tittel.${omForeldre.erDeltOmsorg ? 'deres' : 'din'}`),
-//         statusTekst: getMessage(intl, fordelingStatus.tittel.key, fordelingStatus.tittel.values)
-//     };
-// };
-
-export const getGrafAleneomsorgMorProps = (
-    dagerTotalt: number,
-    dagerForeldrepengerFørFødsel: number,
-    ekstradagerFørTermin: number,
-    mor: MorsForbruk,
+export const getFordelingForbrukMor = (
+    forbrukMor: MorsForbruk,
     tilgjengeligeDager: TilgjengeligeDager
-): GrafAleneomsorgProps => {
+): FordelingForbrukIkkeDeltOmsorg => {
+    const {
+        dagerForeldrepengerFørFødsel,
+        ekstradagerFørTermin,
+        dagerTotalt,
+        dagerForMye,
+        dagerUtenForeldrepengerFørFødsel
+    } = forbrukMor;
     const tg = tilgjengeligeDager;
     const maksTillatt = tg.dagerForeldrepenger + dagerForeldrepengerFørFødsel;
-    const maksBrukt = mor.dagerUtenForeldrepengerFørFødsel + dagerForeldrepengerFørFødsel + ekstradagerFørTermin;
+    const maksBrukt = dagerUtenForeldrepengerFørFødsel + dagerForeldrepengerFørFødsel + ekstradagerFørTermin;
 
     const enDagIProsent = 100 / Math.max(maksBrukt, maksTillatt);
     const brukIProsent = Math.min(100, enDagIProsent * Math.min(tg.dagerTotalt, dagerTotalt));
-    const pstForMye = mor.dagerForMye > 0 ? Math.min(100, enDagIProsent * mor.dagerForMye) : undefined;
+    const pstForMye = dagerForMye > 0 ? Math.min(100, enDagIProsent * dagerForMye) : undefined;
     return {
         pstBrukt: brukIProsent,
-        pstForMye,
-        forelder: Forelder.farMedmor
+        pstForMye
     };
 };
 
-export const getGrafAleneomsorgFarMedmorProps = (
-    dagerTotalt: number,
-    farMedmor: ForelderForbruk,
+export const getFordelingForbrukFarMedmor = (
+    forbrukFarMedmor: ForelderForbruk,
     tilgjengeligeDager: TilgjengeligeDager
-): GrafAleneomsorgProps => {
+): FordelingForbrukIkkeDeltOmsorg => {
+    const { dagerTotalt, dagerForMye } = forbrukFarMedmor;
     const tg = tilgjengeligeDager;
-    const enDagIProsent = 100 / Math.max(tg.dagerTotalt, farMedmor.dagerTotalt);
+    const enDagIProsent = 100 / Math.max(tg.dagerTotalt, dagerTotalt);
     const brukIProsent = Math.min(100, enDagIProsent * Math.min(tg.dagerTotalt, dagerTotalt));
-    const pstForMye = farMedmor.dagerForMye > 0 ? Math.min(100, enDagIProsent * farMedmor.dagerForMye) : undefined;
+    const pstForMye = dagerForMye > 0 ? Math.min(100, enDagIProsent * dagerForMye) : undefined;
     return {
         pstBrukt: brukIProsent,
-        pstForMye,
-        forelder: Forelder.farMedmor
+        pstForMye
     };
 };
 
-export const getGrafDeltOmsorgProps = (
-    mor: MorsForbruk,
-    farMedmor: ForelderForbruk,
-    dagerForeldrepengerFørFødsel: number,
-    ekstradagerFørTermin: number,
+export const getFordelingForbrukDeltOmsorg = (
+    forbruk: Forbruk,
     tilgjengeligeDager: TilgjengeligeDager
-): GrafDeltOmsorgProps => {
+): FordelingForbrukDeltOmsorg => {
+    const { mor, farMedmor, dagerForeldrepengerFørFødsel, ekstradagerFørTermin } = forbruk;
     const tg = tilgjengeligeDager;
     const morsBrukteDager = mor.dagerEtterTermin + mor.ekstradagerFørTermin;
-    const farsBrukteDager = farMedmor.dagerTotalt;
+    const farsBrukteDager = farMedmor!.dagerTotalt;
     const { pstMor, pstFarMedmor, pstFelles } = getProsentFordelingPerDel(tilgjengeligeDager, false);
     const morsDagerAvFellesdel = Math.max(0, morsBrukteDager - tg.dagerMor);
     const farsDagerAvFellesdel = Math.max(0, farsBrukteDager - tg.dagerFar);
@@ -131,31 +105,21 @@ export const getGrafDeltOmsorgProps = (
     };
 };
 
-// export const getGrafFordelingTitler = (
-//     omForeldre: OmForeldre,
-//     mor?: MorsForbruk,
-//     farMedmor?: ForelderForbruk
-// ): FordelingTitlerProps => {
-//     return {
-//         mor:
-//             mor && !omForeldre.farMedmor && farMedmor !== undefined
-//                 ? {
-//                       forelderNavn: omForeldre.mor.navn,
-//                       ikonRef: omForeldre.mor.ikonRef,
-//                       dafer: mor.dagerTotalt,
-//                       dagerForLite: mor.dagerForLite,
-//                       dagerForMye: mor.dagerForMye
-//                   }
-//                 : undefined,
-//         farMedmor:
-//             farMedmor && omForeldre.farMedmor
-//                 ? {
-//                       forelderNavn: omForeldre.farMedmor.navn,
-//                       ikonRef: omForeldre.farMedmor.ikonRef,
-//                       dafer: farMedmor.dagerTotalt,
-//                       dagerForLite: farMedmor.dagerForLite,
-//                       dagerForMye: farMedmor.dagerForMye
-//                   }
-//                 : undefined
-//     };
-// };
+export const getTittelVarighet = (
+    intl: InjectedIntl,
+    dager: number,
+    dagerForLite: number,
+    dagerForMye: number
+): string => {
+    if (dagerForLite > 0) {
+        return getMessage(intl, 'fordeling.status.person.forLite', {
+            dager: getVarighetString(dagerForLite, intl, 'full')
+        });
+    }
+    if (dagerForMye) {
+        return getMessage(intl, 'fordeling.status.person.forMye', {
+            dager: getVarighetString(dagerForMye, intl, 'full')
+        });
+    }
+    return getVarighetString(Math.abs(dager | 0), intl, 'full');
+};

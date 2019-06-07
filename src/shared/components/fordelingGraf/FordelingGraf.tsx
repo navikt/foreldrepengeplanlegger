@@ -8,10 +8,11 @@ import StatusIkon, { StatusIkonStatus } from 'common/components/ikoner/StatusIko
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { FordelingStatusVerdi } from 'app/utils/fordelingStatusUtils';
 import { ForeldreparForelder, Forelder } from 'app/types';
-
-import './fordelingGraf.less';
 import GrafAleneomsorg from './components/GrafAleneomsorg';
 import GrafDeltOmsorg from './components/GrafDeltOmsorg';
+import { FordelingForbrukGrafData, FordelingForbrukDeltOmsorg, FordelingForbrukIkkeDeltOmsorg } from './types';
+
+import './fordelingGraf.less';
 
 export const fordelingGrafBem = BEMHelper('fordelingGraf');
 
@@ -27,29 +28,20 @@ interface Props {
     status: FordelingStatusVerdi;
     tittel: string;
     statusTekst: string;
-    morsDel?: {
+    fordeling: FordelingForbrukGrafData;
+    mor?: {
         tittel: string;
         navn: string;
         ikonRef: ForeldreparForelder;
-        pstTilgjengeligAvTotal: number;
-        pstBrukt: number;
-        pstForMye: number;
         antallDager: number;
+        harForMangeDager: boolean;
     };
-    farMedmorsDel?: {
+    farMedmor?: {
         tittel: string;
         navn: string;
         ikonRef: ForeldreparForelder;
-        pstTilgjengeligAvTotal: number;
-        pstBrukt: number;
-        pstForMye: number;
         antallDager: number;
-    };
-    fellesdel?: {
-        pstTilgjengeligAvTotal: number;
-        pstBruktFar: number;
-        pstBruktMor: number;
-        pstForMye: number;
+        harForMangeDager: boolean;
     };
 }
 
@@ -58,46 +50,19 @@ const FordelingGraf: React.StatelessComponent<Props & InjectedIntlProps> = ({
     ariaTittel,
     status,
     statusTekst,
-    morsDel,
-    farMedmorsDel,
-    fellesdel
+    fordeling,
+    mor,
+    farMedmor
 }) => {
     const bemHeader = fordelingGrafBem.child('statusHeader');
 
     const renderGraf = () => {
-        if (morsDel && farMedmorsDel && fellesdel) {
-            return (
-                <GrafDeltOmsorg
-                    farMedmor={{
-                        pstAvTotal: farMedmorsDel.pstTilgjengeligAvTotal,
-                        pstBrukt: farMedmorsDel.pstBrukt
-                    }}
-                    mor={{
-                        pstAvTotal: morsDel.pstTilgjengeligAvTotal,
-                        pstBrukt: morsDel.pstBrukt
-                    }}
-                    felles={{
-                        pstAvTotal: fellesdel.pstTilgjengeligAvTotal,
-                        pstBruktFar: fellesdel.pstBruktFar,
-                        pstBruktMor: fellesdel.pstBruktMor,
-                        pstForMye: fellesdel.pstForMye
-                    }}
-                />
-            );
-        }
-        if (morsDel && !farMedmorsDel) {
-            return (
-                <GrafAleneomsorg forelder={Forelder.mor} pstBrukt={morsDel.pstBrukt} pstForMye={morsDel.pstForMye} />
-            );
-        }
-        if (farMedmorsDel && !morsDel) {
-            return (
-                <GrafAleneomsorg
-                    forelder={Forelder.farMedmor}
-                    pstBrukt={farMedmorsDel.pstBrukt}
-                    pstForMye={farMedmorsDel.pstForMye}
-                />
-            );
+        if (mor && farMedmor) {
+            const data = fordeling as FordelingForbrukDeltOmsorg;
+            return <GrafDeltOmsorg {...data} />;
+        } else {
+            const data = fordeling as FordelingForbrukIkkeDeltOmsorg;
+            return <GrafAleneomsorg forelder={mor ? Forelder.mor : Forelder.farMedmor} {...data} />;
         }
         return null;
     };
@@ -121,31 +86,31 @@ const FordelingGraf: React.StatelessComponent<Props & InjectedIntlProps> = ({
                     </div>
                 </div>
             </Block>
-            {(morsDel || farMedmorsDel) && (
+            {fordeling && (
                 <Block margin="s" screenOnly={true}>
                     {renderGraf()}
                 </Block>
             )}
             <div className={fordelingGrafBem.element('titler')}>
-                {morsDel && (
+                {mor && (
                     <FordelingForelderInfo
-                        antallDager={morsDel.antallDager}
-                        forelderNavn={morsDel.navn}
-                        harForMangeDager={morsDel.pstForMye > 0}
+                        forelderNavn={mor.navn}
+                        ikonRef={mor.ikonRef}
+                        tittel={mor.tittel}
+                        antallDager={mor.antallDager}
+                        harForMangeDager={mor.harForMangeDager}
                         highlightChanges={true}
-                        ikonRef={morsDel.ikonRef}
-                        tittel={morsDel.tittel}
                     />
                 )}
-                {farMedmorsDel && (
+                {farMedmor && (
                     <FordelingForelderInfo
-                        antallDager={farMedmorsDel.antallDager}
-                        forelderNavn={farMedmorsDel.navn}
-                        harForMangeDager={farMedmorsDel.pstForMye > 0}
+                        forelderNavn={farMedmor.navn}
+                        ikonRef={farMedmor.ikonRef}
+                        tittel={farMedmor.tittel}
+                        antallDager={farMedmor.antallDager}
+                        harForMangeDager={farMedmor.harForMangeDager}
                         highlightChanges={true}
-                        ikonRef={farMedmorsDel.ikonRef}
-                        tittel={farMedmorsDel.tittel}
-                        invertert={morsDel !== undefined}
+                        invertert={mor !== undefined}
                     />
                 )}
             </div>

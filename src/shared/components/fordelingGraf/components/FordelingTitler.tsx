@@ -106,7 +106,7 @@ const FordelingTitler: React.StatelessComponent<FordelingTitlerProps & InjectedI
                     dager={farMedmor.dagerTotalt}
                     dagerForLite={farMedmor.dagerForLite}
                     dagerForMye={farMedmor.dagerForMye}
-                    invertert={!mor}
+                    invertert={mor !== undefined}
                     intl={intl}
                 />
             )}

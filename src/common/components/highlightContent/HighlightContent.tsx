@@ -55,7 +55,7 @@ class HighlightContent extends React.Component<Props, State> {
         const classNames = `${style}${invalid ? `-invalid` : ''}`;
         return (
             <CSSTransition in={this.state.active} classNames={classNames} timeout={DURATION}>
-                {children}
+                <span>{children}</span>
             </CSSTransition>
         );
     }

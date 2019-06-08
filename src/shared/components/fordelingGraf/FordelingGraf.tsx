@@ -2,42 +2,49 @@ import * as React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import BEMHelper from 'common/util/bem';
 import Block from 'common/components/block/Block';
-import FordelingStatusHeader, { FordelingStatusHeaderProps } from './components/FordelingStatusHeader';
-import GrafDeltOmsorg, { GrafDeltOmsorgProps } from './components/GrafDeltOmsorg';
-import FordelingTitler, { FordelingTitlerProps } from './components/FordelingTitler';
-import GrafAleneomsorg, { GrafAleneomsorgProps } from './components/GrafAleneomsorg';
+import FordelingForelderInfo from './components/FordelingForelderInfo';
+import { FordelingStatusVerdi } from 'app/utils/fordelingStatusUtils';
+import { Forelder } from 'app/types';
+import { FordelingGrafData, FordelingsinfoEnForelder } from './types';
+import FordelingGrafHeader from './components/FordelingGrafHeader';
+import FordelingGrafBar from './components/FordelingGrafBar';
 
 import './fordelingGraf.less';
 
 export const fordelingGrafBem = BEMHelper('fordelingGraf');
 
 interface Props {
-    headerProps: FordelingStatusHeaderProps;
-    titlerProps: FordelingTitlerProps;
-    deltOmsorgProps?: GrafDeltOmsorgProps;
-    omsorgMorProps?: GrafAleneomsorgProps;
-    omsorgFarMedmorProps?: GrafAleneomsorgProps;
+    tittel: string;
+    status: FordelingStatusVerdi;
+    statusTekst: string;
+    fordeling: FordelingGrafData;
+    mor?: FordelingsinfoEnForelder;
+    farMedmor?: FordelingsinfoEnForelder;
 }
 
 const FordelingGraf: React.StatelessComponent<Props & InjectedIntlProps> = ({
-    headerProps,
-    deltOmsorgProps,
-    omsorgFarMedmorProps,
-    omsorgMorProps,
-    titlerProps
+    tittel,
+    status,
+    statusTekst,
+    fordeling,
+    mor,
+    farMedmor
 }) => {
     return (
-        <section className={fordelingGrafBem.block}>
+        <div className={fordelingGrafBem.block}>
             <Block margin="s" screenOnly={true}>
-                <FordelingStatusHeader {...headerProps} />
+                <FordelingGrafHeader status={status} statusTekst={statusTekst} tittel={tittel} />
             </Block>
-            <Block margin="s" screenOnly={true}>
-                {deltOmsorgProps && <GrafDeltOmsorg {...deltOmsorgProps} />}
-                {omsorgMorProps && <GrafAleneomsorg {...omsorgMorProps} />}
-                {omsorgFarMedmorProps && <GrafAleneomsorg {...omsorgFarMedmorProps} />}
-            </Block>
-            <FordelingTitler {...titlerProps} />
-        </section>
+            {fordeling && (
+                <Block margin="s" screenOnly={true}>
+                    <FordelingGrafBar fordeling={fordeling} forelder={mor ? Forelder.mor : Forelder.farMedmor} />
+                </Block>
+            )}
+            <div className={fordelingGrafBem.element('titler')}>
+                {mor && <FordelingForelderInfo info={mor} />}
+                {farMedmor && <FordelingForelderInfo info={farMedmor} invertert={mor !== undefined} />}
+            </div>
+        </div>
     );
 };
 

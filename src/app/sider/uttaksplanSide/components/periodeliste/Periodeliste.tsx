@@ -119,6 +119,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
                             perioder={perioder}
                             periode={periodeFørTermin}
                             periodeFørTermin={periodeFørTermin}
+                            disabled={false}
                             typeErLåst={true}
                             forelderErLåst={true}
                             sluttdatoErLåst={true}

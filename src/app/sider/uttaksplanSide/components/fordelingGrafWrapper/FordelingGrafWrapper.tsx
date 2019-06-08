@@ -28,7 +28,6 @@ const FordelingGrafWrapper: React.StatelessComponent<Props & InjectedIntlProps> 
         <FordelingGraf
             tittel={getMessage(intl, `fordeling.tittel.${omForeldre.erDeltOmsorg ? 'deres' : 'din'}`)}
             statusTekst={getMessage(intl, fordelingStatus.tittel.key, fordelingStatus.tittel.values)}
-            ariaTittel="Graf fordeling av uttak"
             status={fordelingStatus.status}
             fordeling={
                 omForeldre.erDeltOmsorg

@@ -1,5 +1,5 @@
-import { TilgjengeligeDager, MorsForbruk, ForelderForbruk, Forbruk } from 'shared/types';
-import { FordelingForbrukDeltOmsorg, FordelingForbrukIkkeDeltOmsorg } from 'shared/components/fordelingGraf/types';
+import { TilgjengeligeDager, MorsForbruk, ForelderForbruk, Forbruk, Forelder } from 'shared/types';
+import { FordelingDeltOmsorg, FordelingIkkeDeltOmsorg } from 'shared/components/fordelingGraf/types';
 import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/util/intlUtils';
 import getMessage from 'common/util/i18nUtils';
@@ -31,7 +31,7 @@ export const getProsentFordelingPerDel = (
 export const getFordelingForbrukMor = (
     forbrukMor: MorsForbruk,
     tilgjengeligeDager: TilgjengeligeDager
-): FordelingForbrukIkkeDeltOmsorg => {
+): FordelingIkkeDeltOmsorg => {
     const {
         dagerForeldrepengerFørFødsel,
         ekstradagerFørTermin,
@@ -47,6 +47,8 @@ export const getFordelingForbrukMor = (
     const brukIProsent = Math.min(100, enDagIProsent * Math.min(tg.dagerTotalt, dagerTotalt));
     const pstForMye = dagerForMye > 0 ? Math.min(100, enDagIProsent * dagerForMye) : undefined;
     return {
+        type: 'ikkeDeltOmsorg',
+        forelder: Forelder.mor,
         pstBrukt: brukIProsent,
         pstForMye
     };
@@ -55,13 +57,15 @@ export const getFordelingForbrukMor = (
 export const getFordelingForbrukFarMedmor = (
     forbrukFarMedmor: ForelderForbruk,
     tilgjengeligeDager: TilgjengeligeDager
-): FordelingForbrukIkkeDeltOmsorg => {
+): FordelingIkkeDeltOmsorg => {
     const { dagerTotalt, dagerForMye } = forbrukFarMedmor;
     const tg = tilgjengeligeDager;
     const enDagIProsent = 100 / Math.max(tg.dagerTotalt, dagerTotalt);
     const brukIProsent = Math.min(100, enDagIProsent * Math.min(tg.dagerTotalt, dagerTotalt));
     const pstForMye = dagerForMye > 0 ? Math.min(100, enDagIProsent * dagerForMye) : undefined;
     return {
+        type: 'ikkeDeltOmsorg',
+        forelder: Forelder.farMedmor,
         pstBrukt: brukIProsent,
         pstForMye
     };
@@ -70,7 +74,7 @@ export const getFordelingForbrukFarMedmor = (
 export const getFordelingForbrukDeltOmsorg = (
     forbruk: Forbruk,
     tilgjengeligeDager: TilgjengeligeDager
-): FordelingForbrukDeltOmsorg => {
+): FordelingDeltOmsorg => {
     const { mor, farMedmor, dagerForeldrepengerFørFødsel, ekstradagerFørTermin } = forbruk;
     const tg = tilgjengeligeDager;
     const morsBrukteDager = mor.dagerEtterTermin + mor.ekstradagerFørTermin;
@@ -88,6 +92,7 @@ export const getFordelingForbrukDeltOmsorg = (
     const fellesPst = 100 / (maksDager + dagerForMye);
 
     return {
+        type: 'deltOmsorg',
         mor: {
             pstAvTotal: pstMor,
             pstBrukt: morsBarIPst

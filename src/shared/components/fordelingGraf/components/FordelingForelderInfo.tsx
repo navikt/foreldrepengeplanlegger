@@ -3,28 +3,17 @@ import ForelderIkon from 'shared/components/foreldrepar/ForelderIkon';
 import Personkort from 'shared/components/personkort/Personkort';
 import HighlightContent from 'common/components/highlightContent/HighlightContent';
 import { fordelingGrafBem } from '../FordelingGraf';
-import { ForeldreparForelder } from 'shared/types';
+import { FordelingsinfoEnForelder } from '../types';
 
-export interface FordelingForelderInfoProps {
-    tittel: string;
-    forelderNavn: string;
-    antallDager: number;
-    harForMangeDager: boolean;
-    ikonRef: ForeldreparForelder;
+interface Props {
+    info: FordelingsinfoEnForelder;
     invertert?: boolean;
     highlightChanges?: boolean;
 }
 
-const FordelingForelderInfo: React.StatelessComponent<FordelingForelderInfoProps> = ({
-    antallDager,
-    ikonRef,
-    forelderNavn: navn,
-    tittel,
-    harForMangeDager,
-    highlightChanges,
-    invertert
-}) => {
+const FordelingForelderInfo: React.StatelessComponent<Props> = ({ info, highlightChanges, invertert }) => {
     const tittelBem = fordelingGrafBem.child('tittel');
+    const { antallDager, ikonRef, navn: navn, tittel, harForMangeDager } = info;
     return (
         <Personkort ikon={<ForelderIkon forelder={ikonRef} />} tittel={navn} invertert={invertert}>
             <div
@@ -37,7 +26,7 @@ const FordelingForelderInfo: React.StatelessComponent<FordelingForelderInfoProps
                         {tittel}
                     </HighlightContent>
                 ) : (
-                    { tittel }
+                    <>{tittel}</>
                 )}
             </div>
         </Personkort>

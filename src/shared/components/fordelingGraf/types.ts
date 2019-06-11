@@ -1,4 +1,5 @@
-import { Forelder, ForeldreparForelder } from 'app/types';
+import { Forelder } from 'common/types';
+import { ForeldreparForelder } from 'shared/types';
 
 export interface FordelingsinfoEnForelder {
     tittel: string;

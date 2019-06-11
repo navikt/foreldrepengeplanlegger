@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Forelder } from 'app/types';
+import { Forelder } from 'common/types';
 import { FordelingGrafData } from '../types';
 import GrafDeltOmsorg from './GrafDeltOmsorg';
 import GrafAleneomsorg from './GrafAleneomsorg';

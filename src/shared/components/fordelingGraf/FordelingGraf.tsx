@@ -3,7 +3,7 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import BEMHelper from 'common/util/bem';
 import Block from 'common/components/block/Block';
 import FordelingForelderInfo from './components/FordelingForelderInfo';
-import { Forelder, StatusKey } from 'app/types';
+import { Forelder, StatusKey } from 'common/types';
 import { FordelingGrafData, FordelingsinfoEnForelder } from './types';
 import FordelingGrafHeader from './components/FordelingGrafHeader';
 import FordelingGrafBar from './components/FordelingGrafBar';

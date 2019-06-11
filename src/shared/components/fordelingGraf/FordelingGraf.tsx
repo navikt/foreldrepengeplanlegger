@@ -3,8 +3,7 @@ import { injectIntl, InjectedIntlProps } from 'react-intl';
 import BEMHelper from 'common/util/bem';
 import Block from 'common/components/block/Block';
 import FordelingForelderInfo from './components/FordelingForelderInfo';
-import { FordelingStatusVerdi } from 'app/utils/fordelingStatusUtils';
-import { Forelder } from 'app/types';
+import { Forelder, StatusKey } from 'app/types';
 import { FordelingGrafData, FordelingsinfoEnForelder } from './types';
 import FordelingGrafHeader from './components/FordelingGrafHeader';
 import FordelingGrafBar from './components/FordelingGrafBar';
@@ -15,7 +14,7 @@ export const fordelingGrafBem = BEMHelper('fordelingGraf');
 
 interface Props {
     tittel: string;
-    status: FordelingStatusVerdi;
+    status: StatusKey;
     statusTekst: string;
     fordeling: FordelingGrafData;
     mor?: FordelingsinfoEnForelder;

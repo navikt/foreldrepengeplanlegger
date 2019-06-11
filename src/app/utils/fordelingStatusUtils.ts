@@ -1,11 +1,10 @@
 import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/util/intlUtils';
 import { MorsForbruk, ForelderForbruk, Forbruk, OmForeldre } from 'shared/types';
-
-export type FordelingStatusVerdi = 'suksess' | 'advarsel' | 'feil';
+import { StatusKey } from 'common/types';
 
 export interface FordelingStatus {
-    status: FordelingStatusVerdi;
+    status: StatusKey;
     tittel: {
         key: string;
         values?: any;

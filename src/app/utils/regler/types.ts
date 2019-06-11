@@ -1,5 +1,6 @@
 import { Periode, UttakFørTerminPeriode, Uttaksdatoer, TilgjengeligeDager } from 'app/types';
-import { Forelder, Forbruk, ForeldreparSituasjon } from 'shared/types';
+import { Forbruk, ForeldreparSituasjon } from 'shared/types';
+import { Forelder } from 'common/types';
 
 export interface Regelgrunnlag {
     perioder: Periode[];

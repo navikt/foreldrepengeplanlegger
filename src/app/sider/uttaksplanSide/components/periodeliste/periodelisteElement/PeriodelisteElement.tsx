@@ -10,11 +10,11 @@ import { RegelAvvik, RegelAlvorlighet } from '../../../../../../shared/types';
 import { getAlertstripeTypeFromRegelAvvik } from '../periodelisteUtils';
 import RegelAvvikFeilmelding from '../../regelAvvikListe/RegelAvvikFeilmelding';
 import InfoIkonFylt from 'common/components/ikoner/InfoIkonFylt';
-
-import './periodelisteElement.less';
 import getMessage from 'common/util/i18nUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import StatusIkon from 'common/components/ikoner/StatusIkon';
+
+import './periodelisteElement.less';
 
 interface OwnProps {
     menyer: PeriodeElementMeny[];

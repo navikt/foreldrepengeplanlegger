@@ -2,11 +2,11 @@ import * as React from 'react';
 import StatusIkon from 'common/components/ikoner/StatusIkon';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { fordelingGrafBem } from '../FordelingGraf';
-import { FordelingStatusVerdi } from 'app/utils/fordelingStatusUtils';
+import { StatusKey } from 'common/types';
 
 interface Props {
     tittel: string;
-    status: FordelingStatusVerdi;
+    status: StatusKey;
     statusTekst: string;
 }
 

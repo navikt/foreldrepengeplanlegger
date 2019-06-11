@@ -1,9 +1,8 @@
 import moment from 'moment';
 import { getTidsperiode, Tidsperioden } from './Tidsperioden';
 import { Uttaksdagen } from './Uttaksdagen';
-import { Tidsperiode } from 'common/types';
+import { Tidsperiode, Forelder } from 'common/types';
 import { Periode, isUttak, isUtsettelse, isUlønnetPermisjon, Utsettelsesårsak } from '../types/periodetyper';
-import { Forelder } from '../types';
 
 export const Perioden = (periode: Periode) => ({
     erUttak: () => isUttak(periode),

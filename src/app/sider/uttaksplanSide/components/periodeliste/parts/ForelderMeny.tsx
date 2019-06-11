@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { Forelder, Forelderinfo } from '../../../../../types';
 import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
 import IconText from 'common/components/iconText/IconText';
 import getMessage from 'common/util/i18nUtils';
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
 import Foreldrepar from 'shared/components/foreldrepar/Foreldrepar';
+import { Forelder } from 'common/types';
+import { Forelderinfo } from 'shared/types';
 
 interface Props {
     forelder?: Forelder;

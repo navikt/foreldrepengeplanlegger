@@ -1,7 +1,9 @@
-import { TilgjengeligStønadskonto, Periode, StønadskontoType, Periodetype, Forelder } from '../../types';
+import { Periode, Periodetype } from '../../types';
 import { guid } from 'nav-frontend-js-utils';
 import { getTidsperiode } from '../Tidsperioden';
 import { Uttaksdagen } from '../Uttaksdagen';
+import { TilgjengeligStønadskonto, StønadskontoType } from 'shared/types';
+import { Forelder } from 'common/types';
 
 export const deltUttakFødselForslag = (
     famDato: Date,

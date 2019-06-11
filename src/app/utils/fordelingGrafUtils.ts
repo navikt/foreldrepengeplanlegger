@@ -1,8 +1,9 @@
-import { TilgjengeligeDager, MorsForbruk, ForelderForbruk, Forbruk, Forelder } from 'shared/types';
+import { TilgjengeligeDager, MorsForbruk, ForelderForbruk, Forbruk } from 'shared/types';
 import { FordelingDeltOmsorg, FordelingIkkeDeltOmsorg } from 'shared/components/fordelingGraf/types';
 import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/util/intlUtils';
 import getMessage from 'common/util/i18nUtils';
+import { Forelder } from 'common/types';
 
 export const getProsentFordelingPerDel = (
     tilgjengeligeDager: TilgjengeligeDager,

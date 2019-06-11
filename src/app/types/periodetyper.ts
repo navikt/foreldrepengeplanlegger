@@ -1,5 +1,5 @@
-import { Tidsperiode } from 'common/types';
-import { Forelder, Uttaksinfo } from '.';
+import { Tidsperiode, Forelder } from 'common/types';
+import { Uttaksinfo } from '.';
 import { isValidTidsperiode } from '../utils/Tidsperioden';
 
 export enum Periodetype {

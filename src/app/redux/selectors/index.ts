@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect';
 import { AppState } from '../reducers/rootReducer';
-import { Forbruk, TilgjengeligeDager, Periode, SituasjonSkjemadata, OmForeldre } from '../../types';
+import { Periode, SituasjonSkjemadata } from '../../types';
 import { getForbruk } from '../../utils/forbrukUtils';
 import { getTilgjengeligeDager } from '../../utils/kontoUtils';
+import { OmForeldre, Forbruk, TilgjengeligeDager } from 'shared/types';
 
 const getState = (state: AppState): AppState => state;
 

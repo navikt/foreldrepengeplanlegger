@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
-import { Periodetype, Forelder, UttaksplanFarge } from '../../../../types';
+import { Periodetype } from '../../../../types';
 import { getPeriodetypeFarge } from '../../../../utils/styleutils';
 import ArbeidIkon from './ikoner/ArbeidIkon';
 import FerieIkon from './ikoner/FerieIkon';
@@ -11,6 +11,7 @@ import UlønnetPermisjonIkon from './ikoner/UlønnetPermisjonIkon';
 import { getUttaksplanHexFromFarge } from 'common/util/colors';
 
 import './periodeikon.less';
+import { UttaksplanFarge, Forelder } from 'common/types';
 
 export interface Props {
     periodetype?: Periodetype;

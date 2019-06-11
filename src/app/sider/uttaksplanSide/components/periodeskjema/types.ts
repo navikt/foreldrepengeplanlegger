@@ -1,4 +1,5 @@
-import { Periodetype, Forelder, Utsettelsesårsak } from '../../../../types';
+import { Periodetype, Utsettelsesårsak } from '../../../../types';
+import { Forelder } from 'common/types';
 
 export interface PeriodeskjemaFormValues {
     periodetype: Periodetype;

@@ -1,8 +1,7 @@
 import moment from 'moment';
-import { Forelder, OmForeldre } from '../types';
 import { getSituasjonForelderSvg, getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
-import { Avgrensninger } from 'common/types';
-import { ForeldreparSituasjon } from 'shared/types';
+import { Avgrensninger, Forelder } from 'common/types';
+import { ForeldreparSituasjon, OmForeldre } from 'shared/types';
 
 export const getRolleVedIkkeDeltPlan = (
     situasjon: ForeldreparSituasjon,

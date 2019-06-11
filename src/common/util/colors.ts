@@ -1,4 +1,4 @@
-import { UttaksplanFarge } from 'app/types';
+import { UttaksplanFarge } from 'common/types';
 
 export enum UttaksplanHexFarge {
     lilla = '#634689',

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
-import { Utsettelsesårsak, OmForeldre, Forelder, Forelderinfo } from '../../../../../types';
+import { Utsettelsesårsak } from '../../../../../types';
 import getMessage from 'common/util/i18nUtils';
 import DropdownFormMenu from 'common/components/dropdownForm/DropdownFormMenu';
 import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
@@ -13,6 +13,8 @@ import { Element } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
 import Lenker from '../../../../../lenker';
 import { getUlønnetPermisjonUtsettelseOptions } from '../../periodeskjema/ulønnetPermisjon/UlønnetPermisjonSkjema';
+import { Forelder } from 'common/types';
+import { OmForeldre, Forelderinfo } from 'shared/types';
 
 interface OwnProps {
     utsettelsesårsak?: Utsettelsesårsak;

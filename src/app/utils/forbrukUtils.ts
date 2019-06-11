@@ -1,20 +1,10 @@
-import {
-    Forelder,
-    Periode,
-    Forbruk,
-    Periodetype,
-    TilgjengeligeDager,
-    UttakFørTerminPeriode,
-    isUttakFørTermin,
-    MorsForbruk,
-    ForelderForbruk,
-    OmForeldre,
-    Utsettelsesårsak
-} from '../types';
+import { Periode, Periodetype, UttakFørTerminPeriode, isUttakFørTermin, Utsettelsesårsak } from '../types';
 import { Periodene } from './Periodene';
 import { Perioden } from './Perioden';
 import Features from '../features';
 import { isValidTidsperiode } from './Tidsperioden';
+import { Forelder } from 'common/types';
+import { TilgjengeligeDager, OmForeldre, MorsForbruk, ForelderForbruk, Forbruk } from 'shared/types';
 
 const getAlleDagerFørTermin = (periode: UttakFørTerminPeriode | undefined): number => {
     if (periode && periode.skalIkkeHaUttakFørTermin !== true) {

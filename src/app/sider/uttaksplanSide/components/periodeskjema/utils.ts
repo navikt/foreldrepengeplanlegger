@@ -1,7 +1,9 @@
-import { Periodetype, Periode, OmForeldre, Forelder } from '../../../../types';
+import { Periodetype, Periode } from '../../../../types';
 import { PeriodeskjemaFormValues } from './types';
 import { getUttaksinfoForPeriode } from '../../../../utils/uttaksinfo';
 import { Tidsperioden } from '../../../../utils/Tidsperioden';
+import { OmForeldre } from 'shared/types';
+import { Forelder } from 'common/types';
 
 const createPeriodeFromValues = (values: PeriodeskjemaFormValues, nyPeriodeId: string): Periode => {
     switch (values.periodetype) {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import moment from 'moment';
-import { Periode, OmForeldre } from '../../../../types';
+import { Periode } from '../../../../types';
 import { Periodene } from '../../../../utils/Periodene';
 import Block from 'common/components/block/Block';
 import AlertStripe from 'nav-frontend-alertstriper';
@@ -10,6 +10,7 @@ import { InjectedIntl, injectIntl, InjectedIntlProps, FormattedHTMLMessage } fro
 import { formaterDato } from 'common/util/datoUtils';
 import { getVarighetString } from 'common/util/intlUtils';
 import getMessage from 'common/util/i18nUtils';
+import { OmForeldre } from 'shared/types';
 
 interface Props {
     nyPeriode?: Partial<Periode>;

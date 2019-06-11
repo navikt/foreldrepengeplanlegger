@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Utsettelsesårsak, Forelder, OmForeldre } from '../../../../../types';
+import { Utsettelsesårsak } from '../../../../../types';
 import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
 import Block from 'common/components/block/Block';
 import Skjemablokk from '../../../../../components/skjemablokk/Skjemablokk';
@@ -8,6 +8,8 @@ import RadioGroup, { RadioOption } from 'common/components/skjema/radioGroup/Rad
 import getMessage from 'common/util/i18nUtils';
 import { InjectedIntlProps, injectIntl, FormattedHTMLMessage, InjectedIntl } from 'react-intl';
 import Lenker from '../../../../../lenker';
+import { Forelder } from 'common/types';
+import { OmForeldre } from 'shared/types';
 
 export const getUlønnetPermisjonUtsettelseOptions = (intl: InjectedIntl): RadioOption[] => {
     return [

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps, InjectedIntl, FormattedMessage } from 'react-intl';
-import { Periodetype, Forelder } from '../../../../../types';
+import { Periodetype } from '../../../../../types';
 import getMessage from 'common/util/i18nUtils';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
 import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/DropdownForm';
@@ -9,6 +9,7 @@ import IconText from 'common/components/iconText/IconText';
 import Varighet from '../../../../../../common/components/varighet/Varighet';
 import Features from '../../../../../features';
 import { getVarighetString } from 'common/util/intlUtils';
+import { Forelder } from 'common/types';
 
 interface OwnProps {
     type?: Periodetype;

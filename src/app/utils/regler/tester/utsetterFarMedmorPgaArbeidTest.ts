@@ -1,7 +1,8 @@
 import { RegelTestresultat, RegelTest } from '../../../../shared/types';
-import { Forelder, Periodetype } from '../../../types';
+import { Periodetype } from '../../../types';
 import { Perioden } from '../../Perioden';
 import { Regelgrunnlag } from '../types';
+import { Forelder } from 'common/types';
 
 export const utsetterFarMedmorPgaArbeidTest: RegelTest = (grunnlag: Regelgrunnlag): RegelTestresultat => {
     const { perioder } = grunnlag;

@@ -3,7 +3,7 @@ import { FormikProps, Form } from 'formik';
 import Block from 'common/components/block/Block';
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
 import DatoInput from 'common/components/skjema/datoInput/DatoInput';
-import { SituasjonSkjemadata, Forelder } from '../../../../types';
+import { SituasjonSkjemadata } from '../../../../types';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import VelgAntallBarn from './parts/VelgAntallBarn';
 import Skjemablokk from '../../../../components/skjemablokk/Skjemablokk';
@@ -15,6 +15,7 @@ import VelgErMorEllerFar from './parts/VelgErMorEllerFar';
 import getMessage from 'common/util/i18nUtils';
 import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
 import { ForeldreparSituasjon } from 'shared/types';
+import { Forelder } from 'common/types';
 
 interface OwnProps {
     formik: FormikProps<SituasjonSkjemadata>;

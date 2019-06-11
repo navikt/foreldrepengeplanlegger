@@ -1,23 +1,19 @@
 import { CommonActionKeys, CommonActionTypes, SubmitSkjemadataAction } from '../actions/common/commonActionDefinitions';
 import { Språkkode } from '../../intl/types';
-import {
-    Periode,
-    SituasjonSkjemadata,
-    TilgjengeligeDager,
-    TilgjengeligStønadskonto,
-    Forbruk,
-    OmForeldre,
-    Periodetype,
-    UttakFørTerminPeriode,
-    isKomplettPeriode
-} from '../../types';
+import { Periode, SituasjonSkjemadata, Periodetype, UttakFørTerminPeriode, isKomplettPeriode } from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { Dekningsgrad } from 'common/types';
 import { summerAntallDagerIKontoer, getPeriodeFørTermin } from '../../utils/kontoUtils';
 import { setStorage, getStorage, clearStorage } from '../../utils/storage';
 import { getUttaksinfoForPeriode } from '../../utils/uttaksinfo';
 import { lagUttaksplan } from '../../utils/forslag/lagUttaksplan';
-import { UttaksplanRegelTestresultat } from '../../../shared/types';
+import {
+    UttaksplanRegelTestresultat,
+    Forbruk,
+    TilgjengeligStønadskonto,
+    OmForeldre,
+    TilgjengeligeDager
+} from '../../../shared/types';
 import { guid } from 'nav-frontend-js-utils';
 
 export interface ØnsketFordelingForeldrepenger {

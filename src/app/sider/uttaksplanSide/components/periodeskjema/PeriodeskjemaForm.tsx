@@ -6,7 +6,7 @@ import Block from 'common/components/block/Block';
 import { Knapp, Hovedknapp } from 'nav-frontend-knapper';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { PeriodeskjemaFormValues } from './types';
-import { OmForeldre, Periodetype, Periode, Forbruk } from '../../../../types';
+import { Periodetype, Periode } from '../../../../types';
 import { getPeriodetypeFarge } from '../../../../utils/styleutils';
 import PeriodetypeMeny from '../periodeliste/parts/PeriodetypeMeny';
 import BEMHelper from 'common/util/bem';
@@ -29,6 +29,7 @@ import { Tidsperiode } from 'common/types';
 import UlønnetPermisjonSkjema from './ulønnetPermisjon/UlønnetPermisjonSkjema';
 
 import './periodeSkjema.less';
+import { OmForeldre, Forbruk } from 'shared/types';
 
 interface OwnProps {
     nesteUttaksdag: Date;

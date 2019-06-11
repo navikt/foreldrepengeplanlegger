@@ -1,5 +1,6 @@
 import React from 'react';
-import { SvgIkonProps, Forelder } from '../../../../../types';
+import { SvgIkonProps } from '../../../../../types';
+import { Forelder } from 'common/types';
 
 interface OwnProps {
     forelder?: Forelder;

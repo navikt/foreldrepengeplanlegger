@@ -5,12 +5,12 @@ import { getStønadskontoSortOrder } from '../../utils/kontoUtils';
 import { updateApi } from '../actions/api/apiActionCreators';
 import { CommonActionKeys, GetStønadskontoerAction } from '../actions/common/commonActionDefinitions';
 import { setStønadskontoer } from '../actions/common/commonActionCreators';
-import { SituasjonSkjemadata, TilgjengeligStønadskonto, StønadskontoType } from '../../types';
+import { SituasjonSkjemadata } from '../../types';
 import { AppState } from '../reducers/rootReducer';
 import situasjonsregler from '../../utils/situasjonsregler';
 import { Dekningsgrad } from 'common/types';
 import { getFørsteUttaksdagForeldrepengerFørFødsel } from '../../utils/uttaksdatoer';
-import { ForeldreparSituasjon } from 'shared/types';
+import { ForeldreparSituasjon, TilgjengeligStønadskonto, StønadskontoType } from 'shared/types';
 
 const getStønadskontoerRequestParams = (
     familiehendelsesdato: Date,

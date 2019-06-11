@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { Uttaksdagen } from './Uttaksdagen';
 import { isValidTidsperiode } from './Tidsperioden';
-import { Tidsperiode } from 'common/types';
+import { Tidsperiode, Forelder } from 'common/types';
 import {
     Periode,
     Uttaksperiode,
@@ -13,7 +13,7 @@ import {
     Periodetype,
     Utsettelsesårsak
 } from '../types/periodetyper';
-import { GradertUttaksperiode, isUttakOrGradertUttak, Forelder } from '../types';
+import { GradertUttaksperiode, isUttakOrGradertUttak } from '../types';
 import { Perioden } from './Perioden';
 import { getUttaksinfoForPeriode } from './uttaksinfo';
 

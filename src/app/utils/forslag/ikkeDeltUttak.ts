@@ -1,7 +1,9 @@
-import { TilgjengeligStønadskonto, StønadskontoType, Periode, Forelder, Periodetype } from '../../types';
+import { Periode, Periodetype } from '../../types';
 import { Uttaksdagen } from '../Uttaksdagen';
 import { getTidsperiode } from '../Tidsperioden';
 import { guid } from 'nav-frontend-js-utils';
+import { TilgjengeligStønadskonto, StønadskontoType } from 'shared/types';
+import { Forelder } from 'common/types';
 
 export const ikkeDeltUttakForslag = (
     famDato: Date,

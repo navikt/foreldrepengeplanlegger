@@ -2,8 +2,6 @@ import { ForeldreparSituasjon } from 'shared/types';
 import { Forelder } from 'common/types';
 
 export * from './periodetyper';
-export * from 'shared/types';
-export * from 'common/types';
 
 export interface Uttaksinfo {
     antallUttaksdager: number;

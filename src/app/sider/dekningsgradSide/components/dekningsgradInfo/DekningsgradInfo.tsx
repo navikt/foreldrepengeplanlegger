@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { Dekningsgrad } from 'common/types';
+import { Dekningsgrad, Forelder } from 'common/types';
 import BEMHelper from 'common/util/bem';
 import { Undertittel, Ingress } from 'nav-frontend-typografi';
 import Block from 'common/components/block/Block';
-import { TilgjengeligeDager, OmForeldre, Forelder } from '../../../../types';
 import TilgjengeligeDagerGraf from '../tilgjengeligeDagerGraf/TilgjengeligeDagerGraf';
 import PengerIkon from 'common/components/ikoner/PengerIkon';
 import Situasjonsinfo from '../situasjonInfo/SituasjonInfo';
 import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
-import { ForeldreparSituasjon } from 'shared/types';
+import { ForeldreparSituasjon, TilgjengeligeDager, OmForeldre } from 'shared/types';
 
 import './dekningsgradInfo.less';
 

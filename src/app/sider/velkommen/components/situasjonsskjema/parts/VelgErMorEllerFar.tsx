@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
 import RadioGroup from 'common/components/skjema/radioGroup/RadioGroup';
-import { Forelder } from '../../../../../types';
 import getMessage from 'common/util/i18nUtils';
+import { Forelder } from 'common/types';
 
 interface OwnProps {
     forelder?: Forelder;

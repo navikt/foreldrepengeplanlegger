@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
 import { DispatchProps } from '../../redux/types';
-import { TilgjengeligeDager, SituasjonSkjemadata, OmForeldre, Uttaksdatoer } from '../../types';
+import { SituasjonSkjemadata, Uttaksdatoer } from '../../types';
 import {
     setDekningsgrad,
     setØnsketFordeling,
@@ -27,6 +27,7 @@ import Oppsummering from '../felles/oppsummering/Oppsummering';
 import FocusChildOnMountContainer from 'common/components/focusContainer/FocusChildOnMountContainer';
 import getMessage from 'common/util/i18nUtils';
 import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { TilgjengeligeDager, OmForeldre } from 'shared/types';
 
 interface StateProps {
     dekningsgrad?: Dekningsgrad;

@@ -3,11 +3,11 @@ import Block from 'common/components/block/Block';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import SkjemaFordelingFellesperiode from './FordelingFellesperiodeSpørsmål';
-import { TilgjengeligeDager } from '../../../../types';
 import { dagerTilUker } from '../../../../utils/common';
 import Skjemablokk from '../../../../components/skjemablokk/Skjemablokk';
 import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
+import { TilgjengeligeDager } from 'shared/types';
 
 interface OwnProps {
     tilgjengeligeDager: TilgjengeligeDager;

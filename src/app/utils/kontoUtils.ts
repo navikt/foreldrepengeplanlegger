@@ -1,18 +1,12 @@
-import {
-    TilgjengeligStønadskonto,
-    StønadskontoType,
-    TilgjengeligeDager,
-    Forelder,
-    Periodetype,
-    UttakFørTerminPeriode
-} from '../types';
+import { Periodetype, UttakFørTerminPeriode } from '../types';
 import { guid } from 'nav-frontend-js-utils';
 import { getUttaksinfoForPeriode } from './uttaksinfo';
 import { Uttaksdagen } from './Uttaksdagen';
 import situasjonsregler from './situasjonsregler';
 import Features from '../features';
 import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
-import { ForeldreparSituasjon } from 'shared/types';
+import { ForeldreparSituasjon, StønadskontoType, TilgjengeligStønadskonto, TilgjengeligeDager } from 'shared/types';
+import { Forelder } from 'common/types';
 
 export const stønadskontoSortOrder = {
     [StønadskontoType.ForeldrepengerFørFødsel]: 1,

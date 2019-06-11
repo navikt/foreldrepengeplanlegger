@@ -1,10 +1,10 @@
 import { CommonActionKeys, CommonActionTypes, SetStønadskontoerKontoerPayload } from './commonActionDefinitions';
 import { Språkkode } from '../../../intl/types';
-import { Periode, SituasjonSkjemadata, Forbruk, TilgjengeligeDager, OmForeldre } from '../../../types';
+import { Periode, SituasjonSkjemadata } from '../../../types';
 import { Dekningsgrad } from 'common/types';
 import { History } from 'history';
 import { CommonState } from '../../reducers/commonReducer';
-import { UttaksplanRegelTestresultat } from '../../../../shared/types';
+import { UttaksplanRegelTestresultat, Forbruk, TilgjengeligeDager, OmForeldre } from '../../../../shared/types';
 import { Side } from '../../../routes';
 
 export function setSpråk(språkkode: Språkkode): CommonActionTypes {

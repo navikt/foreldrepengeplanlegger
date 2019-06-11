@@ -2,7 +2,7 @@ import * as React from 'react';
 import Uttaksplan from './components/uttaksplan/Uttaksplan';
 import { RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
 import { DispatchProps } from '../../redux/types';
-import { Periode, TilgjengeligeDager, SituasjonSkjemadata, Forbruk, OmForeldre, Uttaksdatoer } from '../../types';
+import { Periode, SituasjonSkjemadata, Uttaksdatoer } from '../../types';
 import {
     addPeriode,
     updatePeriode,
@@ -22,7 +22,7 @@ import { getStønadskontoer } from '../../redux/actions/api/apiActionCreators';
 import LoadContainer from 'common/components/loadContainer/LoadContainer';
 import { ØnsketFordelingForeldrepenger } from '../../redux/reducers/commonReducer';
 import { getUttaksdatoer } from '../../utils/uttaksdatoer';
-import { UttaksplanRegelTestresultat } from '../../../shared/types';
+import { UttaksplanRegelTestresultat, TilgjengeligeDager, Forbruk, OmForeldre } from '../../../shared/types';
 import Oppsummering from '../felles/oppsummering/Oppsummering';
 import { Side } from '../../routes';
 import FocusChildOnMountContainer from 'common/components/focusContainer/FocusChildOnMountContainer';

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { TilgjengeligeDager, OmForeldre } from '../../../../types';
 import BEMHelper from 'common/util/bem';
 import Multibar from '../../../../../shared/elements/multibar/Multibar';
 import { UttaksplanHexFarge } from 'common/util/colors';
@@ -10,6 +9,7 @@ import ForelderIkon from 'shared/components/foreldrepar/ForelderIkon';
 import { getNavnGenitivEierform } from '../../../../utils/common';
 import getMessage from 'common/util/i18nUtils';
 import { getProsentFordelingPerDel } from '../../../../utils/fordelingGrafUtils';
+import { TilgjengeligeDager, OmForeldre } from 'shared/types';
 
 import './tilgjengeligeDagerGraf.less';
 

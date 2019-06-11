@@ -1,4 +1,5 @@
-import { Forelder, Periodetype, UttaksplanFarge } from '../types';
+import { Periodetype } from '../types';
+import { UttaksplanFarge, Forelder } from 'common/types';
 
 const getForelderFarge = (forelder?: Forelder): UttaksplanFarge => {
     return forelder ? (forelder === Forelder.mor ? 'lilla' : 'blaa') : 'graa';

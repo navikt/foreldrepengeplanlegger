@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Utsettelsesårsak, Forelderinfo } from '../../../../../types';
+import { Utsettelsesårsak } from '../../../../../types';
 import BEMHelper from 'common/util/bem';
 import ForelderIkon from 'shared/components/foreldrepar/ForelderIkon';
 import WorkIkon from 'common/components/ikoner/WorkIkon';
 import HolidayIkon from 'common/components/ikoner/HolidayIkon';
+import { Forelderinfo } from 'shared/types';
 
 interface Props {
     forelderinfo: Forelderinfo;

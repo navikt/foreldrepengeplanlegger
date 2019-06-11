@@ -6,9 +6,9 @@ import { changePeriodeType } from '../../../../utils/typeUtils';
 import { PeriodelisteElementProps } from './types';
 import GraderingMeny from './parts/GraderingMeny';
 import { getPeriodetypeFarge } from '../../../../utils/styleutils';
-import { OmForeldre, Forelder, Periodetype, Periode, isUlønnetPermisjon, UlønnetPermisjon } from '../../../../types';
+import { Periodetype, Periode, isUlønnetPermisjon, UlønnetPermisjon } from '../../../../types';
 import { Tidsperioden, isValidTidsperiode } from '../../../../utils/Tidsperioden';
-import { Tidsperiode } from 'common/types';
+import { Tidsperiode, Forelder } from 'common/types';
 import PeriodelisteElement from './periodelisteElement/PeriodelisteElement';
 import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
 import getMessage from 'common/util/i18nUtils';
@@ -18,6 +18,7 @@ import { VarighetChangeEvent } from '../periodeskjema/varighet/VarighetSkjema';
 import { kanBeggeForeldreVelgesForPeriodetype } from '../../../../utils/kontoUtils';
 import UlønnetPermisjonMeny from './parts/UlønnetPermisjonMeny';
 import { Periodene } from '../../../../utils/Periodene';
+import { OmForeldre } from 'shared/types';
 
 type Props = PeriodelisteElementProps & InjectedIntlProps;
 

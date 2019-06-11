@@ -1,7 +1,8 @@
 import { RegelTestresultat } from '../../../../shared/types';
-import { Forelder, Periodetype, Periode } from '../../../types';
+import { Periodetype, Periode } from '../../../types';
 import moment from 'moment';
 import { Regelgrunnlag } from '../types';
+import { Forelder } from 'common/types';
 
 const erUtsettelse = (type: Periodetype): boolean =>
     type === Periodetype.Arbeid || type === Periodetype.GradertUttak || type === Periodetype.Ferie;

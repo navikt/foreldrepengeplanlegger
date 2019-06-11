@@ -1,8 +1,8 @@
 import { RegelTestresultat, RegelTest } from '../../../../shared/types';
 import { InjectedIntl } from 'react-intl';
 import { getVarighetString } from 'common/util/intlUtils';
-import { Forelder } from '../../../types';
 import { Regelgrunnlag } from '../types';
+import { Forelder } from 'common/types';
 
 export const erFarMedmorsUttakErInnenforMaksAntallDagerTest: RegelTest = (
     grunnlag: Regelgrunnlag

@@ -1,15 +1,13 @@
 import { Periode, Periodetype } from '../../types';
-import { Uttaksdagen } from '../Uttaksdagen';
 import { getTidsperiode } from '../Tidsperioden';
 import { guid } from 'nav-frontend-js-utils';
 import { TilgjengeligStønadskonto, StønadskontoType } from 'shared/types';
 import { Forelder } from 'common/types';
 
 export const ikkeDeltUttakForslag = (
-    famDato: Date,
+    førsteUttaksdag: Date,
     tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[]
 ): Periode[] => {
-    const førsteUttaksdag = Uttaksdagen(famDato).denneEllerNeste();
     const foreldrepengerFørFødselKonto = tilgjengeligeStønadskontoer.find(
         (k) => k.konto === StønadskontoType.ForeldrepengerFørFødsel
     );

@@ -69,6 +69,10 @@ export const getTermindatoAvgrensninger = (): Avgrensninger => {
     };
 };
 
+export const getGjelderBareFarHarRett = (situasjon: ForeldreparSituasjon): boolean => {
+    return situasjon === ForeldreparSituasjon.bareFar;
+};
+
 export const getOmForeldre = (
     situasjon: ForeldreparSituasjon,
     navnMor: string,

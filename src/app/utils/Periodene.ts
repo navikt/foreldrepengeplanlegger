@@ -29,7 +29,7 @@ export const Periodene = (perioder: Periode[]) => ({
     getPerioderMedFerieForForelder: (forelder: Forelder) => getPerioderMedFerieForForelder(perioder, forelder),
     getFørstePerioderEtterFamiliehendelsesdato: (dato: Date) =>
         getFørstePeriodeEtterFamiliehendelsesdato(perioder, dato),
-    getFørsteUttaksdag: () => getFørsteUttaksdag(perioder),
+    getFørsteUttaksdag: () => getFørsteUttaksdagIPeriodene(perioder),
     getBrukteUttaksdager: () => getBrukteUttaksdager(perioder),
     getUttaksdager: () => getUttaksdager(perioder),
     getAntallFridager: () => getAntallFridager(perioder),
@@ -185,7 +185,7 @@ function getPeriodeMedUgyldigTidsperiode(perioder: Periode[]) {
     return perioder.filter((periode) => isValidTidsperiode(periode.tidsperiode) === false);
 }
 
-function getFørsteUttaksdag(perioder: Periode[]): Date | undefined {
+function getFørsteUttaksdagIPeriodene(perioder: Periode[]): Date | undefined {
     const førstePeriode = perioder
         .filter((p) => p.tidsperiode.fom !== undefined)
         .sort(sorterPerioder)

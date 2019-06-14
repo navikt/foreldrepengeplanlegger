@@ -12,7 +12,6 @@ import { CommonActionKeys } from '../actions/common/commonActionDefinitions';
 import { selectForbruk, selectTilgjengeligeDager } from '../selectors';
 import { getOmForeldre } from '../../utils/common';
 import { ApiActionKeys } from '../actions/api/apiActionDefinitions';
-import { getUttaksdatoer } from '../../utils/uttaksdatoer';
 import { getRegelAvvik, regelPasserer, regelHarAvvik } from '../../../shared/regler/regelUtils';
 import { Regelgrunnlag } from 'app/utils/regler/types';
 import uttaksplanRegler from 'app/utils/regler';
@@ -66,7 +65,8 @@ function* validerUttaksplanSaga() {
         perioder,
         periodeFørTermin,
         forbruk,
-        tilgjengeligeDager
+        tilgjengeligeDager,
+        uttaksdatoer
     } = common.present;
 
     if (skjemadata) {
@@ -77,7 +77,7 @@ function* validerUttaksplanSaga() {
             periodeFørTermin,
             perioder,
             situasjon: skjemadata.situasjon,
-            uttaksdatoer: getUttaksdatoer(familiehendelsesdato),
+            uttaksdatoer,
             navnMor: skjemadata.navnMor,
             navnFarMedmor: skjemadata.navnFarMedmor,
             forbruk,

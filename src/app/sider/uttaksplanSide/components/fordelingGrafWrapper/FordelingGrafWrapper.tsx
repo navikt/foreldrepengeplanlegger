@@ -36,13 +36,17 @@ const FordelingGrafWrapper: React.StatelessComponent<Props & InjectedIntlProps> 
                     ? getFordelingForbrukMor(forbruk.mor, tilgjengeligeDager)
                     : getFordelingForbrukFarMedmor(forbruk.farMedmor!, tilgjengeligeDager)
             }
-            mor={{
-                antallDager: mor.dagerTotalt,
-                navn: omForeldre.mor.navn,
-                ikonRef: omForeldre.mor.ikonRef,
-                tittel: getTittelVarighet(intl, mor.dagerTotalt, mor.dagerForLite, mor.dagerForMye),
-                harForMangeDager: forbruk.mor.dagerForMye > 0
-            }}
+            mor={
+                omForeldre.erDeltOmsorg || (omForeldre.bareMor && mor)
+                    ? {
+                          antallDager: mor.dagerTotalt,
+                          navn: omForeldre.mor.navn,
+                          ikonRef: omForeldre.mor.ikonRef,
+                          tittel: getTittelVarighet(intl, mor.dagerTotalt, mor.dagerForLite, mor.dagerForMye),
+                          harForMangeDager: forbruk.mor.dagerForMye > 0
+                      }
+                    : undefined
+            }
             farMedmor={
                 farMedmor &&
                 omForeldre.farMedmor &&

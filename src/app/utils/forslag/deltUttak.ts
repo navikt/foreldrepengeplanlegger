@@ -6,11 +6,10 @@ import { TilgjengeligStønadskonto, StønadskontoType } from 'shared/types';
 import { Forelder } from 'common/types';
 
 export const deltUttakFødselForslag = (
-    famDato: Date,
+    førsteUttaksdag: Date,
     tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[],
     fellesperiodedagerMor: number
 ): Periode[] => {
-    const førsteUttaksdag = Uttaksdagen(famDato).denneEllerNeste();
     const perioder: Periode[] = [];
     const fellesKonto: TilgjengeligStønadskonto | undefined = tilgjengeligeStønadskontoer.find(
         (konto) => konto.konto === StønadskontoType.Fellesperiode

@@ -7,7 +7,7 @@ import { ForeldreparSituasjon, TilgjengeligStønadskonto } from 'shared/types';
 
 export const lagUttaksplan = (
     situasjon: ForeldreparSituasjon,
-    famDato: Date,
+    førsteUttaksdag: Date,
     tilgjengeligeStønadskontoer: TilgjengeligStønadskonto[],
     fellesperiodedagerMor: number | undefined
 ): Periode[] => {
@@ -15,8 +15,8 @@ export const lagUttaksplan = (
     let plan: Periode[] = [];
     plan =
         antallForelder === 2 && fellesperiodedagerMor !== undefined
-            ? deltUttakFødselForslag(famDato, tilgjengeligeStønadskontoer, fellesperiodedagerMor)
-            : ikkeDeltUttakForslag(famDato, tilgjengeligeStønadskontoer);
+            ? deltUttakFødselForslag(førsteUttaksdag, tilgjengeligeStønadskontoer, fellesperiodedagerMor)
+            : ikkeDeltUttakForslag(førsteUttaksdag, tilgjengeligeStønadskontoer);
 
     return plan ? plan.map((p) => ({ ...p, uttaksinfo: getUttaksinfoForPeriode(p) })) : [];
 };

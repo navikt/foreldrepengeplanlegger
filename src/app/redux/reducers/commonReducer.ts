@@ -1,6 +1,13 @@
 import { CommonActionKeys, CommonActionTypes, SubmitSkjemadataAction } from '../actions/common/commonActionDefinitions';
 import { Språkkode } from '../../intl/types';
-import { Periode, SituasjonSkjemadata, Periodetype, UttakFørTerminPeriode, isKomplettPeriode } from '../../types';
+import {
+    Periode,
+    SituasjonSkjemadata,
+    Periodetype,
+    UttakFørTerminPeriode,
+    isKomplettPeriode,
+    Uttaksdatoer
+} from '../../types';
 import { UttaksplanBuilder } from '../../utils/Builder';
 import { Dekningsgrad } from 'common/types';
 import { summerAntallDagerIKontoer, getPeriodeFørTermin } from '../../utils/kontoUtils';
@@ -12,9 +19,11 @@ import {
     Forbruk,
     TilgjengeligStønadskonto,
     OmForeldre,
-    TilgjengeligeDager
+    TilgjengeligeDager,
+    ForeldreparSituasjon
 } from '../../../shared/types';
 import { guid } from 'nav-frontend-js-utils';
+import { getUttaksdatoer } from 'app/utils/uttaksdatoer';
 
 export interface ØnsketFordelingForeldrepenger {
     harValgtFordeling: boolean;
@@ -32,6 +41,7 @@ export interface CommonState {
     dekningsgrad?: Dekningsgrad;
     ønsketFordeling: ØnsketFordelingForeldrepenger;
     tilgjengeligeDager?: TilgjengeligeDager;
+    uttaksdatoer: Uttaksdatoer;
     stønadskontoer80: {
         dager: number;
         kontoer: TilgjengeligStønadskonto[];
@@ -56,6 +66,7 @@ export const getDefaultCommonState = (storage?: CommonState): CommonState => {
             kontoer: [],
             dager: 0
         },
+        uttaksdatoer: getUttaksdatoer(new Date(), ForeldreparSituasjon.farOgMor),
         stønadskontoer80: {
             kontoer: [],
             dager: 0
@@ -90,6 +101,7 @@ const updateStateWithNewSkjemadata = (state: CommonState, action: SubmitSkjemada
             ukerMor: undefined
         },
         dekningsgrad: undefined,
+        uttaksdatoer: getUttaksdatoer(action.data.familiehendelsesdato, action.data.situasjon),
         familiehendelsesdato: action.data.familiehendelsesdato
     };
 };
@@ -98,14 +110,14 @@ const lagForslagTilPlan = (state: CommonState): CommonState => {
     if (state.skjemadata && state.omForeldre && state.tilgjengeligeDager) {
         const perioder = lagUttaksplan(
             state.skjemadata.situasjon,
-            state.familiehendelsesdato,
+            state.uttaksdatoer.førsteUttaksdag,
             state.dekningsgrad === '100' ? state.stønadskontoer100.kontoer : state.stønadskontoer80.kontoer,
             state.ønsketFordeling.ukerMor !== undefined ? state.ønsketFordeling.ukerMor * 5 : undefined
         );
         return updateStateAndStorage(state, {
             periodeFørTermin: getPeriodeFørTermin(
                 state.skjemadata.situasjon,
-                state.familiehendelsesdato,
+                state.uttaksdatoer.førsteUttaksdag,
                 state.tilgjengeligeDager.dagerForeldrepengerFørFødsel,
                 state.omForeldre.bareMor
             ),
@@ -117,8 +129,9 @@ const lagForslagTilPlan = (state: CommonState): CommonState => {
 
 const commonReducer = (state = getDefaultCommonState(getStorage()), action: CommonActionTypes): CommonState => {
     const getBuilder = () => {
-        return UttaksplanBuilder(state.perioder, state.familiehendelsesdato);
+        return UttaksplanBuilder(state.perioder, state.uttaksdatoer.førsteUttaksdag);
     };
+
     switch (action.type) {
         case CommonActionKeys.SET_SPRÅK:
             return updateStateAndStorage(state, { ...state, språkkode: action.språkkode });

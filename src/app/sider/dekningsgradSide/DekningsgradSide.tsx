@@ -18,7 +18,6 @@ import DekningsgradValg from './components/dekningsgradValg/DekningsgradValg';
 import Skjemablokk from '../../components/skjemablokk/Skjemablokk';
 import { ØnsketFordelingForeldrepenger } from '../../redux/reducers/commonReducer';
 import FordelingForeldrepenger from './components/fordelingForeldrepenger/FordelingForeldrepenger';
-import { getUttaksdatoer } from '../../utils/uttaksdatoer';
 import { Side } from '../../routes';
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { Hovedknapp } from 'nav-frontend-knapper';
@@ -147,18 +146,19 @@ class UttaksplanSide extends React.Component<Props> {
 
 const mapStateToProps = (state: AppState): StateProps => {
     const { stønadskontoer } = state.api;
+    const common = state.common.present;
     return {
-        dekningsgrad: state.common.present.dekningsgrad,
-        familiehendelsesdato: state.common.present.familiehendelsesdato,
-        tilgjengeligeDager: state.common.present.tilgjengeligeDager,
+        dekningsgrad: common.dekningsgrad,
+        familiehendelsesdato: common.familiehendelsesdato,
+        tilgjengeligeDager: common.tilgjengeligeDager,
         stønadskontoerLastet: stønadskontoer.loaded === true,
         henterStønadskontoer: state.api.stønadskontoer.pending === true,
-        dager100: state.common.present.stønadskontoer100.dager,
-        dager80: state.common.present.stønadskontoer80.dager,
-        skjemadata: state.common.present.skjemadata!,
-        omForeldre: state.common.present.omForeldre,
-        ønsketFordeling: state.common.present.ønsketFordeling,
-        uttaksdatoer: getUttaksdatoer(state.common.present.familiehendelsesdato)
+        dager100: common.stønadskontoer100.dager,
+        dager80: common.stønadskontoer80.dager,
+        skjemadata: common.skjemadata!,
+        omForeldre: common.omForeldre,
+        ønsketFordeling: common.ønsketFordeling,
+        uttaksdatoer: common.uttaksdatoer
     };
 };
 

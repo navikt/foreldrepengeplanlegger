@@ -2,15 +2,22 @@ import moment from 'moment';
 import { Uttaksdagen } from './Uttaksdagen';
 import { getTidsperiode } from './Tidsperioden';
 import { Uttaksdatoer } from '../types';
+import { ForeldreparSituasjon } from 'shared/types';
+import { getGjelderBareFarHarRett } from './common';
 
-export const getUttaksdatoer = (familiehendelsesdato: Date): Uttaksdatoer => {
-    const førsteUttaksdag = Uttaksdagen(familiehendelsesdato).denneEllerNeste();
+export const getUttaksdatoer = (familiehendelsesdato: Date, situasjon: ForeldreparSituasjon): Uttaksdatoer => {
+    const førsteUttaksdagEtterFamiliehendelsesdato = Uttaksdagen(familiehendelsesdato).denneEllerNeste();
+    const sisteUttaksdagInnenforSeksUker = getTidsperiode(førsteUttaksdagEtterFamiliehendelsesdato, 30).tom;
+    const førsteUttaksdagEtterSeksUker = Uttaksdagen(sisteUttaksdagInnenforSeksUker).neste();
+    const førsteUttaksdag =
+        situasjon && getGjelderBareFarHarRett(situasjon)
+            ? førsteUttaksdagEtterSeksUker
+            : førsteUttaksdagEtterFamiliehendelsesdato;
 
     const førsteUttaksdagForeldrepengerFørFødsel = getFørsteUttaksdagForeldrepengerFørFødsel(familiehendelsesdato);
     const førsteMuligeUttaksdag = getFørsteMuligeUttaksdag(familiehendelsesdato);
-    const sisteUttaksdagFørFødsel = Uttaksdagen(førsteUttaksdag).forrige();
+    const sisteUttaksdagFørFødsel = Uttaksdagen(førsteUttaksdagEtterFamiliehendelsesdato).forrige();
     const sisteMuligeUttaksdag = getSisteMuligeUttaksdag(familiehendelsesdato);
-    const sisteUttaksdagInnenforSeksUker = getTidsperiode(førsteUttaksdag, 30).tom;
 
     return {
         førsteUttaksdag,
@@ -21,7 +28,7 @@ export const getUttaksdatoer = (familiehendelsesdato: Date): Uttaksdatoer => {
         },
         etterFødsel: {
             sisteUttaksdagInnenforSeksUker,
-            førsteUttaksdagEtterSeksUker: Uttaksdagen(sisteUttaksdagInnenforSeksUker).neste(),
+            førsteUttaksdagEtterSeksUker,
             sisteMuligeUttaksdag
         }
     };
@@ -41,7 +48,8 @@ export function getFørsteMuligeUttaksdag(familiehendelsesdato: Date): Date {
 
 export function getSisteMuligeUttaksdag(familiehendelsesdato: Date): Date {
     return Uttaksdagen(
-        moment.utc(getFørsteUttaksdagPåEllerEtterFødsel(familiehendelsesdato))
+        moment
+            .utc(getFørsteUttaksdagPåEllerEtterFødsel(familiehendelsesdato))
             .add(3, 'year')
             .toDate()
     ).denneEllerNeste();

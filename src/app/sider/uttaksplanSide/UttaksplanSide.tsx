@@ -21,7 +21,6 @@ import { Dekningsgrad } from 'common/types';
 import { getStønadskontoer } from '../../redux/actions/api/apiActionCreators';
 import LoadContainer from 'common/components/loadContainer/LoadContainer';
 import { ØnsketFordelingForeldrepenger } from '../../redux/reducers/commonReducer';
-import { getUttaksdatoer } from '../../utils/uttaksdatoer';
 import { UttaksplanRegelTestresultat, TilgjengeligeDager, Forbruk, OmForeldre } from '../../../shared/types';
 import Oppsummering from '../felles/oppsummering/Oppsummering';
 import { Side } from '../../routes';
@@ -188,7 +187,7 @@ const mapStateToProps = (state: AppState): StateProps => {
         forbruk: common.forbruk,
         omForeldre: common.omForeldre,
         ønsketFordeling: common.ønsketFordeling,
-        uttaksdatoer: getUttaksdatoer(common.familiehendelsesdato),
+        uttaksdatoer: common.uttaksdatoer,
         regelTestresultat: common.regelTestresultat,
         nyPeriode: common.nyPeriode,
         nyPeriodeId: common.nyPeriodeId,

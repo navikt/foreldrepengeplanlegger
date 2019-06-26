@@ -19,8 +19,7 @@ const getStønadskontoerRequestParams = (
 ): GetTilgjengeligeStønadskontoerParams => {
     return {
         antallBarn: data.antallBarn,
-        erFødsel: true,
-        familiehendelsesdato,
+        termindato: familiehendelsesdato,
         farHarAleneomsorg: situasjonsregler.harFarAleneomsorg(data.situasjon, data.forelderVedAleneomsorg),
         farHarRett: situasjonsregler.harFarRett(data.situasjon),
         morHarAleneomsorg: situasjonsregler.harMorAleneomsorg(data.situasjon, data.forelderVedAleneomsorg),

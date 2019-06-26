@@ -10,8 +10,7 @@ function getUttakskontoer(params: GetTilgjengeligeStønadskontoerParams) {
         antallBarn,
         farHarRett,
         morHarRett,
-        familiehendelsesdato,
-        erFødsel,
+        termindato,
         morHarAleneomsorg,
         farHarAleneomsorg,
         startdatoUttak,
@@ -19,14 +18,13 @@ function getUttakskontoer(params: GetTilgjengeligeStønadskontoerParams) {
     } = params;
 
     const urlParams = {
-        erFodsel: erFødsel,
         farHarRett,
         morHarRett,
         morHarAleneomsorg: morHarAleneomsorg || false,
         farHarAleneomsorg: farHarAleneomsorg || false,
         antallBarn,
         dekningsgrad,
-        familiehendelsesdato: formaterDato(familiehendelsesdato, 'YYYYMMDD'),
+        termindato: formaterDato(termindato, 'YYYYMMDD'),
         startdatoUttak: formaterDato(startdatoUttak, 'YYYYMMDD')
     };
 

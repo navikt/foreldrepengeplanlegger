@@ -4,8 +4,7 @@ export interface GetTilgjengeligeStønadskontoerParams {
     antallBarn: number;
     morHarRett: boolean;
     farHarRett: boolean;
-    familiehendelsesdato: Date;
-    erFødsel: boolean;
+    termindato: Date;
     morHarAleneomsorg?: boolean;
     farHarAleneomsorg?: boolean;
     startdatoUttak: Date;

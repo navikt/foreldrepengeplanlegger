@@ -86,3 +86,29 @@ patch:
         patched: '2019-07-03T21:39:31.621Z'
     - babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-traverse > babel-types > lodash:
         patched: '2019-07-03T21:39:31.621Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2019-07-04T21:39:24.858Z'
+    - snyk > lodash:
+        patched: '2019-07-04T21:39:24.858Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2019-07-04T21:39:24.858Z'
+    - snyk > snyk-config > lodash:
+        patched: '2019-07-04T21:39:24.858Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2019-07-04T21:39:24.858Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2019-07-04T21:39:24.858Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-07-04T21:39:24.858Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-07-04T21:39:24.858Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-07-04T21:39:24.858Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-07-04T21:39:24.858Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2019-07-04T21:39:24.858Z'
+    - '@babel/preset-typescript > @babel/plugin-transform-typescript > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2019-07-04T21:39:24.858Z'
+    - '@babel/preset-typescript > @babel/plugin-transform-typescript > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2019-07-04T21:39:24.858Z'

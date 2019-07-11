@@ -99,8 +99,8 @@
 
     "regel.info.ferieMedUttaksdagerInfo": "Helligdager i en ferieperiode vil telle som dager med foreldrepenger.",
     "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker {dager} av fellesperioden, og må legge ved dokumentasjon i søknaden av aktivitetskravet til {navnMor} for disse dagene. <a href=\"{lenke}\" rel=\"noopener\" class=\"lenke\">Les mer om aktivitetskravet her</a>.",
-    "regel.info.morUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnMor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid. {navnMor} må ha en skriftlig avtale med arbeidsgiveren sin om at {navnMor} skal jobbe i den stillingsprosenten som er oppgitt. {navnMor} trenger ikke å sende denne til NAV.",
-    "regel.info.farMedmorUtsetterPgaArbeidInfo": "Arbeidsgiveren til {navnFarMedmor} må sende inntektsmelding til NAV som bekrefter avtalt arbeid. {navnFarMedmor} må ha en skriftlig avtale med arbeidsgiveren sin om at {navnFarMedmor} skal jobbe i den stillingsprosenten som er oppgitt. {navnFarMedmor} trenger ikke å sende denne til NAV.",
+    "regel.info.morUtsetterPgaArbeidInfo": "{navnMor} må ha en skriftlig avtale med arbeidsgiveren sin om at {navnMor} skal jobbe i den stillingsprosenten som er oppgitt. {navnMor} trenger ikke å sende denne til NAV.",
+    "regel.info.farMedmorUtsetterPgaArbeidInfo": "{navnFarMedmor} må ha en skriftlig avtale med arbeidsgiveren sin om at {navnFarMedmor} skal jobbe i den stillingsprosenten som er oppgitt. {navnFarMedmor} trenger ikke å sende denne til NAV.",
     "regel.info.bareFarHarRettEttBarnAktivitetskravMorInfo": "Det er aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
     "regel.info.bareFarHarRettFlerbarnsukerAktivitetskravMorInfo": "Dersom du tar ut mer enn flerbarnsukene, er det aktivitetskrav til mor når du skal være hjemme sammen med barnet, og du må legge ved dokumentasjon i søknaden din.",
     "regel.info.avsluttendeUlønnedePermisjoner.tittel": "Ulønnet permisjon",

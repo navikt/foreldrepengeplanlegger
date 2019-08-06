@@ -36,7 +36,7 @@
     "@types/jest": "24.0.11",
     "@types/lodash.groupby": "4.6.4",
     "@types/lodash.uniq": "4.5.4",
-    "@types/lodash.uniqby": "4.7.4",
+    "@types/lodash.uniqby": "4.7.6",
     "@types/react": "16.7.20",
     "@types/react-aria-menubutton": "6.1.0",
     "@types/react-collapse": "4.0.2",

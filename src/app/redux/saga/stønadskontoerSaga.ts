@@ -33,9 +33,10 @@ const stateSelector = (state: AppState) => state;
 const sortStønadskonto = (a: TilgjengeligStønadskonto, b: TilgjengeligStønadskonto) =>
     getStønadskontoSortOrder(a.konto) > getStønadskontoSortOrder(b.konto) ? 1 : -1;
 
-const trekkFlerbarnsdagerFraFellesperiode = (kontoerDTO: FPKontoServiceDTO): FPKontoServiceDTO => {
+const trekkFlerbarnsdagerFraFellesperiodeEllerForeldrepenger = (kontoerDTO: FPKontoServiceDTO): FPKontoServiceDTO => {
     const flerbarnsdager = kontoerDTO.kontoer[StønadskontoType.Flerbarnsdager];
     const fellesperiode = kontoerDTO.kontoer[StønadskontoType.Fellesperiode];
+    const foreldrepenger = kontoerDTO.kontoer[StønadskontoType.Foreldrepenger];
     if (flerbarnsdager && fellesperiode) {
         return {
             ...kontoerDTO,
@@ -45,6 +46,17 @@ const trekkFlerbarnsdagerFraFellesperiode = (kontoerDTO: FPKontoServiceDTO): FPK
             }
         };
     }
+
+    if (flerbarnsdager && foreldrepenger) {
+        return {
+            ...kontoerDTO,
+            kontoer: {
+                ...kontoerDTO.kontoer,
+                [`${StønadskontoType.Foreldrepenger}`]: foreldrepenger - flerbarnsdager
+            }
+        };
+    }
+
     return kontoerDTO;
 };
 
@@ -67,11 +79,11 @@ const getKontoerFromForeldrepengerDTO = (
     const dekning100: TilgjengeligStønadskonto[] = [];
 
     const justerteKontoer80 = fjernForeldrepengerFørFødselToFedre(
-        trekkFlerbarnsdagerFraFellesperiode(kontoer80),
+        trekkFlerbarnsdagerFraFellesperiodeEllerForeldrepenger(kontoer80),
         situasjon
     );
     const justerteKontoer100 = fjernForeldrepengerFørFødselToFedre(
-        trekkFlerbarnsdagerFraFellesperiode(kontoer100),
+        trekkFlerbarnsdagerFraFellesperiodeEllerForeldrepenger(kontoer100),
         situasjon
     );
 

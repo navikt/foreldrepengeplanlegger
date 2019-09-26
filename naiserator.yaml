@@ -4,9 +4,10 @@ metadata:
   name: {{application_name}}
 {{#if namespace}}
   namespace: {{namespace}}
-  {{else}}
+{{else}}
   namespace: default
-{{/if}}   labels:
+{{/if}}  
+labels:
     team: {{team}}
 spec:
   accessPolicy:

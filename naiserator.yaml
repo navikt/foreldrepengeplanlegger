@@ -7,7 +7,7 @@ metadata:
 {{else}}
   namespace: default
 {{/if}}  
-labels:
+  labels:
     team: {{team}}
 spec:
   accessPolicy:

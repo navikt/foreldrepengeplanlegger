@@ -1,6 +1,5 @@
 {
     "ingress": "https://foreldrepengeplanlegger-q.nav.no",
-    "ingress-internal": "https://foreldrepengeplanlegger.nais.oera-q.local",
     "application_name": "foreldrepengeplanlegger",
     "env": {
         "FP_UTTAK_SERVICE_URL": "https://fp-uttak-service-q.nav.no",

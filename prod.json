@@ -4,6 +4,6 @@
     "application_name": "foreldrepengeplanlegger",
     "env": {
         "FP_UTTAK_SERVICE_URL": "https://fp-uttak-service.nav.no",
-        "APPRES_CMS_URL": "https://appres-q1.nav.no"
+        "APPRES_CMS_URL": "https://appres.nav.no"
     }
 }

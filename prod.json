@@ -1,5 +1,5 @@
 {
-    "appres" : "appres-q1.nav.no",
+    "appres": "appres.nav.no",
     "ingress": "https://foreldrepengeplanlegger.nav.no",
     "application_name": "foreldrepengeplanlegger",
     "env": {

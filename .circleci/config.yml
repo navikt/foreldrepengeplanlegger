@@ -124,7 +124,7 @@ workflows:
             branches:
               only: master
           requires:
-            - gcp-deploy        
+            - dev-gcp-deploy        
 
       - slack/approval-notification:
           webhook: $SLACK

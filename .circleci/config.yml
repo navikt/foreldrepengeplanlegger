@@ -132,6 +132,12 @@ workflows:
           url: https://circleci.com/workflow-run/$CIRCLE_WORKFLOW_WORKSPACE_ID
           requires:
             - dev-deploy
+      - slack/approval-notification:
+          webhook: $SLACK
+          message: "Godkjenn deploy til prod-gcp av $CIRCLE_PROJECT_REPONAME"
+          url: https://circleci.com/workflow-run/$CIRCLE_WORKFLOW_WORKSPACE_ID
+          requires:
+            - dev-gcp-deploy      
 
       - prod-deploy:
           context: NAIS deployment

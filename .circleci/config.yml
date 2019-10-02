@@ -133,3 +133,10 @@ workflows:
               only: master
           requires:
             - hold
+      - prod-gcp-deploy:
+          context: NAIS deployment
+          filters:
+            branches:
+              only: master
+          requires:
+            - hold      

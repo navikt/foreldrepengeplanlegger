@@ -118,7 +118,7 @@ workflows:
               only: master
           requires:
             - dev-deploy
-     - hold-gcp:
+      - hold-gcp:
           type: approval
           filters:
             branches:

@@ -15,7 +15,7 @@ spec:
       external:
         - host: {{appres}}
       rules:
-        - host: {{uttak}}
+        - application: {{uttak}}
   image: {{version}}
   port: 8080
   replicas:

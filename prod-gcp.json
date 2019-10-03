@@ -1,11 +1,11 @@
 {
     "appres" : "appres.nav.no",
-    "uttak" : "fp-uttak-service.nav.no",   
+    "uttak" : "fp-uttak-service",   
     "namespace" : "foreldrepenger",
     "ingress": "https://foreldrepengeplanlegger.nav.no",
     "application_name": "foreldrepengeplanlegger",
     "env": {
-        "FP_UTTAK_SERVICE_URL": "https://fp-uttak-service.nav.no",
+        "FP_UTTAK_SERVICE_URL": "https://fp-uttak-service",
         "APPRES_CMS_URL": "https://appres.nav.no"
     }
 }

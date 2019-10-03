@@ -14,8 +14,6 @@ spec:
     outbound:
       external:
         - host: {{appres}}
-      rules:
-        - application: {{uttak}}
   image: {{version}}
   port: 8080
   replicas:

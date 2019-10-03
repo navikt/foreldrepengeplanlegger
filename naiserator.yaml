@@ -14,8 +14,8 @@ spec:
     outbound:
       external:
         - host: {{appres}}
+      rules :
         - host: {{uttak}}
-      rules : []
     inbound:
       rules:
       - application: istio-ingressgateway

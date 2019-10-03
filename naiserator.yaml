@@ -16,10 +16,6 @@ spec:
         - host: {{appres}}
       rules:
         - host: {{uttak}}
-    inbound:
-      rules:
-      - application: istio-ingressgateway
-        namespace: istio-system
   image: {{version}}
   port: 8080
   replicas:

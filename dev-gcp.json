@@ -5,7 +5,7 @@
     "ingress": "https://foreldrepengeplanlegger-dev-nav.no",
     "application_name": "foreldrepengeplanlegger",
     "env": {
-        "FP_UTTAK_SERVICE_URL": "https://fp-uttak-service",
+        "FP_UTTAK_SERVICE_URL": "http://fp-uttak-service",
         "APPRES_CMS_URL": "https://appres-q1.nav.no"
     }
 }

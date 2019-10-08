@@ -28,9 +28,10 @@ import FocusChildOnMountContainer from 'common/components/focusContainer/FocusCh
 import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
 import { Element } from 'nav-frontend-typografi';
 import RegelAvvikListe from './components/regelAvvikListe/RegelAvvikListe';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { ActionCreators as undoActions } from 'redux-undo';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import UtvidetInformasjon from 'common/components/utvidetInformasjon/UtvidetInformasjon';
 
 interface StateProps {
     periodeFørTermin?: Periode;
@@ -157,6 +158,11 @@ class UttaksplanSide extends React.Component<Props> {
                         </div>
                         <Block visible={regelTestresultat.avvik.length > 0} marginTop="l">
                             <RegelAvvikListe avvik={regelTestresultat.avvik} />
+                        </Block>
+                        <Block visible={omForeldre.bareFar} marginTop="m">
+                            <UtvidetInformasjon apneLabel="Hva hvis mor har uføretrygd?">
+                                <FormattedHTMLMessage id="situasjon.info.bareFar.omMorUfør" />
+                            </UtvidetInformasjon>
                         </Block>
                         <Block align="center" marginTop="l" margin="l">
                             <Hovedknapp onClick={() => window.print()}>

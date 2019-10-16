@@ -85,7 +85,16 @@ class DatoInput extends React.Component<Props, {}> {
                                 placeholder: 'dd.mm.åååå',
                                 name,
                                 ariaDescribedby: ariaDescriptionId,
-                                ariaLabel: compLabel ? compLabel.ariaLabel : undefined
+                                ariaLabel: compLabel ? compLabel.ariaLabel : undefined,
+                                onChange: (datoString: string, evt: any) => {
+                                    if (moment(datoString, 'DDMMYYYY', true).isValid()) {
+                                        onChange(moment.utc(datoString, 'DDMMYYYY').toDate());
+                                    }
+
+                                    if (moment(datoString, 'D.M.YYYY', true).isValid()) {
+                                        onChange(moment.utc(datoString, 'D.M.YYYY').toDate());
+                                    }
+                                }
                             }}
                             onChange={(datoString: string) => {
                                 const nyDato =

@@ -1,7 +1,6 @@
 {
     "appres" : "appres-q1.nav.no",
     "ingress": "https://foreldrepengeplanlegger-q.nav.no",
-    "application_name": "foreldrepengeplanlegger",
     "env": {
         "FP_UTTAK_SERVICE_URL": "https://fp-uttak-service-q.nav.no",
         "APPRES_CMS_URL": "https://appres-q1.nav.no"

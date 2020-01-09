@@ -1,0 +1,73 @@
+name: Deployment pipeline q1
+
+on:
+  push:
+    branches:
+      - master 
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/foreldrepengeplanlegger
+  
+jobs:
+  kompiler:
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Sjekk ut kode
+        uses: actions/checkout@v2
+     
+      - name: Hent tag    
+        run: echo "::set-env name=TAG::$(git log -1 --pretty='%ad' --date=format:'%Y%m%d%H%M%S')-$(echo $GITHUB_SHA | cut -c1-7)"  
+             
+             
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+         path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+         restore-keys: |
+           ${{ runner.os }}-build-${{ env.cache-name }}-
+           ${{ runner.os }}-build-
+           ${{ runner.os }}-
+         
+      - run:  npm install
+      - run: |
+          npm run build
+          echo "::set-env name=IMAGE::$IMAGE_BASE:$TAG" 
+                   
+      - name: Bygg, tag og push Docker image  
+        run: |
+          docker build --tag ${IMAGE} --tag ${IMAGE_BASE}:latest .
+          echo  ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} --password-stdin
+          docker push ${IMAGE_BASE}   
+    
+      - name: Tag release      
+        uses: maxkomarychev/oction-create-release@v0.7.1
+        id: release
+        with:
+          token: ${{ secrets.NOTIFICATION }}
+          tag_name: ${{ env.TAG }}
+  
+      - name: Opprett deployment issue
+        if: success()
+        uses: maxkomarychev/oction-create-issue@v0.7.1
+        id: createdeployissue
+        with:
+          token: ${{ secrets.NOTIFICATION }}
+          title: Deploy av ${{ env.TAG }}
+          labels: deployment
+          body: |
+            Kommenter med <b>/promote ${{ env.TAG }} cluster</b>, hvor <b>cluster</b> er et gyldig clusternavn
+            <table>
+            <tr><th>Cluster</th></tr>
+            <tr><td>dev-sbs</td>
+            <tr><td>prod-sbs</tr>
+            </table>
+      - name: Trigg deploy til dev-sbs
+        if: success()
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          token: ${{ secrets.NOTIFICATION }}
+          issue-number: ${{ steps.createdeployissue.outputs.number }}
+          body: /promote ${{ env.TAG }} dev-sbs
+     

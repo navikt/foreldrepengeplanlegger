@@ -1,21 +1,21 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: {{application_name}}
+  name: foreldrepengeplanlegger
 {{#if namespace}}
   namespace: {{namespace}}
 {{else}}
   namespace: default
 {{/if}}  
   labels:
-    team: {{team}}
+    team: teamforeldrepenger
 spec:
   accessPolicy:
     outbound:
       external:
         - host: {{appres}}
       rules : []  
-  image: {{version}}
+  image: {{image}}
   port: 8080
   replicas:
       min: 2

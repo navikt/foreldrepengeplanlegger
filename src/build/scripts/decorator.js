@@ -3,11 +3,7 @@ const request = require('request');
 
 const { JSDOM } = jsdom;
 
-const requestDecorator = (callback) =>
-    request(
-        `${process.env.APPRES_CMS_URL}/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true`,
-        callback
-    );
+const requestDecorator = (callback) => request(`${process.env.APPRES_CMS_URL}`, callback);
 
 const getDecorator = () =>
     new Promise((resolve, reject) => {

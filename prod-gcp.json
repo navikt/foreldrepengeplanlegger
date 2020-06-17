@@ -1,6 +1,6 @@
 {
     "appres": "appres.nav.no",
-    "namespace": "foreldrepenger",
+    "namespace": "teamforeldrepenger",
     "ingress": "https://foreldrepengeplanlegger.nav.no",
     "env": {
         "FP_UTTAK_SERVICE_URL": "https://fp-uttak-service.nav.no",

@@ -1,6 +1,6 @@
 {
     "appres": "appres.nav.no",
-    "ingress": "https://foreldrepengeplanlegger.nav.no",
+   "ingresses": ["https://foreldrepengeplanlegger.nav.no","https://foreldrepengeplanlegger.dev-sbs.nais.io"],
     "env": {
         "FP_UTTAK_SERVICE_URL": "https://fp-uttak-service.nav.no",
         "APPRES_CMS_URL": "https://www.nav.no/dekoratoren"

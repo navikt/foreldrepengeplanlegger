@@ -10163,9 +10163,9 @@
             "integrity": "sha512-JHPZVhxvchI1lHar9at38ektL9/Pgm7nUvVzFQXGNgsSxNk/mWGMl+bhmwU1qxc9vZMaZYb9ng/DhG9pxnBoYg=="
         },
         "nav-frontend-alertstriper-style": {
-            "version": "1.0.2",
-            "resolved": "https://registry.npmjs.org/nav-frontend-alertstriper-style/-/nav-frontend-alertstriper-style-1.0.2.tgz",
-            "integrity": "sha512-hIET2Tr+4LKx9tQ1Vx0CW/IRpy46PhGARLIb9jabsqe8nkBsZKxSwx0JuD1XWyoLwNFOK8p8hwJMhGYZ8LKdpw==",
+            "version": "1.0.3",
+            "resolved": "https://registry.npmjs.org/nav-frontend-alertstriper-style/-/nav-frontend-alertstriper-style-1.0.3.tgz",
+            "integrity": "sha512-wS8idKy0Ys2eAGu9XvrqUFwR8pZMv5U6wmeVtVdoga/alVva28bYZfPpgUnfC/rKQrrecO5VxveNDfOWMUTiSg==",
             "dev": true
         },
         "nav-frontend-chevron": {

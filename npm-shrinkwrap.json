@@ -1215,9 +1215,9 @@
             }
         },
         "@types/react-scroll": {
-            "version": "1.5.4",
-            "resolved": "https://registry.npmjs.org/@types/react-scroll/-/react-scroll-1.5.4.tgz",
-            "integrity": "sha512-EYJt9wDvyrcDZpZqI19eb2UlAzCoXBeoFu3yMkrBDC8zkwFXOhb8lv3tD9V9UAqptora096M7qWYktsWq1guEg==",
+            "version": "1.5.5",
+            "resolved": "https://registry.npmjs.org/@types/react-scroll/-/react-scroll-1.5.5.tgz",
+            "integrity": "sha512-YRV/zcOwGkBqZpXlkmBPPnk+vSJpcJDSKIMkWTtwZe4UcZxoYkRzEt3I+hbn0do+j5iPcQd/sk6XFBGhm5rIyw==",
             "dev": true,
             "requires": {
                 "@types/react": "*"

@@ -55,7 +55,7 @@ jobs:
             </table>
       - name: Trigg deploy til dev-sbs og dev-gcp
         if: success()
-        uses: actions/github-script@0.3.0
+        uses: actions/github-script@v2
         with:
           github-token: ${{secrets.NOTIFICATION}}
           script: |

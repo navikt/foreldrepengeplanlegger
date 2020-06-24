@@ -962,9 +962,9 @@
             "dev": true
         },
         "@types/classnames": {
-            "version": "2.2.7",
-            "resolved": "https://registry.npmjs.org/@types/classnames/-/classnames-2.2.7.tgz",
-            "integrity": "sha512-rzOhiQ55WzAiFgXRtitP/ZUT8iVNyllEpylJ5zHzR4vArUvMB39GTk+Zon/uAM0JxEFAWnwsxC2gH8s+tZ3Myg==",
+            "version": "2.2.10",
+            "resolved": "https://registry.npmjs.org/@types/classnames/-/classnames-2.2.10.tgz",
+            "integrity": "sha512-1UzDldn9GfYYEsWWnn/P4wkTlkZDH7lDb0wBMGbtIQc9zXEQq7FlKBdZUn6OBqD8sKZZ2RQO2mAjGpXiDGoRmQ==",
             "dev": true
         },
         "@types/debug": {

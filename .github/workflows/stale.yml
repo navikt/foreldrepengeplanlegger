@@ -7,7 +7,7 @@ jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/stale@v1
+    - uses: actions/stale@v3.0.7
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-issue-message: '3 dager uten aktivitet. Fjern stale label eller kommenter for å unngå at den lukkes i morgen'

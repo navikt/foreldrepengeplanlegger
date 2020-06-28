@@ -6,5 +6,6 @@
     "env": {
         "FP_UTTAK_SERVICE_URL": "https://fp-uttak-service.dev-nav.no",
         "APPRES_CMS_URL": "https://www-q1.nav.no/dekoratoren"
+        "LOGINSERVICE_URL": "https://loginservice.dev-nav.no/login"
     }
 }

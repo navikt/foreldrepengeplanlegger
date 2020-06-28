@@ -61,12 +61,7 @@ jobs:
           title: Deploy av ${{ env.TAG }}
           labels: deployment
           body: |
-            Kommenter med <b>/promote ${{ env.TAG }} cluster</b>, hvor <b>cluster</b> er et gyldig clusternavn
-            <table>
-            <tr><th>Cluster</th></tr>
-            <tr><td>dev-sbs</td>
-            <tr><td>prod-sbs</tr>
-            </table>
+            Kommenter med <b>/promote cluster namespace </b> for å deploye
       - name: Trigg deploy til dev-sbs og dev-gcp
         if: success()
         uses: actions/github-script@v2

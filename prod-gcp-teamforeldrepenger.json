@@ -1,0 +1,10 @@
+{
+   "gcp" : "true",
+    "appres": "appres.nav.no",
+    "namespace": "teamforeldrepenger",
+    "ingress": "https://foreldrepengeplanlegger.nav.no",
+    "env": {
+        "FP_UTTAK_SERVICE_URL": "https://fp-uttak-service.nav.no",
+        "APPRES_CMS_URL": "https://www.nav.no/dekoratoren"
+    }
+}

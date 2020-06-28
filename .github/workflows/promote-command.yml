@@ -32,7 +32,7 @@ jobs:
           CLUSTER: ${{ env.CLUSTER }}
           RESOURCE: naiserator.yaml
           PRINT_PAYLOAD: true
-          VARS: ${{ env.CLUSTER }}.json 
+          VARS: ${{ env.CLUSTER }}-${{ env.NAMESPACE }}.json 
           
       - name: Oppdater kommentar med deployment status ved feil
         if: failure()

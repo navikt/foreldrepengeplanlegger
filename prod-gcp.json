@@ -1,4 +1,5 @@
 {
+   "gcp" : "true",
     "appres": "appres.nav.no",
     "namespace": "teamforeldrepenger",
     "ingress": "https://foreldrepengeplanlegger.nav.no",

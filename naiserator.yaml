@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teamforeldrepenger
 spec:
-{{#if gcp}}        
+{{#if gcp}}
   accessPolicy:
     outbound:
       external:

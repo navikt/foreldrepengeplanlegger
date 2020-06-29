@@ -1,5 +1,5 @@
 {
-    "gcp" : "true",
+    "gcp": "true",
     "appres": "appres-q1.nav.no",
     "namespace": "teamforeldrepenger",
    "ingresses": ["https://foreldrepengeplanlegger.dev-nav.no"],

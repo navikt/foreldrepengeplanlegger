@@ -1,5 +1,4 @@
 {
-    "namespace": "teamforeldrepenger",
     "appres": "appres.nav.no",
    "ingresses": ["https://foreldrepengeplanlegger.nav.no","https://foreldrepengeplanlegger.dev-sbs.nais.io"],
     "env": {

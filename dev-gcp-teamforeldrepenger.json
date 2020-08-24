@@ -1,6 +1,6 @@
 {
     "gcp": "true",
-    "appres": "appres-q1.nav.no",
+    "dekoratoren": "appres-q1.nav.no",
    "ingresses": ["https://foreldrepengeplanlegger.dev-nav.no"],
     "env": {
         "FP_UTTAK_SERVICE_URL": "https://fp-uttak-service.dev-nav.no",

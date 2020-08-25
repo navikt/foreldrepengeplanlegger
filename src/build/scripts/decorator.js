@@ -6,7 +6,7 @@ const { JSDOM } = jsdom;
 const requestDecorator = (callback) => request(`${process.env.APPRES_CMS_URL}`, callback);
 
 const getDecorator = () =>
-    new Promise((resolve, reject) => {
+    new Promise((resolve) => {
         const callback = (error, response, body) => {
             if (!error && response.statusCode >= 200 && response.statusCode < 400) {
                 const { document } = new JSDOM(body).window;
@@ -21,8 +21,8 @@ const getDecorator = () =>
                 };
                 resolve(data);
             } else {
-                console.log(error);
-                reject(new Error(error));
+                console.log('Failed to get decorator. Exiting node.');
+                process.exit(1);
             }
         };
 

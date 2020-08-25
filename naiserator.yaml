@@ -2,19 +2,14 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   name: foreldrepengeplanlegger
-{{#if namespace}}
-  namespace: {{namespace}}
-{{else}}
-  namespace: default
-{{/if}}  
+  namespace: teamforeldrepenger
   labels:
     team: teamforeldrepenger
 spec:
   accessPolicy:
     outbound:
       external:
-        - host: {{appres}}
-      rules : []  
+        - host: {{dekoratoren}}
   image: {{image}}
   port: 8080
   replicas:
@@ -35,7 +30,9 @@ spec:
       max: 2
       cpuThresholdPercentage: 50
   ingresses:
-    - {{ingress}}
+{{#each ingresses as |url|}}
+    - {{url}}
+{{/each}}
   resources:
     limits:
       cpu: 500m

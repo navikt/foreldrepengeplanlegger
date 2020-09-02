@@ -94,7 +94,7 @@
     "tslint-react": "3.6.0",
     "typescript": "3.1.6",
     "uglifyjs-webpack-plugin": "2.1.1",
-    "webpack-dev-server": "3.1.14"
+    "webpack-dev-server": "3.11.0"
   },
   "dependencies": {
     "@babel/core": "7.11.5",

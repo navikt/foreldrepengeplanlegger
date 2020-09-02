@@ -145,7 +145,7 @@
     "nav-frontend-veilederpanel": "0.1.12",
     "pre-commit": "1.2.2",
     "promise": "8.1.0",
-    "react": "16.10.1",
+    "react": "16.13.1",
     "react-aria-menubutton": "6.1.0",
     "react-collapse": "4.0.3",
     "react-dom": "16.7.0",

@@ -12360,9 +12360,9 @@
             "integrity": "sha512-ipFHh/OR1HjjvuIHQ4DNpJX7eOZbs+IdX5xGKrdqxQbNAp9PYynvTud9ElOFNLgWXJjBnQSVRWOODGkuRK0E3A=="
         },
         "nav-frontend-lenker-style": {
-            "version": "0.2.16",
-            "resolved": "https://registry.npmjs.org/nav-frontend-lenker-style/-/nav-frontend-lenker-style-0.2.16.tgz",
-            "integrity": "sha512-XrlQXOJv1U81EQ1azD33TuHUNr4xsMgAffvs//LzgachMxYjMZv0F+dtPMlCQfJjOZhL93r4PyaaWAHCcDo4Yw==",
+            "version": "0.2.27",
+            "resolved": "https://registry.npmjs.org/nav-frontend-lenker-style/-/nav-frontend-lenker-style-0.2.27.tgz",
+            "integrity": "sha512-ykZZUXhHvXdh6XPQnWMTEOAl+7FbEDdumtTa7Z2FaYRrnrOjHnqZdggF5jSUSbsmGk/I/vyUF2eyvti1rliQ9Q==",
             "dev": true
         },
         "nav-frontend-lesmerpanel": {

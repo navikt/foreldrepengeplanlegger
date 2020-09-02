@@ -9107,9 +9107,9 @@
             }
         },
         "html-webpack-harddisk-plugin": {
-            "version": "1.0.1",
-            "resolved": "https://registry.npmjs.org/html-webpack-harddisk-plugin/-/html-webpack-harddisk-plugin-1.0.1.tgz",
-            "integrity": "sha512-GWfutTqfxOe53qEKocqAFrrLVP/EJbmJZDAS5jBBmALkfyc2aakoQkSgo3fitYJORWcN0Fi8ekuySxfffhhRYw==",
+            "version": "1.0.2",
+            "resolved": "https://registry.npmjs.org/html-webpack-harddisk-plugin/-/html-webpack-harddisk-plugin-1.0.2.tgz",
+            "integrity": "sha512-s0F0qAxug9fgztJyWWa8cUlVvgbAD/+J9Dhg22REU637DV9RhrKt0EsFBOXkRuSuwSeYLUtyLcQYpARPBZe51g==",
             "dev": true,
             "requires": {
                 "mkdirp": "^0.5.1"

@@ -13289,9 +13289,9 @@
             "integrity": "sha512-SPXDdvz8dhamhImf2aLQ3jOdXeNPedgnc/5MAd9RRr8T/EBjoZIWHCCg88GiXk6HC1T5MgjohHSFntkk5/phGg=="
         },
         "nav-frontend-js-utils": {
-            "version": "1.0.7",
-            "resolved": "https://registry.npmjs.org/nav-frontend-js-utils/-/nav-frontend-js-utils-1.0.7.tgz",
-            "integrity": "sha512-/XzbrFCfIou61E+fpeuyiKG5SVFd2EYUk96B9SfP8BZLwfRMjNdFieWpu0WP//5KbR9sMhpbqc2evzTnzXyrfQ=="
+            "version": "1.0.9",
+            "resolved": "https://registry.npmjs.org/nav-frontend-js-utils/-/nav-frontend-js-utils-1.0.9.tgz",
+            "integrity": "sha512-Kf2ksWM9cdEFesT1QS3X2c9ZLyQ4BsoHASBVzOgTU/2dd55jQmNtse0rJ43CGLEDguKPYUaIiaYfKdxIqU9SfQ=="
         },
         "nav-frontend-knapper": {
             "version": "1.0.27",

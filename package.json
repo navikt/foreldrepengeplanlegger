@@ -151,7 +151,7 @@
     "react-dom": "16.7.0",
     "react-focus-trap": "2.7.1",
     "react-intl": "2.8.0",
-    "react-modal": "3.8.1",
+    "react-modal": "3.11.2",
     "react-motion": "0.5.2",
     "react-pose": "4.0.7",
     "react-redux": "6.0.1",

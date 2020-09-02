@@ -10693,9 +10693,9 @@
             }
         },
         "jest-css-modules": {
-            "version": "2.0.0",
-            "resolved": "https://registry.npmjs.org/jest-css-modules/-/jest-css-modules-2.0.0.tgz",
-            "integrity": "sha512-/QRMT6rJEqOnqpQao3+DZbsCi4DRi6hNp3uSZB7OiFD/+h0qdkoRwNk15sPj9DVXqehuDEprLcNS8i6eTAOj2w==",
+            "version": "2.1.0",
+            "resolved": "https://registry.npmjs.org/jest-css-modules/-/jest-css-modules-2.1.0.tgz",
+            "integrity": "sha512-my3Scnt6l2tOll/eGwNZeh1KLAFkNzdl4MyZRdpl46GO6/93JcKKdTjNqK6Nokg8A8rT84MFLOpY1pzqKBEqMw==",
             "dev": true,
             "requires": {
                 "identity-obj-proxy": "3.0.0"
@@ -16004,16 +16004,6 @@
             "integrity": "sha512-LAYs+lChg1v5uKNzPtsgTxSS5hLo8aIhSMCJt1WMpefAxm3D1RTpMwSpb6ebdL31cubiLTnhokVktBW+cv9Y9w==",
             "requires": {
                 "xmlchars": "^1.3.1"
-            }
-        },
-        "scheduler": {
-            "version": "0.12.0",
-            "resolved": "https://registry.npmjs.org/scheduler/-/scheduler-0.12.0.tgz",
-            "integrity": "sha512-t7MBR28Akcp4Jm+QoR63XgAi9YgCUmgvDHqf5otgAj4QvdoBE4ImCX0ffehefePPG+aitiYHp0g/mW6s4Tp+dw==",
-            "dev": true,
-            "requires": {
-                "loose-envify": "^1.1.0",
-                "object-assign": "^4.1.1"
             }
         },
         "schema-utils": {

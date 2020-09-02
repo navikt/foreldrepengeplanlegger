@@ -13894,9 +13894,9 @@
             "integrity": "sha1-zUHgJ/1bTMKM5ZFjm7exTS9PBhg="
         },
         "prettier": {
-            "version": "1.16.0",
-            "resolved": "https://registry.npmjs.org/prettier/-/prettier-1.16.0.tgz",
-            "integrity": "sha512-MCBCYeAuZfejUPdEpkleLWvpRBwLii/Sp5jQs0eb8Ul/drGIDjkL6tAU24tk6yCGf0KPV5rhPPPlczfBmN2pWQ==",
+            "version": "2.1.1",
+            "resolved": "https://registry.npmjs.org/prettier/-/prettier-2.1.1.tgz",
+            "integrity": "sha512-9bY+5ZWCfqj3ghYBLxApy2zf6m+NJo5GzmLTpr9FsApsfjriNnS2dahWReHMi7qNPhhHl9SYHJs2cHZLgexNIw==",
             "dev": true
         },
         "pretty-bytes": {

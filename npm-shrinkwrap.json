@@ -12210,9 +12210,9 @@
             "dev": true
         },
         "nav-frontend-core": {
-            "version": "4.0.8",
-            "resolved": "https://registry.npmjs.org/nav-frontend-core/-/nav-frontend-core-4.0.8.tgz",
-            "integrity": "sha512-EVClW7xi36sC6lrsEPmyikOhVcU258j3UTa6PcDhfVG99Bx1wTGHlojw+k0oHbWiIlOYyeem3Zx4IS1O2ryODw=="
+            "version": "4.0.13",
+            "resolved": "https://registry.npmjs.org/nav-frontend-core/-/nav-frontend-core-4.0.13.tgz",
+            "integrity": "sha512-36PyQkYceP6ZInQpeYfNA307qEODRjGfSxOIeiPdxilyxRB6v2PaLEePRZSS/adJ5i9PegSCDsm/rUKBaJKaIA=="
         },
         "nav-frontend-grid": {
             "version": "1.0.18",

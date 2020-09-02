@@ -2467,9 +2467,9 @@
             "dev": true
         },
         "@types/yup": {
-            "version": "0.26.5",
-            "resolved": "https://registry.npmjs.org/@types/yup/-/yup-0.26.5.tgz",
-            "integrity": "sha512-Hw+KmbYJHziqrojNAoEGTLdQ77+GUAkbHm+Ch/4adYGYj4I1RDqbNJ8XmdnFv5reUcl4orDD/M3RjOBxlz6R7w==",
+            "version": "0.29.6",
+            "resolved": "https://registry.npmjs.org/@types/yup/-/yup-0.29.6.tgz",
+            "integrity": "sha512-YPDo5L5uHyxQ4UkyJST+33stD8Z6IT9fvmKyaPAGxkZ6q19foEi6sQGkmqBvzSyRPdstFEeJiS2rKuTn8rfO5g==",
             "dev": true
         },
         "@webassemblyjs/ast": {

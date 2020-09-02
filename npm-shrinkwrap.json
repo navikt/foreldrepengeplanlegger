@@ -2259,9 +2259,9 @@
             }
         },
         "@types/lodash.uniq": {
-            "version": "4.5.4",
-            "resolved": "https://registry.npmjs.org/@types/lodash.uniq/-/lodash.uniq-4.5.4.tgz",
-            "integrity": "sha512-q0FI7RCY99bUPBR7sJyfefWDa/KSD21pMWM1hi+2O+rJTzY2N4eRs+A6BwLotPNy/JOySfcZJYamZ8Owcs3SkQ==",
+            "version": "4.5.6",
+            "resolved": "https://registry.npmjs.org/@types/lodash.uniq/-/lodash.uniq-4.5.6.tgz",
+            "integrity": "sha512-XHNMXBtiwsWZstZMyxOYjr0e8YYWv0RgPlzIHblTuwBBiWo2MzWVaTBihtBpslb5BglgAWIeBv69qt1+RTRW1A==",
             "dev": true,
             "requires": {
                 "@types/lodash": "*"

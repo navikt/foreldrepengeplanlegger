@@ -13352,9 +13352,9 @@
             "integrity": "sha512-6D/dWF4qe9ZrvALDkP73J/BEV2k6zWrUuj2nAwc6Hj/+MtO9pfc5mJmi4Isn3yIFdpPzSrnFDLY7/nYsAxs7Rw=="
         },
         "nav-frontend-grid-style": {
-            "version": "0.2.18",
-            "resolved": "https://registry.npmjs.org/nav-frontend-grid-style/-/nav-frontend-grid-style-0.2.18.tgz",
-            "integrity": "sha512-+r5JsDxCbgjr+kXnjBmTgM4YvshmTgXqAEa2+UjzlI5KVEeyGksJ1ZmNVFKYISVpyhItWgq9oJ0+B6fScL/vpg==",
+            "version": "0.2.20",
+            "resolved": "https://registry.npmjs.org/nav-frontend-grid-style/-/nav-frontend-grid-style-0.2.20.tgz",
+            "integrity": "sha512-PY6pXJFscPJlnXgSMiO2zqfWoAEby/SbCmxyc3NXxkejBf4OEbHza/BdNhQCZrr+XK4tB9dLgj5xZJ6AGBqIRw==",
             "dev": true
         },
         "nav-frontend-ikoner-assets": {

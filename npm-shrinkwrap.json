@@ -11348,9 +11348,9 @@
             }
         },
         "jest-css-modules": {
-            "version": "2.0.0",
-            "resolved": "https://registry.npmjs.org/jest-css-modules/-/jest-css-modules-2.0.0.tgz",
-            "integrity": "sha512-/QRMT6rJEqOnqpQao3+DZbsCi4DRi6hNp3uSZB7OiFD/+h0qdkoRwNk15sPj9DVXqehuDEprLcNS8i6eTAOj2w==",
+            "version": "2.1.0",
+            "resolved": "https://registry.npmjs.org/jest-css-modules/-/jest-css-modules-2.1.0.tgz",
+            "integrity": "sha512-my3Scnt6l2tOll/eGwNZeh1KLAFkNzdl4MyZRdpl46GO6/93JcKKdTjNqK6Nokg8A8rT84MFLOpY1pzqKBEqMw==",
             "dev": true,
             "requires": {
                 "identity-obj-proxy": "3.0.0"

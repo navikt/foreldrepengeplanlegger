@@ -13485,9 +13485,9 @@
             "integrity": "sha512-IwIzruCk+xj+nG1cL4Gm7ASN6LlGVniYJ32dLosp3gTTuG0N9vA+N8U1kqprTaKF6y+YsYhb8SAa3vBB33mBzg=="
         },
         "nav-frontend-veileder-style": {
-            "version": "2.0.7",
-            "resolved": "https://registry.npmjs.org/nav-frontend-veileder-style/-/nav-frontend-veileder-style-2.0.7.tgz",
-            "integrity": "sha512-4t+opCJsgPqi7es6qTBmjxuf7WXobr5Eao3VM29jGwHSwtBPiaYk8Ry55Ydh3jFSREQs647Q7Yp6kiBSK3WkKw==",
+            "version": "2.0.14",
+            "resolved": "https://registry.npmjs.org/nav-frontend-veileder-style/-/nav-frontend-veileder-style-2.0.14.tgz",
+            "integrity": "sha512-1PCUeP3KPiREc4ovoycRDsWHTQWW7PlpSKe6Y4B6j/KIzuMh4M/HOwirdgH+8CXsRoCTHA4ULeNenQmgjV41HQ==",
             "dev": true
         },
         "nav-frontend-veilederpanel": {

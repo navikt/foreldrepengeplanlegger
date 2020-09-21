@@ -13300,9 +13300,9 @@
             "integrity": "sha512-pnAlo1XLLg44xQ5hf3STeHI0bPF2i4uKFvTMTkYI9FzQpOqrEn/nYXxFeK/r5+hUzoJBxkeT4XQTQpgZadbOfg=="
         },
         "nav-frontend-skjema-style": {
-            "version": "1.0.35",
-            "resolved": "https://registry.npmjs.org/nav-frontend-skjema-style/-/nav-frontend-skjema-style-1.0.35.tgz",
-            "integrity": "sha512-p+WlEUPtHWFQ68lyANPXt0KJahTl0H9lUaUSsM2wg5B4Dii6ETqJwQTZI/Czne0kqQNNHkPBE12F+s0kZX8OnA==",
+            "version": "1.0.39",
+            "resolved": "https://registry.npmjs.org/nav-frontend-skjema-style/-/nav-frontend-skjema-style-1.0.39.tgz",
+            "integrity": "sha512-UOvKWS3QYvSdHJRxtoVxMi+OLeQbjv9BA8kV5CpzWGGyUqirHmf+IRSZTQwHpOhRi3/niInQUNqKmN62PQtSRw==",
             "dev": true
         },
         "nav-frontend-spinner": {

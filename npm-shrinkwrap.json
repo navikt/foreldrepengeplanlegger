@@ -16073,9 +16073,9 @@
             }
         },
         "redux-undo": {
-            "version": "1.0.0-beta9-9-7",
-            "resolved": "https://registry.npmjs.org/redux-undo/-/redux-undo-1.0.0-beta9-9-7.tgz",
-            "integrity": "sha1-/juqGycUI9fdu/w6gscbApotuLo="
+            "version": "1.0.1",
+            "resolved": "https://registry.npmjs.org/redux-undo/-/redux-undo-1.0.1.tgz",
+            "integrity": "sha512-0yFPT+FUgwxCEiS0Mg5T1S4tkgjR8h6sJRY9CW4EMsbJOf1SxO289TbJmlzhRouCHacdDF+powPjrjLHoJYxWQ=="
         },
         "reflect.ownkeys": {
             "version": "0.2.0",

@@ -6,10 +6,10 @@ interface Props {
 
 const colors = {
     green: '#06893a',
-    white: '#ffffff'
+    white: '#ffffff',
 };
 
-const HolidayIkon: React.StatelessComponent<Props> = (props) => {
+const HolidayIkon: React.FunctionComponent<Props> = (props) => {
     const { color = 'green' } = props;
     return (
         <svg role="presentation" focusable="false" width={25} height={24} {...props}>

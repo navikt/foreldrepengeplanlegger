@@ -19,7 +19,7 @@ const renderBarn = (antall: number) => {
     return barn;
 };
 
-const AntallBarnSirkel: React.StatelessComponent<Props> = ({ antallBarn }) => {
+const AntallBarnSirkel: React.FunctionComponent<Props> = ({ antallBarn }) => {
     return (
         <div className={bem.block}>
             <div className={bem.element('ikon', `antall-${antallBarn}`)}>

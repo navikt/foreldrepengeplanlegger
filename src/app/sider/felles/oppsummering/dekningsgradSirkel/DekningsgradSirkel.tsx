@@ -10,7 +10,7 @@ interface Props {
     dekningsgrad: Dekningsgrad;
 }
 
-const DekningsgradSirkel: React.StatelessComponent<Props> = ({ dekningsgrad }) => {
+const DekningsgradSirkel: React.FunctionComponent<Props> = ({ dekningsgrad }) => {
     const bem = BEMHelper('dekningsgradSirkel');
     return (
         <div className={bem.block}>

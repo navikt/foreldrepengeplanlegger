@@ -9,7 +9,7 @@ interface Props {
     diameter?: string;
 }
 
-const SpebarnSirkel: React.StatelessComponent<Props> = (props) => {
+const SpebarnSirkel: React.FunctionComponent<Props> = (props) => {
     const bem = BEMHelper('spebarnSirkel');
     return (
         <div className={bem.block}>

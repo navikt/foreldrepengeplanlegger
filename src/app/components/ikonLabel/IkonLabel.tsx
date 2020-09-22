@@ -11,7 +11,7 @@ interface Props {
 
 const bem = BEMHelper('ikonLabel');
 
-const IkonLabel: React.StatelessComponent<Props> = ({ ikon, placement = 'top', children }) => (
+const IkonLabel: React.FunctionComponent<Props> = ({ ikon, placement = 'top', children }) => (
     <span className={bem.classNames(bem.block, bem.modifier(placement))}>
         <span className={bem.element('ikon')} aria-hidden={true} role="presentation">
             {ikon}

@@ -9,7 +9,7 @@ interface Props {
     size?: SirkelknappSize;
 }
 
-const PinKnapp: React.StatelessComponent<Props> = ({ label, pressed, size, onClick }) => (
+const PinKnapp: React.FunctionComponent<Props> = ({ label, pressed, size, onClick }) => (
     <Sirkelknapp
         size={size || 'stor'}
         stil="bla"

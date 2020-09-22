@@ -3,7 +3,7 @@ import { RegelAvvik, RegelAlvorlighet } from '../../../../../shared/types';
 import BEMHelper from 'common/util/bem';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Veileder, { VeilederAnsiktstype } from 'common/components/veileder/Veileder';
-import { AlertStripeAdvarsel, AlertStripeInfo, AlertStripeFeil } from 'nav-frontend-alertstriper';
+import AlertStripe from 'nav-frontend-alertstriper';
 import { trimRelaterteRegelAvvik } from '../../../../../shared/regler/regelUtils';
 import AriaText from 'common/components/aria/AriaText';
 import { FormattedMessage } from 'react-intl';
@@ -15,7 +15,7 @@ interface Props {
 
 const bem = BEMHelper('regelAvvik');
 
-const RegelAvvikListe: React.StatelessComponent<Props> = ({ avvik }) => {
+const RegelAvvikListe: React.FunctionComponent<Props> = ({ avvik }) => {
     const ulovlig = trimRelaterteRegelAvvik(avvik.filter((b) => b.regel.alvorlighet === RegelAlvorlighet.FEIL));
     const viktig = trimRelaterteRegelAvvik(avvik.filter((b) => b.regel.alvorlighet === RegelAlvorlighet.ADVARSEL));
     const info = trimRelaterteRegelAvvik(avvik.filter((b) => b.regel.alvorlighet === RegelAlvorlighet.INFO));
@@ -44,27 +44,36 @@ const RegelAvvikListe: React.StatelessComponent<Props> = ({ avvik }) => {
                     {ulovlig.length > 0 && (
                         <>
                             {ulovlig.map((ulovligAvvik) => (
-                                <AlertStripeFeil key={ulovligAvvik.id} className={'alertstripe--noBorder'}>
-                                    <RegelAvvikFeilmelding info={ulovligAvvik.info} />
-                                </AlertStripeFeil>
+                                <>
+                                    <AlertStripe type="feil" form="inline" key={ulovligAvvik.id}>
+                                        <RegelAvvikFeilmelding info={ulovligAvvik.info} />
+                                    </AlertStripe>
+                                    <br />
+                                </>
                             ))}
                         </>
                     )}
                     {viktig.length > 0 && (
                         <>
                             {viktig.map((advarselAvvik) => (
-                                <AlertStripeAdvarsel key={advarselAvvik.id} className={'alertstripe--noBorder'}>
-                                    <RegelAvvikFeilmelding info={advarselAvvik.info} />
-                                </AlertStripeAdvarsel>
+                                <>
+                                    <AlertStripe type="advarsel" form="inline" key={advarselAvvik.id}>
+                                        <RegelAvvikFeilmelding info={advarselAvvik.info} />
+                                    </AlertStripe>
+                                    <br />
+                                </>
                             ))}
                         </>
                     )}
                     {info.length > 0 && (
                         <>
                             {info.map((infoAvvik) => (
-                                <AlertStripeInfo key={infoAvvik.id} className={'alertstripe--noBorder'}>
-                                    <RegelAvvikFeilmelding info={infoAvvik.info} />
-                                </AlertStripeInfo>
+                                <>
+                                    <AlertStripe type="info" form="inline" key={infoAvvik.id}>
+                                        <RegelAvvikFeilmelding info={infoAvvik.info} />
+                                    </AlertStripe>
+                                    <br />
+                                </>
                             ))}
                         </>
                     )}

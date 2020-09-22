@@ -9,7 +9,7 @@ interface ToggleLenkeProps {
     apen?: boolean;
 }
 
-const InfoToggler: React.StatelessComponent<ToggleLenkeProps> = (props) => {
+const InfoToggler: React.FunctionComponent<ToggleLenkeProps> = (props) => {
     const { apen = false, children, onToggle } = props;
     return (
         <button

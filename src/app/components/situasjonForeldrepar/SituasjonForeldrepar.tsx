@@ -10,7 +10,7 @@ interface Props {
     valgtForelder?: Forelder;
 }
 
-const SituasjonForeldrepar: React.StatelessComponent<Props> = ({ situasjon, valgtForelder, kompakt }) => {
+const SituasjonForeldrepar: React.FunctionComponent<Props> = ({ situasjon, valgtForelder, kompakt }) => {
     const info = getSituasjonForelderSvg(situasjon);
     if (getAntallForeldreISituasjon(situasjon) === 1 && valgtForelder) {
         return <Foreldrepar forelder1={valgtForelder === Forelder.mor ? info.mor : info.farMedmor} />;

@@ -5,7 +5,7 @@ interface Props {
 }
 
 // tslint:disable max-line-length
-const VeilederNormal: React.StatelessComponent<Props> = ({ svgProps }) => (
+const VeilederNormal: React.FunctionComponent<Props> = ({ svgProps }) => (
     <svg
         role="presentation"
         focusable="false"

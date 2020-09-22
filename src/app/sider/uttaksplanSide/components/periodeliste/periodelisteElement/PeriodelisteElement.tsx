@@ -39,7 +39,7 @@ interface PeriodeElementMeny {
 }
 const bem = BEMHelper('periodelisteElement');
 
-const PeriodeElementMenyWrapper: React.StatelessComponent<{ meny: PeriodeElementMeny }> = ({ meny }) => {
+const PeriodeElementMenyWrapper: React.FunctionComponent<{ meny: PeriodeElementMeny }> = ({ meny }) => {
     return (
         <div className={classNames(bem.element('menyWrapper'), meny.className)} id={meny.id}>
             {meny.render()}
@@ -125,7 +125,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                 {regelAvvik && regelAvvik.length > 0 && regelInfoVisible && (
                     <div className={bem.element('regelavvik', regelInfoVisible ? 'open' : undefined)} id={regelId}>
                         <Block visible={regelInfoVisible} margin="none">
-                            <AlertStripe type={getAlertstripeTypeFromRegelAvvik(regelAvvik[0])} solid={true}>
+                            <AlertStripe type={getAlertstripeTypeFromRegelAvvik(regelAvvik[0])}>
                                 <ul className={bem.element('regelavvikListe')}>
                                     {regelAvvik.map((a: any, idx: number) => (
                                         <li className={bem.element('regelavvikListe__brudd')} key={idx}>

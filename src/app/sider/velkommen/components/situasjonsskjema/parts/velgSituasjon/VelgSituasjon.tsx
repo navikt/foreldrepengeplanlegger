@@ -13,10 +13,10 @@ const situasjoner: ForeldreparSituasjon[] = [
     ForeldreparSituasjon.bareFar,
     ForeldreparSituasjon.aleneomsorg,
     ForeldreparSituasjon.morOgMedmor,
-    ForeldreparSituasjon.farOgFar
+    ForeldreparSituasjon.farOgFar,
 ];
 
-const VelgSituasjon: React.StatelessComponent<Props> = ({ valgtSituasjon, onChange }) => (
+const VelgSituasjon: React.FunctionComponent<Props> = ({ valgtSituasjon, onChange }) => (
     <>
         <div className="situasjonsvalgGruppe">
             {situasjoner.map((situasjon) => (

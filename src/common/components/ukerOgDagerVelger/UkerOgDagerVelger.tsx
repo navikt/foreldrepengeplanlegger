@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { Fieldset, SkjemaGruppe } from 'nav-frontend-skjema';
+import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Feil } from 'common/components/skjema/skjemaInputElement/types';
 import SkjemaNumberStepper from 'common/components/skjema/skjemaNumberStepper/SkjemaNumberStepper';
 import BEMHelper from 'common/util/bem';
 import { UkerOgDager } from 'common/types';
 
 import './ukerOgDagerVelger.less';
+import Fieldset from '../fieldset/Fieldset';
 
 export interface Props {
     tittel: string;
@@ -19,14 +20,14 @@ export interface Props {
 
 const bem = BEMHelper('ukerOgDagerVelger');
 
-const UkerOgDagerVelger: React.StatelessComponent<Props> = ({
+const UkerOgDagerVelger: React.FunctionComponent<Props> = ({
     uker,
     dager,
     feil,
     tittel,
     minDager,
     disabled,
-    onChange
+    onChange,
 }) => (
     <div className={bem.block}>
         <SkjemaGruppe feil={feil}>

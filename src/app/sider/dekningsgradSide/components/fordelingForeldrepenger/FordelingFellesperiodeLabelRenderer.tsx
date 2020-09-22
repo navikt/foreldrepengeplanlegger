@@ -9,11 +9,11 @@ export interface Props {
     introRenderer?: () => React.ReactNode;
 }
 
-const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
+const FordelingFellesperiodeLabelRenderer: React.FunctionComponent<Props> = ({
     options,
     navnMor,
     navnFarMedmor,
-    introRenderer
+    introRenderer,
 }) => {
     const ukerMor = options.value || 0;
     const ukerFarMedmor = options.max - (options.value || 0);
@@ -27,7 +27,7 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
                         <FormattedMessage
                             id="skjema.fordeling.uker"
                             values={{
-                                uker: ukerMor
+                                uker: ukerMor,
                             }}
                         />
                     </div>
@@ -38,7 +38,7 @@ const FordelingFellesperiodeLabelRenderer: React.StatelessComponent<Props> = ({
                         <FormattedMessage
                             id="skjema.fordeling.uker"
                             values={{
-                                uker: ukerFarMedmor
+                                uker: ukerFarMedmor,
                             }}
                         />
                     </div>

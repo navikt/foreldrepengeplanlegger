@@ -1947,6 +1947,11 @@
                 "@types/yargs": "^12.0.9"
             }
         },
+        "@navikt/fnrvalidator": {
+            "version": "1.1.3",
+            "resolved": "https://registry.npmjs.org/@navikt/fnrvalidator/-/fnrvalidator-1.1.3.tgz",
+            "integrity": "sha512-xBwlPOI08kbByUWI4Yyd6NbIYLFs78I0h05mlHPjmrPPikyM89IQRbMac+6ovkgpi2s63OV6ryv3w4QqPubwiw=="
+        },
         "@nodelib/fs.scandir": {
             "version": "2.1.3",
             "resolved": "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.3.tgz",
@@ -14748,20 +14753,20 @@
             }
         },
         "nav-frontend-alertstriper": {
-            "version": "2.0.2",
-            "resolved": "https://registry.npmjs.org/nav-frontend-alertstriper/-/nav-frontend-alertstriper-2.0.2.tgz",
-            "integrity": "sha512-JHPZVhxvchI1lHar9at38ektL9/Pgm7nUvVzFQXGNgsSxNk/mWGMl+bhmwU1qxc9vZMaZYb9ng/DhG9pxnBoYg=="
+            "version": "3.0.23",
+            "resolved": "https://registry.npmjs.org/nav-frontend-alertstriper/-/nav-frontend-alertstriper-3.0.23.tgz",
+            "integrity": "sha512-ePZn15nseITLwZhD+oVWMRUqtWQgVR8TLDeC8wSXSX19J2D+KNSRwAMrsN7pdCDmufRvb32Mim1XsVenx7eJfQ=="
         },
         "nav-frontend-alertstriper-style": {
-            "version": "1.0.3",
-            "resolved": "https://registry.npmjs.org/nav-frontend-alertstriper-style/-/nav-frontend-alertstriper-style-1.0.3.tgz",
-            "integrity": "sha512-wS8idKy0Ys2eAGu9XvrqUFwR8pZMv5U6wmeVtVdoga/alVva28bYZfPpgUnfC/rKQrrecO5VxveNDfOWMUTiSg==",
+            "version": "2.0.17",
+            "resolved": "https://registry.npmjs.org/nav-frontend-alertstriper-style/-/nav-frontend-alertstriper-style-2.0.17.tgz",
+            "integrity": "sha512-1TaOkbDI8qJiHSmdigZ3aXXZJrf3CbXf8ZmzPWaSSt6lrYJaKgxtO4sBPajbdWtcZOFo8Ls2RuCH6clrhzNEeQ==",
             "dev": true
         },
         "nav-frontend-chevron": {
-            "version": "1.0.6",
-            "resolved": "https://registry.npmjs.org/nav-frontend-chevron/-/nav-frontend-chevron-1.0.6.tgz",
-            "integrity": "sha512-arSXmBHMApMAe1+uO89EDeKlEOChCMHK0FRSQuiIHeDqmOwFnW3UEOn+Gye7XK24+Q2c4EHpujw34JiIA9G18A=="
+            "version": "1.0.13",
+            "resolved": "https://registry.npmjs.org/nav-frontend-chevron/-/nav-frontend-chevron-1.0.13.tgz",
+            "integrity": "sha512-hYn0tTDUEaJafzT6cw/ZTvipVpg7xA9GJrp32Ymo47zRf6XXzfNeycC0q+IqtPrlECUfZXaDne3cSaU+CqOYRg=="
         },
         "nav-frontend-chevron-style": {
             "version": "0.3.5",
@@ -14770,14 +14775,14 @@
             "dev": true
         },
         "nav-frontend-core": {
-            "version": "4.0.13",
-            "resolved": "https://registry.npmjs.org/nav-frontend-core/-/nav-frontend-core-4.0.13.tgz",
-            "integrity": "sha512-36PyQkYceP6ZInQpeYfNA307qEODRjGfSxOIeiPdxilyxRB6v2PaLEePRZSS/adJ5i9PegSCDsm/rUKBaJKaIA=="
+            "version": "5.0.1",
+            "resolved": "https://registry.npmjs.org/nav-frontend-core/-/nav-frontend-core-5.0.1.tgz",
+            "integrity": "sha512-wPcKfXcXvmqA3MPQwlU+nMvB3plJtxLBew4bNmcw5CJNIMtGPwGXEvcexVEIeEdCpJCvOZvwcWxaTc57x16eDA=="
         },
         "nav-frontend-grid": {
-            "version": "1.0.18",
-            "resolved": "https://registry.npmjs.org/nav-frontend-grid/-/nav-frontend-grid-1.0.18.tgz",
-            "integrity": "sha512-6D/dWF4qe9ZrvALDkP73J/BEV2k6zWrUuj2nAwc6Hj/+MtO9pfc5mJmi4Isn3yIFdpPzSrnFDLY7/nYsAxs7Rw=="
+            "version": "1.0.32",
+            "resolved": "https://registry.npmjs.org/nav-frontend-grid/-/nav-frontend-grid-1.0.32.tgz",
+            "integrity": "sha512-sVkpXmOoavp13pK3f1M+4fWeE8kRk99nVD6FUo1TrpfJY/B8kFDisnPAFGbqkfAwGY3TKYZTGacId4JTisY67g=="
         },
         "nav-frontend-grid-style": {
             "version": "0.2.20",
@@ -14786,9 +14791,9 @@
             "dev": true
         },
         "nav-frontend-ikoner-assets": {
-            "version": "1.0.5",
-            "resolved": "https://registry.npmjs.org/nav-frontend-ikoner-assets/-/nav-frontend-ikoner-assets-1.0.5.tgz",
-            "integrity": "sha512-SPXDdvz8dhamhImf2aLQ3jOdXeNPedgnc/5MAd9RRr8T/EBjoZIWHCCg88GiXk6HC1T5MgjohHSFntkk5/phGg=="
+            "version": "2.0.3",
+            "resolved": "https://registry.npmjs.org/nav-frontend-ikoner-assets/-/nav-frontend-ikoner-assets-2.0.3.tgz",
+            "integrity": "sha512-B8mizkduCh4O2JzD4BBl2SKUwAZgm9bZCkEGv1JoaSUFrnJFDHBh2ZSRGSFGvceJueJ1omuCNgRwjb/1BCcSfg=="
         },
         "nav-frontend-js-utils": {
             "version": "1.0.9",
@@ -14796,86 +14801,86 @@
             "integrity": "sha512-Kf2ksWM9cdEFesT1QS3X2c9ZLyQ4BsoHASBVzOgTU/2dd55jQmNtse0rJ43CGLEDguKPYUaIiaYfKdxIqU9SfQ=="
         },
         "nav-frontend-knapper": {
-            "version": "1.0.27",
-            "resolved": "https://registry.npmjs.org/nav-frontend-knapper/-/nav-frontend-knapper-1.0.27.tgz",
-            "integrity": "sha512-TvvDlMasRiEM3kxFK1DPghobZiFYwXX8kBLUg47X2asK2KPwZXhlxiXCUcR7SHW6DxQjBr1/YQGSElIr3PNdSw=="
+            "version": "2.0.9",
+            "resolved": "https://registry.npmjs.org/nav-frontend-knapper/-/nav-frontend-knapper-2.0.9.tgz",
+            "integrity": "sha512-QwzFn/qkCQ5tNof2lUaLbGANXMFBNKCnEgO3TXR4/GIbo2FXNPiTYgGsDp8WogCUIfmZyHgo5hwRgcdft7ri+g=="
         },
         "nav-frontend-knapper-style": {
-            "version": "0.3.23",
-            "resolved": "https://registry.npmjs.org/nav-frontend-knapper-style/-/nav-frontend-knapper-style-0.3.23.tgz",
-            "integrity": "sha512-gAQ9z55qL9qt/HAJhY8zcpd36EkfXv/jAL/Jp9+ilgFepR6psI4J+0Se5lESsGM1ugL+sVDazdgvQMm9ZzFkug==",
+            "version": "1.0.1",
+            "resolved": "https://registry.npmjs.org/nav-frontend-knapper-style/-/nav-frontend-knapper-style-1.0.1.tgz",
+            "integrity": "sha512-J8HO93X/jiS9Jbvmr/byTjdgA69PLUYE/OF5Plc67/ZBDuJOoMhxnShr+EgFA6EXRrdq+D9SSfceFX1bRx9dWw==",
             "dev": true
         },
         "nav-frontend-lenker": {
-            "version": "1.0.18",
-            "resolved": "https://registry.npmjs.org/nav-frontend-lenker/-/nav-frontend-lenker-1.0.18.tgz",
-            "integrity": "sha512-ipFHh/OR1HjjvuIHQ4DNpJX7eOZbs+IdX5xGKrdqxQbNAp9PYynvTud9ElOFNLgWXJjBnQSVRWOODGkuRK0E3A=="
+            "version": "1.0.41",
+            "resolved": "https://registry.npmjs.org/nav-frontend-lenker/-/nav-frontend-lenker-1.0.41.tgz",
+            "integrity": "sha512-8aiewhtREIFwfYaprd1xKKfr5EXzUx+lJ2nco7MOsQgvGtdZL2p7XOUosC0K4xMSnEgzT3aSNvVYdvdDrDqXqw=="
         },
         "nav-frontend-lenker-style": {
-            "version": "0.2.27",
-            "resolved": "https://registry.npmjs.org/nav-frontend-lenker-style/-/nav-frontend-lenker-style-0.2.27.tgz",
-            "integrity": "sha512-ykZZUXhHvXdh6XPQnWMTEOAl+7FbEDdumtTa7Z2FaYRrnrOjHnqZdggF5jSUSbsmGk/I/vyUF2eyvti1rliQ9Q==",
+            "version": "0.2.29",
+            "resolved": "https://registry.npmjs.org/nav-frontend-lenker-style/-/nav-frontend-lenker-style-0.2.29.tgz",
+            "integrity": "sha512-0LLaONtn0Rn+Tg5t+N9Elq2Qgmh9iF6zhbUJGDLLq50rjRtNkhmXqb7czlwhi7JuCCge+bdXEe2ai741oXRr/w==",
             "dev": true
         },
         "nav-frontend-lesmerpanel": {
-            "version": "0.0.23",
-            "resolved": "https://registry.npmjs.org/nav-frontend-lesmerpanel/-/nav-frontend-lesmerpanel-0.0.23.tgz",
-            "integrity": "sha512-7CCvpFW5rhCEjcZY8xBt8IC47E238JiIUOIUcvn72jvN6HYiQUYyvE2U1JUdWdFzRWs3At0p5HmkBIs5e8cceQ=="
+            "version": "0.0.42",
+            "resolved": "https://registry.npmjs.org/nav-frontend-lesmerpanel/-/nav-frontend-lesmerpanel-0.0.42.tgz",
+            "integrity": "sha512-d3iddvnIhsYscJAACZyfnp1q17k+OOfrahPBoP78gVeK9dOvTE88LZVUonpllWiD0CveZIZfoqTPaJ+LnJp7fw=="
         },
         "nav-frontend-lesmerpanel-style": {
-            "version": "0.0.23",
-            "resolved": "https://registry.npmjs.org/nav-frontend-lesmerpanel-style/-/nav-frontend-lesmerpanel-style-0.0.23.tgz",
-            "integrity": "sha512-vvyxd20U3CJYA1Y+UljtpLAhI0VsQHYBNgs7vHKdC+eZIuW9nu7Jpa/hoCe65j7lDCCbvAZwQ3L+0i2mFsbJuw==",
+            "version": "0.0.31",
+            "resolved": "https://registry.npmjs.org/nav-frontend-lesmerpanel-style/-/nav-frontend-lesmerpanel-style-0.0.31.tgz",
+            "integrity": "sha512-exg9P6BZH7BRhlnXx8/+geUFPDdoUdEQ7ciD4ZLBJJ/kQ8gCFiUSG605k7yXk4gD+fa0DQYCj5iF17mAbcP98A==",
             "dev": true
         },
         "nav-frontend-lukknapp": {
-            "version": "1.0.16",
-            "resolved": "https://registry.npmjs.org/nav-frontend-lukknapp/-/nav-frontend-lukknapp-1.0.16.tgz",
-            "integrity": "sha512-KUgA0QgG5NQ1ZpeZlTbimgcCNJXr6CHEaT8xVDBSJMW4jAo3otHGCLTuii2EKceERFZS//Gdu62/HR3mr7ypRQ=="
+            "version": "1.0.31",
+            "resolved": "https://registry.npmjs.org/nav-frontend-lukknapp/-/nav-frontend-lukknapp-1.0.31.tgz",
+            "integrity": "sha512-SXCkmGeNb80tbloDwCCOuTgjPY9qSWlkOJRK3LD4bSCqOOtJ7Ee7qtp8xqPwI85DYQAmhE9/SxOBLFEwR+MkYQ=="
         },
         "nav-frontend-lukknapp-style": {
-            "version": "0.2.16",
-            "resolved": "https://registry.npmjs.org/nav-frontend-lukknapp-style/-/nav-frontend-lukknapp-style-0.2.16.tgz",
-            "integrity": "sha512-PE19k8/mHXerthw0+1UJxyQnfWF1yxfDDkbt4qbD4P+J0vwJl6o14xBqKD4kX4mtpf0a4KSh+919UHtaAVqGww==",
+            "version": "0.2.24",
+            "resolved": "https://registry.npmjs.org/nav-frontend-lukknapp-style/-/nav-frontend-lukknapp-style-0.2.24.tgz",
+            "integrity": "sha512-ScpBh8BzIRKGJAaxbIH5gScSdXT5htJ9V6qh1NBqdKCtVRfFuhAk3rAWRZDKSOV3323isP20/0DlnR5cK2DaZg==",
             "dev": true
         },
         "nav-frontend-modal": {
-            "version": "1.0.21",
-            "resolved": "https://registry.npmjs.org/nav-frontend-modal/-/nav-frontend-modal-1.0.21.tgz",
-            "integrity": "sha512-6looZXbmRIhZQwwOVnAJVFuV3aOwxlM2lVZAlNopJ5qGEXSkmvjzcsJF5LeHkFQIF7cqQcKobDqSoSY1fD6TZQ=="
+            "version": "1.0.40",
+            "resolved": "https://registry.npmjs.org/nav-frontend-modal/-/nav-frontend-modal-1.0.40.tgz",
+            "integrity": "sha512-Ik7v5HBwRHIHQ+PLnK+ZzLOjEadwGcXW/ed/RKJFuyPeBIi5oWM9nELBxsIbcYvwWvhLdHZRL+eng89z1r8aNg=="
         },
         "nav-frontend-modal-style": {
-            "version": "0.3.25",
-            "resolved": "https://registry.npmjs.org/nav-frontend-modal-style/-/nav-frontend-modal-style-0.3.25.tgz",
-            "integrity": "sha512-RIDzOIjZ0i8SgI7zMcit0eOwSEDkgDLRhCBebgGHLOJvuvlx9BDURS2SQ6V8VHJeGwf7f8cUXZURuWkFLSMueA==",
+            "version": "0.3.35",
+            "resolved": "https://registry.npmjs.org/nav-frontend-modal-style/-/nav-frontend-modal-style-0.3.35.tgz",
+            "integrity": "sha512-AaV5vh1VF4SPq16yMCSby0AuDlXvsp5uhvsKjaL/GMBgzP0BLmDH1oOMok32HSIhdz2XRKLLhd+WlYlrB468tA==",
             "dev": true
         },
         "nav-frontend-paneler": {
-            "version": "1.0.10",
-            "resolved": "https://registry.npmjs.org/nav-frontend-paneler/-/nav-frontend-paneler-1.0.10.tgz",
-            "integrity": "sha512-rwYjaEYTQwhOF24/WjuqGSRQh9svEaUgKB7Sp0y2/RGefjXlauGRjcyKmrjXXIlqq+mQn9JVdEIElxIy/JCQeA=="
+            "version": "2.0.10",
+            "resolved": "https://registry.npmjs.org/nav-frontend-paneler/-/nav-frontend-paneler-2.0.10.tgz",
+            "integrity": "sha512-HTQi6UgpZDN3ARD98uZJGwp0Jf1ypQw/v2lpvMGsXBqOuGoiUaSIUCrhwlaYzw6dDIfGAK5POPmuaDitdEuX+A=="
         },
         "nav-frontend-paneler-style": {
-            "version": "0.3.14",
-            "resolved": "https://registry.npmjs.org/nav-frontend-paneler-style/-/nav-frontend-paneler-style-0.3.14.tgz",
-            "integrity": "sha512-U47bo8/wFUSg/nsrTeaFaQjhaIK6EpzoW1Tg7xEyZ4tpRb+iihc6AL3RbCKnxap3p+vjuMQPc8AU9ntBUkMRWA==",
+            "version": "0.3.21",
+            "resolved": "https://registry.npmjs.org/nav-frontend-paneler-style/-/nav-frontend-paneler-style-0.3.21.tgz",
+            "integrity": "sha512-bo3pmByEHH3Hnl8OphcCEcz23nqs3VK05xF+f3m9quzi+TcPHpYSe+V6NrBzFAA6UB6clRo7b8l5j/ANY7prDg==",
             "dev": true
         },
         "nav-frontend-skjema": {
-            "version": "1.0.54",
-            "resolved": "https://registry.npmjs.org/nav-frontend-skjema/-/nav-frontend-skjema-1.0.54.tgz",
-            "integrity": "sha512-pnAlo1XLLg44xQ5hf3STeHI0bPF2i4uKFvTMTkYI9FzQpOqrEn/nYXxFeK/r5+hUzoJBxkeT4XQTQpgZadbOfg=="
+            "version": "3.0.18",
+            "resolved": "https://registry.npmjs.org/nav-frontend-skjema/-/nav-frontend-skjema-3.0.18.tgz",
+            "integrity": "sha512-zP7X5fFWmUiHqqw8/PLDX8IbSBoeTwrC7phpg2FsUN7FbFlvs3kXMC4szfKz0HagGqqdOF66ginixMFrWGsP9Q=="
         },
         "nav-frontend-skjema-style": {
-            "version": "1.0.39",
-            "resolved": "https://registry.npmjs.org/nav-frontend-skjema-style/-/nav-frontend-skjema-style-1.0.39.tgz",
-            "integrity": "sha512-UOvKWS3QYvSdHJRxtoVxMi+OLeQbjv9BA8kV5CpzWGGyUqirHmf+IRSZTQwHpOhRi3/niInQUNqKmN62PQtSRw==",
+            "version": "2.0.10",
+            "resolved": "https://registry.npmjs.org/nav-frontend-skjema-style/-/nav-frontend-skjema-style-2.0.10.tgz",
+            "integrity": "sha512-CSqseIXOOoaFKnCLQZGdYzRfm2pljh8xhb1zwo0fzpFwUeHPsyvwBE30u+MvYaJwJ6S6Xj8CWxMOu45fOOaA7A==",
             "dev": true
         },
         "nav-frontend-spinner": {
-            "version": "1.0.18",
-            "resolved": "https://registry.npmjs.org/nav-frontend-spinner/-/nav-frontend-spinner-1.0.18.tgz",
-            "integrity": "sha512-2ojDpOrnrNWGoCp51cVzdltxKWvq3M6LMIy+cfEpsxVJDx8KCOTHxt/mw8qadavQrAByvxnKVxRNFLjji10tZA=="
+            "version": "2.0.5",
+            "resolved": "https://registry.npmjs.org/nav-frontend-spinner/-/nav-frontend-spinner-2.0.5.tgz",
+            "integrity": "sha512-sIIZ1UapN78egxio1JIFboxWq9Cv2mJl9VP6MIPEIVsEn8buANNhm2l2rCwYPwNK6/Pl0+vEq73SmDTLoO3R9g=="
         },
         "nav-frontend-spinner-style": {
             "version": "0.2.5",
@@ -14884,49 +14889,49 @@
             "dev": true
         },
         "nav-frontend-tabs": {
-            "version": "0.0.29",
-            "resolved": "https://registry.npmjs.org/nav-frontend-tabs/-/nav-frontend-tabs-0.0.29.tgz",
-            "integrity": "sha512-wDm/BbHT7kfqKMKpwei54lW3O8XgNCrbGLlW9s82oQ6Rl4+Tb/8qZt4LD2dzj/qvVIh/gKkc/lPcxMCK4SwllA=="
+            "version": "0.0.44",
+            "resolved": "https://registry.npmjs.org/nav-frontend-tabs/-/nav-frontend-tabs-0.0.44.tgz",
+            "integrity": "sha512-txiG6jRw7dEalDgBDaBXCKR0NKI5u6xtsJvNNTD0KMKdADaInHn+s8/Af9bnC7xa+N7IGslZZTZyB7a7F2D1Sw=="
         },
         "nav-frontend-tabs-style": {
-            "version": "0.0.15",
-            "resolved": "https://registry.npmjs.org/nav-frontend-tabs-style/-/nav-frontend-tabs-style-0.0.15.tgz",
-            "integrity": "sha512-AXc985CiUgQ09OMIrO7Ru+53VNqQb/v9Ujym9+fF2X3nnhYgIxrTN719vwDXDOxtxJ0V7IZfQIxIS8q3Gk/RAg=="
+            "version": "0.0.27",
+            "resolved": "https://registry.npmjs.org/nav-frontend-tabs-style/-/nav-frontend-tabs-style-0.0.27.tgz",
+            "integrity": "sha512-rY+kyIR2yD3SpIpl2SjwcOl9KuwQ7tr9fH91cAVRFmcGmxEdhiPBhQqYhF0iByi6BsyH7Y1xuEXZl0MtdgfOGg=="
         },
         "nav-frontend-typografi": {
-            "version": "2.0.10",
-            "resolved": "https://registry.npmjs.org/nav-frontend-typografi/-/nav-frontend-typografi-2.0.10.tgz",
-            "integrity": "sha512-1A8wNIYEARXlC5/Rlsp1pYpFh5tYKzttBQCGKm0FQkk0S04/M2gtxgZyIABs9fsXduYs4IcAHzoMAENt2VrI+w=="
+            "version": "2.0.26",
+            "resolved": "https://registry.npmjs.org/nav-frontend-typografi/-/nav-frontend-typografi-2.0.26.tgz",
+            "integrity": "sha512-GZ4WcQ0H4HBw7GHcVJtuDihSyrzPQ+df5dls4h60oOV3zNiedarMMGy43xFPxvPZnI0LTYlOX7rDGVxLBR9NBg=="
         },
         "nav-frontend-typografi-style": {
-            "version": "1.0.12",
-            "resolved": "https://registry.npmjs.org/nav-frontend-typografi-style/-/nav-frontend-typografi-style-1.0.12.tgz",
-            "integrity": "sha512-cBCr04/ClBx0bieJu2WSk6fxdLvG7omxHipVLYLPyEDL7tsWJXHo1RklJDGWuHIf3DvHVEnmkp6qBHIxGNKV4w==",
+            "version": "1.0.22",
+            "resolved": "https://registry.npmjs.org/nav-frontend-typografi-style/-/nav-frontend-typografi-style-1.0.22.tgz",
+            "integrity": "sha512-MZ7AdSQjQuZz7e/zkfihJFBMSzyolpcmdYSAmHGQTQmtFdvxAAx1WAef8D6BwxKS8aEj2/86CX7cRMS5dXMAnw==",
             "dev": true,
             "requires": {
-                "nav-frontend-core": "^4.0.8"
+                "nav-frontend-core": "^5.0.1"
             }
         },
         "nav-frontend-veileder": {
-            "version": "2.0.9",
-            "resolved": "https://registry.npmjs.org/nav-frontend-veileder/-/nav-frontend-veileder-2.0.9.tgz",
-            "integrity": "sha512-IwIzruCk+xj+nG1cL4Gm7ASN6LlGVniYJ32dLosp3gTTuG0N9vA+N8U1kqprTaKF6y+YsYhb8SAa3vBB33mBzg=="
+            "version": "2.0.21",
+            "resolved": "https://registry.npmjs.org/nav-frontend-veileder/-/nav-frontend-veileder-2.0.21.tgz",
+            "integrity": "sha512-Qsdvs0BJveTRwlR7rZqwpZY/ArH0SgugmXTgPdD2N7DXDnjfMPYtNMuee56gLRzkEZ6m9iw/h5Xo+p1Ik48Rlg=="
         },
         "nav-frontend-veileder-style": {
-            "version": "2.0.14",
-            "resolved": "https://registry.npmjs.org/nav-frontend-veileder-style/-/nav-frontend-veileder-style-2.0.14.tgz",
-            "integrity": "sha512-1PCUeP3KPiREc4ovoycRDsWHTQWW7PlpSKe6Y4B6j/KIzuMh4M/HOwirdgH+8CXsRoCTHA4ULeNenQmgjV41HQ==",
+            "version": "2.0.15",
+            "resolved": "https://registry.npmjs.org/nav-frontend-veileder-style/-/nav-frontend-veileder-style-2.0.15.tgz",
+            "integrity": "sha512-SqAhMmWjZmBO0FPHoBuxykPK7ujtY7orTqGvrTc1tjmC7B5XfAJ/SsumS8upea4xpWXQE+yyu0EAZPES94E/jA==",
             "dev": true
         },
         "nav-frontend-veilederpanel": {
-            "version": "0.1.12",
-            "resolved": "https://registry.npmjs.org/nav-frontend-veilederpanel/-/nav-frontend-veilederpanel-0.1.12.tgz",
-            "integrity": "sha512-nvybeQUncpVVCyjpdmaNOcmXDDRdQYCCMlTU5uQP/hZipbN38f3CXH/wD4sOlIM/AXbnEZWXksSu76+mSuCFhA=="
+            "version": "0.1.29",
+            "resolved": "https://registry.npmjs.org/nav-frontend-veilederpanel/-/nav-frontend-veilederpanel-0.1.29.tgz",
+            "integrity": "sha512-iw8WKwzM2ZXAiqoBYrKAxZGnS3vktrybQdfc3NYCIa4w+YolbwOCTT9pivRy0DAUHow79WR3GoZcwLDi+rQxKA=="
         },
         "nav-frontend-veilederpanel-style": {
-            "version": "0.0.16",
-            "resolved": "https://registry.npmjs.org/nav-frontend-veilederpanel-style/-/nav-frontend-veilederpanel-style-0.0.16.tgz",
-            "integrity": "sha512-gFnFoXUdSmP81D6srehoadAP3RJgliSRlmE6PIQEWjCbq89xtcr4Uap5VOdB7R9TP3Buj/E9ImpSZj2snwytYw==",
+            "version": "0.0.29",
+            "resolved": "https://registry.npmjs.org/nav-frontend-veilederpanel-style/-/nav-frontend-veilederpanel-style-0.0.29.tgz",
+            "integrity": "sha512-xg/vOPQpeYOxJnNhxG2vbIuxiX9CpYCtZvtxqOU15kiELBMzQNSHvafxmmCjCB3ImEYiwlKSPfbbet9duoyHyA==",
             "dev": true
         },
         "nconf": {

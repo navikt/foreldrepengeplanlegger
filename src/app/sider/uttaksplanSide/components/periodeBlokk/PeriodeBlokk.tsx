@@ -14,9 +14,9 @@ interface Props {
 
 const bem = BEMHelper('periodeBlokk');
 
-const PeriodeFargestrek: React.StatelessComponent<{ farge: UttaksplanFarge; gradert?: boolean }> = ({
+const PeriodeFargestrek: React.FunctionComponent<{ farge: UttaksplanFarge; gradert?: boolean }> = ({
     farge,
-    gradert
+    gradert,
 }) => {
     const bemStrek = bem.child('fargestrek');
     return (
@@ -30,7 +30,7 @@ const PeriodeFargestrek: React.StatelessComponent<{ farge: UttaksplanFarge; grad
     );
 };
 
-const PeriodeBlokk: React.StatelessComponent<Props> = ({ farge, nyPeriode, children, transparent }) => (
+const PeriodeBlokk: React.FunctionComponent<Props> = ({ farge, nyPeriode, children, transparent }) => (
     <div
         className={classNames(
             bem.block,

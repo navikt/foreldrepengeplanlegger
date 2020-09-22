@@ -13,7 +13,7 @@ interface Props {
 
 const bem = BEMHelper('introduksjon');
 
-const Introduksjon: React.StatelessComponent<Props> = ({ ikon, tittel, children, skjulContent }) => (
+const Introduksjon: React.FunctionComponent<Props> = ({ ikon, tittel, children, skjulContent }) => (
     <section className={bem.block}>
         <div className={bem.element('ikon')}>{ikon}</div>
         <div className={bem.element('tittel')}>

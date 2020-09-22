@@ -35,7 +35,7 @@ interface Props {
     onChange: (utsettelsesårsak: Utsettelsesårsak) => void;
 }
 
-const UlønnetPermisjonSkjema: React.StatelessComponent<Props> = ({
+const UlønnetPermisjonSkjema: React.FunctionComponent<Props> = ({
     utsettelsesårsak,
     forelder,
     omForeldre,

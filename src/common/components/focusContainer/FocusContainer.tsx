@@ -7,7 +7,7 @@ interface Props {
     children: React.ReactNode;
 }
 
-const FocusContainer: React.StatelessComponent<Props> = ({ active, onClick, children }) => {
+const FocusContainer: React.FunctionComponent<Props> = ({ active, onClick, children }) => {
     if (active !== true) {
         return <>{children}</>;
     }

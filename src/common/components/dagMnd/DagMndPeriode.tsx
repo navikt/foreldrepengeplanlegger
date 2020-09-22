@@ -12,7 +12,7 @@ interface Props {
 
 const bem = BEMHelper('dagMndPeriode');
 
-const DagMndPeriode: React.StatelessComponent<Props> = ({ fom, tom }) => {
+const DagMndPeriode: React.FunctionComponent<Props> = ({ fom, tom }) => {
     return (
         <div className={bem.block}>
             <div className={bem.element('dato')}>

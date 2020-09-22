@@ -14,7 +14,7 @@ import './loadContainer.less';
 
 const bem = BEMHelper('loadContainer');
 
-const LoadContainer: React.StatelessComponent<Props> = ({ loading, overlay = true, children }) => {
+const LoadContainer: React.FunctionComponent<Props> = ({ loading, overlay = true, children }) => {
     if (loading !== true) {
         return <>{children}</>;
     }
@@ -35,7 +35,7 @@ const LoadContainer: React.StatelessComponent<Props> = ({ loading, overlay = tru
     }
     return (
         <div className={bem.block}>
-            <Spinner className={bem.element('spinner')} type="L" negativ={true} />
+            <Spinner className={bem.element('spinner')} type="L" />
         </div>
     );
 };

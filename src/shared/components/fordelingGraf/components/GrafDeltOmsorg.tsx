@@ -20,7 +20,7 @@ export interface GrafDeltOmsorgProps {
     };
 }
 
-const GrafDeltOmsorg: React.StatelessComponent<GrafDeltOmsorgProps> = ({ mor, farMedmor, felles }) => {
+const GrafDeltOmsorg: React.FunctionComponent<GrafDeltOmsorgProps> = ({ mor, farMedmor, felles }) => {
     const childBem = fordelingGrafBem.child('graf');
     return (
         <div className={childBem.block}>
@@ -29,7 +29,7 @@ const GrafDeltOmsorg: React.StatelessComponent<GrafDeltOmsorgProps> = ({ mor, fa
                     borderColor={UttaksplanHexFarge.lilla}
                     leftBar={{
                         width: mor.pstBrukt,
-                        color: UttaksplanHexFarge.lilla
+                        color: UttaksplanHexFarge.lilla,
                     }}
                 />
             </div>
@@ -38,17 +38,17 @@ const GrafDeltOmsorg: React.StatelessComponent<GrafDeltOmsorgProps> = ({ mor, fa
                     borderColor={UttaksplanHexFarge.graa}
                     leftBar={{
                         width: felles.pstBruktMor,
-                        color: UttaksplanHexFarge.lilla
+                        color: UttaksplanHexFarge.lilla,
                     }}
                     rightBar={{
                         width: felles.pstBruktFar,
-                        color: UttaksplanHexFarge.blaa
+                        color: UttaksplanHexFarge.blaa,
                     }}
                     centerBar={
                         felles.pstForMye > 0
                             ? {
                                   width: felles.pstForMye,
-                                  color: UttaksplanHexFarge.rod
+                                  color: UttaksplanHexFarge.rod,
                               }
                             : undefined
                     }
@@ -59,7 +59,7 @@ const GrafDeltOmsorg: React.StatelessComponent<GrafDeltOmsorgProps> = ({ mor, fa
                     borderColor={UttaksplanHexFarge.blaa}
                     rightBar={{
                         width: farMedmor.pstBrukt,
-                        color: UttaksplanHexFarge.blaa
+                        color: UttaksplanHexFarge.blaa,
                     }}
                 />
             </div>

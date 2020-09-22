@@ -22,13 +22,13 @@ const bem = BEMHelper('multibar');
 const getBarStyle = ({ width, color, color2 }: BarProps): React.CSSProperties => {
     return {
         width: `${width}%`,
-        background: color2 ? `linear-gradient(to right bottom, ${color} 49%, ${color2} 51%)` : color
+        background: color2 ? `linear-gradient(to right bottom, ${color} 49%, ${color2} 51%)` : color,
     };
 };
 
-const Multibar: React.StatelessComponent<Props> = ({ leftBar, rightBar, centerBar, borderColor }) => {
+const Multibar: React.FunctionComponent<Props> = ({ leftBar, rightBar, centerBar, borderColor }) => {
     const backgroundStyle: React.CSSProperties = {
-        borderColor
+        borderColor,
     };
 
     return (

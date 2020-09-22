@@ -28,14 +28,14 @@ export interface SirkelknappProps {
     size?: SirkelknappSize;
 }
 
-const Sirkelknapp: React.StatelessComponent<SirkelknappProps> = ({
+const Sirkelknapp: React.FunctionComponent<SirkelknappProps> = ({
     onClick,
     ariaLabel,
     ikon,
     toggle,
     disabled,
     stil = 'info',
-    size = 'normal'
+    size = 'normal',
 }) => {
     const labelId = guid();
     return (
@@ -47,7 +47,7 @@ const Sirkelknapp: React.StatelessComponent<SirkelknappProps> = ({
             className={classNames(`sirkelknapp`, `sirkelknapp--${stil}`, `sirkelknapp--${size}`, {
                 'sirkelknapp--toggle': toggle,
                 'sirkelknapp--pressed': toggle && toggle.pressed,
-                'sirkelknapp--disabled': disabled
+                'sirkelknapp--disabled': disabled,
             })}
             disabled={disabled}
             aria-pressed={toggle ? toggle.pressed : undefined}>

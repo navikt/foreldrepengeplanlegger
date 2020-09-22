@@ -24,12 +24,12 @@ const getAnsiktFromType = (type: Infotype): VeilederAnsiktstype => {
     }
 };
 
-const Veilederinfo: React.StatelessComponent<VeilederInfoProps> = ({
+const Veilederinfo: React.FunctionComponent<VeilederInfoProps> = ({
     visVeileder = true,
     stil = 'normal',
     type = 'info',
     maxWidth,
-    children
+    children,
 }) => {
     return (
         <div
@@ -39,7 +39,7 @@ const Veilederinfo: React.StatelessComponent<VeilederInfoProps> = ({
                 `veilederinfo--${type}`,
                 maxWidth ? `veilederinfo--maxWidth-${maxWidth}` : null,
                 {
-                    'veilederinfo--utenVeileder': !visVeileder
+                    'veilederinfo--utenVeileder': !visVeileder,
                 }
             )}>
             {visVeileder && (

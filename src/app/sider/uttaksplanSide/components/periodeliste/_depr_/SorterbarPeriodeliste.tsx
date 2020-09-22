@@ -32,7 +32,7 @@
 //     );
 // });
 
-// const SorterbarPeriodeliste: React.StatelessComponent<PeriodelisteProps> = (props) => {
+// const SorterbarPeriodeliste: React.FunctionComponent<PeriodelisteProps> = (props) => {
 //     const { perioder, onMove } = props;
 
 //     if (perioder.length === 0) {

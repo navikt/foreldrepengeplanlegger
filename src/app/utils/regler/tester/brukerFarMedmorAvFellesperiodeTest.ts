@@ -16,14 +16,18 @@ export const brukerFarMedmorAvFellesperiodeTest: RegelTest = (grunnlag: Regelgru
                       values: {
                           navnFarMedmor,
                           navnMor,
-                          lenke: 'https://familie.nav.no/om-foreldrepenger#hvor-lenge-kan-du-fa-foreldrepenger',
-                          dager: (intl) => getVarighetString(dagerAvFellesperiode, intl)
+                          dager: (intl) => getVarighetString(dagerAvFellesperiode, intl),
                       },
-                      renderAsHtml: true
-                  }
+                      renderAsHtml: true,
+                      htmlValues: {
+                          lenke: {
+                              href: 'https://familie.nav.no/om-foreldrepenger#hvor-lenge-kan-du-fa-foreldrepenger',
+                          },
+                      },
+                  },
         };
     }
     return {
-        passerer: true
+        passerer: true,
     };
 };

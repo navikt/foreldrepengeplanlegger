@@ -6,7 +6,7 @@ import {
     setDekningsgrad,
     setØnsketFordeling,
     navigerTilSide,
-    lagForslagTilPlan
+    lagForslagTilPlan,
 } from '../../redux/actions/common/commonActionCreators';
 import { AppState } from '../../redux/reducers/rootReducer';
 import { connect } from 'react-redux';
@@ -25,7 +25,7 @@ import DekningsgradInfo from './components/dekningsgradInfo/DekningsgradInfo';
 import Oppsummering from '../felles/oppsummering/Oppsummering';
 import FocusChildOnMountContainer from 'common/components/focusContainer/FocusChildOnMountContainer';
 import getMessage from 'common/util/i18nUtils';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, IntlShape } from 'react-intl';
 import { TilgjengeligeDager, OmForeldre } from 'shared/types';
 
 interface StateProps {
@@ -42,7 +42,11 @@ interface StateProps {
     uttaksdatoer: Uttaksdatoer;
 }
 
-type Props = StateProps & DispatchProps & RouteComponentProps & InjectedIntlProps;
+interface IntlProp {
+    intl: IntlShape;
+}
+
+type Props = StateProps & DispatchProps & RouteComponentProps & IntlProp;
 
 class UttaksplanSide extends React.Component<Props> {
     constructor(props: Props) {
@@ -63,7 +67,7 @@ class UttaksplanSide extends React.Component<Props> {
             omForeldre,
             history,
             intl,
-            dispatch
+            dispatch,
         } = this.props;
 
         if ((skjemadata === undefined && henterStønadskontoer === false) || omForeldre === undefined) {
@@ -79,14 +83,14 @@ class UttaksplanSide extends React.Component<Props> {
                                 antallBarn: skjemadata.antallBarn,
                                 omForeldre,
                                 situasjon: skjemadata.situasjon,
-                                onRequestChange: () => dispatch(navigerTilSide(Side.START, history))
+                                onRequestChange: () => dispatch(navigerTilSide(Side.START, history)),
                             }}
                         />
                     </Block>
                     <FocusChildOnMountContainer active={true}>
                         <Skjemablokk
                             tittel={getMessage(intl, 'dekningsgradSide.dekningsgrad.spørsmål', {
-                                hvem: omForeldre.erDeltOmsorg ? getMessage(intl, 'dere') : getMessage(intl, 'du')
+                                hvem: omForeldre.erDeltOmsorg ? getMessage(intl, 'dere') : getMessage(intl, 'du'),
                             })}
                             focusable={true}
                             beskrivelse={`${
@@ -96,7 +100,7 @@ class UttaksplanSide extends React.Component<Props> {
                             } ${getMessage(intl, 'dekningsgradSide.dekningsgrad.beskrivelsePart2')}`}>
                             <DekningsgradValg
                                 dekningsgrad={dekningsgrad}
-                                onChange={(dg) => dispatch(setDekningsgrad(dg as Dekningsgrad))}
+                                onChange={(dg: Dekningsgrad) => dispatch(setDekningsgrad(dg))}
                                 dager100={dager100}
                                 dager80={dager80}
                             />
@@ -130,7 +134,7 @@ class UttaksplanSide extends React.Component<Props> {
                                     navnMor={omForeldre.mor.navn}
                                     navnFarMedmor={omForeldre.farMedmor.navn}
                                     tilgjengeligeDager={tilgjengeligeDager}
-                                    onChange={(uker) => {
+                                    onChange={(uker: number) => {
                                         dispatch(setØnsketFordeling(uker));
                                         dispatch(navigerTilSide(Side.UTTAKSPLAN, this.props.history));
                                     }}
@@ -158,7 +162,7 @@ const mapStateToProps = (state: AppState): StateProps => {
         skjemadata: common.skjemadata!,
         omForeldre: common.omForeldre,
         ønsketFordeling: common.ønsketFordeling,
-        uttaksdatoer: common.uttaksdatoer
+        uttaksdatoer: common.uttaksdatoer,
     };
 };
 

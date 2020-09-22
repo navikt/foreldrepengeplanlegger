@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { injectIntl, InjectedIntlProps, InjectedIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Periodetype } from '../../../../../types';
 import getMessage from 'common/util/i18nUtils';
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
@@ -24,14 +24,14 @@ interface OwnProps {
     onChange: (periodetype: Periodetype) => void;
 }
 
-type Props = OwnProps & InjectedIntlProps;
+type Props = OwnProps;
 
-const getOptions = (intl: InjectedIntl, kanVelgeUlønnetPermisjon?: boolean): DropdownFormMenuOption[] => {
+const getOptions = (intl: IntlShape, kanVelgeUlønnetPermisjon?: boolean): DropdownFormMenuOption[] => {
     return [
         {
             value: Periodetype.UttakFørTermin,
             label: getMessage(intl, `periodetype.${Periodetype.UttakFørTermin}`),
-            hidden: true
+            hidden: true,
         },
         { value: Periodetype.Uttak, label: getMessage(intl, `periodetype.${Periodetype.Uttak}`) },
         { value: Periodetype.GradertUttak, label: getMessage(intl, `periodetype.${Periodetype.GradertUttak}`) },
@@ -41,25 +41,25 @@ const getOptions = (intl: InjectedIntl, kanVelgeUlønnetPermisjon?: boolean): Dr
             ? [
                   {
                       value: Periodetype.UlønnetPermisjon,
-                      label: getMessage(intl, `periodetype.${Periodetype.UlønnetPermisjon}`)
-                  }
+                      label: getMessage(intl, `periodetype.${Periodetype.UlønnetPermisjon}`),
+                  },
               ]
-            : [])
+            : []),
     ];
 };
 
-const getPeriodetypeLabel = (type: Periodetype | undefined, intl: InjectedIntl): string => {
+const getPeriodetypeLabel = (type: Periodetype | undefined, intl: IntlShape): string => {
     return getMessage(intl, `periodetype.${type}`);
 };
 
-const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
+const PeriodetypeMenyLabel: React.FunctionComponent<Props> = ({
     type,
     forelder,
     uttaksdager,
     gradering,
     brukteUttaksdager,
-    intl
 }) => {
+    const intl = useIntl();
     const erArbeidEllerFerie = type === Periodetype.Ferie || type === Periodetype.Arbeid;
     const getVarighetInfo = () => {
         if (erArbeidEllerFerie && uttaksdager) {
@@ -77,7 +77,7 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
                     id="periodeliste.graderteDager"
                     values={{
                         dager: getVarighetString(uttaksdager, intl),
-                        gradering
+                        gradering,
                     }}
                 />
             );
@@ -85,7 +85,7 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
             return (
                 <span>
                     {getMessage(intl, 'periodeliste.dagerMedForeldrepenger', {
-                        dager: getVarighetString(brukteUttaksdager, intl)
+                        dager: getVarighetString(brukteUttaksdager, intl),
                     })}
                 </span>
             );
@@ -104,8 +104,9 @@ const PeriodetypeMenyLabel: React.StatelessComponent<Props> = ({
     );
 };
 
-const PeriodetypeMeny: React.StatelessComponent<Props> = (props) => {
-    const { disabled, intl, type, dropdownStyle = 'filled', onChange, kanVelgeUlønnetPermisjon } = props;
+const PeriodetypeMeny: React.FunctionComponent<Props> = (props) => {
+    const intl = useIntl();
+    const { disabled, type, dropdownStyle = 'filled', onChange, kanVelgeUlønnetPermisjon } = props;
     return (
         <DropdownForm
             disabled={disabled}
@@ -121,4 +122,4 @@ const PeriodetypeMeny: React.StatelessComponent<Props> = (props) => {
     );
 };
 
-export default injectIntl(PeriodetypeMeny);
+export default PeriodetypeMeny;

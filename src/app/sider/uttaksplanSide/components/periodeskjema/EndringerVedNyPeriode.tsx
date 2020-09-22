@@ -6,7 +6,7 @@ import Block from 'common/components/block/Block';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { getForelderNavn, getNavnGenitivEierform } from '../../../../utils/common';
 import { Tidsperioden } from '../../../../utils/Tidsperioden';
-import { InjectedIntl, injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { formaterDato } from 'common/util/datoUtils';
 import { getVarighetString } from 'common/util/intlUtils';
 import getMessage from 'common/util/i18nUtils';
@@ -23,20 +23,21 @@ const PeriodeSomVilBliSplittet: React.StatelessComponent<{
     antallUttaksdager: number;
     omForeldre: OmForeldre;
     årsakIntlKey?: string;
-    intl: InjectedIntl;
+    intl: IntlShape;
 }> = ({ periode, antallUttaksdager, omForeldre, årsakIntlKey, intl }) => {
     const navn = getForelderNavn(periode.forelder, omForeldre);
 
     return (
         <Block margin="m">
             <AlertStripe type="info">
-                <FormattedHTMLMessage
+                <FormattedMessage
                     id={`periodeskjema.melding.oppdeltPeriode${årsakIntlKey === undefined ? '.utenÅrsak' : ''}`}
                     values={{
                         navnEierform: getNavnGenitivEierform(navn || ''),
                         varighet: getVarighetString(antallUttaksdager, intl),
                         tidsperiode: Tidsperioden(periode.tidsperiode).formaterStringKort(intl),
-                        årsak: årsakIntlKey ? getMessage(intl, årsakIntlKey).toLowerCase() : undefined
+                        årsak: årsakIntlKey ? getMessage(intl, årsakIntlKey).toLowerCase() : undefined,
+                        strong: (msg: any) => <strong>{msg}</strong>,
                     }}
                 />
             </AlertStripe>
@@ -47,16 +48,17 @@ const PeriodeSomVilBliSplittet: React.StatelessComponent<{
 const PerioderSomVilBliFlyttetPå: React.StatelessComponent<{
     perioder: Periode[];
     antallUttaksdager: number;
-    intl: InjectedIntl;
+    intl: IntlShape;
 }> = ({ perioder, antallUttaksdager, intl }) => {
     return (
         <Block margin="m">
             <AlertStripe type="info">
-                <FormattedHTMLMessage
+                <FormattedMessage
                     id="periodeskjema.melding.perioderFlyttes"
                     values={{
                         dato: formaterDato(perioder[0].tidsperiode.fom),
-                        varighet: getVarighetString(antallUttaksdager, intl)
+                        varighet: getVarighetString(antallUttaksdager, intl),
+                        strong: (msg: any) => <strong>{msg}</strong>,
                     }}
                 />
             </AlertStripe>
@@ -71,12 +73,9 @@ const getÅrsakIntlKeyForPeriodeSplitt = (nyPeriode: Partial<Periode>): string |
     return undefined;
 };
 
-const EndringerVedNyPeriode: React.StatelessComponent<Props & InjectedIntlProps> = ({
-    nyPeriode,
-    perioder,
-    omForeldre,
-    intl
-}) => {
+const EndringerVedNyPeriode: React.FunctionComponent<Props> = ({ nyPeriode, perioder, omForeldre }) => {
+    const intl = useIntl();
+
     if (
         !nyPeriode ||
         !perioder ||
@@ -115,4 +114,4 @@ const EndringerVedNyPeriode: React.StatelessComponent<Props & InjectedIntlProps>
     }
 };
 
-export default injectIntl(EndringerVedNyPeriode);
+export default EndringerVedNyPeriode;

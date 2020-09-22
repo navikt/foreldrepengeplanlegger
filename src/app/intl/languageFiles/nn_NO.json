@@ -98,7 +98,7 @@
     "regel.advarsel.uttakForFarEllerMedmorFørsteSeksUkerInfo": "{navnFarMedmor} kan berre ta ut foreldrepengar dei seks første vekene etter fødselen om {navnMor} er for sjuk til å ta seg av barnet eller er innlagd på helseinstitusjon.",
 
     "regel.info.ferieMedUttaksdagerInfo": "Helgedagar i ein ferieperiode vil telje som dagar med foreldrepengar.",
-    "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker {dager} av fellesperioden, og må legge ved dokumentasjon i søknaden av aktivitetskravet til {navnMor} for desse dagene. <a href=\"{lenke}\" rel=\"noopener\" class=\"lenke\">Les meir om aktivitetskravet her</a>.",
+    "regel.info.farMedmorBrukerFellesperiodeInfo": "{navnFarMedmor} bruker {dager} av fellesperioden, og må legge ved dokumentasjon i søknaden av aktivitetskravet til {navnMor} for desse dagene. <a>Les meir om aktivitetskravet her</a>.",
     "regel.info.morUtsetterPgaArbeidInfo": "{navnMor} må ha ein skriftleg avtale med arbeidsgjevaren sin om at {navnMor} skal jobbe i den stillingsprosenten som er oppgjeve . {navnMor} treng ikkje å senda denne til NAV.",
     "regel.info.farMedmorUtsetterPgaArbeidInfo": "{navnFarMedmor} må ha ein skriftleg avtale med arbeidsgjevaren sin om at {navnFarMedmor} skal jobbe i den stillingsprosenten som er oppgjeve . {navnFarMedmor} treng ikkje å senda denne til NAV.",
     "regel.info.bareFarHarRettEttBarnAktivitetskravMorInfo": "Det er aktivitetskrav til mor når du skal vere heime saman med barnet, og du må leggje ved dokumentasjon i søknaden din.",
@@ -201,7 +201,7 @@
     "ulønnetPermisjonSkjema.alternativ.arbeid": "Arbeide heiltid",
     "ulønnetPermisjonSkjema.alternativ.foreldrepenger": "Ta ut foreldrepengar",
     "ulønnetPermisjonSkjema.velgUtsettelsesårsak": "Vel utsetjingsårsak",
-    "ulønnetPermisjonSkjema.info.html": "<p>Ulønt permisjon er noko du må avtale med arbeidsgivaren din. Hugs at ulønt permisjon kan påverke retten din til <a href=\"{lenke}\" rel=\"noopener\" class=\"lenke\" target=\"_blank\">andre utbetalingar frå NAV og opptening av rett til foreldrepengar for nytt barn</a>.</p>Når du tar ut ulønt permisjon før perioden med foreldrepengar er ferdig, kan den andre forelderen ta ut foreldrepengar samtidig, eller søkje om å utsetje på grunn av heiltidsarbeid eller ferie. Du kan ikkje utsetje foreldrepengane med ulønt permisjon.",
+    "ulønnetPermisjonSkjema.info.html": "Ulønt permisjon er noko du må avtale med arbeidsgivaren din. Hugs at ulønt permisjon kan påverke retten din til <a>andre utbetalingar frå NAV og opptening av rett til foreldrepengar for nytt barn</a>. Når du tar ut ulønt permisjon før perioden med foreldrepengar er ferdig, kan den andre forelderen ta ut foreldrepengar samtidig, eller søkje om å utsetje på grunn av heiltidsarbeid eller ferie. Du kan ikkje utsetje foreldrepengane med ulønt permisjon.",
     "regelAvvik.ariaTittel": "Viktig informasjon om planen",
 
     "situasjonskjema.validering.situasjon": "Du må velje situasjon.",
@@ -220,7 +220,7 @@
     "situasjonskjema.morEllerFar.mor.label": "Mor",
     "situasjonskjema.morEllerFar.far.label": "Far",
 
-    "tilgjengeligeDagerGraf.person.del": "{navnEierform}<br/>del",
+    "tilgjengeligeDagerGraf.person.del": "{navnEierform} del",
     "tilgjengeligeDagerGraf.fellesperiode": "Fellesperiode",
 
     "fordeling.spørsmål": "Korleis vil de dele fellesperioden?",

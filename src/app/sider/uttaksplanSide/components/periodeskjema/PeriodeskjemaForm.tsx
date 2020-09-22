@@ -23,7 +23,7 @@ import VarighetMeny from './varighet/VarighetMeny';
 import EndringerVedNyPeriode from './EndringerVedNyPeriode';
 import { focusFirstElement } from '../../../../../common/util/focusUtils';
 import getMessage from 'common/util/i18nUtils';
-import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage, IntlShape } from 'react-intl';
 import { kanBeggeForeldreVelgesForPeriodetype } from '../../../../utils/kontoUtils';
 import { Tidsperiode } from 'common/types';
 import UlønnetPermisjonSkjema from './ulønnetPermisjon/UlønnetPermisjonSkjema';
@@ -46,7 +46,11 @@ interface OwnProps {
     formik: FormikProps<PeriodeskjemaFormValues>;
 }
 
-type Props = OwnProps & InjectedIntlProps;
+interface IntlProp {
+    intl: IntlShape;
+}
+
+type Props = OwnProps & IntlProp;
 
 const bem = BEMHelper('periodeElement');
 
@@ -133,7 +137,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
             perioder,
             forbrukEksisterendePerioder,
             intl,
-            nyPeriode
+            nyPeriode,
         } = this.props;
         const { fom, tom, periodetype, forelder, medforelder, gradering, utsettelsesårsak } = formik.values;
         const navnForelder = getForelderNavn(forelder, omForeldre);
@@ -163,7 +167,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             brukteUttaksdager={antallUttaksdagerBrukt}
                                             uttaksdager={uttaksdager}
                                             kanVelgeUlønnetPermisjon={omForeldre.erDeltOmsorg === true}
-                                            onChange={(type) => {
+                                            onChange={(type: any) => {
                                                 formik.setFieldValue('periodetype', type);
                                                 if (type === Periodetype.GradertUttak) {
                                                     formik.setFieldValue('gradering', formik.values.gradering || 50);
@@ -171,7 +175,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                                 this.handleValueOnChange();
                                             }}
                                         />
-                                    )
+                                    ),
                                 },
 
                                 {
@@ -182,13 +186,13 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             foreldernavn={omForeldre.erDeltOmsorg ? navnForelder : 'du'}
                                             gradering={gradering}
                                             dropdownStyle="border"
-                                            onChange={(g) => {
+                                            onChange={(g: any) => {
                                                 formik.setFieldValue('gradering', g);
                                                 this.handleValueOnChange();
                                             }}
                                         />
                                     ),
-                                    isVisibleCheck: () => periodetype === Periodetype.GradertUttak
+                                    isVisibleCheck: () => periodetype === Periodetype.GradertUttak,
                                 },
                                 {
                                     id: 'forelder',
@@ -201,14 +205,14 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                             farMedmor={omForeldre.farMedmor!}
                                             dropdownStyle="border"
                                             kanVelgeBeggeForeldre={kanBeggeForeldreVelgesForPeriodetype(periodetype)}
-                                            onChange={(f, mf) => {
+                                            onChange={(f: any, mf: any) => {
                                                 formik.setFieldValue('forelder', f);
                                                 formik.setFieldValue('medforelder', mf);
                                                 this.handleValueOnChange();
                                             }}
                                         />
                                     ),
-                                    isVisibleCheck: () => omForeldre.erDeltOmsorg
+                                    isVisibleCheck: () => omForeldre.erDeltOmsorg,
                                 },
                                 {
                                     id: 'varighet',
@@ -228,12 +232,12 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                                 nesteUttaksdag,
                                                 erNyPeriode: true,
                                                 gjenståendeDager: forbrukEksisterendePerioder.dagerGjenstående,
-                                                gradering
+                                                gradering,
                                             }}
                                             dropdownStyle="border"
                                         />
-                                    )
-                                }
+                                    ),
+                                },
                             ]}
                             info={
                                 periodetype === Periodetype.Ferie &&
@@ -242,8 +246,8 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                                     ? [
                                           getMessage(intl, 'uttaksplan.ferie.inneholderHelligdager', {
                                               dager: antallUttaksdagerBrukt,
-                                              navn: navnForelder
-                                          })
+                                              navn: navnForelder,
+                                          }),
                                       ]
                                     : undefined
                             }
@@ -254,7 +258,7 @@ class PeriodeskjemaForm extends React.Component<Props, {}> {
                             forelder={forelder}
                             omForeldre={omForeldre}
                             utsettelsesårsak={utsettelsesårsak}
-                            onChange={(årsak) => {
+                            onChange={(årsak: any) => {
                                 formik.setFieldValue('utsettelsesårsak', årsak);
                                 this.handleValueOnChange();
                             }}

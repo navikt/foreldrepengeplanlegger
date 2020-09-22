@@ -1,10 +1,8 @@
-import InjectedIntl = ReactIntl.InjectedIntl;
-import MessageValue = ReactIntl.MessageValue;
+import { IntlShape } from 'react-intl';
 
-const getMessage = (intl: InjectedIntl, id: string, value?: { [key: string]: MessageValue }): string => {
-    if (id.indexOf('.html') > 0) {
-        return intl.formatHTMLMessage({ id }, value);
-    }
+export type MessageValue = string | number | boolean | Date | null | undefined;
+
+const getMessage = (intl: IntlShape, id: string, value?: { [key: string]: MessageValue }): string => {
     return intl.formatMessage({ id }, value);
 };
 

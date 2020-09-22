@@ -11,12 +11,16 @@ import { AppRoutes } from './routes';
 import DekningsgradSide from './sider/dekningsgradSide/DekningsgradSide';
 
 import 'common/styles/index.less';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { injectIntl, IntlShape } from 'react-intl';
 import Språkvelger from './components/språkvelger/Språkvelger';
 
 const cls = BEMHelper('planlegger');
 
-type Props = RouteComponentProps<any> & InjectedIntlProps;
+interface IntlProp {
+    intl: IntlShape;
+}
+
+type Props = RouteComponentProps<any> & IntlProp;
 
 class Uttaksplanlegger extends React.Component<Props> {
     render() {

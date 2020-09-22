@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, IntlShape } from 'react-intl';
 import NavFrontendChevron from 'nav-frontend-chevron';
 import TypografiBase from 'nav-frontend-typografi';
 import { Link } from 'react-router-dom';
@@ -34,7 +34,7 @@ const getSideRoute = (side: Side): string => {
     }
 };
 
-const parsePath = (sti: string, intl: InjectedIntl): ParsedPath[] => {
+const parsePath = (sti: string, intl: IntlShape): ParsedPath[] => {
     const parts = sti.split('/');
     // Remove any trailing slash ("/")
     if (parts.length > 1 && parts[parts.length - 1] === '') {
@@ -54,16 +54,20 @@ const parsePath = (sti: string, intl: InjectedIntl): ParsedPath[] => {
         return {
             url,
             label: getMessage(intl, `route.${part}`),
-            part: parts[parts.length - 1]
+            part: parts[parts.length - 1],
         };
     });
 };
 
-class Breadcrumbs extends React.Component<BreadcrumbsProps & InjectedIntlProps> {
+interface IntlProp {
+    intl: IntlShape;
+}
+
+class Breadcrumbs extends React.Component<BreadcrumbsProps & IntlProp> {
     state: {
         windowWidth?: number;
     } = {
-        windowWidth: undefined
+        windowWidth: undefined,
     };
 
     componentWillMount() {
@@ -78,7 +82,7 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps & InjectedIntlProps> 
 
     updateWindowDimensions = () => {
         this.setState({
-            windowWidth: window.innerWidth
+            windowWidth: window.innerWidth,
         });
     };
     renderTilbakeLenke(parsedPath: ParsedPath[]) {
@@ -128,7 +132,7 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps & InjectedIntlProps> 
                         key={`crumb${index}`}
                         type="normaltekst"
                         className={classNames(cls.element('item'), {
-                            [cls.element('current')]: current
+                            [cls.element('current')]: current,
                         })}>
                         {current ? path.label : <a href={path.url}>{path.label}</a>}
                     </TypografiBase>

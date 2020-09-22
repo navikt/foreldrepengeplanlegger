@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormikProps, Form } from 'formik';
 import Block from 'common/components/block/Block';
-import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import DatoInput from 'common/components/skjema/datoInput/DatoInput';
 import { SituasjonSkjemadata } from '../../../../types';
 import { Hovedknapp } from 'nav-frontend-knapper';
@@ -17,11 +17,10 @@ import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/forel
 import { ForeldreparSituasjon } from 'shared/types';
 import { Forelder } from 'common/types';
 
-interface OwnProps {
+interface Props {
     formik: FormikProps<SituasjonSkjemadata>;
     onReset?: () => void;
 }
-type Props = OwnProps & InjectedIntlProps;
 
 const visAntallBarnValg = (
     situasjon: ForeldreparSituasjon | undefined,
@@ -47,107 +46,105 @@ const visAntallBarnValg = (
     return inputHasValue(navnMor) && inputHasValue(navnFarMedmor);
 };
 
-class SituasjonsskjemaForm extends React.Component<Props> {
-    render() {
-        const { formik, onReset, intl } = this.props;
-        const {
-            situasjon,
-            antallBarn,
-            familiehendelsesdato,
-            navnFarMedmor,
-            navnMor,
-            forelderVedAleneomsorg
-        } = formik.values;
-        const visErMorEllerFarMedmor = situasjon === ForeldreparSituasjon.aleneomsorg;
-        const visNavn =
-            situasjon !== undefined &&
-            (visErMorEllerFarMedmor === false ||
-                (visErMorEllerFarMedmor === true && forelderVedAleneomsorg !== undefined));
-        const visAntallBarn =
-            visNavn && visAntallBarnValg(situasjon, navnFarMedmor, navnMor, forelderVedAleneomsorg === Forelder.mor);
-        const visTermindato = visAntallBarn && antallBarn !== undefined;
-        const termindatoAvgrensninger = getTermindatoAvgrensninger();
-        const erToForeldre = getAntallForeldreISituasjon(situasjon) > 1;
-        return (
-            <Form>
-                <Skjemablokk tittel={getMessage(intl, 'situasjon.velgSituasjon')} animated={true}>
-                    <Block margin="s">
-                        <VelgSituasjon
-                            onChange={(s) => {
-                                formik.setFieldValue('situasjon', s);
-                                formik.setFieldValue('forelderVedAleneomsorg', undefined);
-                            }}
-                            valgtSituasjon={situasjon}
-                        />
-                    </Block>
-
-                    <Block visible={visErMorEllerFarMedmor}>
-                        <VelgErMorEllerFar
-                            forelder={forelderVedAleneomsorg}
-                            onChange={(em) => formik.setFieldValue('forelderVedAleneomsorg', em)}
-                        />
-                    </Block>
-
-                    <Block visible={visNavn} margin="none">
-                        <VelgForeldrenavn
-                            situasjon={situasjon}
-                            forelderVedAleneomsorg={forelderVedAleneomsorg}
-                            navnFarMedmor={navnFarMedmor}
-                            navnMor={navnMor}
-                            onChangeFarMedmor={(navn) => {
-                                formik.setFieldValue('navnFarMedmor', navn);
-                            }}
-                            onChangeMor={(navn) => {
-                                formik.setFieldValue('navnMor', navn);
-                            }}
-                        />
-                    </Block>
-                </Skjemablokk>
-
-                {visAntallBarn && (
-                    <Skjemablokk
-                        tittel={getMessage(intl, `antallBarn.hvorMange.${erToForeldre ? 'dere' : 'du'}`)}
-                        visible={visAntallBarn}>
-                        <VelgAntallBarn
-                            antallBarn={antallBarn}
-                            onChange={(antall) => formik.setFieldValue('antallBarn', antall)}
-                        />
-                    </Skjemablokk>
-                )}
-
-                {visTermindato && (
-                    <Skjemablokk tittel={getMessage(intl, 'termindato.når')} visible={visTermindato}>
-                        <DatoInput
-                            id="familiehendelsesdato"
-                            name="familiehendelsesdato"
-                            label="Termindato"
-                            datoAvgrensninger={termindatoAvgrensninger}
-                            visÅrVelger={true}
-                            onChange={(dato: Date) => formik.setFieldValue('familiehendelsesdato', dato)}
-                            dato={familiehendelsesdato}
-                        />
-                    </Skjemablokk>
-                )}
-                <Block align="center" visible={formik.isValid}>
-                    <Block>
-                        <Hovedknapp htmlType="submit">
-                            <FormattedMessage id="knapp.gåVidere" />
-                        </Hovedknapp>
-                    </Block>
-                    {onReset && (
-                        <Block visible={false}>
-                            <LinkButton
-                                onClick={() => {
-                                    onReset();
-                                    formik.resetForm();
-                                }}>
-                                <FormattedMessage id="lenke.startPåNy" />
-                            </LinkButton>
-                        </Block>
-                    )}
+const SituasjonsskjemaForm: React.FunctionComponent<Props> = ({ formik, onReset }) => {
+    const intl = useIntl();
+    const {
+        situasjon,
+        antallBarn,
+        familiehendelsesdato,
+        navnFarMedmor,
+        navnMor,
+        forelderVedAleneomsorg,
+    } = formik.values;
+    const visErMorEllerFarMedmor = situasjon === ForeldreparSituasjon.aleneomsorg;
+    const visNavn =
+        situasjon !== undefined &&
+        (visErMorEllerFarMedmor === false || (visErMorEllerFarMedmor === true && forelderVedAleneomsorg !== undefined));
+    const visAntallBarn =
+        visNavn && visAntallBarnValg(situasjon, navnFarMedmor, navnMor, forelderVedAleneomsorg === Forelder.mor);
+    const visTermindato = visAntallBarn && antallBarn !== undefined;
+    const termindatoAvgrensninger = getTermindatoAvgrensninger();
+    const erToForeldre = getAntallForeldreISituasjon(situasjon) > 1;
+    return (
+        <Form>
+            <Skjemablokk tittel={getMessage(intl, 'situasjon.velgSituasjon')} animated={true}>
+                <Block margin="s">
+                    <VelgSituasjon
+                        onChange={(s) => {
+                            formik.setFieldValue('situasjon', s);
+                            formik.setFieldValue('forelderVedAleneomsorg', undefined);
+                        }}
+                        valgtSituasjon={situasjon}
+                    />
                 </Block>
-            </Form>
-        );
-    }
-}
-export default injectIntl(SituasjonsskjemaForm);
+
+                <Block visible={visErMorEllerFarMedmor}>
+                    <VelgErMorEllerFar
+                        forelder={forelderVedAleneomsorg}
+                        onChange={(em: any) => formik.setFieldValue('forelderVedAleneomsorg', em)}
+                    />
+                </Block>
+
+                <Block visible={visNavn} margin="none">
+                    <VelgForeldrenavn
+                        situasjon={situasjon}
+                        forelderVedAleneomsorg={forelderVedAleneomsorg}
+                        navnFarMedmor={navnFarMedmor}
+                        navnMor={navnMor}
+                        onChangeFarMedmor={(navn: any) => {
+                            formik.setFieldValue('navnFarMedmor', navn);
+                        }}
+                        onChangeMor={(navn: any) => {
+                            formik.setFieldValue('navnMor', navn);
+                        }}
+                    />
+                </Block>
+            </Skjemablokk>
+
+            {visAntallBarn && (
+                <Skjemablokk
+                    tittel={getMessage(intl, `antallBarn.hvorMange.${erToForeldre ? 'dere' : 'du'}`)}
+                    visible={visAntallBarn}>
+                    <VelgAntallBarn
+                        antallBarn={antallBarn}
+                        onChange={(antall: number) => formik.setFieldValue('antallBarn', antall)}
+                    />
+                </Skjemablokk>
+            )}
+
+            {visTermindato && (
+                <Skjemablokk tittel={getMessage(intl, 'termindato.når')} visible={visTermindato}>
+                    <DatoInput
+                        id="familiehendelsesdato"
+                        name="familiehendelsesdato"
+                        label="Termindato"
+                        datoAvgrensninger={termindatoAvgrensninger}
+                        visÅrVelger={true}
+                        onChange={(dato: Date) => formik.setFieldValue('familiehendelsesdato', dato)}
+                        dato={familiehendelsesdato}
+                    />
+                </Skjemablokk>
+            )}
+            <Block align="center" visible={formik.isValid}>
+                <Block>
+                    <Hovedknapp htmlType="submit">
+                        <FormattedMessage id="knapp.gåVidere" />
+                    </Hovedknapp>
+                </Block>
+                {onReset && (
+                    <Block visible={false}>
+                        <LinkButton
+                            onClick={() => {
+                                onReset();
+                                formik.resetForm();
+                            }}>
+                            <FormattedMessage id="lenke.startPåNy" />
+                        </LinkButton>
+                    </Block>
+                )}
+            </Block>
+        </Form>
+    );
+};
+
+export default SituasjonsskjemaForm;

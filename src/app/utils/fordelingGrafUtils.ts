@@ -1,6 +1,6 @@
 import { TilgjengeligeDager, MorsForbruk, ForelderForbruk, Forbruk } from 'shared/types';
 import { FordelingDeltOmsorg, FordelingIkkeDeltOmsorg } from 'shared/components/fordelingGraf/types';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl';
 import { getVarighetString } from 'common/util/intlUtils';
 import getMessage from 'common/util/i18nUtils';
 import { Forelder } from 'common/types';
@@ -25,7 +25,7 @@ export const getProsentFordelingPerDel = (
     return {
         pstMor,
         pstFarMedmor,
-        pstFelles
+        pstFelles,
     };
 };
 
@@ -38,7 +38,7 @@ export const getFordelingForbrukMor = (
         ekstradagerFørTermin,
         dagerTotalt,
         dagerForMye,
-        dagerUtenForeldrepengerFørFødsel
+        dagerUtenForeldrepengerFørFødsel,
     } = forbrukMor;
     const tg = tilgjengeligeDager;
     const maksTillatt = tg.dagerForeldrepenger + dagerForeldrepengerFørFødsel;
@@ -51,7 +51,7 @@ export const getFordelingForbrukMor = (
         type: 'ikkeDeltOmsorg',
         forelder: Forelder.mor,
         pstBrukt: brukIProsent,
-        pstForMye
+        pstForMye,
     };
 };
 
@@ -68,7 +68,7 @@ export const getFordelingForbrukFarMedmor = (
         type: 'ikkeDeltOmsorg',
         forelder: Forelder.farMedmor,
         pstBrukt: brukIProsent,
-        pstForMye
+        pstForMye,
     };
 };
 
@@ -96,35 +96,35 @@ export const getFordelingForbrukDeltOmsorg = (
         type: 'deltOmsorg',
         mor: {
             pstAvTotal: pstMor,
-            pstBrukt: morsBarIPst
+            pstBrukt: morsBarIPst,
         },
         felles: {
             pstAvTotal: pstFelles,
             pstBruktMor: fellesPst * morsDagerAvFellesdel,
             pstBruktFar: fellesPst * farsDagerAvFellesdel,
-            pstForMye: fellesPst * dagerForMye
+            pstForMye: fellesPst * dagerForMye,
         },
         farMedmor: {
             pstAvTotal: pstFarMedmor,
-            pstBrukt: farsForbrukAvEgenKvote
-        }
+            pstBrukt: farsForbrukAvEgenKvote,
+        },
     };
 };
 
 export const getTittelVarighet = (
-    intl: InjectedIntl,
+    intl: IntlShape,
     dager: number,
     dagerForLite: number,
     dagerForMye: number
 ): string => {
     if (dagerForLite > 0) {
         return getMessage(intl, 'fordeling.status.person.forLite', {
-            dager: getVarighetString(dagerForLite, intl, 'full')
+            dager: getVarighetString(dagerForLite, intl, 'full'),
         });
     }
     if (dagerForMye) {
         return getMessage(intl, 'fordeling.status.person.forMye', {
-            dager: getVarighetString(dagerForMye, intl, 'full')
+            dager: getVarighetString(dagerForMye, intl, 'full'),
         });
     }
     return getVarighetString(Math.abs(dager | 0), intl, 'full');

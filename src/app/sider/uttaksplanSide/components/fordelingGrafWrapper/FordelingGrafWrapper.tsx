@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { useIntl } from 'react-intl';
 import FordelingGraf from '../../../../../shared/components/fordelingGraf/FordelingGraf';
 import { OmForeldre, Forbruk, TilgjengeligeDager, RegelAvvik } from 'shared/types';
 import {
     getFordelingForbrukDeltOmsorg,
     getFordelingForbrukMor,
     getFordelingForbrukFarMedmor,
-    getTittelVarighet
+    getTittelVarighet,
 } from 'app/utils/fordelingGrafUtils';
 import { getFordelingStatus } from 'app/utils/fordelingStatusUtils';
 import getMessage from 'common/util/i18nUtils';
@@ -18,8 +18,8 @@ interface Props {
     regelAvvik: RegelAvvik[];
 }
 
-const FordelingGrafWrapper: React.StatelessComponent<Props & InjectedIntlProps> = (props) => {
-    const { omForeldre, forbruk, tilgjengeligeDager, intl } = props;
+const FordelingGrafWrapper: React.FunctionComponent<Props> = ({ omForeldre, forbruk, tilgjengeligeDager }) => {
+    const intl = useIntl();
     const { mor, farMedmor } = forbruk;
 
     const fordelingStatus = getFordelingStatus(forbruk, omForeldre, intl);
@@ -43,7 +43,7 @@ const FordelingGrafWrapper: React.StatelessComponent<Props & InjectedIntlProps> 
                           navn: omForeldre.mor.navn,
                           ikonRef: omForeldre.mor.ikonRef,
                           tittel: getTittelVarighet(intl, mor.dagerTotalt, mor.dagerForLite, mor.dagerForMye),
-                          harForMangeDager: forbruk.mor.dagerForMye > 0
+                          harForMangeDager: forbruk.mor.dagerForMye > 0,
                       }
                     : undefined
             }
@@ -60,11 +60,11 @@ const FordelingGrafWrapper: React.StatelessComponent<Props & InjectedIntlProps> 
                         farMedmor.dagerForLite,
                         farMedmor.dagerForMye
                     ),
-                    harForMangeDager: forbruk.farMedmor.dagerForMye > 0
+                    harForMangeDager: forbruk.farMedmor.dagerForMye > 0,
                 }
             }
         />
     );
 };
 
-export default injectIntl(FordelingGrafWrapper);
+export default FordelingGrafWrapper;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import classnames from 'classnames';
 import Modal from 'nav-frontend-modal';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, IntlShape } from 'react-intl';
 
 import Knapperad from 'common/components/knapperad/Knapperad';
 import { Systemtittel } from 'nav-frontend-typografi';
@@ -20,9 +20,13 @@ export interface Props {
     størrelse?: undefined | '30';
 }
 
+interface IntlProp {
+    intl: IntlShape;
+}
+
 const bem = BEMHelper('bekreftDialog');
 
-class BekreftDialog extends React.Component<Props & InjectedIntlProps, {}> {
+class BekreftDialog extends React.Component<Props & IntlProp, {}> {
     render() {
         const {
             tittel,
@@ -33,7 +37,7 @@ class BekreftDialog extends React.Component<Props & InjectedIntlProps, {}> {
             intl,
             children,
             størrelse,
-            isOpen
+            isOpen,
         } = this.props;
         return (
             <Modal
@@ -49,13 +53,13 @@ class BekreftDialog extends React.Component<Props & InjectedIntlProps, {}> {
                             <Hovedknapp onClick={() => onBekreft()} className="bekreftDialog__bekreftKnapp">
                                 {bekreftLabel ||
                                     intl.formatMessage({
-                                        id: 'komponent.bekreftDialog.bekreftLabel'
+                                        id: 'komponent.bekreftDialog.bekreftLabel',
                                     })}
                             </Hovedknapp>
                             <Knapp onClick={() => onAvbryt()} className="bekreftDialog__avbrytKnapp">
                                 {avbrytLabel ||
                                     intl.formatMessage({
-                                        id: 'komponent.bekreftDialog.avbrytLabel'
+                                        id: 'komponent.bekreftDialog.avbrytLabel',
                                     })}
                             </Knapp>
                         </Knapperad>

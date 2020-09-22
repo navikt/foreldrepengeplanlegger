@@ -1,5 +1,5 @@
 import { RegelTestresultat, RegelTest } from '../../../../shared/types';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl';
 import { getVarighetString } from 'common/util/intlUtils';
 import { Regelgrunnlag } from '../types';
 import { Forelder } from 'common/types';
@@ -13,12 +13,12 @@ export const erFarMedmorsUttakErInnenforMaksAntallDagerTest: RegelTest = (
         (erDeltOmsorg === false && forelderVedAleneomsorg === Forelder.farMedmor) || erDeltOmsorg === true;
     if (!erRelevant) {
         return {
-            passerer: true
+            passerer: true,
         };
     }
     if (forbruk === undefined || tilgjengeligeDager === undefined || forbruk.farMedmor === undefined) {
         return {
-            passerer: true
+            passerer: true,
         };
     }
 
@@ -33,10 +33,10 @@ export const erFarMedmorsUttakErInnenforMaksAntallDagerTest: RegelTest = (
             : {
                   values: {
                       navn: navnFarMedmor,
-                      dagerTilgjengelig: (intl: InjectedIntl) => getVarighetString(maksDager, intl),
-                      dagerRegistrert: (intl: InjectedIntl) =>
-                          getVarighetString(Math.abs(forbruk.farMedmor!.dagerTotalt), intl)
-                  }
-              }
+                      dagerTilgjengelig: (intl: IntlShape) => getVarighetString(maksDager, intl),
+                      dagerRegistrert: (intl: IntlShape) =>
+                          getVarighetString(Math.abs(forbruk.farMedmor!.dagerTotalt), intl),
+                  },
+              },
     };
 };

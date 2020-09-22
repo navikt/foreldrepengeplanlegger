@@ -3,7 +3,7 @@ import DropdownForm, { DropdownFormStyle } from 'common/components/dropdownForm/
 import DropdownFormMenu, { DropdownFormMenuOption } from 'common/components/dropdownForm/DropdownFormMenu';
 import IconText from 'common/components/iconText/IconText';
 import getMessage from 'common/util/i18nUtils';
-import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Foreldrepar from 'shared/components/foreldrepar/Foreldrepar';
 import { Forelder } from 'common/types';
 import { Forelderinfo } from 'shared/types';
@@ -28,7 +28,7 @@ const getForelderOptions = (
 ): DropdownFormMenuOption[] => [
     { value: Forelder.mor, label: navnMor },
     { value: Forelder.farMedmor, label: navnFarMedmor },
-    ...(kanVelgeBeggeForeldre ? [{ value: BEGGE_FORELDRE, label: `Begge` }] : [])
+    ...(kanVelgeBeggeForeldre ? [{ value: BEGGE_FORELDRE, label: `Begge` }] : []),
 ];
 
 const renderForelderIkon = (
@@ -72,7 +72,7 @@ const renderLabel = (props: Props, options: DropdownFormMenuOption[]): React.Rea
     );
 };
 
-const ForelderMeny: React.StatelessComponent<Props & InjectedIntlProps> = (props) => {
+const ForelderMeny: React.FunctionComponent<Props> = (props) => {
     const {
         onChange,
         forelder,
@@ -82,10 +82,10 @@ const ForelderMeny: React.StatelessComponent<Props & InjectedIntlProps> = (props
         disabled,
         dropdownStyle = 'filled',
         kanVelgeBeggeForeldre,
-        intl
     } = props;
-
+    const intl = useIntl();
     const options = getForelderOptions(mor.navn, farMedmor.navn, kanVelgeBeggeForeldre === true);
+
     return (
         <DropdownForm
             disabled={disabled}
@@ -110,4 +110,4 @@ const ForelderMeny: React.StatelessComponent<Props & InjectedIntlProps> = (props
     );
 };
 
-export default injectIntl(ForelderMeny);
+export default ForelderMeny;

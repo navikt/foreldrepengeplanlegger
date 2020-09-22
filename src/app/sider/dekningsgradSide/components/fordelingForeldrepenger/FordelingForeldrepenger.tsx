@@ -5,7 +5,7 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import SkjemaFordelingFellesperiode from './FordelingFellesperiodeSpørsmål';
 import { dagerTilUker } from '../../../../utils/common';
 import Skjemablokk from '../../../../components/skjemablokk/Skjemablokk';
-import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
+import { FormattedMessage, injectIntl, IntlShape } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
 import { TilgjengeligeDager } from 'shared/types';
 
@@ -20,7 +20,11 @@ interface State {
     ukerMor?: number;
 }
 
-type Props = OwnProps & InjectedIntlProps;
+interface IntlProp {
+    intl: IntlShape;
+}
+
+type Props = OwnProps & IntlProp;
 
 class FordelingForeldrepenger extends React.Component<Props, State> {
     constructor(props: Props) {
@@ -31,7 +35,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
 
     updateØnsketFordeling(ukerMor: number) {
         this.setState({
-            ukerMor
+            ukerMor,
         });
     }
 
@@ -52,7 +56,7 @@ class FordelingForeldrepenger extends React.Component<Props, State> {
                         navnMor={navnMor}
                         ukerTotalt={ukerFelles}
                         ukerMor={ukerMor}
-                        onChange={(uker) => this.setState({ ukerMor: uker })}
+                        onChange={(uker: number) => this.setState({ ukerMor: uker })}
                     />
                 </Block>
                 <Knapperad>

@@ -5,7 +5,7 @@ import PeriodeskjemaForm from './PeriodeskjemaForm';
 import { Periode, Periodetype } from '../../../../types/periodetyper';
 import periodeskjemaUtils from './utils';
 import { PeriodeskjemaFormValues } from './types';
-import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
+import { injectIntl, IntlShape } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
 import FocusTrap from 'react-focus-trap';
 import { OmForeldre, Forbruk } from 'shared/types';
@@ -28,7 +28,7 @@ interface OwnProps {
 }
 export type PeriodeSkjemaProps = Props;
 
-const getPeriodeValidationSchema = (intl: InjectedIntl) => {
+const getPeriodeValidationSchema = (intl: IntlShape) => {
     return yup.object().shape({
         periodetype: yup.string().required(getMessage(intl, 'periodeskjema.validering.periodetype')),
         forelder: yup.string().required(getMessage(intl, 'periodeskjema.validering.forelder')),
@@ -36,12 +36,16 @@ const getPeriodeValidationSchema = (intl: InjectedIntl) => {
         tom: yup.date().required(getMessage(intl, 'periodeskjema.validering.tom')),
         gradering: yup.number().when('periodetype', {
             is: Periodetype.GradertUttak,
-            then: yup.string().required(getMessage(intl, 'periodeskjema.validering.arbeidOgUttak'))
-        })
+            then: yup.string().required(getMessage(intl, 'periodeskjema.validering.arbeidOgUttak')),
+        }),
     });
 };
 
-type Props = OwnProps & InjectedIntlProps;
+interface IntlProp {
+    intl: IntlShape;
+}
+
+type Props = OwnProps & IntlProp;
 
 class Periodeskjema extends React.Component<Props, {}> {
     constructor(props: Props) {
@@ -68,7 +72,7 @@ class Periodeskjema extends React.Component<Props, {}> {
                             forelder,
                             medforelder,
                             periodetype,
-                            gradering
+                            gradering,
                         },
                         nyPeriodeId
                     )
@@ -92,7 +96,7 @@ class Periodeskjema extends React.Component<Props, {}> {
             periodeFørTermin,
             forbruk,
             onSubmit,
-            intl
+            intl,
         } = this.props;
         return (
             <>

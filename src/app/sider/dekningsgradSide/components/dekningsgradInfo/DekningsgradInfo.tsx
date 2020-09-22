@@ -6,7 +6,7 @@ import Block from 'common/components/block/Block';
 import TilgjengeligeDagerGraf from '../tilgjengeligeDagerGraf/TilgjengeligeDagerGraf';
 import PengerIkon from 'common/components/ikoner/PengerIkon';
 import Situasjonsinfo from '../situasjonInfo/SituasjonInfo';
-import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
 import { ForeldreparSituasjon, TilgjengeligeDager, OmForeldre } from 'shared/types';
 
@@ -20,17 +20,18 @@ interface Props {
     flerbarnsdager: number;
 }
 
-const DekningsgradInfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
+const DekningsgradInfo: React.FunctionComponent<Props> = ({
     omForeldre,
     tilgjengeligeDager,
     dekningsgrad,
     situasjon,
     flerbarnsdager,
-    intl
 }) => {
+    const intl = useIntl();
     const bem = BEMHelper('dekningsgradInfo');
     const sum = dekningsgrad === '100' ? '22 000' : '17 600';
     const rolle = omForeldre.erDeltOmsorg ? undefined : omForeldre.bareMor ? Forelder.mor : Forelder.farMedmor;
+
     return (
         <div className={bem.block}>
             <Block margin="xs">
@@ -77,4 +78,4 @@ const DekningsgradInfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
     );
 };
 
-export default injectIntl(DekningsgradInfo);
+export default DekningsgradInfo;

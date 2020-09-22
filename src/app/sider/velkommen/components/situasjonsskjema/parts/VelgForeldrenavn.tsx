@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Row, Column } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
-import { InjectedIntlProps, injectIntl, InjectedIntl } from 'react-intl';
+import { IntlShape, useIntl } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
 import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
 import { ForeldreparSituasjon } from 'shared/types';
 import { Forelder } from 'common/types';
 
-interface OwnProps {
+interface Props {
     situasjon: ForeldreparSituasjon;
     forelderVedAleneomsorg?: Forelder;
     navnFarMedmor?: string;
@@ -16,9 +16,7 @@ interface OwnProps {
     onChangeMor: (navn: string) => void;
 }
 
-type Props = OwnProps & InjectedIntlProps;
-
-const getMorLabel = (situasjon: ForeldreparSituasjon, intl: InjectedIntl): string => {
+const getMorLabel = (situasjon: ForeldreparSituasjon, intl: IntlShape): string => {
     switch (situasjon) {
         case ForeldreparSituasjon.farOgFar:
         case ForeldreparSituasjon.farOgMor:
@@ -29,7 +27,7 @@ const getMorLabel = (situasjon: ForeldreparSituasjon, intl: InjectedIntl): strin
     }
 };
 
-const getFarMedmorLabel = (situasjon: ForeldreparSituasjon, intl: InjectedIntl): string => {
+const getFarMedmorLabel = (situasjon: ForeldreparSituasjon, intl: IntlShape): string => {
     switch (situasjon) {
         case ForeldreparSituasjon.farOgFar:
         case ForeldreparSituasjon.farOgMor:
@@ -40,15 +38,15 @@ const getFarMedmorLabel = (situasjon: ForeldreparSituasjon, intl: InjectedIntl):
     }
 };
 
-const VelgForeldrenavn: React.StatelessComponent<Props> = ({
+const VelgForeldrenavn: React.FunctionComponent<Props> = ({
     situasjon,
     forelderVedAleneomsorg,
     navnFarMedmor = '',
     navnMor = '',
     onChangeFarMedmor,
     onChangeMor,
-    intl
 }) => {
+    const intl = useIntl();
     const toForeldre = getAntallForeldreISituasjon(situasjon) === 2;
     const visMorInput =
         toForeldre ||
@@ -84,4 +82,4 @@ const VelgForeldrenavn: React.StatelessComponent<Props> = ({
     );
 };
 
-export default injectIntl(VelgForeldrenavn);
+export default VelgForeldrenavn;

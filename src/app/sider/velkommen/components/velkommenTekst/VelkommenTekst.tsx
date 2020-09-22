@@ -3,13 +3,15 @@ import Block from 'common/components/block/Block';
 import { Ingress, Element } from 'nav-frontend-typografi';
 import { withRouter, RouteComponentProps } from 'react-router';
 import getMessage from 'common/util/i18nUtils';
-import { injectIntl, InjectedIntlProps, FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import UtvidetInformasjon from 'common/components/utvidetInformasjon/UtvidetInformasjon';
 import Introduksjon from 'app/sider/velkommen/components/introduksjon/Introduksjon';
 import IntroSirkelSvg from 'app/sider/velkommen/components/velkommenTekst/IntroSirkelSvg';
 import { AppRoutes } from 'app/routes';
 
-const VelkommenTekst: React.StatelessComponent<RouteComponentProps & InjectedIntlProps> = ({ intl, location }) => {
+const VelkommenTekst: React.FunctionComponent<RouteComponentProps> = ({ location }) => {
+    const intl = useIntl();
+
     return (
         <Introduksjon
             ikon={<IntroSirkelSvg />}
@@ -28,7 +30,12 @@ const VelkommenTekst: React.StatelessComponent<RouteComponentProps & InjectedInt
                                 <FormattedMessage id="intro.begrensninger.tittel" />
                             </Element>
                         </Block>
-                        <FormattedHTMLMessage id="intro.begrensninger.html" tagName="div" />
+                        <ul>
+                            <FormattedMessage id="intro.begrensninger.del1" tagName="li" />
+                            <FormattedMessage id="intro.begrensninger.del2" tagName="li" />
+                            <FormattedMessage id="intro.begrensninger.del3" tagName="li" />
+                            <FormattedMessage id="intro.begrensninger.del4" tagName="li" />
+                        </ul>
                     </Block>
                 </UtvidetInformasjon>
             </Block>
@@ -36,4 +43,4 @@ const VelkommenTekst: React.StatelessComponent<RouteComponentProps & InjectedInt
     );
 };
 
-export default withRouter(injectIntl(VelkommenTekst));
+export default withRouter(VelkommenTekst);

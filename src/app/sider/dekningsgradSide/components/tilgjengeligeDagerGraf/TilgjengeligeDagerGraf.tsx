@@ -3,7 +3,7 @@ import BEMHelper from 'common/util/bem';
 import Multibar from '../../../../../shared/elements/multibar/Multibar';
 import { UttaksplanHexFarge } from 'common/util/colors';
 import { getVarighetString } from 'common/util/intlUtils';
-import { injectIntl, InjectedIntlProps, FormattedHTMLMessage, FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Personkort from '../../../../../shared/components/personkort/Personkort';
 import ForelderIkon from 'shared/components/foreldrepar/ForelderIkon';
 import { getNavnGenitivEierform } from '../../../../utils/common';
@@ -18,19 +18,18 @@ interface OwnProps {
     omForeldre: OmForeldre;
 }
 
-type Props = OwnProps & InjectedIntlProps;
+type Props = OwnProps;
 
 const bem = BEMHelper('tilgjengeligeDagerGraf');
 
-const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, omForeldre, intl }) => {
+const DeltOmsorgGraf: React.FunctionComponent<Props> = ({ tilgjengeligeDager, omForeldre }) => {
+    const intl = useIntl();
     const fordeling = getProsentFordelingPerDel(tilgjengeligeDager, true);
     const txtMor =
         tilgjengeligeDager.dagerForeldrepengerFørFødsel > 0
-            ? `${tilgjengeligeDager.dagerForeldrepengerFørFødsel / 5} + ${tilgjengeligeDager.dagerMor / 5} ${getMessage(
-                  intl,
-                  'common.uker',
-                  { uker: 15 }
-              )}`
+            ? `${tilgjengeligeDager.dagerForeldrepengerFørFødsel / 5} + ${
+                  tilgjengeligeDager.dagerMor / 5
+              } ${getMessage(intl, 'common.uker', { uker: 15 })}`
             : getVarighetString(tilgjengeligeDager.dagerMor, intl);
     return (
         <div className={bem.classNames(bem.block, bem.modifier('flereForeldre'))}>
@@ -40,7 +39,7 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, o
                         <Personkort
                             ikon={<ForelderIkon forelder={omForeldre.mor.ikonRef} width={35} />}
                             textValign="bottom">
-                            <FormattedHTMLMessage
+                            <FormattedMessage
                                 id="tilgjengeligeDagerGraf.person.del"
                                 values={{ navnEierform: getNavnGenitivEierform(omForeldre.mor.navn) }}
                             />
@@ -51,7 +50,7 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, o
                         leftBar={{
                             color: UttaksplanHexFarge.lilla,
                             width: 100,
-                            text: <div className={bem.element('barTekst')}>{txtMor}</div>
+                            text: <div className={bem.element('barTekst')}>{txtMor}</div>,
                         }}
                     />
                 </div>
@@ -69,7 +68,7 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, o
                                 <div className={bem.element('barTekst')}>
                                     {getVarighetString(tilgjengeligeDager.dagerFelles, intl)}
                                 </div>
-                            )
+                            ),
                         }}
                     />
                 </div>
@@ -80,7 +79,7 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, o
                                 ikon={<ForelderIkon forelder={omForeldre.farMedmor.ikonRef} width={35} />}
                                 invertert={true}
                                 textValign="bottom">
-                                <FormattedHTMLMessage
+                                <FormattedMessage
                                     id="tilgjengeligeDagerGraf.person.del"
                                     values={{ navnEierform: getNavnGenitivEierform(omForeldre.farMedmor.navn) }}
                                 />
@@ -95,7 +94,7 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, o
                                     <div className={bem.element('barTekst')}>
                                         {getVarighetString(tilgjengeligeDager.dagerFar, intl)}
                                     </div>
-                                )
+                                ),
                             }}
                         />
                     </div>
@@ -105,11 +104,13 @@ const DeltOmsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, o
     );
 };
 
-const AleneomsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, omForeldre, intl }) => {
+const AleneomsorgGraf: React.FunctionComponent<Props> = ({ tilgjengeligeDager, omForeldre }) => {
+    const intl = useIntl();
     const txt =
         tilgjengeligeDager.dagerForeldrepengerFørFødsel > 0
-            ? `${tilgjengeligeDager.dagerForeldrepengerFørFødsel / 5} + ${tilgjengeligeDager.dagerForeldrepenger /
-                  5} uker`
+            ? `${tilgjengeligeDager.dagerForeldrepengerFørFødsel / 5} + ${
+                  tilgjengeligeDager.dagerForeldrepenger / 5
+              } uker`
             : getVarighetString(tilgjengeligeDager.dagerEtterTermin, intl);
     return (
         <div className={bem.block}>
@@ -118,14 +119,14 @@ const AleneomsorgGraf: React.StatelessComponent<Props> = ({ tilgjengeligeDager, 
                 leftBar={{
                     color: omForeldre.bareFar ? UttaksplanHexFarge.blaa : UttaksplanHexFarge.lilla,
                     width: 100,
-                    text: <div className={bem.element('barTekst')}>{txt}</div>
+                    text: <div className={bem.element('barTekst')}>{txt}</div>,
                 }}
             />
         </div>
     );
 };
-const TilgjengeligeDagerGraf: React.StatelessComponent<Props> = (props) => {
+const TilgjengeligeDagerGraf: React.FunctionComponent<Props> = (props) => {
     return props.omForeldre.erDeltOmsorg ? <DeltOmsorgGraf {...props} /> : <AleneomsorgGraf {...props} />;
 };
 
-export default injectIntl(TilgjengeligeDagerGraf);
+export default TilgjengeligeDagerGraf;

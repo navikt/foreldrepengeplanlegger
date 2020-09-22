@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
 import { Periodetype } from '../../../../types';
 import { getPeriodetypeFarge } from '../../../../utils/styleutils';
 import ArbeidIkon from './ikoner/ArbeidIkon';
@@ -35,9 +34,9 @@ const getPeriodetypeIkon = (periodetype?: Periodetype, title = '', forelder?: Fo
     }
 };
 
-const PeriodeIkonBkg: React.StatelessComponent<{ farge: UttaksplanFarge; gradertFarge?: UttaksplanFarge }> = ({
+const PeriodeIkonBkg: React.FunctionComponent<{ farge: UttaksplanFarge; gradertFarge?: UttaksplanFarge }> = ({
     farge,
-    gradertFarge
+    gradertFarge,
 }) => {
     const fill = getUttaksplanHexFromFarge(farge);
     const gradertFill = gradertFarge ? getUttaksplanHexFromFarge(gradertFarge) : undefined;
@@ -62,7 +61,7 @@ const PeriodeIkonBkg: React.StatelessComponent<{ farge: UttaksplanFarge; gradert
     );
 };
 
-const Periodeikon: React.StatelessComponent<Props & InjectedIntlProps> = ({ periodetype, forelder }) => {
+const Periodeikon: React.FunctionComponent<Props> = ({ periodetype, forelder }) => {
     const farge = getPeriodetypeFarge(periodetype, forelder);
     return (
         <span className={bem.classNames(bem.block)}>
@@ -74,4 +73,4 @@ const Periodeikon: React.StatelessComponent<Props & InjectedIntlProps> = ({ peri
     );
 };
 
-export default injectIntl(Periodeikon);
+export default Periodeikon;

@@ -3,13 +3,13 @@ import { Holiday } from 'date-holidays';
 import { Tidsperiode } from 'common/types';
 import { getOffentligeFridager } from 'common/util/fridagerUtils';
 import { Uttaksdagen } from './Uttaksdagen';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl';
 import {
     formaterDatoUtenDag,
     dateIsSameOrBefore,
     dateIsSameOrAfter,
     formaterDato,
-    formaterDatoMedDagKort
+    formaterDatoMedDagKort,
 } from 'common/util/datoUtils';
 import getMessage from 'common/util/i18nUtils';
 
@@ -25,11 +25,11 @@ export const Tidsperioden = (tidsperiode: Partial<Tidsperiode> | Tidsperiode) =>
         tidsperiode.fom ? getTidsperiode(tidsperiode.fom, uttaksdager, uttaksprosent) : tidsperiode,
     setUttaksdagerFlyttStartdato: (uttaksdager: number, uttaksprosent?: number) =>
         setUttaksdagerFlyttStartdato(tidsperiode, uttaksdager, uttaksprosent),
-    formaterString: (intl: InjectedIntl) => tidsperiodeToString(tidsperiode, intl),
-    formaterStringMedDag: (intl: InjectedIntl) => tidsperiodeToStringMedDag(tidsperiode, intl),
-    formaterStringKort: (intl: InjectedIntl) => tidsperiodeToStringKort(tidsperiode, intl),
+    formaterString: (intl: IntlShape) => tidsperiodeToString(tidsperiode, intl),
+    formaterStringMedDag: (intl: IntlShape) => tidsperiodeToStringMedDag(tidsperiode, intl),
+    formaterStringKort: (intl: IntlShape) => tidsperiodeToStringKort(tidsperiode, intl),
     erFomEllerEtterDato: (dato: Date) => erTidsperiodeFomEllerEtterDato(tidsperiode, dato),
-    erFørDato: (dato: Date) => erTidsperiodeFomEllerEtterDato(tidsperiode, dato) === false
+    erFørDato: (dato: Date) => erTidsperiodeFomEllerEtterDato(tidsperiode, dato) === false,
 });
 
 export function isValidTidsperiode(tidsperiode: any): tidsperiode is Tidsperiode {
@@ -46,7 +46,7 @@ export function resetTidsperiodeTomIfBeforeFom(tidsperiode: Partial<Tidsperiode>
         tom:
             tidsperiode.fom && tidsperiode.tom && moment.utc(tidsperiode.fom).isAfter(tidsperiode.tom, 'day')
                 ? tidsperiode.fom
-                : tidsperiode.tom
+                : tidsperiode.tom,
     };
 }
 
@@ -66,7 +66,7 @@ export function getTidsperiode(fom: Date, uttaksdager: number, uttaksprosent?: n
     }
     return {
         fom,
-        tom: Uttaksdagen(fom).leggTil(uttaksdager - 1, uttaksprosent)
+        tom: Uttaksdagen(fom).leggTil(uttaksdager - 1, uttaksprosent),
     };
 }
 
@@ -136,36 +136,36 @@ function erTidsperiodeUtenforTidsperiode(
     return false;
 }
 
-function tidsperiodeToString(tidsperiode: Partial<Tidsperiode>, intl: InjectedIntl) {
+function tidsperiodeToString(tidsperiode: Partial<Tidsperiode>, intl: IntlShape) {
     const { fom, tom } = tidsperiode;
     if (fom && tom && moment.utc(fom).isSame(tom, 'day')) {
         return formaterDatoUtenDag(fom ? fom : tom);
     }
     return getMessage(intl, 'tidsperiode', {
         fom: fom ? formaterDatoUtenDag(fom) : '',
-        tom: tom ? formaterDatoUtenDag(tom) : ''
+        tom: tom ? formaterDatoUtenDag(tom) : '',
     });
 }
 
-function tidsperiodeToStringMedDag(tidsperiode: Partial<Tidsperiode>, intl: InjectedIntl) {
+function tidsperiodeToStringMedDag(tidsperiode: Partial<Tidsperiode>, intl: IntlShape) {
     const { fom, tom } = tidsperiode;
     if (fom && tom && moment.utc(fom).isSame(tom, 'day')) {
         return formaterDato(fom ? fom : tom);
     }
     return getMessage(intl, 'tidsperiode', {
         fom: fom ? formaterDato(fom) : '',
-        tom: tom ? formaterDato(tom) : ''
+        tom: tom ? formaterDato(tom) : '',
     });
 }
 
-function tidsperiodeToStringKort(tidsperiode: Partial<Tidsperiode>, intl: InjectedIntl) {
+function tidsperiodeToStringKort(tidsperiode: Partial<Tidsperiode>, intl: IntlShape) {
     const { fom, tom } = tidsperiode;
     if (fom && tom && moment.utc(fom).isSame(tom, 'day')) {
         return formaterDatoMedDagKort(fom ? fom : tom);
     }
     return getMessage(intl, 'tidsperiode.kort', {
         fom: fom ? formaterDatoMedDagKort(fom) : '',
-        tom: tom ? formaterDatoMedDagKort(tom) : ''
+        tom: tom ? formaterDatoMedDagKort(tom) : '',
     });
 }
 

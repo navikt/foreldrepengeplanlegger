@@ -1,4 +1,4 @@
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl';
 import { flatten, uniqBy } from 'lodash';
 import { guid } from 'nav-frontend-js-utils';
 import {
@@ -9,9 +9,8 @@ import {
     RegelStatus,
     RegelTestresultatInfoObject,
     RegelAvvikInfo,
-    RegelAlvorlighet
+    RegelAlvorlighet,
 } from './regelTypes';
-import { isArray } from 'util';
 
 const getRegelIntlKey = (regel: Regel, intlRegelPrefix: string): string =>
     `${intlRegelPrefix}.${regel.alvorlighet}.${regel.key}`;
@@ -19,7 +18,7 @@ const getRegelIntlKey = (regel: Regel, intlRegelPrefix: string): string =>
 const alvorlighetSortOrder = {
     [RegelAlvorlighet.FEIL]: 0,
     [RegelAlvorlighet.ADVARSEL]: 1,
-    [RegelAlvorlighet.INFO]: 2
+    [RegelAlvorlighet.INFO]: 2,
 };
 
 const sorterAvvik = (a1: RegelAvvik, a2: RegelAvvik): number => {
@@ -35,7 +34,7 @@ const ensureRegelAvvikIntlKey = (
     info?: Partial<RegelTestresultatInfo>
 ): RegelAvvikInfo => ({
     ...info,
-    intlKey: info ? info.intlKey || getRegelIntlKey(regel, intlRegelPrefix) : getRegelIntlKey(regel, intlRegelPrefix)
+    intlKey: info ? info.intlKey || getRegelIntlKey(regel, intlRegelPrefix) : getRegelIntlKey(regel, intlRegelPrefix),
 });
 
 const overstyresAvFilter = (avvik: RegelAvvik, idx: number, alleAvvik: RegelAvvik[]): boolean => {
@@ -66,10 +65,10 @@ export const regelHarAvvik = (
         id: guid(),
         regel,
         info: ensureRegelAvvikIntlKey(regel, intlRegelPrefix, i),
-        periodeId: i ? i.periodeId : periodeId
+        periodeId: i ? i.periodeId : periodeId,
     });
     const regelAvvik: RegelAvvik[] = [];
-    if (isArray(info)) {
+    if (Array.isArray(info)) {
         info.forEach((i) => regelAvvik.push(mapInfoToRegelAvvik(i)));
     } else {
         regelAvvik.push(mapInfoToRegelAvvik(info));
@@ -77,13 +76,13 @@ export const regelHarAvvik = (
     return {
         key: regel.key,
         passerer: false,
-        regelAvvik
+        regelAvvik,
     };
 };
 
 export const regelPasserer = (regel: Regel): RegelStatus => ({
     key: regel.key,
-    passerer: true
+    passerer: true,
 });
 
 export const getRegelAvvikForPeriode = (resultat: UttaksplanRegelTestresultat, periodeId: string): RegelAvvik[] => {
@@ -115,7 +114,7 @@ export const trimRelaterteRegelAvvik = (avvik: RegelAvvik[]): RegelAvvik[] => {
 };
 
 export const getRegelIntlValues = (
-    intl: InjectedIntl,
+    intl: IntlShape,
     info: RegelTestresultatInfo
 ): { [key: string]: string } | undefined => {
     const { values } = info;

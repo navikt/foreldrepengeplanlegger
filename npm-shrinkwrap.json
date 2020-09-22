@@ -2463,9 +2463,9 @@
             }
         },
         "@types/memoizee": {
-            "version": "0.4.2",
-            "resolved": "https://registry.npmjs.org/@types/memoizee/-/memoizee-0.4.2.tgz",
-            "integrity": "sha512-bhdZXZWKfpkQuuiQjVjnPiNeBHpIAC6rfOFqlJXKD3VC35mCcolfVfXYTnk9Ppee5Mkmmz3Llgec7xCdJAbzWw=="
+            "version": "0.4.4",
+            "resolved": "https://registry.npmjs.org/@types/memoizee/-/memoizee-0.4.4.tgz",
+            "integrity": "sha512-c9+1g6+6vEqcw5UuM0RbfQV0mssmZcoG9+hNC5ptDCsv4G+XJW1Z4pE13wV5zbc9e0+YrDydALBTiD3nWG1a3g=="
         },
         "@types/minimatch": {
             "version": "3.0.3",

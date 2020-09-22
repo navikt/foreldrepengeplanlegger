@@ -14801,9 +14801,9 @@
             "integrity": "sha512-TvvDlMasRiEM3kxFK1DPghobZiFYwXX8kBLUg47X2asK2KPwZXhlxiXCUcR7SHW6DxQjBr1/YQGSElIr3PNdSw=="
         },
         "nav-frontend-knapper-style": {
-            "version": "0.3.23",
-            "resolved": "https://registry.npmjs.org/nav-frontend-knapper-style/-/nav-frontend-knapper-style-0.3.23.tgz",
-            "integrity": "sha512-gAQ9z55qL9qt/HAJhY8zcpd36EkfXv/jAL/Jp9+ilgFepR6psI4J+0Se5lESsGM1ugL+sVDazdgvQMm9ZzFkug==",
+            "version": "0.3.24",
+            "resolved": "https://registry.npmjs.org/nav-frontend-knapper-style/-/nav-frontend-knapper-style-0.3.24.tgz",
+            "integrity": "sha512-v/wt6kvGQKIH/fDXuT3kEPqZw9ff672w03GMe2oMiYX8vHhwmL90OLsCaXQW+X2h5+lX2Zq0d1ZZrdiN+6iqMg==",
             "dev": true
         },
         "nav-frontend-lenker": {

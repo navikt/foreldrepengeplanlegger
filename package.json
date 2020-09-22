@@ -55,7 +55,7 @@
     "babel-preset-react": "6.24.1",
     "case-sensitive-paths-webpack-plugin": "2.1.2",
     "css-loader": "2.1.0",
-    "dotenv": "6.2.0",
+    "dotenv": "8.2.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.4",
     "extract-text-webpack-plugin": "4.0.0-beta.0",

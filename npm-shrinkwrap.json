@@ -14856,9 +14856,9 @@
             "integrity": "sha512-rwYjaEYTQwhOF24/WjuqGSRQh9svEaUgKB7Sp0y2/RGefjXlauGRjcyKmrjXXIlqq+mQn9JVdEIElxIy/JCQeA=="
         },
         "nav-frontend-paneler-style": {
-            "version": "0.3.14",
-            "resolved": "https://registry.npmjs.org/nav-frontend-paneler-style/-/nav-frontend-paneler-style-0.3.14.tgz",
-            "integrity": "sha512-U47bo8/wFUSg/nsrTeaFaQjhaIK6EpzoW1Tg7xEyZ4tpRb+iihc6AL3RbCKnxap3p+vjuMQPc8AU9ntBUkMRWA==",
+            "version": "0.3.20",
+            "resolved": "https://registry.npmjs.org/nav-frontend-paneler-style/-/nav-frontend-paneler-style-0.3.20.tgz",
+            "integrity": "sha512-35fOX53x1MCyd/qeEwXg60P26eswL1NhWfv7Ey4T+CVr2gCRaqfj7KdQaaVbyIOl08qt9s6HbKqXqj28fGWTrw==",
             "dev": true
         },
         "nav-frontend-skjema": {

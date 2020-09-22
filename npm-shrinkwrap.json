@@ -14834,9 +14834,9 @@
             "integrity": "sha512-KUgA0QgG5NQ1ZpeZlTbimgcCNJXr6CHEaT8xVDBSJMW4jAo3otHGCLTuii2EKceERFZS//Gdu62/HR3mr7ypRQ=="
         },
         "nav-frontend-lukknapp-style": {
-            "version": "0.2.16",
-            "resolved": "https://registry.npmjs.org/nav-frontend-lukknapp-style/-/nav-frontend-lukknapp-style-0.2.16.tgz",
-            "integrity": "sha512-PE19k8/mHXerthw0+1UJxyQnfWF1yxfDDkbt4qbD4P+J0vwJl6o14xBqKD4kX4mtpf0a4KSh+919UHtaAVqGww==",
+            "version": "0.2.23",
+            "resolved": "https://registry.npmjs.org/nav-frontend-lukknapp-style/-/nav-frontend-lukknapp-style-0.2.23.tgz",
+            "integrity": "sha512-GWS6YQQN+ORUpOd/We/RRW8aGtKEH3260vTRhtRuEj7ctlMsVC4gczmu2orX4uzrNk7DK6UgMsITc3Q6YuU8gA==",
             "dev": true
         },
         "nav-frontend-modal": {

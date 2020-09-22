@@ -14733,9 +14733,9 @@
             "integrity": "sha512-arSXmBHMApMAe1+uO89EDeKlEOChCMHK0FRSQuiIHeDqmOwFnW3UEOn+Gye7XK24+Q2c4EHpujw34JiIA9G18A=="
         },
         "nav-frontend-chevron-style": {
-            "version": "0.3.4",
-            "resolved": "https://registry.npmjs.org/nav-frontend-chevron-style/-/nav-frontend-chevron-style-0.3.4.tgz",
-            "integrity": "sha512-pAWxabxXujZhwgYUvkWyuuLEDbyYP52VmA0jeXicJT6vfxHewkycMIgP4TqPPrHtPyNx2SVEa+RPK+OiPMcRPw==",
+            "version": "0.3.5",
+            "resolved": "https://registry.npmjs.org/nav-frontend-chevron-style/-/nav-frontend-chevron-style-0.3.5.tgz",
+            "integrity": "sha512-RahSZnJ+R/GtSHy4I15omGUyLawqswb3xgIG7Zcc88pbLH1x4Z1UHyqRShbsf1yKklXCgHzhx+JneZKYb2av/w==",
             "dev": true
         },
         "nav-frontend-core": {

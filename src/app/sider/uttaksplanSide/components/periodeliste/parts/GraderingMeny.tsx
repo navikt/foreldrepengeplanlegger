@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import SkjemaNumberStepper from 'common/components/skjema/skjemaNumberStepper/SkjemaNumberStepper';
 import AriaAlternative from 'common/components/aria/AriaAlternative';
 import WorkIkon from 'common/components/ikoner/WorkIkon';
@@ -9,7 +9,7 @@ import Block from 'common/components/block/Block';
 import getMessage from 'common/util/i18nUtils';
 import { getVarighetString } from 'common/util/intlUtils';
 
-interface OwnProps {
+interface Props {
     gradering?: number;
     uttaksdagerBrukt?: number;
     foreldernavn?: string;
@@ -18,8 +18,6 @@ interface OwnProps {
     onChange: (gradering: number | undefined) => void;
 }
 
-type Props = OwnProps & InjectedIntlProps;
-
 const beregnGraderingUtFraArbeidsprosent = (arbeidsprosent: number | undefined): number | undefined => {
     if (arbeidsprosent !== undefined) {
         return Math.min(99, Math.max(1, 100 - arbeidsprosent));
@@ -27,15 +25,15 @@ const beregnGraderingUtFraArbeidsprosent = (arbeidsprosent: number | undefined):
     return undefined;
 };
 
-const GraderingMeny: React.StatelessComponent<Props> = ({
+const GraderingMeny: React.FunctionComponent<Props> = ({
     gradering,
     foreldernavn,
     uttaksdagerBrukt,
     onChange,
     disabled,
-    intl,
-    dropdownStyle = 'filled'
+    dropdownStyle = 'filled',
 }) => {
+    const intl = useIntl();
     const valgtGradering = gradering || 50;
     const arbeidsprosent = valgtGradering === undefined ? 100 : 100 - valgtGradering;
     return (
@@ -51,7 +49,7 @@ const GraderingMeny: React.StatelessComponent<Props> = ({
                         <IconText icon={<WorkIkon />} layout="vertical">
                             <AriaAlternative
                                 ariaText={getMessage(intl, 'periodeliste.arbeidOgUttak.ariatekst.jobber', {
-                                    arbeidsprosent
+                                    arbeidsprosent,
                                 })}
                                 visibleText={`${arbeidsprosent} %`}
                             />
@@ -64,7 +62,7 @@ const GraderingMeny: React.StatelessComponent<Props> = ({
                         <Block margin="xs">
                             <SkjemaNumberStepper
                                 tittel={getMessage(intl, 'periodeliste.arbeidOgUttak.spørsmål', {
-                                    navn: foreldernavn || 'du'
+                                    navn: foreldernavn || 'du',
                                 })}
                                 inputAriaLabel={getMessage(intl, 'periodeliste.arbeidOgUttak.label.ariaTekst')}
                                 min={1}
@@ -76,9 +74,12 @@ const GraderingMeny: React.StatelessComponent<Props> = ({
                         </Block>
                         {uttaksdagerBrukt !== undefined && uttaksdagerBrukt > 0 && (
                             <Block margin="xxs">
-                                <FormattedHTMLMessage
+                                <FormattedMessage
                                     id="periodeliste.arbeidOgUttak.uttaksdager"
-                                    values={{ dager: getVarighetString(uttaksdagerBrukt, intl) }}
+                                    values={{
+                                        dager: getVarighetString(uttaksdagerBrukt, intl),
+                                        strong: (msg: any) => <strong>{msg}</strong>,
+                                    }}
                                 />
                             </Block>
                         )}
@@ -90,4 +91,4 @@ const GraderingMeny: React.StatelessComponent<Props> = ({
     );
 };
 
-export default injectIntl(GraderingMeny);
+export default GraderingMeny;

@@ -12,7 +12,7 @@ import { Tidsperiode, Forelder } from 'common/types';
 import PeriodelisteElement from './periodelisteElement/PeriodelisteElement';
 import PeriodeBlokk from '../periodeBlokk/PeriodeBlokk';
 import getMessage from 'common/util/i18nUtils';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, IntlShape } from 'react-intl';
 import VarighetMeny from '../periodeskjema/varighet/VarighetMeny';
 import { VarighetChangeEvent } from '../periodeskjema/varighet/VarighetSkjema';
 import { kanBeggeForeldreVelgesForPeriodetype } from '../../../../utils/kontoUtils';
@@ -20,7 +20,11 @@ import UlønnetPermisjonMeny from './parts/UlønnetPermisjonMeny';
 import { Periodene } from '../../../../utils/Periodene';
 import { OmForeldre } from 'shared/types';
 
-type Props = PeriodelisteElementProps & InjectedIntlProps;
+interface IntlProp {
+    intl: IntlShape;
+}
+
+type Props = PeriodelisteElementProps & IntlProp;
 
 const bem = BEMHelper('periodeElement');
 
@@ -50,13 +54,13 @@ class PeriodeElement extends React.Component<Props> {
             const oppdatertPeriode = {
                 ...periode,
                 tidsperiode: dager ? Tidsperioden(tidsperiode).setUttaksdager(dager) : tidsperiode,
-                skalIkkeHaUttakFørTermin: ingenVarighet
+                skalIkkeHaUttakFørTermin: ingenVarighet,
             };
             this.props.onUpdate(oppdatertPeriode as Periode);
         } else if (dager !== undefined) {
             this.props.onUpdate({
                 ...periode,
-                tidsperiode: Tidsperioden(tidsperiode || {}).setUttaksdager(dager) as Tidsperiode
+                tidsperiode: Tidsperioden(tidsperiode || {}).setUttaksdager(dager) as Tidsperiode,
             });
         }
     }
@@ -72,7 +76,7 @@ class PeriodeElement extends React.Component<Props> {
             perioder,
             kanSlettes = true,
             disabled,
-            intl
+            intl,
         } = this.props;
 
         const { uttaksinfo } = this.props.periode;
@@ -82,7 +86,7 @@ class PeriodeElement extends React.Component<Props> {
 
         const { antallUttaksdagerBrukt, antallUttaksdager } = uttaksinfo || {
             antallUttaksdagerBrukt: 0,
-            antallUttaksdager: 0
+            antallUttaksdager: 0,
         };
         const foreldernavn = getForelderNavn(periode.forelder, omForeldre);
         const { fom, tom } = periode.tidsperiode;
@@ -104,11 +108,11 @@ class PeriodeElement extends React.Component<Props> {
                                     brukteUttaksdager={antallUttaksdagerBrukt}
                                     uttaksdager={antallUttaksdager}
                                     kanVelgeUlønnetPermisjon={omForeldre.erDeltOmsorg === true}
-                                    onChange={(periodetype) =>
+                                    onChange={(periodetype: any) =>
                                         onUpdate(changePeriodeType(this.props.periode, periodetype))
                                     }
                                 />
-                            )
+                            ),
                         },
 
                         {
@@ -119,11 +123,11 @@ class PeriodeElement extends React.Component<Props> {
                                     disabled={disabled}
                                     foreldernavn={omForeldre.erDeltOmsorg ? foreldernavn : getMessage(intl, 'du')}
                                     gradering={periode.gradering}
-                                    onChange={(gradering) => onUpdate({ ...this.props.periode, gradering })}
+                                    onChange={(gradering: any) => onUpdate({ ...this.props.periode, gradering })}
                                     uttaksdagerBrukt={antallUttaksdagerBrukt}
                                 />
                             ),
-                            isVisibleCheck: () => periode.type === Periodetype.GradertUttak
+                            isVisibleCheck: () => periode.type === Periodetype.GradertUttak,
                         },
                         {
                             id: `forelder-${periode.id}`,
@@ -135,15 +139,15 @@ class PeriodeElement extends React.Component<Props> {
                                     farMedmor={this.props.omForeldre.farMedmor!}
                                     disabled={forelderErLåst || disabled}
                                     kanVelgeBeggeForeldre={kanBeggeForeldreVelgesForPeriodetype(periode.type)}
-                                    onChange={(forelder, medforelder) =>
+                                    onChange={(forelder: any, medforelder: any) =>
                                         onUpdate({
                                             ...this.props.periode,
-                                            forelder
+                                            forelder,
                                         })
                                     }
                                 />
                             ),
-                            isVisibleCheck: () => omForeldre.erDeltOmsorg
+                            isVisibleCheck: () => omForeldre.erDeltOmsorg,
                         },
                         ...(isUlønnetPermisjon(periode)
                             ? [
@@ -157,17 +161,17 @@ class PeriodeElement extends React.Component<Props> {
                                               utsettelsesårsak={periode.utsettelsesårsak}
                                               dropdownStyle="filled"
                                               disabled={disabled}
-                                              onChange={(utsettelsesårsak) => {
+                                              onChange={(utsettelsesårsak: any) => {
                                                   onUpdate({
                                                       ...(this.props.periode as UlønnetPermisjon),
-                                                      utsettelsesårsak
+                                                      utsettelsesårsak,
                                                   });
                                               }}
                                           />
                                       ),
                                       isVisibleCheck: () =>
-                                          !avsluttendeUlønnedePermisjoner.some((p) => p.id === periode.id)
-                                  }
+                                          !avsluttendeUlønnedePermisjoner.some((p) => p.id === periode.id),
+                                  },
                               ]
                             : []),
 
@@ -194,31 +198,31 @@ class PeriodeElement extends React.Component<Props> {
                                                 : uttaksdatoer.etterFødsel.sisteMuligeUttaksdag,
                                         tidsperiode: {
                                             fom,
-                                            tom
+                                            tom,
                                         },
                                         onTidsperiodeChange: (tidsperiode) =>
                                             isValidTidsperiode(tidsperiode)
                                                 ? onUpdate({
                                                       ...this.props.periode,
-                                                      tidsperiode
+                                                      tidsperiode,
                                                   })
                                                 : null,
                                         onVarighetChange: this.handleChangeVarighet,
                                         ingenVarighet:
                                             periode.type === Periodetype.UttakFørTermin
                                                 ? periode.skalIkkeHaUttakFørTermin
-                                                : undefined
+                                                : undefined,
                                     }}
                                     dropdownStyle="filled"
                                 />
-                            )
-                        }
+                            ),
+                        },
                     ]}
                     slett={
                         kanSlettes
                             ? {
                                   ariaLabel: getMessage(intl, 'periodeliste.ariatekst.slettPeriode'),
-                                  onRemove: () => onRemove(this.props.periode)
+                                  onRemove: () => onRemove(this.props.periode),
                               }
                             : undefined
                     }
@@ -227,8 +231,8 @@ class PeriodeElement extends React.Component<Props> {
                             ? [
                                   getMessage(intl, 'uttaksplan.ferie.inneholderHelligdager', {
                                       dager: antallUttaksdagerBrukt,
-                                      navn: foreldernavn
-                                  })
+                                      navn: foreldernavn,
+                                  }),
                               ]
                             : undefined
                     }

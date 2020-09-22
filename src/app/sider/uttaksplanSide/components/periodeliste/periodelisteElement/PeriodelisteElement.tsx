@@ -11,7 +11,7 @@ import { getAlertstripeTypeFromRegelAvvik } from '../periodelisteUtils';
 import RegelAvvikFeilmelding from '../../regelAvvikListe/RegelAvvikFeilmelding';
 import InfoIkonFylt from 'common/components/ikoner/InfoIkonFylt';
 import getMessage from 'common/util/i18nUtils';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, IntlShape } from 'react-intl';
 import StatusIkon from 'common/components/ikoner/StatusIkon';
 
 import './periodelisteElement.less';
@@ -47,14 +47,18 @@ const PeriodeElementMenyWrapper: React.StatelessComponent<{ meny: PeriodeElement
     );
 };
 
-type Props = OwnProps & InjectedIntlProps;
+interface IntlProp {
+    intl: IntlShape;
+}
+
+type Props = OwnProps & IntlProp;
 
 class PeriodelisteElement extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
             infoVisible: true,
-            regelInfoVisible: false
+            regelInfoVisible: false,
         };
     }
     componentWillReceiveProps(nextProps: Props) {
@@ -71,8 +75,8 @@ class PeriodelisteElement extends React.Component<Props, State> {
             <div className={bem.block}>
                 <div className={bem.element('mainContent')}>
                     {menyer
-                        .filter((meny) => (meny.isVisibleCheck ? meny.isVisibleCheck() : true))
-                        .map((meny) => (
+                        .filter((meny: any) => (meny.isVisibleCheck ? meny.isVisibleCheck() : true))
+                        .map((meny: any) => (
                             <PeriodeElementMenyWrapper meny={meny} key={meny.id} />
                         ))}
 
@@ -110,7 +114,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                 {info && (
                     <div className={bem.element('info', infoVisible ? 'open' : undefined)} id={infoId}>
                         <Block visible={infoVisible} style="info" margin="none">
-                            {info.map((i, idx) => (
+                            {info.map((i: any, idx: number) => (
                                 <p key={idx} className={bem.element('infoText')}>
                                     {i}
                                 </p>
@@ -123,7 +127,7 @@ class PeriodelisteElement extends React.Component<Props, State> {
                         <Block visible={regelInfoVisible} margin="none">
                             <AlertStripe type={getAlertstripeTypeFromRegelAvvik(regelAvvik[0])} solid={true}>
                                 <ul className={bem.element('regelavvikListe')}>
-                                    {regelAvvik.map((a, idx) => (
+                                    {regelAvvik.map((a: any, idx: number) => (
                                         <li className={bem.element('regelavvikListe__brudd')} key={idx}>
                                             <RegelAvvikFeilmelding info={a.info} />
                                         </li>

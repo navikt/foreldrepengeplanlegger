@@ -1,6 +1,6 @@
 import { RegelTestresultat, RegelTest } from '../../../../shared/types';
 import { Periodetype } from '../../../types';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl';
 import { getVarighetString } from 'common/util/intlUtils';
 import { Regelgrunnlag } from '../types';
 
@@ -18,8 +18,8 @@ export const inneholderPlanenFerieMedUttaksdagerTest: RegelTest = (grunnlag: Reg
             ? undefined
             : {
                   values: {
-                      dager: (intl: InjectedIntl) => getVarighetString(dager, intl)
-                  }
-              }
+                      dager: (intl: IntlShape) => getVarighetString(dager, intl),
+                  },
+              },
     };
 };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormattedMessage, injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { getVarighetString } from 'common/util/intlUtils';
 import { ForeldreparSituasjon } from 'shared/types';
 import { Forelder } from 'common/types';
@@ -10,12 +10,9 @@ interface Props {
     flerbarnsdager?: number;
 }
 
-const Situasjonsinfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
-    situasjon,
-    flerbarnsdager,
-    forelder,
-    intl
-}) => {
+const Situasjonsinfo: React.FunctionComponent<Props> = ({ situasjon, flerbarnsdager, forelder }) => {
+    const intl = useIntl();
+
     if (situasjon === ForeldreparSituasjon.aleneomsorg && forelder) {
         return <FormattedMessage id={`situasjon.info.${situasjon}.${forelder}.tekst`} />;
     }
@@ -26,13 +23,16 @@ const Situasjonsinfo: React.StatelessComponent<Props & InjectedIntlProps> = ({
             situasjon === ForeldreparSituasjon.bareFar)
     ) {
         return (
-            <FormattedHTMLMessage
+            <FormattedMessage
                 id={`situasjon.info.${situasjon}.flerbarn`}
-                values={{ flerbarnsuker: getVarighetString(flerbarnsdager, intl) }}
+                values={{
+                    flerbarnsuker: getVarighetString(flerbarnsdager, intl),
+                    strong: (msg: any) => <strong>{msg}</strong>,
+                }}
             />
         );
     }
     return <FormattedMessage id={`situasjon.info.${situasjon}`} />;
 };
 
-export default injectIntl(Situasjonsinfo);
+export default Situasjonsinfo;

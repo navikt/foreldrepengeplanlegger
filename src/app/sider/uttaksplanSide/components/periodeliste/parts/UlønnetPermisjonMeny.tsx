@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { injectIntl, InjectedIntlProps, InjectedIntl } from 'react-intl';
+import { IntlShape, useIntl } from 'react-intl';
 import { Utsettelsesårsak } from '../../../../../types';
 import getMessage from 'common/util/i18nUtils';
 import DropdownFormMenu from 'common/components/dropdownForm/DropdownFormMenu';
@@ -25,9 +25,9 @@ interface OwnProps {
     onChange: (utsettelsesårsak: Utsettelsesårsak) => void;
 }
 
-type Props = OwnProps & InjectedIntlProps;
+type Props = OwnProps;
 
-const getUtsettelsesårsakLabel = (type: Utsettelsesårsak | undefined, intl: InjectedIntl): string => {
+const getUtsettelsesårsakLabel = (type: Utsettelsesårsak | undefined, intl: IntlShape): string => {
     return getMessage(intl, `utsettelsesårsak.${type}`);
 };
 
@@ -38,7 +38,8 @@ const getMedforelderinfo = (forelder: Forelder, omForeldre: OmForeldre): Forelde
     return undefined;
 };
 
-const UlønnetPermisjonLabel: React.StatelessComponent<Props> = ({ utsettelsesårsak, forelder, omForeldre, intl }) => {
+const UlønnetPermisjonLabel: React.FunctionComponent<Props> = ({ utsettelsesårsak, forelder, omForeldre }) => {
+    const intl = useIntl();
     const forelderInfo = getMedforelderinfo(forelder, omForeldre);
     return utsettelsesårsak && forelder && forelderInfo ? (
         <div className="ulonnetPermisjonMenyLabel">
@@ -58,8 +59,9 @@ const UlønnetPermisjonLabel: React.StatelessComponent<Props> = ({ utsettelseså
     );
 };
 
-const UlønnetPermisjonMeny: React.StatelessComponent<Props> = (props) => {
-    const { intl, utsettelsesårsak, dropdownStyle = 'filled', onChange, forelder, omForeldre, disabled } = props;
+const UlønnetPermisjonMeny: React.FunctionComponent<Props> = (props) => {
+    const intl = useIntl();
+    const { utsettelsesårsak, dropdownStyle = 'filled', onChange, forelder, omForeldre, disabled } = props;
     return (
         <DropdownForm
             disabled={disabled}
@@ -67,7 +69,7 @@ const UlønnetPermisjonMeny: React.StatelessComponent<Props> = (props) => {
             labelRenderer={() => <UlønnetPermisjonLabel {...props} />}
             contentClassName="ulonnetPermisjonDialog"
             contentTitle={getMessage(intl, 'periodeliste.velgUlønnetPermisjon', {
-                navn: getMedforelderNavn(forelder, omForeldre)
+                navn: getMedforelderNavn(forelder, omForeldre),
             })}
             style={dropdownStyle}
             contentRenderer={() => (
@@ -83,8 +85,8 @@ const UlønnetPermisjonMeny: React.StatelessComponent<Props> = (props) => {
                             }
                             info={{
                                 tekst: getMessage(intl, 'ulønnetPermisjonSkjema.info.html', {
-                                    lenke: Lenker.infolenkeUlønnetPermisjon
-                                })
+                                    lenke: Lenker.infolenkeUlønnetPermisjon,
+                                }),
                             }}
                         />
                     }
@@ -94,4 +96,4 @@ const UlønnetPermisjonMeny: React.StatelessComponent<Props> = (props) => {
     );
 };
 
-export default injectIntl(UlønnetPermisjonMeny);
+export default UlønnetPermisjonMeny;

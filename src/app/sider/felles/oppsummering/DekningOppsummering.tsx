@@ -1,7 +1,7 @@
 import * as React from 'react';
 import BEMHelper from 'common/util/bem';
 import OppsummeringBlokk from './oppsummeringBlokk/OppsummeringBlokk';
-import { injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Dekningsgrad } from 'common/types';
 import UkerSirkel from './ukerSirkel/UkerSirkel';
 import { getVarighetString } from 'common/util/intlUtils';
@@ -17,13 +17,13 @@ export interface DekningOppsummeringProps {
 
 const bem = BEMHelper('oppsummering');
 
-const DekningOppsummering: React.StatelessComponent<DekningOppsummeringProps & InjectedIntlProps> = ({
+const DekningOppsummering: React.FunctionComponent<DekningOppsummeringProps> = ({
     omForeldre,
     tilgjengeligeDager,
     dekningsgrad,
     onRequestChange,
-    intl
 }) => {
+    const intl = useIntl();
     const uker = tilgjengeligeDager.dagerTotalt / 5;
     return (
         <OppsummeringBlokk
@@ -37,12 +37,13 @@ const DekningOppsummering: React.StatelessComponent<DekningOppsummeringProps & I
                 </div>
             }>
             <div>
-                <FormattedHTMLMessage
+                <FormattedMessage
                     id="oppsummering.dekning.harValgt"
                     values={{
                         antallForeldre: omForeldre.erDeltOmsorg ? 2 : 1,
                         varighet: getVarighetString(tilgjengeligeDager.dagerTotalt, intl),
-                        dekningsgrad
+                        strong: (msg: any) => <strong>{msg}</strong>,
+                        dekningsgrad,
                     }}
                 />
             </div>
@@ -50,4 +51,4 @@ const DekningOppsummering: React.StatelessComponent<DekningOppsummeringProps & I
     );
 };
 
-export default injectIntl(DekningOppsummering);
+export default DekningOppsummering;

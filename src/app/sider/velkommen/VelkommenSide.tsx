@@ -21,7 +21,7 @@ class Skjemaside extends React.Component<Props, {}> {
         return (
             <LoadContainer loading={henterStønadskontoer} overlay={true}>
                 <Situasjonsskjema
-                    onSubmit={(data) => dispatch(submitSkjemadata(data, this.props.history))}
+                    onSubmit={(data: any) => dispatch(submitSkjemadata(data, this.props.history))}
                     onReset={() => {
                         dispatch(resetApp());
                     }}
@@ -35,7 +35,7 @@ class Skjemaside extends React.Component<Props, {}> {
 const mapStateToProps = (state: AppState): StateProps => {
     return {
         skjemadata: state.common.present.skjemadata,
-        henterStønadskontoer: state.api.stønadskontoer.pending
+        henterStønadskontoer: state.api.stønadskontoer.pending,
     };
 };
 

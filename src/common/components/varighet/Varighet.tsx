@@ -1,13 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import BEMHelper from 'common/util/bem';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { getUkerOgDagerFromDager } from 'common/util/datoUtils';
 import getMessage from 'common/util/i18nUtils';
 
 import './varighet.less';
 
-interface OwnProps {
+interface Props {
     dager: number;
     separator?: React.ReactNode;
     layout?: 'vertical';
@@ -15,9 +15,8 @@ interface OwnProps {
 
 const bem = BEMHelper('varighet');
 
-type Props = OwnProps & InjectedIntlProps;
-
-const Varighet: React.StatelessComponent<Props> = ({ dager, layout, separator, intl }) => {
+const Varighet: React.FunctionComponent<Props> = ({ dager, layout, separator }) => {
+    const intl = useIntl();
     const ud = getUkerOgDagerFromDager(dager);
     return (
         <span className={classNames(bem.block, layout ? bem.modifier(layout) : undefined)}>
@@ -55,4 +54,4 @@ const Varighet: React.StatelessComponent<Props> = ({ dager, layout, separator, i
     );
 };
 
-export default injectIntl(Varighet);
+export default Varighet;

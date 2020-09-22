@@ -5,7 +5,7 @@ import AntallBarnSirkel from './antallBarnSirkel/AntallBarnSirkel';
 import SituasjonSirkel from './situasjonSirkel/SituasjonSirkel';
 import { formaterDatoUtenDag } from 'common/util/datoUtils';
 import getMessage from 'common/util/i18nUtils';
-import { injectIntl, InjectedIntlProps, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ForeldreparSituasjon, OmForeldre } from 'shared/types';
 
 export interface SituasjonsoppsummeringProps {
@@ -18,8 +18,9 @@ export interface SituasjonsoppsummeringProps {
 
 const bem = BEMHelper('oppsummering');
 
-const Situasjonsoppsummering: React.StatelessComponent<SituasjonsoppsummeringProps & InjectedIntlProps> = (props) => {
-    const { antallBarn, familiehendelsesdato, omForeldre, onRequestChange, intl } = props;
+const Situasjonsoppsummering: React.FunctionComponent<SituasjonsoppsummeringProps> = (props) => {
+    const intl = useIntl();
+    const { antallBarn, familiehendelsesdato, omForeldre, onRequestChange } = props;
     const barn = getMessage(intl, `antallBarn.alternativ.barn-${antallBarn}`);
     const termin = formaterDatoUtenDag(familiehendelsesdato);
 
@@ -28,7 +29,7 @@ const Situasjonsoppsummering: React.StatelessComponent<SituasjonsoppsummeringPro
             onRequestChange={onRequestChange}
             tittel={getMessage(intl, 'oppsummering.situasjon.tittel', {
                 antallBarn,
-                antallForeldre: omForeldre.erDeltOmsorg ? 2 : 1
+                antallForeldre: omForeldre.erDeltOmsorg ? 2 : 1,
             })}
             illustrasjoner={
                 <div className={bem.classNames(bem.element('deler', 'illustrasjoner'))}>
@@ -40,16 +41,17 @@ const Situasjonsoppsummering: React.StatelessComponent<SituasjonsoppsummeringPro
                     </div>
                 </div>
             }>
-            <FormattedHTMLMessage
+            <FormattedMessage
                 id="oppsummering.situasjon.tekst"
                 values={{
                     antallForeldre: omForeldre.erDeltOmsorg ? 2 : 1,
+                    strong: (msg: any) => <strong>{msg}</strong>,
                     barn,
-                    termin
+                    termin,
                 }}
             />
         </OppsummeringBlokk>
     );
 };
 
-export default injectIntl(Situasjonsoppsummering);
+export default Situasjonsoppsummering;

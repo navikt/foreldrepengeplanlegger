@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NedChevron } from 'nav-frontend-chevron';
 import { Wrapper, Button, Menu, MenuItem } from 'react-aria-menubutton';
-import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import NorwayFlagSVG from './NorwayFlagSVG';
 import { Language } from '../IntlProvider';
 import './languageToggle.less';
@@ -33,7 +33,8 @@ const handleSelection = (value: JSX.Element[], e: any, toggleLanguage: any) => {
     toggleLanguage(getLanguageCodeFromValue(value[1].props.id));
 };
 
-const LanguageToggle: React.StatelessComponent<Props & InjectedIntlProps> = ({ intl, toggleLanguage }) => {
+const LanguageToggle: React.FunctionComponent<Props> = ({ toggleLanguage }) => {
+    const intl = useIntl();
     const menuLanguages: Language[] = (['nb', 'nn'] as Language[]).filter((code) => code !== intl.locale);
 
     return (
@@ -59,4 +60,5 @@ const LanguageToggle: React.StatelessComponent<Props & InjectedIntlProps> = ({ i
         </div>
     );
 };
-export default injectIntl(LanguageToggle);
+
+export default LanguageToggle;

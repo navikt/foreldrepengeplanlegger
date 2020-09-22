@@ -10,7 +10,7 @@ import LinkButton from 'common/components/linkButton/LinkButton';
 import { getDagerGradert } from '../../../../../utils/forbrukUtils';
 import { Undertittel, Ingress } from 'nav-frontend-typografi';
 import Tittel from 'common/components/tittel/Tittel';
-import { FormattedMessage, InjectedIntlProps, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl, IntlShape, useIntl } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
 
 export interface VarighetChangeEvent {
@@ -35,21 +35,21 @@ export interface VarighetSkjemaProps {
     onVarighetChange: (evt: VarighetChangeEvent) => void;
 }
 
-type Props = VarighetSkjemaProps & InjectedIntlProps;
+type Props = VarighetSkjemaProps;
 
 interface State {
     varighetEllerSluttdato: 'sluttdato' | 'varighet';
 }
 
-const VarighetStartdato: React.StatelessComponent<Props> = ({
+const VarighetStartdato: React.FunctionComponent<Props> = ({
     onTidsperiodeChange,
     tidsperiode,
     minDato,
     maksDato,
     periodetype,
     erNyPeriode,
-    intl
 }) => {
+    const intl = useIntl();
     const låstStartdato = periodetype !== Periodetype.UttakFørTermin && erNyPeriode === false;
     const label = getMessage(intl, 'periodeskjema.tid.startdato');
     return (
@@ -64,7 +64,7 @@ const VarighetStartdato: React.StatelessComponent<Props> = ({
                             <Ingress className="capitalizeFirstLetter">{formaterDatoUtenDag(tidsperiode.fom)}</Ingress>
                         }
                         info={{
-                            tekst: getMessage(intl, 'periodeskjema.tid.startdato.låstInfo')
+                            tekst: getMessage(intl, 'periodeskjema.tid.startdato.låstInfo'),
                         }}
                     />
                 </>
@@ -75,26 +75,21 @@ const VarighetStartdato: React.StatelessComponent<Props> = ({
                     name="fom"
                     label={{
                         label: <Undertittel className="blokk-xxs">{label}</Undertittel>,
-                        ariaLabel: label
+                        ariaLabel: label,
                     }}
                     visÅrVelger={true}
                     dato={tidsperiode.fom}
                     disabled={låstStartdato}
                     datoAvgrensninger={{ minDato, maksDato, helgedagerIkkeTillatt: true }}
-                    onChange={(dato) => onTidsperiodeChange({ fom: dato, tom: tidsperiode.tom })}
+                    onChange={(dato: any) => onTidsperiodeChange({ fom: dato, tom: tidsperiode.tom })}
                 />
             )}
         </>
     );
 };
 
-const VarighetSluttdato: React.StatelessComponent<Props> = ({
-    onTidsperiodeChange,
-    tidsperiode,
-    minDato,
-    maksDato,
-    intl
-}) => {
+const VarighetSluttdato: React.FunctionComponent<Props> = ({ onTidsperiodeChange, tidsperiode, minDato, maksDato }) => {
+    const intl = useIntl();
     const label = getMessage(intl, 'periodeskjema.tid.sluttdato');
     return (
         <DatoInput
@@ -102,18 +97,19 @@ const VarighetSluttdato: React.StatelessComponent<Props> = ({
             name="tom"
             label={{
                 label: <Undertittel className="blokk-xxs">{label}</Undertittel>,
-                ariaLabel: label
+                ariaLabel: label,
             }}
             visÅrVelger={true}
             dato={tidsperiode.tom}
             datoAvgrensninger={{ minDato: tidsperiode.fom || minDato, maksDato, helgedagerIkkeTillatt: true }}
-            onChange={(dato) => onTidsperiodeChange({ tom: dato, fom: tidsperiode.fom })}
+            onChange={(dato: any) => onTidsperiodeChange({ tom: dato, fom: tidsperiode.fom })}
         />
     );
 };
 
-const VarighetStartdatoFørTermin: React.StatelessComponent<Props> = (props) => {
-    const { ingenVarighet, onVarighetChange, intl } = props;
+const VarighetStartdatoFørTermin: React.FunctionComponent<Props> = (props) => {
+    const intl = useIntl();
+    const { ingenVarighet, onVarighetChange } = props;
     return (
         <Block margin="s">
             <Block margin="s">
@@ -128,7 +124,11 @@ const VarighetStartdatoFørTermin: React.StatelessComponent<Props> = (props) => 
     );
 };
 
-class VarighetSkjema extends React.Component<Props, State> {
+interface IntlProp {
+    intl: IntlShape;
+}
+
+class VarighetSkjema extends React.Component<Props & IntlProp, State> {
     render() {
         const {
             onVarighetChange,
@@ -140,7 +140,7 @@ class VarighetSkjema extends React.Component<Props, State> {
             gjenståendeDager,
             periodetype,
             gradering,
-            intl
+            intl,
         } = this.props;
         const { uker, dager } = getUkerOgDagerFromDager(antallUttaksdager || 0);
         const { fom } = tidsperiode;
@@ -174,7 +174,7 @@ class VarighetSkjema extends React.Component<Props, State> {
                         minDager={1}
                         onChange={(ukerOgDager) =>
                             onVarighetChange({
-                                dager: ukerOgDager.dager + ukerOgDager.uker * 5
+                                dager: ukerOgDager.dager + ukerOgDager.uker * 5,
                             })
                         }
                     />
@@ -186,7 +186,7 @@ class VarighetSkjema extends React.Component<Props, State> {
                         <LinkButton
                             onClick={() =>
                                 onVarighetChange({
-                                    dager: getDagerGradert(gjenståendeDager, gradering)
+                                    dager: getDagerGradert(gjenståendeDager, gradering),
                                 })
                             }>
                             <FormattedMessage id="periodeskjema.tid.brukGjenståendeDager" />

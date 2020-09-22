@@ -14,7 +14,7 @@ import { Uttaksdagen } from '../../../../utils/Uttaksdagen';
 import BekreftDialog from 'common/components/dialog/BekreftDialog';
 import { getForbruk } from '../../../../utils/forbrukUtils';
 import BEMHelper from 'common/util/bem';
-import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
+import { FormattedMessage, injectIntl, IntlShape } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
 import FocusContainer from 'common/components/focusContainer/FocusContainer';
 import { RegelAvvik, OmForeldre, Forbruk, TilgjengeligeDager } from '../../../../../shared/types';
@@ -49,7 +49,11 @@ interface OwnProps {
     redo?: () => void;
 }
 
-type Props = OwnProps & PeriodelisteProps & InjectedIntlProps;
+interface IntlProp {
+    intl: IntlShape;
+}
+
+type Props = OwnProps & PeriodelisteProps & IntlProp;
 
 const bem = BEMHelper('uttaksplan');
 
@@ -65,7 +69,7 @@ class Uttaksplan extends React.Component<Props, State> {
         this.state = {
             visSkjema: props.perioder.length === 0,
             visBekreftSlettPeriodeDialog: false,
-            visBekreftSlettPlanDialog: false
+            visBekreftSlettPlanDialog: false,
         };
     }
 
@@ -80,7 +84,7 @@ class Uttaksplan extends React.Component<Props, State> {
         }
         this.setState({
             visBekreftSlettPeriodeDialog: false,
-            valgtPeriode: undefined
+            valgtPeriode: undefined,
         });
     }
 
@@ -124,7 +128,7 @@ class Uttaksplan extends React.Component<Props, State> {
             regelAvvik,
             undo,
             redo,
-            intl
+            intl,
         } = this.props;
         const { visSkjema } = this.state;
         const nesteUttaksdag =
@@ -143,8 +147,8 @@ class Uttaksplan extends React.Component<Props, State> {
                               {
                                   key: 'Escape',
                                   name: 'Lukk skjema',
-                                  onAction: this.handleCancelLeggTil
-                              }
+                                  onAction: this.handleCancelLeggTil,
+                              },
                           ]
                         : []
                 }>
@@ -201,7 +205,7 @@ class Uttaksplan extends React.Component<Props, State> {
                                                 omForeldre={omForeldre}
                                                 onCancel={this.handleCancelLeggTil}
                                                 onChange={this.handleNyPeriodeChange}
-                                                onSubmit={(periode) => this.addPeriode(periode)}
+                                                onSubmit={(periode: any) => this.addPeriode(periode)}
                                                 nesteUttaksdag={nesteUttaksdag}
                                                 førsteUttaksdag={uttaksdatoer.førsteUttaksdag}
                                                 sisteUttaksdag={uttaksdatoer.etterFødsel.sisteMuligeUttaksdag}

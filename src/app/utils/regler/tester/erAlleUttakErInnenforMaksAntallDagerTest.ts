@@ -1,5 +1,5 @@
 import { RegelTestresultat, RegelTest } from '../../../../shared/types';
-import { InjectedIntl } from 'react-intl';
+import { IntlShape } from 'react-intl';
 import { getVarighetString } from 'common/util/intlUtils';
 import { Regelgrunnlag } from '../types';
 
@@ -8,7 +8,7 @@ export const erAlleUttakErInnenforMaksAntallDagerTest: RegelTest = (grunnlag: Re
 
     if (forbruk === undefined || tilgjengeligeDager === undefined) {
         return {
-            passerer: true
+            passerer: true,
         };
     }
 
@@ -25,9 +25,9 @@ export const erAlleUttakErInnenforMaksAntallDagerTest: RegelTest = (grunnlag: Re
             : {
                   values: {
                       navn: navnMor,
-                      dagerTilgjengelig: (intl: InjectedIntl) => getVarighetString(dagerTilgjengelig, intl),
-                      dagerForMye: (intl: InjectedIntl) => getVarighetString(Math.abs(dagerGjenstående), intl)
-                  }
-              }
+                      dagerTilgjengelig: (intl: IntlShape) => getVarighetString(dagerTilgjengelig, intl),
+                      dagerForMye: (intl: IntlShape) => getVarighetString(Math.abs(dagerGjenstående), intl),
+                  },
+              },
     };
 };

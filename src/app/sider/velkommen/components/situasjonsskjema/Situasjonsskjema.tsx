@@ -3,7 +3,7 @@ import { Formik, FormikProps } from 'formik';
 import SituasjonsskjemaForm from './SituasjonsskjemaForm';
 import { SituasjonSkjemadata } from '../../../../types';
 import * as yup from 'yup';
-import { InjectedIntlProps, injectIntl, InjectedIntl } from 'react-intl';
+import { injectIntl, IntlShape } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
 import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
 import { ForeldreparSituasjon } from 'shared/types';
@@ -15,9 +15,13 @@ interface OwnProps {
     onReset?: () => void;
 }
 
-type Props = OwnProps & InjectedIntlProps;
+interface IntlProp {
+    intl: IntlShape;
+}
 
-const getSituasjonValidationSkjema = (intl: InjectedIntl) =>
+type Props = OwnProps & IntlProp;
+
+const getSituasjonValidationSkjema = (intl: IntlShape) =>
     yup.object().shape({
         situasjon: yup.string().required(getMessage(intl, 'situasjonskjema.validering.situasjon')),
         navnMor: yup
@@ -75,7 +79,7 @@ const getSituasjonValidationSkjema = (intl: InjectedIntl) =>
             }),
 
         antallBarn: yup.number().required(getMessage(intl, 'situasjonskjema.validering.antallBarn')),
-        familiehendelsesdato: yup.date().required(getMessage(intl, 'situasjonskjema.validering.termindato'))
+        familiehendelsesdato: yup.date().required(getMessage(intl, 'situasjonskjema.validering.termindato')),
     });
 
 class Situasjonsskjema extends React.Component<Props> {

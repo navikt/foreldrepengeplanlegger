@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, IntlShape } from 'react-intl';
 import { guid } from 'nav-frontend-js-utils';
 import InfoToggler from 'common/components/utvidetInformasjon/InfoToggler';
 import EkspanderbartInnhold from 'common/components/ekspanderbartInnhold/EkspanderbartInnhold';
@@ -19,7 +19,11 @@ interface State {
     apen: boolean;
 }
 
-type Props = OwnProps & InjectedIntlProps;
+interface IntlProp {
+    intl: IntlShape;
+}
+
+type Props = OwnProps & IntlProp;
 
 class UtvidetInformasjon extends React.Component<Props, State> {
     innholdId: string;
@@ -28,18 +32,18 @@ class UtvidetInformasjon extends React.Component<Props, State> {
         super(props);
         this.innholdId = guid();
         this.state = {
-            apen: props.erApen || false
+            apen: props.erApen || false,
         };
     }
     render() {
         const { intl } = this.props;
         const cls = classNames('utvidetInformasjon', {
-            'utvidetInformasjon--apen': this.state.apen
+            'utvidetInformasjon--apen': this.state.apen,
         });
 
         const {
             apneLabel = getMessage(intl, 'utvidetinfo.lesmer'),
-            lukkLabel = getMessage(intl, 'utvidetinfo.lukk')
+            lukkLabel = getMessage(intl, 'utvidetinfo.lukk'),
         } = this.props;
         return (
             <div className={cls}>

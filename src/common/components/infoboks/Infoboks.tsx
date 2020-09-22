@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { injectIntl, InjectedIntlProps } from 'react-intl';
+import { injectIntl, IntlShape } from 'react-intl';
 import Sirkelknapp, { Stil } from 'common/components/sirkelknapp/Sirkelknapp';
 import LukkInfoIkon from 'common/components/ikoner/LukkInfoIkon';
 import InfoIkon from 'common/components/ikoner/InfoIkon';
@@ -20,14 +20,18 @@ interface InfoboksState {
     isExpanded: boolean;
 }
 
-type Props = InfoboksProps & InjectedIntlProps;
+interface IntlProp {
+    intl: IntlShape;
+}
+
+type Props = InfoboksProps & IntlProp;
 
 class Infoboks extends React.Component<Props, InfoboksState> {
     constructor(props: Props) {
         super(props);
 
         this.state = {
-            isExpanded: false
+            isExpanded: false,
         };
 
         this.toggleIsExpanded = this.toggleIsExpanded.bind(this);
@@ -35,7 +39,7 @@ class Infoboks extends React.Component<Props, InfoboksState> {
 
     toggleIsExpanded() {
         this.setState({
-            isExpanded: !this.state.isExpanded
+            isExpanded: !this.state.isExpanded,
         });
     }
 
@@ -59,7 +63,7 @@ class Infoboks extends React.Component<Props, InfoboksState> {
                     hasNestedCollapse={true}
                     className={classNames('infoboks', {
                         'infoboks--open': isExpanded,
-                        'infoboks__content--fullWidth': contentFullWidth
+                        'infoboks__content--fullWidth': contentFullWidth,
                     })}
                     isOpened={isExpanded}
                     springConfig={{ stiffness: 250, damping: 30 }}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, InjectedIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import TypografiBase from 'nav-frontend-typografi';
 import getMessage from 'common/util/i18nUtils';
 import BEMHelper from 'common/util/bem';
@@ -7,7 +7,13 @@ import './sidebanner.less';
 
 const cls = BEMHelper('sidebanner');
 
-const Sidebanner = ({ text, intl }: { text: string; intl: InjectedIntl }) => {
+interface Props {
+    text: string;
+}
+
+const Sidebanner: React.FunctionComponent<Props> = ({ text }) => {
+    const intl = useIntl();
+
     return (
         <div className={cls.classNames(cls.block, 'no-print')}>
             <TypografiBase type="sidetittel">{getMessage(intl, text)} </TypografiBase>
@@ -15,4 +21,4 @@ const Sidebanner = ({ text, intl }: { text: string; intl: InjectedIntl }) => {
     );
 };
 
-export default injectIntl(Sidebanner);
+export default Sidebanner;

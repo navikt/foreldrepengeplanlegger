@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import getMessage from 'common/util/i18nUtils';
 import RangeInput from 'common/components/skjema/rangeInput/RangeInput';
 import FordelingFellesperiodeLabelRenderer from './FordelingFellesperiodeLabelRenderer';
@@ -14,14 +14,15 @@ export interface OwnProps {
     onChange: (ukerMor: number) => void;
 }
 
-const FordelingFellesperiodeSpørsmål: React.StatelessComponent<OwnProps & InjectedIntlProps> = ({
+const FordelingFellesperiodeSpørsmål: React.FunctionComponent<OwnProps> = ({
     navnMor,
     navnFarMedmor,
     ukerTotalt,
     ukerMor,
     onChange,
-    intl
 }) => {
+    const intl = useIntl();
+
     return (
         <RangeInput
             label={getMessage(intl, 'uttaksplan.skjema.fordeling.spørsmål', { navn: navnMor })}
@@ -36,7 +37,7 @@ const FordelingFellesperiodeSpørsmål: React.StatelessComponent<OwnProps & Inje
                     { id: 'uttaksplan.skjema.fordeling.reduser.tooltip' },
                     { navn: navnFarMedmor }
                 ),
-                increaseLabel: intl.formatMessage({ id: 'uttaksplan.skjema.fordeling.øk.tooltip' }, { navn: navnMor })
+                increaseLabel: intl.formatMessage({ id: 'uttaksplan.skjema.fordeling.øk.tooltip' }, { navn: navnMor }),
             }}
             ariaValueChangedMessage={(value) =>
                 intl.formatMessage(
@@ -46,7 +47,7 @@ const FordelingFellesperiodeSpørsmål: React.StatelessComponent<OwnProps & Inje
                         ukerFarMedmor: ukerTotalt - value,
                         ukerTotalt,
                         navnMor,
-                        navnFarMedmor
+                        navnFarMedmor,
                     }
                 )
             }
@@ -62,4 +63,4 @@ const FordelingFellesperiodeSpørsmål: React.StatelessComponent<OwnProps & Inje
     );
 };
 
-export default injectIntl(FordelingFellesperiodeSpørsmål);
+export default FordelingFellesperiodeSpørsmål;

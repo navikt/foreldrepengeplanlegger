@@ -12,7 +12,7 @@ import {
     slåSammenPerioder,
     nyPeriodeChange,
     navigerTilSide,
-    resetPlan
+    resetPlan,
 } from '../../redux/actions/common/commonActionCreators';
 import { AppState } from '../../redux/reducers/rootReducer';
 import { connect } from 'react-redux';
@@ -28,7 +28,7 @@ import FocusChildOnMountContainer from 'common/components/focusContainer/FocusCh
 import Veilederinfo from 'common/components/veileder-info/Veilederinfo';
 import { Element } from 'nav-frontend-typografi';
 import RegelAvvikListe from './components/regelAvvikListe/RegelAvvikListe';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { ActionCreators as undoActions } from 'redux-undo';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import UtvidetInformasjon from 'common/components/utvidetInformasjon/UtvidetInformasjon';
@@ -87,7 +87,7 @@ class UttaksplanSide extends React.Component<Props> {
             history,
             undoAvailable,
             redoAvailable,
-            dispatch
+            dispatch,
         } = this.props;
 
         if ((skjemadata === undefined && henterStønadskontoer === false) || omForeldre === undefined) {
@@ -104,7 +104,7 @@ class UttaksplanSide extends React.Component<Props> {
                                     antallBarn: skjemadata.antallBarn,
                                     omForeldre,
                                     situasjon: skjemadata.situasjon,
-                                    onRequestChange: () => dispatch(navigerTilSide(Side.START, history))
+                                    onRequestChange: () => dispatch(navigerTilSide(Side.START, history)),
                                 }}
                                 dekningProps={
                                     dekningsgrad
@@ -113,7 +113,7 @@ class UttaksplanSide extends React.Component<Props> {
                                               omForeldre,
                                               tilgjengeligeDager,
                                               onRequestChange: () =>
-                                                  dispatch(navigerTilSide(Side.DEKNINGSGRAD, history))
+                                                  dispatch(navigerTilSide(Side.DEKNINGSGRAD, history)),
                                           }
                                         : undefined
                                 }
@@ -141,14 +141,14 @@ class UttaksplanSide extends React.Component<Props> {
                                     nyPeriode={nyPeriode}
                                     regelAvvik={regelTestresultat.avvik}
                                     tilgjengeligeDager={tilgjengeligeDager}
-                                    onAdd={(periode) => dispatch(addPeriode(periode))}
-                                    onUpdate={(periode) => periode.type === dispatch(updatePeriode(periode))}
-                                    onRemove={(periode) => dispatch(removePeriode(periode))}
-                                    onMove={(periode, toIndex) => dispatch(movePeriode(periode, toIndex))}
+                                    onAdd={(periode: any) => dispatch(addPeriode(periode))}
+                                    onUpdate={(periode: any) => periode.type === dispatch(updatePeriode(periode))}
+                                    onRemove={(periode: any) => dispatch(removePeriode(periode))}
+                                    onMove={(periode: any, toIndex: any) => dispatch(movePeriode(periode, toIndex))}
                                     onResetPlan={() => dispatch(resetPlan())}
                                     onResetApp={() => dispatch(resetApp())}
-                                    onNyPeriodeChange={(periode) => dispatch(nyPeriodeChange(periode))}
-                                    onSlåSammenPerioder={(p1, p2) => dispatch(slåSammenPerioder(p1, p2))}
+                                    onNyPeriodeChange={(periode: any) => dispatch(nyPeriodeChange(periode))}
+                                    onSlåSammenPerioder={(p1: any, p2: any) => dispatch(slåSammenPerioder(p1, p2))}
                                     uttaksdatoer={uttaksdatoer}
                                     regelTestresultat={regelTestresultat}
                                     undo={undoAvailable ? () => dispatch(undoActions.undo()) : undefined}
@@ -161,7 +161,10 @@ class UttaksplanSide extends React.Component<Props> {
                         </Block>
                         <Block visible={omForeldre.bareFar} marginTop="m">
                             <UtvidetInformasjon apneLabel="Hva hvis mor har uføretrygd?">
-                                <FormattedHTMLMessage id="situasjon.info.bareFar.omMorUfør" />
+                                <FormattedMessage
+                                    id="situasjon.info.bareFar.omMorUfør"
+                                    values={{ strong: (msg: any) => <strong>{msg}</strong> }}
+                                />
                             </UtvidetInformasjon>
                         </Block>
                         <Block align="center" marginTop="l" margin="l">
@@ -198,7 +201,7 @@ const mapStateToProps = (state: AppState): StateProps => {
         nyPeriode: common.nyPeriode,
         nyPeriodeId: common.nyPeriodeId,
         undoAvailable: state.common.past.length > 0,
-        redoAvailable: state.common.future.length > 0
+        redoAvailable: state.common.future.length > 0,
     };
 };
 

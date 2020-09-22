@@ -2,7 +2,7 @@ import * as React from 'react';
 
 interface Props {}
 
-const TrashIkon: React.StatelessComponent<Props> = (props) => (
+const TrashIkon: React.FunctionComponent<Props> = (props) => (
     <svg role="presentation" focusable="false" width={26} height={27} {...props} viewBox="0 0 22 23">
         <g fill="none" fillRule="evenodd">
             <path fill="#FFF" fillRule="nonzero" d="M0 0h22v23H0z" />

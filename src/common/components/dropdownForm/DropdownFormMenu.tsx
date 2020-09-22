@@ -16,7 +16,7 @@ interface Props {
 
 const bem = BEMHelper('dropdownFormMenu');
 
-const DropdownFormMenu: React.StatelessComponent<Props> = ({ options, selectedValue, headerContent }) => (
+const DropdownFormMenu: React.FunctionComponent<Props> = ({ options, selectedValue, headerContent }) => (
     <div className={bem.block}>
         {headerContent && <div className={bem.element('header')}>{headerContent}</div>}
         <ul>

@@ -12,7 +12,7 @@ interface Props {
 
 const bem = BEMHelper('periodeliste');
 
-const SlåSammenPerioderValg: React.StatelessComponent<Props> = ({ periode, forrigePeriode, onSamlePerioder }) => {
+const SlåSammenPerioderValg: React.FunctionComponent<Props> = ({ periode, forrigePeriode, onSamlePerioder }) => {
     return (
         <div className={bem.element('likePerioder')}>
             <FormattedMessage id="periodeliste.slaaSammenPerioder.part1" />

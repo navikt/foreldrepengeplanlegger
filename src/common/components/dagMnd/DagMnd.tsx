@@ -13,7 +13,7 @@ interface Props {
 
 const bem = BEMHelper('dagMnd');
 
-const DagMnd: React.StatelessComponent<Props> = ({ dato, visÅr = true }) => {
+const DagMnd: React.FunctionComponent<Props> = ({ dato, visÅr = true }) => {
     return (
         <div className={bem.block}>
             <span className={bem.classNames(bem.element('dato'), visÅr ? bem.modifier('medAar') : undefined)}>

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { guid } from 'nav-frontend-js-utils';
-import { Fieldset } from 'nav-frontend-skjema';
 import Infoboks from 'common/components/infoboks/Infoboks';
 
 import './rangeInput.less';
 import AriaText from 'common/components/aria/AriaText';
 import BEMHelper from 'common/util/bem';
 import StepperKnapp from 'common/components/stepperKnapp/StepperKnapp';
+import Fieldset from 'common/components/fieldset/Fieldset';
 
 export interface RangeInputElementRendererOptions {
     value: number;
@@ -60,7 +60,7 @@ class RangeInput extends React.Component<Props, State> {
         this.handleFocus = this.handleFocus.bind(this);
         this.deactivateIfOutside = this.deactivateIfOutside.bind(this);
         this.state = {
-            active: false
+            active: false,
         };
     }
     handleBlur(e: React.FocusEvent<HTMLDivElement>) {
@@ -71,7 +71,7 @@ class RangeInput extends React.Component<Props, State> {
     }
     handleFocus(e: React.FocusEvent<HTMLDivElement>) {
         this.setState({
-            active: true
+            active: true,
         });
     }
     deactivateIfOutside() {
@@ -81,7 +81,7 @@ class RangeInput extends React.Component<Props, State> {
             !this.container.contains(window.document.activeElement)
         ) {
             this.setState({
-                active: false
+                active: false,
             });
         }
     }
@@ -119,7 +119,7 @@ class RangeInput extends React.Component<Props, State> {
                     <div>{valueLabelPlacement === 'above' && labelRenderer({ value, min, max })}</div>
                     <div
                         className={classNames(bemRangeInput.block, {
-                            [bemRangeInput.modifier('withSteppers')]: steppers !== undefined
+                            [bemRangeInput.modifier('withSteppers')]: steppers !== undefined,
                         })}
                         ref={(c) => (this.container = c)}
                         onBlur={this.handleBlur}

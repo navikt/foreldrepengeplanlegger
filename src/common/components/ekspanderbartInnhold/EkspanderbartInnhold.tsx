@@ -17,12 +17,12 @@ export interface OwnProps {
     harEkspanderbartInnhold?: boolean;
 }
 
-const EkspanderbartInnhold: React.StatelessComponent<OwnProps> = ({
+const EkspanderbartInnhold: React.FunctionComponent<OwnProps> = ({
     children,
     animert = true,
     harEkspanderbartInnhold = false,
     erApen = false,
-    ariaLive = 'off'
+    ariaLive = 'off',
 }) => {
     const content = <div aria-live={ariaLive}>{erApen ? <div>{children}</div> : <div />}</div>;
     if (!animert) {
@@ -33,7 +33,7 @@ const EkspanderbartInnhold: React.StatelessComponent<OwnProps> = ({
             isOpened={erApen}
             springConfig={{ stiffness: 250, damping: 30 }}
             className={classNames('ekspanderbartInnhold', {
-                'ekspanderbartInnhold--apen': erApen
+                'ekspanderbartInnhold--apen': erApen,
             })}
             hasNestedCollapse={harEkspanderbartInnhold}>
             {content}

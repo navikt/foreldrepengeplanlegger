@@ -21,7 +21,7 @@ const bem = BEMHelper('periodeliste');
 
 const PosedLi = posed.li({
     flip: {
-        y: 0
+        y: 0,
     },
     enter: {
         y: 0,
@@ -31,9 +31,9 @@ const PosedLi = posed.li({
             default: {
                 type: 'tween',
                 ease: 'easeOut',
-                duration: 150
-            }
-        }
+                duration: 150,
+            },
+        },
     },
     exit: {
         y: -75,
@@ -42,10 +42,10 @@ const PosedLi = posed.li({
         transition: {
             default: {
                 type: 'tween',
-                duration: 150
-            }
-        }
-    }
+                duration: 150,
+            },
+        },
+    },
 });
 
 interface OwnProps {
@@ -54,7 +54,7 @@ interface OwnProps {
     nyPeriodeId: string;
 }
 
-const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (props) => {
+const Periodeliste: React.FunctionComponent<PeriodelisteProps & OwnProps> = (props) => {
     const {
         perioder,
         periodeFørTermin,
@@ -136,9 +136,7 @@ const Periodeliste: React.StatelessComponent<PeriodelisteProps & OwnProps> = (pr
                         </IconText>
                     </li>
                 </>
-            ) : (
-                undefined
-            )}
+            ) : undefined}
             <PoseGroup>{posedItems}</PoseGroup>
         </ol>
     );

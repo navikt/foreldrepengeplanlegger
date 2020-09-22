@@ -12,7 +12,7 @@ interface Props {
     dekningProps?: DekningOppsummeringProps;
 }
 
-const Oppsummering: React.StatelessComponent<Props> = ({ situasjonProps, dekningProps }) => {
+const Oppsummering: React.FunctionComponent<Props> = ({ situasjonProps, dekningProps }) => {
     return (
         <div className="grayBlock">
             <AriaText tag="h2">

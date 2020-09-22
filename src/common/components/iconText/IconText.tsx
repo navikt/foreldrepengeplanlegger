@@ -16,18 +16,18 @@ interface Props {
 
 const bem = BEMHelper('iconText');
 
-const IconText: React.StatelessComponent<Props> = ({
+const IconText: React.FunctionComponent<Props> = ({
     icon,
     iconOnly,
     align = 'left',
     layout = 'horizontal',
     fullWidth,
-    children
+    children,
 }) => (
     <div
         className={classNames(bem.block, bem.modifier(layout), bem.modifier(align), {
             [`${bem.modifier('iconOnly')}`]: iconOnly,
-            [`${bem.modifier('fullWidth')}`]: fullWidth
+            [`${bem.modifier('fullWidth')}`]: fullWidth,
         })}>
         {icon && <div className={bem.element('icon')}>{icon}</div>}
         {iconOnly ? <AriaText>{children}</AriaText> : <div className={bem.element('text')}>{children}</div>}

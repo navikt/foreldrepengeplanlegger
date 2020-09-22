@@ -14,7 +14,7 @@ interface Props {
 
 const bem = BEMHelper('situasjonSirkel');
 
-const SituasjonSirkel: React.StatelessComponent<Props> = ({ situasjon, valgtForelder }) => {
+const SituasjonSirkel: React.FunctionComponent<Props> = ({ situasjon, valgtForelder }) => {
     return (
         <div className={bem.block}>
             <div className={bem.element('ikon')}>

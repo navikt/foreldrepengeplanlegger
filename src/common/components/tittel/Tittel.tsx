@@ -15,7 +15,7 @@ export interface Props {
 
 const bem = BEMHelper('tekstMedInfotekst');
 
-const Tittel: React.StatelessComponent<Props> = ({ tittel, info }) => {
+const Tittel: React.FunctionComponent<Props> = ({ tittel, info }) => {
     return (
         <div className={bem.block}>
             <div className={bem.element('tekst')}>{tittel}</div>

@@ -18,7 +18,7 @@ interface Props {
     omForeldre: OmForeldre;
 }
 
-const PeriodeSomVilBliSplittet: React.StatelessComponent<{
+const PeriodeSomVilBliSplittet: React.FunctionComponent<{
     periode: Periode;
     antallUttaksdager: number;
     omForeldre: OmForeldre;
@@ -45,7 +45,7 @@ const PeriodeSomVilBliSplittet: React.StatelessComponent<{
     );
 };
 
-const PerioderSomVilBliFlyttetPå: React.StatelessComponent<{
+const PerioderSomVilBliFlyttetPå: React.FunctionComponent<{
     perioder: Periode[];
     antallUttaksdager: number;
     intl: IntlShape;

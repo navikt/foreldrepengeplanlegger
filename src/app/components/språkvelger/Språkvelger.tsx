@@ -16,7 +16,7 @@ interface OwnProps {
 
 type Props = OwnProps & StateProps & DispatchProps;
 
-const Språkvelger: React.StatelessComponent<Props> = ({ dispatch, children }) => (
+const Språkvelger: React.FunctionComponent<Props> = ({ dispatch, children }) => (
     <div>
         <div className="no-print">
             <LanguageToggle toggleLanguage={(code: Language) => dispatch(setSpråk(code))} />
@@ -27,7 +27,7 @@ const Språkvelger: React.StatelessComponent<Props> = ({ dispatch, children }) =
 
 const mapStateToProps = (state: AppState): StateProps => {
     return {
-        språkkode: state.common.present.språkkode
+        språkkode: state.common.present.språkkode,
     };
 };
 

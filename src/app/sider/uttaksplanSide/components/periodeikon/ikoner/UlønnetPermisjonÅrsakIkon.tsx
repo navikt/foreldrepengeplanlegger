@@ -13,7 +13,7 @@ interface Props {
 
 const bem = BEMHelper('ulonnetPermisjonArsakIkon');
 
-const UlønnetPermisjonÅrsakIkon: React.StatelessComponent<Props> = ({ forelderinfo, utsettelsesårsak }) => (
+const UlønnetPermisjonÅrsakIkon: React.FunctionComponent<Props> = ({ forelderinfo, utsettelsesårsak }) => (
     <div className={bem.block}>
         <div className={bem.element('forelder')}>
             <ForelderIkon forelder={forelderinfo.ikonRef} />

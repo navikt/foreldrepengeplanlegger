@@ -14,7 +14,7 @@ interface Props {
 
 const bem = BEMHelper('oppsummeringBlokk');
 
-const OppsummeringBlokk: React.StatelessComponent<Props> = ({ tittel, onRequestChange, illustrasjoner, children }) => (
+const OppsummeringBlokk: React.FunctionComponent<Props> = ({ tittel, onRequestChange, illustrasjoner, children }) => (
     <div
         className={bem.classNames(
             bem.block,

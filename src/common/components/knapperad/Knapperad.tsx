@@ -12,7 +12,7 @@ export interface Props {
 
 const bem = BEMHelper('knapperad');
 
-const Knapperad: React.StatelessComponent<Props> = ({ children, align = 'center', style = 'normal' }) => {
+const Knapperad: React.FunctionComponent<Props> = ({ children, align = 'center', style = 'normal' }) => {
     const cls = classNames(bem.block, `${bem.modifier(align)}`, `${bem.modifier(style)}`);
     return (
         <div className={cls}>

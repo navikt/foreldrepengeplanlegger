@@ -9,7 +9,7 @@ interface Props {
     forelder: Forelder;
 }
 
-const FordelingGrafBar: React.StatelessComponent<Props> = ({ fordeling, forelder }) => {
+const FordelingGrafBar: React.FunctionComponent<Props> = ({ fordeling, forelder }) => {
     switch (fordeling.type) {
         case 'deltOmsorg':
             return <GrafDeltOmsorg {...fordeling} />;

@@ -1,16 +1,16 @@
 import * as React from 'react';
-import { KnappProps } from 'nav-frontend-knapper/lib/knapp';
 import AriaText from 'common/components/aria/AriaText';
+import { KnappBaseProps } from 'nav-frontend-knapper';
 
 import './ikonKnapp.less';
 
-export interface SlettKnappProps extends KnappProps {
+export interface SlettKnappProps extends KnappBaseProps {
     ikon: React.ReactNode;
     ariaLabel: string;
     onClick: () => void;
 }
 
-const IkonKnapp: React.StatelessComponent<SlettKnappProps> = ({ ikon, onClick, ariaLabel }) => (
+const IkonKnapp: React.FunctionComponent<SlettKnappProps> = ({ ikon, onClick, ariaLabel }) => (
     <button
         type="button"
         className="ikonKnapp"

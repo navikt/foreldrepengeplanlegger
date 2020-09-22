@@ -6,7 +6,7 @@ export interface Props {
 }
 
 // tslint:disable max-line-length
-const VeilederKompakt: React.StatelessComponent<Props> = ({ svgProps }) => (
+const VeilederKompakt: React.FunctionComponent<Props> = ({ svgProps }) => (
     <svg
         role="presentation"
         focusable="false"

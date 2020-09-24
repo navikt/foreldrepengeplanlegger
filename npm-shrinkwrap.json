@@ -2579,9 +2579,9 @@
             }
         },
         "@types/history": {
-            "version": "4.7.2",
-            "resolved": "https://registry.npmjs.org/@types/history/-/history-4.7.2.tgz",
-            "integrity": "sha512-ui3WwXmjTaY73fOQ3/m3nnajU/Orhi6cEu5rzX+BrAAJxa3eITXZ5ch9suPqtM03OWhAHhPSyBGCN4UKoxO20Q==",
+            "version": "4.7.8",
+            "resolved": "https://registry.npmjs.org/@types/history/-/history-4.7.8.tgz",
+            "integrity": "sha512-S78QIYirQcUoo6UJZx9CSP0O2ix9IaeAXwQi26Rhr/+mg7qqPy8TzaxHSUut7eGjL8WmLccT7/MXf304WjqHcA==",
             "dev": true
         },
         "@types/hoist-non-react-statics": {
@@ -2822,9 +2822,9 @@
             }
         },
         "@types/react-router": {
-            "version": "4.4.3",
-            "resolved": "https://registry.npmjs.org/@types/react-router/-/react-router-4.4.3.tgz",
-            "integrity": "sha512-8GmjakEBFNCLJbpg9jtDp1EDvFP0VkIPPKBpVwmB3Q+9whFoHu8rluMUXUE5SoGkEQvVOtgJzWmUsJojNpFMQQ==",
+            "version": "5.1.8",
+            "resolved": "https://registry.npmjs.org/@types/react-router/-/react-router-5.1.8.tgz",
+            "integrity": "sha512-HzOyJb+wFmyEhyfp4D4NYrumi+LQgQL/68HvJO+q6XtuHSDvw6Aqov7sCAhjbNq3bUPgPqbdvjXC5HeB2oEAPg==",
             "dev": true,
             "requires": {
                 "@types/history": "*",
@@ -2832,9 +2832,9 @@
             }
         },
         "@types/react-router-dom": {
-            "version": "4.3.1",
-            "resolved": "https://registry.npmjs.org/@types/react-router-dom/-/react-router-dom-4.3.1.tgz",
-            "integrity": "sha512-GbztJAScOmQ/7RsQfO4cd55RuH1W4g6V1gDW3j4riLlt+8yxYLqqsiMzmyuXBLzdFmDtX/uU2Bpcm0cmudv44A==",
+            "version": "5.1.5",
+            "resolved": "https://registry.npmjs.org/@types/react-router-dom/-/react-router-dom-5.1.5.tgz",
+            "integrity": "sha512-ArBM4B1g3BWLGbaGvwBGO75GNFbLDUthrDojV2vHLih/Tq8M+tgvY1DSwkuNrPSwdp/GUL93WSEpTZs8nVyJLw==",
             "dev": true,
             "requires": {
                 "@types/history": "*",

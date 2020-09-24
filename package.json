@@ -157,7 +157,7 @@
         "react-redux": "^6.0.1",
         "react-router-dom": "^5.2.0",
         "react-scroll": "^1.7.10",
-        "react-sortable-hoc": "^1.5.0",
+        "react-sortable-hoc": "^1.11.0",
         "react-transition-group": "^2.5.3",
         "redux": "^4.0.5",
         "redux-saga": "^1.1.3",

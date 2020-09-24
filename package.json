@@ -164,7 +164,7 @@
         "redux-undo": "^1.0.1",
         "reselect": "^4.0.0",
         "snyk": "^1.387.0",
-        "webpack": "^4.44.1",
+        "webpack": "^4.44.2",
         "yup": "^0.26.7"
     },
     "snyk": true

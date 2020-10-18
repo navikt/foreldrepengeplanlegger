@@ -18,14 +18,14 @@ jobs:
      
       - name: Hent tag    
         run: | 
-          echo 'TAG<<EOF' >> $GITHUB_ENV
-          git log -1 --pretty=%ad --date=format:%Y%m%d%H%M%S-`echo $GITHUB_SHA | cut -c1-7`  >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV         
+           echo 'TAG<<EOF' >> $GITHUB_ENV
+           git log -1 --pretty=%ad --date=format:%Y%m%d%H%M%S-`echo $GITHUB_SHA | cut -c1-7`  >> $GITHUB_ENV
+           echo 'EOF' >> $GITHUB_ENV         
              
       - run:  npm install
       - run: |
           npm run build
-          echo "::set-env name=IMAGE::$IMAGE_BASE:$TAG" 
+          echo "IMAGE=$IMAGE_BASE:$TAG" >> $GITHUB_ENV
                    
       - name: Bygg, tag og push Docker image  
         run: |

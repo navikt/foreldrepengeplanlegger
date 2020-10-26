@@ -14726,9 +14726,9 @@
             "dev": true
         },
         "nav-frontend-ikoner-assets": {
-            "version": "2.0.3",
-            "resolved": "https://registry.npmjs.org/nav-frontend-ikoner-assets/-/nav-frontend-ikoner-assets-2.0.3.tgz",
-            "integrity": "sha512-B8mizkduCh4O2JzD4BBl2SKUwAZgm9bZCkEGv1JoaSUFrnJFDHBh2ZSRGSFGvceJueJ1omuCNgRwjb/1BCcSfg=="
+            "version": "2.0.8",
+            "resolved": "https://registry.npmjs.org/nav-frontend-ikoner-assets/-/nav-frontend-ikoner-assets-2.0.8.tgz",
+            "integrity": "sha512-By6NVnUoKwIBxOeJlhpM1NEMtShlVCG6jLNwi6HgB9uZzF3Ac0NRz1amDdNfASg+MBfmoZNJE8WP06SiKvEV+A=="
         },
         "nav-frontend-js-utils": {
             "version": "1.0.9",

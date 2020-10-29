@@ -14839,12 +14839,20 @@
             "integrity": "sha512-GZ4WcQ0H4HBw7GHcVJtuDihSyrzPQ+df5dls4h60oOV3zNiedarMMGy43xFPxvPZnI0LTYlOX7rDGVxLBR9NBg=="
         },
         "nav-frontend-typografi-style": {
-            "version": "1.0.22",
-            "resolved": "https://registry.npmjs.org/nav-frontend-typografi-style/-/nav-frontend-typografi-style-1.0.22.tgz",
-            "integrity": "sha512-MZ7AdSQjQuZz7e/zkfihJFBMSzyolpcmdYSAmHGQTQmtFdvxAAx1WAef8D6BwxKS8aEj2/86CX7cRMS5dXMAnw==",
+            "version": "1.0.27",
+            "resolved": "https://registry.npmjs.org/nav-frontend-typografi-style/-/nav-frontend-typografi-style-1.0.27.tgz",
+            "integrity": "sha512-AMLkVPFmCUd1Sd60xR3jOEsFc9PZ2C8wO4UjVl2KBos+8QM/ZT7Q2zyNd0+sTlHMh9ikM76uQQtiJIaPQklONA==",
             "dev": true,
             "requires": {
-                "nav-frontend-core": "^5.0.1"
+                "nav-frontend-core": "^5.0.6"
+            },
+            "dependencies": {
+                "nav-frontend-core": {
+                    "version": "5.0.6",
+                    "resolved": "https://registry.npmjs.org/nav-frontend-core/-/nav-frontend-core-5.0.6.tgz",
+                    "integrity": "sha512-xoa4cZeI0K/q6/qf40Ixs53RzdrFU2N1g9DNpCZk7mc1EhX0KS6VrswYGqY44F1LK4OZcx/cF/0crsrG0xcCkQ==",
+                    "dev": true
+                }
             }
         },
         "nav-frontend-veileder": {

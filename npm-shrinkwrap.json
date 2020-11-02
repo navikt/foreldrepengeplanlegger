@@ -14839,12 +14839,23 @@
             "integrity": "sha512-GZ4WcQ0H4HBw7GHcVJtuDihSyrzPQ+df5dls4h60oOV3zNiedarMMGy43xFPxvPZnI0LTYlOX7rDGVxLBR9NBg=="
         },
         "nav-frontend-typografi-style": {
-            "version": "1.0.22",
-            "resolved": "https://registry.npmjs.org/nav-frontend-typografi-style/-/nav-frontend-typografi-style-1.0.22.tgz",
-            "integrity": "sha512-MZ7AdSQjQuZz7e/zkfihJFBMSzyolpcmdYSAmHGQTQmtFdvxAAx1WAef8D6BwxKS8aEj2/86CX7cRMS5dXMAnw==",
+            "version": "1.0.28",
+            "resolved": "https://registry.npmjs.org/nav-frontend-typografi-style/-/nav-frontend-typografi-style-1.0.28.tgz",
+            "integrity": "sha512-fDxtYJnadG9bBXuvw0/n9rcp7/CErZ/xLCaeQcBqZ+C8F6rYuf78QmaC7zoQl0ptZwhHga8h44kes5AVAA/PIA==",
             "dev": true,
             "requires": {
-                "nav-frontend-core": "^5.0.1"
+                "nav-frontend-core": "^5.0.7"
+            },
+            "dependencies": {
+                "nav-frontend-core": {
+                    "version": "5.0.7",
+                    "resolved": "https://registry.npmjs.org/nav-frontend-core/-/nav-frontend-core-5.0.7.tgz",
+                    "integrity": "sha512-rnvoLmAbh4fne9hkWwYZaMdBEah+WYa0SIFB2DR23zaFIDPMLLF2jAU0hh0+VbtGKefazxO7+m+4pTe9V4A29w==",
+                    "dev": true,
+                    "requires": {
+                        "normalize.css": "^8.0.1"
+                    }
+                }
             }
         },
         "nav-frontend-veileder": {
@@ -15153,6 +15164,12 @@
             "version": "4.5.0",
             "resolved": "https://registry.npmjs.org/normalize-url/-/normalize-url-4.5.0.tgz",
             "integrity": "sha512-2s47yzUxdexf1OhyRi4Em83iQk0aPvwTddtFz4hnSSw9dCEsLEGf6SwIO8ss/19S9iBb5sJaOuTvTGDeZI00BQ=="
+        },
+        "normalize.css": {
+            "version": "8.0.1",
+            "resolved": "https://registry.npmjs.org/normalize.css/-/normalize.css-8.0.1.tgz",
+            "integrity": "sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==",
+            "dev": true
         },
         "npm-run-path": {
             "version": "2.0.2",

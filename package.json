@@ -106,7 +106,7 @@
         "array-move": "^1.0.0",
         "autoprefixer": "^9.8.6",
         "awesome-typescript-loader": "^5.2.1",
-        "axios": "^0.20.0",
+        "axios": "^0.21.1",
         "babel-core": "^6.26.3",
         "babel-plugin-webpack-alias": "^2.1.2",
         "classnames": "^2.2.6",

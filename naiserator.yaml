@@ -6,10 +6,16 @@ metadata:
   labels:
     team: teamforeldrepenger
 spec:
+{{#if gcp}}
   accessPolicy:
     outbound:
       external:
-        - host: {{dekoratoren}}
+        - host:  {{api}}
+        - host:  {{nav}}
+        - host:  {{loginservice}}
+        - host:  {{dekoratoren}}
+        - host:  {{uttak}}
+{{/if}}
   image: {{image}}
   port: 8080
   replicas:

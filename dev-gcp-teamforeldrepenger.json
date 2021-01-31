@@ -7,7 +7,7 @@
     "dekoratoren": "dekoratoren.dev.nav.no",
    "ingresses": ["https://foreldrepengeplanlegger.dev.nav.no"],
     "env": {
-        "FP_UTTAK_SERVICE_URL": "https://fp-uttak-service.dev.nav.no",
+        "FP_UTTAK_SERVICE_URL": "https://foreldrepengesoknad-api.dev.nav.no",
         "APPRES_CMS_URL": "https://dekoratoren.dev.nav.no",
         "LOGINSERVICE_URL": "https://loginservice.dev.nav.no/login"
     }

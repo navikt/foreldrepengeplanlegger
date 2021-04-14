@@ -6,7 +6,7 @@ on:
             - master
 env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/foreldrepengeplanlegger
+    IMAGE_BASE: ghcr.io/${{ github.repository }}
 
 jobs:
     kompiler:
@@ -26,11 +26,13 @@ jobs:
                   npm run build
                   echo "IMAGE=$IMAGE_BASE:$TAG" >> $GITHUB_ENV
 
+            - name: Log into ghcr registry
+              run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u x-access-token --password-stdin
+
             - name: Bygg, tag og push Docker image
               run: |
-                  docker build --tag ${IMAGE} --tag ${IMAGE_BASE}:latest .
-                  echo  ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} --password-stdin
-                  docker push ${IMAGE_BASE}:${TAG}
+                  docker build --pull --tag ${IMAGE_BASE}:${TAG} --tag ${IMAGE_BASE}:latest .
+                  docker push ${IMAGE_BASE} --all-tags
 
             - name: Lukk gamle bygg-issues
               uses: actions/github-script@v3

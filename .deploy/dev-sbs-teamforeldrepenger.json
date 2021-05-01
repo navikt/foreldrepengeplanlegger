@@ -1,7 +1,0 @@
-{
-    "ingresses": ["https://foreldrepengeplanlegger-q.nav.no"],
-    "env": {
-        "FP_UTTAK_SERVICE_URL": "https://foreldrepengesoknad-api-q.nav.no",
-        "APPRES_CMS_URL": "https://www-q1.nav.no/dekoratoren"
-    }
-}

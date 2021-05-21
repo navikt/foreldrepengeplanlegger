@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IntlShape, useIntl } from 'react-intl';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Utsettelsesårsak } from '../../../../../types';
 import getMessage from 'common/util/i18nUtils';
 import DropdownFormMenu from 'common/components/dropdownForm/DropdownFormMenu';
@@ -84,9 +84,22 @@ const UlønnetPermisjonMeny: React.FunctionComponent<Props> = (props) => {
                                 </Block>
                             }
                             info={{
-                                tekst: getMessage(intl, 'ulønnetPermisjonSkjema.info.html', {
-                                    lenke: Lenker.infolenkeUlønnetPermisjon,
-                                }),
+                                tekst: (
+                                    <FormattedMessage
+                                        id="ulønnetPermisjonSkjema.info.html"
+                                        values={{
+                                            a: (msg: any) => (
+                                                <a
+                                                    href={Lenker.infolenkeUlønnetPermisjon}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="lenke">
+                                                    {msg}
+                                                </a>
+                                            ),
+                                        }}
+                                    />
+                                ),
                             }}
                         />
                     }

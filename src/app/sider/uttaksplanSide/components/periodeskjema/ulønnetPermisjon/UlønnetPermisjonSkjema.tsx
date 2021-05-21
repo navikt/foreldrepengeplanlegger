@@ -53,9 +53,9 @@ const UlønnetPermisjonSkjema: React.FunctionComponent<Props> = ({
                             a: (msg: any) => (
                                 <a
                                     href={Lenker.infolenkeUlønnetPermisjon}
-                                    className="lenke"
+                                    target="_blank"
                                     rel="noreferrer"
-                                    target="_blank">
+                                    className="lenke">
                                     {msg}
                                 </a>
                             ),

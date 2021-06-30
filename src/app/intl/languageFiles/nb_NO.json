@@ -92,6 +92,8 @@
     "regel.feil.farMedmorHarForMangeFeriedager": "{navn} har søkt om for mange dager med ferie. Man kan totalt utsette foreldrepengene med ferie i inntil fire uker og én dag for hvert kalenderår, i tillegg til overført ferie fra i fjor og ti feriedager fra neste år.",
     "regel.feil.avlutterUttaksplanMedUtsettelse": "Planen kan ikke slutte med en utsettelse.",
     "regel.feil.harUlønnetPermisjonValgtÅrsak": "Du må velge hva {utsetterNavn} skal gjøre mens {forelderNavn} har ulønnet permisjon.",
+    "regel.feil.morHarUtsettelseEtterEndtUttak": "{navnMor} kan ikke slutte foreldrepengeperioden sin med en utsettelse",
+    "regel.feil.farMedmorHarUtsettelseEtterEndtUttak": "{navnFarMedmor} kan ikke slutte foreldrepengeperioden sin med en utsettelse",
 
     "regel.advarsel.erAlleTilgjengeligeDagerBrukt": "{dager} er ikke brukt.",
     "regel.advarsel.erUlønnetPermisjon": "Når en forelder planlegger å være hjemme i ulønnet permisjon må den andre forelderen søke om å utsette foreldrepengene på grunn av heltidsarbeid, sykdom eller ferie.",

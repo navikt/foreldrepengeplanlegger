@@ -8,7 +8,7 @@ import { erMorsUttakErInnenforMaksAntallDagerTest } from './tester/erMorsUttakEr
 import { erAlleUttakErInnenforMaksAntallDagerTest } from './tester/erAlleUttakErInnenforMaksAntallDagerTest';
 import {
     harFarMedmorUtsettelseFørsteSeksUkerTest,
-    harMorUtsettelseFørsteSeksUkerTest
+    harMorUtsettelseFørsteSeksUkerTest,
 } from './tester/inneholderUtsettelseFørsteSeksUkerTest';
 import { harForeldreForMangeFeriedagerTest } from './tester/harForelderForMangeFeriedagerTest';
 import { avslutterPlanenMedUtsettelseTest } from './tester/avslutterPlanenMedUtsettelseTest';
@@ -21,6 +21,8 @@ import { bareFarHarRettFlerbarnsukerAktivitetskravMorTest } from './tester/bareF
 import { erAlleTilgjengeligeDagerBruktTest } from './tester/erAlleTilgjengeligeDagerBruktTest';
 import { harUlønnetPermisjonUtsettelsesårsak } from './tester/harUlønnetPermisjonUtsettelsesårsak';
 import { harAvsluttendeUlønnedePermisjoner } from './tester/harAvsluttendeUlønnedePermisjoner';
+import { morHarUtsettelseEtterEndtUttak } from './tester/morHarUtsettelseEtterEndtUttak';
+import { farMedmorHarUtsettelseEtterEndtUttak } from './tester/farMedmorHarUtsettelseEtterEndtUttak';
 
 export enum RegelKey {
     'alleUttakErInnenforMaksAntallDager' = 'alleUttakErInnenforMaksAntallDager',
@@ -43,118 +45,130 @@ export enum RegelKey {
     'erUlønnetPermisjon' = 'erUlønnetPermisjon',
     'avlutterUttaksplanMedUtsettelse' = 'avlutterUttaksplanMedUtsettelse',
     'harUlønnetPermisjonValgtÅrsak' = 'harUlønnetPermisjonValgtÅrsak',
-    'harAvsluttendeUlønnedePermisjoner' = 'avsluttendeUlønnedePermisjoner'
+    'harAvsluttendeUlønnedePermisjoner' = 'avsluttendeUlønnedePermisjoner',
+    'morHarUtsettelseEtterEndtUttak' = 'morHarUtsettelseEtterEndtUttak',
+    'farMedmorHarUtsettelseEtterEndtUttak' = 'farMedmorHarUtsettelseEtterEndtUttak',
 }
 
 const feilRegler: Regel[] = [
     {
         key: RegelKey.starterInnenfor12UkerFørTermin,
         alvorlighet: RegelAlvorlighet.FEIL,
-        test: starterUttakInnenfor12UkerFørTerminTest
+        test: starterUttakInnenfor12UkerFørTerminTest,
     },
     {
         key: RegelKey.erInnenforSisteMuligeUttaksdag,
         alvorlighet: RegelAlvorlighet.FEIL,
-        test: erPlanenInnenforSisteMuligeUttaksdagTest
+        test: erPlanenInnenforSisteMuligeUttaksdagTest,
     },
     {
         key: RegelKey.farMedmorsUttakErInnenforMaksAntallDager,
         alvorlighet: RegelAlvorlighet.FEIL,
         test: erFarMedmorsUttakErInnenforMaksAntallDagerTest,
         overstyresAvRegel: RegelKey.alleUttakErInnenforMaksAntallDager,
-        kategori: 'fordeling'
+        kategori: 'fordeling',
     },
     {
         key: RegelKey.morsUttakErInnenforMaksAntallDager,
         alvorlighet: RegelAlvorlighet.FEIL,
         test: erMorsUttakErInnenforMaksAntallDagerTest,
         overstyresAvRegel: RegelKey.alleUttakErInnenforMaksAntallDager,
-        kategori: 'fordeling'
+        kategori: 'fordeling',
     },
     {
         key: RegelKey.alleUttakErInnenforMaksAntallDager,
         alvorlighet: RegelAlvorlighet.FEIL,
         test: erAlleUttakErInnenforMaksAntallDagerTest,
-        kategori: 'fordeling'
+        kategori: 'fordeling',
     },
     {
         key: RegelKey.harForeldreForMangeFeriedager,
         alvorlighet: RegelAlvorlighet.FEIL,
-        test: harForeldreForMangeFeriedagerTest
+        test: harForeldreForMangeFeriedagerTest,
     },
     {
         key: RegelKey.morUtsetterFørsteSeksUker,
         alvorlighet: RegelAlvorlighet.FEIL,
-        test: harMorUtsettelseFørsteSeksUkerTest
+        test: harMorUtsettelseFørsteSeksUkerTest,
     },
     {
         key: RegelKey.farMedmorUtsetterFørsteSeksUker,
         alvorlighet: RegelAlvorlighet.FEIL,
-        test: harFarMedmorUtsettelseFørsteSeksUkerTest
+        test: harFarMedmorUtsettelseFørsteSeksUkerTest,
     },
     {
         key: RegelKey.avlutterUttaksplanMedUtsettelse,
         alvorlighet: RegelAlvorlighet.FEIL,
-        test: avslutterPlanenMedUtsettelseTest
+        test: avslutterPlanenMedUtsettelseTest,
     },
     {
         key: RegelKey.harUlønnetPermisjonValgtÅrsak,
         alvorlighet: RegelAlvorlighet.FEIL,
-        test: harUlønnetPermisjonUtsettelsesårsak
-    }
+        test: harUlønnetPermisjonUtsettelsesårsak,
+    },
 ];
 
 const advarselRegler: Regel[] = [
     {
         key: RegelKey.uttakForFarEllerMedmorFørsteSeksUkerInfo,
         alvorlighet: RegelAlvorlighet.ADVARSEL,
-        test: harFarEllerMedmorUttakFørsteSeksUkerTest
+        test: harFarEllerMedmorUttakFørsteSeksUkerTest,
     },
     {
         key: RegelKey.erAlleTilgjengeligeDagerBrukt,
         alvorlighet: RegelAlvorlighet.ADVARSEL,
         test: erAlleTilgjengeligeDagerBruktTest,
-        kategori: 'fordeling'
-    }
+        kategori: 'fordeling',
+    },
 ];
 
 const infoRegler: Regel[] = [
     {
         key: RegelKey.ferieMedUttaksdagerInfo,
         alvorlighet: RegelAlvorlighet.INFO,
-        test: inneholderPlanenFerieMedUttaksdagerTest
+        test: inneholderPlanenFerieMedUttaksdagerTest,
     },
     {
         key: RegelKey.bareFarHarRettEttBarnAktivitetskravMorInfo,
         alvorlighet: RegelAlvorlighet.INFO,
-        test: bareFarHarRettEttBarnAktivitetskravMorTest
+        test: bareFarHarRettEttBarnAktivitetskravMorTest,
     },
     {
         key: RegelKey.bareFarHarRettFlerbarnsukerAktivitetskravMorInfo,
         alvorlighet: RegelAlvorlighet.INFO,
         test: bareFarHarRettFlerbarnsukerAktivitetskravMorTest,
-        overstyrerRegler: [RegelKey.bareFarHarRettEttBarnAktivitetskravMorInfo]
+        overstyrerRegler: [RegelKey.bareFarHarRettEttBarnAktivitetskravMorInfo],
     },
     {
         key: RegelKey.farMedmorBrukerFellesperiodeInfo,
         alvorlighet: RegelAlvorlighet.INFO,
-        test: brukerFarMedmorAvFellesperiodeTest
+        test: brukerFarMedmorAvFellesperiodeTest,
     },
     {
         key: RegelKey.morUtsetterPgaArbeidInfo,
         alvorlighet: RegelAlvorlighet.INFO,
-        test: utsetterMorPgaArbeidTest
+        test: utsetterMorPgaArbeidTest,
     },
     {
         key: RegelKey.farMedmorUtsetterPgaArbeidInfo,
         alvorlighet: RegelAlvorlighet.INFO,
-        test: utsetterFarMedmorPgaArbeidTest
+        test: utsetterFarMedmorPgaArbeidTest,
     },
     {
         key: RegelKey.harAvsluttendeUlønnedePermisjoner,
         alvorlighet: RegelAlvorlighet.INFO,
-        test: harAvsluttendeUlønnedePermisjoner
-    }
+        test: harAvsluttendeUlønnedePermisjoner,
+    },
+    {
+        key: RegelKey.morHarUtsettelseEtterEndtUttak,
+        alvorlighet: RegelAlvorlighet.FEIL,
+        test: morHarUtsettelseEtterEndtUttak,
+    },
+    {
+        key: RegelKey.farMedmorHarUtsettelseEtterEndtUttak,
+        alvorlighet: RegelAlvorlighet.FEIL,
+        test: farMedmorHarUtsettelseEtterEndtUttak,
+    },
 ];
 
 const uttaksplanRegler: Regel[] = [...feilRegler, ...advarselRegler, ...infoRegler];

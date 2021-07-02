@@ -14572,9 +14572,9 @@
             "integrity": "sha512-sVkpXmOoavp13pK3f1M+4fWeE8kRk99nVD6FUo1TrpfJY/B8kFDisnPAFGbqkfAwGY3TKYZTGacId4JTisY67g=="
         },
         "nav-frontend-grid-style": {
-            "version": "0.2.20",
-            "resolved": "https://registry.npmjs.org/nav-frontend-grid-style/-/nav-frontend-grid-style-0.2.20.tgz",
-            "integrity": "sha512-PY6pXJFscPJlnXgSMiO2zqfWoAEby/SbCmxyc3NXxkejBf4OEbHza/BdNhQCZrr+XK4tB9dLgj5xZJ6AGBqIRw==",
+            "version": "0.2.26",
+            "resolved": "https://registry.npmjs.org/nav-frontend-grid-style/-/nav-frontend-grid-style-0.2.26.tgz",
+            "integrity": "sha512-8z3EiDmnWU593p/seWnpbcmyJ/WRU8yeFrNDyoSdQNsrDw9eCrS86BWyeKIGUlXsYSsYUi+iiGI2Y7kgCtaBfQ==",
             "dev": true
         },
         "nav-frontend-ikoner-assets": {

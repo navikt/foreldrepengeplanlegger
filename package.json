@@ -37,7 +37,7 @@
         "@types/lodash.groupby": "^4.6.6",
         "@types/lodash.uniq": "^4.5.6",
         "@types/lodash.uniqby": "^4.7.6",
-        "@types/react": "^16.9.49",
+        "@types/react": "^17.0.14",
         "@types/react-aria-menubutton": "^6.2.5",
         "@types/react-collapse": "^4.0.2",
         "@types/react-dom": "^16.9.8",

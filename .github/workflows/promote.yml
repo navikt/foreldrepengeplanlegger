@@ -28,9 +28,6 @@ jobs:
                   echo "IMAGE=$IMAGE_BASE:$(echo '${{  github.event.issue.title }}' | awk '{print $NF}')" >> $GITHUB_ENV
                   echo "CLUSTER=$(echo '${{github.event.comment.body}}' | cut -d' ' -f2)" >> $GITHUB_ENV
 
-            - name: What is TAG
-              run: echo "$TAG"
-
             - name: Sjekk ut kode
               uses: actions/checkout@v2.3.4
               with:

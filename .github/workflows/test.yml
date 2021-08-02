@@ -15,4 +15,4 @@ jobs:
             - name: Sjekk ut kode
               uses: actions/checkout@v2.3.4
               with:
-                  ref: 28b38c470720b6cbec9aa7721d223df9495b1074
+                  ref: $GITHUB_REF

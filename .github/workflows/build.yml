@@ -65,12 +65,13 @@ jobs:
               with:
                   github-token: ${{secrets.NOTIFICATION}}
                   script: |
-                      github.issues.create( {
+                      github.issues.create({
                         owner: context.issue.owner,
                         repo: context.issue.repo,
                         labels: ['bygg'],
-                        title: 'Deploy av ${{ env.TAG }}'}),
+                        title: 'Deploy av ${{ env.TAG }}',
                         body: '${{ github.sha }}',
+                      })
                       .then(response => {
                               const issue = { owner: context.issue.owner,
                               repo: context.issue.repo,

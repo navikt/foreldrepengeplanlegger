@@ -29,7 +29,7 @@ jobs:
                   echo "CLUSTER=$(echo '${{github.event.comment.body}}' | cut -d' ' -f2)" >> $GITHUB_ENV
 
             - name: Sjekk ut kode
-              uses: actions/checkout@v2
+              uses: actions/checkout@a81bbbf8298c0fa03ea29cdc473d45769f953675
               with:
                   ref: ${{ env.TAG }}
 

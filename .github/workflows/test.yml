@@ -1,0 +1,18 @@
+name: Testing checkout of code
+
+on:
+    push:
+        branches:
+            - master
+env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    IMAGE_BASE: ghcr.io/${{ github.repository }}
+
+jobs:
+    kompiler:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Sjekk ut kode
+              uses: actions/checkout@v2.3.4
+              with:
+                  ref: ${{ github.event.workflow_run.head_sha }}

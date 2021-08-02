@@ -5,7 +5,7 @@ on:
 env:
     NAMESPACE: teamforeldrepenger
     IMAGE_BASE: ghcr.io/${{ github.repository }}
-permissions: read-all
+permissions: write-all
 
 jobs:
     promote:

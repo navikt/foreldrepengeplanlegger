@@ -15,4 +15,4 @@ jobs:
             - name: Sjekk ut kode
               uses: actions/checkout@v2.3.4
               with:
-                  ref: ${{ GITHUB_REF }}
+                  ref: ${{ github.ref }}

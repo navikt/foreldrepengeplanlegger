@@ -13,6 +13,7 @@ import DekningsgradSide from './sider/dekningsgradSide/DekningsgradSide';
 import 'common/styles/index.less';
 import { injectIntl, IntlShape } from 'react-intl';
 import Språkvelger from './components/språkvelger/Språkvelger';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 const cls = BEMHelper('planlegger');
 
@@ -39,6 +40,17 @@ class Uttaksplanlegger extends React.Component<Props> {
                                 <div className="content">
                                     <Block>
                                         <VelkommenTekst />
+                                    </Block>
+                                    <Block>
+                                        <AlertStripeInfo>
+                                            <div style={{ marginBottom: '1rem' }}>
+                                                Foreldrepengeplanleggeren er ikke tilrettelagt for det nye lovverket som
+                                                gjelder for deg som har fått barn fra og med 1. oktober 2021.
+                                            </div>
+                                            Du kan fortsatt benytte planleggeren til å planlegge foreldrepengeperioden
+                                            din, men du må legge inn utsettelser grunnet ferie og arbeid. Disse trenger
+                                            du ikke å legge inn i søknaden når du søker senere.
+                                        </AlertStripeInfo>
                                     </Block>
                                     <Switch>
                                         <Route

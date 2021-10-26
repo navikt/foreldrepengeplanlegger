@@ -7,8 +7,11 @@ const configureDevServer = (decoratorFragments) => ({
         app.engine('html', mustacheExpress());
         app.set('views', `${__dirname}/../../../dist/dev`);
         app.set('view engine', 'mustache');
-        app.get('/foreldrepengeplanlegger/dist/js/settings.js', (req, res) => {
-            res.sendFile(path.resolve(`${__dirname}/../../../dist/js/settings.js`));
+        app.get(['/foreldrepengeplanlegger/dist/settings.js'], (_req, res) => {
+            res.set('content-type', 'application/javascript');
+            res.send(`window.appSettings = {
+                FP_UTTAK_SERVICE_URL: '${process.env.FP_UTTAK_SERVICE_URL}'
+            };`);
         });
         app.get(/^\/(?!.*dist).*$/, (req, res) => {
             res.render('index.html', Object.assign(decoratorFragments));
@@ -18,7 +21,7 @@ const configureDevServer = (decoratorFragments) => ({
     quiet: false,
     noInfo: false,
     stats: 'minimal',
-    publicPath: '/foreldrepengeplanlegger/dist'
+    publicPath: '/foreldrepengeplanlegger/dist',
 });
 
 module.exports = configureDevServer;

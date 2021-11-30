@@ -17039,12 +17039,9 @@
             }
         },
         "react-collapse": {
-            "version": "4.0.3",
-            "resolved": "https://registry.npmjs.org/react-collapse/-/react-collapse-4.0.3.tgz",
-            "integrity": "sha512-OO4NhtEqFtz+1ma31J1B7+ezdRnzHCZiTGSSd/Pxoks9hxrZYhzFEddeYt05A/1477xTtdrwo7xEa2FLJyWGCQ==",
-            "requires": {
-                "prop-types": "^15.5.8"
-            }
+            "version": "5.1.1",
+            "resolved": "https://registry.npmjs.org/react-collapse/-/react-collapse-5.1.1.tgz",
+            "integrity": "sha512-k6cd7csF1o9LBhQ4AGBIdxB60SUEUMQDAnL2z1YvYNr9KoKr+nDkhN6FK7uGaBd/rYrYfrMpzpmJEIeHRYogBw=="
         },
         "react-day-picker": {
             "version": "7.2.4",

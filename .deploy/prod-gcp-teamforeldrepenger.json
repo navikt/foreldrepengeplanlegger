@@ -1,10 +1,4 @@
 {
-    "nav": "www.nav.no",
-    "loginservice": "loginservice.nav.no",
-    "api": "foreldrepengesoknad-api.intern.nav.no",
-    "uttak": "foreldrepengesoknad-api.intern.nav.no",
-    "dekoratoren": "www.nav.no/dekoratoren",
-    "gcp": "true",
     "ingresses": ["https://foreldrepengeplanlegger.intern.nav.no", "https://foreldrepengeplanlegger.nav.no"],
     "env": {
         "FP_UTTAK_SERVICE_URL": "https://foreldrepengesoknad-api.nav.no",

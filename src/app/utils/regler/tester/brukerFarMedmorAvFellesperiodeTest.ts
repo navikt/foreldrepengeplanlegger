@@ -21,7 +21,7 @@ export const brukerFarMedmorAvFellesperiodeTest: RegelTest = (grunnlag: Regelgru
                       renderAsHtml: true,
                       htmlValues: {
                           lenke: {
-                              href: 'https://familie.nav.no/om-foreldrepenger#hvor-lenge-kan-du-fa-foreldrepenger',
+                              href: 'https://www.nav.no/no/person/familie/foreldrepenger/foreldrepenger#hvor-lenge-kan-du-fa-foreldrepenger',
                           },
                       },
                   },

@@ -47,9 +47,14 @@ class Uttaksplanlegger extends React.Component<Props> {
                                                 Foreldrepengeplanleggeren er ikke tilrettelagt for det nye lovverket som
                                                 gjelder for deg som har fått barn fra og med 1. oktober 2021.
                                             </div>
-                                            Du kan fortsatt benytte planleggeren til å planlegge foreldrepengeperioden
-                                            din, men du må legge inn utsettelser grunnet ferie og arbeid. Disse trenger
-                                            du ikke å legge inn i søknaden når du søker senere.
+                                            <div style={{ marginBottom: '1rem' }}>
+                                                Du kan fortsatt benytte planleggeren til å planlegge
+                                                foreldrepengeperioden din, men du må legge inn utsettelser grunnet ferie
+                                                og arbeid. Disse trenger du ikke å legge inn i søknaden når du søker
+                                                senere.
+                                            </div>
+                                            Dersom kun far/medmor har rett må du legge inn utsettelse i søknaden for å
+                                            dokumentere mors aktivitet.
                                         </AlertStripeInfo>
                                     </Block>
                                     <Switch>

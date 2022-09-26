@@ -8,6 +8,7 @@ import getMessage from 'common/util/i18nUtils';
 import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/foreldreparUtils';
 import { ForeldreparSituasjon } from 'shared/types';
 import { Forelder } from 'common/types';
+import moment from 'moment';
 
 interface OwnProps {
     skjemadata?: SituasjonSkjemadata;
@@ -79,7 +80,16 @@ const getSituasjonValidationSkjema = (intl: IntlShape) =>
             }),
 
         antallBarn: yup.number().required(getMessage(intl, 'situasjonskjema.validering.antallBarn')),
-        familiehendelsesdato: yup.date().required(getMessage(intl, 'situasjonskjema.validering.termindato')),
+        familiehendelsesdato: yup
+            .date()
+            .required(getMessage(intl, 'situasjonskjema.validering.termindato'))
+            .test('checkFamiliehendelsesdato', 'Dato er for langt tilbake i tid', (date: Date) => {
+                if (moment(date).isAfter(new Date())) {
+                    return true;
+                }
+
+                return false;
+            }),
     });
 
 class Situasjonsskjema extends React.Component<Props> {

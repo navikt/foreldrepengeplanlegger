@@ -122,6 +122,7 @@ const SituasjonsskjemaForm: React.FunctionComponent<Props> = ({ formik, onReset 
                         visÅrVelger={true}
                         onChange={(dato: Date) => formik.setFieldValue('familiehendelsesdato', dato)}
                         dato={familiehendelsesdato}
+                        kanVelgeUgyldigDato={false}
                     />
                 </Skjemablokk>
             )}

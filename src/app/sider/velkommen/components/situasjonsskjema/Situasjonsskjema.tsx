@@ -9,6 +9,8 @@ import { getAntallForeldreISituasjon } from 'shared/components/foreldrepar/forel
 import { ForeldreparSituasjon } from 'shared/types';
 import { Forelder } from 'common/types';
 import moment from 'moment';
+import { getTermindatoAvgrensninger } from 'app/utils/common';
+import { dateToISOFormattedDateString } from 'common/util/datoUtils';
 
 interface OwnProps {
     skjemadata?: SituasjonSkjemadata;
@@ -84,7 +86,9 @@ const getSituasjonValidationSkjema = (intl: IntlShape) =>
             .date()
             .required(getMessage(intl, 'situasjonskjema.validering.termindato'))
             .test('checkFamiliehendelsesdato', 'Dato er for langt tilbake i tid', (date: Date) => {
-                if (moment(date).isAfter(new Date())) {
+                const termindatoAvgrensninger = getTermindatoAvgrensninger();
+
+                if (moment(date).isSameOrAfter(dateToISOFormattedDateString(termindatoAvgrensninger.minDato))) {
                     return true;
                 }
 

@@ -8,6 +8,11 @@ For å kjøre opp app-en i dev:
 
 1.  `npm install`
 2.  `npm start`
+> **Note**
+>
+> Dersom du får følgende error ved å kjøre kommandoen `npm start`
+> error:0308010C:digital envelope routines::unsupported
+> Må du legge til dette: export NODE_OPTIONS=--openssl-legacy-provider
 
 # Henvendelser
 
@@ -19,4 +24,4 @@ Interne henvendelser kan sendes via Slack i kanalen #teamforeldrepenger.
 
 ### Icon License
 
-This project uses [Streamline Icons](http://www.streamlineicons.com/). If you use these in your project please adhere to the [Streamline Icons license agreement](http://www.streamlineicons.com/license.html).
+Dette prosjektet bruker[Streamline Icons](http://www.streamlineicons.com/). Hvis du bruker disse i prosjektet ditt, må du følge [Streamline Icons license agreement](http://www.streamlineicons.com/license.html).

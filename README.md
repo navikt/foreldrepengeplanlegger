@@ -4,7 +4,7 @@ Kildekoden til upålogget frontend-app for foreldrepengeplanleggeren på nav.no.
 
 # Komme i gang
 
-For å kjøre opp app-en i dev:
+For å kjøre opp appen i dev:
 
 1.  `npm install`
 2.  `npm start`

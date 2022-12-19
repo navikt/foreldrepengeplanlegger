@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
 
 env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NAMESPACE: teamforeldrepenger
   CLUSTER: dev-gcp
 
@@ -11,6 +12,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Sjekk ut repo
+        uses: actions/checkout@v2
       - name: Deploy til dev-gcp
         uses: nais/deploy/actions/deploy@v1
         env:

@@ -1,5 +1,8 @@
 name: Manuell deploy (kun for redirect conf)
 
+on:
+  workflow_dispatch:
+
 env:
   NAMESPACE: teamforeldrepenger
   CLUSTER: dev-gcp

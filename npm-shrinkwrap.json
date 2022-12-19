@@ -2874,10 +2874,13 @@
             "dev": true
         },
         "@types/array-move": {
-            "version": "1.0.0",
-            "resolved": "https://registry.npmjs.org/@types/array-move/-/array-move-1.0.0.tgz",
-            "integrity": "sha512-1x0xKnHIXnTA4MKinsQkKGc/sFwmYCR3s85ob7JvhAvoBSuz491B/MAgvMtKn6XEs45agtnTPeqYrsnTj4GcyQ==",
-            "dev": true
+            "version": "2.0.0",
+            "resolved": "https://registry.npmjs.org/@types/array-move/-/array-move-2.0.0.tgz",
+            "integrity": "sha512-M1Sb7db3XP65S2j5CWvzce2z0ORRfT/Bhd6mYu++nP6ZhRsntMixavFyxgf9NkQa37bveuIfpb0RKYRA8XVcGQ==",
+            "dev": true,
+            "requires": {
+                "array-move": "*"
+            }
         },
         "@types/axios": {
             "version": "0.14.0",

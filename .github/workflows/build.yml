@@ -5,6 +5,7 @@ name: Deployment pipeline q1
 #        branches:
 #            - master
 
+# gjør denne manuell
 on:
     workflow_dispatch:
 

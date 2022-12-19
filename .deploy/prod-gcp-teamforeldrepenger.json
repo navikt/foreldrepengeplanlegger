@@ -1,6 +1,6 @@
 {
     "dekoratoren": "www.nav.no",
-    "ingresses": ["https://foreldrepengeplanlegger.intern.nav.no", "https://foreldrepengeplanlegger.nav.no"],
+    "ingresses_NB_FJERN_FRA_FORELDREPENGER_INNGANG": ["https://foreldrepengeplanlegger.intern.nav.no", "https://foreldrepengeplanlegger.nav.no"],
     "env": {
         "APPRES_CMS_URL": "https://www.nav.no/dekoratoren",
         "FP_UTTAK_SERVICE_URL": "https://foreldrepengesoknad-api.nav.no"

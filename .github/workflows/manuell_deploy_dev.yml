@@ -1,0 +1,17 @@
+name: Manuell deploy (kun for redirect conf)
+
+env:
+  NAMESPACE: teamforeldrepenger
+  CLUSTER: dev-gcp
+
+jobs:
+  deploy:
+    steps:
+      - name: Deploy til dev-gcp
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          PRINT_PAYLOAD: true
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: ${{ env.CLUSTER }}
+          RESOURCE: .deploy/naiserator.yaml
+          VARS: .deploy/${{ env.CLUSTER }}-${{ env.NAMESPACE }}.json

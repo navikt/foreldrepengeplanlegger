@@ -1,9 +1,9 @@
 name: Deployment pipeline q1
 
-on:
-    push:
-        branches:
-            - master
+#on:
+#    push:
+#        branches:
+#            - master
 env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     IMAGE_BASE: ghcr.io/${{ github.repository }}

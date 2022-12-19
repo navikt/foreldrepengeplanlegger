@@ -14632,9 +14632,9 @@
             "dev": true
         },
         "nav-frontend-modal": {
-            "version": "1.0.40",
-            "resolved": "https://registry.npmjs.org/nav-frontend-modal/-/nav-frontend-modal-1.0.40.tgz",
-            "integrity": "sha512-Ik7v5HBwRHIHQ+PLnK+ZzLOjEadwGcXW/ed/RKJFuyPeBIi5oWM9nELBxsIbcYvwWvhLdHZRL+eng89z1r8aNg=="
+            "version": "2.0.2",
+            "resolved": "https://registry.npmjs.org/nav-frontend-modal/-/nav-frontend-modal-2.0.2.tgz",
+            "integrity": "sha512-Ajm2OdNyS/JAjgK9xas0vNOUQ6iUudy6Fhx4w/RmMJY2TSGB23FKTL8+cgi/Th+PbeUkPvZDbDyB0nQf7db5Ug=="
         },
         "nav-frontend-modal-style": {
             "version": "0.3.35",

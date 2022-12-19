@@ -9,6 +9,7 @@ env:
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
     steps:
       - name: Deploy til dev-gcp
         uses: nais/deploy/actions/deploy@v1

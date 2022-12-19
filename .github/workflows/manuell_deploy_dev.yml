@@ -18,4 +18,4 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: ${{ env.CLUSTER }}
           RESOURCE: .deploy/naiserator.yaml
-          VARS: .deploy/${{ env.CLUSTER }}-${{ env.NAMESPACE }}.json
+          VAR: url=https://foreldrepengeplanlegger.dev.nav.no
